@@ -21,8 +21,8 @@ Uncertainty Architecture grows from a broader reflection on how modern intellige
 The ideas behind this framework are explored in the essay:
 
 “The Future, the Mirror and the Book” — Vitalii Oborskyi
-	•	https://www.linkedin.com/pulse/future-mirror-book-vitalii-oborskyi-7bt2f/
-	•	https://medium.com/towards-artificial-intelligence/the-future-the-mirror-and-the-book-0085eb181cfa
+- https://www.linkedin.com/pulse/future-mirror-book-vitalii-oborskyi-7bt2f/
+- https://medium.com/towards-artificial-intelligence/the-future-the-mirror-and-the-book-0085eb181cfa
 	
 The essay describes the silent shift from deterministic software to systems built on probabilistic reasoning, the emergence of technogenic uncertainty as a new normal, and the role of institutions, governance and human judgment in navigating this transition. It provides the philosophical foundation for why a framework like Uncertainty Architecture — together with an AI Control Plane — is needed at this stage of technological evolution.
 
@@ -32,17 +32,17 @@ and our practices must evolve before our systems outgrow our ability to guide th
 ⸻
 
 Goals
-	•	Provide a structured conceptual model for handling uncertainty in AI systems.
-	•	Define the relationship between the AI Control Plane and uncertainty-aware architectural layers.
-	•	Establish terminology and diagrams that help engineering, product and delivery teams build more predictable LLM/AI features.
-	•	Serve as the basis for a future public specification.
+- Provide a structured conceptual model for handling uncertainty in AI systems.
+- Define the relationship between the AI Control Plane and uncertainty-aware architectural layers.
+- Establish terminology and diagrams that help engineering, product and delivery teams build more predictable LLM/AI features.
+- Serve as the basis for a future public specification.
 
 ⸻
 
 Non-Goals
-	•	This repository does not contain implementation code.
-	•	It is not an operational framework, SDK or library.
-	•	Final structures will be published only after partner validation.
+- This repository does not contain implementation code.
+- It is not an operational framework, SDK or library.
+- Final structures will be published only after partner validation.
 
 ⸻
 
@@ -56,9 +56,9 @@ Full documentation, diagrams, evaluation loops, control-plane components and gov
 Concept Articles
 
 Core ideas are described in the following articles:
-	•	Uncertainty Architecture: A Modern Approach to Designing LLM Applications
+- Uncertainty Architecture: A Modern Approach to Designing LLM Applications
 https://pub.towardsai.net/uncertainty-architecture-a-modern-approach-to-designing-llm-applications-2fe196188fac
-	•	Uncertainty Architecture (LinkedIn long-form)
+- Uncertainty Architecture (LinkedIn long-form)
 https://www.linkedin.com/pulse/uncertainty-architecture-modern-approach-designing-llm-oborskyi-keqbf/
 
 More articles will be added as the framework evolves.
