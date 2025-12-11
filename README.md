@@ -60,5 +60,7 @@ Core ideas are described in the following articles:
 https://pub.towardsai.net/uncertainty-architecture-a-modern-approach-to-designing-llm-applications-2fe196188fac
 - Uncertainty Architecture (LinkedIn long-form)
 https://www.linkedin.com/pulse/uncertainty-architecture-modern-approach-designing-llm-oborskyi-keqbf/
+- Roots of Uncertainty Architecture are Control Theory(explanation)
+https://www.linkedin.com/pulse/uncertainty-architecture-why-ai-governance-actually-control-oborskyi-oqhpf/
 
 More articles will be added as the framework evolves.
