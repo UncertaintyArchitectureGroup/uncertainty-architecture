@@ -68,6 +68,4 @@ https://www.linkedin.com/pulse/uncertainty-architecture-why-ai-governance-actual
 
 More articles will be added as the framework evolves.
 
-![](Excalidraw/Drawing%202025-12-20_22_46_06.excalidraw.svg)
-
 
