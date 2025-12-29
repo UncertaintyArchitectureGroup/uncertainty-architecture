@@ -1,6 +1,6 @@
 # Uncertainty Architecture: The Operational Standard for AI Governance
 
-> **Uncertainty Architecture** is an engineering framework designed to apply **Control Theory** to probabilistic AI systems. Unlike traditional software architectures that assume determinism, it introduces layers of strict guardrails, continuous evaluation loops (Golden Sets), and fallback mechanisms to manage the stochastic nature of Large Language Models (LLMs) in enterprise environments.
+> **Uncertainty Architecture** is an engineering framework designed to apply **Control Theory** to probabilistic AI and Agentic AI systems. Unlike traditional software architectures that assume determinism, it introduces layers of strict guardrails, continuous evaluation loops (Golden Sets), and fallback mechanisms to manage the stochastic nature of Large Language Models (LLMs) in enterprise environments.
 
 ---
 
@@ -25,6 +25,31 @@ graph TD;
     D -->|Pass| E[User / Downstream System];
     D -->|Fail| F[Fallback / Retry Loop];
 ```
+
+## Industry & Academic Validation
+
+This framework is not an isolated theory; it represents a convergence of industry best practices and emerging academic consensus.
+
+
+### 1. PMI AI Standard Context
+
+The operational principles outlined here have been developed in dialogue with core members of the Project Management Institute (PMI) AI Standard Committee. The framework addresses the specific gap in "AI Risk Management" operationalization identified during standard development discussions.
+
+### 2. Academic Convergence (Control Theory)
+
+Independent academic research has recently confirmed the necessity of a control-theoretic approach to AI Governance.
+
+• Reference: The Social Responsibility Stack (SRS) by Prof. Otman Basir (University of Waterloo), published on arXiv (Dec 2025).
+
+• Convergence: The academic conclusion that "responsibility must be an engineered control loop" mirrors the core thesis of Uncertainty Architecture.
+
+- Link to arXiv:2512.16873](https://arxiv.org/abs/2512.16873)
+
+### 3. Engineering Consensus
+
+The framework underwent a public stress-test in the Data Science community (Dec 2025), receiving validation from 31000+ engineers(90% Upvote) as a necessary evolution from "vibes-based" development to engineered reliability.
+
+-  https://www.reddit.com/r/learndatascience/s/zLnN4sYftb
 
 ## Core Components
 
@@ -70,6 +95,10 @@ Non-Goals
 ## Core Research & Chronology
 The evolution of this framework has been documented through the following key publications:
 
+• Dec 2025: Community Stress Test (Reddit)
+
+https://www.reddit.com/r/learndatascience/s/zLnN4sYftb
+
 • Dec 2025: Why AI Governance is Actually Control Theory
 
 https://www.linkedin.com/pulse/uncertainty-architecture-why-ai-governance-actually-control-oborskyi-oqhpf/
@@ -81,10 +110,6 @@ https://www.linkedin.com/pulse/uncertainty-architecture-modern-approach-designin
 • Jul 2025: Architecting Uncertainty: A Modern Guide
 
 https://www.linkedin.com/pulse/architecting-uncertainty-modern-guide-llm-based-vitalii-oborskyi-0qecf/
-
-• Dec 2025: Community Stress Test (Reddit)
-
-https://www.google.com/search?q=https://www.reddit.com/r/learndatascience/comments/1hfl3a0/uncertainty_architecture_a_modern_approach_to/
 
 ## Roadmap
 This is an active specification project.
@@ -117,5 +142,3 @@ We are currently moving from concept to pilot phase. I am looking for Engineerin
 If you are building complex Agentic or RAG systems and want to move from "Casino AI" to engineered reliability, let's connect.
 
 Connect: https://www.linkedin.com/in/vitaliioborskyi/
-
-This framework aligns with emerging academic research on "Social Responsibility Stacks" and "Control-Theoretic AI Governance" (e.g., arXiv:2512.16873).
