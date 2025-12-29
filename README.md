@@ -146,7 +146,7 @@ Responsible for the Reference Architecture, advanced prompt engineering strategi
 - LinkedIn: https://www.linkedin.com/in/markuskleinpmp/
 
 ### Strategic Partners
-Partnerships with Collaborative Dynamics are formalized. We are currently finalizing the pilot program with select industry partners.
+Partnerships with Collaborative Dynamics are formalized. 
 
 ## Call for Partners
 
