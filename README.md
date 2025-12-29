@@ -142,7 +142,6 @@ Responsible for the Reference Architecture, advanced prompt engineering strategi
 ## Advisory Board & Partnerships
 
 **Markus Kopko** – Strategic Advisor on Governance & Alignment
-(PMI AI Core Team Member)
 
 - LinkedIn: https://www.linkedin.com/in/markuskleinpmp/
 
