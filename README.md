@@ -36,11 +36,11 @@ To bridge the gap between deterministic code and probabilistic models, we apply 
 
 This maps abstract control concepts to concrete engineering artifacts:
 
-* **🦾 Actuators (The Execution):** Mechanisms that define and constrain the probability distribution.
+* **Actuators (The Execution):** Mechanisms that define and constrain the probability distribution.
     * *Artifacts:* **Prompt Registry**, **Versioned Prompts**, Hyperparameters, and JSON Schemas.
-* **📡 Sensors (The Measurement):** Instruments that detect drift and measure the distance from "Business Truth".
+* **Sensors (The Measurement):** Instruments that detect drift and measure the distance from "Business Truth".
     * *Artifacts:* **Golden Sets** (Ground Truth), **Eval Pipelines**, and continuous Drift Monitoring.
-* **🧠 Controller (The Governance):** The decision-making logic that adjusts the system based on error signals.
+* **Controller (The Governance):** The decision-making logic that adjusts the system based on error signals.
     * *Artifacts:* **The Operating Model**, **Release Gates**, and the Feedback Loop that updates the Registry based on Golden Set performance.
 
 
