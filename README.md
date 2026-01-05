@@ -12,6 +12,7 @@ The industry is shifting from "Prompt Engineering" to **Deterministic Automation
 
 It builds on the idea of an **AI Control Plane** — a management and orchestration layer responsible for coordination, policy enforcement, evaluation loops, and risk-aware decision flows.
 
+---
 ## Strategic Vision: From Linear to Behavioral Software
 
 While the industry uses the term "Agentic AI," we believe this is a transitional label. The fundamental shift occurring is not just about adding agents; it is the transition from **Linear Applications** to **Behavioral Applications**.
@@ -25,7 +26,7 @@ The primary goal of this framework is to provide SMB engineering teams with the 
 
 We aim to bridge the gap where teams try to build non-linear systems using linear methodologies. By introducing Control Theory as the standard for governance, we enable a reality where the industry can safely transition to Behavioral Software as the new default for complex problem solving.
 
-
+---
 ## The Stack (Conceptual Model)
 
 The framework is structured around the **AI Control Plane**—a governance layer that separates business logic from probabilistic inference.
@@ -40,6 +41,7 @@ graph TD;
     D -->|Fail| F[Fallback / Retry Loop];
 ```
 
+---
 ## Industry & Academic Validation
 
 This framework is not an isolated theory; it represents a convergence of industry best practices and emerging academic consensus.
@@ -72,6 +74,7 @@ The framework underwent a public stress-test in the Data Science community (Dec 
 3. The AI Control Plane: The orchestration layer responsible for routing, retries, versioning (Prompts as Code), and auditability.
 4. Fallback Mechanisms: Pre-defined deterministic paths that trigger when uncertainty exceeds the safety threshold.
 
+---
 ## Philosophy & Background
 
 Uncertainty Architecture grows from a broader reflection on how modern intelligent systems reshape the conditions of software engineering itself. The ideas behind this framework are explored in the foundational essay:
@@ -86,6 +89,7 @@ The essay describes the silent shift from deterministic software to systems buil
 
 “We are building what we cannot fully predict — and our practices must evolve before our systems outgrow our ability to guide them.”
 
+---
 ## Goals & Scope
 
 Goals
@@ -106,6 +110,7 @@ Non-Goals
 
 • Final operational structures will be published only after partner validation phases.
 
+---
 ## Core Research & Chronology
 The evolution of this framework has been documented through the following key publications:
 
@@ -125,6 +130,7 @@ https://www.linkedin.com/pulse/uncertainty-architecture-modern-approach-designin
 
 https://www.linkedin.com/pulse/architecting-uncertainty-modern-guide-llm-based-vitalii-oborskyi-0qecf/
 
+---
 ## Roadmap
 This is an active specification project.
 
@@ -134,6 +140,7 @@ This is an active specification project.
 
 • [ ] Phase 3: Open Source Tooling (Scripts for Golden Set evaluation and Drift Detection)
 
+---
 ## Authors & Architects
 
 This standard represents a convergence of two worlds: Enterprise Governance and Advanced System Engineering. It is built on the symbiosis of strict operational control and cutting-edge prompt architecture.
@@ -158,6 +165,7 @@ Responsible for the Reference Architecture, advanced prompt engineering strategi
 - Community: Collaborative Dynamics Discord
 - LinkedIn https://www.linkedin.com/in/sam-walker-11737518/
 
+---
 ## Advisory Board & Partnerships
 
 **Markus Kopko** – Strategic Advisor on Governance & Alignment
@@ -167,6 +175,8 @@ Responsible for the Reference Architecture, advanced prompt engineering strategi
 ### Strategic Partners
 Partnerships with Collaborative Dynamics are formalized. Work in progress for UA Framework v0.2.
 
+---
+
 ## Call for Partners
 
 We are moving from concept to pilot phase. I am looking for Engineering Leaders (CTO/VP/Head of Delivery) to implement the Operational Model of Uncertainty Architecture in real-world environments.
@@ -174,3 +184,15 @@ We are moving from concept to pilot phase. I am looking for Engineering Leaders 
 If you are building complex Agentic or RAG systems and want to move from "Casino AI" to engineered reliability, let's connect.
 
 Connect on LinkedIn: https://www.linkedin.com/in/vitaliioborskyi/
+
+---
+## Licensing
+
+This repository uses a dual-license model:
+
+- Documentation and specifications are licensed under CC BY 4.0
+- Code and reference implementations are licensed under Apache 2.0
+
+See LICENSING.md for details.
+
+---
