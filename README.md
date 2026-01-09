@@ -217,7 +217,7 @@ Independent academic research has recently confirmed the necessity of a control-
 
 ### 3. Engineering Consensus
 
-The framework underwent a public stress-test in the Data Science community (Dec 2025), receiving validation from 31,000+ engineers (90% Upvote) as a necessary evolution from "vibes-based" development to engineered reliability.
+The framework underwent a public stress-test in the Data Science community (Dec 2025), receiving validation from 33,000+ engineers (90% Upvote) as a necessary evolution from "vibes-based" development to engineered reliability.
 
 - [Reddit Discussion](https://www.reddit.com/r/learndatascience/s/zLnN4sYftb)
 
@@ -256,9 +256,15 @@ GitHub is the canonical home for doctrine and changes; Discord is where ideas ar
 
 ## Advisory Board & Partnerships
 
-**Markus Kopko** – Strategic Advisor on Governance & Alignment
+**Markus Kopko** – Strategic Advisor on Governance & Alignment
+Focus: Project management standards and organizational alignment.
+- LinkedIn: [https://www.linkedin.com/in/markuskleinpmp/](https://www.linkedin.com/in/markuskleinpmp/)
 
-- LinkedIn: [https://www.linkedin.com/in/markuskleinpmp/](https://www.linkedin.com/in/markuskleinpmp/)
+**Otman Basir, Ph.D.** – Academic Advisor
+*Professor of Intelligent Systems, University of Waterloo*
+
+Author of the "Social Responsibility Stack" (SRS). Prof. Basir's research on Control-Theoretic AI Governance serves as the academic counterpart to the operational models built in Uncertainty Architecture. He acts as an Academic Advisor, providing guidance on bridging rigorous theory with practical engineering.
+- LinkedIn: [https://www.linkedin.com/in/otman-basir-ba1258178](https://www.linkedin.com/in/otman-basir-ba1258178)
 
 Additional contributors and reviewers will be credited as the work matures.
 
