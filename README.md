@@ -160,7 +160,8 @@ graph TD;
     D -->|Pass| E[User / Downstream System];
     D -->|Fail| F[Fallback / Retry / Escalation];
     F --> B;
-   ``` 
+   
+``` 
    
 ## Repository Scope & Structure
 
@@ -241,13 +242,17 @@ GitHub is the canonical home for doctrine and changes; Discord is where ideas ar
 
 ## Authors & Architects
 
-**Vitalii Oborskyi | The Structure & Governance** _Creator & Lead Architect_Focus: operational framing, governance practices, adoption scaffolding, and system-level clarity.
+**Vitalii Oborskyi | The Structure & Governance** _Creator & Lead Architect
+
+Focus: operational framing, governance practices, adoption scaffolding, and system-level clarity.
 
 - Email: [oborskyivitalii@gmail.com](mailto:oborskyivitalii@gmail.com)
 - LinkedIn: [https://www.linkedin.com/in/vitaliioborskyi/](https://www.linkedin.com/in/vitaliioborskyi/)
 - GitHub: [https://github.com/oborskyivitalii](https://github.com/oborskyivitalii)
 
-**Sam “stunspot” Walker | Boundary Doctrine & System Patterns** _Technical Co-Author_ Focus: AI–code boundary placement, containment patterns, prompt-as-medium realism, and real-world failure modes.
+**Sam “stunspot” Walker | Boundary Doctrine & System Patterns** _Technical Co-Author_ 
+
+Focus: AI–code boundary placement, containment patterns, prompt-as-medium realism, and real-world failure modes.
 
 - Email: [stunspot@collaborative-dynamics.com](mailto:stunspot@collaborative-dynamics.com)
 - Discord: [Stunspot Prompting](https://discord.gg/bGN45ynQ)(Channel: [🧰 uncertainty-architecture](https://discord.com/channels/1100933695986208849/1457956432287760605))
@@ -257,6 +262,7 @@ GitHub is the canonical home for doctrine and changes; Discord is where ideas ar
 ## Advisory Board & Partnerships
 
 **Markus Kopko** – Strategic Advisor on Governance & Alignment
+
 Focus: Project management standards and organizational alignment.
 - LinkedIn: [https://www.linkedin.com/in/markuskleinpmp/](https://www.linkedin.com/in/markuskleinpmp/)
 
