@@ -16,7 +16,7 @@ Many changes, including new Doctrine concepts and Pattern definitions, must be o
 
 ## List of RFCs
 
-|                          ID                           | Title                                         | Status | Authors          |
-| :---------------------------------------------------: | :-------------------------------------------- | :----- | :--------------- |
-|               [0000](0000-template.md)                | **RFC Template**                              | Draft  | Core Team        |
+|                             ID                             | Title                                         | Status | Authors          |
+| :--------------------------------------------------------: | :-------------------------------------------- | :----- | :--------------- |
+|               [0000](rfcs/0000-template.md)                | **RFC Template**                              | Draft  | Core Team        |
 | [0001-governance-process](rfcs/0001-governance-process.md) | The Uncertainty Architecture Governance Model | Draft  | @oborskyivitalii |
