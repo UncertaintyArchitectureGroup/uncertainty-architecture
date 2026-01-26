@@ -19,4 +19,4 @@ Many changes, including new Doctrine concepts and Pattern definitions, must be o
 |                          ID                           | Title                                         | Status | Authors          |
 | :---------------------------------------------------: | :-------------------------------------------- | :----- | :--------------- |
 |               [0000](0000-template.md)                | **RFC Template**                              | Draft  | Core Team        |
-| [0001-governance-process](0001-governance-process.md) | The Uncertainty Architecture Governance Model | Draft  | @oborskyivitalii |
+| [0001-governance-process](../rfcs/0001-governance-process.md) | The Uncertainty Architecture Governance Model | Draft  | @oborskyivitalii |
