@@ -1,8 +1,8 @@
 ---
-rfc_id: 0001
+rfc_id: 1
 title: The Uncertainty Architecture Governance Model
 authors: Vitalii Oborskyi
-status: Draft
+status:
 scope: Meta
 created: 2026-01-26
 updated: 2026-01-26

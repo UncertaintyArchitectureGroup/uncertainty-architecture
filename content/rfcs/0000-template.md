@@ -1,9 +1,11 @@
 ---
-rfc_id: 0000 # Leave empty when submitting
-title: [Short Descriptive Title]
-authors: [Your Name]
-status: Draft # Options: Draft, Internal Review, Advisor Review, Public Review, Active, Rejected, Deprecated
-scope: Pattern # Options: Doctrine, Pattern, Operating Model, Meta
+rfc_id: 0
+title:
+  - Short Descriptive Title
+authors:
+  - Your Name
+status:
+scope: Pattern
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ---
