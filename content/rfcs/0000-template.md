@@ -1,7 +1,6 @@
 ---
 rfc_id: 0
-title:
-  - Short Descriptive Title
+title: RFC Template
 authors:
   - Your Name
 status:
