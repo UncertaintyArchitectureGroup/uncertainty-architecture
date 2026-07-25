@@ -1,22 +1,26 @@
-# Uncertainty Architecture RFCs
+---
+title: Uncertainty Architecture
+artifact_type: publication-index
+status: informative
+updated: 2026-07-25
+license: CC-BY-4.0
+---
 
-This directory contains the "Request For Comments" (RFCs) for the Uncertainty Architecture project.
+# Uncertainty Architecture
 
-## The Process
+This page is the entry point for the repository's published supporting material. It is **not** a second specification or governance source.
 
-Many changes, including new Doctrine concepts and Pattern definitions, must be outlined in an RFC before being merged into the core specification.
+## Canonical project sources
 
-### RFC Lifecycle
+- [Project overview and navigation](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/README.md)
+- [Canonical specification boundary](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/SPECIFICATION.md)
+- [Project roadmap](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/ROADMAP.md)
+- [Contribution and review workflow](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/CONTRIBUTING.md)
 
-1.  **Draft (Internal):** Initial drafting and review by core maintainers/advisors.
-2.  **Review (Public):** The RFC is published as a Pull Request. Community feedback is gathered.
-3.  **Active:** The RFC is approved and merged. It becomes part of the official standard.
-4.  **Rejected:** The proposal was considered but not adopted.
-5.  **Deprecated:** The RFC has been superseded by a newer one.
+## Supporting material
 
-## List of RFCs
+- [Research Track](research/index.md) — publications, research notes, analyses, synthesis, and framework traceability.
+- [Project history](history/README.md) — timeline, talks, public stress tests, independent references, and superseded historical process records.
+- [Raw source archive](raw/README.md) — preserved source snapshots used to create normalized research editions.
 
-|                             ID                             | Title                                         | Status | Authors          |
-| :--------------------------------------------------------: | :-------------------------------------------- | :----- | :--------------- |
-|           [0000-template](rfcs/0000-template.md)           | **RFC Template**                              | Draft  | Core Team        |
-| [0001-governance-process](rfcs/0001-governance-process.md) | The Uncertainty Architecture Governance Model | Draft  | @oborskyivitalii |
+Normative UA content remains in the root specification modules `00-doctrine/` through `04-failure-modes/`. Supporting material becomes normative only through an explicit framework decision recorded in the repository.
