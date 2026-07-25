@@ -1,82 +1,103 @@
 # Contributing to Uncertainty Architecture
 
-Thank you for your interest in contributing! This repository defines a shared doctrine, operational patterns, and reference architectures for building AI-integrated systems responsibly. Contributions help us keep the doctrine evolving and accurate.
+Thank you for your interest in contributing. This repository develops a shared doctrine, operational patterns, research record, and reference material for building and governing AI-integrated systems responsibly.
 
----
+## 1. What this repository accepts
 
-## 1. What This Repository Accepts
+Contributions may include:
 
-We focus on **doctrine, operational guidance, and controlled reference artifacts**. Contributions may include:
+- Doctrine and glossary clarifications in `00-doctrine/`
+- Reusable system and interface patterns in `01-patterns/`
+- AI Control Plane artifacts in `02-ai-control-plane/`
+- Reference architectures in `03-reference-architectures/`
+- Failure modes and anti-patterns in `04-failure-modes/`
+- Historical publications, research analyses, synthesis, and traceability material in `content/research/`
+- Diagrams and visual references in `assets/`
+- Small maintenance utilities in `scripts/`
+- Reusable repository templates in `templates/`
 
-- Documentation: new explanations, clarifications, diagrams (`docs/`, `assets/`)  
-- Specifications: normative language, term definitions, patterns (`spec/`, `patterns/`)  
-- Reference Architectures: concrete examples (`reference-architecture/`)  
-- Prompts and Golden Sets: controlled, versioned interface artifacts (`prompts/`, `golden-sets/`)  
-- Scripts and tooling: small utilities to maintain the repository (`scripts/`)  
-- Examples: illustrative end-to-end workflows (`examples/`)  
+We do not accept:
 
-> ⚠️ We do **not accept**:
-> - Large AI agents, universal SDKs, or frameworks  
-> - Arbitrary model output dumps or prompt experiments outside controlled patterns  
-> - Non-deterministic artifacts without documentation and versioning  
+- Large universal agent frameworks or SDKs unrelated to the specification
+- Uncurated model-output dumps or prompt experiments without context and versioning
+- Normative claims presented without rationale, scope, and operational implications
+- Changes that silently rewrite attributed historical work
 
----
+## 2. Repository ownership and attribution
 
-## 2. Zones of Ownership
+Vitalii Oborskyi is the project creator and primary maintainer. He retains final authority over repository scope and merges.
 
-To keep contributions clear and maintainable:
+Attributed work by named contributors must not be materially changed, reassigned, or presented as consensus without involving the relevant contributor where reasonably possible.
 
-| Area                      | Owner       | Notes                                                        |
-| ------------------------- | ----------- | ------------------------------------------------------------ |
-| Operating Model           | Vitalii     | Team functions, roles, rituals, decision boundaries          |
-| Reference Architectures   | Sam         | Implementation patterns, judgment nodes, persona design      |
-| Prompts                   | Sam         | Prompt registry, persona scaffolding, input/output contracts |
-| Doctrine, Specs, Glossary | Vitalii&Sam | Core definitions, shared language, control-theory framing    |
-| Scripts & Templates       | Anyone      | Must follow repository conventions                           |
+External contributions are welcome. Reviewers may be invited based on subject matter rather than a fixed approval hierarchy.
 
-> Each pull request should clearly indicate which owner is responsible for reviewing.
+## 3. Lightweight maintainer workflow
 
----
+The project currently operates as a maintainer-led open specification.
 
-## 3. Contribution Process
+A maintainer may commit minor changes directly when they are limited to:
 
-1. **Fork the repository**  
-2. **Create a branch** named descriptively (e.g., `docs/metrics-update`)  
-3. **Make your changes** using the repository structure  
-4. **Add or update README.md** in the folder if necessary  
-5. **Ensure compliance** with licensing and contribution guidelines  
-6. **Submit a pull request** with a clear description and specify the owner for review  
+- typos and formatting;
+- navigation and broken links;
+- metadata and frontmatter;
+- changelog and roadmap maintenance;
+- non-substantive editorial clarification.
 
----
+A branch and pull request are recommended for:
 
-## 4. Writing Guidelines
+- substantial documentation changes;
+- automation-generated changes;
+- multi-file updates;
+- changes where reviewing the full diff is useful;
+- externally contributed changes.
 
-- Keep language **clear and precise**  
-- Avoid speculative or magic-based statements about LLMs  
-- Use **control-theory framing** when describing interfaces, patterns, and judgment boundaries  
-- Include examples or diagrams wherever helpful  
+Draft pull requests are optional. External review is encouraged where it adds value, but it is not required for ordinary maintainer-authored work.
 
----
+## 4. Changes requiring deliberate review
 
-## 5. Licensing
+Use a branch and pull request, and seek appropriate review where practical, for changes that:
 
-This repository uses a **dual-license model**:
+- modify normative doctrine;
+- introduce or materially change a pattern;
+- change core terminology;
+- introduce mandatory roles, gates, controls, or processes;
+- restructure major repository sections;
+- promote research findings into the normative framework;
+- make significant scientific, legal, safety, governance, or compliance claims;
+- materially affect another contributor's attributed work.
 
-- Documentation, doctrine, and specifications: **CC BY 4.0**  
-- Code, scripts, and reference implementations: **Apache 2.0**
+The purpose of review is to improve the specification, not to create ceremony around routine maintenance.
 
-All contributions must comply with the applicable license for the files being modified.
+## 5. External contribution process
 
----
+1. Fork or branch from the current default branch.
+2. Keep the change focused and use the current repository structure.
+3. Explain what changed, why it changed, and whether the change is research, normative guidance, or maintenance.
+4. Update local navigation or supporting documentation where needed.
+5. Confirm licensing and attribution requirements.
+6. Open a pull request for maintainer review.
 
-## 6. Review and Merge
+One logical change per pull request is a useful default for substantial work, but tightly related updates may be grouped when that makes review clearer.
 
-- Vitalii and Sam will **review PRs** in their respective areas of ownership  
-- Minor fixes (typos, formatting, template updates) may be merged by maintainers  
-- Larger contributions may require discussion and iterative improvements  
+## 6. Writing guidelines
 
----
+- Keep language clear, precise, and operational.
+- Distinguish deterministic software behavior from probabilistic model judgment.
+- Avoid magical or absolute claims about LLM capabilities.
+- State scope, assumptions, and limitations.
+- Use control-theory framing where it genuinely clarifies feedback, sensing, correction, and containment.
+- Include examples or diagrams when they improve understanding.
+- Keep research findings separate from normative requirements until deliberately adopted.
 
-## 7. Code of Conduct
+## 7. Licensing
 
-Please also read the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) to ensure a welcoming and professional environment.
+This repository uses a dual-license model:
+
+- Documentation, doctrine, specifications, and research material: CC BY 4.0
+- Code, scripts, and reference implementations: Apache 2.0
+
+All contributions must comply with the applicable license and preserve required attribution. See [LICENSING.md](LICENSING.md).
+
+## 8. Code of conduct
+
+Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and help maintain a professional, constructive environment.
