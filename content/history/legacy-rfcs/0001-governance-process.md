@@ -15,95 +15,110 @@ license: CC-BY-4.0
 
 # RFC 0001: The Uncertainty Architecture Governance Model
 
-> **Historical status:** This January 2026 proposal was never adopted as the current governance model. Its mandatory private-repository, co-author-consensus, advisor-review, and staged RFC assumptions were superseded by the maintainer-led workflow in [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) and the change-control rules in [`SPECIFICATION.md`](../../../SPECIFICATION.md). The text below is retained as historical decision context.
+> **Historical status:** This January 2026 proposal was never adopted as the current governance model. Its mandatory private-repository, co-author-consensus, advisor-review, and staged RFC assumptions were superseded by the maintainer-led workflow in [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) and the change-control rules in [`SPECIFICATION.md`](../../../SPECIFICATION.md). The original artifact is preserved below without substantive modernization.
+
+## Preserved original artifact
+
+Original frontmatter:
+
+```yaml
+rfc_id: 1
+title: The Uncertainty Architecture Governance Model
+authors: Vitalii Oborskyi
+status:
+scope: Meta
+created: 2026-01-26
+updated: 2026-01-26
+```
+
+# RFC: The Uncertainty Architecture Governance Model
 
 ## Summary
-
-This RFC proposed an official process for proposing, reviewing, and adopting changes to the Uncertainty Architecture specification. It introduced a **Kitchen & Restaurant** repository model to separate internal drafting from public consumption, defined a formal role for an advisory board, and standardized an RFC template.
+This RFC establishes the official process for proposing, reviewing, and adopting changes to the Uncertainty Architecture (UA) specification. It introduces a **"Kitchen & Restaurant"** repository model to separate internal drafting from public consumption, defines the role of the Advisory Board, and standardizes the RFC template for future contributions.
 
 ## Motivation
 
-The proposal treated Uncertainty Architecture as an operational doctrine whose conceptual errors could lead teams to build unsafe or unmanageable systems. It therefore argued for a higher standard of review than routine open-source code changes.
+Uncertainty Architecture is not just a software library; it is an **operational doctrine**. Unlike code, where a bug can be patched in minutes, a flaw in doctrine can lead engineering teams to build fundamentally unsafe or unmanageable systems.
 
-The proposed process aimed to:
+Therefore, changes to UA require a higher standard of review than typical open-source contributions. We need a process that:
 
-1. **Separate drafting from publishing:** allow a core team to debate incomplete ideas privately before presenting them publicly.
-2. **Integrate expert review:** formally include academic and governance advisors in selected changes.
-3. **Standardize proposals:** require major changes to be motivated by an engineering problem rather than theoretical preference.
+1.  **Separates Drafting from Publishing:** Allows the Core Team to debate and iterate on "half-baked" ideas privately (The Kitchen) before presenting them as a standard to the community (The Restaurant).
+2.  **Integrates Expert Review:** Formally integrates our Advisory Board (Academic & Governance experts) into the lifecycle of critical changes.
+3.  **Standardizes Proposals:** Ensures every change is motivated by a real engineering problem, not just theoretical aesthetics.
 
-## Detailed design
+## Detailed Design
 
-### 1. The Kitchen & Restaurant model
+### 1. The "Kitchen & Restaurant" Model
 
-The proposal assumed two repositories:
+We will operate two repositories:
+*   **Private Repo (The Kitchen):** For drafting, internal disputes, and sensitive partner discussions.
+*   **Public Repo (The Restaurant):** The canonical source of truth. Only "cooked" (internally approved) RFCs are pushed here for community review.
 
-- **Private repository — the Kitchen:** drafting, internal disputes, and sensitive partner discussions.
-- **Public repository — the Restaurant:** canonical public source containing internally approved proposals for community review.
+### 2. The RFC Lifecycle
 
-### 2. Proposed RFC lifecycle
+Every major change (Doctrine, Pattern, or Operating Model) must pass through the following states:
 
 ```mermaid
 graph TD
-    Draft([Draft]) --> InternalPR{{Internal Review}}
-    InternalPR --> AdvisorCheck{Needs Advisor?}
-    AdvisorCheck -- Yes --> AdvisorReview([Advisor Review])
-    AdvisorCheck -- No --> FinalizeInternal([Ready for Public])
+    Draft([📝 Draft]) --> InternalPR{{"👀 Internal Review"}}
+    InternalPR --> AdvisorCheck{"❓ Needs Advisor?"}
+    AdvisorCheck -- Yes --> AdvisorReview([🎓 Advisor Review])
+    AdvisorCheck -- No --> FinalizeInternal([🏁 Ready for Public])
     AdvisorReview --> FinalizeInternal
-    FinalizeInternal --> PublicPR([Public Review])
-    PublicPR --> Active([Active])
-    PublicPR --> Rejected([Rejected])
+    FinalizeInternal --> PublicPR([📢 Public Review])
+    PublicPR --> Active([✅ Active])
+    PublicPR --> Rejected([❌ Rejected])
 ```
 
-The proposed states were:
 
-- **Draft:** created in a private repository.
-- **Internal Review:** co-authors were expected to reach consensus.
-- **Advisor Review:** triggered for selected strategic or theoretical changes.
-- **Public Review:** published to the public repository for community feedback.
-- **Active:** merged into the core specification.
+- **Draft:** Created in Private Repo.
+- **Internal Review:** Co-Authors (Vitalii & Sam) must reach consensus.
+- **Advisor Review:** Triggered for strategic or theoretical changes.
+    - _Markus Kopko:_Governance, PMI alignment, Enterprise adoption.
+    - _Prof. Otman Basir:_ Control Theory correctness, Academic rigor.
+- **Public Review:** The RFC is pushed to the Public Repo. The community provides feedback on edge cases and implementation details.
+- **Active:** Merged into the core specification.
 
-### 3. Proposed RFC structure
+### 3. The RFC Template
 
-The proposal referenced the then-current [`0000-template.md`](0000-template.md), containing:
+This RFC ratifies the following structure for all future proposals (stored in [0000-template](0000-template.md) ):
 
-- metadata and scope;
-- summary and motivation;
-- detailed architecture, interfaces, behavior, and failure modes;
-- alternatives and drawbacks;
-- unresolved questions;
-- an internal governance log.
+- **Header:** Metadata (ID, Status, Scope).
+- **Summary & Motivation:** The "Why".
+- **Detailed Design:** The "How" (Architecture, Interfaces, Failure Modes).
+- **Governance Log:** A checklist for internal/advisor approvals.
 
-### 4. Proposed roles and responsibilities
+### 4. Roles & Responsibilities
 
-| Role | Proposed responsibility |
-|---|---|
-| Core team | Drafting, internal consensus, and public merging |
-| Advisors | Requested review of selected governance or theoretical questions |
-| Community | Public stress-testing and pattern proposals |
+|Role|Responsibility|
+|:--|:--|
+|**Core Team**(Vitalii, Sam)|Drafting, Internal Consensus, Merging to Public.|
+|**Advisors**(Markus, Otman)|High-level validation of specific RFCs upon request.|
+|**Community**|Stress-testing Public RFCs, proposing new Patterns via PR.|
 
-## Drawbacks identified by the proposal
+## Drawbacks
 
-- **Complexity:** maintaining two repositories and synchronizing material between them.
-- **Latency:** formal review stages could slow the development of patterns and doctrine.
+- **Complexity:** Maintaining two repositories requires manual syncing or automation scripts.
+- **Latency:** The "Advisor Review" step may slow down the release of new patterns.
+    - _Mitigation:_ Advisors are only required for "Doctrine" level changes, not routine "Pattern" additions.
 
-The proposal suggested limiting advisor review to doctrine-level changes as a mitigation.
+## Alternatives
 
-## Alternatives considered
+- **Single Public Repository:** We considered doing everything in public.
+    - _Rejection Reason:_ UA deals with "Mental Models". Releasing confused or contradictory drafts can damage the clarity of the doctrine. We need a space to be wrong privately so we can be right publicly.
+- **GitHub Issues only:**
+    - _Rejection Reason:_ Issues are ephemeral. RFCs provide a permanent historical record of _why_ a decision was made.
 
-### Single public repository
+## Unresolved Questions / Questions for Reviewers
 
-The proposal rejected fully public drafting because incomplete or contradictory doctrine could confuse readers.
+1. **Sync Automation:** Should we build a GitHub Action to automatically push "Ready for Public" RFCs from Private to Public, or keep this manual for now?
+2. **Community RFCs:** If a community member submits a great RFC to the Public repo, does it need to be pulled back into the Private repo for Advisor review, or can we review it directly in Public?
+3. **Versioning:** How do we version the Doctrine itself? Does merging RFC-0001 bump UA to v0.2?
 
-### GitHub Issues only
+---
 
-The proposal rejected issues as the sole decision record because RFC documents could provide a more durable explanation of why a decision was made.
+## Governance Log (Internal Use)
 
-## Unresolved questions recorded at the time
-
-1. Whether synchronization between private and public repositories should be automated.
-2. How community-authored proposals should move through internal or advisor review.
-3. How doctrine changes should affect UA versioning.
-
-## Historical governance log
-
-The original proposal contained unchecked internal-review, advisor-review, and ready-for-public fields. No evidence in the repository establishes that the proposal completed those stages or became active.
+- [ ] **Internal Review:** (Vitalii / Sam)
+- [ ] **Advisor Review:** N/A (Meta-process)
+- [ ] **Ready for Public:** N/A (Meta-process)
