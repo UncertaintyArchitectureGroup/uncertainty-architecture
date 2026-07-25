@@ -8,6 +8,19 @@ UA is not about eliminating uncertainty or pretending that AI can be made fully 
 
 The project is designed primarily for small and medium-sized engineering organizations that need practical control without building a large governance bureaucracy.
 
+## Start Here
+
+Choose the path that matches what you need:
+
+- **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
+- **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
+- **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
+- **Review concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
+- **Study recurring failure modes:** [`04-failure-modes/`](04-failure-modes/)
+- **Trace the research behind the specification:** [`content/research/`](content/research/)
+- **Follow project history, talks, discussions, and external references:** [`content/history/`](content/history/)
+- **See what is being built next:** [`ROADMAP.md`](ROADMAP.md)
+
 ## The Core Shift
 
 Traditional software is mostly built from deterministic components and predefined execution paths. LLM-backed and agentic systems introduce components whose behavior remains probabilistic at runtime.
@@ -66,7 +79,7 @@ graph TD;
     F --> B;
 ```
 
-## Repository Structure
+## Repository Map
 
 ### Normative framework
 
@@ -76,11 +89,11 @@ graph TD;
 - [`03-reference-architectures/`](03-reference-architectures/) — worked architectural applications.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
 
-### Supporting knowledge
+### Supporting records
 
-- [`content/research/`](content/research/) — historical publications, research analysis, provenance, and research-to-framework traceability. Research material is non-normative until deliberately adopted into the specification.
-- [`content/history/`](content/history/) — project timeline, public talks, and independent references. This area records history without treating attention, discussion, or invited presentations as proof of adoption.
-- [`ROADMAP.md`](ROADMAP.md) — canonical project direction and future priorities.
+- [`content/research/`](content/research/) — publications, analysis, provenance, and research-to-framework traceability. Research remains non-normative until deliberately adopted.
+- [`content/history/`](content/history/) — project timeline, talks, public stress tests, and independent references.
+- [`ROADMAP.md`](ROADMAP.md) — canonical direction and future priorities.
 - [`CHANGELOG.md`](CHANGELOG.md) — repository and specification-artifact changes only.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution and review workflow.
 
@@ -98,34 +111,24 @@ The current priority is to consolidate the research corpus into a coherent frame
 
 Detailed status and sequencing are maintained in [`ROADMAP.md`](ROADMAP.md).
 
-## Research and Project History
+## Evidence and Project History
 
-The repository intentionally separates three different records:
+UA keeps different kinds of evidence separate:
 
-- **Research evolution** explains how ideas developed and where claims originated.
-- **Project history** records publications, talks, and independent interpretations.
-- **Changelog** records what changed in the repository and specification artifacts.
+- research explains where ideas and claims originated;
+- public discussions record critique, alternatives, and stress tests;
+- independent references record how third parties interpreted or used the concepts;
+- the changelog records changes to repository artifacts.
 
-This separation avoids using release history as a marketing timeline and prevents external references from being mistaken for technical validation.
+This prevents visibility, attention, recommendations, or invited talks from being mistaken for technical validation or formal adoption.
 
-Start here:
-
-- [Research Track](content/research/)
-- [Project timeline](content/history/timeline.md)
-- [Talks and presentations](content/history/talks.md)
-- [Independent references and recognition](content/history/external-recognition.md)
+See [`content/history/`](content/history/) for the evidence policy and historical records.
 
 ## Community and Contributions
 
 GitHub is the canonical home for doctrine and specification changes. Community discussion and early design review may happen elsewhere, but accepted changes must be represented in the repository.
 
-Useful contributions include:
-
-- operational failure reports and postmortems;
-- pattern proposals grounded in real systems;
-- critiques of terminology or control assumptions;
-- examples of escalation, fallback, and evaluation design;
-- corrections that improve provenance or precision.
+Useful contributions include operational failure reports, pattern proposals, critiques of terminology or control assumptions, examples of escalation and evaluation design, and provenance corrections.
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
@@ -144,11 +147,23 @@ Focus: AI–code boundary placement, containment patterns, prompt-as-medium real
 
 Additional contributors and reviewers are credited as the work matures.
 
-## Advisory Context
+## Advisors
 
-The project has benefited from public discussion and advisory relationships across engineering, project-management standards, academia, and AI delivery. These relationships are documented carefully in [`content/history/external-recognition.md`](content/history/external-recognition.md).
+### Markus Kopko — Strategic Advisor on Governance and Alignment
 
-An advisory relationship, recommendation, invited talk, repost, or conceptual convergence does not by itself imply adoption, certification, or organizational endorsement.
+Focus: project-management standards, organizational alignment, and the operationalization of AI governance.
+
+- [LinkedIn](https://www.linkedin.com/in/markuskleinpmp/)
+
+### Otman Basir, Ph.D. — Academic Advisor
+
+Professor of Intelligent Systems at the University of Waterloo and author of the Social Responsibility Stack. His role supports the connection between control-theoretic research and practical engineering governance.
+
+- [LinkedIn](https://www.linkedin.com/in/otman-basir-ba1258178)
+
+Advisory relationships are listed because they are part of the project's operating context. They do not imply institutional endorsement, certification, or formal adoption of UA.
+
+See [`content/history/external-recognition.md`](content/history/external-recognition.md) for supporting public evidence and precise claim boundaries.
 
 ## How to Cite
 

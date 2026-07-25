@@ -34,6 +34,12 @@ The article established the Actuators–Sensors–Controller framing and positio
 
 - [Source](https://www.linkedin.com/pulse/uncertainty-architecture-why-ai-governance-actually-control-oborskyi-oqhpf/)
 
+### December — First public control-theory stress test
+
+The control-theory framing was discussed in `r/learndatascience`. The thread surfaced demands for a clearer technical mapping, challenged the early metaphors, and forced clarification of the Controller as a socio-technical operating model rather than another LLM.
+
+- [Community discussion record](community-discussions.md#december-2025--ai-engineering-as-control-theory)
+
 ## 2026
 
 ### April 29 — Independent operational interpretation
@@ -73,6 +79,12 @@ The article introduced a bounded neuro-symbolic sensor pattern and extended UA i
 A community-preview session on **Designing Non-Deterministic Systems** was delivered for the Ukrainian software architecture community (swarchua). It examined changes to requirements, QA, DoR/DoD, release readiness, Human-in-the-Loop dependencies, and cross-functional control of probabilistic systems.
 
 The announcement, follow-up posts, and recording links are grouped as one event in the [talks record](talks.md#june-2026--ukrainian-software-architecture-community-swarchua).
+
+### June — Agentic-loops practitioner discussion
+
+A discussion in `r/softwarearchitecture` tested the claim that nested probabilistic agents do not automatically create control. It developed questions around deterministic and stochastic gates, verification surfaces, safe operating envelopes, SDLC design, and ownership of the surrounding control system.
+
+- [Community discussion record](community-discussions.md#june-2026--the-fallacy-of-agentic-loops)
 
 ### July 9 — Corning Learn-AI-Palooza public follow-up
 
