@@ -11,41 +11,58 @@ license: CC-BY-4.0
 
 > **Historical status:** This template belonged to an RFC process drafted in January 2026. It is preserved for traceability and is not the current contribution template. Current changes follow [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) and the change-control section of [`SPECIFICATION.md`](../../../SPECIFICATION.md).
 
-## Original template structure
+## Preserved original artifact
 
-### Summary
+Original frontmatter:
 
-A brief explanation of the proposal, understandable by someone familiar with Uncertainty Architecture but not necessarily an expert in the specific pattern.
+```yaml
+rfc_id: 0
+title: RFC Template
+authors:
+  - Your Name
+status:
+scope: Pattern
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+```
 
-### Motivation
+# RFC: [Title]
 
-- What problem in AI governance or engineering does this solve?
-- Why is the current solution, or lack of one, insufficient?
-- How does this align with the containment-not-certainty principle?
+## Summary
+A brief explanation of the proposal. It should be understandable by someone familiar with Uncertainty Architecture but not necessarily an expert in this specific pattern.
 
-### Detailed design
+## Motivation
+Why are we doing this?
+*   What problem in AI Governance or Engineering does this solve?
+*   Why is the current solution (or lack thereof) insufficient?
+*   How does this align with the "Containment, Not Certainty" principle?
 
-- **Architecture:** How does this fit into the Control Plane capabilities?
-- **Interface:** Which schemas, prompt structures, or APIs are involved?
-- **Behavior:** How does the system react to uncertainty?
-- **Failure modes:** How does the proposal fail safely?
+## Detailed Design
+This is the core of the RFC. Explain the design in detail:
+*   **Architecture:** How does this fit into the Control Plane layers (Actuator, Sensor, Controller)?
+*   **Interface:** Define any new JSON schemas, prompt structures, or API signatures.
+*   **Behavior:** How does the system react to uncertainty here?
+*   **Failure Modes:** How does this pattern fail safely?
 
-### Reference implementation
+## Reference Implementation (Optional)
+Link to a prototype, pseudo-code, or a specific implementation branch demonstrating the concept.
 
-Optional prototype, pseudocode, or implementation branch.
+## Drawbacks
+Why should we *not* do this?
+*   Does it add necessary complexity?
+*   Does it impact latency or cost significantly?
 
-### Drawbacks
+## Alternatives
+What other designs have been considered? Why were they rejected?
 
-Necessary complexity, latency, cost, or other negative consequences.
+## Unresolved Questions
+What parts of the design are still up for debate?
 
-### Alternatives
+---
 
-Other designs considered and reasons for not selecting them.
+## Governance Log (Internal Use)
+*Track approvals before Public Release.*
 
-### Unresolved questions
-
-Open points requiring further review.
-
-### Historical governance log
-
-The retired template also required internal, advisor, and public-release checkpoints. Those checkpoints are not current repository requirements.
+*   [ ] **Internal Review:** (Vitalii / Sam) - *Date*
+*   [ ] **Advisor Review:** (Markus / Otman) - *Date / N/A*
+*   [ ] **Ready for Public:** *Date*
