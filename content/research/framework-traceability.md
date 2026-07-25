@@ -25,7 +25,7 @@ Traceability is a synthesis aid, not a mandatory ledger for every source or sent
 - **Research Finding** — a conclusion preserved from research material.
 - **Candidate** — potentially suitable for translation into a framework component.
 - **Needs Resolution** — terminology, evidence, scope, or contradiction must be resolved first.
-- **Proposed for RFC** — mature enough for formal review.
+- **Proposed for Framework Review** — mature enough for a separate normative proposal and visible review.
 - **Active** — accepted into the normative framework.
 - **Superseded** — replaced by a later formulation.
 - **Rejected** — considered and intentionally not adopted.
@@ -45,7 +45,7 @@ Lifecycle concerns may be represented across these areas rather than maintained 
 
 ## Traceability matrix
 
-The historical publication corpus is preserved, but corpus-level synthesis is still in progress. Entries should be added when a finding is sufficiently clear to support a framework decision, terminology review, contradiction review, or future RFC.
+The historical publication corpus is preserved, but corpus-level synthesis is still in progress. Entries should be added when a finding is sufficiently clear to support a framework decision, terminology review, contradiction review, or separate normative proposal.
 
 The matrix does not need to be populated source by source before synthesis begins.
 
