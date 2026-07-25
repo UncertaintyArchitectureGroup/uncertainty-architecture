@@ -10,16 +10,14 @@ The project is designed primarily for small and medium-sized engineering organiz
 
 ## Start Here
 
-Choose the path that matches what you need:
-
+- **Read the specification boundary and status model:** [`SPECIFICATION.md`](SPECIFICATION.md)
 - **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
 - **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
 - **Review concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
 - **Study recurring failure modes:** [`04-failure-modes/`](04-failure-modes/)
-- **Trace the research behind the specification:** [`content/research/`](content/research/)
-- **Follow project history, talks, discussions, and external references:** [`content/history/`](content/history/)
-- **See what is being built next:** [`ROADMAP.md`](ROADMAP.md)
+- **Trace the research behind UA:** [`content/research/`](content/research/)
+- **See project direction:** [`ROADMAP.md`](ROADMAP.md)
 
 ## The Core Shift
 
@@ -31,6 +29,34 @@ UA calls this broader class **Behavioral Software**:
 - **Behavioral Software** pursues goals within constraints while selecting or generating parts of the path dynamically.
 
 The architectural problem is therefore not only model quality. It is how probabilistic judgment is connected to business rules, permissions, data, human authority, release processes, monitoring, and correction.
+
+## Core Model
+
+UA treats AI governance as an engineering control problem.
+
+> **Reliable AI = Actuators + Sensors + Controller**
+
+- **Actuators** shape and constrain behavior: prompts, schemas, policies, permissions, tools, model settings, and execution boundaries.
+- **Sensors** detect deviation: evaluations, golden scenarios, runtime signals, incidents, qualitative review, and drift monitoring.
+- **Controller** determines corrective action: release gates, ownership, escalation, rollback, retraining, prompt or policy changes, and human decision authority.
+
+This control loop surrounds a critical distinction:
+
+- **Deterministic Core** — business rules, invariants, authentication, data handling, auditability, and safety constraints.
+- **Model Judgment** — interpretation, synthesis, classification under ambiguity, open-ended generation, and uncertain tool choice.
+
+UA focuses on the boundary between these regions.
+
+```mermaid
+graph TD;
+    A[Deterministic Core / Business Logic] -->|Request + Constraints| B[Boundary Layer / AI Control Plane];
+    B -->|Bounded Invocation| C{Model Judgment / LLM};
+    C -->|Candidate Output| B;
+    B -->|Validate + Gate| D[Quality, Safety, and Policy Checks];
+    D -->|Pass| E[User / Downstream System];
+    D -->|Fail| F[Fallback / Retry / Escalation];
+    F --> B;
+```
 
 ## What UA Is — and Is Not
 
@@ -49,39 +75,9 @@ UA is not:
 - a compliance certification;
 - a claim that uncertainty can be removed from model behavior.
 
-## Core Model
+## Repository Structure
 
-UA treats AI governance as an engineering control problem.
-
-> **Reliable AI = Actuators + Sensors + Controller**
-
-- **Actuators** shape and constrain behavior: prompts, schemas, policies, permissions, tools, model settings, and execution boundaries.
-- **Sensors** detect deviation: evaluations, golden scenarios, runtime signals, incidents, qualitative review, and drift monitoring.
-- **Controller** determines corrective action: release gates, ownership, escalation, rollback, retraining, prompt or policy changes, and human decision authority.
-
-This control loop surrounds a critical distinction:
-
-- **Deterministic Core** — business rules, invariants, authentication, data handling, auditability, safety constraints.
-- **Model Judgment** — interpretation, synthesis, classification under ambiguity, open-ended generation, and uncertain tool choice.
-
-UA focuses on the boundary between these regions.
-
-## Conceptual Architecture
-
-```mermaid
-graph TD;
-    A[Deterministic Core / Business Logic] -->|Request + Constraints| B[Boundary Layer / AI Control Plane];
-    B -->|Bounded Invocation| C{Model Judgment / LLM};
-    C -->|Candidate Output| B;
-    B -->|Validate + Gate| D[Quality, Safety, and Policy Checks];
-    D -->|Pass| E[User / Downstream System];
-    D -->|Fail| F[Fallback / Retry / Escalation];
-    F --> B;
-```
-
-## Repository Map
-
-### Normative framework
+### Specification modules
 
 - [`00-doctrine/`](00-doctrine/) — core concepts, terminology, and boundary thinking.
 - [`01-patterns/`](01-patterns/) — reusable containment and interface patterns.
@@ -89,19 +85,29 @@ graph TD;
 - [`03-reference-architectures/`](03-reference-architectures/) — worked architectural applications.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
 
-### Supporting records
+The canonical boundary, status vocabulary, and conformance model are defined in [`SPECIFICATION.md`](SPECIFICATION.md).
 
-- [`content/research/`](content/research/) — publications, analysis, provenance, and research-to-framework traceability. Research remains non-normative until deliberately adopted.
-- [`content/history/`](content/history/) — project timeline, talks, public stress tests, and independent references.
-- [`ROADMAP.md`](ROADMAP.md) — canonical direction and future priorities.
-- [`CHANGELOG.md`](CHANGELOG.md) — repository and specification-artifact changes only.
+### Supporting material
+
+- [`content/research/`](content/research/) — research corpus, provenance, analysis, synthesis, and research-to-framework traceability.
+- [`content/history/`](content/history/) — project milestones, talks, discussions, and independent references.
+- [`ROADMAP.md`](ROADMAP.md) — current direction and future priorities.
+- [`CHANGELOG.md`](CHANGELOG.md) — changes to repository and specification artifacts.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution and review workflow.
 
-### Operational assets
+## Evidence and Project History
 
-- [`assets/`](assets/) — diagrams and visual references.
-- [`scripts/`](scripts/) — repository-maintenance automation.
-- [`templates/`](templates/) — reusable contribution and specification templates.
+UA keeps different kinds of evidence separate:
+
+- [**Research**](content/research/) explains where ideas and claims originated and how they evolved.
+- [**Public discussions and stress tests**](content/history/community-discussions.md) record critique, alternatives, unresolved questions, and external pressure on the concepts.
+- [**Independent references and recognition**](content/history/external-recognition.md) record how third parties cited, interpreted, recommended, or used the work.
+- [**Talks and presentations**](content/history/talks.md) record practitioner sessions and public presentations without treating invitations as technical validation.
+- The [**changelog**](CHANGELOG.md) records changes to repository and specification artifacts.
+
+This separation prevents visibility, attention, recommendations, advisory relationships, or invited talks from being mistaken for technical validation, certification, institutional endorsement, or formal adoption.
+
+The evidence policy and complete historical index are maintained in [`content/history/`](content/history/).
 
 ## Current Status
 
@@ -109,20 +115,7 @@ graph TD;
 
 The current priority is to consolidate the research corpus into a coherent framework spine, clarify normative boundaries, and derive a practical SMB-facing artifact for mapping risks, required controls, and control cost.
 
-Detailed status and sequencing are maintained in [`ROADMAP.md`](ROADMAP.md).
-
-## Evidence and Project History
-
-UA keeps different kinds of evidence separate:
-
-- research explains where ideas and claims originated;
-- public discussions record critique, alternatives, and stress tests;
-- independent references record how third parties interpreted or used the concepts;
-- the changelog records changes to repository artifacts.
-
-This prevents visibility, attention, recommendations, or invited talks from being mistaken for technical validation or formal adoption.
-
-See [`content/history/`](content/history/) for the evidence policy and historical records.
+See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 
 ## Community and Contributions
 
@@ -132,40 +125,23 @@ Useful contributions include operational failure reports, pattern proposals, cri
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-## Authors and Maintainers
+## Authors, Maintainers, and Advisors
 
-### Vitalii Oborskyi — Creator and Lead Architect
+**Vitalii Oborskyi — Creator and Lead Architect**  
+Operational framing, governance, delivery systems, adoption scaffolding, and system-level control. [LinkedIn](https://www.linkedin.com/in/vitaliioborskyi/) · [GitHub](https://github.com/oborskyivitalii)
 
-Focus: operational framing, governance, delivery systems, adoption scaffolding, and system-level control.
+**Sam “stunspot” Walker — Technical Co-Author**  
+AI–code boundary placement, containment patterns, prompt-as-medium realism, and real-world failure modes.
 
-- [LinkedIn](https://www.linkedin.com/in/vitaliioborskyi/)
-- [GitHub](https://github.com/oborskyivitalii)
+**Markus Kopko — Strategic Advisor on Governance and Alignment**  
+Project-management standards, organizational alignment, and operationalization of AI governance. [LinkedIn](https://www.linkedin.com/in/markuskleinpmp/)
 
-### Sam “stunspot” Walker — Technical Co-Author
+**Otman Basir, Ph.D. — Academic Advisor**  
+Professor of Intelligent Systems at the University of Waterloo and author of the Social Responsibility Stack. [LinkedIn](https://www.linkedin.com/in/otman-basir-ba1258178)
 
-Focus: AI–code boundary placement, containment patterns, prompt-as-medium realism, and real-world failure modes.
+Advisory relationships are part of the project's operating context. They do not imply institutional endorsement, certification, or formal adoption of UA. Supporting public evidence and precise claim boundaries are recorded in [`content/history/external-recognition.md`](content/history/external-recognition.md).
 
-Additional contributors and reviewers are credited as the work matures.
-
-## Advisors
-
-### Markus Kopko — Strategic Advisor on Governance and Alignment
-
-Focus: project-management standards, organizational alignment, and the operationalization of AI governance.
-
-- [LinkedIn](https://www.linkedin.com/in/markuskleinpmp/)
-
-### Otman Basir, Ph.D. — Academic Advisor
-
-Professor of Intelligent Systems at the University of Waterloo and author of the Social Responsibility Stack. His role supports the connection between control-theoretic research and practical engineering governance.
-
-- [LinkedIn](https://www.linkedin.com/in/otman-basir-ba1258178)
-
-Advisory relationships are listed because they are part of the project's operating context. They do not imply institutional endorsement, certification, or formal adoption of UA.
-
-See [`content/history/external-recognition.md`](content/history/external-recognition.md) for supporting public evidence and precise claim boundaries.
-
-## How to Cite
+## Citation
 
 ```bibtex
 @misc{oborskyi_walker2025uncertainty,
@@ -184,4 +160,4 @@ This repository uses a dual-license model:
 - documentation and specifications: CC BY 4.0;
 - code and reference implementations: Apache 2.0.
 
-See [`LICENSING.md`](LICENSING.md) for details.
+See [`LICENSING.md`](LICENSING.md).
