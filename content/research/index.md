@@ -124,13 +124,15 @@ The initial corpus includes:
 5. *Beyond Embeddings: Neuro-Symbolic Verification of Semantic Drift in LLMs*;
 6. the *Designing Non-Deterministic Systems* presentation as a research synthesis source.
 
-## Terminology under review
+## Terminology decision
 
-Historical publications use terms such as **Behavioral Software** and **Behavioral Applications**.
+Current UA terminology uses **Thinking Systems** for software that delegates part of runtime interpretation, judgment, planning, or decision-making to probabilistic models while retaining explicit deterministic boundaries and control responsibilities.
 
-The current research direction is considering **Thinking Systems** as a clearer user-facing category for software that delegates part of runtime interpretation, judgment, planning, or decision-making to probabilistic models. Agentic systems may be treated as a higher-autonomy subset rather than as a synonym.
+Historical publications used **Behavioral Software** and **Behavioral Applications**. Current framework documents may identify the migration on first use as **Thinking Systems** (previously described as **Behavioral Software** or **Behavioral Applications**), but should use **Thinking Systems** thereafter.
 
-This terminology is **not adopted by this research scaffolding**. It requires a separate terminology review after the relevant sources have been synthesized. Historical publications retain their original language.
+Agentic systems are treated as a higher-autonomy subset of Thinking Systems rather than as a synonym for the whole category.
+
+Historical publications and raw sources retain their original language for provenance. Repository editions should include a terminology note when the legacy category is material to the text.
 
 ## Licensing
 
