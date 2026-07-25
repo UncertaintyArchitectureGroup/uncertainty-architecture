@@ -43,10 +43,15 @@ The objective is to consolidate the existing research into a coherent, bounded s
 - canonical specification boundary and document-status model established in `SPECIFICATION.md`;
 - root README redesigned as the project landing page with direct evidence navigation;
 - primary module entry points normalized around a shared structure;
-- **Thinking Systems** adopted as the current system-category term, with **Behavioral Software** and **Behavioral Applications** retained only as historical terminology.
+- **Thinking Systems** adopted as the current system-category term, with **Behavioral Software** and **Behavioral Applications** retained only as historical terminology;
+- canonical supporting namespaces consolidated under `content/research/`, `content/history/`, and `content/raw/`;
+- earlier root research briefs classified as draft research notes;
+- the retired RFC governance scaffold archived as historical rather than left as an active process;
+- empty `scripts/` and `templates/` scaffolds removed.
 
 ### Active and next milestones
 
+- [ ] Complete a final repository consistency pass covering links, document statuses, canonical entry points, and orphaned placeholders.
 - [ ] Complete a cross-publication research synthesis.
 - [ ] Identify stable concepts, later refinements, contradictions, and superseded claims.
 - [ ] Define the relationship between Thinking Systems and higher-autonomy agentic systems in the canonical glossary.
@@ -103,6 +108,6 @@ No universal SDK or platform is currently planned.
 
 ## Current priority
 
-The immediate priority is not additional tooling. It is to complete the research synthesis and establish the framework spine, then derive one practical SMB-facing control-loop and risk-mapping artifact from that spine.
+The immediate priority is to complete the final repository consistency pass. After that, the project should complete the research synthesis, establish the framework spine, and derive one practical SMB-facing control-loop and risk-mapping artifact from that spine.
 
 The project optimizes for durable clarity, traceability, and practical usefulness rather than rapid expansion of repository volume.
