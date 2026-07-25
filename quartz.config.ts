@@ -16,7 +16,6 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "ua-private.vercel.app",
     ignorePatterns: ["private", ".obsidian"],
     defaultDateType: "modified",
     theme: {
