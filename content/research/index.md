@@ -3,7 +3,7 @@ title: Uncertainty Architecture Research Track
 artifact_type: research-index
 status: draft
 created: 2026-07-24
-updated: 2026-07-24
+updated: 2026-07-25
 license: CC-BY-4.0
 ---
 
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 The Uncertainty Architecture (UA) Research Track preserves and reviews the work that led to the framework.
 
-UA did not begin as a finished standard. It evolved through a sequence of architectural, operational, governance, verification, and economic investigations. This section makes that evolution explicit and creates a controlled bridge from research to future doctrine, methodology, patterns, operating-model responsibilities, and practical artifacts.
+UA did not begin as a finished standard. It evolved through architectural, operational, governance, verification, and economic investigations. This section makes that evolution explicit and creates a controlled bridge from research to future doctrine, patterns, operating-model responsibilities, reference architectures, failure modes, and practical artifacts.
 
 ## Normative boundary
 
@@ -42,7 +42,7 @@ Documents that combine overlapping public versions, translations, or technically
 
 ### Research analysis
 
-A companion analysis for each source that records:
+Focused analysis of one or more sources that may record:
 
 - the research question;
 - key findings;
@@ -56,23 +56,28 @@ A companion analysis for each source that records:
 
 ### Research notes
 
-Structured synthesis derived from presentations, talks, working material, or later analysis when no directly published article should be archived.
+Structured synthesis derived from presentations, talks, working material, operational observations, or later analysis when no directly published article should be archived.
 
 ### Framework traceability
 
-A controlled map from research findings to possible future Doctrine, Lifecycle, Pattern, Operating Model, Reference Architecture, or Artifact components.
+A controlled map from research findings to possible future Doctrine, Pattern, Operating Model, Reference Architecture, Failure Mode, or practical Artifact components.
 
 ## Review model
 
-Each major research source is reviewed in a separate pull request.
+Research work uses a proportional review model rather than a mandatory source-by-source pipeline.
 
-A source pull request should normally contain:
+Depending on the question and impact, a change may contain one or more of the following:
 
-1. a repository edition of the source;
-2. a separate research analysis;
-3. the source-specific delta to the traceability matrix.
+1. a repository edition of a source;
+2. a source-specific analysis;
+3. a multi-source synthesis;
+4. a terminology or contradiction review;
+5. a traceability update;
+6. a framework-candidate note.
 
-A source pull request does **not** automatically rewrite the methodology. Normative changes are proposed only after the research series has been reviewed and synthesized.
+One logical change per pull request remains a useful default for substantial work, but every source does not require its own pull request or a fixed package of artifacts.
+
+Research changes do **not** automatically rewrite the framework. Normative changes are proposed separately after the relevant evidence has been synthesized and reviewed.
 
 See [Research Review Process](review-process.md).
 
@@ -81,11 +86,11 @@ See [Research Review Process](review-process.md).
 - [Research Publication Record Template](publication-record-template.md)
 - [Research Analysis Template](research-analysis-template.md)
 
-The templates are marked as drafts so they remain repository assets without being published as normal site content.
+These templates are optional working tools. They are marked as drafts so they remain repository assets without being published as normal site content.
 
 ## Status vocabulary
 
-- **Research Finding** — a conclusion preserved from a source.
+- **Research Finding** — a conclusion preserved from research material.
 - **Candidate** — potentially suitable for a future framework component.
 - **Needs Resolution** — terminology, scope, evidence, or conflict must be resolved first.
 - **Proposed for RFC** — mature enough for a separate formal proposal.
@@ -95,18 +100,29 @@ The templates are marked as drafts so they remain repository assets without bein
 
 See [Research-to-Framework Traceability](framework-traceability.md).
 
-## Planned research series
+## Current research direction
 
-The initial sequence is expected to review:
+The initial publication corpus has been preserved under [`publications/`](publications/).
+
+The next major task is a cross-publication synthesis that identifies:
+
+- concepts that remained stable;
+- concepts that were refined or superseded;
+- unresolved contradictions;
+- terminology requiring separate review;
+- candidates for the framework spine;
+- material that should remain research context only.
+
+Source-specific analysis may still be added when it contributes evidence, clarifies provenance, or resolves a concrete question. It is not a prerequisite for beginning corpus-level synthesis.
+
+The initial corpus includes:
 
 1. *Architecting Uncertainty: A Modern Guide to LLM-Based Software*;
 2. *On-Device LLM or Cloud API?*;
 3. *Uncertainty Architecture: A Modern Approach to Designing LLM Applications* together with its technically richer Ukrainian version;
 4. *Uncertainty Architecture: Why AI Governance Is Actually Control Theory*;
 5. *Beyond Embeddings: Neuro-Symbolic Verification of Semantic Drift in LLMs*;
-6. the *Designing Non-Deterministic Systems* presentation as a research synthesis.
-
-A final synthesis pull request will compare the full track, identify stable concepts and contradictions, and propose the framework spine for separate review.
+6. the *Designing Non-Deterministic Systems* presentation as a research synthesis source.
 
 ## Terminology under review
 
@@ -114,7 +130,7 @@ Historical publications use terms such as **Behavioral Software** and **Behavior
 
 The current research direction is considering **Thinking Systems** as a clearer user-facing category for software that delegates part of runtime interpretation, judgment, planning, or decision-making to probabilistic models. Agentic systems may be treated as a higher-autonomy subset rather than as a synonym.
 
-This terminology is **not adopted by this research scaffolding**. It requires a separate terminology review after the relevant sources have been analyzed. Historical publications will retain their original language.
+This terminology is **not adopted by this research scaffolding**. It requires a separate terminology review after the relevant sources have been synthesized. Historical publications retain their original language.
 
 ## Licensing
 
