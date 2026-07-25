@@ -36,7 +36,7 @@ Vitalii Oborskyi joined an internal technical AI workshop for Corning Incorporat
 
 Topics included:
 
-- the transition from deterministic software paths to behavioral systems;
+- the transition from deterministic software paths to Thinking Systems (then described in the session as behavioral systems);
 - the use of control theory for socio-technical feedback loops;
 - separating deterministic constraints from model judgment;
 - risks that emerge at the level of teams, operating models, ownership, and escalation rather than only in source code;

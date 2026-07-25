@@ -39,16 +39,20 @@ The objective is to consolidate the existing research into a coherent, bounded s
 - five historical publications normalized and archived under `content/research/publications/`;
 - provenance and normalization report added;
 - research-to-framework traceability scaffold created;
-- repository contribution and research workflow simplified for maintainer-led development.
+- repository contribution and research workflow simplified for maintainer-led development;
+- canonical specification boundary and document-status model established in `SPECIFICATION.md`;
+- root README redesigned as the project landing page with direct evidence navigation;
+- primary module entry points normalized around a shared structure;
+- **Thinking Systems** adopted as the current system-category term, with **Behavioral Software** and **Behavioral Applications** retained only as historical terminology.
 
 ### Active and next milestones
 
 - [ ] Complete a cross-publication research synthesis.
 - [ ] Identify stable concepts, later refinements, contradictions, and superseded claims.
-- [ ] Review terminology, including the relationship between Behavioral Software, Thinking Systems, and agentic systems.
+- [ ] Define the relationship between Thinking Systems and higher-autonomy agentic systems in the canonical glossary.
 - [ ] Produce a concise framework-spine proposal.
 - [ ] Clarify normative boundaries across Doctrine, Patterns, AI Control Plane, Operating Model, Reference Architectures, Failure Modes, and practical artifacts.
-- [ ] Improve repository navigation so readers can move from the overview to research and normative material without ambiguity.
+- [ ] Consolidate canonical definitions in a repository glossary.
 
 ## Phase 3 — Patterns and Failure Modes
 

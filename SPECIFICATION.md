@@ -8,7 +8,9 @@
 
 This document defines the normative boundary and document structure of Uncertainty Architecture (UA).
 
-UA is an open specification for designing and governing software systems whose runtime behavior depends partly on probabilistic models. It treats reliability as a system property produced by explicit boundaries, observable behavior, feedback, decision rights, and controlled change rather than by model quality alone.
+UA is an open specification for designing and governing **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic model judgment while consequential deterministic boundaries and control responsibilities remain explicit. Earlier UA publications used **Behavioral Software** and **Behavioral Applications** for this category.
+
+UA treats reliability as a system property produced by explicit boundaries, observable behavior, feedback, decision rights, and controlled change rather than by model quality alone.
 
 This file is the canonical entry point for the specification. It does not duplicate the detailed content of the modules it indexes.
 
@@ -129,6 +131,6 @@ Research findings, talks, articles, implementations, and external frameworks do 
 
 ## 9. Current maturity
 
-UA is in active development. The repository already contains a conceptual spine, patterns, a control-plane model, reference material, and failure-mode work, but these areas are not yet uniformly classified or complete.
+UA is in active development. The repository contains a conceptual spine, normalized module entry points, patterns, a control-plane model, reference material, and failure-mode work, but detailed normative content remains incomplete and may change.
 
-Until module-level status declarations are normalized, readers SHOULD treat existing specification modules as **draft normative**, except for reference architectures and clearly identified examples, which are **reference** or **informative**.
+Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples remain **reference** or **informative**, not mandatory implementation requirements.

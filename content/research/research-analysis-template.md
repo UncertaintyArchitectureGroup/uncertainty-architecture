@@ -69,7 +69,7 @@ For each claim:
 |---|---|---|---|
 | [Term] | [Meaning] | [Current meaning] | [Retain / narrow / rename / supersede / unresolved] |
 
-Explicitly review historical terms such as Behavioral Software, Behavioral Applications, Model Control Plane, AI Control Plane, actuators, constraints, sensors, controller, and specialized role names whenever they appear.
+Explicitly review legacy terms such as Behavioral Software and Behavioral Applications against the current **Thinking Systems** category whenever they appear. Also review Model Control Plane, AI Control Plane, actuators, constraints, sensors, controller, and specialized role names where relevant.
 
 ## Methodology impact
 
