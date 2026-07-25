@@ -58,10 +58,10 @@ This section records cross-source issues that cannot be resolved inside simple e
 
 | Topic | Earlier formulation | Later formulation | Current status | Resolution path |
 |---|---|---|---|---|
+| Primary system category | Behavioral Software / Behavioral Applications | Thinking Systems | Active | Use Thinking Systems in current framework documents; preserve legacy wording in historical sources with an explanatory terminology note |
 
-Initial topics expected to require review include:
+Initial topics expected to require further review include:
 
-- Behavioral Software / Behavioral Applications versus a possible Thinking Systems taxonomy;
 - the relationship between Thinking Systems and agentic systems;
 - Model Control Plane versus Model Context Protocol acronym conflict;
 - AI Control Plane as platform, architectural layer, capability, or pattern vocabulary;
