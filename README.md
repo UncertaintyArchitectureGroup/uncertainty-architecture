@@ -147,6 +147,24 @@ Focus: AI–code boundary placement, containment patterns, prompt-as-medium real
 
 Additional contributors and reviewers are credited as the work matures.
 
+## Advisors
+
+### Markus Kopko — Strategic Advisor on Governance and Alignment
+
+Focus: project-management standards, organizational alignment, and the operationalization of AI governance.
+
+- [LinkedIn](https://www.linkedin.com/in/markuskleinpmp/)
+
+### Otman Basir, Ph.D. — Academic Advisor
+
+Professor of Intelligent Systems at the University of Waterloo and author of the Social Responsibility Stack. His role supports the connection between control-theoretic research and practical engineering governance.
+
+- [LinkedIn](https://www.linkedin.com/in/otman-basir-ba1258178)
+
+Advisory relationships are listed because they are part of the project's operating context. They do not imply institutional endorsement, certification, or formal adoption of UA.
+
+See [`content/history/external-recognition.md`](content/history/external-recognition.md) for supporting public evidence and precise claim boundaries.
+
 ## How to Cite
 
 ```bibtex
