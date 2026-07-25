@@ -1,1 +1,0 @@
-# Uncertainty Architecture Project History
