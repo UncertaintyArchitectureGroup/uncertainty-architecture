@@ -89,7 +89,7 @@ List conclusions that should not be promoted into the normative framework.
 
 | Research finding | Candidate destination | Proposed status | Work required before adoption |
 |---|---|---|---|
-| [Finding] | [Doctrine / Lifecycle / Pattern / Operating Model / Reference Architecture / Artifact] | Candidate | [Validation, definition, conflict resolution, RFC] |
+| [Finding] | [Doctrine / Lifecycle / Pattern / Operating Model / Reference Architecture / Artifact] | Candidate | [Validation, definition, conflict resolution, framework review] |
 
 ## SMB surface vs technical depth
 
@@ -114,5 +114,5 @@ List the exact rows proposed for `framework-traceability.md`.
 - **Research record:** [Accepted / changes requested]
 - **Framework candidates:** [List]
 - **Superseded concepts:** [List]
-- **Separate RFC or methodology work required:** [List]
+- **Separate normative proposal or methodology work required:** [List]
 - **Terminology decisions deferred:** [List]
