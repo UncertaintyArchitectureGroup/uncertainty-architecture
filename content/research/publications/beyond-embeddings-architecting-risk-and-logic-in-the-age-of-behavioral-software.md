@@ -1,11 +1,12 @@
 ---
-title: "Beyond Embeddings: Architecting Risk and Logic in the Age of Behavioral Software"
+title: "BEYOND EMBEDDINGS: ARCHITECTING RISK AND LOGIC IN THE AGE OF BEHAVIORAL SOFTWARE"
 artifact_type: research-publication
 status: draft
 draft: true
 repository_date: 2026-07-25
 language: en
-authors: []
+authors:
+  - "Vitalii Oborskyi"
 canonical_url: ""
 additional_publication_urls: []
 repository_edition: normalized-archive
@@ -13,7 +14,7 @@ source_file: "../../raw/Uncertainty Architecture - Beyond Embeddings- Neuro-Symb
 license: CC-BY-4.0
 ---
 
-# Beyond Embeddings: Architecting Risk and Logic in the Age of Behavioral Software
+# BEYOND EMBEDDINGS: ARCHITECTING RISK AND LOGIC IN THE AGE OF BEHAVIORAL SOFTWARE
 
 > **Repository status:** Historical research publication. This repository edition preserves the substantive argument while removing publication-platform residue and normalizing Markdown. It is research evidence, not automatically a normative UA requirement.
 
@@ -22,18 +23,18 @@ license: CC-BY-4.0
 - **Original source filename:** `Uncertainty Architecture - Beyond Embeddings- Neuro-Symbolic Verification of Semantic Drift in LLMs - EN.md`
 - **Publication platform:** Not established from the source snapshot
 - **Canonical URL:** Not established from the source snapshot
-- **Transformations performed:** Removed trailing blank space; repaired copied citation labels and tracking query parameters; nested chapter and reference headings beneath the repository title; preserved the introductory note, code blocks, examples, and references.
+- **Transformations performed:** Matched the title and H1 to the raw source’s explicit title; added the repository-supplied author attribution; formatted the preserved introductory note as a blockquote; removed trailing blank space; repaired copied citation labels and tracking query parameters; nested chapter and reference headings beneath the repository title; preserved the note wording, code blocks, examples, and references.
 - **Substantive wording corrected:** No.
 
 ---
-NOTE:
-This article argues that LLM-powered applications are not just classical software with an AI API attached. They are behavioral systems where part of the business logic is delegated to probabilistic model judgment.
-
-That shift breaks many assumptions behind traditional QA, monitoring, and LLMOps dashboards. Embedding similarity can detect topical proximity, but it cannot guarantee logical equivalence. LLM-as-a-judge can help qualitative review, but it is weak as final authority for high-risk logical invariants.
-
-The article examines one bounded neuro-symbolic pattern for logic-level drift detection, then places it inside a broader Uncertainty Architecture approach: sensors, controllers, actuators, audit trails, economic risk thresholds, and no-go decisions.
-
-The thesis is simple: enterprise AI will not be made reliable by trusting models harder. It will be made governable by designing control systems around model judgment.
+> **NOTE:**
+> This article argues that LLM-powered applications are not just classical software with an AI API attached. They are behavioral systems where part of the business logic is delegated to probabilistic model judgment.
+>
+> That shift breaks many assumptions behind traditional QA, monitoring, and LLMOps dashboards. Embedding similarity can detect topical proximity, but it cannot guarantee logical equivalence. LLM-as-a-judge can help qualitative review, but it is weak as final authority for high-risk logical invariants.
+>
+> The article examines one bounded neuro-symbolic pattern for logic-level drift detection, then places it inside a broader Uncertainty Architecture approach: sensors, controllers, actuators, audit trails, economic risk thresholds, and no-go decisions.
+>
+> The thesis is simple: enterprise AI will not be made reliable by trusting models harder. It will be made governable by designing control systems around model judgment.
 
 ## Chapter 1: From Linear Software to Behavioral Software
 ### The Probability Paradox and the Cynefin Shift

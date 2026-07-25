@@ -1,6 +1,5 @@
 ---
 title: "Uncertainty Architecture: Why AI Governance is Actually Control Theory"
-subtitle: "The Probability Paradox: Building WITH Chaos"
 artifact_type: research-publication
 status: draft
 draft: true
@@ -25,7 +24,7 @@ license: CC-BY-4.0
 - **Original source filename:** `Uncertainty Architecture - Why AI Governance is Actually Control Theory.md`
 - **Publication platform:** Towards AI on Medium
 - **Canonical URL:** [https://pub.towardsai.net/uncertainty-architecture-why-ai-governance-is-actually-control-theory-511f3e73ed6e](https://pub.towardsai.net/uncertainty-architecture-why-ai-governance-is-actually-control-theory-511f3e73ed6e)
-- **Transformations performed:** Removed imported platform metadata, a duplicated author-profile footer, and the platform related-articles block; retained article images and substantive text; normalized headings, spacing, and list layout.
+- **Transformations performed:** Removed imported platform metadata, a duplicated author-profile footer, and the platform related-articles block; retained article images, the historical subtitle as a body heading, and substantive text; removed the frontmatter subtitle to avoid duplicate presentation; normalized headings, spacing, and list layout.
 - **Substantive wording corrected:** No.
 
 ---
