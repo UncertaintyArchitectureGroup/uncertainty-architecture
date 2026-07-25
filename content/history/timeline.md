@@ -2,6 +2,8 @@
 
 This timeline records selected public milestones in the development of Uncertainty Architecture. It is not a release log; repository changes belong in `CHANGELOG.md`.
 
+The timeline links to the canonical research archive or public source rather than repeating full publication summaries.
+
 ## 2025
 
 ### July 29 — Initial public guide
@@ -66,9 +68,15 @@ The article introduced a bounded neuro-symbolic sensor pattern and extended UA i
 
 - [Source](https://www.linkedin.com/pulse/uncertainty-architecture-beyond-embeddings-semantic-oborskyi-1seuf/)
 
+### June 13 — Public software-architecture community session
+
+A community-preview session on **Designing Non-Deterministic Systems** was delivered for the Ukrainian software architecture community (swarchua). It examined changes to requirements, QA, DoR/DoD, release readiness, Human-in-the-Loop dependencies, and cross-functional control of probabilistic systems.
+
+The announcement, follow-up posts, and recording links are grouped as one event in the [talks record](talks.md#june-2026--ukrainian-software-architecture-community-swarchua).
+
 ### July 9 — Corning Learn-AI-Palooza public follow-up
 
-Rod Montgomery publicly documented Vitalii Oborskyi’s UA session at Corning Incorporated and highlighted the importance of system-level risks involving teams, operating models, governance, and accountability.
+Rod Montgomery publicly documented Vitalii Oborskyi’s UA session for Corning Incorporated's Science & Technology team and highlighted the importance of system-level risks involving teams, operating models, governance, and accountability.
 
 - [Source](https://www.linkedin.com/posts/roderickm_one-of-the-highlights-of-our-recent-learn-al-palooza-share-7480960627696558081-9L4z/)
 
