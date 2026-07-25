@@ -35,6 +35,7 @@ Project publications, talks, community discussions, and independent references a
 - Replaced the obsolete RFC-oriented `content/index.md` with an informative publishing portal that links back to the canonical repository sources.
 - Replaced the research status `Proposed for RFC` with `Proposed for Framework Review` because the repository has no active mandatory RFC process.
 - Clarified that Quartz and related Node files are publishing infrastructure rather than normative UA content.
+- Removed the stale private Quartz deployment base URL rather than replacing it with an unverified public domain.
 
 ### Removed
 
