@@ -34,7 +34,7 @@ UA did not begin as a finished standard. It evolved through architectural, opera
 `content/research/` is the only active research namespace in the repository.
 
 - completed or normalized publications belong in [`publications/`](publications/);
-- bounded working briefs and observations belong in [`notes/`](notes/);
+- bounded working briefs, source-intake records, and observations belong in [`notes/`](notes/);
 - preserved unnormalized source snapshots belong in [`content/raw/`](../raw/);
 - public milestones, talks, discussions, and superseded project-process records belong in [`content/history/`](../history/).
 
@@ -81,7 +81,7 @@ Focused analysis of one or more sources that may record:
 
 ### Research notes
 
-Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, or emerging questions. A planning brief is not completed evidence and should state its maturity explicitly.
+Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, emerging questions, or source-intake gaps. A planning brief or intake record is not completed evidence and should state its maturity explicitly.
 
 See the [Research Notes index](notes/README.md).
 
@@ -129,7 +129,12 @@ See [Research-to-Framework Traceability](framework-traceability.md).
 
 ## Current research direction
 
-The initial publication corpus has been preserved under [`publications/`](publications/). Earlier root-level planning briefs have been classified under [`notes/`](notes/) and remain draft research tasks rather than completed findings.
+Five normalized publication editions are currently preserved under [`publications/`](publications/). Earlier root-level planning briefs have been classified under [`notes/`](notes/) and remain draft research tasks rather than completed findings.
+
+Two additional synthesis sources are available but not yet preserved as repository editions:
+
+- [*On-Device LLM or Cloud API?*](notes/on-device-cloud-source-intake.md) — full Markdown source available; raw preservation and normalization remain pending;
+- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — presentation deck available; a reviewable repository transcript or edition remains pending.
 
 The next major task is a cross-publication synthesis that identifies:
 
@@ -142,14 +147,14 @@ The next major task is a cross-publication synthesis that identifies:
 
 Source-specific analysis may still be added when it contributes evidence, clarifies provenance, or resolves a concrete question. It is not a prerequisite for beginning corpus-level synthesis.
 
-The initial corpus includes:
+The intended synthesis corpus includes:
 
 1. *Architecting Uncertainty: A Modern Guide to LLM-Based Software*;
 2. *On-Device LLM or Cloud API?*;
 3. *Uncertainty Architecture: A Modern Approach to Designing LLM Applications* together with its technically richer Ukrainian version;
 4. *Uncertainty Architecture: Why AI Governance Is Actually Control Theory*;
 5. *Beyond Embeddings: Neuro-Symbolic Verification of Semantic Drift in LLMs*;
-6. the *Designing Non-Deterministic Systems* presentation as a research synthesis source.
+6. the *Designing Non-Deterministic Systems* presentation as a synthesis source.
 
 ## Terminology decision
 
