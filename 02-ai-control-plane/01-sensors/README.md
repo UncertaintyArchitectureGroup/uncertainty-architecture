@@ -1,25 +1,73 @@
-# Sensors: The Nerves
+---
+title: Sensor and Evidence Capabilities
+artifact_type: control-capability
+status: draft-normative
+maturity: active
+module: control-plane
+topics:
+  - sensors
+  - evidence
+  - evaluation
+  - drift
+  - ai-control-plane
+tags:
+  - ua/module/control-plane
+  - ua/type/control-capability
+  - ua/status/draft-normative
+  - ua/topic/sensors
+  - ua/topic/evidence
+  - ua/topic/evaluation
+  - ua/topic/drift
+---
 
-> **Function:** Measurement & Observability
-> **Goal:** Calculate the Error Signal ($Error = Output - Intent$)
+# Sensor and Evidence Capabilities
 
-In Control Theory, a **Sensor** measures the state of the system. Without sensors, the system is "Open Loop" — it cannot detect if it has drifted off course.
+**Role:** Mechanisms that produce evidence about model-mediated behavior, system outcomes, operating conditions, and control performance.
 
-In AI Engineering, we lack a `getBusinessTruth()` function. Therefore, we build **Sensors** to convert subjective quality ("vibes") into objective statistics.
+## Purpose
 
-## Core Artifacts
+Sensors make relevant change and deviation observable enough for a controller to decide whether intervention is required.
 
-### 1. Golden Sets (The Reference Signal)
-A curated, versioned dataset of inputs and their ideal outputs (Ground Truth).
-- Used to detect regression and drift.
-- Must be statistically significant (N > 30).
+UA does not assume a universal `getBusinessTruth()` function. Evidence may be incomplete, delayed, probabilistic, qualitative, or contested. The engineering problem is to assemble signals that are fit for the decision and explicit about their limits.
 
-### 2. Metrics (The Instruments)
-- **Deterministic Metrics:** JSON validity, latency, cost.
-- **Probabilistic Metrics:** Semantic similarity, hallucination rate, tone match (often measured by LLM-as-a-Judge).
+## Includes
 
-### 3. Eval Pipelines
-Automated processes that run the Actuators against the Golden Sets to generate a **Drift Report**.
+Possible sensor capabilities include:
 
-## The Philosophy
-**Stop testing for luck.** Use sensors to measure the distance between the model's behavior and business intent.
+- deterministic contract and schema checks;
+- representative scenarios and regression sets;
+- statistical sampling and outcome metrics;
+- model-assisted evaluation with calibration and limitations;
+- expert or user review;
+- incidents, complaints, overrides, and near misses;
+- latency, cost, availability, and tool-execution signals;
+- changes in models, prompts, context, data, permissions, or operating conditions;
+- audit and traceability records.
+
+## Does not imply
+
+This capability does not imply that:
+
+- one metric is equivalent to business truth;
+- a golden set contains one universally ideal answer;
+- a fixed sample size is valid across use cases;
+- an LLM judge is appropriate as final authority for every decision;
+- telemetry alone closes the control loop.
+
+## Design expectations
+
+A mature sensor description should identify:
+
+1. the decision it is intended to support;
+2. the behavior, outcome, or condition it observes;
+3. its coverage, uncertainty, latency, and known blind spots;
+4. how it is calibrated and reviewed;
+5. how evidence remains traceable;
+6. which controller receives it and what action may follow.
+
+## Relationships
+
+- [`../README.md`](../README.md) defines the AI Control Plane capability model.
+- [`../00-actuators/`](../00-actuators/) contains mechanisms capable of changing behavior.
+- [`../02-controller/`](../02-controller/) interprets evidence and authorizes corrective action.
+- [`../../00-doctrine/glossary.md`](../../00-doctrine/glossary.md) defines sensor, evidence, evaluation, drift, and related terms.
