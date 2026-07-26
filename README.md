@@ -12,6 +12,7 @@ The project is designed primarily for small and medium-sized engineering organiz
 
 - **Read the specification boundary and status model:** [`SPECIFICATION.md`](SPECIFICATION.md)
 - **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
+- **Use the canonical vocabulary:** [`00-doctrine/glossary.md`](00-doctrine/glossary.md)
 - **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
 - **Review concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
@@ -98,6 +99,13 @@ The canonical boundary, status vocabulary, and conformance model are defined in 
 - [`CHANGELOG.md`](CHANGELOG.md) — changes to repository and specification artifacts.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution and review workflow.
 
+### Navigation for Obsidian and AI tools
+
+- [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) defines the controlled frontmatter fields and hierarchical `ua/...` tag vocabulary.
+- [`AGENTS.md`](AGENTS.md) provides a tool-neutral repository map, authority order, reading strategies, and editing invariants for language models and coding agents.
+
+These files improve navigation and retrieval. They are informative and do not create a second specification or change document authority.
+
 ## Evidence and Project History
 
 UA keeps different kinds of evidence separate:
@@ -116,7 +124,7 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The current priority is to complete a final repository consistency pass. The next substantive phase is cross-publication synthesis and extraction of the framework spine, followed by a practical SMB-facing artifact for mapping risks, required controls, and control cost.
+The repository structure, document-status model, canonical entry points, draft glossary, and navigation metadata are now aligned. The current substantive priority is cross-publication research synthesis and extraction of the framework spine, followed by a practical SMB-facing artifact for mapping risks, required controls, and control cost.
 
 See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 
