@@ -103,6 +103,7 @@ Initial controlled values:
 - `research-process`
 - `research-template`
 - `research-traceability`
+- `source-archive-index`
 - `history-index`
 - `history-record`
 - `historical-artifact`
@@ -122,6 +123,8 @@ The document-status vocabulary is controlled by [`SPECIFICATION.md`](SPECIFICATI
 - `reference`
 - `research`
 - `historical`
+
+The hyphenated metadata values are machine-friendly forms of the human-readable status labels in the specification.
 
 Do not use `draft` as a substitute for document status. Draftness is maturity, not normative classification.
 
@@ -232,8 +235,14 @@ Names a repository responsibility for which the document is the canonical source
 - `doctrine-vocabulary`
 - `research-track`
 - `project-history`
+- `raw-source-archive`
+- `project-roadmap`
+- `change-record`
 - `contribution-workflow`
 - `document-metadata`
+- `tag-vocabulary`
+- `ai-agent-repository-guide`
+- `supporting-material-publishing-portal`
 
 Only one active document should normally claim the same `canonical_for` value.
 
@@ -254,6 +263,7 @@ Record explicit evolution. These fields are especially useful for terminology de
 5. Prefer an existing controlled topic over a synonym.
 6. Add new controlled terms through a deliberate repository change.
 7. Keep tags stable enough that Obsidian queries and LLM retrieval prompts remain reusable.
+8. Use `canonical_for` sparingly; it is an authority-discovery aid, not a label for every important file.
 
 ## Obsidian examples
 
