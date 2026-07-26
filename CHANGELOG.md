@@ -1,3 +1,22 @@
+---
+title: Uncertainty Architecture Changelog
+artifact_type: changelog
+status: informative
+maturity: active
+module: repository
+topics:
+  - provenance
+  - repository-architecture
+tags:
+  - ua/module/repository
+  - ua/type/changelog
+  - ua/status/informative
+  - ua/topic/provenance
+  - ua/topic/repository-architecture
+canonical_for:
+  - change-record
+---
+
 # Changelog
 
 All notable changes to the **Uncertainty Architecture repository and specification artifacts** are documented in this file.
@@ -23,12 +42,16 @@ Project publications, talks, community discussions, and independent references a
 - Added a canonical research-notes area under `content/research/notes/`.
 - Added `content/raw/README.md` to define the provenance and non-normative boundary of source snapshots.
 - Added a historical archive for the superseded January 2026 RFC governance scaffold under `content/history/legacy-rfcs/`.
+- Added `DOCUMENT-METADATA.md` with controlled frontmatter fields, document classes, topics, relationship metadata, and hierarchical `ua/...` tags for Obsidian, Quartz, and machine retrieval.
+- Added `AGENTS.md` as a tool-neutral repository map and editing guide for language models and coding agents.
+- Added source-intake records for the available on-device/cloud article and the *Designing Non-Deterministic Systems* presentation, both still pending repository preservation or normalization.
+- Expanded the canonical draft glossary with current UA terminology and explicit historical-term boundaries.
 
 ### Changed
 
 - Simplified the repository contribution and research workflow for maintainer-led development while preserving deliberate review for normative, high-impact, automated, and externally contributed changes.
 - Reframed research review artifacts as proportional tools rather than mandatory components of every research update.
-- Redesigned the root README as a specification landing page with direct navigation to research, discussions, independent references, talks, and the changelog.
+- Redesigned the root README as a specification landing page with direct navigation to research, discussions, independent references, talks, the glossary, metadata conventions, and the agent guide.
 - Normalized the entry-point structure and status declarations of the five primary specification modules.
 - Adopted **Thinking Systems** as the current UA system-category term. **Behavioral Software** and **Behavioral Applications** are retained only as explicitly identified historical terminology in archived sources and provenance records.
 - Consolidated supporting material into one canonical namespace per type: `content/research/`, `content/history/`, and `content/raw/`.
@@ -36,6 +59,14 @@ Project publications, talks, community discussions, and independent references a
 - Replaced the research status `Proposed for RFC` with `Proposed for Framework Review` because the repository has no active mandatory RFC process.
 - Clarified that Quartz and related Node files are publishing infrastructure rather than normative UA content.
 - Removed the stale private Quartz deployment base URL rather than replacing it with an unverified public domain.
+- Reclassified the early AI delivery lifecycle from doctrine to a research note and marked its sequence, role names, sample sizes, and thresholds as illustrative rather than universal.
+- Reworked child AI Control Plane documents so actuators, sensors, controllers, metrics, golden scenarios, evaluations, prompt interfaces, and responsibility bundles align with the distributed capability model in the module index.
+- Replaced universal claims such as fixed sample sizes, fixed accuracy gates, mandatory weekly reviews, and mandatory specialist job titles with context- and risk-derived guidance.
+- Clarified that golden scenarios are regression and change-detection anchors rather than universal ground truth.
+- Clarified that telemetry or evaluation becomes control only when connected to decision authority and a mechanism that can change, contain, roll back, escalate, or stop behavior.
+- Added controlled metadata to the specification, glossary, module entry points, Control Plane sub-documents, and actively maintained research indexes.
+- Updated contribution guidance to require consistent metadata for new maintained conceptual documents and to direct agent-assisted work through `AGENTS.md`.
+- Updated the roadmap so cross-publication synthesis is now the immediate substantive priority.
 
 ### Removed
 
@@ -43,6 +74,8 @@ Project publications, talks, community discussions, and independent references a
 - Removed the active `content/rfcs/` namespace after preserving its governance proposal and template as superseded historical records.
 - Removed empty `scripts/` and `templates/` scaffolds that contained no active utilities or reusable project artifacts.
 - Removed references to the nonexistent `GOVERNANCE.md` and to inactive root research or RFC namespaces.
+- Removed the obsolete `00-doctrine/LLM_Delivery_SDLC.md` path after preserving and reclassifying its substantive content under `content/research/notes/ai-delivery-lifecycle.md`.
+- Removed redundant `.gitkeep` files from directories that already contain maintained documents.
 
 ## [0.1.0] - 2025-12-09
 

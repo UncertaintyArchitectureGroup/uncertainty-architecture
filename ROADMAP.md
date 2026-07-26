@@ -1,3 +1,22 @@
+---
+title: Uncertainty Architecture Roadmap
+artifact_type: roadmap
+status: informative
+maturity: active
+module: repository
+topics:
+  - repository-architecture
+  - navigation
+tags:
+  - ua/module/repository
+  - ua/type/roadmap
+  - ua/status/informative
+  - ua/topic/repository-architecture
+  - ua/topic/navigation
+canonical_for:
+  - project-roadmap
+---
+
 # Uncertainty Architecture Roadmap
 
 Uncertainty Architecture is being developed as a practical open specification for engineering and operating software that delegates part of its behavior to probabilistic model judgment.
@@ -47,17 +66,23 @@ The objective is to consolidate the existing research into a coherent, bounded s
 - canonical supporting namespaces consolidated under `content/research/`, `content/history/`, and `content/raw/`;
 - earlier root research briefs classified as draft research notes;
 - the retired RFC governance scaffold archived as historical rather than left as an active process;
-- empty `scripts/` and `templates/` scaffolds removed.
+- empty repository scaffolds and orphaned `.gitkeep` files removed;
+- final repository consistency pass completed across canonical routes, status boundaries, module sub-documents, and research-source traceability;
+- initial canonical draft glossary established, including Thinking Systems, Deterministic Core, Model Judgment, Uncertainty Boundary, AI Control Plane, control-loop capabilities, and delivery vocabulary;
+- early AI delivery lifecycle material reclassified from doctrine into a research note with illustrative thresholds and roles explicitly bounded;
+- child AI Control Plane documents aligned with the distributed capability model and stripped of universal sample sizes, thresholds, role titles, and fixed review cadences;
+- controlled document metadata and hierarchical `ua/...` tag conventions established in `DOCUMENT-METADATA.md`;
+- tool-neutral repository guidance for language models and coding agents established in `AGENTS.md`;
+- missing repository records added for the available on-device/cloud article and presentation sources that remain pending preservation or normalization.
 
 ### Active and next milestones
 
-- [ ] Complete a final repository consistency pass covering links, document statuses, canonical entry points, and orphaned placeholders.
 - [ ] Complete a cross-publication research synthesis.
 - [ ] Identify stable concepts, later refinements, contradictions, and superseded claims.
-- [ ] Define the relationship between Thinking Systems and higher-autonomy agentic systems in the canonical glossary.
+- [ ] Refine the canonical glossary where synthesis changes scope or meaning.
 - [ ] Produce a concise framework-spine proposal.
 - [ ] Clarify normative boundaries across Doctrine, Patterns, AI Control Plane, Operating Model, Reference Architectures, Failure Modes, and practical artifacts.
-- [ ] Consolidate canonical definitions in a repository glossary.
+- [ ] Translate accepted framework decisions into module-level normative or draft-normative documents.
 
 ## Phase 3 — Patterns and Failure Modes
 
@@ -99,6 +124,7 @@ Tooling is optional and must serve the specification rather than redefine it.
 Possible outcomes:
 
 - small validation or repository-maintenance utilities;
+- metadata and internal-link validation;
 - example prompt, policy, and evaluation registries;
 - reference control-plane implementations;
 - executable examples and architecture demonstrations;
@@ -108,6 +134,6 @@ No universal SDK or platform is currently planned.
 
 ## Current priority
 
-The immediate priority is to complete the final repository consistency pass. After that, the project should complete the research synthesis, establish the framework spine, and derive one practical SMB-facing control-loop and risk-mapping artifact from that spine.
+The immediate priority is cross-publication research synthesis and extraction of the framework spine. Once that spine is explicit, the project should derive one practical SMB-facing control-loop and risk-mapping artifact from it.
 
 The project optimizes for durable clarity, traceability, and practical usefulness rather than rapid expansion of repository volume.

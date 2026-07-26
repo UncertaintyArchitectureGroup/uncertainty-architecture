@@ -1,3 +1,27 @@
+---
+title: Core Doctrine
+artifact_type: doctrine
+status: draft-normative
+maturity: active
+module: doctrine
+topics:
+  - thinking-systems
+  - deterministic-core
+  - model-judgment
+  - uncertainty-boundary
+  - containment
+tags:
+  - ua/module/doctrine
+  - ua/type/doctrine
+  - ua/status/draft-normative
+  - ua/topic/thinking-systems
+  - ua/topic/deterministic-core
+  - ua/topic/model-judgment
+  - ua/topic/uncertainty-boundary
+canonical_for:
+  - doctrine-module
+---
+
 # Core Doctrine
 
 **Status:** Draft normative  
@@ -14,12 +38,12 @@ The doctrine provides the shared mental model needed to discuss uncertainty with
 This module defines or develops the foundational distinctions behind:
 
 - Thinking Systems;
-- deterministic control logic and model judgment;
+- deterministic control logic and Model Judgment;
 - the boundary between probabilistic behavior and deterministic system responsibilities;
-- open and non-deterministic operating conditions;
+- open-loop and closed-loop operating conditions;
 - uncertainty containment rather than uncertainty elimination;
 - the limits of metrics without decision authority and corrective action;
-- the architectural importance of interfaces, invariants, feedback, and human authority.
+- the architectural importance of interfaces, invariants, feedback, and Human Authority.
 
 ## Does not define
 
@@ -33,13 +57,19 @@ This module does not prescribe:
 
 ## Key concepts
 
-- **Thinking System** — a software system in which part of the runtime path or decision process is produced through model-mediated judgment.
+- **Thinking System** — a software system in which part of the runtime path or decision process is produced through model-mediated judgment while consequential deterministic responsibilities remain explicit.
 - **Deterministic Core** — rules, invariants, permissions, data handling, and other responsibilities that must remain explicitly controlled.
-- **Model Judgment** — interpretation, synthesis, classification, generation, or action selection under uncertainty.
+- **Model Judgment** — interpretation, synthesis, classification, generation, planning, or action selection under uncertainty.
 - **Uncertainty Boundary** — the interface at which deterministic responsibilities meet probabilistic judgment.
 - **Containment** — limiting where uncertainty may propagate and defining what happens when behavior leaves acceptable bounds.
 
-Canonical wording will be consolidated in the project glossary. Until then, these descriptions establish the intended conceptual direction rather than final term-level conformance language.
+The canonical wording for terms currently defined by UA is maintained in the [project glossary](glossary.md). Undefined or unresolved terms remain draft framework questions rather than implied requirements.
+
+## Documents
+
+- [`glossary.md`](glossary.md) — canonical draft-normative vocabulary for current UA terms.
+
+Process hypotheses, lifecycle sketches, and historical terminology belong in the Research Track unless deliberately adopted into doctrine.
 
 ## Relationships
 

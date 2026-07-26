@@ -1,9 +1,22 @@
 ---
 title: Retired RFC Template
-artifact_type: historical-template
+artifact_type: historical-artifact
 status: historical
+maturity: superseded
+module: history
+topics:
+  - provenance
+  - repository-architecture
+tags:
+  - ua/module/history
+  - ua/type/historical-artifact
+  - ua/status/historical
+  - ua/topic/provenance
 original_rfc_id: 0
 repository_archived: 2026-07-25
+superseded_by:
+  - ../../../CONTRIBUTING.md
+  - ../../../SPECIFICATION.md
 license: CC-BY-4.0
 ---
 

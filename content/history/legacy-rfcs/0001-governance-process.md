@@ -1,7 +1,17 @@
 ---
 title: The Uncertainty Architecture Governance Model
-artifact_type: historical-governance-proposal
+artifact_type: historical-artifact
 status: historical
+maturity: superseded
+module: history
+topics:
+  - provenance
+  - repository-architecture
+tags:
+  - ua/module/history
+  - ua/type/historical-artifact
+  - ua/status/historical
+  - ua/topic/provenance
 original_rfc_id: 1
 authors:
   - Vitalii Oborskyi

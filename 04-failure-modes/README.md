@@ -1,3 +1,27 @@
+---
+title: Failure Modes and Anti-Patterns
+artifact_type: failure-mode-index
+status: draft-normative
+maturity: active
+module: failure-modes
+topics:
+  - drift
+  - containment
+  - evidence
+  - controller
+  - human-authority
+tags:
+  - ua/module/failure-modes
+  - ua/type/failure-mode-index
+  - ua/status/draft-normative
+  - ua/topic/drift
+  - ua/topic/containment
+  - ua/topic/evidence
+  - ua/topic/controller
+canonical_for:
+  - failure-modes-module
+---
+
 # Failure Modes and Anti-Patterns
 
 **Status:** Draft normative taxonomy; examples are informative  
@@ -93,6 +117,10 @@ Illustrative examples:
 - **Perfect-prompt fallacy:** attempting to eliminate uncertainty through prompting instead of engineering containment and recovery;
 - **Telemetry without authority:** collecting metrics without assigning who may intervene or change the system;
 - **Human-in-the-loop theatre:** nominal approval steps without adequate context, time, competence, or real decision power.
+
+## Documents
+
+Future failure-mode documents should identify whether they define a taxonomy entry, provide an informative incident example, or preserve a historical post-mortem. They should follow [`DOCUMENT-METADATA.md`](../DOCUMENT-METADATA.md).
 
 ## Contribution
 

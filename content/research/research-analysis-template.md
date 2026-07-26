@@ -1,8 +1,18 @@
 ---
 title: "Analysis: [Source title]"
-artifact_type: research-analysis
-status: draft
+artifact_type: research-template
+status: informative
+maturity: active
 draft: true
+module: research
+topics:
+  - provenance
+  - thinking-systems
+tags:
+  - ua/module/research
+  - ua/type/research-template
+  - ua/status/informative
+  - ua/topic/provenance
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 source_record: "[Relative path to publication or research note]"
@@ -13,6 +23,8 @@ license: CC-BY-4.0
 ---
 
 # Analysis: [Source title]
+
+> **Template status:** Informative repository tool. `draft: true` hides the template from normal Quartz publishing and does not mean that the resulting analysis has normative status.
 
 ## Analysis purpose
 
@@ -116,3 +128,5 @@ List the exact rows proposed for `framework-traceability.md`.
 - **Superseded concepts:** [List]
 - **Separate normative proposal or methodology work required:** [List]
 - **Terminology decisions deferred:** [List]
+
+Apply the metadata conventions in [`DOCUMENT-METADATA.md`](../../DOCUMENT-METADATA.md) to the completed analysis.

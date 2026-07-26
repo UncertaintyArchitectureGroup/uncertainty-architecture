@@ -12,6 +12,7 @@ The project is designed primarily for small and medium-sized engineering organiz
 
 - **Read the specification boundary and status model:** [`SPECIFICATION.md`](SPECIFICATION.md)
 - **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
+- **Use the canonical vocabulary:** [`00-doctrine/glossary.md`](00-doctrine/glossary.md)
 - **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
 - **Review concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
@@ -30,22 +31,24 @@ UA calls this broader class **Thinking Systems** (previously described in histor
 
 Agentic systems are a higher-autonomy subset of Thinking Systems, not a synonym for the whole category.
 
-The architectural problem is therefore not only model quality. It is how probabilistic judgment is connected to business rules, permissions, data, human authority, release processes, monitoring, and correction.
+The architectural problem is therefore not only model quality. It is how probabilistic judgment is connected to business rules, permissions, data, Human Authority, release processes, monitoring, and correction.
 
 ## Core Model
 
 UA treats AI governance as an engineering control problem.
 
-> **Reliable AI = Actuators + Sensors + Controller**
+A functioning control loop requires at least:
 
-- **Actuators** shape and constrain behavior: prompts, schemas, policies, permissions, tools, model settings, and execution boundaries.
-- **Sensors** detect deviation: evaluations, golden scenarios, runtime signals, incidents, qualitative review, and drift monitoring.
-- **Controller** determines corrective action: release gates, ownership, escalation, rollback, retraining, prompt or policy changes, and human decision authority.
+- **Actuators** capable of materially shaping, constraining, changing, containing, or stopping behavior;
+- **Sensors and evidence** that make relevant outputs, outcomes, drift, incidents, and operating conditions observable;
+- **A Controller** with decision authority to interpret evidence and authorize corrective action.
+
+These capabilities are necessary parts of control, not a formula that guarantees reliability. Their adequacy depends on consequences, uncertainty, autonomy, reversibility, evidence quality, feedback latency, and operating context.
 
 This control loop surrounds a critical distinction:
 
 - **Deterministic Core** — business rules, invariants, authentication, data handling, auditability, and safety constraints.
-- **Model Judgment** — interpretation, synthesis, classification under ambiguity, open-ended generation, and uncertain tool choice.
+- **Model Judgment** — interpretation, synthesis, classification under ambiguity, open-ended generation, planning, and uncertain tool choice.
 
 UA focuses on the boundary between these regions.
 
@@ -98,6 +101,13 @@ The canonical boundary, status vocabulary, and conformance model are defined in 
 - [`CHANGELOG.md`](CHANGELOG.md) — changes to repository and specification artifacts.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution and review workflow.
 
+### Navigation for Obsidian and AI tools
+
+- [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) defines the controlled frontmatter fields and hierarchical `ua/...` tag vocabulary.
+- [`AGENTS.md`](AGENTS.md) provides a tool-neutral repository map, authority order, reading strategies, and editing invariants for language models and coding agents.
+
+These files improve navigation and retrieval. They are informative and do not create a second specification or change document authority.
+
 ## Evidence and Project History
 
 UA keeps different kinds of evidence separate:
@@ -116,7 +126,7 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The current priority is to complete a final repository consistency pass. The next substantive phase is cross-publication synthesis and extraction of the framework spine, followed by a practical SMB-facing artifact for mapping risks, required controls, and control cost.
+The repository structure, document-status model, canonical entry points, draft glossary, and navigation metadata are now aligned. The current substantive priority is cross-publication research synthesis and extraction of the framework spine, followed by a practical SMB-facing artifact for mapping risks, required controls, and control cost.
 
 See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 

@@ -1,3 +1,27 @@
+---
+title: Uncertainty Architecture Specification
+artifact_type: specification-index
+status: draft-normative
+maturity: active
+module: repository
+topics:
+  - thinking-systems
+  - uncertainty-boundary
+  - control-loop
+  - conformance
+tags:
+  - ua/module/repository
+  - ua/type/specification-index
+  - ua/status/draft-normative
+  - ua/topic/thinking-systems
+  - ua/topic/uncertainty-boundary
+  - ua/topic/conformance
+canonical_for:
+  - specification-boundary
+  - document-status-model
+  - conformance-model
+---
+
 # Uncertainty Architecture Specification
 
 **Status:** Draft specification index  
@@ -54,11 +78,15 @@ Every specification document SHOULD declare one of the following statuses:
 
 A directory name does not by itself determine status. The explicit status in the document or its module index takes precedence.
 
+The metadata field `maturity` may describe lifecycle state within a status class, such as `draft`, `active`, `stable`, or `superseded`. It does not replace document status. See [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md).
+
 ## 5. Specification structure
 
 ### 5.1 Core doctrine
 
 [`00-doctrine/`](00-doctrine/README.md) defines the foundational concepts and distinctions on which the rest of UA depends.
+
+[`00-doctrine/glossary.md`](00-doctrine/glossary.md) is the canonical vocabulary source for terms it currently defines. The glossary remains draft normative and may be refined through framework review.
 
 Stable doctrine is expected to become normative; unfinished doctrine remains draft normative.
 
@@ -96,13 +124,17 @@ The project uses one canonical namespace for each supporting-material type:
 - [`content/index.md`](content/index.md) — an informative publishing portal, not a specification or governance source;
 - [`ROADMAP.md`](ROADMAP.md) — planned evolution of the project;
 - [`CHANGELOG.md`](CHANGELOG.md) — repository-level record of material changes;
-- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution workflow, review expectations, and current maintainer authority.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution workflow, review expectations, and current maintainer authority;
+- [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) — informative document metadata and controlled tag conventions;
+- [`AGENTS.md`](AGENTS.md) — informative repository orientation and editing guidance for language models and automated agents.
 
 The `quartz/` source tree and related Node configuration are publishing infrastructure. They do not define UA concepts, requirements, governance, or conformance.
 
 There is no active root-level research namespace or mandatory RFC namespace. Working research belongs under `content/research/`. Substantial framework proposals use a branch and pull request under [`CONTRIBUTING.md`](CONTRIBUTING.md); a formal RFC namespace may be introduced later only through an explicit project decision.
 
 Content enters the normative specification only through an explicit framework decision and a corresponding status change.
+
+Metadata, tags, publishing placement, recency, external attention, or agent-generated summaries do not change normative authority.
 
 ## 7. Conformance
 
@@ -134,6 +166,6 @@ Research findings, talks, articles, implementations, and external frameworks do 
 
 ## 9. Current maturity
 
-UA is in active development. The repository contains a conceptual spine, normalized module entry points, patterns, a control-plane model, reference material, and failure-mode work, but detailed normative content remains incomplete and may change.
+UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, patterns, a control-plane model, reference material, and failure-mode work, but detailed normative content remains incomplete and may change.
 
 Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples remain **reference** or **informative**, not mandatory implementation requirements.

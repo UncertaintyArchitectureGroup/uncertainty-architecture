@@ -1,3 +1,27 @@
+---
+title: The AI Control Plane
+artifact_type: control-plane-index
+status: draft-normative
+maturity: active
+module: control-plane
+topics:
+  - ai-control-plane
+  - actuators
+  - sensors
+  - controller
+  - control-loop
+tags:
+  - ua/module/control-plane
+  - ua/type/control-plane-index
+  - ua/status/draft-normative
+  - ua/topic/ai-control-plane
+  - ua/topic/actuators
+  - ua/topic/sensors
+  - ua/topic/controller
+canonical_for:
+  - control-plane-module
+---
+
 # The AI Control Plane
 
 **Status:** Draft normative  
@@ -27,7 +51,7 @@ This module does not prescribe:
 - one centralized control-plane service;
 - a specific model, framework, vendor, or deployment topology;
 - universal quality, safety, latency, cost, or autonomy thresholds;
-- fully automated control in contexts that require human authority;
+- fully automated control in contexts that require Human Authority;
 - model quality as a substitute for system-level control.
 
 ## Key concepts
@@ -35,12 +59,20 @@ This module does not prescribe:
 - actuator;
 - sensor;
 - controller;
-- error or deviation signal;
+- evidence and deviation signal;
 - target operating envelope;
 - release gate;
-- escalation and human authority;
+- escalation and Human Authority;
 - rollback, containment, and shutdown;
 - feedback latency and control cadence.
+
+## Capability areas
+
+- [`00-actuators/`](00-actuators/) — mechanisms capable of changing or constraining behavior.
+- [`01-sensors/`](01-sensors/) — evidence about behavior, outcomes, drift, and operating conditions.
+- [`02-controller/`](02-controller/) — interpretation, decision authority, and corrective action.
+
+The capability-area documents inherit the module's draft-normative boundary when they define a capability. Examples and implementation-oriented subareas are informative unless explicitly stated otherwise.
 
 ## Relationships
 

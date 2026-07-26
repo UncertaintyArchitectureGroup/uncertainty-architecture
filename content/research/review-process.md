@@ -1,9 +1,19 @@
 ---
 title: UA Research Review Process
 artifact_type: research-process
-status: draft
+status: informative
+maturity: active
+module: research
+topics:
+  - provenance
+  - repository-architecture
+tags:
+  - ua/module/research
+  - ua/type/research-process
+  - ua/status/informative
+  - ua/topic/provenance
 created: 2026-07-24
-updated: 2026-07-25
+updated: 2026-07-26
 license: CC-BY-4.0
 ---
 
@@ -36,6 +46,8 @@ The amount of process should match the risk and impact of the change. A typo fix
 ### Human control over automated changes
 
 Automated agents may prepare and validate changes, but they must not merge, force-push, delete branches, rewrite history, or make unscoped normative decisions without explicit human instruction.
+
+Automated tools should follow the repository map and editing invariants in [`AGENTS.md`](../../AGENTS.md).
 
 ## Supported research work types
 
@@ -147,3 +159,5 @@ The historical repository editions are now preserved under `content/research/pub
 - material that should remain research context only.
 
 Source-specific analysis may still be added where it produces useful evidence or resolves a concrete question.
+
+Metadata for new research process and analysis documents should follow [`DOCUMENT-METADATA.md`](../../DOCUMENT-METADATA.md).

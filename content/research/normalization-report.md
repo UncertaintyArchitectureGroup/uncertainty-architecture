@@ -1,14 +1,26 @@
 ---
 title: Historical Publication Normalization Report
-artifact_type: research-normalization-report
-status: draft
+artifact_type: research-note
+status: research
+maturity: stable
 draft: true
+module: research
+topics:
+  - provenance
+  - repository-architecture
+tags:
+  - ua/module/research
+  - ua/type/research-note
+  - ua/status/research
+  - ua/topic/provenance
 created: 2026-07-25
-updated: 2026-07-25
+updated: 2026-07-26
 license: CC-BY-4.0
 ---
 
 # Historical Publication Normalization Report
+
+> **Publishing note:** `draft: true` keeps this maintenance report out of normal Quartz publishing. Its UA status is `research`; the field does not mean draft normative content.
 
 ## Scope
 
@@ -17,8 +29,8 @@ This report covers all five Markdown source snapshots present in `content/raw/` 
 ## Repository inventory
 
 - `content/raw/` contains five imported historical article snapshots: two English articles with Medium export metadata, one English article with Towards AI export metadata, one Ukrainian article copied from DOU, and one English article without publication metadata.
-- `content/research/` contains the public Research Track index, review process, publication and analysis templates, framework traceability scaffold, this report, and the normalized editions under `publications/`.
-- The root-level `research/` directory contains three short legacy planning briefs about control theory, metrics, and reference implementations. They do not duplicate the public Research Track documents, although their proposed work is conceptually related. They should be retained unchanged until separately classified; active briefs could later be migrated as explicitly non-normative planning or research-note material, while superseded briefs could be archived. Nothing in that directory warrants removal without a separate review.
+- `content/research/` contains the public Research Track index, review process, publication and analysis templates, framework traceability scaffold, this report, normalized editions under `publications/`, and classified working notes under `notes/`.
+- The three former root-level research planning briefs were migrated to `content/research/notes/` during namespace consolidation. They remain explicitly non-normative planning notes rather than completed research findings.
 
 ## Cleanup details
 
@@ -33,3 +45,5 @@ This report covers all five Markdown source snapshots present in `content/raw/` 
 ## Quality checks
 
 Each normalized edition was checked for a single H1, non-skipping heading levels, balanced fenced code blocks, repeated long paragraphs, and preservation of substantive source lines outside the residue ranges documented above. The Ukrainian edition was also checked for remaining U+00A0 and U+202F space characters and for heading markers accidentally embedded in list items. The Beyond Embeddings title was verified directly against the first explicit H1 in its raw source and corrected to match it exactly. Links and images were retained unless only tracking metadata was removed. No footnotes or Markdown tables were present in the raw snapshots.
+
+Metadata conventions for future maintenance are defined in [`DOCUMENT-METADATA.md`](../../DOCUMENT-METADATA.md).

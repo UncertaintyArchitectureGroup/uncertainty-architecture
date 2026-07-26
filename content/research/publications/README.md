@@ -1,3 +1,20 @@
+---
+title: Historical Research Publications
+artifact_type: research-index
+status: research
+maturity: stable
+module: research
+topics:
+  - provenance
+  - thinking-systems
+tags:
+  - ua/module/research
+  - ua/type/research-index
+  - ua/status/research
+  - ua/topic/provenance
+  - ua/topic/thinking-systems
+---
+
 # Historical Research Publications
 
 **Status:** Research archive
@@ -29,3 +46,5 @@ Generic uses of words such as *behavior*, *behavioral constraint*, or *behaviora
 - [`beyond-embeddings-architecting-risk-and-logic-in-the-age-of-behavioral-software.md`](beyond-embeddings-architecting-risk-and-logic-in-the-age-of-behavioral-software.md)
 
 See the parent [Research Track index](../index.md) for the normative boundary and research-review model.
+
+The archive adopts [`DOCUMENT-METADATA.md`](../../../DOCUMENT-METADATA.md) incrementally. Historical publication bodies are not rewritten solely to normalize tags or frontmatter.
