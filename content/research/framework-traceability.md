@@ -1,9 +1,20 @@
 ---
 title: Research-to-Framework Traceability
 artifact_type: research-traceability
-status: draft
+status: research
+maturity: draft
+module: research
+topics:
+  - provenance
+  - thinking-systems
+  - repository-architecture
+tags:
+  - ua/module/research
+  - ua/type/research-traceability
+  - ua/status/research
+  - ua/topic/provenance
 created: 2026-07-24
-updated: 2026-07-25
+updated: 2026-07-26
 license: CC-BY-4.0
 ---
 
@@ -77,3 +88,5 @@ A research change may add findings and conflicts supported by a single source, m
 Entries should remain concise and decision-oriented. Detailed argument belongs in the supporting analysis or synthesis document.
 
 Repository-wide terminology or methodology changes require separate deliberate framework review. A traceability entry alone does not activate a normative requirement.
+
+Metadata and tags follow [`DOCUMENT-METADATA.md`](../../DOCUMENT-METADATA.md).
