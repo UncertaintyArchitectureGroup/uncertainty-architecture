@@ -30,6 +30,7 @@ This page is the entry point for the repository's published supporting material.
 - [Project roadmap](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/ROADMAP.md)
 - [Contribution and review workflow](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/CONTRIBUTING.md)
 - [Document metadata and tags](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/DOCUMENT-METADATA.md)
+- [Repository guide for AI agents](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/AGENTS.md)
 
 ## Supporting material
 
