@@ -1,6 +1,6 @@
 ---
 title: Raw Source Archive
-artifact_type: source-archive-index
+artifact_type: repository-index
 status: historical
 maturity: stable
 module: research
@@ -8,7 +8,7 @@ topics:
   - provenance
 tags:
   - ua/module/research
-  - ua/type/source-archive-index
+  - ua/type/repository-index
   - ua/status/historical
   - ua/topic/provenance
 canonical_for:
