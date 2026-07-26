@@ -1,3 +1,22 @@
+---
+title: Uncertainty Architecture Roadmap
+artifact_type: roadmap
+status: informative
+maturity: active
+module: repository
+topics:
+  - repository-architecture
+  - navigation
+tags:
+  - ua/module/repository
+  - ua/type/roadmap
+  - ua/status/informative
+  - ua/topic/repository-architecture
+  - ua/topic/navigation
+canonical_for:
+  - project-roadmap
+---
+
 # Uncertainty Architecture Roadmap
 
 Uncertainty Architecture is being developed as a practical open specification for engineering and operating software that delegates part of its behavior to probabilistic model judgment.
