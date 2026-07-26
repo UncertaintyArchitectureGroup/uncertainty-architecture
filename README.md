@@ -91,8 +91,9 @@ The canonical boundary, status vocabulary, and conformance model are defined in 
 
 ### Supporting material
 
-- [`content/research/`](content/research/) — research corpus, provenance, analysis, synthesis, and research-to-framework traceability.
-- [`content/history/`](content/history/) — project milestones, talks, discussions, and independent references.
+- [`content/research/`](content/research/) — research corpus, notes, provenance, analysis, synthesis, and research-to-framework traceability.
+- [`content/history/`](content/history/) — project milestones, talks, discussions, independent references, and superseded process records.
+- [`content/raw/`](content/raw/) — preserved source snapshots used for normalized research editions.
 - [`ROADMAP.md`](ROADMAP.md) — current direction and future priorities.
 - [`CHANGELOG.md`](CHANGELOG.md) — changes to repository and specification artifacts.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution and review workflow.
@@ -115,7 +116,7 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The current priority is to consolidate the research corpus into a coherent framework spine, clarify normative boundaries, and derive a practical SMB-facing artifact for mapping risks, required controls, and control cost.
+The current priority is to complete a final repository consistency pass. The next substantive phase is cross-publication synthesis and extraction of the framework spine, followed by a practical SMB-facing artifact for mapping risks, required controls, and control cost.
 
 See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 

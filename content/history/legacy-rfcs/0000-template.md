@@ -1,4 +1,21 @@
 ---
+title: Retired RFC Template
+artifact_type: historical-template
+status: historical
+original_rfc_id: 0
+repository_archived: 2026-07-25
+license: CC-BY-4.0
+---
+
+# Retired RFC Template
+
+> **Historical status:** This template belonged to an RFC process drafted in January 2026. It is preserved for traceability and is not the current contribution template. Current changes follow [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) and the change-control section of [`SPECIFICATION.md`](../../../SPECIFICATION.md).
+
+## Preserved original artifact
+
+Original frontmatter:
+
+```yaml
 rfc_id: 0
 title: RFC Template
 authors:
@@ -7,7 +24,7 @@ status:
 scope: Pattern
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
----
+```
 
 # RFC: [Title]
 

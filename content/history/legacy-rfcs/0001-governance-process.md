@@ -1,4 +1,27 @@
 ---
+title: The Uncertainty Architecture Governance Model
+artifact_type: historical-governance-proposal
+status: historical
+original_rfc_id: 1
+authors:
+  - Vitalii Oborskyi
+created: 2026-01-26
+repository_archived: 2026-07-25
+superseded_by:
+  - ../../../CONTRIBUTING.md
+  - ../../../SPECIFICATION.md
+license: CC-BY-4.0
+---
+
+# RFC 0001: The Uncertainty Architecture Governance Model
+
+> **Historical status:** This January 2026 proposal was never adopted as the current governance model. Its mandatory private-repository, co-author-consensus, advisor-review, and staged RFC assumptions were superseded by the maintainer-led workflow in [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) and the change-control rules in [`SPECIFICATION.md`](../../../SPECIFICATION.md). The original artifact is preserved below without substantive modernization.
+
+## Preserved original artifact
+
+Original frontmatter:
+
+```yaml
 rfc_id: 1
 title: The Uncertainty Architecture Governance Model
 authors: Vitalii Oborskyi
@@ -6,7 +29,7 @@ status:
 scope: Meta
 created: 2026-01-26
 updated: 2026-01-26
----
+```
 
 # RFC: The Uncertainty Architecture Governance Model
 

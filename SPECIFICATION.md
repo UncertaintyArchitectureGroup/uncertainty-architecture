@@ -88,18 +88,21 @@ A taxonomy may be normative; individual examples and post-mortems are normally i
 
 ## 6. Supporting material outside the specification
 
-The following repository areas support the project but are not automatically part of the normative specification:
+The project uses one canonical namespace for each supporting-material type:
 
-- [`content/research/`](content/research/index.md) — publications, analyses, synthesis, and research-to-framework traceability;
-- `content/history/` — project history and archival records;
-- `research/` — working research material pending consolidation or explicit classification;
-- `rfcs/` — formal proposals when the project chooses to use an RFC process;
+- [`content/research/`](content/research/index.md) — research publications, notes, analyses, synthesis, and research-to-framework traceability;
+- [`content/history/`](content/history/README.md) — project history, public evidence, and superseded process or decision records retained for traceability;
+- [`content/raw/`](content/raw/README.md) — preserved source snapshots used to create normalized research editions;
+- [`content/index.md`](content/index.md) — an informative publishing portal, not a specification or governance source;
 - [`ROADMAP.md`](ROADMAP.md) — planned evolution of the project;
 - [`CHANGELOG.md`](CHANGELOG.md) — repository-level record of material changes;
-- [`GOVERNANCE.md`](GOVERNANCE.md) — decision authority and project governance;
-- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution workflow.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution workflow, review expectations, and current maintainer authority.
 
-Content enters the normative specification only through an explicit project decision and a corresponding status change.
+The `quartz/` source tree and related Node configuration are publishing infrastructure. They do not define UA concepts, requirements, governance, or conformance.
+
+There is no active root-level research namespace or mandatory RFC namespace. Working research belongs under `content/research/`. Substantial framework proposals use a branch and pull request under [`CONTRIBUTING.md`](CONTRIBUTING.md); a formal RFC namespace may be introduced later only through an explicit project decision.
+
+Content enters the normative specification only through an explicit framework decision and a corresponding status change.
 
 ## 7. Conformance
 
@@ -127,7 +130,7 @@ Normative and draft normative changes SHOULD be:
 - explicit about compatibility, supersession, and unresolved uncertainty;
 - reflected in the appropriate module index and changelog when material.
 
-Research findings, talks, articles, implementations, and external frameworks do not modify the specification by implication. Adoption requires an explicit normative decision under project governance.
+Research findings, talks, articles, implementations, and external frameworks do not modify the specification by implication. Adoption requires an explicit normative decision following the current contribution and review workflow.
 
 ## 9. Current maturity
 

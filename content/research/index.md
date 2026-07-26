@@ -15,6 +15,17 @@ The Uncertainty Architecture (UA) Research Track preserves and reviews the work 
 
 UA did not begin as a finished standard. It evolved through architectural, operational, governance, verification, and economic investigations. This section makes that evolution explicit and creates a controlled bridge from research to future doctrine, patterns, operating-model responsibilities, reference architectures, failure modes, and practical artifacts.
 
+## Canonical namespace
+
+`content/research/` is the only active research namespace in the repository.
+
+- completed or normalized publications belong in [`publications/`](publications/);
+- bounded working briefs and observations belong in [`notes/`](notes/);
+- preserved unnormalized source snapshots belong in [`content/raw/`](../raw/);
+- public milestones, talks, discussions, and superseded project-process records belong in [`content/history/`](../history/).
+
+A new root-level `research/` directory should not be created. Research material should be classified inside this namespace so that working notes, archived sources, analyses, and framework decisions do not compete as separate entry points.
+
 ## Normative boundary
 
 Documents in this section are **research materials**. They are not automatically binding parts of the UA specification.
@@ -28,7 +39,7 @@ Research publications may contain:
 - assumptions that were later refined;
 - conclusions that conflict with later work.
 
-A research conclusion becomes normative only after it is reviewed, translated into the appropriate framework component, and accepted through the UA governance process.
+A research conclusion becomes normative only after it is reviewed, translated into the appropriate framework component, and accepted through the UA contribution and change-control process.
 
 ## Content types
 
@@ -56,7 +67,9 @@ Focused analysis of one or more sources that may record:
 
 ### Research notes
 
-Structured synthesis derived from presentations, talks, working material, operational observations, or later analysis when no directly published article should be archived.
+Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, or emerging questions. A planning brief is not completed evidence and should state its maturity explicitly.
+
+See the [Research Notes index](notes/README.md).
 
 ### Framework traceability
 
@@ -91,9 +104,9 @@ These templates are optional working tools. They are marked as drafts so they re
 ## Status vocabulary
 
 - **Research Finding** — a conclusion preserved from research material.
-- **Candidate** — potentially suitable for a future framework component.
+- **Candidate** — potentially suitable for translation into a framework component.
 - **Needs Resolution** — terminology, scope, evidence, or conflict must be resolved first.
-- **Proposed for RFC** — mature enough for a separate formal proposal.
+- **Proposed for Framework Review** — mature enough for a separate, deliberate normative proposal and visible review.
 - **Active** — accepted into the normative framework.
 - **Superseded** — replaced by a later formulation.
 - **Rejected** — considered and intentionally not adopted.
@@ -102,7 +115,7 @@ See [Research-to-Framework Traceability](framework-traceability.md).
 
 ## Current research direction
 
-The initial publication corpus has been preserved under [`publications/`](publications/).
+The initial publication corpus has been preserved under [`publications/`](publications/). Earlier root-level planning briefs have been classified under [`notes/`](notes/) and remain draft research tasks rather than completed findings.
 
 The next major task is a cross-publication synthesis that identifies:
 

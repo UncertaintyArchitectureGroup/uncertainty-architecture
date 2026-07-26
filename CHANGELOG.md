@@ -20,6 +20,9 @@ Project publications, talks, community discussions, and independent references a
 - Added a canonical project roadmap in `ROADMAP.md`.
 - Added a project-history area separating the timeline, public talks, and independent references from release history and normative specification content.
 - Added `SPECIFICATION.md` as the canonical specification boundary and document-status index.
+- Added a canonical research-notes area under `content/research/notes/`.
+- Added `content/raw/README.md` to define the provenance and non-normative boundary of source snapshots.
+- Added a historical archive for the superseded January 2026 RFC governance scaffold under `content/history/legacy-rfcs/`.
 
 ### Changed
 
@@ -28,6 +31,18 @@ Project publications, talks, community discussions, and independent references a
 - Redesigned the root README as a specification landing page with direct navigation to research, discussions, independent references, talks, and the changelog.
 - Normalized the entry-point structure and status declarations of the five primary specification modules.
 - Adopted **Thinking Systems** as the current UA system-category term. **Behavioral Software** and **Behavioral Applications** are retained only as explicitly identified historical terminology in archived sources and provenance records.
+- Consolidated supporting material into one canonical namespace per type: `content/research/`, `content/history/`, and `content/raw/`.
+- Replaced the obsolete RFC-oriented `content/index.md` with an informative publishing portal that links back to the canonical repository sources.
+- Replaced the research status `Proposed for RFC` with `Proposed for Framework Review` because the repository has no active mandatory RFC process.
+- Clarified that Quartz and related Node files are publishing infrastructure rather than normative UA content.
+- Removed the stale private Quartz deployment base URL rather than replacing it with an unverified public domain.
+
+### Removed
+
+- Removed the duplicate root-level `research/` namespace after migrating its three planning briefs into `content/research/notes/`.
+- Removed the active `content/rfcs/` namespace after preserving its governance proposal and template as superseded historical records.
+- Removed empty `scripts/` and `templates/` scaffolds that contained no active utilities or reusable project artifacts.
+- Removed references to the nonexistent `GOVERNANCE.md` and to inactive root research or RFC namespaces.
 
 ## [0.1.0] - 2025-12-09
 
