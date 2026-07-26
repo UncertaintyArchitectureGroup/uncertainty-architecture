@@ -1,3 +1,21 @@
+---
+title: Uncertainty Architecture Project History
+artifact_type: history-index
+status: informative
+maturity: active
+module: history
+topics:
+  - provenance
+  - repository-architecture
+tags:
+  - ua/module/history
+  - ua/type/history-index
+  - ua/status/informative
+  - ua/topic/provenance
+canonical_for:
+  - project-history
+---
+
 # Uncertainty Architecture Project History
 
 This directory documents the public development of Uncertainty Architecture as a research initiative and open specification.
@@ -34,3 +52,5 @@ Entries should:
 7. identify superseded governance or terminology explicitly so historical material is not mistaken for current policy.
 
 A self-authored source may document a publication, talk, or public stress test, but it is not treated as independent recognition.
+
+History records should follow [`DOCUMENT-METADATA.md`](../../DOCUMENT-METADATA.md) when they are actively edited. Tags improve retrieval but do not convert historical evidence into specification authority.
