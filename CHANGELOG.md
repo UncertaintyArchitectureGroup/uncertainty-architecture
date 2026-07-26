@@ -1,3 +1,22 @@
+---
+title: Uncertainty Architecture Changelog
+artifact_type: changelog
+status: informative
+maturity: active
+module: repository
+topics:
+  - provenance
+  - repository-architecture
+tags:
+  - ua/module/repository
+  - ua/type/changelog
+  - ua/status/informative
+  - ua/topic/provenance
+  - ua/topic/repository-architecture
+canonical_for:
+  - change-record
+---
+
 # Changelog
 
 All notable changes to the **Uncertainty Architecture repository and specification artifacts** are documented in this file.
