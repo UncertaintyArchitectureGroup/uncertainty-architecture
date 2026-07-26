@@ -1,3 +1,24 @@
+---
+title: Contributing to Uncertainty Architecture
+artifact_type: repository-process
+status: informative
+maturity: active
+module: repository
+topics:
+  - repository-architecture
+  - navigation
+  - provenance
+tags:
+  - ua/module/repository
+  - ua/type/repository-process
+  - ua/status/informative
+  - ua/topic/repository-architecture
+  - ua/topic/navigation
+  - ua/topic/provenance
+canonical_for:
+  - contribution-workflow
+---
+
 # Contributing to Uncertainty Architecture
 
 Thank you for your interest in contributing. This repository develops a shared doctrine, operational patterns, research record, and reference material for building and governing AI-integrated systems responsibly.
