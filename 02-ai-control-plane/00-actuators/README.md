@@ -1,26 +1,73 @@
-# Actuators: The Muscles
+---
+title: Actuator Capabilities
+artifact_type: control-capability
+status: draft-normative
+maturity: active
+module: control-plane
+topics:
+  - actuators
+  - constraints
+  - containment
+  - ai-control-plane
+tags:
+  - ua/module/control-plane
+  - ua/type/control-capability
+  - ua/status/draft-normative
+  - ua/topic/actuators
+  - ua/topic/constraints
+  - ua/topic/containment
+---
 
-> **Function:** Execution & Containment
-> **Goal:** Manage the shape of the probability distribution $P(y|x)$
+# Actuator Capabilities
 
-In Control Theory, an **Actuator** is the mechanism that applies force to move the system. In AI Engineering, Actuators are the components that interact directly with the model to generate output.
+**Role:** Mechanisms that can materially shape, constrain, enable, disable, route, or stop model-mediated behavior.
 
-They represent the **Muscles** of the system: powerful but blind. They require strict constraints (Schemas) and precise configuration (Prompts) to function safely.
+## Purpose
 
-## Core Artifacts
+Actuators provide the path from a controller decision to a real change in system behavior.
 
-### 1. Prompt Registry
-Prompts are treated as **Versioned Configuration**, not code.
-- **Immutability:** Once published, a prompt version (e.g., `summarizer:v1.2`) never changes.
-- **Separation:** Prompts live outside the application logic to allow tuning without redeployment.
+They may operate before, during, or after model invocation. An actuator is defined by its ability to affect the reachable behavior or operating conditions of the system, not by whether it is implemented as a prompt, service, policy, or human action.
 
-### 2. Constraints (Schemas)
-Mechanisms to fight **Syntactic Entropy**.
-- **Strict JSON Schemas:** We do not parse strings; we validate objects.
-- **Guardrails:** Deterministic rules that reject outputs violating safety or format constraints immediately.
+## Includes
 
-### 3. Hyperparameters
-The "knobs" that control the variance (Temperature, Top-P, Frequency Penalty).
+Possible actuator capabilities include:
 
-## The Golden Rule
-**No magic strings in the code.** All interaction logic must be encapsulated within the Actuator layer.
+- prompt and instruction configuration;
+- context-selection and context-assembly policy;
+- model selection and routing;
+- permissions and bounded tool access;
+- schemas and deterministic validation gates;
+- rate, token, time, and execution limits;
+- policy enforcement and action authorization;
+- fallback, degraded mode, rollback, containment, and shutdown;
+- human approval or intervention that can materially change the path.
+
+## Does not imply
+
+This capability does not imply that:
+
+- every prompt must live outside application code;
+- every actuator belongs in one centralized layer;
+- one guardrail can contain every relevant failure mode;
+- a soft instruction creates a hard invariant;
+- changing model parameters alone provides system-level control.
+
+The relationship between **actuators** and **constraints** remains an explicit taxonomy question. Some constraints are implemented through actuators; others define the operating boundary within which actuators may operate.
+
+## Design expectations
+
+A mature actuator description should identify:
+
+1. which behavior or authority it can change;
+2. which controller or decision right may invoke it;
+3. its scope and deterministic guarantees, if any;
+4. how its version and configuration remain traceable;
+5. how failure, unavailability, or misuse is handled;
+6. which sensors provide evidence about its effect.
+
+## Relationships
+
+- [`../README.md`](../README.md) defines the AI Control Plane capability model.
+- [`../01-sensors/`](../01-sensors/) provides evidence about behavior and actuator effects.
+- [`../02-controller/`](../02-controller/) provides the decision function that authorizes corrective action.
+- [`../../00-doctrine/glossary.md`](../../00-doctrine/glossary.md) defines the current canonical vocabulary.
