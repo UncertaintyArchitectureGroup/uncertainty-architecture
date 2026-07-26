@@ -34,12 +34,32 @@ Use the existing namespace that matches the material:
 - **Project history and superseded records:** `content/history/`.
 - **Visual assets:** `assets/`.
 - **Publishing portal and implementation:** `content/index.md`, `quartz/`, and related build configuration.
+- **Document metadata and tag vocabulary:** `DOCUMENT-METADATA.md`.
+- **Repository orientation for AI agents:** `AGENTS.md`.
 
 Publishing infrastructure is not part of the normative specification. Do not create a parallel research, history, governance, or proposal directory when an existing canonical namespace already applies.
 
 The project does not currently require an RFC document or RFC directory. Substantial framework changes should be proposed through a focused branch and pull request. A separate proposal document may be added when it makes a complex decision easier to review, but the document does not become normative merely because it exists.
 
-## 3. Repository ownership and attribution
+## 3. Document metadata and navigation
+
+New maintained conceptual documents should follow [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md).
+
+At minimum, classify the document by:
+
+- `artifact_type`;
+- `status`;
+- `module`;
+- a small set of controlled `topics`;
+- corresponding hierarchical `ua/...` tags.
+
+Use `maturity` for lifecycle state such as draft, active, stable, or superseded. Do not use `draft` as a substitute for normative status.
+
+Metadata supports navigation, Obsidian queries, publishing, and machine retrieval. It does not make a document normative and must not contradict `SPECIFICATION.md` or the relevant module README.
+
+Do not mechanically rewrite raw source snapshots or historical publication bodies merely to normalize metadata. The convention is applied incrementally when maintained documents are created or materially edited.
+
+## 4. Repository ownership and attribution
 
 Vitalii Oborskyi is the project creator and primary maintainer. He retains final authority over repository scope and merges.
 
@@ -47,7 +67,7 @@ Attributed work by named contributors must not be materially changed, reassigned
 
 External contributions are welcome. Reviewers may be invited based on subject matter rather than a fixed approval hierarchy.
 
-## 4. Lightweight maintainer workflow
+## 5. Lightweight maintainer workflow
 
 The project currently operates as a maintainer-led open specification.
 
@@ -69,7 +89,7 @@ A branch and pull request are recommended for:
 
 Draft pull requests are optional. External review is encouraged where it adds value, but it is not required for ordinary maintainer-authored work.
 
-## 5. Changes requiring deliberate review
+## 6. Changes requiring deliberate review
 
 Use a branch and pull request, and seek appropriate review where practical, for changes that:
 
@@ -84,29 +104,38 @@ Use a branch and pull request, and seek appropriate review where practical, for 
 
 The purpose of review is to improve the specification, not to create ceremony around routine maintenance.
 
-## 6. External contribution process
+## 7. External contribution process
 
 1. Fork or branch from the current default branch.
 2. Keep the change focused and use the current repository structure.
-3. Explain what changed, why it changed, and whether the change is research, normative guidance, historical material, or maintenance.
-4. Update local navigation or supporting documentation where needed.
+3. Explain what changed, why it changed, and whether the change is research, normative guidance, reference material, historical material, or maintenance.
+4. Add or update metadata, local navigation, and cross-links where needed.
 5. Confirm licensing and attribution requirements.
 6. Open a pull request for maintainer review.
 
 One logical change per pull request is a useful default for substantial work, but tightly related updates may be grouped when that makes review clearer.
 
-## 7. Writing guidelines
+## 8. Writing guidelines
 
 - Keep language clear, precise, and operational.
 - Distinguish deterministic software behavior from probabilistic model judgment.
+- Use **Thinking Systems** as the current category; preserve earlier terminology only in historical context.
 - Avoid magical or absolute claims about LLM capabilities.
 - State scope, assumptions, and limitations.
 - Use control-theory framing where it genuinely clarifies feedback, sensing, correction, and containment.
 - Include examples or diagrams when they improve understanding.
 - Keep research findings separate from normative requirements until deliberately adopted.
 - Mark superseded process or terminology explicitly rather than silently rewriting history.
+- Treat numerical thresholds, sample sizes, role names, and review cadences as contextual unless a normative document deliberately establishes them.
+- Keep structured metadata and `ua/...` tags consistent with the document's actual role and status.
 
-## 8. Licensing
+## 9. Agent-assisted changes
+
+Language models and coding agents should read [`AGENTS.md`](AGENTS.md) before making repository-wide or normative changes.
+
+Agent-assisted work must preserve the same boundaries as human-authored work. In particular, an agent must not promote research by implication, rewrite provenance, create parallel canonical entry points, or infer authority from tags, recency, visibility, or external attention.
+
+## 10. Licensing
 
 This repository uses a dual-license model:
 
@@ -115,6 +144,6 @@ This repository uses a dual-license model:
 
 All contributions must comply with the applicable license and preserve required attribution. See [LICENSING.md](LICENSING.md).
 
-## 9. Code of conduct
+## 11. Code of conduct
 
 Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and help maintain a professional, constructive environment.
