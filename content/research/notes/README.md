@@ -1,8 +1,18 @@
 ---
 title: UA Research Notes
-artifact_type: research-notes-index
+artifact_type: research-index
 status: research
-updated: 2026-07-25
+maturity: active
+module: research
+topics:
+  - provenance
+  - repository-architecture
+tags:
+  - ua/module/research
+  - ua/type/research-index
+  - ua/status/research
+  - ua/topic/provenance
+updated: 2026-07-26
 license: CC-BY-4.0
 ---
 
@@ -14,4 +24,13 @@ Research notes are **non-normative**. A note may describe a question, planned in
 
 The notes migrated here from the former root-level `research/` directory are planning briefs rather than completed research outputs. They are retained for traceability and should be expanded, superseded, or closed explicitly if they become active work.
 
+## Notes
+
+- [`ai-delivery-lifecycle.md`](ai-delivery-lifecycle.md) — an early lifecycle hypothesis reclassified from doctrine; thresholds, roles, and sequence remain illustrative.
+- [`control-theory-brief.md`](control-theory-brief.md) — planning brief for mapping classical control concepts to Thinking Systems.
+- [`metrics-brief.md`](metrics-brief.md) — planning brief for useful and misleading metrics.
+- [`reference-implementations-brief.md`](reference-implementations-brief.md) — planning brief for implementation evidence and architectural examples.
+
 Completed publications and repository editions belong in [`../publications/`](../publications/). Research process and traceability documents remain in the parent [`content/research/`](../) namespace.
+
+New notes should use `status: research`, an explicit `maturity`, and the conventions in [`DOCUMENT-METADATA.md`](../../../DOCUMENT-METADATA.md).
