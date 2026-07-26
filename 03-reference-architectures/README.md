@@ -1,3 +1,25 @@
+---
+title: Reference Architectures
+artifact_type: reference-index
+status: reference
+maturity: active
+module: reference-architectures
+topics:
+  - thinking-systems
+  - uncertainty-boundary
+  - ai-control-plane
+  - containment
+tags:
+  - ua/module/reference-architectures
+  - ua/type/reference-index
+  - ua/status/reference
+  - ua/topic/thinking-systems
+  - ua/topic/uncertainty-boundary
+  - ua/topic/ai-control-plane
+canonical_for:
+  - reference-architectures-module
+---
+
 # Reference Architectures
 
 **Status:** Reference  
@@ -7,9 +29,9 @@
 
 This module contains concrete architectures that demonstrate how Uncertainty Architecture may be applied in real systems.
 
-Reference architectures make abstract responsibilities visible: where model judgment occurs, which deterministic boundaries surround it, how evidence is collected, who or what controls change, and how failure is contained.
+Reference architectures make abstract responsibilities visible: where Model Judgment occurs, which deterministic boundaries surround it, how evidence is collected, who or what controls change, and how failure is contained.
 
-## Defines
+## Provides
 
 This module provides:
 
@@ -44,6 +66,10 @@ A mature reference architecture should identify:
 ## Current scope
 
 Indranet is one implementation-oriented expression of UA concepts. It is a reference, not the specification itself, and its design choices are not automatically normative.
+
+## Documents
+
+Individual reference architectures should declare `status: reference` and follow [`DOCUMENT-METADATA.md`](../DOCUMENT-METADATA.md).
 
 ## Relationships
 
