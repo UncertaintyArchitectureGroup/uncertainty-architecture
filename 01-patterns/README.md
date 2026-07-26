@@ -1,3 +1,26 @@
+---
+title: Interface and Control Patterns
+artifact_type: pattern-index
+status: draft-normative
+maturity: active
+module: patterns
+topics:
+  - uncertainty-boundary
+  - containment
+  - fallback
+  - escalation
+tags:
+  - ua/module/patterns
+  - ua/type/pattern-index
+  - ua/status/draft-normative
+  - ua/topic/uncertainty-boundary
+  - ua/topic/containment
+  - ua/topic/fallback
+  - ua/topic/escalation
+canonical_for:
+  - patterns-module
+---
+
 # Interface and Control Patterns
 
 **Status:** Draft normative  
@@ -5,7 +28,7 @@
 
 ## Purpose
 
-This module contains reusable patterns for engineering the boundary between deterministic software responsibilities and probabilistic model judgment in Thinking Systems.
+This module contains reusable patterns for engineering the boundary between deterministic software responsibilities and probabilistic Model Judgment in Thinking Systems.
 
 Patterns turn UA doctrine into reviewable design choices. They describe where uncertainty may enter a workflow, how it is bounded, what evidence is produced, and how failure is contained or escalated.
 
@@ -13,12 +36,12 @@ Patterns turn UA doctrine into reviewable design choices. They describe where un
 
 This module defines or develops patterns for:
 
-- separating judgment nodes from deterministic control logic;
+- separating Judgment Nodes from deterministic control logic;
 - preserving hard invariants around probabilistic behavior;
 - expressing soft constraints without confusing them with guarantees;
 - validating, gating, retrying, containing, or escalating model outputs;
 - maintaining traceability across model-mediated decisions;
-- creating procedural interfaces between code, models, tools, and human authority.
+- creating procedural interfaces between code, models, tools, and Human Authority.
 
 ## Does not define
 
@@ -46,7 +69,7 @@ Examples attached to a pattern are informative unless explicitly classified othe
 
 ## Key concepts
 
-- judgment node;
+- Judgment Node;
 - deterministic boundary;
 - hard invariant;
 - soft constraint;
@@ -54,6 +77,10 @@ Examples attached to a pattern are informative unless explicitly classified othe
 - validation gate;
 - fallback and escalation;
 - containment of non-determinism.
+
+## Documents
+
+This module currently defines the expectations and vocabulary for future pattern documents. Individual patterns should use the metadata and status conventions in [`DOCUMENT-METADATA.md`](../DOCUMENT-METADATA.md).
 
 ## Relationships
 
