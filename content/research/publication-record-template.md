@@ -1,9 +1,18 @@
 ---
 title: "[Publication title]"
 subtitle: "[Optional subtitle]"
-artifact_type: research-publication
-status: draft
+artifact_type: research-template
+status: informative
+maturity: active
 draft: true
+module: research
+topics:
+  - provenance
+tags:
+  - ua/module/research
+  - ua/type/research-template
+  - ua/status/informative
+  - ua/topic/provenance
 publication_date: YYYY-MM-DD
 repository_date: YYYY-MM-DD
 language: en
@@ -20,6 +29,8 @@ license: CC-BY-4.0
 ---
 
 # [Publication title]
+
+> **Template status:** Informative repository tool. `draft: true` hides the template from normal Quartz publishing and does not make a completed publication draft normative. A completed record should normally use `artifact_type: research-publication`, `status: research`, and an explicit maturity or edition state.
 
 > **Repository status:** Research publication. This document is evidence for the framework, not automatically a normative UA requirement.
 
@@ -74,3 +85,5 @@ Record terms used by the source and explain how later UA work uses, narrows, ren
 ## Archived publication text
 
 [Preserve the substantive publication text below this line.]
+
+Apply [`DOCUMENT-METADATA.md`](../../DOCUMENT-METADATA.md) when creating the completed record.
