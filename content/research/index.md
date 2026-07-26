@@ -1,9 +1,23 @@
 ---
 title: Uncertainty Architecture Research Track
 artifact_type: research-index
-status: draft
+status: research
+maturity: active
+module: research
+topics:
+  - provenance
+  - thinking-systems
+  - repository-architecture
+tags:
+  - ua/module/research
+  - ua/type/research-index
+  - ua/status/research
+  - ua/topic/provenance
+  - ua/topic/thinking-systems
+canonical_for:
+  - research-track
 created: 2026-07-24
-updated: 2026-07-25
+updated: 2026-07-26
 license: CC-BY-4.0
 ---
 
@@ -99,7 +113,7 @@ See [Research Review Process](review-process.md).
 - [Research Publication Record Template](publication-record-template.md)
 - [Research Analysis Template](research-analysis-template.md)
 
-These templates are optional working tools. They are marked as drafts so they remain repository assets without being published as normal site content.
+These templates are optional working tools. Their Quartz `draft: true` field controls publishing visibility; it is not the UA document status.
 
 ## Status vocabulary
 
@@ -146,6 +160,10 @@ Historical publications used **Behavioral Software** and **Behavioral Applicatio
 Agentic systems are treated as a higher-autonomy subset of Thinking Systems rather than as a synonym for the whole category.
 
 Historical publications and raw sources retain their original language for provenance. Repository editions should include a terminology note when the legacy category is material to the text.
+
+## Metadata
+
+Research documents should follow [`DOCUMENT-METADATA.md`](../../DOCUMENT-METADATA.md). Structured status and provenance fields are authoritative; tags improve retrieval but do not promote research into the specification.
 
 ## Licensing
 
