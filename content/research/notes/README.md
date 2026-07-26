@@ -20,7 +20,7 @@ license: CC-BY-4.0
 
 This directory contains bounded working notes and research briefs that may inform later analysis, synthesis, or framework proposals.
 
-Research notes are **non-normative**. A note may describe a question, planned investigation, operational observation, or incomplete line of inquiry. Its presence does not establish evidence, consensus, or a specification requirement.
+Research notes are **non-normative**. A note may describe a question, planned investigation, operational observation, source-intake gap, or incomplete line of inquiry. Its presence does not establish evidence, consensus, or a specification requirement.
 
 The notes migrated here from the former root-level `research/` directory are planning briefs rather than completed research outputs. They are retained for traceability and should be expanded, superseded, or closed explicitly if they become active work.
 
@@ -29,6 +29,7 @@ The notes migrated here from the former root-level `research/` directory are pla
 - [`ai-delivery-lifecycle.md`](ai-delivery-lifecycle.md) — an early lifecycle hypothesis reclassified from doctrine; thresholds, roles, and sequence remain illustrative.
 - [`control-theory-brief.md`](control-theory-brief.md) — planning brief for mapping classical control concepts to Thinking Systems.
 - [`metrics-brief.md`](metrics-brief.md) — planning brief for useful and misleading metrics.
+- [`on-device-cloud-source-intake.md`](on-device-cloud-source-intake.md) — traceability record for a full author-provided source that remains pending raw preservation and normalization.
 - [`reference-implementations-brief.md`](reference-implementations-brief.md) — planning brief for implementation evidence and architectural examples.
 
 Completed publications and repository editions belong in [`../publications/`](../publications/). Research process and traceability documents remain in the parent [`content/research/`](../) namespace.
