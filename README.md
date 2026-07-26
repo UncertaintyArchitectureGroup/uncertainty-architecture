@@ -31,22 +31,24 @@ UA calls this broader class **Thinking Systems** (previously described in histor
 
 Agentic systems are a higher-autonomy subset of Thinking Systems, not a synonym for the whole category.
 
-The architectural problem is therefore not only model quality. It is how probabilistic judgment is connected to business rules, permissions, data, human authority, release processes, monitoring, and correction.
+The architectural problem is therefore not only model quality. It is how probabilistic judgment is connected to business rules, permissions, data, Human Authority, release processes, monitoring, and correction.
 
 ## Core Model
 
 UA treats AI governance as an engineering control problem.
 
-> **Reliable AI = Actuators + Sensors + Controller**
+A functioning control loop requires at least:
 
-- **Actuators** shape and constrain behavior: prompts, schemas, policies, permissions, tools, model settings, and execution boundaries.
-- **Sensors** detect deviation: evaluations, golden scenarios, runtime signals, incidents, qualitative review, and drift monitoring.
-- **Controller** determines corrective action: release gates, ownership, escalation, rollback, retraining, prompt or policy changes, and human decision authority.
+- **Actuators** capable of materially shaping, constraining, changing, containing, or stopping behavior;
+- **Sensors and evidence** that make relevant outputs, outcomes, drift, incidents, and operating conditions observable;
+- **A Controller** with decision authority to interpret evidence and authorize corrective action.
+
+These capabilities are necessary parts of control, not a formula that guarantees reliability. Their adequacy depends on consequences, uncertainty, autonomy, reversibility, evidence quality, feedback latency, and operating context.
 
 This control loop surrounds a critical distinction:
 
 - **Deterministic Core** — business rules, invariants, authentication, data handling, auditability, and safety constraints.
-- **Model Judgment** — interpretation, synthesis, classification under ambiguity, open-ended generation, and uncertain tool choice.
+- **Model Judgment** — interpretation, synthesis, classification under ambiguity, open-ended generation, planning, and uncertain tool choice.
 
 UA focuses on the boundary between these regions.
 
