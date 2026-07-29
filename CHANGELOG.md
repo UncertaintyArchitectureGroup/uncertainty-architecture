@@ -66,6 +66,7 @@ Project publications, talks, community discussions, and independent references a
 - Clarified that telemetry or evaluation becomes control only when connected to decision authority and a mechanism that can change, contain, roll back, escalate, or stop behavior.
 - Added controlled metadata to the specification, glossary, module entry points, Control Plane sub-documents, and actively maintained research indexes.
 - Updated contribution guidance to require consistent metadata for new maintained conceptual documents and to direct agent-assisted work through `AGENTS.md`.
+- Expanded `AGENTS.md` into an operational protocol that requires same-PR changelog updates and explicit classification of source-derived concepts, artifacts, responsibilities, processes, patterns, failure modes, and reference architectures.
 - Updated the roadmap so cross-publication synthesis is now the immediate substantive priority.
 
 ### Removed
