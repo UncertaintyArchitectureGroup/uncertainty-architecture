@@ -19,7 +19,7 @@ tags:
 source_title: Designing Non-Deterministic Systems — Maintaining Engineering Rigor in the AI Era
 source_format: pptx
 preserved_format: pdf-export
-source_file: "content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf"
+preserved_file: "content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf"
 updated: 2026-07-30
 license: CC-BY-4.0
 ---
