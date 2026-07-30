@@ -66,7 +66,25 @@ Model Judgment may produce useful adaptation and semantic reasoning, but it must
 
 A bounded location in a system or workflow where Model Judgment influences an output, decision, path, or action.
 
-A Judgment Node should make its inputs, allowed authority, deterministic boundaries, evidence, and failure handling visible enough to review and operate.
+A Judgment Node may perform Input Interpretation, Decision Logic, Output Mediation, or a combination. It should make its inputs, allowed authority, deterministic boundaries, evidence, and failure handling visible enough to review and operate.
+
+### Input Interpretation
+
+Model Judgment that converts ambiguous, unstructured, incomplete, or context-dependent input into intent, classification, extracted structure, normalized representation, or usable system context.
+
+Input Interpretation may determine what the system believes was requested or which deterministic path becomes available.
+
+### Decision Logic
+
+Model Judgment that influences or selects routing, ranking, planning, prioritization, tool choice, action recommendation, or action initiation within an allowed authority boundary.
+
+Decision Logic does not by itself imply autonomous execution or unlimited authority.
+
+### Output Mediation
+
+Model Judgment that creates, adapts, filters, summarizes, explains, or transforms information for a human or downstream system.
+
+Output Mediation may be consequential even when it does not alter underlying data because presentation can change interpretation, trust, disclosure, approval, or subsequent action.
 
 ### Uncertainty Boundary
 
@@ -242,7 +260,7 @@ The completion decision that implementation and the required evidence are suffic
 
 DoD is distinct from release authorization and does not by itself accept residual risk for a deployment context.
 
-See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and diagnostic model.
+See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and diagnostic model and [`model-judgment-placement.md`](model-judgment-placement.md) for the functional placement taxonomy.
 
 ## Terminology evolution
 
