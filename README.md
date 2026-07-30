@@ -14,6 +14,8 @@ The project is designed primarily for small and medium-sized engineering organiz
 - **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
 - **Use the canonical vocabulary:** [`00-doctrine/glossary.md`](00-doctrine/glossary.md)
 - **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
+- **Run the SMB review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
+- **Copy the practical review template:** [`01-patterns/thinking-system-review-template.md`](01-patterns/thinking-system-review-template.md)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
 - **Review concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
 - **Study recurring failure modes:** [`04-failure-modes/`](04-failure-modes/)
@@ -68,8 +70,9 @@ graph TD;
 UA is:
 
 - a shared way of thinking about systems at the AI–code boundary;
-- a set of patterns for containment, evaluation, escalation, and fallback;
+- a set of patterns for containment, evaluation, escalation, fallback, and reassessment;
 - an operational doctrine for governing probabilistic behavior;
+- a lightweight SMB-facing review path for consequential model-mediated work;
 - a tool-neutral specification intended to evolve through research and implementation evidence.
 
 UA is not:
@@ -77,15 +80,32 @@ UA is not:
 - an SDK or universal agent framework;
 - a prompt-template collection;
 - a single metric or evaluation method;
+- a mandatory governance department or committee;
 - a compliance certification;
 - a claim that uncertainty can be removed from model behavior.
+
+## Practical SMB Path
+
+The default adoption path uses one living [`Thinking System Review`](01-patterns/thinking-system-review.md) and one copyable [`template`](01-patterns/thinking-system-review-template.md):
+
+```text
+Open one template
+→ map consequential Judgment Nodes
+→ complete the model-mediated DoR extension
+→ implement or run a bounded experiment
+→ complete the model-mediated DoD extension
+→ record the release decision
+→ preserve a snapshot and reassess after material change or incident
+```
+
+The review embeds Judgment Node cards, responsibility bundles, evidence, residual risk, deployment scope, and the release decision. The default path does not require separate readiness records, completion packages, Judgment Node registries, responsibility matrices, governance-board protocols, or Release Decision Records.
 
 ## Repository Structure
 
 ### Specification modules
 
-- [`00-doctrine/`](00-doctrine/) — core concepts, terminology, and boundary thinking.
-- [`01-patterns/`](01-patterns/) — reusable containment and interface patterns.
+- [`00-doctrine/`](00-doctrine/) — core concepts, terminology, requirement and diagnostic models, and Model Judgment placement.
+- [`01-patterns/`](01-patterns/) — reusable technical and socio-technical control patterns, including the SMB Thinking System Review.
 - [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, and operating controls.
 - [`03-reference-architectures/`](03-reference-architectures/) — worked architectural applications.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
@@ -126,7 +146,7 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The repository structure, document-status model, canonical entry points, draft glossary, and navigation metadata are now aligned. The current substantive priority is cross-publication research synthesis and extraction of the framework spine, followed by a practical SMB-facing artifact for mapping risks, required controls, and control cost.
+The repository now contains the framework spine for mixed Requirements, Model Judgment placement, Judgment Node boundaries, and a first practical SMB-facing review pattern and template. The next substantive work is to add reference architectures for the placement classes, test the review against worked examples, and continue developing risk, tolerance, control-cost, and failure-mode guidance.
 
 See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 

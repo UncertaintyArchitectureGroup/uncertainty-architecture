@@ -47,6 +47,7 @@ The UA specification covers:
 - architectural boundaries around model-mediated behavior;
 - control-loop capabilities for constraining, observing, evaluating, and recalibrating behavior;
 - reusable technical and socio-technical patterns;
+- lightweight review patterns and practical artifacts connecting Requirements, Judgment Nodes, evidence, decision authority, release, and reassessment;
 - recurring failure modes and anti-patterns;
 - reference architectures that demonstrate possible compositions of the specification.
 
@@ -54,18 +55,20 @@ The specification does not prescribe:
 
 - a particular model, vendor, framework, orchestration platform, or deployment topology;
 - a mandatory pipeline of Input Interpretation, Decision Logic, and Output Mediation;
-- universal numerical thresholds for quality, risk, latency, cost, or autonomy;
+- a mandatory governance department, committee, or organizational structure;
+- a separate registry or decision record for every Judgment Node, readiness review, completion review, or release decision;
+- universal numerical thresholds for quality, risk, latency, cost, sample size, confidence, or autonomy;
 - mandatory job titles or a single organizational structure;
 - identical controls for every AI system;
 - any reference implementation as the standard itself.
 
-Controls and evidence should be proportional to consequences, uncertainty, autonomy, reversibility, and operating context.
+Controls, evidence, review depth, and records should be proportional to consequences, uncertainty, autonomy, reversibility, exposure, and operating context.
 
 ## 3. Normative language
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL**, when written in uppercase, indicate the strength of a requirement.
 
-Examples, explanations, and rationale are informative unless explicitly stated otherwise.
+Examples, explanations, templates, and rationale are informative unless explicitly stated otherwise.
 
 ## 4. Document status model
 
@@ -73,7 +76,7 @@ Every specification document SHOULD declare one of the following statuses:
 
 - **Normative** — accepted specification content defining requirements, concepts, interfaces, responsibilities, or conformance expectations.
 - **Draft normative** — proposed specification content under active development. It may change and MUST NOT be represented as stable.
-- **Informative** — explanation, rationale, guidance, or example that supports the specification without creating requirements.
+- **Informative** — explanation, rationale, guidance, template, or example that supports the specification without creating requirements.
 - **Reference** — a concrete architecture or implementation demonstrating one possible application of UA. It is not the standard itself.
 - **Research** — source material, analysis, or synthesis that may inform future specification changes but is not automatically normative.
 - **Historical** — superseded or archival material retained for traceability.
@@ -94,9 +97,13 @@ Stable doctrine is expected to become normative; unfinished doctrine remains dra
 
 ### 5.2 Patterns
 
-[`01-patterns/`](01-patterns/README.md) contains reusable solutions for recurring technical and socio-technical control problems, including explicit boundaries around consequential Judgment Nodes.
+[`01-patterns/`](01-patterns/README.md) contains reusable solutions for recurring technical and socio-technical control problems, including explicit boundaries around consequential Judgment Nodes and a lightweight Thinking System Review for SMB teams.
 
-Patterns may be normative or draft normative. Examples and compact records attached to a pattern are informative unless stated otherwise.
+A pattern may arrange technical mechanisms, artifacts, responsibility bundles, evidence, and decision processes when those elements jointly address a recurring control problem. This does not create a separate top-level Operating Model module by implication.
+
+Patterns may be normative or draft normative. Examples, compact records, and working templates attached to a pattern are informative unless stated otherwise.
+
+The [`Thinking System Review`](01-patterns/thinking-system-review.md) defines the draft-normative review flow. The [`Thinking System Review Template`](01-patterns/thinking-system-review-template.md) is its informative working representation and does not create an additional conformance path.
 
 ### 5.3 AI Control Plane
 
@@ -140,7 +147,7 @@ Metadata, tags, publishing placement, recency, external attention, or agent-gene
 
 ## 7. Conformance
 
-UA conformance is currently defined at the level of explicit architectural reasoning rather than product certification.
+UA conformance is currently defined at the level of explicit architectural and operational reasoning rather than product certification or use of one required template.
 
 A system or design claiming alignment with UA SHOULD be able to identify:
 
@@ -150,9 +157,19 @@ A system or design claiming alignment with UA SHOULD be able to identify:
 4. which outputs, decisions, paths, or actions each node can change;
 5. which authority each node possesses;
 6. which deterministic boundaries and invariants constrain it;
-7. how relevant behavior and outcomes are observed and evaluated against risk-derived expectations;
+7. how relevant behavior and outcomes are observed and evaluated against Requirement-derived expectations;
 8. who or what may authorize corrective action and how escalation, containment, fallback, rollback, or shutdown occurs;
 9. how decisions, assumptions, dependencies, and changes remain traceable.
+
+For consequential model-mediated work, the system or team SHOULD also be able to show an equivalent of:
+
+- an approved Requirement and context-derived Operating Envelope;
+- a readiness decision distinguishing implementation from bounded experimentation;
+- completion evidence covering applicable deterministic, behavioral, boundary, resource, operational, and failure-handling responsibilities;
+- a release decision distinct from completion, with deployment scope, residual risk, conditions, and decision authority;
+- runtime ownership and reassessment triggers after material change, drift, or incident.
+
+UA does not require the provided Thinking System Review template. Equivalent records and processes MAY be integrated into existing product, engineering, security, quality, change-management, or incident systems, provided the relevant distinctions and decision rights remain explicit and traceable.
 
 The placement classes are a functional taxonomy, not a mandatory pipeline. A node may combine functions, and a workflow may omit or repeat any class.
 
@@ -172,6 +189,6 @@ Research findings, talks, articles, implementations, and external frameworks do 
 
 ## 9. Current maturity
 
-UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, a Model Judgment placement taxonomy, an initial Judgment Node boundary pattern, a control-plane model, reference material, and failure-mode work, but detailed normative content remains incomplete and may change.
+UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, a Model Judgment placement taxonomy, a Judgment Node Boundary pattern, a first SMB-facing Thinking System Review pattern and template, a control-plane model, reference material, and failure-mode work, but detailed normative content remains incomplete and may change.
 
-Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples remain **reference** or **informative**, not mandatory implementation requirements.
+Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples or templates remain **reference** or **informative**, not mandatory implementation requirements.

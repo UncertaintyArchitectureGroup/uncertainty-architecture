@@ -26,7 +26,7 @@ This roadmap is the canonical detailed view of project direction. It distinguish
 ## Status legend
 
 - **Completed** — present in the repository and accepted as the current project baseline
-- **Active** — currently being developed or consolidated
+- **Active** — currently being developed, applied, or consolidated
 - **Next** — intended after the active work reaches a stable checkpoint
 - **Later** — valuable, but not required for the current framework spine
 
@@ -67,53 +67,71 @@ The objective is to consolidate the existing research into a coherent, bounded s
 - earlier root research briefs classified as draft research notes;
 - the retired RFC governance scaffold archived as historical rather than left as an active process;
 - empty repository scaffolds and orphaned `.gitkeep` files removed;
-- final repository consistency pass completed across canonical routes, status boundaries, module sub-documents, and research-source traceability;
+- repository consistency pass completed across canonical routes, status boundaries, module sub-documents, and research-source traceability;
 - initial canonical draft glossary established, including Thinking Systems, Deterministic Core, Model Judgment, Uncertainty Boundary, AI Control Plane, control-loop capabilities, and delivery vocabulary;
 - early AI delivery lifecycle material reclassified from doctrine into a research note with illustrative thresholds and roles explicitly bounded;
 - child AI Control Plane documents aligned with the distributed capability model and stripped of universal sample sizes, thresholds, role titles, and fixed review cadences;
 - controlled document metadata and hierarchical `ua/...` tag conventions established in `DOCUMENT-METADATA.md`;
 - tool-neutral repository guidance for language models and coding agents established in `AGENTS.md`;
-- missing repository records added for the available on-device/cloud article and presentation sources that remain pending preservation or normalization.
+- source-intake records added for the available on-device/cloud article and the *Designing Non-Deterministic Systems* presentation;
+- Requirements, Operating Envelopes, Correctness, and Bugs refactored into a mixed-system doctrine with deterministic, model-mediated, and boundary-or-control diagnostic sources;
+- Model Judgment Placement established as a functional taxonomy of Input Interpretation, Decision Logic, and Output Mediation;
+- Judgment Node Boundary established as the first reusable pattern connecting Model Judgment to authority, deterministic constraints, evidence, fallback, escalation, and ownership.
 
 ### Active and next milestones
 
 - [ ] Complete a cross-publication research synthesis.
 - [ ] Identify stable concepts, later refinements, contradictions, and superseded claims.
 - [ ] Refine the canonical glossary where synthesis changes scope or meaning.
-- [ ] Produce a concise framework-spine proposal.
-- [ ] Clarify normative boundaries across Doctrine, Patterns, AI Control Plane, Operating Model, Reference Architectures, Failure Modes, and practical artifacts.
-- [ ] Translate accepted framework decisions into module-level normative or draft-normative documents.
+- [ ] Consolidate the framework spine across Doctrine, Patterns, AI Control Plane, Reference Architectures, Failure Modes, and practical artifacts.
+- [ ] Translate additional accepted framework decisions into module-level normative or draft-normative documents.
+- [ ] Validate compatibility and terminology across worked applications of the framework.
 
 ## Phase 3 — Patterns and Failure Modes
 
-**Status: Next**
+**Status: Active**
 
 The objective is to turn the framework spine into reusable engineering guidance.
 
-Planned outcomes:
+### Completed or active outcomes
 
-- boundary patterns between deterministic control and model judgment;
+- Judgment Node Boundary pattern for consequential Model Judgment;
+- minimal and extended boundary modes proportional to authority and consequences;
+- compact Judgment Node card embedded in the pattern rather than maintained as a separate registry;
+- Thinking System Review pattern connecting Requirements, Judgment Nodes, readiness, completion, release, and runtime reassessment;
+- explicit separation of completion evidence from residual-risk acceptance.
+
+### Next outcomes
+
 - containment, validation, retry, fallback, and escalation patterns;
 - drift and verification patterns;
 - Human-in-the-Loop and Human-on-the-Loop patterns;
 - failure-mode taxonomy grounded in operational examples;
-- explicit anti-patterns and conditions where AI should not be used.
+- explicit anti-patterns and conditions where AI should not be used;
+- worked examples that stress-test the current patterns and expose missing distinctions.
 
 ## Phase 4 — Operating Model and Practical Artifacts
 
-**Status: Next**
+**Status: Active**
 
 The objective is to make UA usable by small and medium-sized engineering teams without requiring a large governance organization.
 
-Planned outcomes:
+### Completed or active outcomes
 
-- lightweight responsibility and decision model;
-- release, incident, change, and learning loops;
-- control-loop design guidance;
+- one lightweight Thinking System Review flow for framing, implementation or bounded experimentation, completion, release, and reassessment;
+- one living practical template containing Judgment Node cards, full model-mediated DoR and DoD extensions, residual risk, deployment scope, release decision, and reassessment history;
+- four responsibility bundles — implementation, evaluation, operation, and release decision authority — defined as responsibilities rather than mandatory job titles;
+- versioned or immutable review snapshots used for traceability without requiring a separate Release Decision Record;
+- explicit default that the SMB path does not require a Judgment Node registry, governance board protocol, readiness record, completion package, or responsibility matrix.
+
+### Next outcomes
+
 - risk and tolerance mapping;
 - control-economics guidance;
-- an SMB-facing artifact for estimating required controls and their operational cost;
-- worked examples and adoption guidance.
+- an SMB-facing extension for estimating required controls and their operational cost;
+- worked review examples across different placement classes and consequence levels;
+- adoption guidance based on practical application feedback;
+- incident, change, and learning-loop refinements where the current review pattern proves insufficient.
 
 ## Phase 5 — Optional Tooling and Reference Implementations
 
@@ -134,6 +152,6 @@ No universal SDK or platform is currently planned.
 
 ## Current priority
 
-The immediate priority is cross-publication research synthesis and extraction of the framework spine. Once that spine is explicit, the project should derive one practical SMB-facing control-loop and risk-mapping artifact from it.
+The immediate priority is to complete the slide 1-6 framework transfer by adding placement-focused reference architectures, then apply the Thinking System Review to worked examples. Evidence from those examples should refine the practical artifact before UA expands risk mapping, control-cost estimation, failure modes, or additional operating processes.
 
 The project optimizes for durable clarity, traceability, and practical usefulness rather than rapid expansion of repository volume.
