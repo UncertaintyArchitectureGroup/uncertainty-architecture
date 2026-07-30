@@ -17,10 +17,20 @@ The project is designed primarily for small and medium-sized engineering organiz
 - **Run the SMB review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
 - **Copy the practical review template:** [`01-patterns/thinking-system-review-template.md`](01-patterns/thinking-system-review-template.md)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
-- **Review concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
+- **Review minimal placement architectures:** [`03-reference-architectures/judgment-placement-examples.md`](03-reference-architectures/judgment-placement-examples.md)
+- **Review other concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
 - **Study recurring failure modes:** [`04-failure-modes/`](04-failure-modes/)
 - **Trace the research behind UA:** [`content/research/`](content/research/)
 - **See project direction:** [`ROADMAP.md`](ROADMAP.md)
+
+## Suggested Reader Path
+
+[`Glossary`](00-doctrine/glossary.md)
+→ [`Requirements, Correctness, and Bugs`](00-doctrine/requirements-correctness-and-bugs.md)
+→ [`Model Judgment Placement`](00-doctrine/model-judgment-placement.md)
+→ [`Judgment Node Boundary`](01-patterns/judgment-node-boundary.md)
+→ [`Thinking System Review`](01-patterns/thinking-system-review.md)
+→ [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md)
 
 ## The Core Shift
 
@@ -100,6 +110,8 @@ Open one template
 
 The review embeds Judgment Node cards, responsibility bundles, evidence, residual risk, deployment scope, and the release decision. The default path does not require separate readiness records, completion packages, Judgment Node registries, responsibility matrices, governance-board protocols, or Release Decision Records.
 
+Use the [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md) to see how the same review surface applies to Input Interpretation, Decision Logic, Output Mediation, and a composite system without turning those examples into mandatory topologies.
+
 ## Repository Structure
 
 ### Specification modules
@@ -107,7 +119,7 @@ The review embeds Judgment Node cards, responsibility bundles, evidence, residua
 - [`00-doctrine/`](00-doctrine/) — core concepts, terminology, requirement and diagnostic models, and Model Judgment placement.
 - [`01-patterns/`](01-patterns/) — reusable technical and socio-technical control patterns, including the SMB Thinking System Review.
 - [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, and operating controls.
-- [`03-reference-architectures/`](03-reference-architectures/) — worked architectural applications.
+- [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated and composite placement examples.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
 
 The canonical boundary, status vocabulary, and conformance model are defined in [`SPECIFICATION.md`](SPECIFICATION.md).
@@ -146,7 +158,7 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The repository now contains the framework spine for mixed Requirements, Model Judgment placement, Judgment Node boundaries, and a first practical SMB-facing review pattern and template. The next substantive work is to add reference architectures for the placement classes, test the review against worked examples, and continue developing risk, tolerance, control-cost, and failure-mode guidance.
+The repository now contains the slide 1–6 framework transfer for mixed Requirements, Model Judgment placement, Judgment Node boundaries, one SMB-facing Thinking System Review and template, and four placement-focused reference architectures. The next substantive work is to apply the review to worked domain examples and continue developing risk, tolerance, control-cost, failure-mode, and adoption guidance.
 
 See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 
