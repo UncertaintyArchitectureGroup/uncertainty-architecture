@@ -10,7 +10,6 @@ topics:
   - containment
   - evidence
   - fallback
-  - escalation
 tags:
   - ua/module/patterns
   - ua/type/pattern
