@@ -22,7 +22,7 @@ canonical_for:
   - correctness-model
   - bug-model
 source_basis:
-  - ../content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf
+  - "../content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf"
 ---
 
 # Requirements, Correctness, and Bugs in Thinking Systems
