@@ -54,7 +54,49 @@ A **Release Gate** is the separate decision in which authorized decision-makers 
 
 This relationship applies to both Linear Software and Thinking Systems. What changes is how the Requirement can be specified, how compliance must be evaluated, and what evidence is needed at each gate.
 
-## 2. Requirements in Linear Software
+## 2. From a binary validation contract to a statistical quality contract
+
+The presentation contrasts traditional delivery assumptions with the contracts required when probabilistic Model Judgment performs consequential work. UA preserves that distinction because it explains why DoR, DoD, cost, and release criteria must change together.
+
+| Delivery concern | Linear Software / traditional contract | Thinking Systems / statistical quality contract |
+|---|---|---|
+| **Validation contract** | **Binary validation contract.** A defined input and condition are expected to produce a specified result, so compliance can often be expressed as pass or fail. | **Statistical quality contract.** The Requirement defines an approved Operating Envelope, and evidence establishes whether relevant behavior, outcomes, and control performance remain inside it with sufficient confidence for the decision context. |
+| **Ready** | Feature behavior and deterministic acceptance criteria are specified. | Intended outcomes, uncertainty surfaces, business tolerance bounds, prohibited regions, evidence strategy, control responses, and decision authority are explicit and traceable. |
+| **Cost / budget** | Compute and runtime cost are often assumed stable or treated outside feature readiness. | Token, compute, latency, and other material resource use are bounded through a measurable cost or resource envelope before implementation or controlled experimentation begins. |
+| **Done** | Applicable unit, integration, and manual checks pass against fixed outputs and deterministic acceptance criteria. | Deterministic tests pass, and evaluation evidence at an adequate scale supports that quality, drift, prohibited behavior, resource use, and other Requirement-derived measures remain within approved bounds. |
+| **Release** | A pass/fail decision follows implementation review, test completion, and approval. | Authorized decision-makers accept, reject, limit, phase, or condition release based on the evidence, uncertainty, confidence, residual risk, scope, and operating context. |
+
+The distinction is not that Linear Software never uses statistics or that Thinking Systems abandon deterministic validation. Thinking Systems combine both: deterministic rules and invariants still use pass/fail validation, while model-mediated behavior requires evidence about distributions, uncertainty, and control performance.
+
+The relationship can be represented as two different delivery contracts:
+
+```mermaid
+flowchart LR
+    subgraph S1[Linear Software]
+        R1[Specified deterministic behavior] --> DOR1[Ready: feature and acceptance criteria specified]
+        DOR1 --> I1[Implementation]
+        I1 --> DOD1[Done: deterministic tests and verification pass]
+        DOD1 --> REL1[Release: pass or fail approval]
+    end
+
+    subgraph S2[Thinking Systems]
+        R2[Requirement and Operating Envelope] --> DOR2[Ready: tolerances, prohibited regions, evidence plan, controls, and resource envelope defined]
+        DOR2 --> I2[Implementation and controlled experimentation]
+        I2 --> DOD2[Done: deterministic tests plus statistical and operational evidence]
+        DOD2 --> REL2[Release: authorized acceptance of confidence and residual risk]
+        REL2 --> RUN2[Runtime observation and corrective action]
+        RUN2 --> R2
+    end
+```
+
+The phrases **risk profile is digitized**, **large-sample runs prove**, and **confidence interval is accepted** are useful presentation shorthand, but UA narrows them as follows:
+
+- risk, tolerances, assumptions, and prohibited regions must be explicit and traceable, but no single digital representation is mandatory;
+- evaluation scale and sample adequacy must be justified by the Requirement and decision context, but no universal sample size proves correctness;
+- confidence intervals may be part of the evidence, but they are neither universally required nor sufficient by themselves;
+- the release decision accepts bounded evidence and residual risk for a stated scope and period; it does not certify permanent correctness.
+
+## 3. Requirements in Linear Software
 
 For explicitly encoded deterministic behavior, a Requirement may prescribe one expected output, transition, or rule for defined inputs and conditions.
 
@@ -62,7 +104,7 @@ Correctness can often be evaluated by comparing the observed result directly wit
 
 A violation is typically reproducible as a deterministic deviation from the specified behavior.
 
-## 3. Requirements in Thinking Systems
+## 4. Requirements in Thinking Systems
 
 When an LLM or another probabilistic model performs interpretation, classification, generation, planning, ranking, or action selection that contributes to business logic, one exact acceptable output cannot always be specified in advance.
 
@@ -83,7 +125,7 @@ Depending on the system and consequence level, the operating contract may includ
 
 The envelope MUST be derived from context and risk. A numerical threshold, sample size, evaluation score, confidence level, cost limit, or review cadence is not universal merely because it appears in an example or source.
 
-## 4. Correctness under probabilistic business logic
+## 5. Correctness under probabilistic business logic
 
 Thinking Systems do not eliminate the concept of correctness. They change how correctness must be specified and demonstrated.
 
@@ -99,7 +141,7 @@ Correctness is instead evaluated from evidence that the implemented system:
 
 This makes correctness a system property. It depends on the model-mediated behavior together with deterministic boundaries, sensors, controllers, decision rights, resource controls, and corrective mechanisms.
 
-## 5. Canonical definition of Bug
+## 6. Canonical definition of Bug
 
 > **A Bug is a violation of an approved Requirement caused or permitted by the implemented system.**
 
@@ -119,7 +161,7 @@ For an LLM that performs business logic, a statistically evidenced excursion bey
 
 This preserves the presentation's essential point without treating every rare or undesirable model output as a defect.
 
-## 6. Event, evidence, and diagnosis must remain distinct
+## 7. Event, evidence, and diagnosis must remain distinct
 
 An individual undesirable output or out-of-envelope observation is first an event and may generate a **Deviation Signal**.
 
@@ -147,7 +189,7 @@ Relevant classifications may include:
 
 The **Bug** is the Requirement violation. A statistical excursion, evaluation result, incident, or user report is evidence used to establish that violation and its cause.
 
-## 7. Definition of Ready as an entry contract
+## 8. Definition of Ready as an entry contract
 
 The Definition of Ready is not proof that the proposed behavior is correct. It is the decision that the work is sufficiently framed to enter implementation or controlled experimentation without hiding consequential uncertainty.
 
@@ -168,7 +210,7 @@ DoR MAY permit controlled experimentation when the final operating envelope cann
 
 Expressions such as "the risk profile is digitized" are implementation choices, not doctrine. UA requires the relevant risk and tolerance information to be explicit and traceable; it does not require one tool or data representation.
 
-## 8. Definition of Done as an evidence and operability contract
+## 9. Definition of Done as an evidence and operability contract
 
 The Definition of Done is not equivalent to one successful run, a green deterministic test suite, or completion of implementation tasks.
 
@@ -189,7 +231,7 @@ Large-sample evaluation MAY be necessary, but no universal sample size proves co
 
 Passing an evaluation gate supports a bounded completion claim. It does not prove universal correctness or eliminate the need for runtime control.
 
-## 9. DoD and release are separate decisions
+## 10. DoD and release are separate decisions
 
 DoD answers:
 
@@ -203,33 +245,30 @@ A change MAY satisfy DoD and still be blocked, limited, phased, or conditioned a
 
 A confidence interval may be part of release evidence, but UA does not require confidence intervals for every system or accept them as sufficient by themselves. The appropriate evidence depends on consequences, reversibility, uncertainty, exposure, and the nature of the Requirement.
 
-## 10. Consequences for engineering practice
+## 11. Consequences for engineering practice
 
 Because Bug, readiness, completion, and release are derived from Requirement, changes to the requirement model propagate through the delivery system:
 
-```text
-Requirement and Operating Envelope
-              ↓
-Definition of Ready
-              ↓
-Implementation and experimentation
-              ↓
-Correctness and Bug model
-              ↓
-Evaluation and testing strategy
-              ↓
-Definition of Done evidence
-              ↓
-Authorized Release Gate
-              ↓
-Runtime observation and corrective action
+```mermaid
+flowchart TD
+    R[Requirement and Operating Envelope]
+    DOR[Definition of Ready]
+    BUILD[Implementation and controlled experimentation]
+    CB[Correctness and Bug model]
+    EVAL[Evaluation and testing strategy]
+    DOD[Definition of Done evidence]
+    REL[Authorized Release Gate]
+    RUN[Runtime observation and corrective action]
+
+    R --> DOR --> BUILD --> CB --> EVAL --> DOD --> REL --> RUN
+    RUN -->|drift, incidents, evidence, changed context| R
 ```
 
 Traditional pass/fail tests remain appropriate for deterministic rules and invariants.
 
 Model-mediated business logic additionally requires evidence about behavioral distributions, consequential scenarios, boundaries, resource use, and control performance. Passing an evaluation suite does not by itself prove universal correctness; it supports a bounded completion, release, or operating decision.
 
-## 11. Relationship to other UA concepts
+## 12. Relationship to other UA concepts
 
 - [`glossary.md`](glossary.md) contains the canonical concise definitions of Requirement, Operating Envelope, Correctness, Bug, Definition of Ready, Definition of Done, Release Gate, and Deviation Signal.
 - [`../02-ai-control-plane/`](../02-ai-control-plane/) defines the capabilities used to observe deviations and authorize corrective action.
@@ -237,7 +276,7 @@ Model-mediated business logic additionally requires evidence about behavioral di
 - [`../04-failure-modes/`](../04-failure-modes/) distinguishes recurring mechanisms of control loss from individual defect instances.
 - [`../content/research/notes/designing-nondeterministic-systems-source-intake.md`](../content/research/notes/designing-nondeterministic-systems-source-intake.md) records the presentation source and its normalization state.
 
-## 12. Open questions
+## 13. Open questions
 
 The following remain subject to further framework review:
 
