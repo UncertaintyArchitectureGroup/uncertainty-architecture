@@ -48,6 +48,8 @@ Project publications, talks, community discussions, and independent references a
 - Added source-intake records for the available on-device/cloud article and the *Designing Non-Deterministic Systems* presentation.
 - Added draft-normative doctrine defining Requirements, Operating Envelopes, Correctness, Bugs, and their conceptual relationship to Definition of Ready, Definition of Done, and Release Gates when probabilistic Model Judgment performs part of system behavior.
 - Added conceptual diagrams for mixed Requirements, evidence-based diagnosis, and the relationship between defect source and a system-level Bug.
+- Added draft-normative Model Judgment placement doctrine defining Input Interpretation, Decision Logic, and Output Mediation as functional classes rather than a mandatory pipeline.
+- Added the draft-normative Judgment Node Boundary pattern with proportional minimal and extended modes, an embedded SMB-facing node card, placement-specific review prompts, and deterministic-containment guidance.
 - Expanded the canonical draft glossary with current UA terminology and explicit historical-term boundaries.
 
 ### Changed
@@ -73,6 +75,8 @@ Project publications, talks, community discussions, and independent references a
 - Clarified the proportional research-review process with a concise source-extraction and framework-crystallization step, canonical ownership rules, executable-clarity guidance, and reuse of the existing traceability matrix rather than a second ledger.
 - Refined the canonical definitions of Requirement, Operating Envelope, Correctness, Bug, and Deviation Signal so statistical excursions remain evidence while a Bug is defined by violation of the approved operating contract.
 - Refactored the Requirements, Correctness, and Bugs doctrine around mixed deterministic, model-mediated, and boundary responsibilities; added three diagnostic sources of a system-level Bug; and moved detailed readiness, completion, release, lifecycle, evidence-package, and responsibility guidance out of doctrine.
+- Expanded UA conformance to identify each consequential Judgment Node's placement, inputs and approved context, affected behavior, authority, deterministic constraints, evidence, corrective paths, and traceability.
+- Connected Judgment Node boundaries to the distributed AI Control Plane capability model without treating the boundary record itself as a complete control loop.
 - Updated the roadmap so cross-publication synthesis is now the immediate substantive priority.
 
 ### Removed
