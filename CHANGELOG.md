@@ -50,6 +50,8 @@ Project publications, talks, community discussions, and independent references a
 - Added conceptual diagrams for mixed Requirements, evidence-based diagnosis, and the relationship between defect source and a system-level Bug.
 - Added draft-normative Model Judgment placement doctrine defining Input Interpretation, Decision Logic, and Output Mediation as functional classes rather than a mandatory pipeline.
 - Added the draft-normative Judgment Node Boundary pattern with proportional minimal and extended modes, an embedded SMB-facing node card, placement-specific review prompts, and deterministic-containment guidance.
+- Added the draft-normative Thinking System Review pattern as one lightweight SMB-facing flow connecting outcome framing, Judgment Nodes, Requirements and Operating Envelopes, full model-mediated DoR and DoD extensions, release decisions, responsibility bundles, and runtime reassessment.
+- Added an informative Thinking System Review template that keeps the working contract, evidence, residual risk, deployment scope, release decision, and version history in one living artifact rather than separate governance records.
 - Expanded the canonical draft glossary with current UA terminology and explicit historical-term boundaries.
 
 ### Changed
@@ -57,6 +59,7 @@ Project publications, talks, community discussions, and independent references a
 - Simplified the repository contribution and research workflow for maintainer-led development while preserving deliberate review for normative, high-impact, automated, and externally contributed changes.
 - Reframed research review artifacts as proportional tools rather than mandatory components of every research update.
 - Redesigned the root README as a specification landing page with direct navigation to research, discussions, independent references, talks, the glossary, metadata conventions, and the agent guide.
+- Added the default SMB adoption path to the root README: one Thinking System Review template, embedded Judgment Node cards, distinct readiness, completion, and release decisions, and reassessment after material change or incident.
 - Normalized the entry-point structure and status declarations of the five primary specification modules.
 - Adopted **Thinking Systems** as the current UA system-category term. **Behavioral Software** and **Behavioral Applications** are retained only as explicitly identified historical terminology in archived sources and provenance records.
 - Consolidated supporting material into one canonical namespace per type: `content/research/`, `content/history/`, and `content/raw/`.
@@ -77,6 +80,8 @@ Project publications, talks, community discussions, and independent references a
 - Refactored the Requirements, Correctness, and Bugs doctrine around mixed deterministic, model-mediated, and boundary responsibilities; added three diagnostic sources of a system-level Bug; and moved detailed readiness, completion, release, lifecycle, evidence-package, and responsibility guidance out of doctrine.
 - Expanded UA conformance to identify each consequential Judgment Node's placement, inputs and approved context, affected behavior, authority, deterministic constraints, evidence, corrective paths, and traceability.
 - Connected Judgment Node boundaries to the distributed AI Control Plane capability model without treating the boundary record itself as a complete control loop.
+- Extended the Patterns module and UA conformance model to recognize equivalent lightweight review records for Requirements, readiness, completion evidence, residual-risk release decisions, runtime ownership, and reassessment without requiring use of one template or a separate Operating Model module.
+- Updated the roadmap to mark pattern and practical-artifact work active, record the initial SMB review deliverables, and prioritize placement reference architectures and worked applications before additional process expansion.
 - Updated the roadmap so cross-publication synthesis is now the immediate substantive priority.
 
 ### Removed
