@@ -128,9 +128,7 @@ Closed-loop does not imply fully automated control. Human decision authority may
 
 The approved range of conditions, authority, consequences, resource use, and observed behavior within which a system is considered acceptable to operate under a defined Requirement.
 
-For Model Judgment that performs business logic, the Operating Envelope may include permitted behavioral variation, prohibited regions, business tolerances for relevant outcome distributions, evidence expectations, cost or latency bounds, and required handling when acceptable bounds are exceeded or cannot be established.
-
-The envelope should be derived from context and risk rather than copied as a universal threshold.
+The Operating Envelope is part of a Requirement, not a synonym for the complete Requirement. It should be derived from context and risk rather than copied as a universal threshold.
 
 ## Evidence and change
 
@@ -166,11 +164,9 @@ A deviation signal may be uncertain and require interpretation; it should not be
 
 ### Release Gate
 
-A decision point at which authorized decision-makers use defined evidence, completion status, residual risk, and operating context to allow, block, limit, phase, or condition a release or configuration change.
+A decision point at which an authorized decision-maker determines whether the available evidence and residual risk are acceptable for a specific deployment context.
 
-A Release Gate is distinct from Definition of Done. DoD establishes whether the change has the required implementation, evidence, operability, and recovery support; the Release Gate determines whether the available evidence and residual risk are accepted for a specific deployment context.
-
-Thresholds and evidence requirements should be proportional to consequences, reversibility, uncertainty, exposure, and context.
+A Release Gate is distinct from Definition of Done. DoD establishes whether implementation and required evidence are sufficiently complete; the Release Gate accepts, limits, conditions, escalates, or rejects release for the stated context.
 
 ### Escalation
 
@@ -202,47 +198,51 @@ A human decision right that can materially approve, reject, change, contain, esc
 
 A nominal human-in-the-loop step without adequate information, time, competence, or power is not effective Human Authority.
 
-## Delivery vocabulary
+## Requirement, diagnosis, and decision vocabulary
 
 ### Requirement
 
-The approved operating contract of a system, expressed through intended outcomes, invariants, boundaries, acceptable operating conditions, evidence expectations, resource constraints, and required failure handling.
+The approved operating contract for a system, feature, or change.
 
-For Model Judgment that performs business logic, a Requirement should avoid pretending that one exact output can always be specified. It should distinguish hard constraints from probabilistic expectations and define the context- and risk-derived Operating Envelope within which behavioral variation remains acceptable.
+A Requirement may include an intended outcome, deterministic and model-mediated obligations, invariants, authority boundaries, acceptable operating conditions, resource constraints, evidence expectations, and required failure handling. The Operating Envelope is one part of this contract.
 
 ### Correctness
 
 The condition in which observed system behavior satisfies the approved Requirement.
 
-For Linear Software, correctness may often be established by comparing a deterministic result with a specified result. For a Thinking System, correctness may require evidence that relevant behavior remains within the approved Operating Envelope, preserves invariants, respects material resource constraints, and triggers required control responses when acceptable bounds are exceeded or cannot be established.
+Correctness is a system property. Different obligations may require different forms of evidence, including direct deterministic verification and evidence across relevant model-mediated variation.
 
-### Definition of Ready (DoR)
+### Deterministic Defect
 
-The entry gate at which work involving Model Judgment is judged sufficiently framed to begin implementation or controlled experimentation.
+A reproducible violation of an explicit rule, invariant, state transition, schema, interface, permission, or deterministic output contract.
 
-A DoR should make the operating contract and the plan for establishing compliance explicit in proportion to risk and autonomy. Relevant conditions may include intended outcomes, the location and authority of Model Judgment, invariants and prohibited actions, the initial Operating Envelope and business tolerances, consequential scenarios, evidence strategy, rationale for sample adequacy, cost or resource envelopes, ownership, decision authority, failure handling, and unresolved assumptions.
+### Model-Mediated Violation
 
-DoR is not proof of correctness. It may permit controlled experimentation when final tolerances are not yet known, provided exploratory hypotheses are distinguished from approved production requirements and the evidence path for refining them is explicit.
+A violation in which behavior produced through Model Judgment leaves approved operating conditions or tolerances, produces a prohibited outcome, or otherwise violates a model-mediated obligation in the Requirement.
 
-### Definition of Done (DoD)
+### Boundary or Control Failure
 
-The completion gate at which a change involving Model Judgment is judged to have sufficient implementation, evidence, operability, traceability, and recovery support for a defined release context.
-
-A DoD may require deterministic tests for rules and invariants, evaluation evidence against the approved Operating Envelope, visible scope and limitations of the evidence, consequential-scenario coverage, resource-bound evidence, observability, tested fallback and corrective paths, residual-risk records, and operational ownership.
-
-DoD is not equivalent to one successful run, a universal sample size, or release authorization. Passing an evaluation supports a bounded completion claim; it does not prove universal correctness or eliminate the need for runtime control.
+A Requirement violation caused or permitted by an incorrect or missing context, authority boundary, constraint, sensor, controller, validation gate, fallback, escalation, containment, rollback, shutdown, or related boundary responsibility.
 
 ### Bug
 
 A violation of an approved Requirement caused or permitted by the implemented system.
 
-In Linear Software, a Bug commonly appears as an incorrect deterministic result or transition. In a Thinking System, it may appear when model-mediated behavior materially exceeds an approved business tolerance, leaves the approved Operating Envelope, violates an invariant, permits a prohibited action, exceeds a material resource boundary, or when a required boundary, sensor, controller, containment path, or corrective mechanism is absent or ineffective.
+A Deterministic Defect, Model-Mediated Violation, or Boundary or Control Failure may cause or contribute to the same system-level Bug. An undesirable output or Deviation Signal is evidence, not automatically a Bug.
 
-For an LLM that performs business logic, a statistically evidenced excursion beyond an approved business tolerance is a Bug when that tolerance is part of the approved Requirement and the implemented system causes or permits the violation.
+### Definition of Ready (DoR)
 
-An individual undesirable output or Deviation Signal is not automatically a Bug. Diagnosis must distinguish a Requirement violation from an accepted distribution tail handled as designed, insufficient evidence, an invalid Requirement, an external condition outside system responsibility, or another unresolved cause.
+The readiness decision that work is sufficiently framed to begin implementation or bounded experimentation.
 
-See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and classification model.
+DoR is not proof of correctness and does not authorize release.
+
+### Definition of Done (DoD)
+
+The completion decision that implementation and the required evidence are sufficiently complete.
+
+DoD is distinct from release authorization and does not by itself accept residual risk for a deployment context.
+
+See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and diagnostic model.
 
 ## Terminology evolution
 

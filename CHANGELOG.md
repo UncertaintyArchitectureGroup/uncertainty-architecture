@@ -46,8 +46,8 @@ Project publications, talks, community discussions, and independent references a
 - Added `DOCUMENT-METADATA.md` with controlled frontmatter fields, document classes, topics, relationship metadata, and hierarchical `ua/...` tags for Obsidian, Quartz, and machine retrieval.
 - Added `AGENTS.md` as a tool-neutral repository map and editing guide for language models and coding agents.
 - Added source-intake records for the available on-device/cloud article and the *Designing Non-Deterministic Systems* presentation.
-- Added draft-normative doctrine defining the relationship between Requirements, Operating Envelopes, Correctness, Bugs, DoR, DoD, and Release Gates when probabilistic Model Judgment performs business logic.
-- Added an explicit comparison between the binary validation contract of Linear Software and the statistical quality contract of Thinking Systems, including readiness, budget, completion, release, and Mermaid lifecycle diagrams.
+- Added draft-normative doctrine defining Requirements, Operating Envelopes, Correctness, Bugs, and their conceptual relationship to Definition of Ready, Definition of Done, and Release Gates when probabilistic Model Judgment performs part of system behavior.
+- Added conceptual diagrams for mixed Requirements, evidence-based diagnosis, and the relationship between defect source and a system-level Bug.
 - Expanded the canonical draft glossary with current UA terminology and explicit historical-term boundaries.
 
 ### Changed
@@ -72,6 +72,7 @@ Project publications, talks, community discussions, and independent references a
 - Expanded `AGENTS.md` into an operational protocol that requires same-PR changelog updates and explicit classification of source-derived concepts, artifacts, responsibilities, processes, patterns, failure modes, and reference architectures.
 - Clarified the proportional research-review process with a concise source-extraction and framework-crystallization step, canonical ownership rules, executable-clarity guidance, and reuse of the existing traceability matrix rather than a second ledger.
 - Refined the canonical definitions of Requirement, Operating Envelope, Correctness, Bug, and Deviation Signal so statistical excursions remain evidence while a Bug is defined by violation of the approved operating contract.
+- Refactored the Requirements, Correctness, and Bugs doctrine around mixed deterministic, model-mediated, and boundary responsibilities; added three diagnostic sources of a system-level Bug; and moved detailed readiness, completion, release, lifecycle, evidence-package, and responsibility guidance out of doctrine.
 - Updated the roadmap so cross-publication synthesis is now the immediate substantive priority.
 
 ### Removed

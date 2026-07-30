@@ -29,7 +29,7 @@ canonical_for:
 
 ## Purpose
 
-This module defines the conceptual foundation used throughout Uncertainty Architecture (UA). It establishes how to reason about **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic model judgment while consequential boundaries, responsibilities, and corrective mechanisms remain explicit.
+This module defines the conceptual foundation used throughout Uncertainty Architecture (UA). It establishes how to reason about **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential boundaries, responsibilities, and corrective mechanisms remain explicit.
 
 The doctrine provides the shared mental model needed to discuss uncertainty without treating model behavior as either ordinary deterministic code or uncontrollable magic.
 
@@ -44,8 +44,10 @@ This module defines or develops the foundational distinctions behind:
 - uncertainty containment rather than uncertainty elimination;
 - the limits of metrics without decision authority and corrective action;
 - the architectural importance of interfaces, invariants, feedback, and Human Authority;
-- requirements, operating envelopes, correctness, and bug classification when probabilistic Model Judgment performs business logic;
-- readiness, completion, and release gates as distinct engineering decisions derived from the approved operating contract.
+- Requirements and Operating Envelopes in mixed deterministic and model-mediated systems;
+- Correctness as satisfaction of the approved Requirement;
+- Bugs as system-level Requirement violations;
+- deterministic, model-mediated, and boundary-or-control sources of those violations.
 
 ## Does not define
 
@@ -54,8 +56,12 @@ This module does not prescribe:
 - a specific model, vendor, framework, or implementation stack;
 - a complete runtime control-plane design;
 - one universal set of controls, sample sizes, confidence levels, or evaluation thresholds;
+- detailed Definition of Ready or Definition of Done checklists;
+- a release protocol, delivery lifecycle, evidence package, or responsibility matrix;
 - a mandatory organizational structure;
 - a certification or conformance program.
+
+Operational checklists, decision flows, and practical records should be defined through reusable patterns and artifacts rather than embedded in doctrine.
 
 ## Key concepts
 
@@ -64,24 +70,24 @@ This module does not prescribe:
 - **Model Judgment** — interpretation, synthesis, classification, generation, planning, or action selection under uncertainty.
 - **Uncertainty Boundary** — the interface at which deterministic responsibilities meet probabilistic judgment.
 - **Containment** — limiting where uncertainty may propagate and defining what happens when behavior leaves acceptable bounds.
-- **Requirement** — the approved operating contract against which correctness and bugs are evaluated.
-- **Operating Envelope** — the context- and risk-derived region within which behavioral and material operational variation remains acceptable.
-- **Definition of Ready** — the entry gate establishing that the operating contract and evidence plan are explicit enough to begin implementation or controlled experimentation.
-- **Definition of Done** — the completion gate establishing that implementation, evidence, operability, and recovery support are sufficient for a defined release context.
-- **Release Gate** — the separate authorized decision to accept, reject, limit, phase, or condition release based on evidence and residual risk.
+- **Requirement** — the approved operating contract for a system, feature, or change.
+- **Operating Envelope** — the approved operating region within a Requirement; it is not the complete Requirement by itself.
+- **Correctness** — the condition in which observed system behavior satisfies the approved Requirement.
+- **Bug** — a violation of an approved Requirement caused or permitted by the implemented system.
+- **Diagnostic sources** — Deterministic Defect, Model-Mediated Violation, and Boundary or Control Failure identify where a system-level Bug may originate.
 
 The canonical wording for terms currently defined by UA is maintained in the [project glossary](glossary.md). Undefined or unresolved terms remain draft framework questions rather than implied requirements.
 
 ## Documents
 
 - [`glossary.md`](glossary.md) — canonical draft-normative vocabulary for current UA terms.
-- [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) — draft-normative relationship between requirements, operating envelopes, correctness, bugs, readiness, completion, and release in Linear Software and Thinking Systems.
+- [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) — draft-normative relationship between Requirements, Operating Envelopes, Correctness, Bugs, evidence, and diagnosis in mixed deterministic and model-mediated systems.
 
-Process hypotheses, lifecycle sketches, and historical terminology belong in the Research Track unless deliberately adopted into doctrine.
+Process hypotheses, lifecycle sketches, operational checklists, and historical terminology belong outside doctrine unless deliberately adopted as a foundational concept.
 
 ## Relationships
 
-- [`01-patterns/`](../01-patterns/) translates doctrine into reusable architectural responses.
+- [`01-patterns/`](../01-patterns/) translates doctrine into reusable technical and socio-technical responses.
 - [`02-ai-control-plane/`](../02-ai-control-plane/) defines the capabilities used to constrain, observe, and correct model-mediated behavior.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible compositions of the doctrine and patterns.
 - [`04-failure-modes/`](../04-failure-modes/) records recurring mechanisms through which these distinctions are violated or lost.
