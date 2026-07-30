@@ -13,7 +13,7 @@ tags:
   - ua/status/informative
   - ua/topic/provenance
 created: 2026-07-24
-updated: 2026-07-26
+updated: 2026-07-30
 license: CC-BY-4.0
 ---
 
@@ -115,6 +115,40 @@ Research Source or Observation
 ```
 
 No step is automatic, and not every item requires every intermediate document.
+
+## Source extraction and framework crystallization
+
+When a source may change doctrine, patterns, control capabilities, reference architectures, failure modes, or reusable artifacts, perform an explicit crystallization pass before editing the specification.
+
+1. Preserve or register the source.
+2. Extract distinct candidate items rather than treating an article, slide, table, or diagram as one indivisible contribution.
+3. Classify each item as a term, doctrine-level distinction, pattern, artifact, control capability, evidence, example, responsibility, process, failure mode, reference-architecture element, or project-specific threshold.
+4. Check whether the item already has a canonical owner and whether the proposed wording is stronger than the evidence supports.
+5. Decide whether the item is retained, narrowed, generalized, split, rejected, or deferred.
+6. Place accepted items in their owning module and replace duplicate explanations with cross-references.
+7. Update [`framework-traceability.md`](framework-traceability.md) when the decision is material enough to require an auditable research-to-framework link.
+
+Use this default ownership rule:
+
+| Content | Canonical owner |
+|---|---|
+| Canonical term or concise meaning | `00-doctrine/glossary.md` |
+| Foundational distinction or invariant | `00-doctrine/` |
+| Reusable operational response, checklist, or gate | `01-patterns/` |
+| Control capability | `02-ai-control-plane/` |
+| Concrete composition | `03-reference-architectures/` |
+| Reusable mechanism of loss of control | `04-failure-modes/` |
+| Evidence, critique, or unresolved hypothesis | `content/research/` |
+| Historical wording or chronology | `content/history/` |
+| Original preserved source | `content/raw/` |
+
+The glossary defines what a canonical term means. Doctrine explains the foundational model. A pattern explains how a team applies that model. A reference architecture shows one possible composition.
+
+Do not move directly from source wording into normative specification. Do not duplicate full explanations across glossary, doctrine, patterns, and reference architectures. Do not dilute a clear operational procedure into abstract prose when a reusable executable pattern or artifact is the appropriate result.
+
+When the source contains an operational procedure, preserve its executable structure through the appropriate combination of inputs, outputs, entry and exit criteria, evidence, decision rights, checklists, tables, and explicit outcomes such as pass, block, limit, escalate, revise, roll back, or stop.
+
+Use Mermaid only when sequence, feedback, authority, state, ownership, or dependency structure is materially clearer as a diagram. The diagram and written rules must express the same model.
 
 ## Changes requiring deliberate framework review
 
