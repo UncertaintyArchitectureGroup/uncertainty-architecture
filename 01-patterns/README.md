@@ -8,6 +8,7 @@ topics:
   - model-judgment
   - uncertainty-boundary
   - containment
+  - evidence
   - fallback
   - escalation
 tags:
@@ -17,6 +18,7 @@ tags:
   - ua/topic/model-judgment
   - ua/topic/uncertainty-boundary
   - ua/topic/containment
+  - ua/topic/evidence
   - ua/topic/fallback
   - ua/topic/escalation
 canonical_for:
@@ -26,13 +28,13 @@ canonical_for:
 # Interface and Control Patterns
 
 **Status:** Draft normative  
-**Role:** Reusable architectural responses for recurring control problems
+**Role:** Reusable architectural and socio-technical responses for recurring control problems
 
 ## Purpose
 
-This module contains reusable patterns for engineering the boundary between deterministic software responsibilities and probabilistic Model Judgment in Thinking Systems.
+This module contains reusable patterns for engineering and operating the boundary between deterministic software responsibilities and probabilistic Model Judgment in Thinking Systems.
 
-Patterns turn UA doctrine into reviewable design choices. They describe where uncertainty may enter a workflow, how it is bounded, what evidence is produced, and how failure is contained or escalated.
+Patterns turn UA doctrine into reviewable design choices. They may arrange technical mechanisms, practical artifacts, responsibility bundles, and repeatable decision processes when those elements jointly address a recurring control problem.
 
 ## Defines
 
@@ -44,7 +46,8 @@ This module defines or develops patterns for:
 - expressing soft constraints without confusing them with guarantees;
 - validating, gating, retrying, containing, or escalating model outputs;
 - maintaining traceability across model-mediated decisions;
-- creating procedural interfaces between code, models, tools, and Human Authority.
+- creating procedural interfaces between code, models, tools, and Human Authority;
+- connecting Requirements, Judgment Node boundaries, readiness, completion, release decisions, and runtime reassessment through a lightweight SMB-facing review flow.
 
 ## Does not define
 
@@ -52,7 +55,9 @@ This module does not prescribe:
 
 - one universal workflow or orchestration framework;
 - a fixed implementation technology;
+- a mandatory governance department, committee, or organizational structure;
 - a separate registry or document for every Judgment Node;
+- separate readiness, completion, release, and responsibility artifacts when one coherent review record is sufficient;
 - identical controls for systems with different consequences and operating contexts;
 - reference architectures as mandatory deployment topologies;
 - universal numerical thresholds for acceptable behavior.
@@ -64,12 +69,13 @@ A mature UA pattern should make the following explicit:
 1. the recurring problem and operating context;
 2. the uncertainty or failure mechanism being addressed;
 3. the deterministic responsibilities that must remain intact;
-4. the proposed control structure;
-5. the evidence or signals needed to operate it;
-6. escalation, fallback, or recovery behavior;
-7. important trade-offs and known limits.
+4. the proposed technical or socio-technical control structure;
+5. the artifacts, responsibility bundles, or decision process required to operate it;
+6. the evidence or signals needed;
+7. escalation, fallback, containment, or recovery behavior;
+8. important trade-offs and known limits.
 
-Examples attached to a pattern are informative unless explicitly classified otherwise. Pattern records and templates should be proportional to authority, downstream impact, reversibility, and failure consequences.
+Examples and working templates attached to a pattern are informative unless explicitly classified otherwise. Pattern records and review effort should be proportional to authority, downstream impact, reversibility, and failure consequences.
 
 ## Key concepts
 
@@ -80,22 +86,29 @@ Examples attached to a pattern are informative unless explicitly classified othe
 - hard invariant;
 - soft constraint;
 - procedural interface;
-- validation gate;
+- validation and release gates;
+- evidence and evaluation;
+- responsibility bundles;
 - fallback and escalation;
-- containment of non-determinism.
+- containment of non-determinism;
+- runtime reassessment.
 
 ## Documents
 
 - [`judgment-node-boundary.md`](judgment-node-boundary.md) — draft-normative pattern for making consequential Model Judgment explicit, bounded, observable, and operable through a minimal or extended boundary.
+- [`thinking-system-review.md`](thinking-system-review.md) — draft-normative SMB-facing pattern connecting the Requirement, Judgment Nodes, full DoR and DoD extensions, release decision, responsibility bundles, and runtime reassessment through one lightweight flow.
+- [`thinking-system-review-template.md`](thinking-system-review-template.md) — informative working template that implements the Thinking System Review as one living, versioned artifact.
 
-The Judgment Node Boundary pattern includes a compact SMB-facing card directly in the document. The repository does not maintain a separate `judgment-node-record.md` artifact.
+The Judgment Node Boundary pattern includes a compact SMB-facing card directly in the document. The same card is embedded in the Thinking System Review template; the repository does not maintain a separate `judgment-node-record.md` artifact.
+
+The Thinking System Review records the release decision inside the same versioned artifact. The repository does not require a separate Release Decision Record for the default SMB adoption path.
 
 Individual patterns should use the metadata and status conventions in [`DOCUMENT-METADATA.md`](../DOCUMENT-METADATA.md).
 
 ## Relationships
 
-- [`00-doctrine/`](../00-doctrine/) provides the foundational distinctions used by the patterns, including the [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) taxonomy.
-- [`02-ai-control-plane/`](../02-ai-control-plane/) provides the control capabilities through which patterns are operated.
+- [`00-doctrine/`](../00-doctrine/) provides the foundational distinctions used by the patterns, including the [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) taxonomy and the [`Requirements, Correctness, and Bugs`](../00-doctrine/requirements-correctness-and-bugs.md) model.
+- [`02-ai-control-plane/`](../02-ai-control-plane/) provides the control capabilities through which boundaries and review decisions are operated.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible combinations of patterns.
 - [`04-failure-modes/`](../04-failure-modes/) provides the failure mechanisms that patterns should mitigate.
 - [`SPECIFICATION.md`](../SPECIFICATION.md) defines the status and normative boundary of this module.
