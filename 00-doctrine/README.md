@@ -43,7 +43,8 @@ This module defines or develops the foundational distinctions behind:
 - open-loop and closed-loop operating conditions;
 - uncertainty containment rather than uncertainty elimination;
 - the limits of metrics without decision authority and corrective action;
-- the architectural importance of interfaces, invariants, feedback, and Human Authority.
+- the architectural importance of interfaces, invariants, feedback, and Human Authority;
+- requirements, correctness, and bug classification when probabilistic Model Judgment performs business logic.
 
 ## Does not define
 
@@ -62,12 +63,15 @@ This module does not prescribe:
 - **Model Judgment** — interpretation, synthesis, classification, generation, planning, or action selection under uncertainty.
 - **Uncertainty Boundary** — the interface at which deterministic responsibilities meet probabilistic judgment.
 - **Containment** — limiting where uncertainty may propagate and defining what happens when behavior leaves acceptable bounds.
+- **Requirement** — the approved operating contract against which correctness and bugs are evaluated.
+- **Operating Envelope** — the context- and risk-derived region within which behavioral variation remains acceptable.
 
 The canonical wording for terms currently defined by UA is maintained in the [project glossary](glossary.md). Undefined or unresolved terms remain draft framework questions rather than implied requirements.
 
 ## Documents
 
 - [`glossary.md`](glossary.md) — canonical draft-normative vocabulary for current UA terms.
+- [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) — draft-normative relationship between requirements, operating envelopes, correctness, and bugs in Linear Software and Thinking Systems.
 
 Process hypotheses, lifecycle sketches, and historical terminology belong in the Research Track unless deliberately adopted into doctrine.
 
