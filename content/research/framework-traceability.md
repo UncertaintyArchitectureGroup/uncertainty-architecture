@@ -14,7 +14,7 @@ tags:
   - ua/status/research
   - ua/topic/provenance
 created: 2026-07-24
-updated: 2026-07-26
+updated: 2026-07-30
 license: CC-BY-4.0
 ---
 
@@ -62,6 +62,7 @@ The matrix does not need to be populated source by source before synthesis begin
 
 | Research finding | Source or synthesis | Candidate framework area | Status | Work required before normative adoption |
 |---|---|---|---|---|
+| When probabilistic Model Judgment performs business logic, requirements should define an approved Operating Envelope rather than pretend that one exact output is always specifiable; correctness and Bug classification are derived from that operating contract. | *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* presentation, refined through framework review | Doctrine and glossary | Proposed for Framework Review | Review `00-doctrine/requirements-correctness-and-bugs.md`; validate the distinction between a Deviation Signal, a statistically evidenced tolerance breach, an accepted distribution tail, and a Bug |
 
 ## Conflict and evolution register
 
@@ -70,6 +71,7 @@ This section records cross-source issues that cannot be resolved inside simple e
 | Topic | Earlier formulation | Later formulation | Current status | Resolution path |
 |---|---|---|---|---|
 | Primary system category | Behavioral Software / Behavioral Applications | Thinking Systems | Active | Use Thinking Systems in current framework documents; preserve legacy wording in historical sources with an explanatory terminology note |
+| Bug under stochastic business logic | A bug is a statistical excursion beyond approved business tolerances | A Bug is a violation of an approved Requirement; a statistically evidenced tolerance excursion is one way such a violation may be established when the tolerance is part of the Requirement | Proposed for Framework Review | Review the draft doctrine and glossary definitions; preserve event, evidence, diagnosis, accepted residual risk, and system responsibility as separate concepts |
 
 Initial topics expected to require further review include:
 
