@@ -31,12 +31,14 @@ It prevents two opposite errors:
 
 Traceability is a synthesis aid, not a mandatory ledger for every source or sentence.
 
+This matrix is the canonical repository record for material source-to-framework decisions. Do not create a parallel crystallization ledger elsewhere; detailed argument belongs in the supporting analysis, synthesis, or source-intake note.
+
 ## Status vocabulary
 
 - **Research Finding** — a conclusion preserved from research material.
 - **Candidate** — potentially suitable for translation into a framework component.
 - **Needs Resolution** — terminology, evidence, scope, or contradiction must be resolved first.
-- **Proposed for Framework Review** — mature enough for a separate normative proposal and visible review.
+- **Proposed for Framework Review** — mature enough for a separate, deliberate normative proposal and visible review.
 - **Active** — accepted into the normative framework.
 - **Superseded** — replaced by a later formulation.
 - **Rejected** — considered and intentionally not adopted.

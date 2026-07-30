@@ -70,6 +70,7 @@ Project publications, talks, community discussions, and independent references a
 - Added controlled metadata to the specification, glossary, module entry points, Control Plane sub-documents, and actively maintained research indexes.
 - Updated contribution guidance to require consistent metadata for new maintained conceptual documents and to direct agent-assisted work through `AGENTS.md`.
 - Expanded `AGENTS.md` into an operational protocol that requires same-PR changelog updates and explicit classification of source-derived concepts, artifacts, responsibilities, processes, patterns, failure modes, and reference architectures.
+- Clarified the proportional research-review process with a concise source-extraction and framework-crystallization step, canonical ownership rules, executable-clarity guidance, and reuse of the existing traceability matrix rather than a second ledger.
 - Refined the canonical definitions of Requirement, Operating Envelope, Correctness, Bug, and Deviation Signal so statistical excursions remain evidence while a Bug is defined by violation of the approved operating contract.
 - Updated the roadmap so cross-publication synthesis is now the immediate substantive priority.
 
