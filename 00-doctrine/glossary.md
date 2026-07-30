@@ -126,7 +126,9 @@ Closed-loop does not imply fully automated control. Human decision authority may
 
 ### Operating Envelope
 
-The defined range of conditions, authority, consequences, and observed behavior within which a system is considered acceptable to operate.
+The approved range of conditions, authority, consequences, and observed behavior within which a system is considered acceptable to operate under a defined Requirement.
+
+For Model Judgment that performs business logic, the Operating Envelope may include permitted behavioral variation, prohibited regions, business tolerances for relevant outcome distributions, evidence expectations, and required handling when acceptable bounds are exceeded or cannot be established.
 
 The envelope should be derived from context and risk rather than copied as a universal threshold.
 
@@ -160,7 +162,7 @@ Drift may arise without code changes and may be semantic, logical, statistical, 
 
 Evidence indicating that observed behavior or outcomes may have moved outside an intended operating envelope or expectation.
 
-A deviation signal may be uncertain and require interpretation; it should not be confused with a guaranteed diagnosis.
+A deviation signal may be uncertain and require interpretation; it should not be confused with a guaranteed diagnosis or with a Bug by itself.
 
 ### Release Gate
 
@@ -202,9 +204,15 @@ A nominal human-in-the-loop step without adequate information, time, competence,
 
 ### Requirement
 
-A statement of an intended outcome, invariant, boundary, evidence expectation, or acceptable operating condition.
+The approved operating contract of a system, expressed through intended outcomes, invariants, boundaries, acceptable operating conditions, evidence expectations, and required failure handling.
 
-For Model Judgment, a requirement should avoid pretending that one exact output can always be specified. It should distinguish hard constraints from probabilistic expectations and define relevant failure handling.
+For Model Judgment that performs business logic, a Requirement should avoid pretending that one exact output can always be specified. It should distinguish hard constraints from probabilistic expectations and define the context- and risk-derived Operating Envelope within which behavioral variation remains acceptable.
+
+### Correctness
+
+The condition in which observed system behavior satisfies the approved Requirement.
+
+For Linear Software, correctness may often be established by comparing a deterministic result with a specified result. For a Thinking System, correctness may require evidence that relevant behavior remains within the approved Operating Envelope, preserves invariants, and triggers required control responses when acceptable bounds are exceeded or cannot be established.
 
 ### Definition of Ready (DoR)
 
@@ -220,9 +228,15 @@ Relevant conditions may include observability, evaluation evidence, traceability
 
 ### Bug
 
-A systematic failure of implementation, containment, control, or stated system behavior.
+A violation of an approved Requirement caused or permitted by the implemented system.
 
-Not every undesirable model output is best classified as a conventional code bug. The useful classification depends on whether the cause is a deterministic defect, an expected distribution tail, a missing boundary, an inadequate sensor, a controller failure, or an invalid assumption.
+In Linear Software, a Bug commonly appears as an incorrect deterministic result or transition. In a Thinking System, it may appear when model-mediated behavior materially exceeds an approved business tolerance, leaves the approved Operating Envelope, violates an invariant, permits a prohibited action, or when a required boundary, sensor, controller, containment path, or corrective mechanism is absent or ineffective.
+
+For an LLM that performs business logic, a statistically evidenced excursion beyond an approved business tolerance is a Bug when that tolerance is part of the approved Requirement and the implemented system causes or permits the violation.
+
+An individual undesirable output or Deviation Signal is not automatically a Bug. Diagnosis must distinguish a Requirement violation from an accepted distribution tail handled as designed, insufficient evidence, an invalid Requirement, an external condition outside system responsibility, or another unresolved cause.
+
+See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and classification model.
 
 ## Terminology evolution
 
