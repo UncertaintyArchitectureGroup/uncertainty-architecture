@@ -12,7 +12,7 @@ tags:
   - ua/type/research-index
   - ua/status/research
   - ua/topic/provenance
-updated: 2026-07-26
+updated: 2026-07-30
 license: CC-BY-4.0
 ---
 
@@ -28,7 +28,7 @@ The notes migrated here from the former root-level `research/` directory are pla
 
 - [`ai-delivery-lifecycle.md`](ai-delivery-lifecycle.md) — an early lifecycle hypothesis reclassified from doctrine; thresholds, roles, and sequence remain illustrative.
 - [`control-theory-brief.md`](control-theory-brief.md) — planning brief for mapping classical control concepts to Thinking Systems.
-- [`designing-nondeterministic-systems-source-intake.md`](designing-nondeterministic-systems-source-intake.md) — traceability record for the available presentation deck pending a reviewable repository edition or transcript.
+- [`designing-nondeterministic-systems-source-intake.md`](designing-nondeterministic-systems-source-intake.md) — traceability record for the preserved presentation PDF; a complete reviewable transcript or normalized repository edition remains pending.
 - [`metrics-brief.md`](metrics-brief.md) — planning brief for useful and misleading metrics.
 - [`on-device-cloud-source-intake.md`](on-device-cloud-source-intake.md) — traceability record for a full author-provided source that remains pending raw preservation and normalization.
 - [`reference-implementations-brief.md`](reference-implementations-brief.md) — planning brief for implementation evidence and architectural examples.
