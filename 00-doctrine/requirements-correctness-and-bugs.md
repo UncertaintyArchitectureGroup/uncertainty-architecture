@@ -1,5 +1,5 @@
 ---
-title: Requirements, Correctness, and Bugs in Thinking Systems
+title: Requirements, Correctness, Bugs, and Delivery Gates in Thinking Systems
 artifact_type: doctrine
 status: draft-normative
 maturity: active
@@ -11,6 +11,9 @@ topics:
   - correctness
   - defects
   - model-judgment
+  - definition-of-ready
+  - definition-of-done
+  - release-gates
 tags:
   - ua/module/doctrine
   - ua/type/doctrine
@@ -21,17 +24,19 @@ canonical_for:
   - requirement-model
   - correctness-model
   - bug-model
+  - readiness-gate-model
+  - completion-gate-model
 source_basis:
   - "../content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf"
 ---
 
-# Requirements, Correctness, and Bugs in Thinking Systems
+# Requirements, Correctness, Bugs, and Delivery Gates in Thinking Systems
 
 ## Status
 
-This document is **draft normative**. It defines a candidate doctrine for requirements, correctness, and bugs when probabilistic Model Judgment performs part of the business logic of a Thinking System.
+This document is **draft normative**. It defines a candidate doctrine for requirements, correctness, bugs, readiness, completion, and release when probabilistic Model Judgment performs part of the business logic of a Thinking System.
 
-The presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* is a synthesis source for this formulation. The source remains historical research evidence; this document is the explicit framework decision that translates the relevant idea into current UA terminology.
+The presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* is a synthesis source for this formulation. The source remains historical research evidence; this document is the explicit framework decision that translates the relevant ideas into current UA terminology.
 
 ## 1. Core relationship
 
@@ -41,7 +46,13 @@ A **Requirement** defines the approved operating contract of a system.
 
 A **Bug** is a violation of an approved Requirement caused or permitted by the implemented system.
 
-This relationship applies to both Linear Software and Thinking Systems. What changes is how the Requirement can be specified and how compliance must be evaluated.
+A **Definition of Ready (DoR)** is the entry gate that determines whether the operating contract and the plan for establishing compliance are sufficiently explicit to begin implementation or controlled experimentation.
+
+A **Definition of Done (DoD)** is the completion gate that determines whether the implemented change has sufficient evidence, operability, and recovery support to be considered complete for a defined release context.
+
+A **Release Gate** is the separate decision in which authorized decision-makers accept, reject, limit, or condition release based on DoD evidence, residual risk, and operating context.
+
+This relationship applies to both Linear Software and Thinking Systems. What changes is how the Requirement can be specified, how compliance must be evaluated, and what evidence is needed at each gate.
 
 ## 2. Requirements in Linear Software
 
@@ -66,10 +77,11 @@ Depending on the system and consequence level, the operating contract may includ
 - authority and action boundaries;
 - business tolerances for relevant outcome distributions;
 - evidence and evaluation expectations;
+- cost, latency, compute, token, or other resource envelopes when material;
 - required handling when behavior is uncertain or outside approved bounds;
 - fallback, escalation, containment, rollback, or shutdown obligations.
 
-The envelope MUST be derived from context and risk. A numerical threshold, sample size, evaluation score, or review cadence is not universal merely because it appears in an example or source.
+The envelope MUST be derived from context and risk. A numerical threshold, sample size, evaluation score, confidence level, cost limit, or review cadence is not universal merely because it appears in an example or source.
 
 ## 4. Correctness under probabilistic business logic
 
@@ -82,9 +94,10 @@ Correctness is instead evaluated from evidence that the implemented system:
 1. preserves required invariants;
 2. keeps relevant behavior and outcomes within the approved Operating Envelope;
 3. detects material deviations with sufficient evidence for the decision context;
-4. executes the required control response when acceptable bounds are exceeded or cannot be established.
+4. executes the required control response when acceptable bounds are exceeded or cannot be established;
+5. remains within approved operational and resource constraints where those constraints are part of the Requirement.
 
-This makes correctness a system property. It depends on the model-mediated behavior together with deterministic boundaries, sensors, controllers, decision rights, and corrective mechanisms.
+This makes correctness a system property. It depends on the model-mediated behavior together with deterministic boundaries, sensors, controllers, decision rights, resource controls, and corrective mechanisms.
 
 ## 5. Canonical definition of Bug
 
@@ -99,7 +112,8 @@ In a Thinking System, a Bug may appear when:
 - an invariant is violated;
 - a prohibited action is allowed;
 - a required boundary, sensor, controller, or corrective mechanism is absent or ineffective;
-- the system fails to contain, escalate, fall back, roll back, or stop as required.
+- the system fails to contain, escalate, fall back, roll back, or stop as required;
+- the system materially exceeds an approved cost, latency, compute, token, or other resource boundary that forms part of the Requirement.
 
 For an LLM that performs business logic, a statistically evidenced excursion beyond an approved business tolerance is therefore a Bug **when that tolerance is part of the approved Requirement and the implemented system causes or permits the violation**.
 
@@ -133,41 +147,102 @@ Relevant classifications may include:
 
 The **Bug** is the Requirement violation. A statistical excursion, evaluation result, incident, or user report is evidence used to establish that violation and its cause.
 
-## 7. Consequences for engineering practice
+## 7. Definition of Ready as an entry contract
 
-Because Bug is derived from Requirement, changes to the requirement model propagate through the delivery system:
+The Definition of Ready is not proof that the proposed behavior is correct. It is the decision that the work is sufficiently framed to enter implementation or controlled experimentation without hiding consequential uncertainty.
+
+For work involving Model Judgment, DoR SHOULD establish, in proportion to risk and autonomy:
+
+- the intended business outcome and relevant users or affected parties;
+- the location and authority of Model Judgment;
+- deterministic invariants, prohibited actions, and hard constraints;
+- the initial Operating Envelope and business tolerances to be tested or refined;
+- consequential scenarios and known failure consequences;
+- the evidence strategy, including evaluation methods and the rationale for sample adequacy;
+- the cost, latency, compute, token, or other resource envelope when material;
+- ownership and decision authority for requirement changes, tolerance acceptance, and escalation;
+- required fallback, containment, rollback, shutdown, or human-review paths;
+- assumptions and unresolved questions that remain explicit.
+
+DoR MAY permit controlled experimentation when the final operating envelope cannot yet be known. In that case, it MUST distinguish exploratory hypotheses from approved production tolerances and define how evidence will be used to refine the Requirement.
+
+Expressions such as "the risk profile is digitized" are implementation choices, not doctrine. UA requires the relevant risk and tolerance information to be explicit and traceable; it does not require one tool or data representation.
+
+## 8. Definition of Done as an evidence and operability contract
+
+The Definition of Done is not equivalent to one successful run, a green deterministic test suite, or completion of implementation tasks.
+
+For work involving Model Judgment, DoD SHOULD require evidence, proportional to the release context, that:
+
+- deterministic logic, boundaries, and invariants pass their applicable tests;
+- evaluation results support the claim that relevant behavior remains within the approved Operating Envelope;
+- the evaluation scope, dataset, sample size, confidence, uncertainty, and known limitations are visible;
+- consequential scenarios and prohibited regions have been exercised where feasible;
+- cost, latency, compute, token, or other material resource behavior remains within approved bounds;
+- observability and Deviation Signals are available for relevant production behavior;
+- required fallback, escalation, containment, rollback, shutdown, and Human Authority paths are implemented and tested at an appropriate level;
+- versions, evidence, decisions, and assumptions are traceable;
+- known residual risk and unresolved uncertainty are recorded;
+- operational ownership exists for post-release observation and corrective action.
+
+Large-sample evaluation MAY be necessary, but no universal sample size proves correctness. Metrics such as accuracy, drift, hallucination rate, cost, or confidence intervals are relevant only when they correspond to the approved Requirement and decision context.
+
+Passing an evaluation gate supports a bounded completion claim. It does not prove universal correctness or eliminate the need for runtime control.
+
+## 9. DoD and release are separate decisions
+
+DoD answers:
+
+> Has the change produced the required implementation, evidence, operability, and recovery support for the defined release context?
+
+The Release Gate answers:
+
+> Does an authorized decision-maker accept the available evidence and residual risk for this deployment, population, scope, and operating period?
+
+A change MAY satisfy DoD and still be blocked, limited, phased, or conditioned at the Release Gate. Conversely, release pressure MUST NOT silently weaken DoD or redefine approved tolerances without an explicit Requirement and risk decision.
+
+A confidence interval may be part of release evidence, but UA does not require confidence intervals for every system or accept them as sufficient by themselves. The appropriate evidence depends on consequences, reversibility, uncertainty, exposure, and the nature of the Requirement.
+
+## 10. Consequences for engineering practice
+
+Because Bug, readiness, completion, and release are derived from Requirement, changes to the requirement model propagate through the delivery system:
 
 ```text
-Requirement model
-      ↓
-Correctness model
-      ↓
-Bug and incident classification
-      ↓
+Requirement and Operating Envelope
+              ↓
+Definition of Ready
+              ↓
+Implementation and experimentation
+              ↓
+Correctness and Bug model
+              ↓
 Evaluation and testing strategy
-      ↓
-Definition of Done and release evidence
-      ↓
+              ↓
+Definition of Done evidence
+              ↓
+Authorized Release Gate
+              ↓
 Runtime observation and corrective action
 ```
 
 Traditional pass/fail tests remain appropriate for deterministic rules and invariants.
 
-Model-mediated business logic additionally requires evidence about behavioral distributions, consequential scenarios, boundaries, and control performance. Passing an evaluation suite does not by itself prove universal correctness; it supports a bounded release or operating decision.
+Model-mediated business logic additionally requires evidence about behavioral distributions, consequential scenarios, boundaries, resource use, and control performance. Passing an evaluation suite does not by itself prove universal correctness; it supports a bounded completion, release, or operating decision.
 
-## 8. Relationship to other UA concepts
+## 11. Relationship to other UA concepts
 
-- [`glossary.md`](glossary.md) contains the canonical concise definitions of Requirement, Operating Envelope, Correctness, Bug, and Deviation Signal.
+- [`glossary.md`](glossary.md) contains the canonical concise definitions of Requirement, Operating Envelope, Correctness, Bug, Definition of Ready, Definition of Done, Release Gate, and Deviation Signal.
 - [`../02-ai-control-plane/`](../02-ai-control-plane/) defines the capabilities used to observe deviations and authorize corrective action.
-- [`../01-patterns/`](../01-patterns/) may define reusable structures for specifying and evaluating operating envelopes.
+- [`../01-patterns/`](../01-patterns/) may define reusable structures for specifying operating envelopes, evaluation gates, and release evidence.
 - [`../04-failure-modes/`](../04-failure-modes/) distinguishes recurring mechanisms of control loss from individual defect instances.
 - [`../content/research/notes/designing-nondeterministic-systems-source-intake.md`](../content/research/notes/designing-nondeterministic-systems-source-intake.md) records the presentation source and its normalization state.
 
-## 9. Open questions
+## 12. Open questions
 
 The following remain subject to further framework review:
 
 - whether UA needs a separate canonical term for a statistically established tolerance breach;
-- how requirement evidence should be represented across different risk and autonomy levels;
+- how requirement and gate evidence should be represented across different risk and autonomy levels;
 - how accepted residual risk should be documented without normalizing avoidable defects;
-- how conformance claims should distinguish design adequacy from observed production performance.
+- how conformance claims should distinguish design adequacy, completion evidence, release authorization, and observed production performance;
+- whether reusable DoR and DoD artifacts belong in patterns, practical artifacts, or both.
