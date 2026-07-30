@@ -126,9 +126,9 @@ Closed-loop does not imply fully automated control. Human decision authority may
 
 ### Operating Envelope
 
-The approved range of conditions, authority, consequences, and observed behavior within which a system is considered acceptable to operate under a defined Requirement.
+The approved range of conditions, authority, consequences, resource use, and observed behavior within which a system is considered acceptable to operate under a defined Requirement.
 
-For Model Judgment that performs business logic, the Operating Envelope may include permitted behavioral variation, prohibited regions, business tolerances for relevant outcome distributions, evidence expectations, and required handling when acceptable bounds are exceeded or cannot be established.
+For Model Judgment that performs business logic, the Operating Envelope may include permitted behavioral variation, prohibited regions, business tolerances for relevant outcome distributions, evidence expectations, cost or latency bounds, and required handling when acceptable bounds are exceeded or cannot be established.
 
 The envelope should be derived from context and risk rather than copied as a universal threshold.
 
@@ -166,9 +166,11 @@ A deviation signal may be uncertain and require interpretation; it should not be
 
 ### Release Gate
 
-A decision point that uses defined evidence and authority to allow, block, limit, or condition a release or configuration change.
+A decision point at which authorized decision-makers use defined evidence, completion status, residual risk, and operating context to allow, block, limit, phase, or condition a release or configuration change.
 
-Thresholds and evidence requirements should be proportional to consequences, reversibility, uncertainty, and context.
+A Release Gate is distinct from Definition of Done. DoD establishes whether the change has the required implementation, evidence, operability, and recovery support; the Release Gate determines whether the available evidence and residual risk are accepted for a specific deployment context.
+
+Thresholds and evidence requirements should be proportional to consequences, reversibility, uncertainty, exposure, and context.
 
 ### Escalation
 
@@ -204,7 +206,7 @@ A nominal human-in-the-loop step without adequate information, time, competence,
 
 ### Requirement
 
-The approved operating contract of a system, expressed through intended outcomes, invariants, boundaries, acceptable operating conditions, evidence expectations, and required failure handling.
+The approved operating contract of a system, expressed through intended outcomes, invariants, boundaries, acceptable operating conditions, evidence expectations, resource constraints, and required failure handling.
 
 For Model Judgment that performs business logic, a Requirement should avoid pretending that one exact output can always be specified. It should distinguish hard constraints from probabilistic expectations and define the context- and risk-derived Operating Envelope within which behavioral variation remains acceptable.
 
@@ -212,25 +214,29 @@ For Model Judgment that performs business logic, a Requirement should avoid pret
 
 The condition in which observed system behavior satisfies the approved Requirement.
 
-For Linear Software, correctness may often be established by comparing a deterministic result with a specified result. For a Thinking System, correctness may require evidence that relevant behavior remains within the approved Operating Envelope, preserves invariants, and triggers required control responses when acceptable bounds are exceeded or cannot be established.
+For Linear Software, correctness may often be established by comparing a deterministic result with a specified result. For a Thinking System, correctness may require evidence that relevant behavior remains within the approved Operating Envelope, preserves invariants, respects material resource constraints, and triggers required control responses when acceptable bounds are exceeded or cannot be established.
 
 ### Definition of Ready (DoR)
 
-The conditions under which work involving Model Judgment has enough clarity to enter implementation or experimentation.
+The entry gate at which work involving Model Judgment is judged sufficiently framed to begin implementation or controlled experimentation.
 
-Relevant conditions may include intended outcomes, uncertainty surface, authority boundaries, evidence strategy, failure consequences, and unresolved assumptions. UA does not prescribe one universal DoR checklist.
+A DoR should make the operating contract and the plan for establishing compliance explicit in proportion to risk and autonomy. Relevant conditions may include intended outcomes, the location and authority of Model Judgment, invariants and prohibited actions, the initial Operating Envelope and business tolerances, consequential scenarios, evidence strategy, rationale for sample adequacy, cost or resource envelopes, ownership, decision authority, failure handling, and unresolved assumptions.
+
+DoR is not proof of correctness. It may permit controlled experimentation when final tolerances are not yet known, provided exploratory hypotheses are distinguished from approved production requirements and the evidence path for refining them is explicit.
 
 ### Definition of Done (DoD)
 
-The conditions under which a change involving Model Judgment has sufficient implementation, evidence, operability, and recovery support for its intended release context.
+The completion gate at which a change involving Model Judgment is judged to have sufficient implementation, evidence, operability, traceability, and recovery support for a defined release context.
 
-Relevant conditions may include observability, evaluation evidence, traceability, fallback, escalation, rollback, and ownership. UA does not prescribe universal numerical thresholds.
+A DoD may require deterministic tests for rules and invariants, evaluation evidence against the approved Operating Envelope, visible scope and limitations of the evidence, consequential-scenario coverage, resource-bound evidence, observability, tested fallback and corrective paths, residual-risk records, and operational ownership.
+
+DoD is not equivalent to one successful run, a universal sample size, or release authorization. Passing an evaluation supports a bounded completion claim; it does not prove universal correctness or eliminate the need for runtime control.
 
 ### Bug
 
 A violation of an approved Requirement caused or permitted by the implemented system.
 
-In Linear Software, a Bug commonly appears as an incorrect deterministic result or transition. In a Thinking System, it may appear when model-mediated behavior materially exceeds an approved business tolerance, leaves the approved Operating Envelope, violates an invariant, permits a prohibited action, or when a required boundary, sensor, controller, containment path, or corrective mechanism is absent or ineffective.
+In Linear Software, a Bug commonly appears as an incorrect deterministic result or transition. In a Thinking System, it may appear when model-mediated behavior materially exceeds an approved business tolerance, leaves the approved Operating Envelope, violates an invariant, permits a prohibited action, exceeds a material resource boundary, or when a required boundary, sensor, controller, containment path, or corrective mechanism is absent or ineffective.
 
 For an LLM that performs business logic, a statistically evidenced excursion beyond an approved business tolerance is a Bug when that tolerance is part of the approved Requirement and the implemented system causes or permits the violation.
 
