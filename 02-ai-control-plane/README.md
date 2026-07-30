@@ -61,6 +61,7 @@ This module does not prescribe:
 - controller;
 - evidence and deviation signal;
 - target operating envelope;
+- Judgment Node boundary and authority constraint;
 - release gate;
 - escalation and Human Authority;
 - rollback, containment, and shutdown;
@@ -74,10 +75,23 @@ This module does not prescribe:
 
 The capability-area documents inherit the module's draft-normative boundary when they define a capability. Examples and implementation-oriented subareas are informative unless explicitly stated otherwise.
 
+## Judgment Node boundaries and control capabilities
+
+The [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) pattern identifies what must be bounded, observed, and corrected around a particular use of Model Judgment.
+
+The AI Control Plane supplies the capability vocabulary used to operate that boundary:
+
+- actuators and constraints shape context, configuration, permissions, routing, tool access, execution, or other behavior;
+- sensors produce evidence about the node, its downstream effects, and its operating conditions;
+- controllers interpret that evidence and authorize corrective action;
+- escalation, fallback, containment, rollback, or shutdown provide intervention paths.
+
+A boundary description is not itself a functioning control loop. The loop becomes operational only when evidence reaches decision authority and that authority has a real mechanism capable of changing, containing, or stopping behavior.
+
 ## Relationships
 
-- [`00-doctrine/`](../00-doctrine/) explains why probabilistic judgment requires explicit boundaries and feedback.
-- [`01-patterns/`](../01-patterns/) describes reusable ways to implement control responsibilities.
+- [`00-doctrine/`](../00-doctrine/) explains why probabilistic judgment requires explicit boundaries and feedback, including the [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) taxonomy.
+- [`01-patterns/`](../01-patterns/) describes reusable ways to implement control responsibilities, including the [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) pattern.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible distributions of control-plane capabilities.
 - [`04-failure-modes/`](../04-failure-modes/) identifies deviations and control failures the plane must detect or mitigate.
 - [`SPECIFICATION.md`](../SPECIFICATION.md) defines the status and normative boundary of this module.

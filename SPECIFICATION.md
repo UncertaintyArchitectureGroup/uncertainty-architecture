@@ -43,6 +43,7 @@ This file is the canonical entry point for the specification. It does not duplic
 The UA specification covers:
 
 - the distinction between deterministic control logic and probabilistic judgment;
+- functional placement of Model Judgment within a system or workflow;
 - architectural boundaries around model-mediated behavior;
 - control-loop capabilities for constraining, observing, evaluating, and recalibrating behavior;
 - reusable technical and socio-technical patterns;
@@ -52,6 +53,7 @@ The UA specification covers:
 The specification does not prescribe:
 
 - a particular model, vendor, framework, orchestration platform, or deployment topology;
+- a mandatory pipeline of Input Interpretation, Decision Logic, and Output Mediation;
 - universal numerical thresholds for quality, risk, latency, cost, or autonomy;
 - mandatory job titles or a single organizational structure;
 - identical controls for every AI system;
@@ -84,7 +86,7 @@ The metadata field `maturity` may describe lifecycle state within a status class
 
 ### 5.1 Core doctrine
 
-[`00-doctrine/`](00-doctrine/README.md) defines the foundational concepts and distinctions on which the rest of UA depends.
+[`00-doctrine/`](00-doctrine/README.md) defines the foundational concepts and distinctions on which the rest of UA depends, including the functional placement taxonomy for Model Judgment.
 
 [`00-doctrine/glossary.md`](00-doctrine/glossary.md) is the canonical vocabulary source for terms it currently defines. The glossary remains draft normative and may be refined through framework review.
 
@@ -92,9 +94,9 @@ Stable doctrine is expected to become normative; unfinished doctrine remains dra
 
 ### 5.2 Patterns
 
-[`01-patterns/`](01-patterns/README.md) contains reusable solutions for recurring technical and socio-technical control problems.
+[`01-patterns/`](01-patterns/README.md) contains reusable solutions for recurring technical and socio-technical control problems, including explicit boundaries around consequential Judgment Nodes.
 
-Patterns may be normative or draft normative. Examples attached to a pattern are informative unless stated otherwise.
+Patterns may be normative or draft normative. Examples and compact records attached to a pattern are informative unless stated otherwise.
 
 ### 5.3 AI Control Plane
 
@@ -142,13 +144,17 @@ UA conformance is currently defined at the level of explicit architectural reaso
 
 A system or design claiming alignment with UA SHOULD be able to identify:
 
-1. where probabilistic judgment occurs;
-2. which deterministic boundaries and invariants constrain it;
-3. how relevant behavior and outcomes are observed;
-4. how evidence is evaluated against risk-derived expectations;
-5. who or what may change system behavior;
-6. how escalation, containment, rollback, or shutdown occurs;
-7. how decisions, assumptions, and changes remain traceable.
+1. where materially consequential Model Judgment occurs;
+2. whether each identified Judgment Node performs Input Interpretation, Decision Logic, Output Mediation, or a combination;
+3. which inputs and approved context each node receives;
+4. which outputs, decisions, paths, or actions each node can change;
+5. which authority each node possesses;
+6. which deterministic boundaries and invariants constrain it;
+7. how relevant behavior and outcomes are observed and evaluated against risk-derived expectations;
+8. who or what may authorize corrective action and how escalation, containment, fallback, rollback, or shutdown occurs;
+9. how decisions, assumptions, dependencies, and changes remain traceable.
+
+The placement classes are a functional taxonomy, not a mandatory pipeline. A node may combine functions, and a workflow may omit or repeat any class.
 
 A claim of UA alignment MUST NOT imply certification, endorsement, or complete conformance unless the project later establishes a formal conformance program.
 
@@ -166,6 +172,6 @@ Research findings, talks, articles, implementations, and external frameworks do 
 
 ## 9. Current maturity
 
-UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, patterns, a control-plane model, reference material, and failure-mode work, but detailed normative content remains incomplete and may change.
+UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, a Model Judgment placement taxonomy, an initial Judgment Node boundary pattern, a control-plane model, reference material, and failure-mode work, but detailed normative content remains incomplete and may change.
 
 Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples remain **reference** or **informative**, not mandatory implementation requirements.

@@ -40,6 +40,7 @@ This module defines or develops the foundational distinctions behind:
 - Thinking Systems;
 - deterministic control logic and Model Judgment;
 - the boundary between probabilistic behavior and deterministic system responsibilities;
+- functional placement of Model Judgment as Input Interpretation, Decision Logic, or Output Mediation;
 - open-loop and closed-loop operating conditions;
 - uncertainty containment rather than uncertainty elimination;
 - the limits of metrics without decision authority and corrective action;
@@ -54,6 +55,7 @@ This module defines or develops the foundational distinctions behind:
 This module does not prescribe:
 
 - a specific model, vendor, framework, or implementation stack;
+- a mandatory three-stage Model Judgment pipeline or physical topology;
 - a complete runtime control-plane design;
 - one universal set of controls, sample sizes, confidence levels, or evaluation thresholds;
 - detailed Definition of Ready or Definition of Done checklists;
@@ -68,6 +70,7 @@ Operational checklists, decision flows, and practical records should be defined 
 - **Thinking System** — a software system in which part of the runtime path or decision process is produced through model-mediated judgment while consequential deterministic responsibilities remain explicit.
 - **Deterministic Core** — rules, invariants, permissions, data handling, and other responsibilities that must remain explicitly controlled.
 - **Model Judgment** — interpretation, synthesis, classification, generation, planning, or action selection under uncertainty.
+- **Model Judgment placement** — the functional role a Judgment Node performs as Input Interpretation, Decision Logic, Output Mediation, or a combination.
 - **Uncertainty Boundary** — the interface at which deterministic responsibilities meet probabilistic judgment.
 - **Containment** — limiting where uncertainty may propagate and defining what happens when behavior leaves acceptable bounds.
 - **Requirement** — the approved operating contract for a system, feature, or change.
@@ -82,12 +85,13 @@ The canonical wording for terms currently defined by UA is maintained in the [pr
 
 - [`glossary.md`](glossary.md) — canonical draft-normative vocabulary for current UA terms.
 - [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) — draft-normative relationship between Requirements, Operating Envelopes, Correctness, Bugs, evidence, and diagnosis in mixed deterministic and model-mediated systems.
+- [`model-judgment-placement.md`](model-judgment-placement.md) — draft-normative functional taxonomy for locating Model Judgment as Input Interpretation, Decision Logic, or Output Mediation without prescribing a mandatory pipeline.
 
 Process hypotheses, lifecycle sketches, operational checklists, and historical terminology belong outside doctrine unless deliberately adopted as a foundational concept.
 
 ## Relationships
 
-- [`01-patterns/`](../01-patterns/) translates doctrine into reusable technical and socio-technical responses.
+- [`01-patterns/`](../01-patterns/) translates doctrine into reusable technical and socio-technical responses, including the [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) pattern.
 - [`02-ai-control-plane/`](../02-ai-control-plane/) defines the capabilities used to constrain, observe, and correct model-mediated behavior.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible compositions of the doctrine and patterns.
 - [`04-failure-modes/`](../04-failure-modes/) records recurring mechanisms through which these distinctions are violated or lost.
