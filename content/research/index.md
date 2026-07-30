@@ -17,7 +17,7 @@ tags:
 canonical_for:
   - research-track
 created: 2026-07-24
-updated: 2026-07-26
+updated: 2026-07-30
 license: CC-BY-4.0
 ---
 
@@ -131,10 +131,12 @@ See [Research-to-Framework Traceability](framework-traceability.md).
 
 Five normalized publication editions are currently preserved under [`publications/`](publications/). Earlier root-level planning briefs have been classified under [`notes/`](notes/) and remain draft research tasks rather than completed findings.
 
-Two additional synthesis sources are available but not yet preserved as repository editions:
+Two additional synthesis sources are tracked:
 
 - [*On-Device LLM or Cloud API?*](notes/on-device-cloud-source-intake.md) — full Markdown source available; raw preservation and normalization remain pending;
-- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — presentation deck available; a reviewable repository transcript or edition remains pending.
+- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the PDF presentation is preserved under [`content/raw/`](../raw/), while a complete reviewable Markdown transcript or normalized repository edition remains pending.
+
+The presentation has begun to inform explicit framework review. The requirement–correctness–bug relationship extracted from the deck is proposed separately in [`00-doctrine/requirements-correctness-and-bugs.md`](../../00-doctrine/requirements-correctness-and-bugs.md). This does not promote the rest of the presentation by implication.
 
 The next major task is a cross-publication synthesis that identifies:
 
