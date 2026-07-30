@@ -34,6 +34,7 @@ Project publications, talks, community discussions, and independent references a
 - Added research publication, analysis, and framework-traceability templates.
 - Added a research-to-framework traceability scaffold.
 - Preserved five historical source snapshots under `content/raw/`.
+- Preserved the PDF export of *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* under `content/raw/` and registered it in the raw-source and research indexes.
 - Added normalized repository editions of five historical research publications under `content/research/publications/`.
 - Added a normalization report documenting provenance, transformations, quality checks, and unresolved publication metadata.
 - Added a canonical project roadmap in `ROADMAP.md`.
@@ -44,7 +45,8 @@ Project publications, talks, community discussions, and independent references a
 - Added a historical archive for the superseded January 2026 RFC governance scaffold under `content/history/legacy-rfcs/`.
 - Added `DOCUMENT-METADATA.md` with controlled frontmatter fields, document classes, topics, relationship metadata, and hierarchical `ua/...` tags for Obsidian, Quartz, and machine retrieval.
 - Added `AGENTS.md` as a tool-neutral repository map and editing guide for language models and coding agents.
-- Added source-intake records for the available on-device/cloud article and the *Designing Non-Deterministic Systems* presentation, both still pending repository preservation or normalization.
+- Added source-intake records for the available on-device/cloud article and the *Designing Non-Deterministic Systems* presentation.
+- Added draft-normative doctrine defining the relationship between Requirements, Operating Envelopes, Correctness, and Bugs when probabilistic Model Judgment performs business logic.
 - Expanded the canonical draft glossary with current UA terminology and explicit historical-term boundaries.
 
 ### Changed
@@ -67,6 +69,7 @@ Project publications, talks, community discussions, and independent references a
 - Added controlled metadata to the specification, glossary, module entry points, Control Plane sub-documents, and actively maintained research indexes.
 - Updated contribution guidance to require consistent metadata for new maintained conceptual documents and to direct agent-assisted work through `AGENTS.md`.
 - Expanded `AGENTS.md` into an operational protocol that requires same-PR changelog updates and explicit classification of source-derived concepts, artifacts, responsibilities, processes, patterns, failure modes, and reference architectures.
+- Refined the canonical definitions of Requirement, Operating Envelope, Correctness, Bug, and Deviation Signal so statistical excursions remain evidence while a Bug is defined by violation of the approved operating contract.
 - Updated the roadmap so cross-publication synthesis is now the immediate substantive priority.
 
 ### Removed
