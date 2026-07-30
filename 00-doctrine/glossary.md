@@ -164,7 +164,7 @@ A deviation signal may be uncertain and require interpretation; it should not be
 
 ### Release Gate
 
-A decision point at which authorized decision authority determines whether the available evidence and residual risk are acceptable for a specific deployment context.
+A decision point at which an authorized decision-maker determines whether the available evidence and residual risk are acceptable for a specific deployment context.
 
 A Release Gate is distinct from Definition of Done. DoD establishes whether implementation and required evidence are sufficiently complete; the Release Gate accepts, limits, conditions, escalates, or rejects release for the stated context.
 
