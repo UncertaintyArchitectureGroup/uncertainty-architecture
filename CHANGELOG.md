@@ -7,12 +7,14 @@ module: repository
 topics:
   - provenance
   - repository-architecture
+  - constraints
 tags:
   - ua/module/repository
   - ua/type/changelog
   - ua/status/informative
   - ua/topic/provenance
   - ua/topic/repository-architecture
+  - ua/topic/constraints
 canonical_for:
   - change-record
 ---
@@ -29,6 +31,10 @@ Project publications, talks, community discussions, and independent references a
 
 ### Added
 
+- Added draft-normative [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md), establishing **Constraints, Sensors, Controllers, and Actuators** as four logical control capabilities distinct from the four organizational-to-runtime decision levels.
+- Added a first-class [`Constraint capability`](02-ai-control-plane/01-constraints/) and an informative [`Constraint Realization Catalog`](02-ai-control-plane/01-constraints/constraint-realization-catalog.md) covering source, scope, hard or soft strength, realization, failure behavior, evidence, authority, and implementation examples.
+- Added embedded project constraint architecture and delivery constraint-realization surfaces to the two living SMB review artifacts without requiring separate Constraint Registers.
+- Expanded the failure-mode taxonomy with missing, soft-as-hard, unenforced, bypassed, stale, conflicting, unauthorized, unavailable, slow, and economically non-viable Constraint failures.
 - Expanded the repository into dedicated areas for doctrine, patterns, the AI Control Plane, reference architectures, and failure modes.
 - Established the UA Research Track under `content/research/` with an explicit boundary between historical research and normative framework material.
 - Added research publication, analysis, and framework-traceability templates.
@@ -63,6 +69,11 @@ Project publications, talks, community discussions, and independent references a
 
 ### Changed
 
+- Reorganized the AI Control Plane into `00-actuators/`, `01-constraints/`, `02-sensors/`, and `03-controller/`; clarified that capability classes are logical functions rather than mandatory products or services.
+- Resolved the earlier Actuator-versus-Constraint taxonomy question: Constraints define or enforce allowed operating space, while Actuators execute authorized change and may modify Constraints only within delegated authority.
+- Updated doctrine, glossary, lifecycle, project and delivery patterns, templates, reference expectations, conformance, roadmap, README, and `AGENTS.md` so authoritative Constraints flow downward, concrete realization becomes more specific at delivery and runtime, and invalidating evidence flows upward.
+- Recorded slide 12 of *Designing Non-Deterministic Systems* as research evidence for the four-capability model while explicitly rejecting its metaphor and named-tool mapping as mandatory topology or normative product taxonomy.
+- Expanded `AGENTS.md` with capability classification, the full Constraint review test, changed capability paths, anti-patterns, and end-of-session checks for source, scope, strength, realization, failure, evidence, authority, and reassessment.
 - Simplified the repository contribution and research workflow for maintainer-led development while preserving deliberate review for normative, high-impact, automated, and externally contributed changes.
 - Reframed research review artifacts as proportional tools rather than mandatory components of every research update.
 - Redesigned the root README as a specification landing page with direct navigation to the controlled-object doctrine, project review and template, delivery review and template, research, discussions, independent references, talks, the glossary, metadata conventions, and the agent guide.
@@ -110,6 +121,7 @@ Project publications, talks, community discussions, and independent references a
 
 ### Removed
 
+- Removed the superseded `02-ai-control-plane/01-sensors/` and `02-ai-control-plane/02-controller/` paths after moving those capabilities to `02-sensors/` and `03-controller/` to make room for first-class Constraints.
 - Removed the duplicate root-level `research/` namespace after migrating its three planning briefs into `content/research/notes/`.
 - Removed the active `content/rfcs/` namespace after preserving its governance proposal and template as superseded historical records.
 - Removed empty `scripts/` and `templates/` scaffolds that contained no active utilities or reusable project artifacts.
