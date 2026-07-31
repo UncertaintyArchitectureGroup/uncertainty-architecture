@@ -163,12 +163,12 @@ Production telemetry does not close the loop unless evidence is connected to dec
 
 ## Lifecycle scope split
 
-The early sketch compressed several decision levels into one loop. Current framework work now distinguishes:
+The early sketch compressed several decision levels into one loop. Current framework work distinguishes:
 
 1. **Organizational control context** — shared constraints, capabilities, risk boundaries, and decision rights.
 2. **Project control architecture and viability** — whether the proposed Thinking System has a credible, operable, and economically viable control architecture.
-3. **Feature and change delivery** — whether one feature or material change is ready, complete, and acceptable for a specific deployment context.
-4. **Runtime control and reauthorization** — whether production evidence requires feature correction, project reauthorization, organizational review, rollback, or shutdown.
+3. **Delivery-level review** — whether a bounded whole system, feature, or material change is ready, complete, and acceptable for a specific deployment context.
+4. **Runtime control and reauthorization** — whether production evidence requires local correction, project reauthorization, organizational review, rollback, or shutdown.
 
 This distinction is owned at doctrine level by [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md).
 
@@ -176,85 +176,97 @@ The four-phase diagram above remains useful as an illustrative engineering loop,
 
 - whether the overall AI project should begin;
 - whether the project-wide control architecture is viable;
-- whether one feature is ready for release;
+- whether one bounded delivery scope is ready for release;
 - whether runtime evidence invalidates the project itself.
 
-## Project authorization research question
+## Project authorization question
 
-Before feature-level delivery, the project layer needs a proportional way to reason about:
+The project-level question has now been translated into the draft-normative [`Project Control Architecture and Viability Review`](../../../01-patterns/project-control-architecture-and-viability-review.md) and its informative [`template`](../../../01-patterns/project-control-architecture-and-viability-review-template.md).
 
-- business outcome and the necessity of Model Judgment;
+The active project review reasons about:
+
+- business outcome, non-AI alternatives, and the necessity of Model Judgment;
 - domain, stakeholders, and material consequence scenarios;
 - intended Judgment landscape, authority, and autonomy;
 - deterministic invariants and prohibited authority;
-- Operating Envelope assumptions;
 - required sensors, constraints, controllers, Human Authority, fallback, containment, rollback, escalation, and shutdown;
 - evidence feasibility and feedback latency;
 - operational and human-review capacity;
-- control build cost and recurring run cost;
-- residual risk and expected business value;
-- architectural veto and reauthorization triggers.
+- control build cost, recurring run cost, and residual exposure;
+- project authorization, limitation, bounded research, redesign, escalation, deferral, or No-Go;
+- delivery inheritance and project reauthorization triggers.
 
-The research problem is not to produce one universal risk score. It is to determine the minimum decision surface an SMB team needs to justify, constrain, redirect, or reject a proposed Thinking System before ordinary feature delivery begins.
+The pattern does not produce one universal risk score. It defines a proportional decision surface that an SMB team can integrate into existing product, architecture, financial, security, risk, or delivery processes.
 
 ## Roles and responsibilities
 
 Early versions of this sketch used titles such as **Prompt Steward**, **Eval Owner**, and **Reliability Engineer**. These remain useful examples of responsibility bundles, not mandatory job titles.
 
-A real implementation should assign responsibility for:
+The current framework assigns responsibilities across two decision levels.
 
-- behavior-affecting configuration;
-- evaluation design and calibration;
-- deterministic boundaries and infrastructure;
-- project authorization and feature release decisions;
-- runtime observation and incident handling;
-- escalation and human judgment;
-- traceability and controlled change.
+At project level:
 
-One person or existing team may hold several responsibilities in a small organization. Project authorization and feature release may also use existing product, architecture, financial, security, quality, or delivery authority rather than new specialist roles.
+- business outcome responsibility;
+- control architecture responsibility;
+- evidence and risk responsibility;
+- operational capacity responsibility;
+- project authorization authority.
 
-## Open questions
+At delivery level:
 
-- What is the minimum viable Project Control Architecture and Viability Review for an SMB team?
-- How should material risk scenarios be represented without reducing the decision to a misleading universal score?
-- Which evidence types are useful for different consequence and autonomy classes?
-- How should project constraints and shared control capabilities be inherited by feature-level reviews?
-- Which changes require local feature reassessment versus project reauthorization?
+- implementation responsibility;
+- evaluation responsibility;
+- operational responsibility;
+- release decision authority.
+
+One person or existing team may hold several responsibilities in a small organization. Existing product, architecture, finance, security, legal, quality, delivery, or operations authority may perform them without creating new specialist titles.
+
+## Remaining open questions
+
+The minimum project and delivery surfaces are now represented in active draft patterns. The remaining questions are application and refinement questions:
+
+- Which project-review fields can be completed briefly for low-consequence SMB use without hiding material risk?
+- Does scenario-based risk mapping lead to better control decisions than aggregate scoring in practice?
+- Which evidence methods are useful for different consequence, autonomy, and feedback-latency classes?
+- How should tolerances be derived from authority, consequence, detectability, reversibility, propagation, exposure, and capacity?
+- How should teams estimate control build cost, recurring control cost, review capacity, incident burden, and residual exposure with honest ranges?
+- Does the project inheritance package prevent duplication while giving delivery teams enough context?
+- Which runtime findings remain local, and which require project reauthorization or organizational review?
 - How should release and reassessment cadence scale with feedback latency and operating change?
-- When does the cost of control make the proposed automation structurally unattractive?
-- Which conditions are hard vetoes rather than expected-value trade-offs?
-- Which incident and learning-loop refinements are needed beyond the current review pattern?
+- Which conditions consistently function as hard vetoes rather than expected-value trade-offs?
+- Which incident and learning-loop refinements are needed after a two-level worked application and real-team use?
 - Which lifecycle distinctions remain useful across very different delivery organizations and product types?
 
 ## Framework translation status
 
-Several questions from the original sketch have now been translated into current draft framework components:
-
 | Earlier lifecycle question | Current framework decision |
 |---|---|
 | Why does model-mediated delivery require a distinct control response? | [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md) defines the shift from uncertainty around delivery to consequential uncertainty produced inside the operating system through Model Judgment. |
-| Is one lifecycle decision sufficient? | The doctrine distinguishes organizational context, project authorization, feature/change delivery, and runtime reauthorization. The detailed project-level pattern remains pending. |
-| Where should feature-level lifecycle responsibilities live? | Reusable delivery responsibilities are expressed through the [`Thinking System Review`](../../../01-patterns/thinking-system-review.md) pattern rather than embedded in doctrine or placed in a new top-level Operating Model module. |
-| Which lightweight artifacts can SMB teams maintain? | One living [`Thinking System Review Template`](../../../01-patterns/thinking-system-review-template.md) contains Judgment Node cards, DoR, DoD, residual risk, deployment scope, release decision, and reassessment history for a feature or change. |
-| How should readiness, completion, and release differ? | Full model-mediated DoR and DoD extensions have one canonical owner in the review pattern, while the Release Gate remains a distinct residual-risk decision. |
-| Are specialist AI role titles mandatory? | Implementation, evaluation, operation, and release decision authority are responsibility bundles, not mandatory job titles. |
-| Does every change require separate governance records? | The default SMB feature path uses versioned snapshots of one review artifact rather than separate readiness, completion, role, node-registry, and release records. |
-| Can a project be rejected before feature implementation? | Doctrine now recognizes architectural veto and project non-viability as valid outcomes. The operational decision process remains Proposed for Framework Review. |
+| Is one lifecycle decision sufficient? | The doctrine distinguishes organizational context, project authorization, delivery-level review, and runtime reauthorization. |
+| Where should project viability and authorization live? | The [`Project Control Architecture and Viability Review`](../../../01-patterns/project-control-architecture-and-viability-review.md) owns project risk scenarios, required controls, evidence feasibility, Human Authority, capacity, economics, authorization, inheritance, and reauthorization. |
+| Where should delivery responsibilities live? | The [`Thinking System Review`](../../../01-patterns/thinking-system-review.md) owns delivery-level Judgment Nodes, DoR, bounded experimentation, DoD, Release Gate, and local reassessment. |
+| Which lightweight artifacts can SMB teams maintain? | One living project template and one living delivery template preserve separate decision ownership while passing a versioned inheritance package by reference. |
+| How should readiness, completion, and release differ? | Full model-mediated DoR and DoD extensions have one canonical owner in the delivery review, while the Release Gate remains a distinct deployment-specific residual-risk decision. |
+| Are specialist AI role titles mandatory? | Project and delivery responsibility bundles define accountability and decision rights without mandatory job titles. |
+| Does every decision require separate governance records? | The default SMB path uses one project review and one delivery review rather than separate risk maps, role matrices, gate records, node registries, completion packages, and release records. |
+| Can a project be rejected before delivery implementation? | The project review recognizes redesign, deferral, escalation, bounded research, and No-Go as valid engineering outcomes. |
+| How does runtime evidence return to the correct decision level? | Local delivery evidence stays in the Thinking System Review; evidence invalidating project risk, authority, capacity, evidence, or economics triggers project reauthorization; shared constraint changes trigger organizational review. |
 
-These translations do not make the four-phase diagram a mandatory lifecycle. The remaining open questions concern project-level risk and viability reasoning, evidence proportionality, control economics, incident learning, reassessment cadence, and compatibility across delivery contexts.
+These translations do not make the four-phase diagram a mandatory lifecycle. They establish separate canonical owners for project and delivery decisions while leaving practical effectiveness subject to worked and real-team validation.
 
 ## Framework relationship
 
 This note may continue to inform future work on:
 
-- a Project Control Architecture and Viability Review pattern;
-- risk and tolerance mapping;
-- control-economics guidance;
+- two-level worked applications;
+- real-team validation of the project and delivery reviews;
+- risk and tolerance derivation;
+- deeper control-economics guidance;
 - evaluation and evidence patterns;
 - change and incident loops;
-- project and feature inheritance;
+- Human Authority and operating-capacity patterns;
 - project reauthorization;
-- SMB-facing application examples;
-- failure modes revealed through practical use.
+- failure modes revealed through practical use;
+- simplification of the current review surfaces.
 
-It does not activate those elements as normative requirements. Research-state changes should be reconciled through [`content/research/review-process.md`](../review-process.md) and the existing traceability matrix rather than a parallel lifecycle ledger.
+The framework translations above are active subject to the status of their owning documents. This research note remains non-normative and should be updated only when evidence, interpretation, or the state of the research question materially changes.
