@@ -115,6 +115,7 @@ flowchart LR
     IN --> JN --> AUTH --> OUT
     JN --> S
     AUTH --> S
+    OUT -->|output, action, and outcome evidence| S
     KR -->|state and violations| S
     A -->|execution state and effects| S
     S --> C
