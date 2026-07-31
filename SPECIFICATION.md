@@ -37,7 +37,7 @@ This document defines the normative boundary and document structure of Uncertain
 
 UA is an open specification for designing and governing **Thinking Systems**: software whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, approved Constraints, evidence, decision rights, and corrective mechanisms remain explicit.
 
-UA treats reliability and governance as system properties produced by Requirements, Constraints and their realizations, observable behavior, decision authority, effective Actuators, viable control economics, and controlled change rather than by model quality alone.
+UA treats reliability and governance as system properties produced by Requirements, approved Constraints and their realizations, observable behavior, decision authority, effective Actuators, viable control economics, and controlled change rather than by model quality alone.
 
 This file indexes the specification. It does not duplicate the detailed content of the modules it references.
 
@@ -48,10 +48,10 @@ The specification covers:
 - the controlled-object shift created by consequential runtime Model Judgment;
 - deterministic responsibilities, Model Judgment, and Uncertainty Boundaries;
 - organizational, project, delivery, and runtime decision levels;
-- Constraints, Sensors, Controllers, and Actuators as logical capabilities;
+- Constraints and their realizations, Sensors, Controllers, and Actuators as four logical capability families;
 - the distinction between a closed feedback loop and complete bounded UA control architecture;
 - the distinction between Constraint and Constraint Realization;
-- Hard and Soft Constraint claims;
+- scoped Hard and Soft Constraint claims;
 - project-level scenarios, Constraint architecture, capability feasibility, evidence, capacity, economics, authorization, inheritance, and reauthorization;
 - delivery-level Judgment Nodes, Requirement, Operating Envelope, one canonical Constraint Realization Map, DoR, DoD, Release Gate, and reassessment;
 - Human Authority, fallback, containment, compensation, rollback, escalation, and shutdown;
@@ -61,7 +61,7 @@ The specification covers:
 The specification does not prescribe:
 
 - one model, vendor, framework, policy engine, evaluator, orchestration platform, or topology;
-- four separate control-plane services or one tool per capability;
+- four separate control-plane services or one tool per capability family;
 - a mandatory Model Judgment pipeline;
 - one universal Constraint catalogue, schema technology, fail-open/fail-closed rule, threshold, sample size, risk score, or control-cost formula;
 - replacement of Agile, Scrum, DevOps, QA, security, change management, or an organization's SDLC;
@@ -122,12 +122,14 @@ Project authorization and delivery release remain separate. Higher-level decisio
 
 ### 5.3 AI Control Plane
 
-[`02-ai-control-plane/`](02-ai-control-plane/README.md) develops four logical capability areas:
+[`02-ai-control-plane/`](02-ai-control-plane/README.md) develops four logical capability families:
 
 - [`00-actuators/`](02-ai-control-plane/00-actuators/) — execution of authorized change;
 - [`01-constraints/`](02-ai-control-plane/01-constraints/) — approved Constraints and their realizations;
 - [`02-sensors/`](02-ai-control-plane/02-sensors/) — evidence about behavior, outcomes, realization state, Actuator execution, and control health;
 - [`03-controller/`](02-ai-control-plane/03-controller/) — comparison, interpretation, decision authority, and authorization of action.
+
+The Constraints family is intentionally composite: the Constraint is the authoritative boundary object, while the Constraint Realization provides the operational mechanism.
 
 The directory numbers are navigation only and do not prescribe a stack or execution order.
 
@@ -178,7 +180,7 @@ A system or design claiming UA alignment SHOULD be able to identify:
 1. where consequential Model Judgment occurs;
 2. the placement and authority of each material Judgment Node;
 3. applicable organizational, project, and delivery Constraints;
-4. the source, subject, scope, strength, and assumptions of each material Constraint;
+4. the source, subject, scope, claimed strength, and assumptions of each material Constraint;
 5. the concrete Constraint Realization, active version, and enforcement or influence point;
 6. failure, bypass, conflict, degraded, and unavailable behavior;
 7. which deterministic responsibilities and Invariants remain outside Model Judgment;
@@ -189,9 +191,11 @@ A system or design claiming UA alignment SHOULD be able to identify:
 12. how project and delivery decisions, versions, assumptions, dependencies, and changes remain traceable;
 13. which evidence triggers delivery reassessment, project reauthorization, or organizational review.
 
-A system MUST NOT claim a Hard Constraint when violation is not deterministically prevented or rejected within explicitly stated assumptions, scope, and enforcement boundaries.
+A system MUST NOT claim a Hard Constraint when its complete realized path does not deterministically prevent or reject violation within explicitly stated assumptions, scope, and enforcement boundaries.
 
 A probabilistic detector, evaluator, prompt, model policy, or natural-language instruction is not a Hard Constraint by itself.
+
+One source condition MUST NOT be represented as one mixed hard/soft Constraint record when different subjects, paths, or scopes have different guarantee strength. The claims SHOULD be separated so each is reviewable and traceable.
 
 ### 7.1 Project-level alignment
 
@@ -219,7 +223,7 @@ For consequential delivery work, a team SHOULD be able to show an equivalent of:
 - an approved Requirement and Operating Envelope;
 - explicit Judgment Node boundaries;
 - one canonical Constraint Realization Map;
-- accurate Hard and Soft Constraint claims;
+- accurate and separately scoped Hard and Soft Constraint claims;
 - tested failure, bypass, conflict, degraded, unavailable, and override behavior where material;
 - evidence of activation, violations, false blocks, Actuator execution, and control health;
 - a DoR decision distinguishing implementation from bounded experimentation;
@@ -230,7 +234,7 @@ For consequential delivery work, a team SHOULD be able to show an equivalent of:
 
 The provided templates are not mandatory. Equivalent records MAY be integrated into existing systems if the distinctions, authority, inheritance, and reassessment paths remain explicit and traceable.
 
-The placement classes are not a mandatory pipeline. The four capabilities are not mandatory physical services. Reference architectures do not add conformance requirements.
+The placement classes are not a mandatory pipeline. The four capability families are not mandatory physical services. Reference architectures do not add conformance requirements.
 
 A claim of UA alignment MUST NOT imply certification, endorsement, or complete conformance unless a formal program is later established.
 
