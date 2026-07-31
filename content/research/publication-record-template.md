@@ -51,25 +51,39 @@ What architectural, operational, governance, verification, economic, or delivery
 
 ### Contribution to Uncertainty Architecture
 
-What concepts, distinctions, artifacts, patterns, or open questions did this source introduce or materially advance?
+What concepts, distinctions, artifacts, patterns, control capabilities, responsibilities, processes, failure modes, examples, or open questions did this source introduce or materially advance?
 
-### Candidate framework components
+### Extracted entities and candidate framework destinations
 
-| Research finding | Candidate framework component | Current status |
-|---|---|---|
-| [Finding] | [Doctrine / Lifecycle / Pattern / Operating Model / Reference Architecture / Artifact] | Research Finding |
+| Research finding or extracted entity | Entity class | Candidate owner | Current status |
+|---|---|---|---|
+| [Finding] | [Term / doctrine distinction / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | Research Finding |
+
+Do not treat `Lifecycle` or `Operating Model` as automatic repository destinations. Place lifecycle and operating concerns in the module that owns their architectural meaning unless a later repository decision establishes a separate canonical module.
 
 ### Limitations and open questions
 
 - Which claims are conceptual rather than operationally defined?
 - Which numerical values are illustrative heuristics rather than universal requirements?
 - Which claims are too categorical?
-- Which findings require domain-specific validation?
+- Which findings require domain-specific validation or worked application?
 - Which conclusions were later refined or contradicted?
 
 ### Terminology evolution
 
 Record terms used by the source and explain how later UA work uses, narrows, renames, or rejects them. Do not rewrite the archived source to hide the evolution.
+
+### Research-state reconciliation
+
+Identify whether this publication record:
+
+- registers a source without changing framework state;
+- adds a Research Finding or Candidate;
+- resolves, narrows, rejects, supersedes, or reopens an existing question;
+- requires a concise update to `framework-traceability.md`;
+- requires no additional research-state update.
+
+Do not create a parallel ledger or use the publication record as a session log.
 
 ### Publication provenance
 
