@@ -222,6 +222,8 @@ Deterministic obligations include tenant isolation, permissions, mandatory-revie
 - **Exposure:** Maximum 100 visible drafts per business day for four weeks.
 - **Human supervision:** Every recommendation and draft reviewed before downstream action.
 
+Average cost and p95 latency are measured Operating Envelope tolerances. They are not represented as Hard Constraints because individual or aggregate excursions are detected through evidence and handled through Controller decisions, Actuators, and reassessment rather than deterministically prevented in every case.
+
 ### Constraint Realization Map
 
 | ID and source | Subject and scope | Hard/soft | Realization and enforcement/influence point | Assumptions and claimed guarantee | Failure/bypass/unavailable behavior | Evidence/control health | Change authority and Actuator | Reassessment trigger |
@@ -233,8 +235,8 @@ Deterministic obligations include tenant isolation, permissions, mandatory-revie
 | `K-05` / `PK-05` | Only approved Product A knowledge sources may enter retrieval context | Hard | Published-source allowlist, source snapshot/version, retrieval filter | Source metadata and allowlist are correct; non-approved source is excluded | No-source fallback; disable retrieval on filter failure | Source IDs, rejected sources, snapshot/version, filter-health evidence | Knowledge/release authority; source-config Actuator | New source class, filter bypass, stale-source process failure |
 | `K-06` / `SUP-AI-014` | Every visible factual draft paragraph carries approved source references | Hard structural | Draft schema requires source identifiers; deterministic validation blocks missing references | Schema/validation covers the presented draft fields; missing references are rejected | No draft or safe template | Schema tests, block logs, source-coverage records | Release authority; schema/config deployment Actuator | Schema bypass, new output channel, or validation degradation |
 | `K-07` / `SUP-AI-014` | Unsupported factual claims should not reach customers | Soft composite | Grounding instruction, claim review/evaluator, visible sources, agent review, deterministic block for missing references | Semantic support cannot be determined perfectly; no claim of deterministic truth guarantee | Block known failures; fallback; incident and reassessment if unsupported content is sent | Unsupported-claim sample, human reject/edit, complaints, incidents | Release authority; prompt/evaluator/fallback/disable Actuators | Unsupported content sent, evaluator calibration loss, or review becomes ineffective |
-| `K-08` / `PK-04` | Product A, English, five trained agents, limited request volume | Hard exposure | Feature targeting, language/product checks, agent allowlist, daily request cap | Targeting and rate controls operate correctly | Reject outside scope; no AI output; narrow or disable | Exposure/config state, request counts, rejected scope | Release authority within project boundary; targeting/rate Actuators | New product, language, population, geography, or higher exposure requires project reauthorization |
-| `K-09` / `SUP-AI-014` | One primary attempt, one repair; stated cost and latency envelope | Hard for attempt count; operational limit for cost/latency | Orchestration depth limit, timeout, budget and rate monitoring | Attempt/timeout controls are deterministic; aggregate cost/latency may vary | Stop and fallback on limit; reassess persistent economic breach | Attempts, timeout, cost, latency, fallback, saturation | Operational authority; budget/rate/config Actuators | Persistent envelope breach or changed unit economics |
+| `K-08` / `PK-04` | Product A, English, five trained agents, maximum 100 visible drafts per business day | Hard exposure | Feature targeting, language/product checks, agent allowlist, daily request cap | Targeting and rate controls operate correctly | Reject outside scope; no AI output; narrow or disable | Exposure/config state, request counts, rejected scope | Release authority within project boundary; targeting/rate Actuators | New product, language, population, geography, or higher exposure requires project reauthorization |
+| `K-09` / `SUP-AI-014` | One primary model attempt plus one bounded repair attempt per request | Hard execution | Deterministic orchestration depth limit and request timeout | Attempt and timeout controls cover every model invocation on the reviewed path | Stop and fallback when the bound is reached; disable if an alternate path bypasses it | Attempt count, timeout, fallback, bypass tests, active orchestration version | Operational/release authority; orchestration/configuration Actuator | Bypass, new recursive path, or need for broader execution authority |
 
 `K-07` is intentionally Soft: source visibility, evaluation, and human review reduce risk but do not deterministically establish semantic truth. `K-02`, `K-03`, `K-05`, and `K-06` provide hard authority, source, approval, and structural boundaries around that residual uncertainty.
 
@@ -255,8 +257,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state and health| S
     A -->|execution state and effects| S
@@ -275,6 +277,7 @@ flowchart LR
 - [x] Requirement and Operating Envelope are defined for the bounded experiment.
 - [x] Every material Constraint has one row in section 5.
 - [x] Hard and Soft claims are separated; semantic support is not represented as a deterministic guarantee.
+- [x] Aggregate cost and latency tolerances remain in the Operating Envelope rather than being mixed into a Hard Constraint row.
 - [x] Failure, fallback, containment, evidence, Controller, Actuator, and Human Authority paths are defined.
 - [x] Cost, latency, data, privacy, and operational dependencies are bounded sufficiently for an experiment.
 
@@ -338,6 +341,7 @@ No real incident is claimed. Unsupported drafts and unstable ambiguous routing a
 | Automation bias | `K-03`, visible sources/uncertainty, reject/edit controls, review-capacity evidence | Review becomes ceremonial or acceptance rises while quality evidence worsens |
 | Distribution or provider shift | Version logging, shadow evaluation, routing/fallback/source signals, disable path | Material unexplained change persists or evidence no longer supports release |
 | Scope creep | `K-08` targeting and explicit reauthorization triggers | New product, language, population, data, tool, geography, or authority is enabled |
+| Resource envelope failure | Measured cost, p95 latency, fallback load, and `K-09` execution evidence | Cost/latency remains outside the Operating Envelope or unit economics change |
 
 The sample supports only the limited decision. It does not establish very low true incident probabilities or long-term stability.
 
@@ -355,6 +359,7 @@ The sample supports only the limited decision. It does not establish very low tr
 - **Authority:** Read-only ticket, approved knowledge, incident status; no send or state-changing permission.
 - **Human supervision:** Every recommendation and draft reviewed.
 - **Active Constraints:** `K-01`–`K-09`.
+- **Measured Operating Envelope tolerances:** Average cost ≤ USD 0.03 per ticket; p95 latency ≤ 5 seconds under the stated scope.
 
 ### Evidence reviewed
 
@@ -362,6 +367,7 @@ The sample supports only the limited decision. It does not establish very low tr
 - approved Requirement and Operating Envelope;
 - section 5 Constraint Realization Map and active versions;
 - deterministic, behavioral, authority, resource, realization-health, fallback, and incident-path evidence;
+- measured cost and latency against the defined observation scope;
 - DoD outcome and known limitations;
 - residual-risk statement.
 
@@ -376,7 +382,7 @@ The sample supports only the limited decision. It does not establish very low tr
 
 - **Illustrative decision date:** 2026-07-15
 - **Authority:** Product and delivery owner
-- **Rationale:** Evidence supports useful recommendations and drafts while hard authority, tenant, source, approval, exposure, and structural boundaries prevent the model-mediated path from directly taking consequential action.
+- **Rationale:** Evidence supports useful recommendations and drafts while hard authority, tenant, source, approval, exposure, structural, and execution boundaries prevent the model-mediated path from directly taking consequential action.
 - **Conditions:** Five trained agents; no autonomous send; source visibility; request cap; daily review for two weeks; fixed reviewed versions; no scope expansion without reauthorization.
 - **Immediate disable triggers:** Privacy/tenant violation; unauthorized action path; confirmed missed mandatory escalation; unsupported content sent; bypass or loss of `K-02`/`K-03`; inability to reconstruct decisions.
 
@@ -436,10 +442,11 @@ These are observations from constructing the reference, not empirical findings f
 
 1. One living delivery artifact is sufficient when one canonical Constraint Realization Map is referenced throughout.
 2. Constraint and Constraint Realization must remain separate: `K-07` is a Soft semantic boundary even though hard source, approval, authority, and structural boundaries surround it.
-3. DoD and Release Gate answer different questions: implementation can be complete while deployment remains limited by scope, evidence, and Human Authority.
-4. Human review is control only when context, capacity, reject power, and fallback remain real.
-5. Product thresholds require local rationale and must not become UA defaults.
-6. The worked example still needs validation against a real project review and operating team before it can support claims about framework effectiveness.
+3. Hard Constraint rows should not absorb measured Operating Envelope tolerances: `K-09` now records only deterministic per-request execution limits, while aggregate cost and p95 latency remain measured release and reauthorization evidence.
+4. DoD and Release Gate answer different questions: implementation can be complete while deployment remains limited by scope, evidence, and Human Authority.
+5. Human review is control only when context, capacity, reject power, and fallback remain real.
+6. Product thresholds require local rationale and must not become UA defaults.
+7. The worked example still needs validation against a real project review and operating team before it can support claims about framework effectiveness.
 
 ## Related UA material
 
@@ -451,4 +458,4 @@ These are observations from constructing the reference, not empirical findings f
 - [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md)
 - [`Requirements, Correctness, and Bugs`](../00-doctrine/requirements-correctness-and-bugs.md)
 - [`AI Control Plane`](../02-ai-control-plane/)
-- [`Constraint Capabilities`](../02-ai-control-plane/01-constraints/)
+- [`Constraint Capability Family`](../02-ai-control-plane/01-constraints/)
