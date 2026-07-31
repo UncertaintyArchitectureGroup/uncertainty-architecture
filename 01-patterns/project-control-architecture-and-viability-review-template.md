@@ -24,10 +24,8 @@ related:
   - project-control-architecture-and-viability-review.md
   - thinking-system-review.md
   - thinking-system-review-template.md
-  - ../00-doctrine/uncertainty-in-the-controlled-object.md
   - ../00-doctrine/control-loop-anatomy.md
   - ../00-doctrine/nested-control-lifecycle.md
-  - ../02-ai-control-plane/README.md
   - ../02-ai-control-plane/01-constraints/README.md
 updated: 2026-07-31
 license: CC-BY-4.0
@@ -35,17 +33,15 @@ license: CC-BY-4.0
 
 # Project Control Architecture and Viability Review Template
 
-## Status and use
+## How to use
 
-This is the informative working template for the draft-normative [`Project Control Architecture and Viability Review`](project-control-architecture-and-viability-review.md).
+Use one living copy to make and preserve the project-level decision. Link business-case, architecture, security, legal, policy, finance, evaluation, and incident records rather than duplicating them.
 
-Use one living copy to make and preserve the project-level decision. Link business-case, architecture, security, legal, policy, financial, evaluation, and incident records rather than duplicating them.
+Section 6 is the canonical **Project Constraint Architecture**. Scenarios, capability feasibility, evidence, economics, authorization, inheritance, and reauthorization reference its Constraint IDs.
 
-This template uses one canonical **Project Constraint Architecture** in section 6. Risk scenarios, capability feasibility, evidence, economics, authorization, inheritance, and reauthorization reference those Constraint IDs rather than restating the same boundary.
+A separate risk register, Constraint Register, control catalogue, responsibility matrix, financial model, or gate record is not required for the default SMB path when this review and linked evidence are sufficient.
 
-A separate risk register, Constraint Register, control catalogue, responsibility matrix, or gate record is not required for the default SMB path when this review and linked evidence are sufficient.
-
-Depth should follow consequence, authority, exposure, reversibility, uncertainty, feedback latency, realization difficulty, operational capacity, and control cost.
+Depth should follow consequence, authority, exposure, reversibility, uncertainty, feedback latency, realization difficulty, capacity, and control cost.
 
 ---
 
@@ -53,7 +49,7 @@ Depth should follow consequence, authority, exposure, reversibility, uncertainty
 
 - **Project or proposed Thinking System:**
 - **Review identifier and version:**
-- **Decision status:** Draft / Bounded research / Authorized / Authorized with conditions / Redesign / Deferred / Escalated / No-Go / Reauthorization required
+- **Status:** Draft / Bounded research / Authorized / Authorized with conditions / Redesign / Deferred / Escalated / No-Go / Reauthorization required
 - **Date opened / last updated:**
 - **Previous project decision:**
 - **Business outcome responsibility:**
@@ -63,13 +59,11 @@ Depth should follow consequence, authority, exposure, reversibility, uncertainty
 - **Project authorization authority:**
 - **Linked records:**
 
-One person may hold several responsibility bundles. Record real responsibility and decision rights, not mandatory job titles.
-
 ---
 
 ## 2. Decision summary
 
-Complete this section last.
+Complete last.
 
 - **Decision requested:**
 - **Proposed project boundary:**
@@ -85,127 +79,108 @@ Complete this section last.
 - **Conditions and unresolved dependencies:**
 - **Accepted residual risk:**
 - **Decision authority and date:**
-- **Next required decision:**
+- **Next decision:**
 
 ---
 
 ## 3. Organizational control context
 
-Link authoritative sources. Do not copy complete policy text.
-
 ### Applicable sources
 
-| Area | Authoritative source or link | Owner or decision authority | Project interpretation | Exception/change authority | Gap or status |
+| Area | Authoritative source or link | Owner/authority | Project interpretation | Exception/change authority | Gap/status |
 |---|---|---|---|---|---|
 | Legal and regulatory | | | | | |
 | Privacy and data | | | | | |
 | Security and identity | | | | | |
 | Safety | | | | | |
-| Contractual and customer obligations | | | | | |
-| Financial and procurement | | | | | |
-| Vendors, models, deployment modes, regions | | | | | |
+| Contractual/customer | | | | | |
+| Financial/procurement | | | | | |
+| Vendors/models/deployment/regions | | | | | |
 | Prohibited uses or authority | | | | | |
 | Other | | | | | |
 
 ### Shared capabilities
 
-| Capability | Available state | Owner or source | Project adaptation required | Gap or dependency |
+| Capability | Available state | Owner/source | Project adaptation | Gap/dependency |
 |---|---|---|---|---|
 | Identity and authorization | | | | |
-| Constraint Realization and policy enforcement | | | | |
+| Constraint Realization / policy enforcement | | | | |
 | Data and tenant isolation | | | | |
 | Evaluation and evidence | | | | |
-| Logging, audit, and observability | | | | |
+| Logging, audit, observability | | | | |
 | Incident response | | | | |
 | Human Authority and escalation | | | | |
 | Fallback, rollback, containment, compensation, shutdown | | | | |
-| Other | | | | |
 
 ---
 
-## 4. Business outcome, AI necessity, and alternatives
+## 4. Outcome, AI necessity, and alternatives
 
-### Intended outcome
-
-- **User or business outcome:**
-- **Affected users and stakeholders:**
+- **Intended outcome and affected parties:**
 - **Current process or baseline:**
-- **Expected value and recipient:**
-- **Business assumptions:**
+- **Expected value and business assumptions:**
 - **How success will be recognized:**
-
-### Why Model Judgment
-
-- **Judgment, interpretation, synthesis, planning, or adaptation required:**
+- **Judgment or adaptation required:**
 - **Useful variance to preserve:**
 - **Why deterministic software alone is insufficient or unattractive:**
-- **Value lost when Constraints narrow autonomy, data, tools, population, or speed:**
+- **Value lost because necessary Constraints narrow autonomy, data, tools, population, or speed:**
 
-### Alternatives
-
-| Alternative | Expected value | Cost and limitations | Constraint and control burden | Decision |
+| Alternative | Expected value | Cost/limitations | Constraint/control burden | Decision |
 |---|---|---|---|---|
-| Current or manual process | | | | |
+| Current/manual | | | | |
 | Deterministic automation | | | | |
 | Narrower model-assisted use | | | | |
 | Proposed Thinking System | | | | |
 | Other | | | | |
 
 - **Preferred path and rationale:**
-- **Conditions under which a non-AI alternative becomes preferable:**
+- **When a non-AI alternative becomes preferable:**
 
 ---
 
-## 5. Project boundary, Judgment landscape, and material scenarios
+## 5. Boundary, Judgment landscape, and material scenarios
 
 ### Project boundary
 
 - **In scope / out of scope:**
-- **Users and affected population:**
+- **Users and population:**
 - **Environments and geographies:**
 - **Data and context domains:**
-- **Upstream and downstream systems:**
-- **Models, tools, vendors, and knowledge sources:**
+- **Upstream/downstream systems:**
+- **Models, tools, vendors, sources:**
 - **Expected deployment and exposure:**
 - **Initial Operating Envelope assumptions:**
-- **Known dependency and configuration risks:**
+- **Known dependency/configuration risks:**
 - **Known unknowns:**
 
 ### Intended Model Judgment
 
-| Judgment area | Placement | Inputs/context | Intended authority or influence | Downstream consequence | Human Authority |
+| Judgment area | Placement | Inputs/context | Intended authority/influence | Downstream consequence | Human Authority |
 |---|---|---|---|---|---|
 | | Input Interpretation / Decision Logic / Output Mediation / Combination | | | | |
-
-Map the consequential landscape. Detailed implementation-level Judgment Node cards belong in delivery reviews.
 
 ### Deterministic Invariants and prohibited authority
 
 - **Business, identity, data, transaction, financial, and audit Invariants:**
 - **Required human or deterministic decisions:**
-- **Prohibited model decisions and actions:**
-- **Prohibited tools or data access:**
-- **Maximum authorized autonomy:**
+- **Prohibited model decisions/actions/tools/data access:**
+- **Maximum autonomy:**
 
 ### Material scenario map
 
-Do not reduce this table to one aggregate score. Local scales are optional and must define their meaning and limitations.
-
-| ID | Scenario and affected obligation | Mechanism/source | Authority and exposure | Consequence or hard prohibition | Detectability and latency | Reversibility, containment, compensation | Propagation/correlation | Required Constraint IDs and capabilities | Residual decision effect |
+| ID | Scenario and obligation | Mechanism/source | Authority/exposure | Consequence or hard prohibition | Detectability/latency | Reversibility/containment/compensation | Propagation | Required Constraint IDs/capabilities | Residual decision effect |
 |---|---|---|---|---|---|---|---|---|---|
 | R-01 | | | | | | | | | |
 | R-02 | | | | | | | | | |
 | R-03 | | | | | | | | | |
 
-Consider ordinary failure, ambiguous or adversarial input, model or distribution change, prompt/context/data/tool changes, deterministic defects, misuse, Human Authority failure, correlated failure, vendor changes, economic failure, and invalid project assumptions.
+Do not reduce this section to one aggregate score.
 
 ---
 
 ## 6. Canonical Project Constraint Architecture
 
-Use one row for each material organizational or project-specific Constraint. Combine rows only when source, scope, realization expectations, and authority are genuinely shared.
-
-| Constraint ID | Intent and source/rationale | Subject and project scope | Class | Hard or soft | Required realization and assumptions | Failure, bypass, conflict, unavailable behavior | Evidence and control health | Change/exception authority and required Actuator | Delivery inheritance and reauthorization trigger |
+| Constraint ID | Intent and source/rationale | Subject and project scope | Class | Hard/soft | Required realization and assumptions | Failure/bypass/conflict/unavailable behavior | Evidence/control health | Change/exception authority and Actuator | Delivery inheritance / reauthorization trigger |
 |---|---|---|---|---|---|---|---|---|---|
 | K-01 | | | Structural / Authority / State / Data / Resource / Environment / Human / Behavioral | | | | | | |
 | K-02 | | | | | | | | | |
@@ -213,35 +188,34 @@ Use one row for each material organizational or project-specific Constraint. Com
 
 For every Hard Constraint, confirm that violation can be deterministically prevented or rejected within stated assumptions and scope. A prompt, probabilistic evaluator, model policy, or natural-language instruction is not hard by itself.
 
-### Capability feasibility linked to scenarios and Constraints
+### Capability feasibility
 
-| Required capability | Scenario or Constraint IDs | Shared or project-specific | Owner/dependency | Feasibility | Evidence needed | Cost/capacity concern |
+| Required capability | Scenario/Constraint IDs | Shared or project-specific | Owner/dependency | Feasibility | Evidence needed | Cost/capacity concern |
 |---|---|---|---|---|---|---|
 | Constraint Realization | | | | | | |
 | Sensors and evaluation | | | | | | |
 | Controller and decision authority | | | | | | |
 | Human Authority | | | | | | |
 | Actuators and corrective action | | | | | | |
-| Fallback, containment, compensation, rollback, shutdown | | | | | | |
+| Fallback/containment/compensation/rollback/shutdown | | | | | | |
 
-### Control-loop completeness
+### Capability completeness
 
-For each critical scenario, verify:
-
-- [ ] Relevant Constraint IDs and realization assumptions are explicit.
-- [ ] Hard and soft claims are accurate.
+- [ ] Relevant Constraint IDs and assumptions are explicit.
+- [ ] Hard and Soft claims are accurate.
 - [ ] Realization failure and bypass behavior are defined.
 - [ ] Behavior, outcomes, realization state, and Actuator effects can be observed.
-- [ ] A Controller with the necessary decision right exists.
-- [ ] A real Actuator or corrective mechanism exists.
+- [ ] A Controller with necessary authority exists.
+- [ ] A real Actuator exists.
 - [ ] Human Authority is substantive where required.
 - [ ] Evidence and action can arrive before unacceptable propagation.
-- [ ] Residual risk is stated after the complete control path.
+- [ ] Residual risk is stated after the complete path.
 
 ```mermaid
 flowchart LR
     R[Requirement and project assumptions]
     K[Project Constraints]
+    KR[Required Constraint Realizations]
     P[Proposed Thinking System]
     S[Sensors and evidence]
     C[Controller and decision authority]
@@ -249,86 +223,67 @@ flowchart LR
 
     R --> C
     R --> K
-    K -. bounds .-> P
-    K -. limits authority .-> C
-    K -. gates actions .-> A
+    K --> KR
+    K -. defines decision boundary .-> C
+    K -. defines action boundary .-> A
+    KR -. bounds .-> P
+    KR -. gates .-> A
     P --> S
-    K -->|realization state| S
-    A -->|execution state| S
+    KR -->|state and health| S
+    A -->|execution state and effects| S
     S --> C
     C -->|authorized action| A
     A --> P
-    A -->|authorized realization change| K
+    A -->|authorized realization change| KR
 ```
 
 ---
 
-## 7. Evidence feasibility, Human Authority, and operations
+## 7. Evidence, Human Authority, and latency
 
-### Evidence feasibility
-
-| Claim or decision | Evidence required | Available source | Limitations | Pre-release or runtime | Required latency | Feasibility |
+| Claim or decision | Evidence required | Available source | Limitations | Pre-release/runtime | Required latency | Feasibility |
 |---|---|---|---|---|---|---|
 | | | | | | | |
 
-Record:
+Record representative/adversarial scenarios, deterministic and realization evidence, activation/violation/bypass evidence, production-only evidence, evaluator limits, dependency-change detection, incident reconstruction, and blind spots.
 
-- representative, consequential, and adversarial scenarios;
-- deterministic contract and Constraint Realization evidence;
-- realization activation, violation, bypass, and control-health evidence;
-- production-only evidence;
-- calibration and evaluator limitations;
-- ability to detect dependency and configuration change;
-- incident and decision reconstruction capability;
-- critical evidence blind spots.
-
-### Human Authority and operational capacity
-
-| Decision or intervention | Authority | Required context/competence | Expected volume and peak | Required response time | Real action available | Capacity status |
+| Decision/intervention | Authority | Required context/competence | Expected volume | Response time | Real action available | Capacity status |
 |---|---|---|---|---|---|---|
-| Approve or reject outcome | | | | | | |
-| Change or override a realization | | | | | | |
+| Approve/reject outcome | | | | | | |
+| Change realization | | | | | | |
 | Escalate exception | | | | | | |
-| Roll back, contain, compensate, or stop | | | | | | |
+| Roll back/contain/compensate/stop | | | | | | |
 
-A nominal HITL step is not substantive when information, competence, time, independence, capacity, or intervention power is missing.
-
-### Feedback-latency conclusion
-
-- **Fastest credible detection for critical scenarios:**
+- **Fastest credible critical-scenario detection:**
 - **Maximum tolerable detection, decision, and action latency:**
-- **Can realization and corrective action occur before unacceptable propagation?** Yes / No / Unknown
-- **Conclusion:** Credible / Credible with conditions / Research required / Not credible
+- **Can realization and action occur before unacceptable propagation?** Yes / No / Unknown
+- **Conclusion:** Credible / Conditional / Research required / Not credible
 
 ---
 
-## 8. Control economics and viability
+## 8. Control economics
 
-Estimate only to the level needed for the decision. Avoid false precision.
-
-| Cost or capacity area | Build/adaptation | Recurring operation | Uncertainty or sensitivity | Decision effect |
+| Area | Build/adaptation | Recurring operation | Uncertainty/sensitivity | Decision effect |
 |---|---|---|---|---|
 | Constraint design and realization | | | | |
 | Evaluation and evidence | | | | |
-| Human review and escalation | | | | |
-| False blocks, fallback, and operational friction | | | | |
-| Monitoring, incident response, and reassessment | | | | |
-| Vendor, model, tool, and infrastructure | | | | |
-| Residual exposure and compensation | | | | |
+| Human Authority and escalation | | | | |
+| False blocks, fallback, friction | | | | |
+| Monitoring, incident, reassessment | | | | |
+| Vendor/model/tool/infrastructure | | | | |
+| Residual exposure/compensation | | | | |
 
 - **Expected value under proposed boundary:**
 - **Value lost because of necessary Constraints:**
 - **Control cost and capacity conclusion:**
-- **Sensitivity to vendor price, latency, volume, or realization effectiveness:**
-- **Point at which deterministic or non-AI alternative becomes preferable:**
+- **Sensitivity:**
+- **When deterministic/non-AI becomes preferable:**
 
-A hard prohibition, unavailable capability, or non-substantive Human Authority cannot be averaged away by an expected-value calculation.
+A hard prohibition or unavailable capability cannot be averaged away.
 
 ---
 
-## 9. Project authorization decision
-
-Possible outcomes:
+## 9. Authorization decision
 
 - [ ] Bounded research
 - [ ] Authorized
@@ -340,59 +295,41 @@ Possible outcomes:
 - [ ] Reauthorization required
 
 - **Decision and rationale:**
-- **Authorized project boundary:**
-- **Authorized Model Judgment and autonomy:**
-- **Applicable Constraint IDs and source versions:**
-- **Required shared and project-specific capabilities:**
+- **Authorized boundary and autonomy:**
+- **Applicable Constraint IDs/source versions:**
+- **Required capabilities:**
 - **Evidence, capacity, cost, and release conditions:**
 - **Accepted residual risk:**
-- **Decision authority and date:**
-- **Validity period or reassessment date, if relevant:**
-
-A successful demo is not project authorization. `No-Go` is a valid engineering outcome.
+- **Authority/date/validity:**
 
 ---
 
 ## 10. Delivery inheritance package
 
-Pass one versioned baseline to delivery reviews:
-
-- **Project review identifier, version, and authorization outcome:**
-- **Authorized scope, population, data, geography, deployment, tools, and maximum autonomy:**
-- **Relevant project risk scenario IDs:**
-- **Constraint IDs, source versions, class, strength, and delivery realization expectations:**
-- **Required Sensors, Controller, Actuators, Human Authority, fallback, containment, compensation, rollback, and shutdown:**
-- **Evidence and feedback expectations:**
-- **Capacity, resource, and control-cost boundaries:**
+- **Project review identifier/version/outcome:**
+- **Authorized scope and maximum autonomy:**
+- **Relevant scenario IDs:**
+- **Constraint IDs, sources, strength, assumptions, and delivery realization expectations:**
+- **Required Sensors, Controller, Actuators, Human Authority, fallback, containment, compensation, rollback, shutdown:**
+- **Evidence and latency expectations:**
+- **Capacity/resource/cost boundaries:**
 - **Conditions delivery must close:**
 - **Changes permitted within delivery authority:**
 - **Project reauthorization triggers:**
 
-Delivery reviews link this package and record concrete realization. They do not copy the complete project review.
+Delivery reviews link this package and record concrete realizations. They do not copy the complete project review.
 
 ---
 
-## 11. Runtime evidence and project reauthorization
+## 11. Runtime evidence and reauthorization
 
-Project reauthorization may be required when evidence changes:
-
-- project risk or consequence assumptions;
-- authority or autonomy;
-- Constraint feasibility or source;
-- population, data, geography, deployment, tool, or consequence scope;
-- evidence quality or feedback latency;
-- Human Authority or fallback capacity;
-- control cost or unit economics;
-- availability or effectiveness of required capabilities;
-- accepted residual risk.
-
-### Reauthorization outcome
+Reauthorization may be required when evidence changes project risk, authority, Constraint meaning or feasibility, scope, evidence quality, Human Authority, capacity, economics, required capabilities, or residual exposure.
 
 - [ ] Current decision remains valid
-- [ ] Project boundary narrowed or conditions changed
-- [ ] More evidence or bounded research required
+- [ ] Boundary narrowed / conditions changed
+- [ ] More evidence or research required
 - [ ] Redesign required
-- [ ] Organizational exception or review required
+- [ ] Organizational exception/review required
 - [ ] Project paused, rolled back, or stopped
 - [ ] AI path rejected
 
@@ -400,19 +337,17 @@ Project reauthorization may be required when evidence changes:
 
 ---
 
-## 12. Version and decision history
+## 12. Version history and final check
 
-| Version | Date | Trigger | Material Constraint or capability change | Authorization outcome | Authority | Snapshot/link |
+| Version | Date | Trigger | Material Constraint/capability change | Authorization outcome | Authority | Snapshot/link |
 |---|---|---|---|---|---|---|
 | | | | | | | |
 
-## Final integrity check
-
-- [ ] Authoritative organizational sources are linked, not copied.
+- [ ] Organizational sources are linked, not copied.
 - [ ] Section 6 is the canonical Project Constraint Architecture.
-- [ ] Material scenarios reference Constraint IDs and capability needs.
-- [ ] Hard Constraint claims match deterministic guarantees and stated assumptions.
-- [ ] Evidence, Human Authority, latency, capacity, economics, and corrective paths are credible.
+- [ ] Scenarios reference Constraint IDs and capabilities.
+- [ ] Hard claims match deterministic guarantees and assumptions.
+- [ ] Evidence, Human Authority, latency, capacity, economics, and action paths are credible.
 - [ ] Project authorization remains distinct from delivery release.
-- [ ] The inheritance package is versioned and proportional.
-- [ ] Reauthorization triggers and decision rights are explicit.
+- [ ] Inheritance is versioned and proportional.
+- [ ] Reauthorization triggers and authority are explicit.
