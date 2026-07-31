@@ -37,16 +37,16 @@ The [`Nested Control Lifecycle`](00-doctrine/nested-control-lifecycle.md) distin
 3. delivery-level Thinking System Review;
 4. runtime control and reauthorization.
 
-### Which functions make control operational?
+### Which capability families make control operational?
 
 The [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md) distinguishes:
 
-1. **Constraints** — approved operating boundaries;
+1. **Constraints and their realizations** — approved boundaries plus the mechanisms that implement, enforce, or influence them;
 2. **Sensors and evidence** — observation of behavior, outcomes, realization state, and control health;
 3. **Controllers and decision authority** — comparison, interpretation, and authorization;
 4. **Actuators and corrective action** — execution of authorized change.
 
-The decision levels are not capability layers. The capabilities are not mandatory services.
+A Constraint is an authoritative decision object, while a Constraint Realization is its operational mechanism. The decision levels are not capability layers. The capability families are not mandatory services.
 
 ## Core Control Model
 
@@ -65,8 +65,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state, violations, and health| S
     A -->|execution state and effects| S
@@ -78,7 +78,7 @@ flowchart LR
 
 A **Constraint** is the approved boundary. A **Constraint Realization** is the mechanism implementing, enforcing, or influencing it. A **Controller** selects or authorizes action. An **Actuator** executes it.
 
-A closed feedback loop can still be unsafe or over-authorized. Constraints bound the space in which the loop may operate; they are not the feedback edge itself.
+A closed feedback loop can still be unsafe or over-authorized. Constraints and their realizations bound the space in which the loop may operate; they are not the feedback edge itself.
 
 Canonical definitions live in:
 
@@ -126,9 +126,13 @@ A successful demo is not project authorization. DoD is not release authorization
 
 Constraints may address structure, authority, states, data, context, resources, exposure, environment, dependencies, Human Authority, and probabilistic behavioral influence.
 
+Hard or soft is a scoped claim about a Constraint together with its complete realized path, not an intrinsic property of policy text.
+
 A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
 
 A prompt, natural-language policy, probabilistic evaluator, classifier, or model policy is not hard by itself.
+
+When one source condition has different guarantee strengths across subjects, paths, or scopes, it should be split into separate Constraint records.
 
 See:
 
@@ -154,7 +158,7 @@ Named technologies are examples, not requirements.
 
 - [`00-doctrine/`](00-doctrine/) — foundational concepts and terminology.
 - [`01-patterns/`](01-patterns/) — project review, Judgment Node Boundary, delivery review, and reusable patterns.
-- [`02-ai-control-plane/`](02-ai-control-plane/) — distributed capabilities:
+- [`02-ai-control-plane/`](02-ai-control-plane/) — distributed capability families:
   - [`00-actuators/`](02-ai-control-plane/00-actuators/)
   - [`01-constraints/`](02-ai-control-plane/01-constraints/)
   - [`02-sensors/`](02-ai-control-plane/02-sensors/)
