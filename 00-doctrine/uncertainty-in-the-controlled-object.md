@@ -42,9 +42,11 @@ source_basis:
 
 ## Status
 
-This document is **draft normative**. It defines why Thinking Systems require an additional control lifecycle and distinguishes project authorization, delivery-level realization and release, and runtime reauthorization.
+This document is **draft normative**. It defines why Thinking Systems require an additional control lifecycle and distinguishes project authorization, delivery realization and release, and runtime reassessment.
 
-It does not define the detailed project or delivery review procedures, the complete four-capability anatomy, a universal Constraint catalogue, a universal risk score, a universal control-cost formula, or a mandatory organizational structure. The four logical capability classes are defined in [`Control-Loop Capability Anatomy`](control-loop-anatomy.md). Project-level operationalization belongs to the [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md); delivery-level readiness, Constraint realization, completion, release, and reassessment belong to the [`Thinking System Review`](../01-patterns/thinking-system-review.md).
+It does not define detailed project or delivery procedures, the complete capability anatomy, one universal Constraint catalogue, one risk score, one control-cost formula, or a mandatory organizational structure.
+
+Canonical relationships among Constraints, Constraint Realizations, Sensors, Controllers, and Actuators belong to [`Control-Loop Capability Anatomy`](control-loop-anatomy.md). Project-level operationalization belongs to the [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md). Delivery-level realization, DoR, DoD, Release Gate, and reassessment belong to the [`Thinking System Review`](../01-patterns/thinking-system-review.md).
 
 ## 1. The controlled object has changed
 
@@ -62,13 +64,13 @@ A model-mediated responsibility behaves differently:
 y ~ P(y | x, c, m)
 ```
 
-where `c` represents relevant context and `m` represents the model and behavior-affecting configuration. The result is selected from a space of plausible behaviors rather than computed only through one locally explicit path.
+where `c` represents relevant context and `m` represents the model and behavior-affecting configuration. The result is selected from a space of plausible behaviors rather than produced only through one locally explicit path.
 
-A Thinking System is not wholly random. It remains a mixed system with deterministic obligations, Model Judgment, Constraints, evidence, decision authority, and corrective mechanisms. The change is that some consequential runtime behavior is now produced through probabilistic judgment inside the system being engineered.
+A Thinking System is not wholly random. It remains a mixed system with deterministic obligations, Model Judgment, Constraints, evidence, decision authority, and corrective mechanisms. The change is that some consequential runtime behavior is produced through probabilistic judgment inside the system being engineered.
 
 > **In a Thinking System, uncertainty is not only an external condition around delivery. Part of it is produced by the controlled object during operation.**
 
-This is the controlled-object shift addressed by Uncertainty Architecture.
+This is the controlled-object shift addressed by UA.
 
 ## 2. Useful variance is part of the capability
 
@@ -80,135 +82,120 @@ Model Judgment is introduced because variation can create value:
 - selecting among plausible paths;
 - generating outputs that cannot be enumerated in advance.
 
-The engineering objective is therefore not to eliminate every variation. Eliminating all meaningful variation may also eliminate the capability for which the model was introduced.
+The engineering objective is not to eliminate every variation. Eliminating meaningful variation may also eliminate the capability for which the model was introduced.
 
 The objective is to:
 
 - preserve useful judgment;
 - define where it may operate;
-- bound the reachable states, actions, authority, data, tools, resources, environments, and outputs;
-- prevent prohibited consequences;
-- observe material behavior, outcomes, Constraint state, and control health;
-- connect evidence to decision authority;
-- correct, contain, compensate, escalate, roll back, or stop the system when required.
+- define approved Constraints around states, actions, authority, data, tools, resources, environments, outputs, and Human Authority;
+- realize critical Constraints through credible technical or socio-technical mechanisms;
+- observe behavior, outcomes, realization state, Actuator execution, and control health;
+- connect evidence to an authorized Controller;
+- execute correction, containment, compensation, fallback, rollback, escalation, or shutdown through available Actuators;
+- reassess an earlier decision when evidence invalidates its basis.
 
-UA treats this as a control problem rather than a prompt-quality problem alone.
+UA treats this as a system-control problem rather than a prompt-quality problem alone.
 
-## 3. Different engineering disciplines address different uncertainty
+## 3. Different disciplines address different uncertainty
 
 Software delivery has always operated under uncertainty, but the location of that uncertainty matters.
 
-### 3.1 Product and requirement uncertainty
+### Product and requirement uncertainty
 
-Teams may not initially know what users need, which assumptions are valid, or which product outcome will create value.
+Teams may not initially know what users need, which assumptions are valid, or which product outcome will create value. Plan-driven analysis and iterative product methods address this uncertainty in different ways.
 
-Plan-driven methods reduce this uncertainty through analysis and upfront planning. Iterative and Agile methods reduce it through shorter feedback cycles, incremental delivery, and learning.
+### Environment and operational uncertainty
 
-### 3.2 Environment and operational uncertainty
+Systems operate across changing infrastructure, users, dependencies, traffic, and failure conditions. DevOps, observability, resilience engineering, and incident response address these operating conditions.
 
-A system must operate across changing infrastructure, users, devices, dependencies, traffic, deployment environments, and failure conditions.
+### Runtime judgment uncertainty
 
-DevOps, continuous delivery, observability, resilience engineering, and incident response reduce the delay between operational change, evidence, and corrective action.
-
-### 3.3 Runtime judgment uncertainty
-
-A Thinking System adds uncertainty inside the execution of a business responsibility. Even when the feature, code, and infrastructure are unchanged, behavior may vary or shift because of:
+A Thinking System adds uncertainty inside execution of a business responsibility. Behavior may vary or shift because of:
 
 - probabilistic model output;
 - context composition;
-- prompt, policy, or soft-Constraint sensitivity;
+- prompt, policy, or Soft Constraint sensitivity;
 - provider routing or model updates;
 - tool state;
 - data distribution;
-- Constraint configuration or enforcement state;
-- interaction between multiple Judgment Nodes.
+- Constraint source, realization, or configuration change;
+- interactions among multiple Judgment Nodes.
 
-This uncertainty can directly affect decisions, paths, actions, communications, cost, and liability.
+This uncertainty can affect decisions, paths, actions, communications, cost, and liability.
 
 ```mermaid
 flowchart TB
-    subgraph P[Product and requirement uncertainty]
-        P1[Unknown need or assumption]
-        P2[Planning, discovery, iterative delivery]
-        P1 --> P2
-    end
+    P[Product and requirement uncertainty]
+    PD[Planning, discovery, and iterative delivery]
+    O[Environment and operational uncertainty]
+    OD[DevOps, observability, resilience, and recovery]
+    J[Runtime judgment uncertainty]
+    UA[UA Constraints, evidence, authority,<br/>corrective action, and reassessment]
+    S[Thinking System in operation]
 
-    subgraph O[Environment and operational uncertainty]
-        O1[Changing users, infrastructure, dependencies, and scale]
-        O2[DevOps, observability, resilience, and recovery]
-        O1 --> O2
-    end
-
-    subgraph J[Runtime judgment uncertainty]
-        J1[Model-mediated behavior selects from plausible outcomes]
-        J2[UA Constraints, evidence, authority,<br/>corrective action, and reassessment]
-        J1 --> J2
-    end
-
-    P2 --> S[Thinking System in operation]
-    O2 --> S
-    J2 --> S
+    P --> PD --> S
+    O --> OD --> S
+    J --> UA --> S
 ```
 
-These concerns overlap. The diagram is a distinction of control problems, not a claim that one engineering movement owns only one form of uncertainty.
+The diagram distinguishes control problems. It does not assign each form of uncertainty exclusively to one discipline.
 
-## 4. UA complements delivery and operations disciplines
+## 4. UA complements existing engineering disciplines
 
-Agile and related iterative methods help teams learn what to build and adapt when product assumptions change.
-
-DevOps helps teams deliver, observe, and recover across changing operational environments.
+Agile and iterative methods help teams learn what to build. DevOps helps teams deliver, observe, and recover across changing environments.
 
 Neither discipline, by itself, guarantees that a team has made explicit:
 
 - where consequential Model Judgment occurs;
 - what authority it possesses;
-- which states, actions, data, tools, resources, environments, and outputs must be constrained;
-- which Constraints are hard and which are probabilistic influence;
-- where material Constraints are realized and how they fail;
+- which approved Constraints apply;
+- where and how those Constraints are realized;
+- which claims are hard and which are probabilistic influence;
 - which business consequences Model Judgment may create;
-- which variance is acceptable;
-- which outcomes are prohibited;
-- which evidence can detect material deviation or Constraint failure;
-- which Human Authority or automated Controller may intervene;
-- which Actuators can constrain, change, contain, compensate, roll back, or stop behavior;
-- whether the complete control system is technically, operationally, and economically viable.
+- which variation is acceptable and which outcomes are prohibited;
+- which evidence can detect material behavior or realization failure;
+- which Controller owns the decision;
+- which Actuator can execute correction within the required time;
+- whether the complete control perimeter is technically, operationally, and economically viable.
 
-UA does not replace product discovery, Agile delivery, software architecture, QA, security, DevOps, change management, or incident response. It adds a control lifecycle for model-mediated behavior and connects those existing disciplines around a changed controlled object.
+UA does not replace product discovery, Agile delivery, software architecture, QA, security, DevOps, change management, or incident response. It connects them around a changed controlled object.
 
 ## 5. Control begins before feature implementation
 
 A successful demonstration does not establish that a project has a deployable architecture.
 
-Before an organization commits to a consequential Thinking System, it needs a credible account of at least:
+Before committing to a consequential Thinking System, an organization needs a credible account of:
 
-- the intended business outcome and why Model Judgment is needed;
-- the domain, stakeholders, and material consequence scenarios;
-- the expected Judgment landscape and authority boundaries;
+- the intended outcome and why Model Judgment is needed;
+- the domain, stakeholders, and material scenarios;
+- the intended Judgment and authority landscape;
 - applicable organizational Constraint sources;
 - project-specific Constraints derived from risk and operating assumptions;
 - deterministic Invariants and prohibited authority;
-- assumptions about the Operating Envelope;
-- required Constraints, Sensors, Controllers, Actuators, and Human Authority;
+- Operating Envelope assumptions;
+- required Constraint Realizations, Sensors, Controllers, Actuators, Human Authority, fallback, containment, rollback, compensation, and shutdown;
 - evidence feasibility and feedback latency;
-- fallback, containment, compensation, rollback, escalation, and shutdown feasibility;
-- operational capacity, including human-review capacity where relevant;
-- the expected cost of building and operating the complete control perimeter;
+- operational capacity;
+- expected control build and run cost;
 - conditions under which the AI path must not proceed.
 
-These are not a universal checklist or scoring formula. They identify the categories of reasoning needed to decide whether a credible project-level control architecture can exist.
+These are categories of project reasoning, not a universal checklist or scoring formula.
 
-A project that cannot identify a plausible way to enforce, detect, and contain its critical violations does not yet have a deployable control architecture. A project whose required Constraint and control perimeter destroys expected value may be technically possible but economically non-viable.
+A project that cannot identify credible ways to prevent or reject critical violations where required, detect material deviation, and execute correction does not yet have a deployable control architecture. A project whose control perimeter destroys expected value may be technically possible but economically non-viable.
 
 ## 6. Four capabilities and four decision levels
 
 UA separates two orthogonal structures.
 
-The [`Control-Loop Capability Anatomy`](control-loop-anatomy.md) identifies the functions required for control:
+The [`Control-Loop Capability Anatomy`](control-loop-anatomy.md) identifies four logical capabilities:
 
-- **Constraints** — define or enforce the allowed operating space;
-- **Sensors and evidence** — observe behavior, outcomes, conditions, violations, and control health;
-- **Controllers and decision authority** — interpret evidence and authorize decisions;
-- **Actuators and corrective action** — execute authorized change.
+- **Constraints** — approved conditions limiting the allowed operating space;
+- **Sensors and evidence** — mechanisms observing behavior, outcomes, operating conditions, realization state, Actuator execution, and control health;
+- **Controllers and decision authority** — functions comparing or interpreting evidence and selecting or authorizing action;
+- **Actuators and corrective action** — mechanisms executing authorized changes to operation.
+
+A **Constraint Realization** is the mechanism implementing, enforcing, or influencing a Constraint for a defined scope. Constraint and realization are not synonyms.
 
 The [`Nested Control Lifecycle`](nested-control-lifecycle.md) identifies where decisions are owned:
 
@@ -217,195 +204,231 @@ The [`Nested Control Lifecycle`](nested-control-lifecycle.md) identifies where d
 3. delivery-level review;
 4. runtime control and reauthorization.
 
-The capability classes do not map one-to-one onto the decision levels. Every level may use the same capability vocabulary while owning a different decision and time horizon.
+The capabilities do not map one-to-one onto the decision levels. Every level may use the same capability vocabulary while owning a different decision and authority boundary.
 
-## 7. Nested Control Lifecycle
+## 7. Closed feedback loop versus bounded UA control architecture
 
-### 7.1 Organizational control context
+A feedback loop is closed when evidence reaches a Controller and an authorized Actuator can affect the controlled process:
 
-The organization supplies authoritative Constraints, shared capabilities, and decision rights, such as:
+```mermaid
+flowchart LR
+    R[Requirement and intended conditions]
+    P[Thinking System]
+    S[Sensors and evidence]
+    C[Controller and decision authority]
+    A[Actuators]
 
-- risk appetite and prohibited uses;
-- legal, privacy, security, safety, procurement, residency, and contractual Constraints;
-- available platform, identity, audit, evaluation, enforcement, incident, fallback, and shutdown capabilities;
+    R --> C
+    P --> S --> C
+    C -->|authorized action| A
+    A --> P
+```
+
+A closed loop is not automatically safe, authorized, or economically acceptable. It may still reach prohibited states or operate outside an approved boundary.
+
+A complete UA control architecture also makes Constraints and their realizations explicit:
+
+```mermaid
+flowchart LR
+    R[Requirement and assumptions]
+    K[Constraints]
+    P[Thinking System]
+    S[Sensors and evidence]
+    C[Controller and decision authority]
+    A[Actuators]
+
+    R --> C
+    R --> K
+    K -. bounds .-> P
+    K -. limits authority .-> C
+    K -. gates actions .-> A
+    P --> S
+    K -->|realization state| S
+    A -->|execution state| S
+    S --> C
+    C -->|authorized action| A
+    A --> P
+    A -->|authorized realization change| K
+```
+
+Constraints are not the feedback edge itself. They bound the space in which the loop may operate.
+
+## 8. Nested Control Lifecycle
+
+### Organizational control context
+
+The organization supplies authoritative Constraint sources, shared capabilities, and decision rights, such as:
+
+- prohibited uses and risk appetite;
+- legal, privacy, security, safety, procurement, residency, and contractual obligations;
 - permitted vendors, models, data classes, geographies, and deployment modes;
-- available Human Authority and operational capacity;
-- decision rights for pilots, releases, exceptions, Constraint changes, and shutdown.
+- identity, audit, evaluation, incident, fallback, and shutdown capabilities;
+- Human Authority and exception rights.
 
-UA does not require these responsibilities to live in one policy or one governance team.
+UA does not require these responsibilities to live in one policy or governance team.
 
-### 7.2 Project control architecture and viability
+### Project control architecture and viability
 
-The project level determines whether a proposed Thinking System has:
+The project determines whether the proposed system has:
 
 - a credible risk and consequence model;
-- an initial Judgment and authority landscape;
-- a traceable project Constraint architecture;
-- feasible Constraint realization and evidence;
-- a complete capability path across Sensors, Controllers, and Actuators;
-- sufficient Human Authority and operational capacity;
+- an intended Judgment and authority landscape;
+- one traceable Project Constraint Architecture;
+- feasible realizations and evidence;
+- complete Sensor, Controller, Actuator, Human Authority, fallback, containment, rollback, compensation, and shutdown paths;
+- sufficient operational capacity;
 - acceptable residual risk;
 - viable control economics.
 
-The result is project authorization, limitation, redesign, research-only decision, escalation, deferral, or rejection of the AI path.
+The project decision may authorize, limit, redirect to research, require redesign, defer, escalate, or reject the AI path.
 
-The [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md) owns this project-level decision surface and the versioned authorization and Constraint baseline inherited by delivery reviews.
+### Delivery-level review
 
-### 7.3 Delivery-level review
+The delivery review owns:
 
-Within an authorized project boundary, teams use the [`Thinking System Review`](../01-patterns/thinking-system-review.md) or an equivalent process for a bounded system, feature, or material change.
-
-The delivery-level review owns:
-
-- consequential Judgment Nodes;
-- the applicable Requirement and Operating Envelope;
-- concrete realization and versioning of inherited and local Constraints;
-- readiness for implementation or bounded experimentation;
-- implementation and completion evidence;
+- implementation-level Judgment Nodes;
+- the delivery Requirement and Operating Envelope;
+- one canonical Constraint Realization Map linked to the project baseline;
+- Definition of Ready;
+- bounded experiment or implementation;
+- Definition of Done;
 - the deployment-specific Release Gate;
-- local runtime reassessment triggers.
+- local runtime reassessment.
 
-A delivery review inherits project-level Constraints and shared capabilities by reference rather than redefining the entire domain, project risk space, capacity assumptions, and economics. It may narrow but must not silently weaken or expand the project boundary.
+A delivery review may narrow but must not silently expand project authorization or weaken an inherited Hard Constraint.
 
-### 7.4 Runtime control and reauthorization
+### Runtime control and reauthorization
 
-Runtime is where the approved capability loop is exercised.
+Runtime exercises deployed realizations, observes behavior and control health, routes evidence to authorized Controllers, and executes selected actions through Actuators.
 
-Runtime may confirm the current decision or reveal that:
+Runtime evidence may reveal that:
 
-- a local implementation, configuration, or Constraint realization needs correction or rollback;
-- deployment scope must be narrowed;
-- a project risk, Constraint feasibility, authority, evidence, capacity, or economic assumption is invalid;
+- a local implementation or realization needs correction;
+- deployment scope must narrow;
+- a project risk, authority, realization-feasibility, evidence, capacity, or economic assumption is invalid;
 - Human Authority or fallback capacity is insufficient;
-- an organizational Constraint or shared capability changed;
+- an organizational source or shared capability changed;
 - project reauthorization, organizational review, or shutdown is required.
 
 ```mermaid
 flowchart TB
-    ORG[Organizational control context<br/>authoritative Constraints · capabilities · decision rights]
-    PROJ{Project Constraint and<br/>control architecture decision}
-    RESEARCH[Bounded research or redesign]
-    STOP[AI path rejected or deferred]
-    DELIV[Delivery-level review<br/>realize Constraints · DoR · DoD · Release Gate]
-    RUN[Runtime operation<br/>enforce · observe · decide · correct]
-    LOCAL[Local reassessment]
-    REAUTH[Project reauthorization]
-    ORGREVIEW[Organizational review]
+    O[Organizational context<br/>sources · capabilities · decision rights]
+    P{Project architecture<br/>and viability decision}
+    X[Bounded research or redesign]
+    N[No-Go or defer]
+    D[Delivery review<br/>realization · DoR · DoD · Release Gate]
+    R[Runtime operation<br/>observe · decide · act]
+    L[Local reassessment]
+    PR[Project reauthorization]
+    OR[Organizational review]
 
-    ORG --> PROJ
-    PROJ -->|Authorized baseline| DELIV
-    PROJ -->|Research or redesign| RESEARCH --> PROJ
-    PROJ -->|No-Go or defer| STOP
-    DELIV -->|Approved deployment| RUN
-    RUN -->|Local implementation, Constraint, or evidence issue| LOCAL --> DELIV
-    RUN -->|Project assumption or Constraint invalidated| REAUTH --> PROJ
-    RUN -->|Authoritative Constraint or shared capability changed| ORGREVIEW --> ORG
+    O --> P
+    P -->|Authorized baseline| D
+    P -->|Research or redesign| X --> P
+    P -->|No-Go or defer| N
+    D -->|Approved deployment| R
+    R -->|Local issue| L --> D
+    R -->|Project basis invalidated| PR --> P
+    R -->|Organizational source or capability changed| OR --> O
 ```
 
-The lifecycle is nested and iterative. It is not a mandatory sequence of meetings, documents, departments, or software components.
+The lifecycle is nested and iterative, not a mandatory sequence of meetings, departments, or services.
 
-## 8. Constraint inheritance is not policy copying
+## 9. Constraint inheritance is not policy copying
 
-Authoritative Constraints flow downward, but their realization becomes more concrete at each level:
+Constraint authority flows downward while realization becomes more concrete:
 
 ```text
 Organizational source
-→ project interpretation and derived Constraint architecture
-→ delivery realization, configuration, verification, and release
-→ runtime enforcement, evidence, corrective action, and reassessment
+→ project interpretation and Project Constraint Architecture
+→ delivery Constraint Realization Map
+→ runtime operation, evidence, action, and reassessment
 ```
 
-A material Constraint should remain traceable through source, subject, scope, hard or soft strength, realization, failure behavior, evidence, active version, change authority, and reassessment trigger.
+A material Constraint should remain traceable through source, subject, scope, strength, realization, assumptions, failure behavior, evidence, active version, decision authority, execution path, and reassessment trigger.
 
-A runtime component may change only Constraints inside delegated authority. Technical configurability does not authorize relaxing a project or organizational boundary.
+A runtime Controller may select or authorize only changes within delegated authority. An Actuator executes the change. Technical configurability does not authorize relaxation of a project or organizational boundary.
 
-## 9. Project authorization is not delivery release
-
-### Project-level authorization
+## 10. Project authorization is not delivery release
 
 The project decision asks:
 
 > Is there a credible, operable, and economically viable Constraint and control architecture for pursuing this Thinking System within a defined boundary?
 
-It may authorize only research, a bounded pilot, constrained delivery, or broader project work. It may also require redesign, escalation, deferral, or rejection of the AI path.
-
-### Delivery-level Release Gate
-
 The delivery Release Gate asks:
 
-> Are the realized Constraints, available evidence, and residual risk acceptable for this specific deployment context under the existing project and organizational boundary?
+> Are the realized Constraints, available evidence, residual risk, operational capacity, and proposed deployment acceptable under the linked project authorization?
 
-Passing a Release Gate does not silently expand project authority or relax inherited hard Constraints. A change in autonomy, authority, population, data, domain, geography, deployment mode, tool access, consequence, or project Constraint may require reauthorization.
+Passing a Release Gate does not expand project authority or relax inherited Hard Constraints. A material change in autonomy, population, data, domain, geography, deployment, tools, consequence, or project Constraint may require reauthorization.
 
-## 10. Production contains a controlled evidence-generating component
+## 11. Production contains a controlled evidence-generating component
 
 Pre-release evidence cannot fully reproduce the production distribution of users, contexts, dependencies, and interactions.
 
 > **Every material model-mediated release contains a controlled evidence-generating component.**
 
-This does not mean production has no binding Requirement or that uncontrolled experimentation is acceptable.
+This does not mean production lacks a binding Requirement or that uncontrolled experimentation is acceptable.
 
-A controlled release should remain:
+A controlled release remains:
 
 - bounded by an approved Requirement, Constraint baseline, and authority model;
-- observable through behavior, outcome, Constraint, and control-health evidence;
+- observable through behavior, outcome, realization-state, execution, and control-health evidence;
 - limited in exposure where uncertainty justifies it;
-- connected to named Controllers and corrective Actuators;
+- connected to named Controllers and effective Actuators;
 - reversible, containable, or compensable where consequences require it;
 - subject to reassessment when evidence changes.
 
-Runtime learning supplements pre-release engineering. It does not excuse the absence of pre-release Constraint and control design.
+Runtime learning supplements pre-release engineering. It does not excuse missing design or evidence.
 
-## 11. Architectural veto is part of engineering rigor
+## 12. Architectural Veto is part of engineering rigor
 
 A responsible project decision may be not to build, not to automate, or not to grant the proposed authority.
 
-An architectural veto may be justified when:
+Architectural Veto may be justified when:
 
-- a critical hard Constraint cannot be credibly realized or evidenced;
+- a critical Hard Constraint cannot be credibly realized within stated assumptions;
 - a critical Requirement violation cannot be detected within the required time;
-- the consequence cannot be contained, reversed, compensated, or escalated acceptably;
+- consequences cannot be contained, reversed, compensated, or escalated acceptably;
 - no viable deterministic or human fallback exists;
-- required Human Authority lacks capacity, context, competence, independence, time, or real decision power;
-- vendor, model, data, policy, Constraint, permission, or context volatility invalidates the intended control assumptions;
-- required latency, compute, enforcement, evaluation, review, and operational controls destroy the business case;
-- a hard legal, safety, security, privacy, residency, procurement, or contractual boundary prohibits the intended operation.
+- required Human Authority lacks capacity, context, competence, independence, time, or real power;
+- vendor, model, data, policy, permission, context, or realization volatility invalidates the control assumptions;
+- required latency, compute, evaluation, enforcement, review, or operations destroy the business case;
+- a legal, safety, security, privacy, residency, procurement, or contractual boundary prohibits the operation.
 
 Positive expected value does not override a hard prohibition or unacceptable consequence boundary.
 
-No-Go is not a delivery failure. It is a valid output of control-oriented architecture.
+No-Go is a valid engineering outcome.
 
-## 12. Implications for the UA framework
+## 13. Framework implications
 
-This doctrine is operationalized through two related but distinct patterns:
+This doctrine is operationalized through two distinct patterns:
 
-1. the project-level [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md);
-2. the delivery-level [`Thinking System Review`](../01-patterns/thinking-system-review.md).
+1. [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md);
+2. [`Thinking System Review`](../01-patterns/thinking-system-review.md).
 
-The project pattern maps material risk scenarios, intended Model Judgment and authority, organizational and project Constraints, required capabilities, evidence feasibility, Human Authority, operational capacity, control cost, residual risk, authorization, delivery inheritance, and reauthorization triggers.
+The project pattern creates one project Constraint baseline and authorization decision. The delivery pattern creates one concrete Constraint Realization Map and separate DoR, DoD, Release Gate, and reassessment decisions.
 
-The delivery pattern refines the authorized boundary into implementation-level Judgment Nodes, Requirements, concrete Constraint realization, readiness, evidence, completion, a deployment-specific Release Gate, runtime enforcement, and local reassessment.
+They remain connected without requiring duplicate risk maps, Constraint Registers, gate records, or governance protocols for the default SMB path.
 
-The patterns remain connected without duplicating ownership:
+## Invariants
 
-- project reviews establish and version the inherited authorization and Constraint baseline;
-- delivery reviews link that baseline and record concrete realization;
-- delivery or runtime evidence that invalidates a project basis returns to project reauthorization;
-- organizational Constraint sources and shared capabilities remain owned by their existing authorities.
+1. Useful model-mediated variance may be preserved, but consequential deterministic responsibilities remain explicit.
+2. Constraint and Constraint Realization remain distinct.
+3. Hard Constraint claims require deterministic prevention or rejection within stated assumptions and scope.
+4. Controller decision and Actuator execution remain distinct even when one component performs both.
+5. Closed-loop feedback does not by itself establish safe or bounded operation.
+6. Project authorization and delivery release remain separate.
+7. Higher-level decisions are inherited by reference.
+8. Invalidating evidence returns to the decision level whose basis changed.
+9. Human Authority must be substantive where required.
+10. The complete control perimeter must remain technically, operationally, and economically viable.
 
-Neither pattern creates a mandatory committee, universal score, separate Constraint Register, separate gate record, or new top-level repository module.
+## Relationships
 
-## 13. Non-prescription
-
-UA does not require:
-
-- replacing Agile, Scrum, DevOps, or an organization's existing SDLC;
-- one universal lifecycle or four-service topology;
-- one Constraint catalogue, policy engine, risk formula, or control-cost model;
-- universal thresholds, evidence counts, or review cadences;
-- mandatory specialist job titles;
-- one governance department or committee;
-- autonomous control where Human Authority is more appropriate;
-- Human-in-the-Loop where deterministic containment is sufficient.
-
-Organizations may integrate these control decisions into existing product, architecture, security, quality, delivery, change-management, financial, policy, or incident processes, provided Constraint sources, realization, boundaries, evidence, authority, corrective action, decision state, inheritance, and reauthorization remain explicit and traceable.
+- [`control-loop-anatomy.md`](control-loop-anatomy.md) defines capability relationships.
+- [`nested-control-lifecycle.md`](nested-control-lifecycle.md) defines decision ownership and reassessment.
+- [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) defines Requirements, Correctness, Bugs, and diagnosis.
+- [`model-judgment-placement.md`](model-judgment-placement.md) defines placement functions.
+- [`../01-patterns/project-control-architecture-and-viability-review.md`](../01-patterns/project-control-architecture-and-viability-review.md) owns project authorization.
+- [`../01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) owns delivery realization and release.
+- [`../02-ai-control-plane/`](../02-ai-control-plane/) develops capability-specific guidance.
