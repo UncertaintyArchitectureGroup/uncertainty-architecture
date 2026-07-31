@@ -137,7 +137,7 @@ A product may package several functions. Its name does not remove their differen
 
 Hard or soft is a scoped claim about a Constraint together with its complete realized path, not an intrinsic property of source policy text.
 
-A **Hard Constraint** deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
+A **Hard Constraint** deterministically prevents or rejects violation within explicitly stated assumptions, subject, path, scope, and enforcement boundaries.
 
 A **Soft Constraint** influences probabilistic behavior without guaranteeing that a prohibited state, action, or output remains unreachable.
 
