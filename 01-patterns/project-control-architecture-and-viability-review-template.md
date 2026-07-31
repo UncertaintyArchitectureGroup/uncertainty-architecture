@@ -19,12 +19,16 @@ tags:
   - ua/topic/control-loop
   - ua/topic/evidence
   - ua/topic/human-authority
+  - ua/topic/constraints
 related:
   - project-control-architecture-and-viability-review.md
   - thinking-system-review.md
   - thinking-system-review-template.md
   - ../00-doctrine/uncertainty-in-the-controlled-object.md
+  - ../00-doctrine/control-loop-anatomy.md
+  - ../00-doctrine/nested-control-lifecycle.md
   - ../02-ai-control-plane/README.md
+  - ../02-ai-control-plane/01-constraints/README.md
 updated: 2026-07-31
 license: CC-BY-4.0
 ---
@@ -35,11 +39,13 @@ license: CC-BY-4.0
 
 This is the informative working template for the draft-normative [`Project Control Architecture and Viability Review`](project-control-architecture-and-viability-review.md).
 
-Use one living copy to make and preserve the project-level decision. Link supporting evidence rather than duplicating existing business-case, architecture, security, risk, finance, evaluation, or incident records.
+Use one living copy to make and preserve the project-level decision. Link supporting evidence rather than duplicating existing business-case, architecture, security, risk, policy, finance, evaluation, or incident records.
 
-Delete instructional prompts after completion where they no longer help. Mark non-applicable items explicitly. Depth should be proportional to authority, consequence, exposure, reversibility, evidence uncertainty, feedback latency, operational capacity, and control cost.
+Delete instructional prompts after completion where they no longer help. Mark non-applicable items explicitly. Depth should be proportional to authority, consequence, exposure, reversibility, constraint strength, evidence uncertainty, feedback latency, operational capacity, and control cost.
 
-This template does not replace the delivery-level [`Thinking System Review`](thinking-system-review.md). It creates the project baseline that delivery reviews inherit.
+This template does not replace the delivery-level [`Thinking System Review`](thinking-system-review.md). It creates the versioned project authorization and constraint baseline that delivery reviews inherit.
+
+It does not require a separate Constraint Register for the default SMB path. Use the embedded project constraint architecture and link external policy or technical evidence when independent ownership or lifecycle requires it.
 
 ---
 
@@ -57,7 +63,7 @@ This template does not replace the delivery-level [`Thinking System Review`](thi
 - **Evidence and risk responsibility:**
 - **Operational capacity responsibility:**
 - **Project authorization authority:**
-- **Linked product, architecture, security, legal, financial, evaluation, or incident records:**
+- **Linked product, architecture, security, legal, policy, financial, evaluation, or incident records:**
 
 One person may hold several responsibility bundles. Record responsibility and decision authority, not mandatory job titles.
 
@@ -71,7 +77,9 @@ Complete this section last so the current state is visible without reading the c
 - **Proposed project boundary:**
 - **Why Model Judgment is needed:**
 - **Primary material risks:**
-- **Required control architecture:**
+- **Authoritative organizational constraints:**
+- **Project-specific constraint architecture:**
+- **Required Control-Loop capabilities:** Constraints / Sensors / Controllers / Actuators
 - **Key evidence and capacity limitations:**
 - **Control-economics conclusion:**
 - **Current project authorization outcome:**
@@ -85,26 +93,29 @@ Complete this section last so the current state is visible without reading the c
 
 ## 3. Organizational control context
 
-Link to authoritative sources where they exist.
+Link to authoritative sources where they exist. Do not copy entire policies into this review.
 
-### 3.1 Applicable constraints
+### 3.1 Applicable organizational constraints
 
-- **Legal and regulatory:**
-- **Privacy and data handling:**
-- **Security and identity:**
-- **Safety:**
-- **Contractual and customer obligations:**
-- **Financial and procurement:**
-- **Approved vendors and deployment models:**
-- **Permitted data classes and geographies:**
-- **Prohibited organizational uses or authority:**
-- **Other organizational constraints:**
+| Constraint area | Authoritative source or link | Owner or decision authority | Project interpretation | Exception or change authority | Status or gap |
+|---|---|---|---|---|---|
+| Legal and regulatory | | | | | |
+| Privacy and data handling | | | | | |
+| Security and identity | | | | | |
+| Safety | | | | | |
+| Contractual and customer obligations | | | | | |
+| Financial and procurement | | | | | |
+| Approved vendors, models, and deployment modes | | | | | |
+| Permitted data classes, regions, and geographies | | | | | |
+| Prohibited organizational uses or authority | | | | | |
+| Other | | | | | |
 
 ### 3.2 Available shared capabilities
 
 | Capability | Available state | Owner or source | Project adaptation required | Gap or dependency |
 |---|---|---|---|---|
 | Identity and authorization | | | | |
+| Constraint or policy enforcement | | | | |
 | Data and tenant isolation | | | | |
 | Model/vendor governance | | | | |
 | Evaluation and evidence | | | | |
@@ -112,14 +123,16 @@ Link to authoritative sources where they exist.
 | Observability and alerting | | | | |
 | Incident response | | | | |
 | Human review or escalation | | | | |
-| Fallback, rollback, or shutdown | | | | |
+| Fallback, rollback, containment, or shutdown | | | | |
 | Other | | | | |
 
 ### 3.3 Organizational exceptions or unresolved decisions
 
-- **Required exception:**
+- **Required exception or decision:**
+- **Constraint or capability affected:**
 - **Decision authority:**
 - **Status:**
+- **Temporary boundary while unresolved:**
 - **Effect if unresolved:**
 
 ---
@@ -143,10 +156,11 @@ Link to authoritative sources where they exist.
 - **Useful variance the project needs to preserve:**
 - **Why deterministic software alone is insufficient or unattractive:**
 - **Why the model-mediated path is preferable:**
+- **Value or coverage lost when constraints narrow autonomy, population, data, tools, or speed:**
 
 ### 4.3 Alternatives
 
-| Alternative | Expected value | Cost and limitations | Control burden | Decision |
+| Alternative | Expected value | Cost and limitations | Constraint and control burden | Decision |
 |---|---|---|---|---|
 | Current/manual process | | | | |
 | Deterministic automation | | | | |
@@ -173,6 +187,8 @@ Link to authoritative sources where they exist.
 - **Models, tools, vendors, and knowledge sources:**
 - **Expected deployment and exposure:**
 - **Initial Operating Envelope assumptions:**
+- **Expected constraint classes and enforcement surfaces:**
+- **Known dependency and configuration change risks:**
 - **Known unknowns:**
 
 ### 5.2 Intended Model Judgment
@@ -206,13 +222,14 @@ flowchart LR
     O[Outputs, decisions, actions, and resources]
     C[Downstream consequences]
     H[Human Authority]
-    I[Deterministic invariants]
+    K[Organizational and project constraints]
 
     U --> J --> A --> O --> C
     H -. approves or intervenes .-> A
-    I -. constrains .-> J
-    I -. constrains .-> A
-    I -. constrains .-> O
+    K -. bounds .-> U
+    K -. bounds .-> J
+    K -. bounds .-> A
+    K -. bounds .-> O
 ```
 
 Replace the diagram when a project-specific view provides more value.
@@ -234,7 +251,7 @@ Do not reduce this section to one aggregate score. A local scale may be used onl
 
 ### 6.2 Scenario table
 
-| ID | Material scenario and affected obligation | Source or mechanism | Authority, autonomy, and exposure | Consequence and hard prohibition | Detectability and feedback latency | Reversibility, compensation, and containment | Propagation or correlation | Required controls and Human Authority | Residual risk and decision effect |
+| ID | Material scenario and affected obligation | Source or mechanism | Authority, autonomy, and exposure | Consequence and hard prohibition | Detectability and feedback latency | Reversibility, compensation, and containment | Propagation or correlation | Required constraints, controls, and Human Authority | Residual risk and decision effect |
 |---|---|---|---|---|---|---|---|---|---|
 | R-01 | | | | | | | | | |
 | R-02 | | | | | | | | | |
@@ -245,10 +262,11 @@ Do not reduce this section to one aggregate score. A local scale may be used onl
 - [ ] Ordinary operating failures considered
 - [ ] Ambiguous or adversarial inputs considered
 - [ ] Model behavior and distribution shift considered
-- [ ] Prompt, policy, context, data, and tool changes considered
+- [ ] Prompt, policy, constraint, context, data, permission, and tool changes considered
+- [ ] Missing, conflicting, stale, bypassed, or unavailable constraints considered
 - [ ] Deterministic defects and boundary failures considered
 - [ ] Misuse, abuse, and unauthorized access considered
-- [ ] Human review and controller failure considered
+- [ ] Human review and Controller failure considered
 - [ ] Vendor and external dependency changes considered
 - [ ] Correlated or repeated failure considered
 - [ ] Economic and operational-capacity failure considered
@@ -262,62 +280,95 @@ Do not reduce this section to one aggregate score. A local scale may be used onl
 
 ## 7. Required control architecture
 
-Map controls to material scenarios. A tool or dashboard is not a complete control without authority and corrective action.
+Map controls to material scenarios. A tool, policy, schema, or dashboard is not a complete control without source, realization, evidence, decision authority, and corrective action.
 
-### 7.1 Control-capability map
+### 7.1 Project constraint architecture
 
-| Control area | Required capability | Risk scenarios addressed | Shared or project-specific | Owner or dependency | Feasibility status | Evidence needed |
+Use one row for each material organizational or project-specific constraint. Combine rows only when source, scope, enforcement, and authority are genuinely shared.
+
+| ID | Constraint intent and source | Subject and scope | Class | Hard or soft | Required realization or enforcement point | Failure or degraded behavior | Evidence and control health | Change, override, or exception authority | Delivery inheritance and reauthorization trigger |
+|---|---|---|---|---|---|---|---|---|---|
+| K-01 | | | Structural / Authority / State / Data / Resource / Environment / Human / Behavioral | | | | | | |
+| K-02 | | | | | | | | | |
+| K-03 | | | | | | | | | |
+
+For each material constraint, confirm:
+
+- [ ] The authoritative source or project-risk rationale is explicit
+- [ ] The subject and scope are explicit
+- [ ] Hard versus soft strength is accurate
+- [ ] A credible realization or bounded research plan exists
+- [ ] Failure, bypass, conflict, and unavailability behavior are considered
+- [ ] Evidence can show activation, violations, degradation, and material friction
+- [ ] Change and exception authority are explicit
+- [ ] Delivery inheritance and higher-level reassessment triggers are explicit
+
+### 7.2 Control-capability map
+
+| Capability area | Required capability | Risk scenarios or constraints addressed | Shared or project-specific | Owner or dependency | Feasibility status | Evidence needed |
 |---|---|---|---|---|---|---|
-| Deterministic invariants and constraints | | | | | | |
+| Constraints and deterministic boundaries | | | | | | |
 | Authentication and authorization | | | | | | |
 | Data and context provenance | | | | | | |
-| Model, prompt, policy, and configuration control | | | | | | |
+| Model, prompt, policy, constraint, and configuration control | | | | | | |
 | Tool and action boundaries | | | | | | |
 | Sensors and runtime evidence | | | | | | |
 | Evaluation and regression evidence | | | | | | |
 | Controller and decision authority | | | | | | |
 | Human Authority | | | | | | |
+| Actuators and corrective change | | | | | | |
 | Fallback and degraded mode | | | | | | |
 | Containment and isolation | | | | | | |
-| Rollback, disable, or shutdown | | | | | | |
+| Rollback, disable, compensation, or shutdown | | | | | | |
 | Incident and corrective action | | | | | | |
 | Other | | | | | | |
 
-### 7.2 Control-loop completeness
+### 7.3 Control-loop completeness
 
 For each critical scenario, confirm:
 
 - [ ] The prohibited or unacceptable outcome is explicit
-- [ ] A deterministic boundary or preventive control exists where feasible
-- [ ] Relevant evidence can be observed
+- [ ] Applicable constraints and their source are explicit
+- [ ] Hard and soft claims are distinguished
+- [ ] A realization or enforcement point exists where required
+- [ ] Constraint failure behavior is explicit
+- [ ] Relevant behavior, constraint state, and outcomes can be observed
 - [ ] Evidence limitations are understood
-- [ ] A controller or decision authority is named
+- [ ] A Controller or decision authority is named
+- [ ] Constraint-change authority is bounded
 - [ ] The authority can act within the required time
-- [ ] A real corrective mechanism exists
-- [ ] Fallback, containment, rollback, or shutdown is feasible
+- [ ] A real Actuator or corrective mechanism exists
+- [ ] Fallback, containment, rollback, compensation, or shutdown is feasible
 - [ ] Human Authority is substantive where required
 - [ ] Residual risk is stated after controls
 
-### 7.3 Control architecture diagram
+### 7.4 Control architecture diagram
 
 ```mermaid
 flowchart LR
     R[Material risk scenarios]
-    B[Deterministic boundaries]
+    K[Constraints and deterministic boundaries]
+    P[Thinking System behavior]
     S[Sensors and evidence]
     C[Controller and decision authority]
     A[Actuators and corrective action]
-    F[Fallback, containment, rollback, or shutdown]
+    F[Fallback, containment, rollback,<br/>compensation, or shutdown]
     X[Residual risk]
 
-    R --> B --> S --> C --> A --> F --> X
+    R --> K
+    K -. bounds .-> P
+    P --> S --> C --> A --> P
+    A --> F --> X
     X -. runtime evidence .-> S
+    C -->|authorized constraint change| K
 ```
 
-- **Critical missing capabilities:**
-- **Capabilities that depend on unverified vendor claims:**
+- **Critical missing constraints or capabilities:**
+- **Constraints or capabilities that depend on unverified vendor claims:**
 - **Controls whose latency may be too slow:**
-- **Controls that create significant business friction:**
+- **Constraints or controls that create significant business friction:**
+- **Changes that delivery may make without project reauthorization:**
+- **Changes reserved for project or organizational authority:**
 
 ---
 
@@ -335,13 +386,14 @@ flowchart LR
 - **Representative and consequential scenarios available:**
 - **Adversarial or abuse evidence available:**
 - **Human or expert adjudication available:**
-- **Deterministic contract evidence available:**
+- **Deterministic contract and constraint evidence available:**
+- **Constraint activation, violation, bypass, and control-health evidence available:**
 - **Statistical evidence feasible where relevant:**
 - **Production-only evidence required:**
 - **Data provenance and legal usability:**
-- **Expected false passes and false blocks:**
+- **Expected false passes, false blocks, and fallback load:**
 - **Calibration or evaluator limitations:**
-- **Ability to detect provider, model, context, or tool changes:**
+- **Ability to detect provider, model, prompt, policy, constraint, context, permission, data, or tool changes:**
 - **Ability to reconstruct incidents and decisions:**
 - **Critical evidence blind spots:**
 
@@ -349,7 +401,7 @@ flowchart LR
 
 - **Fastest credible detection for critical scenarios:**
 - **Maximum tolerable detection and decision latency:**
-- **Can corrective action occur before unacceptable propagation?** Yes / No / Unknown
+- **Can constraint enforcement and corrective action occur before unacceptable propagation?** Yes / No / Unknown
 - **Evidence feasibility conclusion:** Credible / Credible with conditions / Research required / Not credible
 - **Effect on project decision:**
 
@@ -362,21 +414,22 @@ flowchart LR
 | Decision or intervention | Responsible authority | Required competence and context | Expected volume and peak load | Required response time | Real action available | Capacity status |
 |---|---|---|---|---|---|---|
 | Approve or reject model-mediated outcome | | | | | | |
-| Escalate consequential case | | | | | | |
+| Change or override a runtime or delivery constraint | | | | | | |
+| Escalate a project or organizational constraint exception | | | | | | |
 | Narrow scope or authority | | | | | | |
-| Roll back, disable, or shut down | | | | | | |
+| Roll back, disable, contain, or shut down | | | | | | |
 | Incident investigation and remediation | | | | | | |
 | Project reauthorization | | | | | | |
 
 ### 9.2 Capacity and control quality
 
-- **Can reviewers inspect the necessary evidence?**
+- **Can reviewers inspect the necessary evidence and active constraint state?**
 - **Can they reject without organizational pressure?**
 - **Is review time realistic at projected volume?**
 - **Can the fallback absorb peak load?**
 - **Is there coverage during absence, turnover, or incident peaks?**
 - **Are automation bias and alert fatigue addressed?**
-- **Is escalation authority clear?**
+- **Are constraint-change, override, and escalation authorities clear?**
 - **Is incident and support capacity funded?**
 - **Operational-capacity gaps:**
 - **Effect on project decision:**
@@ -415,8 +468,9 @@ Use the organization's existing financial model where available. Keep hard prohi
 |---|---|---|---|---|
 | Architecture and integration | | | | |
 | Data and context preparation | | | | |
+| Constraint design and realization | | | | |
 | Evaluation and scenarios | | | | |
-| Deterministic boundaries and permissions | | | | |
+| Deterministic boundaries, schemas, permissions, and policy enforcement | | | | |
 | Security, privacy, legal, and contractual work | | | | |
 | Observability, audit, and incident integration | | | | |
 | Human Authority workflow and training | | | | |
@@ -428,10 +482,11 @@ Use the organization's existing financial model where available. Keep hard prohi
 | Cost area | Estimate or range | Volume assumption | Evidence or uncertainty | Included in business case? |
 |---|---|---|---|---|
 | Model, retrieval, tool, and infrastructure use | | | | |
+| Constraint or policy enforcement operation | | | | |
 | Evaluation maintenance and repeated evidence | | | | |
 | Human review and escalation | | | | |
 | Monitoring, audit, support, and incidents | | | | |
-| Model, prompt, policy, data, and vendor reassessment | | | | |
+| Model, prompt, policy, constraint, data, permission, and vendor reassessment | | | | |
 | Fallback, false blocks, latency, and operational friction | | | | |
 | Remediation, compensation, or reserve | | | | |
 | Other | | | | |
@@ -454,19 +509,21 @@ Expected net value
 ```
 
 - **Expected-value conclusion:**
-- **Sensitivity to volume, review rate, incident frequency, model price, or latency:**
-- **Business value lost because controls narrow autonomy or scope:**
+- **Sensitivity to volume, review rate, constraint false blocks, incident frequency, model price, or latency:**
+- **Business value lost because constraints narrow autonomy or scope:**
 - **Most uncertain financial assumptions:**
 - **Non-AI alternative remains preferable when:**
 
 ### 10.6 Hard veto review
 
 - [ ] No hard prohibition identified
+- [ ] Required hard constraint cannot be credibly realized or evidenced
+- [ ] Critical constraint can be bypassed, fails open without authorization, or depends on an unavailable capability
 - [ ] Critical violation cannot be detected within required time
 - [ ] Consequence cannot be credibly contained, reversed, or compensated
 - [ ] Required Human Authority is unavailable or non-substantive
 - [ ] Required fallback cannot handle expected load
-- [ ] Vendor, model, data, or context volatility invalidates the control design
+- [ ] Vendor, model, data, policy, constraint, or context volatility invalidates the control design
 - [ ] Legal, safety, security, privacy, or contractual boundary prohibits the path
 - [ ] Control perimeter destroys the business case
 - [ ] Other hard veto:
@@ -475,6 +532,7 @@ Expected net value
 
 ### 10.7 Viability conclusion
 
+- **Constraint architecture:** Credible / Credible with conditions / Research required / Not credible
 - **Control architecture:** Credible / Credible with conditions / Research required / Not credible
 - **Operational capacity:** Credible / Credible with conditions / Research required / Not credible
 - **Economic viability:** Positive / Conditional / Unclear / Negative
@@ -485,7 +543,7 @@ Expected net value
 
 ## 11. Residual project risk
 
-| Residual risk | Why it remains | Current controls | Evidence uncertainty | Acceptance condition | Reauthorization or shutdown trigger |
+| Residual risk | Why it remains | Current constraints and controls | Evidence uncertainty | Acceptance condition | Reauthorization or shutdown trigger |
 |---|---|---|---|---|---|
 | | | | | | |
 | | | | | | |
@@ -518,8 +576,12 @@ Record one outcome.
 - **Conditions:**
 - **Unresolved dependencies:**
 - **Accepted residual risk:**
-- **Hard constraints and prohibited authority:**
-- **Required controls before delivery begins:**
+- **Organizational constraint references:**
+- **Project-specific hard and soft constraints:**
+- **Prohibited authority and deterministic invariants:**
+- **Required constraint realization and evidence before delivery begins:**
+- **Required shared and project-specific controls before delivery begins:**
+- **Constraint change, override, and exception authority:**
 - **Decision validity period or review timing:**
 - **Next decision required:**
 
@@ -528,6 +590,7 @@ Record one outcome.
 - **Hypotheses to test:**
 - **Users, data, environment, and duration:**
 - **Authority and tool limits:**
+- **Constraint realization hypotheses:**
 - **Exposure and resource limits:**
 - **Evidence to collect:**
 - **Stopping conditions:**
@@ -544,13 +607,17 @@ Delivery-level [`Thinking System Reviews`](thinking-system-review.md) should lin
 - **Project review identifier and version:**
 - **Authorized project boundary:**
 - **Intended business outcome:**
-- **Applicable organizational constraints:**
+- **Applicable organizational constraint sources:**
 - **Authorized Model Judgment and maximum autonomy:**
 - **Prohibited authority and hard invariants:**
 - **Material risk scenarios delivery reviews must address:**
+- **Inherited constraint identifiers, class, scope, and strength:**
+- **Required delivery realization or enforcement expectations:**
+- **Constraint failure, fallback, containment, and degraded-mode expectations:**
+- **Constraint change, override, and exception authority:**
 - **Shared controls available:**
 - **Project-specific controls required:**
-- **Evidence and feedback expectations:**
+- **Evidence, control-health, and feedback expectations:**
 - **Human Authority and operational-capacity assumptions:**
 - **Control-cost and resource boundaries:**
 - **Project-level release constraints:**
@@ -560,13 +627,14 @@ Delivery-level [`Thinking System Reviews`](thinking-system-review.md) should lin
 
 ### 13.1 Delivery inheritance rule
 
-A delivery review may refine local Judgment Nodes, Requirements, controls, evidence, and deployment scope. It must not silently:
+A delivery review may refine local Judgment Nodes, Requirements, constraint realization, controls, evidence, and deployment scope. It must not silently:
 
 - expand authorized authority or autonomy;
-- add a new population, domain, data class, geography, product, or tool outside the project boundary;
-- weaken project invariants or prohibited authority;
+- add a new population, domain, data class, geography, product, deployment mode, or tool outside the project boundary;
+- weaken project invariants, hard constraints, or prohibited authority;
+- change a constraint source or exception authority;
 - remove a required shared control or Human Authority path;
-- accept a project-level risk or economic assumption contradicted by delivery evidence.
+- accept a project-level risk, constraint-feasibility, capacity, or economic assumption contradicted by delivery evidence.
 
 When that occurs, record the need for project reassessment rather than duplicating a new project assumption inside one delivery review.
 
@@ -578,14 +646,16 @@ Select applicable triggers and add project-specific conditions.
 
 - [ ] Material increase in autonomy or authority
 - [ ] New tool or state-changing action
-- [ ] New population, domain, geography, language, product, or data class
-- [ ] Material model, provider, deployment, prompt, policy, context, or tool dependency change
-- [ ] Loss or degradation of required sensor, evaluator, control, fallback, or Human Authority
-- [ ] Incident, near miss, or Requirement violation invalidates a project assumption
-- [ ] Critical scenario is more frequent, severe, correlated, or difficult to detect than assumed
-- [ ] Control cost, latency, review volume, or incident burden exceeds the viable envelope
+- [ ] New population, domain, geography, language, product, deployment mode, or data class
+- [ ] Proposed relaxation, removal, or replacement of a project hard constraint
+- [ ] New organizational constraint or required exception
+- [ ] Material model, provider, deployment, prompt, policy, constraint, context, permission, or tool dependency change
+- [ ] Loss, degradation, bypass, misconfiguration, or unavailability of required Constraint, Sensor, evaluator, Controller, Actuator, fallback, or Human Authority
+- [ ] Incident, near miss, constraint violation, or Requirement violation invalidates a project assumption
+- [ ] Critical scenario is more frequent, severe, correlated, difficult to enforce, or difficult to detect than assumed
+- [ ] Constraint false blocks, control cost, latency, review volume, fallback load, or incident burden exceeds the viable envelope
 - [ ] Manual or deterministic fallback cannot absorb real load
-- [ ] New legal, safety, security, privacy, contractual, financial, or organizational constraint
+- [ ] New legal, safety, security, privacy, contractual, financial, procurement, or organizational constraint
 - [ ] Material business-value or non-AI-alternative change
 - [ ] Repeated delivery exceptions collectively change the project boundary
 - [ ] Other:
@@ -594,7 +664,7 @@ Select applicable triggers and add project-specific conditions.
 
 - **Evidence owner:**
 - **Who may initiate reassessment:**
-- **Immediate containment while reassessment occurs:**
+- **Immediate constraint, containment, or operating boundary while reassessment occurs:**
 - **Project authorization authority:**
 - **Maximum response time for critical triggers:**
 - **Possible outcomes:** Confirm / Narrow / Condition / Redesign / Return to research / Escalate / Defer / No-Go / Shutdown
@@ -603,11 +673,11 @@ Select applicable triggers and add project-specific conditions.
 
 ## 15. Decision and reassessment history
 
-| Review version | Date | Trigger | Project decision | Authorized scope | Material conditions or changes | Decision authority | Snapshot or link |
+| Review version | Date | Trigger | Project decision | Authorized scope and constraint baseline | Material conditions or changes | Decision authority | Snapshot or link |
 |---|---|---|---|---|---|---|---|
 | 0.1 | | Initial review | | | | | |
 
-Preserve prior decisions. Do not overwrite the evidence and assumptions that supported an earlier authorization.
+Preserve prior decisions. Do not overwrite the evidence, constraints, and assumptions that supported an earlier authorization.
 
 ---
 
@@ -615,15 +685,16 @@ Preserve prior decisions. Do not overwrite the evidence and assumptions that sup
 
 Before finalizing the project decision:
 
-- [ ] Organizational constraints and shared capabilities are linked
+- [ ] Organizational constraints, decision rights, and shared capabilities are linked
 - [ ] Business outcome and non-AI alternatives are explicit
 - [ ] Project boundary and intended Judgment landscape are mapped
 - [ ] Deterministic invariants and prohibited authority are explicit
-- [ ] Material risk scenarios are connected to controls
-- [ ] Critical controls include sensors, authority, and corrective action
+- [ ] Material risk scenarios are connected to constraints and controls
+- [ ] Project constraint architecture identifies source, scope, strength, realization, failure behavior, evidence, and authority
+- [ ] Critical controls include Constraints, Sensors, Controllers, and Actuators
 - [ ] Evidence feasibility and feedback latency are understood
 - [ ] Human Authority is substantive and capacity-tested
-- [ ] One-time and recurring control costs are included
+- [ ] One-time and recurring constraint and control costs are included
 - [ ] Residual exposure and hard vetoes are explicit
 - [ ] Project authorization outcome and authority are recorded
 - [ ] Delivery inheritance package is complete
@@ -632,4 +703,4 @@ Before finalizing the project decision:
 
 ### Final decision statement
 
-> For the stated project boundary and review version, the proposed Thinking System is **[authorized / authorized with conditions / authorized only for bounded research / requires redesign / escalated / deferred / rejected]** because **[decision rationale]**. The decision remains valid only while **[material assumptions, controls, capacity, economics, and scope]** remain true.
+> For the stated project boundary and review version, the proposed Thinking System is **[authorized / authorized with conditions / authorized only for bounded research / requires redesign / escalated / deferred / rejected]** because **[decision rationale]**. The decision remains valid only while **[material assumptions, constraints, controls, capacity, economics, and scope]** remain true.
