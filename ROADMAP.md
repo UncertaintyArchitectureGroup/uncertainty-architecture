@@ -77,15 +77,21 @@ The objective is to consolidate the existing research into a coherent, bounded s
 - Requirements, Operating Envelopes, Correctness, and Bugs refactored into a mixed-system doctrine with deterministic, model-mediated, and boundary-or-control diagnostic sources;
 - Model Judgment Placement established as a functional taxonomy of Input Interpretation, Decision Logic, and Output Mediation;
 - Judgment Node Boundary established as the first reusable pattern connecting Model Judgment to authority, deterministic constraints, evidence, fallback, escalation, and ownership;
-- the SMB Thinking System Review established as the canonical owner of the full model-mediated DoR, DoD, Release Gate, responsibility bundles, and reassessment flow;
+- the SMB Thinking System Review established as the canonical owner of the full model-mediated DoR, DoD, Release Gate, responsibility bundles, and reassessment flow for a feature or material change;
 - one informative Thinking System Review template added as the default living SMB working artifact;
 - four placement-focused reference architectures added for Input Interpretation, Decision Logic, Output Mediation, and one composite Thinking System;
 - slides 1–6 source-to-framework traceability updated to distinguish the original PPTX used for review from the preserved PDF export and to record active framework decisions;
 - research-state reconciliation added to the agent and research workflows so framework changes and worked applications update affected questions and traceability without creating a parallel worklog;
-- one completed illustrative Thinking System Review added for human-supervised support triage and grounded reply drafting, exercising the full review surface without presenting synthesized evidence as production validation.
+- one completed illustrative Thinking System Review added for human-supervised support triage and grounded reply drafting, exercising the full feature-level review surface without presenting synthesized evidence as production validation;
+- the controlled-object shift established as doctrine: Thinking Systems produce part of their runtime uncertainty internally through Model Judgment;
+- product uncertainty, operational uncertainty, and runtime-judgment uncertainty distinguished without positioning UA as a replacement for Agile, DevOps, QA, security, or incident response;
+- organizational context, project control architecture and viability, feature/change delivery, and runtime reauthorization established as connected control levels;
+- project authorization distinguished from feature release, and architectural veto recognized as a valid engineering outcome.
 
 ### Active and next milestones
 
+- [ ] Define a lightweight project-level control-architecture and viability pattern.
+- [ ] Define how project constraints, shared controls, and reauthorization triggers are inherited by feature-level Thinking System Reviews.
 - [ ] Complete a cross-publication research synthesis.
 - [ ] Identify stable concepts, later refinements, contradictions, and superseded claims.
 - [ ] Refine the canonical glossary where synthesis changes scope or meaning.
@@ -104,19 +110,24 @@ The objective is to turn the framework spine into reusable engineering guidance.
 - Judgment Node Boundary pattern for consequential Model Judgment;
 - minimal and extended boundary modes proportional to authority and consequences;
 - compact Judgment Node card embedded in the pattern rather than maintained as a separate registry;
-- Thinking System Review pattern connecting Requirements, Judgment Nodes, readiness, completion, release, and runtime reassessment;
+- Thinking System Review pattern connecting Requirements, Judgment Nodes, readiness, completion, release, and runtime reassessment for a feature or material change;
 - explicit separation of completion evidence from residual-risk acceptance;
 - placement reference architectures that isolate each functional class and show one non-prescriptive composite system;
-- a fully populated support-triage worked review showing three Judgment Nodes, bounded experimentation, complete DoR and DoD decisions, residual risk, a human-supervised release decision, runtime control, and reassessment triggers.
+- a fully populated support-triage worked review showing three Judgment Nodes, bounded experimentation, complete DoR and DoD decisions, residual risk, a human-supervised release decision, runtime control, and reassessment triggers;
+- doctrine that places the feature/change loop inside a broader project-to-runtime control lifecycle.
 
 ### Next outcomes
 
+- project control architecture and viability review pattern;
+- risk-scenario mapping tied to authority, consequence, detectability, reversibility, propagation, and required control capabilities;
+- project authorization, limitation, redesign, research-only, escalation, and no-go outcomes;
+- project reauthorization triggers for material changes in autonomy, authority, data, population, domain, operational capacity, or control economics;
 - containment, validation, retry, fallback, and escalation patterns;
 - drift and verification patterns;
 - Human-in-the-Loop and Human-on-the-Loop patterns;
 - failure-mode taxonomy grounded in operational examples;
 - explicit anti-patterns and conditions where AI should not be used;
-- additional worked domains and at least one real-team application that test whether the current review remains usable outside the reference scenario.
+- additional worked domains and at least one real-team application that test whether the current framework remains usable outside the reference scenario.
 
 ## Phase 4 — Operating Model and Practical Artifacts
 
@@ -126,23 +137,28 @@ The objective is to make UA usable by small and medium-sized engineering teams w
 
 ### Completed or active outcomes
 
-- one lightweight Thinking System Review flow for framing, implementation or bounded experimentation, completion, release, and reassessment;
+- one lightweight Thinking System Review flow for feature/change framing, implementation or bounded experimentation, completion, release, and reassessment;
 - one living practical template containing Judgment Node cards, full model-mediated DoR and DoD extensions, residual risk, deployment scope, release decision, and reassessment history;
 - four responsibility bundles — implementation, evaluation, operation, and release decision authority — defined as responsibilities rather than mandatory job titles;
 - versioned or immutable review snapshots used for traceability without requiring a separate Release Decision Record;
-- explicit default that the SMB path does not require a Judgment Node registry, governance board protocol, readiness record, completion package, or responsibility matrix;
+- explicit default that the SMB feature path does not require a Judgment Node registry, governance board protocol, readiness record, completion package, or responsibility matrix;
 - minimal reference architectures that show how the review surface changes by placement without duplicating the complete checklists;
-- one completed illustrative SMB review demonstrating that multiple Judgment Nodes and release decisions can remain in one artifact without a separate operating-model module or registry.
+- one completed illustrative SMB review demonstrating that multiple Judgment Nodes and release decisions can remain in one artifact without a separate operating-model module or registry;
+- a conceptual four-level lifecycle connecting organizational context, project authorization, feature delivery, and runtime reauthorization.
 
 ### Next outcomes
 
+- one SMB-facing Project Control Architecture and Viability Review artifact;
 - risk and tolerance mapping;
-- control-economics guidance;
-- an SMB-facing extension for estimating required controls and their operational cost;
+- control-economics guidance covering build cost, run cost, human-review capacity, latency, evaluation maintenance, incident handling, and expected residual exposure;
+- a project authorization decision that can approve, limit, condition, redirect to research, redesign, escalate, or reject the AI path;
+- one two-level worked example showing how a project baseline is inherited by a feature-level Thinking System Review and how runtime evidence can trigger reauthorization;
 - additional completed Thinking System Review examples across different domains and consequence levels;
 - a real-team application that can reveal usability, ownership, evidence, and control-cost gaps not visible in a synthesized example;
 - adoption guidance based on practical application feedback;
-- incident, change, and learning-loop refinements where the current review pattern proves insufficient.
+- incident, change, and learning-loop refinements where the current review patterns prove insufficient.
+
+A new top-level Operating Model module is not planned at this stage. Project and feature responsibilities may remain patterns and practical artifacts until several stable independent components justify a structural change.
 
 ## Phase 5 — Optional Tooling and Reference Implementations
 
@@ -163,14 +179,27 @@ No universal SDK or platform is currently planned.
 
 ## Current priority
 
-The slides 1–6 framework transfer and the first fully populated illustrative Thinking System Review are complete at the current draft level.
+The current draft now distinguishes two control decisions that were previously compressed into one delivery lifecycle:
 
-The immediate practical priority is to apply the review with a real team or against a documented real system boundary, then compare observed friction with the support-triage reference. Synthesized example results must not be treated as proof of adoption, usability, or control effectiveness.
+1. **Project authorization:** whether a proposed Thinking System has a credible, operable, and economically viable control architecture.
+2. **Feature/change release:** whether one implementation or material change has sufficient evidence and acceptable residual risk for a specific deployment context.
 
-In parallel, the worked review exposes likely next framework questions: how teams derive tolerances from consequences, how they estimate control and review cost, how human review becomes substantive rather than ceremonial, and which recurring failure mechanisms deserve canonical treatment.
+The immediate framework priority is a project-level pattern that turns this distinction into a lightweight SMB process without inventing a universal risk score, mandatory committee, or duplicate governance records.
 
-Cross-publication synthesis should continue alongside application. Material findings from either track should reconcile the affected research questions, traceability, doctrine, patterns, practical artifact, or failure modes through explicit review.
+The expected sequence is:
 
-The next coherent expansion should be selected from observed evidence rather than repository momentum: risk and tolerance mapping, control-cost estimation, failure modes, incident-loop refinement, or template simplification. The project should not multiply governance documents before that evidence exists.
+```text
+Controlled-object doctrine
+→ Project Control Architecture and Viability Review pattern
+→ One project-level working template
+→ Two-level worked application
+→ Real-team validation and refinement
+```
+
+The project-level pattern should expose the minimum reasoning needed to map material risk scenarios, intended Model Judgment and authority, deterministic invariants, required control capabilities, Human Authority, evidence feasibility, operational capacity, control cost, residual risk, project authorization, and reauthorization triggers.
+
+Cross-publication synthesis should continue alongside this work. Material findings from either track should reconcile the affected research questions, traceability, doctrine, patterns, practical artifacts, reference architectures, or failure modes through explicit review.
+
+The project should continue to avoid multiplying governance documents. The next artifacts should demonstrate inheritance between project and feature levels rather than duplicate the same risk, authority, or control information in multiple records.
 
 The project optimizes for durable clarity, traceability, and practical usefulness rather than rapid expansion of repository volume.
