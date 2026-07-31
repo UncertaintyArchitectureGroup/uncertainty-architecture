@@ -106,6 +106,12 @@ A **hard constraint** is enforced deterministically or through a mechanism with 
 
 ## Control-loop vocabulary
 
+### Nested Control Lifecycle
+
+The connected organizational, project, delivery, and runtime decision structure through which authoritative constraints and capabilities flow downward by reference, while evidence flows upward when it invalidates the assumptions of an earlier decision.
+
+The Nested Control Lifecycle distinguishes project authorization from delivery release and routes runtime evidence to local correction, project reauthorization, or organizational review according to the decision whose basis changed. It is a decision model, not a requirement for one hierarchy, committee, or additional governance artifact.
+
 ### AI Control Plane
 
 The distributed capability model used to constrain, observe, evaluate, and correct model-mediated behavior in a Thinking System.
@@ -260,7 +266,7 @@ The completion decision that implementation and the required evidence are suffic
 
 DoD is distinct from release authorization and does not by itself accept residual risk for a deployment context.
 
-See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and diagnostic model and [`model-judgment-placement.md`](model-judgment-placement.md) for the functional placement taxonomy.
+See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and diagnostic model, [`nested-control-lifecycle.md`](nested-control-lifecycle.md) for the four-level decision structure, and [`model-judgment-placement.md`](model-judgment-placement.md) for the functional placement taxonomy.
 
 ## Terminology evolution
 
