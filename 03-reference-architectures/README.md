@@ -78,29 +78,32 @@ Examples should link to canonical doctrine and patterns rather than redefine ter
 
 - [`judgment-placement-examples.md`](judgment-placement-examples.md) presents four minimal architectures: Input Interpretation only, Decision Logic only, Output Mediation only, and one composite Thinking System.
 - [`worked-thinking-system-review-support-triage.md`](worked-thinking-system-review-support-triage.md) provides one fully populated, realistically bounded delivery-level Thinking System Review for human-supervised support triage and grounded reply drafting. Its evidence is explicitly illustrative rather than a claim about a real deployment.
-- A two-level project-and-delivery worked application is the next planned reference. It is not yet present and must not be inferred from the delivery-only support example.
+- [`worked-project-to-runtime-support-triage.md`](worked-project-to-runtime-support-triage.md) connects organizational context, a project authorization, the existing delivery review, runtime evidence, local correction, and project reauthorization without duplicating canonical records.
 - Indranet remains an implementation-oriented expression of UA concepts. It is a reference, not the specification itself, and its design choices are not automatically normative.
 
 ## Suggested reader path
 
 [`Uncertainty in the Controlled Object`](../00-doctrine/uncertainty-in-the-controlled-object.md)
+→ [`Nested Control Lifecycle`](../00-doctrine/nested-control-lifecycle.md)
 → [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md)
 → [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md)
 → [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md)
 → [`Thinking System Review`](../01-patterns/thinking-system-review.md)
 → [`Judgment Placement Reference Architectures`](judgment-placement-examples.md)
 → [`Worked Support Triage Review`](worked-thinking-system-review-support-triage.md)
+→ [`Worked Project-to-Runtime Application`](worked-project-to-runtime-support-triage.md)
 
 ## Documents
 
 - [`judgment-placement-examples.md`](judgment-placement-examples.md) — reference architectures showing isolated and composite placement classes with deterministic boundaries, authority, evidence, fallback, risks, and review focus.
 - [`worked-thinking-system-review-support-triage.md`](worked-thinking-system-review-support-triage.md) — completed illustrative delivery review covering three Judgment Nodes, a bounded experiment, full DoR and DoD decisions, residual risk, a human-supervised Release Gate, runtime control, and framework-application observations.
+- [`worked-project-to-runtime-support-triage.md`](worked-project-to-runtime-support-triage.md) — completed illustrative project-to-runtime walkthrough covering organizational constraints, project control architecture and economics, a versioned inheritance package, delivery release, local runtime correction, and project reauthorization.
 
 Individual reference architectures should declare `status: reference` and follow [`DOCUMENT-METADATA.md`](../DOCUMENT-METADATA.md).
 
 ## Relationships
 
-- [`00-doctrine/`](../00-doctrine/) provides the conceptual foundation.
+- [`00-doctrine/`](../00-doctrine/) provides the conceptual foundation, including the [`Nested Control Lifecycle`](../00-doctrine/nested-control-lifecycle.md).
 - [`01-patterns/project-control-architecture-and-viability-review.md`](../01-patterns/project-control-architecture-and-viability-review.md) provides the project-level decision and inheritance surface.
 - [`01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) provides the delivery-level readiness, completion, release, and local reassessment surface.
 - [`02-ai-control-plane/`](../02-ai-control-plane/) provides the control capability model used in compositions.
