@@ -37,7 +37,7 @@ Use the catalog through this reasoning chain:
 
 ```text
 constraint intent
-→ subject and scope
+→ subject, path, and scope
 → hard or soft claim
 → realization and enforcement point
 → failure behavior
@@ -288,7 +288,7 @@ A resource limit can protect the system while also destroying usability or ROI. 
 
 A vendor-side model update can change behavior without an application-code change. Version and dependency evidence should therefore connect to delivery and project decisions.
 
-## 7. Human-decision realization
+## 7. Human Authority realization
 
 ### Typical purposes
 
@@ -374,7 +374,7 @@ Soft constraints are probabilistic influence. They should not be described as me
 | Structural constraint | Draft output follows a typed schema containing text, source references, and uncertainty. |
 | Soft constraint | Prompt requires grounded wording and disclosure of missing evidence. |
 | Sensor | Claim-to-source evaluation, human reject/edit data, cross-tenant tests, and incident evidence. |
-| Human-decision constraint | Support agent approval is required before any send action. |
+| Human Authority constraint | Support agent approval is required before any send action. |
 | Controller | Support lead and release authority interpret evidence and decide changes. |
 | Actuator | Disable the feature, roll back model/prompt/policy, narrow population, or switch to a deterministic template. |
 | Reauthorization trigger | Autonomous send, new data class, new product, unsupported-claim incident, or review-capacity failure. |
