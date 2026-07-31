@@ -68,14 +68,16 @@ Use [`00-doctrine/nested-control-lifecycle.md`](00-doctrine/nested-control-lifec
 3. delivery-level Thinking System Review;
 4. runtime control and reauthorization.
 
-### 3.2 Capability function
+### 3.2 Capability family and function
 
 Use [`00-doctrine/control-loop-anatomy.md`](00-doctrine/control-loop-anatomy.md) to identify whether the change concerns:
 
-- Constraints;
+- Constraints and their realizations;
 - Sensors and evidence;
 - Controllers and decision authority;
 - Actuators and corrective action.
+
+The Constraints family is intentionally composite: the Constraint is the authoritative boundary object, while the Constraint Realization is the operational mechanism. Do not collapse them.
 
 Do not collapse decision levels into capability layers. Do not treat directory numbering as an execution order or physical topology.
 
@@ -111,18 +113,20 @@ Additional rules:
 4. The glossary owns canonical terminology where an entry exists.
 5. The Project Control Architecture and Viability Review owns project authorization, project Constraint architecture, inheritance, and reauthorization.
 6. The Thinking System Review owns delivery realization, DoR, DoD, Release Gate, and local reassessment.
-7. AI Control Plane documents define logical capabilities, not one product topology.
+7. AI Control Plane documents define logical capability families, not one product topology.
 8. Constraint, Constraint Realization, Sensor, Controller, and Actuator must remain distinguishable.
 9. A Controller selects or authorizes; an Actuator executes.
-10. A lower-level decision may narrow but must not silently weaken or expand a higher-level authorization or Hard Constraint.
-11. Higher-level decisions flow downward by reference; invalidating evidence flows upward.
-12. Reference architectures illustrate compositions and do not become mandatory.
-13. Failure modes describe reusable mechanisms of loss of control, not isolated undesirable outputs.
-14. Research provides evidence and candidates; it is not automatically specification.
-15. Historical and raw material preserves original wording and provenance.
-16. Navigation, metadata, tags, recency, and publishing infrastructure do not create authority.
-17. Repository growth should occur through coherent refinement rather than namespace proliferation.
-18. Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).
+10. Hard or soft is a scoped claim about a Constraint and its complete realized path, not an intrinsic property of policy prose.
+11. Different guarantee strengths across subjects, paths, or scopes require separate Constraint claims rather than one mixed hard/soft record.
+12. A lower-level decision may narrow but must not silently weaken or expand a higher-level authorization or Hard Constraint.
+13. Higher-level decisions flow downward by reference; invalidating evidence flows upward.
+14. Reference architectures illustrate compositions and do not become mandatory.
+15. Failure modes describe reusable mechanisms of loss of control, not isolated undesirable outputs.
+16. Research provides evidence and candidates; it is not automatically specification.
+17. Historical and raw material preserves original wording and provenance.
+18. Navigation, metadata, tags, recency, and publishing infrastructure do not create authority.
+19. Repository growth should occur through coherent refinement rather than namespace proliferation.
+20. Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## 6. Repository map and placement rules
 
@@ -169,7 +173,7 @@ Owns capability-specific guidance:
 - [`02-sensors/`](02-ai-control-plane/02-sensors/);
 - [`03-controller/`](02-ai-control-plane/03-controller/).
 
-The directory numbers are navigation only. Named tools remain examples.
+The Constraints directory owns the composite Constraint and Constraint Realization family. The directory numbers are navigation only. Named tools remain examples.
 
 ### `03-reference-architectures/`
 
@@ -203,6 +207,8 @@ Do not:
 - create a second glossary;
 - define canonical terms locally in a template or reference architecture;
 - use Constraint, Constraint Realization, Invariant, Requirement, policy, guardrail, boundary, and Actuator interchangeably;
+- treat an organizational source as a Hard Constraint without a scoped realized path;
+- combine deterministic and probabilistic guarantees in one mixed-strength Constraint record;
 - invent synonyms for style;
 - turn a memorable phrase, slide label, or product category into a canonical term without a durable distinction.
 
@@ -213,9 +219,9 @@ Use **Thinking Systems** in current framework material. Preserve **Behavioral So
 When a change creates or modifies a material Constraint, answer:
 
 1. What is the authoritative source or project-risk rationale?
-2. What subject and scope does it bound?
-3. Is it hard or soft under the glossary definition?
-4. What Constraint Realization implements or influences it?
+2. What subject, path, and scope does it bound?
+3. Is the claimed guarantee hard or soft for that subject, path, and scope?
+4. What complete Constraint Realization implements, enforces, or influences it?
 5. Under which assumptions does the claimed guarantee hold?
 6. What happens on violation, bypass, conflict, degradation, uncertainty, or unavailability?
 7. What evidence shows activation, coverage, violations, false blocks, friction, and health?
@@ -223,9 +229,11 @@ When a change creates or modifies a material Constraint, answer:
 9. Which Actuator executes that change?
 10. Which changes remain local, require delivery reassessment, require project reauthorization, or require organizational review?
 
-A Hard Constraint must deterministically prevent or reject violation within stated assumptions, scope, and enforcement boundaries.
+A Hard Constraint must deterministically prevent or reject violation through its complete realized path within stated assumptions, subject, path, scope, and enforcement boundaries.
 
 A prompt, natural-language policy, probabilistic evaluator, classifier, or model preference is not hard by itself.
+
+When one source condition contains different guarantee strengths, split it into separate reviewable Constraint claims.
 
 If the questions cannot be answered, preserve the item as a research candidate, unresolved dependency, or Soft Constraint rather than presenting it as an operable guarantee.
 
@@ -280,7 +288,7 @@ Confirm that the change concerns project viability, project Constraint architect
 
 Read the project pattern and inheritance rules, delivery pattern and template, Judgment Node Boundary, Constraint capability, glossary, and relevant failure modes.
 
-Confirm that one canonical Constraint Realization Map remains the delivery source and that DoR, DoD, Release Gate, and runtime sections reference rather than duplicate it.
+Confirm that one canonical Constraint Realization Map remains the delivery source, that each row has one reviewable guarantee strength, and that DoR, DoD, Release Gate, and runtime sections reference rather than duplicate it.
 
 ### Editing the AI Control Plane
 
@@ -311,16 +319,16 @@ Classify each candidate as concept, artifact, responsibility, process, technical
 For repository-changing work:
 
 1. **Understand** the architectural purpose and document class.
-2. **Identify** decision level and capability function.
+2. **Identify** decision level and capability family/function.
 3. **Locate** the owning doctrine, pattern, or module.
 4. **Read** required dependencies.
 5. **Search** terms, paths, near-synonyms, and overlapping records.
 6. **Classify** the entity and evidence source.
-7. **Assess** status, authority, and inheritance.
+7. **Assess** status, authority, inheritance, scope, and guarantee strength.
 8. **Make** the smallest coherent change on a branch.
 9. **Cross-reference** affected doctrine, patterns, capabilities, failure modes, and research.
 10. **Update** glossary, roadmap, changelog, or traceability where required.
-11. **Audit** terminology, links, diagrams, metadata, and compatibility.
+11. **Audit** terminology, links, diagrams, metadata, compatibility, and mixed-strength records.
 12. **Report** uncertainty, assumptions, and unresolved decisions.
 13. **Complete** the end-of-session protocol.
 
@@ -341,8 +349,10 @@ Before completing a repository-changing session, verify:
 
 - Glossary terms are used consistently.
 - Constraint and Constraint Realization are not collapsed.
+- The Constraints capability family does not imply that a Constraint object is itself an execution mechanism.
 - Controller and Actuator responsibilities are not collapsed.
-- Hard and Soft Constraint claims match the canonical definitions.
+- Hard and Soft Constraint claims are scoped to complete realized paths.
+- Mixed-strength Constraint records are split.
 - Capability diagrams include reference conditions, evidence, decision authority, and execution paths.
 - Closed-loop feedback is not confused with bounded safe operation.
 
@@ -358,6 +368,7 @@ Before completing a repository-changing session, verify:
 - Relative links resolve.
 - Renamed paths have an explicit compatibility decision.
 - Mermaid diagrams are syntactically and semantically reviewed.
+- Generic diagrams do not imply deterministic enforcement for every Soft Constraint Realization.
 - Metadata and status are coherent.
 - Research provenance does not claim unavailable source formats or unverified review actions.
 - `CHANGELOG.md` is updated for notable changes.
