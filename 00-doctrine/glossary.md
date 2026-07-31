@@ -11,6 +11,7 @@ topics:
   - uncertainty-boundary
   - ai-control-plane
   - control-loop
+  - constraints
 tags:
   - ua/module/doctrine
   - ua/type/glossary
@@ -18,6 +19,7 @@ tags:
   - ua/topic/thinking-systems
   - ua/topic/uncertainty-boundary
   - ua/topic/ai-control-plane
+  - ua/topic/constraints
 canonical_for:
   - doctrine-vocabulary
 ---
@@ -66,7 +68,7 @@ Model Judgment may produce useful adaptation and semantic reasoning, but it must
 
 A bounded location in a system or workflow where Model Judgment influences an output, decision, path, or action.
 
-A Judgment Node may perform Input Interpretation, Decision Logic, Output Mediation, or a combination. It should make its inputs, allowed authority, deterministic boundaries, evidence, and failure handling visible enough to review and operate.
+A Judgment Node may perform Input Interpretation, Decision Logic, Output Mediation, or a combination. It should make its inputs, allowed authority, deterministic boundaries, applicable constraints, evidence, and failure handling visible enough to review and operate.
 
 ### Input Interpretation
 
@@ -100,9 +102,19 @@ An invariant should be enforced through deterministic mechanisms when violation 
 
 ### Constraint
 
-A condition intended to limit behavior or reduce the reachable operating space.
+A condition intended to limit behavior or reduce the reachable operating space of a Thinking System.
+
+A Constraint may bound states, transitions, actions, authority, inputs, context, data, tools, outputs, resources, environments, deployment scope, or Human Authority requirements.
 
 A **hard constraint** is enforced deterministically or through a mechanism with explicit failure behavior. A **soft constraint** influences probabilistic behavior but does not guarantee compliance.
+
+A Constraint should remain traceable to its authoritative source, scope, realization, failure behavior, evidence, and change or override authority. Constraints are a first-class AI Control Plane capability rather than merely a subtype of Actuator.
+
+### Constraint Realization
+
+The concrete technical or socio-technical mechanism through which a Constraint is implemented, configured, enforced, evidenced, and operated for a defined scope.
+
+Examples may include typed interfaces, schemas, permission gates, policy engines, tool allowlists, state machines, data isolation, resource limits, deployment boundaries, or mandatory Human Authority. A realization is not automatically effective merely because the mechanism exists; enforcement state, failure behavior, evidence, and decision authority remain relevant.
 
 ## Control-loop vocabulary
 
@@ -112,29 +124,37 @@ The connected organizational, project, delivery, and runtime decision structure 
 
 The Nested Control Lifecycle distinguishes project authorization from delivery release and routes runtime evidence to local correction, project reauthorization, or organizational review according to the decision whose basis changed. It is a decision model, not a requirement for one hierarchy, committee, or additional governance artifact.
 
+### Control-Loop Capability Anatomy
+
+The logical capability model consisting of Constraints, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
+
+The capability anatomy describes the functions required to bound, observe, decide, and change operation. It does not prescribe four physical services or one mandatory deployment topology. One component may realize several capability functions, and one function may be distributed across technical and human mechanisms.
+
 ### AI Control Plane
 
-The distributed capability model used to constrain, observe, evaluate, and correct model-mediated behavior in a Thinking System.
+The distributed capability model used to bound, observe, evaluate, decide, and correct model-mediated behavior in a Thinking System.
 
-The AI Control Plane is not necessarily a standalone service, platform, or centralized infrastructure layer. Its responsibilities may be distributed across application code, platform services, evaluation systems, release processes, human workflows, and governance mechanisms.
+The AI Control Plane consists of Constraints, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action. It is not necessarily a standalone service, platform, or centralized infrastructure layer. Its responsibilities may be distributed across application code, platform services, evaluation systems, release processes, human workflows, and governance mechanisms.
 
 ### Actuator
 
-A mechanism capable of changing, constraining, enabling, disabling, routing, or otherwise shaping system behavior.
+A mechanism capable of executing an authorized change in system behavior or operating conditions.
 
-Examples may include prompts, context policies, model configuration, permissions, tool access, routing, deterministic gates, rate or execution limits, rollback, or shutdown mechanisms. The exact classification of constraints relative to actuators may be refined, but an actuator must have a real path to affect behavior.
+Examples may include changing prompts, models, policies, context, routing, permissions, tool access, constraints, deployment scope, fallback state, rollback state, containment, compensation, or shutdown state.
+
+An Actuator may install, tighten, relax, replace, or disable a Constraint within delegated authority. An API call, workflow step, framework, or human action is an Actuator only when it provides a real path from an authorized decision to changed behavior.
 
 ### Sensor
 
-A mechanism that produces evidence about outputs, outcomes, operating conditions, drift, incidents, or control performance.
+A mechanism that produces evidence about outputs, outcomes, operating conditions, drift, incidents, constraint state, violations, or control performance.
 
-A sensor does not need to produce a single objective truth value. It must produce information useful enough for a controller to make a bounded decision. Metrics, evaluations, human review, runtime signals, and incident reports may all act as sensors.
+A Sensor does not need to produce a single objective truth value. It must produce information useful enough for a Controller to make a bounded decision. Metrics, evaluations, human review, runtime signals, constraint-enforcement evidence, and incident reports may all act as Sensors.
 
 ### Controller
 
-The decision function that interprets evidence relative to intended outcomes and operating boundaries, then authorizes or selects corrective action.
+The decision function that interprets evidence relative to approved outcomes, Requirements, constraints, and operating assumptions, then authorizes or selects corrective action.
 
-A controller may be implemented in software, assigned to a human role, or distributed across a socio-technical operating process. Telemetry without decision authority and a mechanism for intervention does not form a functioning controller.
+A Controller may be implemented in software, assigned to a human role, or distributed across a socio-technical operating process. It must distinguish constraints it may change from higher-level boundaries that require delivery reassessment, project reauthorization, or organizational review. Telemetry without decision authority and a mechanism for intervention does not form a functioning Controller.
 
 ### Open-Loop System
 
@@ -166,7 +186,7 @@ Evidence has scope and limitations. A metric, benchmark, anecdote, or model-gene
 
 A structured process for collecting and interpreting evidence about model-mediated or system-level behavior against defined expectations.
 
-Evaluations may be deterministic, statistical, model-assisted, human, or combined. Evaluation is a sensor capability; it does not become control until connected to decision authority and corrective action.
+Evaluations may be deterministic, statistical, model-assisted, human, or combined. Evaluation is a Sensor capability; it does not become control until connected to decision authority and corrective action.
 
 ### Golden Scenario
 
@@ -176,15 +196,15 @@ Golden scenarios are anchors for regression and change detection. They are not u
 
 ### Drift
 
-A material change in model-mediated behavior, system outcomes, operating conditions, or the relationship between evidence and expectations over time.
+A material change in model-mediated behavior, system outcomes, operating conditions, constraints, or the relationship between evidence and expectations over time.
 
-Drift may arise without code changes and may be semantic, logical, statistical, operational, or organizational.
+Drift may arise without code changes and may be semantic, logical, statistical, operational, organizational, or constraint-related.
 
 ### Deviation Signal
 
-Evidence indicating that observed behavior or outcomes may have moved outside an intended operating envelope or expectation.
+Evidence indicating that observed behavior, outcomes, constraints, or operating conditions may have moved outside an intended Operating Envelope or expectation.
 
-A deviation signal may be uncertain and require interpretation; it should not be confused with a guaranteed diagnosis or with a Bug by itself.
+A Deviation Signal may be uncertain and require interpretation; it should not be confused with a guaranteed diagnosis or with a Bug by itself.
 
 ### Release Gate
 
@@ -212,7 +232,7 @@ A fallback may be deterministic, human-operated, degraded, or unavailable by des
 
 ### Rollback
 
-Restoring a previously accepted configuration, model, prompt, policy, workflow, or system state after a harmful or uncertain change.
+Restoring a previously accepted configuration, model, prompt, policy, constraint, workflow, or system state after a harmful or uncertain change.
 
 Rollback capability depends on versioning, traceability, compatibility, and authority to execute it.
 
@@ -220,7 +240,7 @@ Rollback capability depends on versioning, traceability, compatibility, and auth
 
 A human decision right that can materially approve, reject, change, contain, escalate, or stop system behavior.
 
-A nominal human-in-the-loop step without adequate information, time, competence, or power is not effective Human Authority.
+A nominal human-in-the-loop step without adequate information, time, competence, independence, capacity, or power is not effective Human Authority.
 
 ## Requirement, diagnosis, and decision vocabulary
 
@@ -228,7 +248,7 @@ A nominal human-in-the-loop step without adequate information, time, competence,
 
 The approved operating contract for a system, feature, or change.
 
-A Requirement may include an intended outcome, deterministic and model-mediated obligations, invariants, authority boundaries, acceptable operating conditions, resource constraints, evidence expectations, and required failure handling. The Operating Envelope is one part of this contract.
+A Requirement may include an intended outcome, deterministic and model-mediated obligations, invariants, authority boundaries, applicable constraints, acceptable operating conditions, resource constraints, evidence expectations, and required failure handling. The Operating Envelope is one part of this contract.
 
 ### Correctness
 
@@ -246,7 +266,7 @@ A violation in which behavior produced through Model Judgment leaves approved op
 
 ### Boundary or Control Failure
 
-A Requirement violation caused or permitted by an incorrect or missing context, authority boundary, constraint, sensor, controller, validation gate, fallback, escalation, containment, rollback, shutdown, or related boundary responsibility.
+A Requirement violation caused or permitted by an incorrect or missing context, authority boundary, Constraint, Sensor, Controller, validation gate, fallback, escalation, containment, rollback, shutdown, or related boundary responsibility.
 
 ### Bug
 
@@ -266,7 +286,7 @@ The completion decision that implementation and the required evidence are suffic
 
 DoD is distinct from release authorization and does not by itself accept residual risk for a deployment context.
 
-See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and diagnostic model, [`nested-control-lifecycle.md`](nested-control-lifecycle.md) for the four-level decision structure, and [`model-judgment-placement.md`](model-judgment-placement.md) for the functional placement taxonomy.
+See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and diagnostic model, [`control-loop-anatomy.md`](control-loop-anatomy.md) for the four capability classes, [`nested-control-lifecycle.md`](nested-control-lifecycle.md) for the four-level decision structure, and [`model-judgment-placement.md`](model-judgment-placement.md) for the functional placement taxonomy.
 
 ## Terminology evolution
 
