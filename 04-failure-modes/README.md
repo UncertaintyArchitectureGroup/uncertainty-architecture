@@ -79,7 +79,15 @@ A prompt, rubric, natural-language policy, probabilistic evaluator, classifier, 
 
 #### Invalid Hard Constraint claim
 
-A Constraint is called hard even though violation is not deterministically prevented or rejected within stated assumptions, scope, and enforcement boundaries.
+A Constraint is called hard even though its complete realized path does not deterministically prevent or reject violation within stated assumptions, subject, path, scope, and enforcement boundaries.
+
+#### Mixed-strength Constraint record
+
+One record combines different subjects, paths, or scopes whose realized guarantees are not the same, then labels the whole record `Hard`, `Soft`, or `Hard/Soft`.
+
+This obscures which outcome is actually unreachable, which part only influences behavior, which evidence applies, and which authority may change the boundary. The result can overstate a guarantee or make verification and incident diagnosis impossible.
+
+The response is to split the condition into separately scoped Constraint claims, each with its own realization, assumptions, evidence, and reassessment trigger.
 
 #### Constraint–realization collapse
 
@@ -197,6 +205,7 @@ A collection of tools does not become a control architecture by accumulation.
 - **Vibe-check release** — deployment based on a few favorable outputs rather than decision-relevant evidence.
 - **Constraint-as-prompt fallacy** — probabilistic instruction presented as deterministic enforcement.
 - **Declared-but-unrealized governance** — rule without realization, evidence, failure behavior, or authority.
+- **Mixed-strength record** — different guarantee strengths collapsed into one Constraint row.
 - **Tool-name taxonomy** — classifying products by marketing category rather than function.
 - **Telemetry without authority** — observation without a decision owner or Actuator path.
 - **Runtime authority overreach** — local authorization or execution changing a higher-level boundary.
@@ -241,6 +250,6 @@ A mature failure-mode document should identify:
 - [`00-doctrine/nested-control-lifecycle.md`](../00-doctrine/nested-control-lifecycle.md) defines decision ownership and reassessment.
 - [`01-patterns/`](../01-patterns/) contains reusable responses.
 - [`02-ai-control-plane/01-constraints/`](../02-ai-control-plane/01-constraints/) defines Constraints and Constraint Realization.
-- [`02-ai-control-plane/`](../02-ai-control-plane/) develops Sensor, Controller, and Actuator capabilities.
+- [`02-ai-control-plane/`](../02-ai-control-plane/) develops the four capability families.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible compositions.
 - [`SPECIFICATION.md`](../SPECIFICATION.md) defines status and conformance.
