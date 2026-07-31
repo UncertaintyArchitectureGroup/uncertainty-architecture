@@ -31,7 +31,7 @@ source_basis:
 # Control-Loop Capability Anatomy
 
 **Status:** Draft normative  
-**Role:** Defines the logical capabilities required to operate model-mediated behavior inside an explicitly bounded control architecture without prescribing one physical topology
+**Role:** Defines the logical capability families required to operate model-mediated behavior inside an explicitly bounded control architecture without prescribing one physical topology
 
 ## Purpose
 
@@ -40,16 +40,16 @@ UA separates two orthogonal models:
 1. the [`Nested Control Lifecycle`](nested-control-lifecycle.md), which identifies where decisions are owned;
 2. the **Control-Loop Capability Anatomy**, which identifies the functions needed to bound, observe, decide, and change operation.
 
-The capability anatomy contains:
+The capability anatomy contains four families:
 
-- **Constraints**;
-- **Sensors and evidence**;
-- **Controllers and decision authority**;
-- **Actuators and corrective action**.
+- **Constraints and their realizations** — define and operationalize approved boundaries;
+- **Sensors and evidence** — observe behavior, outcomes, conditions, and control state;
+- **Controllers and decision authority** — compare, interpret, select, and authorize;
+- **Actuators and corrective action** — execute authorized change.
 
-A **Constraint Realization** connects an approved Constraint to concrete technical or socio-technical enforcement or influence. It is not a fifth capability class. It is the operational implementation of the Constraint capability.
+The first family is intentionally composite. A **Constraint** is an authoritative decision object: an approved condition limiting the allowed operating space. It is not itself an execution mechanism. A **Constraint Realization** is the technical or socio-technical mechanism that implements, enforces, or influences that boundary. UA groups them in one capability family because control is incomplete when either the approved boundary or its operational realization is missing. Constraint Realization is not a fifth capability family.
 
-These are logical functions, not mandatory services, products, teams, layers, or one execution order. One component may perform several functions, and one function may be distributed.
+These are logical functions and relationships, not mandatory services, products, teams, layers, or one execution order. One component may perform several functions, and one function may be distributed.
 
 ## 1. Closed feedback loop
 
@@ -92,8 +92,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state, violations, and health| S
     A -->|execution state and effects| S
@@ -125,7 +125,7 @@ A material Constraint should identify:
 
 1. authoritative source or project-risk rationale;
 2. subject and scope;
-3. hard or soft strength;
+3. claimed hard or soft strength for that scope;
 4. realization and enforcement or influence point;
 5. assumptions supporting the claimed guarantee;
 6. failure, bypass, conflict, and unavailable behavior;
@@ -133,9 +133,15 @@ A material Constraint should identify:
 8. evidence about activation, violations, degradation, false blocks, and friction;
 9. reassessment level when it changes.
 
+When one source condition has different guarantee strengths across subjects, paths, or scopes, split it into separate Constraint records rather than marking one row as partly hard and partly soft.
+
 ### Hard Constraint
 
-A **Hard Constraint** is one whose violation is deterministically prevented or rejected within explicitly stated assumptions, scope, and enforcement boundaries.
+Hard or soft strength is a scoped claim about a Constraint together with its complete realized path. It is not an intrinsic property of policy prose, a requirement sentence, or an organizational source.
+
+A **Hard Constraint** is a scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
+
+The same source condition may be hard in one system path and soft in another because the realizations, assumptions, and reachable states differ.
 
 Examples may include permission checks, typed-interface rejection, transaction preconditions, state-machine guards, tool allowlists, isolation boundaries, resource caps, and approval gates that technically prevent execution before approval.
 
@@ -143,7 +149,7 @@ A probabilistic detector, evaluator, prompt, model policy, or natural-language r
 
 ### Soft Constraint
 
-A **Soft Constraint** influences probabilistic behavior but does not guarantee that a prohibited state, action, or output remains unreachable.
+A **Soft Constraint** is a scoped Constraint whose realized path influences probabilistic behavior but does not guarantee that a prohibited state, action, or output remains unreachable.
 
 Examples include prompts, natural-language policies, rubrics, demonstrations, model preferences, and probabilistic safety or semantic classifiers used without deterministic downstream blocking.
 
@@ -151,7 +157,7 @@ Examples include prompts, natural-language policies, rubrics, demonstrations, mo
 
 One business Constraint may require several mechanisms. A requirement that unsupported claims must not reach a customer may combine approved-source restrictions, grounding instructions, a claim evaluator, deterministic blocking, Human Authority, and fallback Actuators.
 
-The business Constraint is hard only to the extent that the complete realized path deterministically prevents or rejects the prohibited outcome within stated assumptions.
+The business Constraint is hard only for the scope in which the complete realized path deterministically prevents or rejects the prohibited outcome within stated assumptions. If part of the path only influences behavior, record the narrower hard boundary and the remaining soft boundary separately.
 
 ## 4. Constraint Realization
 
@@ -229,10 +235,11 @@ An API call, orchestration framework, data pipeline, feature flag, deployment op
 
 ## 8. Capability boundaries
 
-### Constraint versus Constraint Realization
+### Constraint family
 
 - A Constraint defines the approved boundary.
 - A Constraint Realization implements, enforces, or influences that boundary.
+- The operational capability depends on both being connected and traceable.
 
 ### Constraint versus Actuator
 
@@ -264,7 +271,7 @@ An **Operating Envelope** is the approved range of conditions, authority, conseq
 
 Constraints express approved boundaries. Realizations help keep operation inside the Requirement and preserve Invariants. Neither replaces the complete Requirement.
 
-## 10. Capabilities across decision levels
+## 10. Capability families across decision levels
 
 ### Organizational level
 
@@ -303,14 +310,14 @@ Constraint authority flows downward by reference. Realization becomes more concr
 
 The presentation *Designing Non-Deterministic Systems* describes Controller, Sensors, Constraints, and Actuators as brain, nerves, skeleton, and muscles.
 
-UA retains the four-function distinction but does not adopt the slide as:
+UA retains the four-family distinction but does not adopt the slide as:
 
 - a mandatory physical stack;
 - a required vertical execution order;
 - a permanent product-to-layer mapping;
 - a literal claim that removing Constraints opens the feedback edge.
 
-Removing effective sensing, decision, or actuation can leave a system open-loop or unable to correct. Removing explicit Constraints may leave a loop closed while unsafe, unauthorized, or economically unacceptable.
+Removing effective sensing, decision, or actuation can leave a system open-loop or unable to correct. Removing explicit Constraints or credible realizations may leave a loop closed while unsafe, unauthorized, or economically unacceptable.
 
 ## 12. Capability completeness
 
@@ -330,7 +337,7 @@ Examples include:
 
 ## 13. Non-prescription
 
-UA does not require four services, one centralized Control Plane, one tool per capability, fully automated control, one product taxonomy, one Constraint catalogue, one fail-open/fail-closed rule, one risk score, one evidence threshold, or one review cadence.
+UA does not require four services, one centralized Control Plane, one tool per capability family, fully automated control, one product taxonomy, one Constraint catalogue, one fail-open/fail-closed rule, one risk score, one evidence threshold, or one review cadence.
 
 ## Relationships
 
