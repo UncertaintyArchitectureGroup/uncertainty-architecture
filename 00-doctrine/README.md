@@ -83,7 +83,7 @@ Operational checklists, decision flows, practical records, and implementation ex
 - **Control-Loop Capability Anatomy** — four capability families: Constraints and their realizations, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
 - **Constraint** — an approved condition limiting the allowed operating space.
 - **Constraint Realization** — the concrete mechanism implementing, enforcing, or influencing a Constraint for a defined scope.
-- **Hard Constraint** — a scoped Constraint whose complete realized path deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
+- **Hard Constraint** — a scoped Constraint whose complete realized path deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries.
 - **Uncertainty Boundary** — the interface at which deterministic responsibilities meet probabilistic judgment.
 - **Containment** — limiting where uncertainty or failure may propagate.
 - **Requirement** — the approved operating contract for a system, feature, or change.
