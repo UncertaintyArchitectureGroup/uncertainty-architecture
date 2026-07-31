@@ -184,7 +184,7 @@ Do not reduce this section to one aggregate score.
 
 | Constraint ID | Intent and source/rationale | Subject, path, and project scope | Class | Claimed strength | Required realization and assumptions | Failure/bypass/conflict/unavailable behavior | Evidence/control health | Change/exception authority and Actuator | Delivery inheritance / reauthorization trigger |
 |---|---|---|---|---|---|---|---|---|---|
-| K-01 | | | Structural / Authority / State / Data / Resource / Environment / Human / Behavioral | Hard / Soft | | | | | |
+| K-01 | | | Structural / Authority / State / Data / Resource / Environment / Human Authority / Behavioral | Hard / Soft | | | | | |
 | K-02 | | | | | | | | | |
 | K-03 | | | | | | | | | |
 
