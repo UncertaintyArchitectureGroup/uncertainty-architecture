@@ -51,6 +51,7 @@ Publications, talks, community discussions, and independent references belong un
 - Clarified that the Constraints family is intentionally composite: the Constraint is the authoritative boundary object, while the Constraint Realization is the operational mechanism; realization is not a fifth capability family.
 - Corrected canonical control diagrams so reference conditions reach the Controller, Controllers select or authorize action, Actuators execute change, and generic realization arrows do not imply deterministic enforcement for every Soft Constraint.
 - Completed a repository-wide diagram consistency pass: taxonomy, lifecycle, Requirement-decomposition, diagnosis, review-flow, boundary, and complete-control diagrams now state or preserve their scope and do not imply omitted capability paths are absent.
+- Completed a second repository consistency pass by connecting actual Judgment Node outputs, actions, and outcomes to Sensors; standardizing Hard Constraint claims around subject, path, and scope; using **Human Authority** consistently as the Constraint class; and naming the Project Constraint Architecture and delivery Constraint Realization Map as the two canonical lifecycle artifacts.
 - Corrected reference diagrams so Constraint Realizations act on accepted context, Judgment, gates, and delivery boundaries rather than unrealistically bounding external inputs or allowing Actuators to modify consumers directly.
 - Aligned the Requirement/Correctness/Bug and Model Judgment Placement doctrine with the four capability families and the verified PDF source boundary.
 - Clarified that Constraints define the space in which a feedback loop operates; they are not the feedback edge that closes the loop.
@@ -72,7 +73,7 @@ Publications, talks, community discussions, and independent references belong un
 - Simplified the root README into a landing page that links to canonical doctrine instead of acting as a second specification.
 - Reworked `AGENTS.md` around an explicit SMB-first operating model, practical organization–architecture/project–delivery-team–runtime ownership, and a four-decision-level by four-capability-family review matrix while preserving role flexibility and rejecting unnecessary enterprise-governance artifacts.
 - Updated `SPECIFICATION.md` conformance to require accurate scoped Hard/Soft claims, explicit realization assumptions, reference conditions, decision authority, execution paths, and reassessment.
-- Updated the Nested Control Lifecycle so project and delivery each maintain one canonical Constraint record for their decision surface and lower levels inherit higher-level decisions by reference.
+- Updated the Nested Control Lifecycle so the project owns one Project Constraint Architecture, delivery owns one Constraint Realization Map, and lower levels inherit higher-level decisions by reference.
 - Updated the roadmap to reflect the reviewed four-family consolidation and its remaining validation work.
 - Corrected presentation provenance: the verified repository-review source is the maintainer-supplied PDF export; an editable PPTX is not preserved or independently verified.
 - Preserved the slide 12 brain/nerves/skeleton/muscles model as an explanatory metaphor while rejecting it as mandatory topology, execution order, or literal product taxonomy.
