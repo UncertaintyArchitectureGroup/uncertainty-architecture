@@ -99,6 +99,8 @@ Complete last.
 | Prohibited uses or authority | | | | | |
 | Other | | | | | |
 
+An organizational source does not by itself establish a Hard Constraint. Any hard claim must be scoped to a subject, path, realized mechanism, assumptions, and enforcement boundary.
+
 ### Shared capabilities
 
 | Capability | Available state | Owner/source | Project adaptation | Gap/dependency |
@@ -180,13 +182,17 @@ Do not reduce this section to one aggregate score.
 
 ## 6. Canonical Project Constraint Architecture
 
-| Constraint ID | Intent and source/rationale | Subject and project scope | Class | Hard/soft | Required realization and assumptions | Failure/bypass/conflict/unavailable behavior | Evidence/control health | Change/exception authority and Actuator | Delivery inheritance / reauthorization trigger |
+| Constraint ID | Intent and source/rationale | Subject, path, and project scope | Class | Claimed strength | Required realization and assumptions | Failure/bypass/conflict/unavailable behavior | Evidence/control health | Change/exception authority and Actuator | Delivery inheritance / reauthorization trigger |
 |---|---|---|---|---|---|---|---|---|---|
-| K-01 | | | Structural / Authority / State / Data / Resource / Environment / Human / Behavioral | | | | | | |
+| K-01 | | | Structural / Authority / State / Data / Resource / Environment / Human / Behavioral | Hard / Soft | | | | | |
 | K-02 | | | | | | | | | |
 | K-03 | | | | | | | | | |
 
-For every Hard Constraint, confirm that violation can be deterministically prevented or rejected within stated assumptions and scope. A prompt, probabilistic evaluator, model policy, or natural-language instruction is not hard by itself.
+For every Hard Constraint, confirm that its complete realized path deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundary. A prompt, probabilistic evaluator, model policy, or natural-language instruction is not hard by itself.
+
+When one source condition has different guarantee strengths across subjects, paths, or scopes, split it into separate Constraint rows rather than using one mixed hard/soft record.
+
+Measured quality, cost, latency, or distribution tolerances belong in the Requirement and Operating Envelope unless a separate realization enforces a specific deterministic boundary.
 
 ### Capability feasibility
 
@@ -201,8 +207,8 @@ For every Hard Constraint, confirm that violation can be deterministically preve
 
 ### Capability completeness
 
-- [ ] Relevant Constraint IDs and assumptions are explicit.
-- [ ] Hard and Soft claims are accurate.
+- [ ] Relevant Constraint IDs, subjects, paths, scopes, and assumptions are explicit.
+- [ ] Hard and Soft claims are accurate and not mixed in one row.
 - [ ] Realization failure and bypass behavior are defined.
 - [ ] Behavior, outcomes, realization state, and Actuator effects can be observed.
 - [ ] A Controller with necessary authority exists.
@@ -226,8 +232,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state and health| S
     A -->|execution state and effects| S
@@ -236,6 +242,8 @@ flowchart LR
     A --> P
     A -->|authorized realization change| KR
 ```
+
+The realization arrows describe possible functions. The Constraint rows define the actual guarantee strength.
 
 ---
 
@@ -309,7 +317,7 @@ A hard prohibition or unavailable capability cannot be averaged away.
 - **Project review identifier/version/outcome:**
 - **Authorized scope and maximum autonomy:**
 - **Relevant scenario IDs:**
-- **Constraint IDs, sources, strength, assumptions, and delivery realization expectations:**
+- **Constraint IDs, sources, scoped strength, assumptions, and delivery realization expectations:**
 - **Required Sensors, Controller, Actuators, Human Authority, fallback, containment, compensation, rollback, shutdown:**
 - **Evidence and latency expectations:**
 - **Capacity/resource/cost boundaries:**
@@ -323,7 +331,7 @@ Delivery reviews link this package and record concrete realizations. They do not
 
 ## 11. Runtime evidence and reauthorization
 
-Reauthorization may be required when evidence changes project risk, authority, Constraint meaning or feasibility, scope, evidence quality, Human Authority, capacity, economics, required capabilities, or residual exposure.
+Reauthorization may be required when evidence changes project risk, authority, Constraint meaning or feasibility, scope, claimed strength, evidence quality, Human Authority, capacity, economics, required capabilities, or residual exposure.
 
 - [ ] Current decision remains valid
 - [ ] Boundary narrowed / conditions changed
@@ -346,7 +354,9 @@ Reauthorization may be required when evidence changes project risk, authority, C
 - [ ] Organizational sources are linked, not copied.
 - [ ] Section 6 is the canonical Project Constraint Architecture.
 - [ ] Scenarios reference Constraint IDs and capabilities.
-- [ ] Hard claims match deterministic guarantees and assumptions.
+- [ ] Hard claims match complete deterministic realized paths and assumptions.
+- [ ] Mixed-strength claims are split into separate rows.
+- [ ] Aggregate tolerances are not mislabeled as Hard Constraints.
 - [ ] Evidence, Human Authority, latency, capacity, economics, and action paths are credible.
 - [ ] Project authorization remains distinct from delivery release.
 - [ ] Inheritance is versioned and proportional.
