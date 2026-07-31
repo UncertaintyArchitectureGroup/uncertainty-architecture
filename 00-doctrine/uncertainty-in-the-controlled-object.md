@@ -37,7 +37,7 @@ source_basis:
 
 ## Status
 
-This document is **draft normative**. It defines why Thinking Systems require an additional control lifecycle and distinguishes project authorization, feature or change delivery, and runtime reauthorization.
+This document is **draft normative**. It defines why Thinking Systems require an additional control lifecycle and distinguishes project authorization, delivery-level review, and runtime reauthorization.
 
 It does not define the detailed project-review process, a risk-scoring method, a control-cost formula, or a mandatory organizational structure. Those operational elements belong in patterns and practical artifacts after separate review.
 
@@ -216,26 +216,28 @@ The project level determines whether a proposed Thinking System has:
 
 The result is a project-level authorization, limitation, redesign, research-only decision, escalation, or rejection of the AI path.
 
-### 6.3 Feature and change delivery
+### 6.3 Delivery-level review
 
-Within an authorized project boundary, teams use the [`Thinking System Review`](../01-patterns/thinking-system-review.md) or an equivalent process for a specific feature or material change.
+Within an authorized project boundary, teams use the [`Thinking System Review`](../01-patterns/thinking-system-review.md) or an equivalent process for a bounded system, feature, or material change.
 
-The feature-level review owns:
+“Delivery level” distinguishes this decision from upstream project authorization. It does not restrict the review to one backlog item and may cover a bounded whole system when that is the appropriate unit of delivery.
+
+The delivery-level review owns:
 
 - consequential Judgment Nodes;
 - the applicable Requirement and Operating Envelope;
 - readiness for implementation or bounded experimentation;
 - completion evidence;
 - the deployment-specific Release Gate;
-- feature-level reassessment triggers.
+- local reassessment triggers.
 
-A feature review may inherit project-level constraints and shared controls rather than redefine the entire domain and project risk space.
+A delivery review may inherit project-level constraints and shared controls rather than redefine the entire domain and project risk space.
 
 ### 6.4 Runtime control and reauthorization
 
 Production creates evidence that pre-release environments cannot fully reproduce. Runtime observation may confirm the current decision or reveal that:
 
-- a feature needs local correction or rollback;
+- a bounded system, feature, or change needs local correction or rollback;
 - the deployment scope must be narrowed;
 - a project assumption is invalid;
 - Human Authority or operational capacity is insufficient;
@@ -247,26 +249,29 @@ Production creates evidence that pre-release environments cannot fully reproduce
 flowchart TB
     ORG[Organizational control context<br/>constraints, capabilities, decision rights]
     PROJ{Project control architecture<br/>and viability decision}
-    FEAT[Feature or material-change review<br/>DoR, experiment, DoD, Release Gate]
+    RESEARCH[Bounded research or redesign]
+    STOP[AI path rejected or deferred]
+    DELIV[Delivery-level review<br/>system, feature, or material change]
     RUN[Runtime operation<br/>observe, contain, learn]
-    LOCAL[Feature reassessment]
+    LOCAL[Local reassessment]
     REAUTH[Project reauthorization]
     ORGREVIEW[Organizational review]
 
     ORG --> PROJ
-    PROJ -->|Authorized boundary| FEAT
-    PROJ -->|Research, redesign, or no-go| PROJ
-    FEAT -->|Approved deployment| RUN
-    RUN -->|Local evidence or change| LOCAL --> FEAT
+    PROJ -->|Authorized boundary| DELIV
+    PROJ -->|Research or redesign| RESEARCH --> PROJ
+    PROJ -->|No-go| STOP
+    DELIV -->|Approved deployment| RUN
+    RUN -->|Local evidence or change| LOCAL --> DELIV
     RUN -->|Project assumption changed| REAUTH --> PROJ
     RUN -->|Shared constraint or capability changed| ORGREVIEW --> ORG
 ```
 
 The lifecycle is nested and iterative. It is not a mandatory sequence of meetings, documents, departments, or software components.
 
-## 7. Project authorization is not feature release
+## 7. Project authorization is not delivery release
 
-A project-level decision and a feature-level Release Gate answer different questions.
+A project-level decision and a delivery-level Release Gate answer different questions.
 
 ### Project-level authorization
 
@@ -276,13 +281,13 @@ The project-level decision asks:
 
 It may authorize only research, a bounded pilot, a constrained project, or full project delivery. It may also require redesign, escalation, or rejection of the AI path.
 
-### Feature-level Release Gate
+### Delivery-level Release Gate
 
-The feature-level Release Gate asks:
+The delivery-level Release Gate asks:
 
 > Are the available evidence and residual risk acceptable for this specific deployment context, under the already stated project and organizational constraints?
 
-Passing a feature Release Gate does not silently expand project authority. A feature that materially changes autonomy, authority, population, data, domain, tool access, or consequence may require project-level reauthorization.
+Passing a delivery Release Gate does not silently expand project authority. A bounded system, feature, or material change that alters autonomy, authority, population, data, domain, tool access, or consequence may require project-level reauthorization.
 
 ## 8. Production contains a controlled experimental component
 
@@ -327,7 +332,7 @@ No-Go is not a delivery failure. It is a valid output of control-oriented archit
 
 This doctrine establishes the conceptual distinction needed for two related but separate patterns:
 
-1. the current feature-level [`Thinking System Review`](../01-patterns/thinking-system-review.md);
+1. the current delivery-level [`Thinking System Review`](../01-patterns/thinking-system-review.md);
 2. a future project-level control-architecture and viability review.
 
 The future project-level pattern should define how an SMB team can map material risk scenarios, derive required control capabilities, assess Human Authority and operational capacity, estimate control cost, make a project authorization decision, and identify reauthorization triggers without creating a large governance bureaucracy.
