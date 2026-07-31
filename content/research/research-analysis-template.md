@@ -24,7 +24,7 @@ license: CC-BY-4.0
 
 # Analysis: [Source title]
 
-> **Template status:** Informative repository tool. `draft: true` hides the template from normal Quartz publishing and does not mean that the resulting analysis has normative status.
+> **Template status:** Informative repository tool. `draft: true` controls Quartz visibility and does not assign normative status to a completed analysis.
 
 ## Analysis purpose
 
@@ -32,7 +32,7 @@ Explain why this source is being reviewed and which methodological or architectu
 
 ## Source summary
 
-Provide a concise, neutral summary of the source without converting its claims into normative UA requirements.
+Provide a concise, neutral summary without converting source claims into UA requirements.
 
 ## Research question and assumptions
 
@@ -64,7 +64,7 @@ Identify where the source rejects, narrows, or changes an earlier position.
 
 ### Tensions with later UA work
 
-Identify where later sources or current thinking modify this source.
+Identify where later sources, worked applications, incidents, or current framework decisions modify this source.
 
 ## Over-strong or ambiguous claims
 
@@ -81,7 +81,7 @@ For each claim:
 |---|---|---|---|
 | [Term] | [Meaning] | [Current meaning] | [Retain / narrow / rename / supersede / unresolved] |
 
-Explicitly review legacy terms such as Behavioral Software and Behavioral Applications against the current **Thinking Systems** category whenever they appear. Also review Model Control Plane, AI Control Plane, actuators, constraints, sensors, controller, and specialized role names where relevant.
+Review historical system-category terms against **Thinking Systems**. Also review AI Control Plane terminology, actuator and constraint distinctions, controllers, and specialized role names where relevant.
 
 ## Methodology impact
 
@@ -95,13 +95,15 @@ List earlier methodological assumptions that should be reconsidered.
 
 ### What this source does not justify
 
-List conclusions that should not be promoted into the normative framework.
+List conclusions that should not be promoted into the framework.
 
-## Framework candidates
+## Extracted entities and framework candidates
 
-| Research finding | Candidate destination | Proposed status | Work required before adoption |
-|---|---|---|---|
-| [Finding] | [Doctrine / Lifecycle / Pattern / Operating Model / Reference Architecture / Artifact] | Candidate | [Validation, definition, conflict resolution, framework review] |
+| Finding or extracted entity | Entity class | Candidate owner | Current status | Work required |
+|---|---|---|---|---|
+| [Finding] | [Term / doctrine distinction / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | [Research Finding / Candidate / Needs Resolution / Proposed for Framework Review] | [Validation, definition, conflict resolution, worked application, or separate review] |
+
+Lifecycle and operating concerns should be placed in the module that owns their architectural meaning. Do not assume they require a separate top-level repository module.
 
 ## SMB surface vs technical depth
 
@@ -111,22 +113,31 @@ What would an SMB team need to understand or use directly?
 
 ### Deeper framework material
 
-What should remain in advanced patterns, rationale, research, or reference architecture?
+What should remain in advanced patterns, rationale, research, failure modes, control-plane guidance, or reference architecture?
 
 ## Unresolved questions
 
 1. [Question]
 
-## Recommended traceability delta
+## Recommended research-state delta
 
-List the exact rows proposed for `framework-traceability.md`.
+List only records whose state changes:
+
+- source-intake, working note, analysis, or synthesis;
+- `framework-traceability.md`;
+- open-question or maturity status;
+- research index or local navigation;
+- no research-state change.
+
+Do not create a second traceability ledger or a session log.
 
 ## Review outcome
 
 - **Research record:** [Accepted / changes requested]
 - **Framework candidates:** [List]
 - **Superseded concepts:** [List]
-- **Separate normative proposal or methodology work required:** [List]
+- **Separate framework work required:** [List]
 - **Terminology decisions deferred:** [List]
+- **Research-state reconciliation required:** [Yes / No, with affected records]
 
 Apply the metadata conventions in [`DOCUMENT-METADATA.md`](../../DOCUMENT-METADATA.md) to the completed analysis.
