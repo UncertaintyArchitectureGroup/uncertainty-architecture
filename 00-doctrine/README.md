@@ -43,7 +43,7 @@ This module defines or develops the foundational distinctions behind:
 - the controlled-object shift created when consequential runtime behavior is produced through Model Judgment;
 - product, operational, and runtime-judgment uncertainty as related but distinct control problems;
 - UA as a control lifecycle that complements product discovery, iterative delivery, DevOps, QA, security, and incident response;
-- organizational context, project authorization, feature or change delivery, and runtime reauthorization as connected control levels;
+- organizational context, project authorization, delivery-level review, and runtime reauthorization as connected control levels;
 - functional placement of Model Judgment as Input Interpretation, Decision Logic, or Output Mediation;
 - open-loop and closed-loop operating conditions;
 - uncertainty containment rather than uncertainty elimination;
@@ -92,7 +92,7 @@ The canonical wording for terms currently defined by UA is maintained in the [pr
 ## Documents
 
 - [`glossary.md`](glossary.md) — canonical draft-normative vocabulary for current UA terms.
-- [`uncertainty-in-the-controlled-object.md`](uncertainty-in-the-controlled-object.md) — draft-normative rationale for UA, the changed controlled object, nested control levels, project authorization versus feature release, runtime evidence, and architectural veto.
+- [`uncertainty-in-the-controlled-object.md`](uncertainty-in-the-controlled-object.md) — draft-normative rationale for UA, the changed controlled object, nested control levels, project authorization versus delivery release, runtime evidence, and architectural veto.
 - [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) — draft-normative relationship between Requirements, Operating Envelopes, Correctness, Bugs, evidence, and diagnosis in mixed deterministic and model-mediated systems.
 - [`model-judgment-placement.md`](model-judgment-placement.md) — draft-normative functional taxonomy for locating Model Judgment as Input Interpretation, Decision Logic, or Output Mediation without prescribing a mandatory pipeline.
 
@@ -100,7 +100,7 @@ Process hypotheses, lifecycle sketches, operational checklists, and historical t
 
 ## Relationships
 
-- [`01-patterns/`](../01-patterns/) translates doctrine into reusable technical and socio-technical responses, including the [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) and feature-level [`Thinking System Review`](../01-patterns/thinking-system-review.md). A future project-level control-architecture and viability pattern may operationalize the project-authorization distinction without creating a new top-level module by implication.
+- [`01-patterns/`](../01-patterns/) translates doctrine into reusable technical and socio-technical responses, including the [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) and delivery-level [`Thinking System Review`](../01-patterns/thinking-system-review.md). A future project-level control-architecture and viability pattern may operationalize the project-authorization distinction without creating a new top-level module by implication.
 - [`02-ai-control-plane/`](../02-ai-control-plane/) defines the capabilities used to constrain, observe, and correct model-mediated behavior.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible compositions of the doctrine and patterns.
 - [`04-failure-modes/`](../04-failure-modes/) records recurring mechanisms through which these distinctions are violated or lost.
