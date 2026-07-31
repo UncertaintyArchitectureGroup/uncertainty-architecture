@@ -50,7 +50,7 @@ Plan-driven methods reduce uncertainty through analysis and upfront planning. Ag
 
 Thinking Systems introduce another problem: the deployed object itself continuously produces probabilistic judgment. Agile and DevOps do not automatically define where that judgment may act, which consequences are acceptable, which evidence is sufficient, who has authority to intervene, what control architecture is required, or whether its full cost leaves a viable business case.
 
-UA supplies that missing control lifecycle. It connects project authorization, feature delivery, runtime observation, correction, and reauthorization around model-mediated behavior. It complements existing engineering disciplines rather than replacing them.
+UA supplies that missing control lifecycle. It connects project authorization, delivery-level review, runtime observation, correction, and reauthorization around model-mediated behavior. It complements existing engineering disciplines rather than replacing them.
 
 Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/uncertainty-in-the-controlled-object.md).
 
@@ -61,7 +61,7 @@ Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/un
 - **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
 - **Use the canonical vocabulary:** [`00-doctrine/glossary.md`](00-doctrine/glossary.md)
 - **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
-- **Run the feature/change review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
+- **Run the delivery-level review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
 - **Copy the practical review template:** [`01-patterns/thinking-system-review-template.md`](01-patterns/thinking-system-review-template.md)
 - **See one completed worked review:** [`03-reference-architectures/worked-thinking-system-review-support-triage.md`](03-reference-architectures/worked-thinking-system-review-support-triage.md)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
@@ -131,25 +131,27 @@ UA currently distinguishes four connected levels:
 
 1. **Organizational control context** — shared constraints, capabilities, risk boundaries, and decision rights.
 2. **Project control architecture and viability** — whether a proposed Thinking System has a credible and economically viable control architecture.
-3. **Feature and change delivery** — whether one feature or material change is ready, complete, and acceptable for a stated deployment context.
+3. **Delivery-level review** — whether a bounded system, feature, or material change is ready, complete, and acceptable for a stated deployment context.
 4. **Runtime control and reauthorization** — whether production evidence confirms the current decision or requires local correction, project reauthorization, narrowing, rollback, or shutdown.
 
 ```mermaid
 flowchart LR
     O[Organizational constraints<br/>and capabilities]
     P{Project control architecture<br/>and viability}
-    F[Feature/change review<br/>DoR · experiment · DoD · Release Gate]
+    D[Delivery-level review<br/>system, feature, or material change]
     R[Runtime operation<br/>observe · contain · learn]
 
     O --> P
-    P -->|Authorized boundary| F
-    F -->|Approved deployment| R
-    R -->|Feature evidence| F
+    P -->|Authorized boundary| D
+    D -->|Approved deployment| R
+    R -->|Local evidence| D
     R -->|Project assumption changed| P
     R -->|Shared constraint changed| O
 ```
 
-The current [`Thinking System Review`](01-patterns/thinking-system-review.md) implements the feature/change layer. A project-level control-architecture and viability pattern is under development. It will address risk-space mapping, required control capabilities, Human Authority, operational capacity, control economics, project authorization, architectural veto, and reauthorization triggers without creating a large governance organization.
+The current [`Thinking System Review`](01-patterns/thinking-system-review.md) implements the delivery level. It may cover a bounded whole system, feature, or material change, but it does not by itself establish the upstream viability of the broader project.
+
+A project-level control-architecture and viability pattern is under development. It will address risk-space mapping, required control capabilities, Human Authority, operational capacity, control economics, project authorization, architectural veto, and reauthorization triggers without creating a large governance organization.
 
 ## What UA Is — and Is Not
 
@@ -159,7 +161,7 @@ UA is:
 - a set of patterns for containment, evaluation, escalation, fallback, and reassessment;
 - an operational doctrine for governing probabilistic behavior;
 - a project-to-runtime control lifecycle for consequential model-mediated work;
-- a lightweight SMB-facing review path for feature and change delivery;
+- a lightweight SMB-facing delivery review for a bounded system, feature, or material change;
 - a tool-neutral specification intended to evolve through research and implementation evidence.
 
 UA is not:
@@ -174,7 +176,7 @@ UA is not:
 
 ## Practical SMB Path
 
-The current feature/change path uses one living [`Thinking System Review`](01-patterns/thinking-system-review.md) and one copyable [`template`](01-patterns/thinking-system-review-template.md):
+The current delivery path uses one living [`Thinking System Review`](01-patterns/thinking-system-review.md) and one copyable [`template`](01-patterns/thinking-system-review-template.md):
 
 ```text
 Inherit the authorized project boundary
@@ -192,14 +194,14 @@ The upstream project decision is distinct. It asks whether the business risk, in
 
 Use the [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md) to see how the same review surface applies to Input Interpretation, Decision Logic, Output Mediation, and a composite system without turning those examples into mandatory topologies.
 
-Then inspect the [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md) to see one full illustrative feature/change path from framing through bounded experimentation, DoD, residual risk, a human-supervised Release Gate, and reassessment. Its synthesized evidence is a teaching device, not a claim about a real production deployment or a set of UA-wide thresholds.
+Then inspect the [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md) to see one full illustrative delivery path from framing through bounded experimentation, DoD, residual risk, a human-supervised Release Gate, and reassessment. Its synthesized evidence is a teaching device, not a claim about a real production deployment or a set of UA-wide thresholds.
 
 ## Repository Structure
 
 ### Specification modules
 
 - [`00-doctrine/`](00-doctrine/) — core concepts, the controlled-object shift, terminology, requirement and diagnostic models, and Model Judgment placement.
-- [`01-patterns/`](01-patterns/) — reusable technical and socio-technical control patterns, including the feature-level SMB Thinking System Review.
+- [`01-patterns/`](01-patterns/) — reusable technical and socio-technical control patterns, including the delivery-level SMB Thinking System Review.
 - [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, and operating controls.
 - [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated placement examples and a completed illustrative Thinking System Review.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
@@ -240,9 +242,9 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The repository contains the current feature-level control spine: mixed Requirements, Model Judgment placement, Judgment Node boundaries, one SMB-facing Thinking System Review and template, four placement-focused reference architectures, and one fully populated illustrative review.
+The repository contains the current delivery-level control spine: mixed Requirements, Model Judgment placement, Judgment Node boundaries, one SMB-facing Thinking System Review and template, four placement-focused reference architectures, and one fully populated illustrative review.
 
-The controlled-object doctrine now makes explicit that this layer sits inside a broader lifecycle. The next substantive framework work is a lightweight project-level control-architecture and viability pattern, followed by one project-level artifact and a two-level worked application that shows how project constraints flow into feature reviews and how runtime evidence can trigger reauthorization.
+The controlled-object doctrine now makes explicit that this delivery layer sits inside a broader lifecycle. The next substantive framework work is a lightweight project-level control-architecture and viability pattern, followed by one project-level artifact and a two-level worked application that shows how project constraints flow into delivery reviews and how runtime evidence can trigger reauthorization.
 
 Risk and tolerance mapping, control economics, architectural veto, Human Authority design, failure modes, incident loops, and real-team validation remain active development areas.
 
