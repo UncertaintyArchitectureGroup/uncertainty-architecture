@@ -63,14 +63,16 @@ The objective is to consolidate research into a coherent, bounded specification.
 - Project authorization, delivery release, runtime reassessment, and Architectural Veto remain separate decisions.
 - The default SMB path uses one living project review and one living delivery review.
 
-### Active four-capability consolidation
+### Active four-family capability consolidation
 
 The active proposal:
 
-- makes Constraints a first-class capability alongside Sensors, Controllers, and Actuators;
+- establishes a composite Constraints family containing the authoritative Constraint and its operational Constraint Realization;
+- places that family alongside Sensors and evidence, Controllers and decision authority, and Actuators and corrective action;
 - distinguishes a closed feedback loop from a complete bounded UA control architecture;
 - distinguishes Constraint from Constraint Realization;
-- defines Hard Constraint as deterministic prevention or rejection within stated assumptions, scope, and enforcement boundaries;
+- defines hard or soft as a scoped claim about a Constraint and its complete realized path;
+- requires separate records when one source condition has different guarantee strengths across subjects, paths, or scopes;
 - classifies tools by function rather than product name;
 - separates evaluation evidence, gate decision logic, and release execution into Sensor, Controller, and Actuator functions;
 - introduces one canonical Project Constraint Architecture and one canonical delivery Constraint Realization Map;
@@ -82,12 +84,13 @@ This consolidation remains draft until repository integrity review is complete a
 
 ### Exit work for this phase
 
-- [ ] Complete terminology, Mermaid, internal-link, and compatibility audit.
-- [ ] Confirm proportionality of the project and delivery artifacts.
+- [x] Complete architectural and logical consistency review of the capability-family model.
+- [x] Confirm one Project Constraint Architecture and one delivery Constraint Realization Map as the default proportional record structure.
+- [ ] Complete automated Mermaid rendering and internal-link validation when repository tooling exists.
 - [ ] Build a two-level worked application tracing Constraints from organizational source through project architecture, delivery realization, runtime evidence, and reauthorization.
 - [ ] Apply both reviews to a real team or documented real system boundary.
 - [ ] Complete cross-publication synthesis and resolve remaining terminology conflicts.
-- [ ] Validate the capability model against operational and incident evidence.
+- [ ] Validate the capability-family model against operational and incident evidence.
 
 ## Phase 3 — Patterns and failure modes
 
