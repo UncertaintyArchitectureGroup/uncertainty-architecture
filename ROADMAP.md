@@ -90,11 +90,12 @@ The objective is to consolidate the existing research into a coherent, bounded s
 - the Project Control Architecture and Viability Review established as the canonical project-level pattern for material risk scenarios, intended Judgment and authority, required controls, evidence feasibility, Human Authority, operating capacity, control economics, project authorization, delivery inheritance, and reauthorization;
 - one informative project-level template added as the default living project-decision artifact;
 - project baseline inheritance added to the Thinking System Review and its template;
-- `AGENTS.md` expanded so AI contributors identify control level, canonical decision ownership, inheritance, and upward reassessment before editing.
+- `AGENTS.md` expanded so AI contributors identify control level, canonical decision ownership, inheritance, and upward reassessment before editing;
+- the Nested Control Lifecycle established as the explicit doctrine for decision ownership, inheritance, runtime evidence routing, corrective action, and reauthorization across the four UA levels;
+- one completed illustrative project-to-runtime application added, connecting organizational context, project authorization, a versioned inheritance package, delivery release, local correction, changed control economics, and project reauthorization.
 
 ### Active and next milestones
 
-- [ ] Build one two-level worked application connecting a project authorization to one or more delivery-level Thinking System Reviews and runtime reauthorization.
 - [ ] Test the project and delivery reviews through a real team or documented real system boundary.
 - [ ] Complete a cross-publication research synthesis.
 - [ ] Identify stable concepts, later refinements, contradictions, and superseded claims.
@@ -122,11 +123,11 @@ The objective is to turn the framework spine into reusable engineering guidance.
 - project reauthorization triggers for material changes in autonomy, authority, data, population, domain, operational capacity, control economics, or evidence;
 - placement reference architectures that isolate each functional class and show one non-prescriptive composite system;
 - a fully populated support-triage delivery review showing three Judgment Nodes, bounded experimentation, complete DoR and DoD decisions, residual risk, a human-supervised release decision, runtime control, and reassessment triggers;
-- doctrine that places project and delivery reviews inside a broader organizational-to-runtime control lifecycle.
+- doctrine that places project and delivery reviews inside a broader organizational-to-runtime control lifecycle;
+- a project-to-runtime worked application showing project baseline inheritance, delivery release, local runtime correction, and project reauthorization when operating-capacity and economic assumptions change.
 
 ### Next outcomes
 
-- a two-level worked project and delivery application;
 - containment, validation, retry, fallback, and escalation patterns;
 - drift and verification patterns;
 - Human-in-the-Loop and Human-on-the-Loop patterns;
@@ -154,11 +155,12 @@ The objective is to make UA usable by small and medium-sized engineering teams w
 - minimal reference architectures that show how the delivery review surface changes by placement without duplicating complete checklists;
 - one completed illustrative SMB delivery review demonstrating that multiple Judgment Nodes and release decisions can remain in one artifact without a separate operating-model module or registry;
 - a four-level lifecycle connecting organizational context, project authorization, delivery review, and runtime reauthorization;
-- explicit inheritance between project and delivery reviews and upward reassessment when evidence invalidates a higher-level assumption.
+- explicit inheritance between project and delivery reviews and upward reassessment when evidence invalidates a higher-level assumption;
+- one explicit lifecycle doctrine document that explains how the existing two review surfaces work together without creating a third operational artifact;
+- one completed illustrative project-to-runtime application showing organizational sources, project authorization, inheritance, delivery release, runtime evidence routing, local correction, and project reauthorization.
 
 ### Next outcomes
 
-- one two-level worked example showing how a project baseline is inherited by a delivery-level Thinking System Review and how runtime evidence can trigger project reauthorization;
 - real-team validation of both templates;
 - risk and tolerance derivation guidance;
 - deeper control-economics guidance covering uncertainty ranges, sensitivity, control maintenance, human-review capacity, latency, incident burden, and residual exposure;
@@ -166,7 +168,7 @@ The objective is to make UA usable by small and medium-sized engineering teams w
 - adoption guidance based on practical application feedback;
 - incident, change, and learning-loop refinements where the current review patterns prove insufficient.
 
-A new top-level Operating Model module is not planned at this stage. Project and delivery responsibilities remain patterns and practical artifacts until several stable independent components justify a structural change.
+A new top-level Operating Model module is not planned at this stage. Project and delivery responsibilities remain patterns and practical artifacts until several stable independent components justify a structural change. The Nested Control Lifecycle explains the operating relationship inside doctrine rather than duplicating those artifacts.
 
 ## Phase 5 — Optional Tooling and Reference Implementations
 
@@ -187,31 +189,34 @@ No universal SDK or platform is currently planned.
 
 ## Current priority
 
-The current draft now contains two connected but separately owned control decisions:
+The current draft contains a connected project-to-runtime control spine:
 
-1. **Project authorization:** whether a proposed Thinking System has a credible, operable, and economically viable control architecture.
-2. **Delivery release:** whether one bounded system, feature, or material change has sufficient evidence and acceptable residual risk for a specific deployment context.
+1. **Organizational context:** authoritative constraints and shared capabilities remain linked at source.
+2. **Project authorization:** the Project Control Architecture and Viability Review decides whether the proposed control perimeter is credible, operable, and economically viable.
+3. **Delivery release:** the Thinking System Review decides whether one bounded implementation has sufficient evidence and acceptable residual risk for a specific deployment context.
+4. **Runtime reassessment:** evidence is routed to local correction, project reauthorization, or organizational review according to the assumption it invalidates.
 
-The immediate priority is no longer to define another review artifact. It is to test inheritance and feedback through one two-level worked application.
+The repository now includes a synthesized worked application of this complete path. The immediate priority is to test it against a real team or a documented real system boundary rather than add another parallel review artifact.
 
 The expected sequence is:
 
 ```text
 Controlled-object doctrine
+→ Nested Control Lifecycle
 → Project Control Architecture and Viability Review pattern and template
 → Delivery-level Thinking System Review with project inheritance
 → Two-level worked application
 → Real-team validation and refinement
 ```
 
-The worked application should show:
+Real-team application should test:
 
-- organizational constraints and shared capabilities;
-- a project-level outcome, Judgment landscape, material scenario map, required controls, evidence and capacity analysis, economics, and authorization;
-- a versioned inheritance package;
-- one or more delivery reviews that refine local Judgment Nodes, Requirements, evidence, and release scope;
-- runtime evidence that remains local versus evidence that triggers project reauthorization;
-- how duplication is avoided across artifacts.
+- whether teams can identify organizational sources without copying them;
+- whether project risk, authority, evidence, capacity, and economics can be reviewed in one living artifact;
+- whether the inheritance package is sufficient for delivery work;
+- whether delivery teams can distinguish local reassessment from project reauthorization;
+- whether runtime evidence remains traceable without creating duplicate registries or governance records;
+- whether the full process is usable for SMB teams with limited specialist capacity.
 
 Cross-publication synthesis should continue alongside application. Material findings from either track should reconcile affected research questions, traceability, doctrine, patterns, practical artifacts, reference architectures, or failure modes through explicit review.
 
