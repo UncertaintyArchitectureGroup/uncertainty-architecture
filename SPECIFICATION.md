@@ -180,7 +180,7 @@ A system or design claiming UA alignment SHOULD be able to identify:
 1. where consequential Model Judgment occurs;
 2. the placement and authority of each material Judgment Node;
 3. applicable organizational, project, and delivery Constraints;
-4. the source, subject, scope, claimed strength, and assumptions of each material Constraint;
+4. the source, subject, path, scope, claimed strength, and assumptions of each material Constraint;
 5. the concrete Constraint Realization, active version, and enforcement or influence point;
 6. failure, bypass, conflict, degraded, and unavailable behavior;
 7. which deterministic responsibilities and Invariants remain outside Model Judgment;
@@ -191,7 +191,7 @@ A system or design claiming UA alignment SHOULD be able to identify:
 12. how project and delivery decisions, versions, assumptions, dependencies, and changes remain traceable;
 13. which evidence triggers delivery reassessment, project reauthorization, or organizational review.
 
-A system MUST NOT claim a Hard Constraint when its complete realized path does not deterministically prevent or reject violation within explicitly stated assumptions, scope, and enforcement boundaries.
+A system MUST NOT claim a Hard Constraint when its complete realized path does not deterministically prevent or reject violation within explicitly stated assumptions, subject, path, scope, and enforcement boundaries.
 
 A probabilistic detector, evaluator, prompt, model policy, or natural-language instruction is not a Hard Constraint by itself.
 
