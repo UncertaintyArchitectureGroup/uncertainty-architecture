@@ -23,201 +23,158 @@ canonical_for:
 
 Uncertainty Architecture is being developed as a practical open specification for engineering and operating software that delegates part of its behavior to probabilistic Model Judgment.
 
-This roadmap is the canonical detailed view of project direction. It distinguishes completed work, active work, near-term priorities, and later possibilities without attaching speculative dates.
+This roadmap distinguishes completed work, active consolidation, near-term priorities, and later possibilities without speculative dates.
 
 ## Status legend
 
-- **Completed** — present in the repository and accepted as the current project baseline
-- **Active** — currently being developed, applied, or consolidated
-- **Next** — intended after the active work reaches a stable checkpoint
-- **Later** — valuable, but not required for the current framework spine
+- **Completed** — present and accepted as the current repository baseline.
+- **Active** — under development, application, or review.
+- **Next** — intended after the active work reaches a stable checkpoint.
+- **Later** — useful but not required for the current framework spine.
 
-## Phase 1 — Concept Validation
+## Phase 1 — Concept validation
 
 **Status: Completed**
 
-Established the initial thesis and public evidence that AI-enabled systems require explicit engineering at the boundary between deterministic software and probabilistic Model Judgment.
+Established:
 
-Completed outcomes:
-
-- initial Uncertainty Architecture publications;
+- the initial UA thesis and publication corpus;
+- Deterministic Core and Model Judgment distinctions;
 - control-theory framing for AI governance;
-- Deterministic Core and Model Judgment distinction;
-- initial AI Control Plane concept;
+- the initial AI Control Plane concept;
 - public and expert feedback;
-- initial repository structure and licensing model.
+- repository structure and licensing.
 
-## Phase 2 — Framework Spine
-
-**Status: Active**
-
-The objective is to consolidate existing research into a coherent, bounded specification that explains what UA governs, how its parts relate, and what remains non-normative.
-
-### Completed in this phase
-
-- Research Track established under `content/research/`;
-- historical raw source snapshots preserved under `content/raw/`;
-- five historical publications normalized and archived;
-- provenance, source-intake, research-review, and research-to-framework traceability established;
-- canonical specification boundary and document-status model established in `SPECIFICATION.md`;
-- root README redesigned as the public landing page;
-- primary module entry points normalized;
-- **Thinking Systems** adopted as the current system-category term, with earlier terminology retained historically;
-- supporting namespaces consolidated under `content/research/`, `content/history/`, and `content/raw/`;
-- retired RFC governance material archived rather than left as an active process;
-- repository consistency pass completed across canonical routes and status boundaries;
-- canonical draft glossary established;
-- controlled document metadata and hierarchical `ua/...` tags established;
-- tool-neutral repository guidance established in `AGENTS.md`;
-- Requirements, Operating Envelopes, Correctness, Bugs, and diagnostic sources established as mixed-system doctrine;
-- Model Judgment Placement established as Input Interpretation, Decision Logic, and Output Mediation without a mandatory pipeline;
-- Judgment Node Boundary established as a reusable pattern;
-- Project Control Architecture and Viability Review established as the canonical project-level decision surface;
-- Thinking System Review established as the canonical delivery-level review surface;
-- one informative project review template and one informative delivery review template established as the two default living SMB artifacts;
-- project baseline inheritance and upward reassessment established;
-- organizational context, project authorization, delivery review, and runtime reauthorization established as four connected decision levels;
-- architectural veto and `No-Go` recognized as valid engineering outcomes;
-- placement-focused reference architectures and one completed illustrative delivery review added;
-- slides 1–6 of *Designing Non-Deterministic Systems* translated through explicit framework review;
-- source-derived framework changes connected to research-state reconciliation rather than a parallel worklog.
-
-### Four-capability consolidation
-
-The following framework decision is active in this phase:
-
-- Constraints are a first-class AI Control Plane capability rather than an unresolved subtype or example of Actuators;
-- [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md) distinguishes Constraints, Sensors, Controllers, and Actuators as logical functions rather than mandatory physical services;
-- [`Nested Control Lifecycle`](00-doctrine/nested-control-lifecycle.md) now explains authoritative Constraint inheritance, project derivation, delivery realization, runtime enforcement, evidence, and reauthorization;
-- the AI Control Plane is reorganized into `00-actuators/`, `01-constraints/`, `02-sensors/`, and `03-controller/`;
-- a draft-normative Constraint capability and informative realization catalog cover structural, authority, state, data, resource, environment, Human Authority, and soft behavioral mechanisms;
-- the project review and template now include project constraint architecture, feasibility, evidence, authority, economics, inheritance, and reauthorization;
-- the delivery review, template, and Judgment Node Boundary now include inherited source, local realization, hard or soft strength, failure behavior, evidence, configuration, change authority, and runtime reassessment;
-- the failure taxonomy now includes missing, soft-as-hard, unenforced, bypassed, stale, conflicting, unauthorized, unavailable, slow, or economically destructive Constraints;
-- README, AGENTS, specification navigation, and module indexes distinguish the four decision levels from the four capability classes;
-- slide 12 is treated as research evidence for the capability distinction while its metaphor and named-tool mapping remain non-normative.
-
-### Active and next milestones
-
-- [ ] Complete repository-wide diagram, reference-architecture, and link review for the four-capability model.
-- [ ] Build one two-level worked application connecting project authorization to one or more delivery reviews and runtime reauthorization.
-- [ ] Trace at least one material Constraint from organizational source through project derivation, delivery realization, runtime enforcement and evidence, and reauthorization.
-- [ ] Test project and delivery reviews through a real team or documented real system boundary.
-- [ ] Complete cross-publication research synthesis.
-- [ ] Identify stable concepts, later refinements, contradictions, and superseded claims.
-- [ ] Refine canonical terminology where synthesis or application changes scope or meaning.
-- [ ] Validate compatibility and proportionality through real-team applications and additional worked domains.
-
-## Phase 3 — Patterns and Failure Modes
+## Phase 2 — Framework spine
 
 **Status: Active**
 
-The objective is to turn the framework spine into reusable engineering guidance.
+The objective is to consolidate research into a coherent, bounded specification.
 
-### Completed or active outcomes
+### Current baseline
 
-- Judgment Node Boundary with proportional minimal and extended modes;
-- compact Judgment Node card embedded in the pattern rather than a separate registry;
-- project review pattern connecting outcome, risk scenarios, intended Judgment, Constraint architecture, required capabilities, evidence, Human Authority, operating capacity, economics, authorization, inheritance, and reauthorization;
-- delivery review pattern connecting inherited Constraints, local realization, Requirements, Judgment Nodes, readiness, completion, release, runtime enforcement, and reassessment;
-- explicit separation of project authorization, constraint realization, completion evidence, and deployment-specific residual-risk acceptance;
-- scenario-based project risk mapping without a mandatory aggregate score;
-- project authorization outcomes including delivery, conditions, bounded research, redesign, escalation, deferral, and No-Go;
-- project reauthorization triggers for changes in autonomy, authority, Constraint feasibility, data, population, domain, deployment, capacity, economics, or evidence;
-- placement reference architectures that isolate each functional Model Judgment class and show one composite system;
-- a fully populated support-triage delivery review with three Judgment Nodes, bounded experimentation, DoR, DoD, residual risk, human-supervised release, runtime control, and reassessment;
-- expanded failure-mode taxonomy covering Constraint, Sensor, Controller, Actuator, open-loop, socio-technical, capacity, and economic failure.
+- Research, history, and raw-source namespaces are separated.
+- Specification boundary, status model, metadata, glossary, roadmap, changelog, and AI-contributor guidance exist.
+- **Thinking Systems** is the current system-category term.
+- Requirements, Operating Envelopes, Correctness, Bugs, and diagnostic sources are defined.
+- Model Judgment Placement distinguishes Input Interpretation, Decision Logic, and Output Mediation without prescribing a pipeline.
+- The Judgment Node Boundary, project review, and delivery review are established.
+- Organizational, project, delivery, and runtime decision levels are distinguished.
+- Project authorization, delivery release, runtime reassessment, and Architectural Veto remain separate decisions.
+- The default SMB path uses one living project review and one living delivery review.
+
+### Active four-capability consolidation
+
+The active proposal:
+
+- makes Constraints a first-class capability alongside Sensors, Controllers, and Actuators;
+- distinguishes a closed feedback loop from a complete bounded UA control architecture;
+- distinguishes Constraint from Constraint Realization;
+- defines Hard Constraint as deterministic prevention or rejection within stated assumptions, scope, and enforcement boundaries;
+- classifies tools by function rather than product name;
+- separates evaluation evidence, gate decision logic, and release execution into Sensor, Controller, and Actuator functions;
+- introduces one canonical Project Constraint Architecture and one canonical delivery Constraint Realization Map;
+- preserves legacy Sensor and Controller deep links through informative compatibility notices;
+- records the PDF presentation source and rejects unverified PPTX-only provenance claims;
+- updates doctrine, patterns, Control Plane, references, failure modes, conformance, navigation, and research traceability as one coherent architectural decision.
+
+This consolidation remains draft until repository integrity review is complete and the corresponding pull request is accepted.
+
+### Exit work for this phase
+
+- [ ] Complete terminology, Mermaid, internal-link, and compatibility audit.
+- [ ] Confirm proportionality of the project and delivery artifacts.
+- [ ] Build a two-level worked application tracing Constraints from organizational source through project architecture, delivery realization, runtime evidence, and reauthorization.
+- [ ] Apply both reviews to a real team or documented real system boundary.
+- [ ] Complete cross-publication synthesis and resolve remaining terminology conflicts.
+- [ ] Validate the capability model against operational and incident evidence.
+
+## Phase 3 — Patterns and failure modes
+
+**Status: Active**
+
+### Current outcomes
+
+- Judgment Node Boundary with compact and extended use;
+- project review connecting scenarios, Constraint architecture, capabilities, evidence, capacity, economics, authorization, inheritance, and reauthorization;
+- delivery review connecting one realization map, DoR, implementation or experiment, DoD, Release Gate, operation, and reassessment;
+- scenario-based risk reasoning without mandatory aggregate scores;
+- failure taxonomy covering Constraint definition, realization, Sensor, Controller, Actuator, feedback, Human Authority, capacity, and economic failures;
+- placement-focused reference architectures;
+- one illustrative delivery review.
 
 ### Next outcomes
 
-- a two-level worked project-and-delivery application with end-to-end Constraint traceability;
-- containment, validation, retry, fallback, compensation, and escalation patterns;
+- two-level worked project-and-delivery application;
+- containment, fallback, compensation, retry, escalation, and rollback patterns;
 - drift, dependency-change, and verification patterns;
 - Human-in-the-Loop and Human-on-the-Loop patterns;
-- operational examples and incident evidence for the failure taxonomy;
-- explicit conditions where AI or a proposed autonomy level should not be used;
-- deeper methods for deriving tolerances and hard Constraints from consequence, authority, detectability, reversibility, propagation, and capacity;
-- additional worked domains and at least one real-team application.
+- incident-based failure-mode examples;
+- deeper guidance for deriving Constraints and tolerances from consequence, authority, detectability, reversibility, propagation, and capacity;
+- additional worked domains.
 
-## Phase 4 — Operating Model and Practical Artifacts
+## Phase 4 — Operating model and practical artifacts
 
 **Status: Active**
 
-The objective is to make UA usable by small and medium-sized engineering teams without requiring a large governance organization.
+The objective is practical use by SMB teams without a large governance organization.
 
-### Completed or active outcomes
+### Current operating model
 
-- one lightweight project-level review for feasibility, risk, Constraint architecture, capabilities, capacity, economics, authorization, inheritance, and reauthorization;
-- one living project template containing decision summary, organizational context, Judgment landscape, scenario map, embedded Constraint architecture, capability map, evidence feasibility, Human Authority, control economics, authorization, inheritance, and decision history;
-- one lightweight delivery review for framing, Constraint realization, implementation or bounded experimentation, completion, release, operation, and local reassessment;
-- one living delivery template containing project inheritance, Judgment Node cards, concrete Constraint realization, full model-mediated DoR and DoD extensions, residual risk, active deployment Constraints, release decision, and reassessment history;
-- responsibility bundles defined as responsibilities rather than mandatory job titles;
-- versioned or immutable project and delivery snapshots used for traceability;
-- explicit default that the SMB path does not require separate Constraint Registers, Judgment Node registries, governance-board protocols, readiness records, completion packages, responsibility matrices, risk maps, financial records, Project Launch Gate records, or Release Decision Records when the two reviews and linked evidence are sufficient;
-- a four-level lifecycle connecting organizational context, project authorization, delivery realization and release, and runtime enforcement and reauthorization.
+- one project review owns project viability, Project Constraint Architecture, authorization, inheritance, and reauthorization;
+- one delivery review owns one Constraint Realization Map, DoR, DoD, Release Gate, and local reassessment;
+- higher-level context is linked by version rather than copied;
+- Judgment Node cards reference delivery Constraint IDs rather than redefining them;
+- separate registers, gate records, responsibility matrices, or governance-board protocols are optional only when independent ownership or lifecycle requires them;
+- versioned snapshots preserve decision history.
 
 ### Next outcomes
 
-- one two-level worked example with Constraint inheritance and runtime evidence routing;
-- real-team validation of both templates;
-- risk, tolerance, and Constraint derivation guidance;
-- deeper control-economics guidance covering ranges, sensitivity, enforcement maintenance, false blocks, Human Authority capacity, fallback load, latency, incident burden, and residual exposure;
-- additional completed reviews across different domains, authority levels, and consequence profiles;
-- adoption guidance based on practical feedback;
-- incident, change, exception, and learning-loop refinements where application exposes concrete gaps.
+- real-team usability and time-to-complete evidence;
+- decision-quality and duplication analysis;
+- control-economics guidance using ranges and sensitivity rather than false precision;
+- adoption guidance based on application evidence;
+- refinements to incident, exception, and learning loops where concrete use exposes gaps.
 
-A new top-level Operating Model module is not planned at this stage. Project and delivery responsibilities remain patterns and practical artifacts until several stable independent components justify a structural change.
+A new top-level Operating Model module is not planned at this stage.
 
-## Phase 5 — Optional Tooling and Reference Implementations
+## Phase 5 — Optional tooling and reference implementations
 
 **Status: Later**
 
-Tooling is optional and must serve the specification rather than redefine it.
-
-Possible outcomes:
+Possible tooling includes:
 
 - metadata and internal-link validation;
-- repository checks for stale control-plane paths;
-- example Constraint, prompt, policy, evaluation, and release manifests;
+- Mermaid rendering checks;
+- checks for stale or duplicate canonical paths;
+- example Constraint, realization, prompt, policy, evaluation, and release manifests;
+- executable realization examples;
 - reference control-plane implementations;
-- executable Constraint realization examples;
-- architecture demonstrations;
-- reusable templates generated from stable specification components.
+- template generation from stable specification components.
 
-No universal SDK, platform, policy engine, or agent framework is planned.
+Tooling must serve the specification rather than redefine it. No universal SDK, platform, policy engine, or agent framework is planned.
 
 ## Current priority
 
-The current draft contains two connected but separately owned control decisions:
-
-1. **Project authorization:** whether a proposed Thinking System has a credible, operable, and economically viable Constraint and control architecture.
-2. **Delivery release:** whether one bounded system, feature, or material change has correctly realized the inherited boundary, sufficient evidence, and acceptable residual risk for a specific deployment context.
-
-The immediate priority is not another review artifact. It is to test inheritance, realization, enforcement, evidence, and feedback through one two-level worked application.
-
-The expected sequence is:
+The immediate priority is to stabilize and test this path:
 
 ```text
 Controlled-object doctrine
-→ Four-capability Control-Loop Anatomy
-→ Project Constraint and Control Architecture Review
-→ Delivery Thinking System Review with concrete realization
-→ Two-level worked application
-→ Real-team validation and refinement
+→ Control-Loop Capability Anatomy
+→ Project Constraint Architecture and authorization
+→ Delivery Constraint Realization and release
+→ Runtime evidence and corrective action
+→ Local reassessment, project reauthorization, or organizational review
 ```
 
-The worked application should show:
+The next worked application should show:
 
-- organizational Constraint sources, shared capabilities, and decision rights;
-- project-level outcome, Judgment landscape, material scenarios, project Constraints, required Sensors, Controllers and Actuators, evidence and capacity analysis, economics, and authorization;
-- a versioned authorization and Constraint inheritance package;
-- one or more delivery reviews that implement and verify concrete realization around local Judgment Nodes;
-- runtime enforcement state, violations, bypass attempts, false blocks, control-health evidence, Controller decisions, and Actuator execution;
-- evidence that remains local versus evidence that triggers project reauthorization or organizational review;
+- authoritative organizational sources and decision rights;
+- project scenarios, Constraints, capability requirements, evidence, capacity, economics, and authorization;
+- one versioned inheritance package;
+- one or more delivery realization maps;
+- runtime realization state, behavior, violations, false blocks, Sensor evidence, Controller decisions, and Actuator execution;
+- evidence that remains local versus evidence requiring higher-level reassessment;
 - how duplication and parallel registries are avoided.
 
-Cross-publication synthesis should continue alongside application. Material findings from either track should reconcile affected research questions, traceability, doctrine, patterns, practical artifacts, reference architectures, and failure modes through explicit review.
-
-The project should continue to avoid multiplying governance documents. Future refinement should simplify or strengthen the two review surfaces based on application evidence rather than add parallel gates, registries, or scorecards.
-
-The project optimizes for durable clarity, traceability, and practical usefulness rather than rapid expansion of repository volume.
+The project optimizes for durable clarity, traceability, and practical usefulness rather than repository volume.
