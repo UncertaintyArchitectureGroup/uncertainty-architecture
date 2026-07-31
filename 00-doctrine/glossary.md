@@ -102,21 +102,25 @@ An approved condition that limits the allowed operating space of a Thinking Syst
 
 A Constraint may bound states, transitions, actions, authority, inputs, context, data, tools, outputs, resources, environments, deployment scope, or Human Authority requirements.
 
-A Constraint is distinct from the concrete mechanism that implements it. That mechanism is a **Constraint Realization**.
+A Constraint is an authoritative decision object, not an execution mechanism. It is distinct from the concrete mechanism that implements, enforces, or influences it. That mechanism is a **Constraint Realization**.
 
-A material Constraint should remain traceable to its authoritative source or project-risk rationale, subject, scope, strength, realization, assumptions, failure behavior, evidence, and change or override authority.
+A material Constraint should remain traceable to its authoritative source or project-risk rationale, subject, scope, claimed strength, realization, assumptions, failure behavior, evidence, and change or override authority.
 
 ### Hard Constraint
 
-A Constraint whose violation is deterministically prevented or rejected within explicitly stated assumptions, scope, and enforcement boundaries.
+A scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
+
+Hard or soft strength is a claim about a Constraint together with its realized path. It is not an intrinsic property of policy prose, a requirement sentence, or an organizational source. The same source condition may be hard in one system path and soft in another.
 
 A probabilistic detector, evaluator, prompt, model policy, or natural-language instruction does not become a Hard Constraint merely because its failure behavior is documented.
 
 ### Soft Constraint
 
-A Constraint that influences probabilistic behavior without guaranteeing that a prohibited state, action, or output remains unreachable.
+A scoped Constraint whose realized path influences probabilistic behavior without guaranteeing that a prohibited state, action, or output remains unreachable.
 
-Prompts, natural-language policies, rubrics, examples, model preferences, and probabilistic classifiers may provide Soft Constraints. They must not be represented as deterministic guarantees.
+Prompts, natural-language policies, rubrics, examples, model preferences, and probabilistic classifiers may provide Soft Constraint realizations. They must not be represented as deterministic guarantees.
+
+When one source condition has different guarantee strengths across subjects, paths, or scopes, record separate Constraint claims rather than one mixed hard/soft row.
 
 ### Constraint Realization
 
@@ -136,15 +140,20 @@ The Nested Control Lifecycle distinguishes project authorization from delivery r
 
 ### Control-Loop Capability Anatomy
 
-The logical capability model consisting of Constraints, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
+The logical model consisting of four capability families:
 
-The capability anatomy describes the functions required to bound, observe, decide, and change operation. It does not prescribe four physical services or one deployment topology.
+1. Constraints and their realizations define and operationalize approved boundaries.
+2. Sensors and evidence observe behavior, outcomes, conditions, and control state.
+3. Controllers and decision authority compare, interpret, select, and authorize.
+4. Actuators and corrective action execute authorized change.
+
+The Constraints family is intentionally composite: the Constraint is the authoritative boundary object, while the Constraint Realization provides the operational mechanism. The anatomy does not prescribe four physical services or one deployment topology.
 
 A closed feedback loop is formed by evidence reaching a Controller and authorized Actuator action affecting the controlled process. Constraints bound the space in which that loop may operate; they are not the feedback edge itself.
 
 ### AI Control Plane
 
-The distributed capability model used to bound, observe, evaluate, decide, and correct model-mediated behavior in a Thinking System.
+The distributed capability model used to define and realize boundaries, observe, evaluate, decide, and correct model-mediated behavior in a Thinking System.
 
 Its responsibilities may be distributed across application code, platform services, evaluation systems, release processes, human workflows, and organizational mechanisms. It is not necessarily a standalone product or centralized infrastructure layer.
 
