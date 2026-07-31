@@ -50,7 +50,7 @@ The pattern is designed for small and medium-sized engineering teams. It does no
 
 ## 1. Context
 
-A Thinking System combines deterministic responsibilities, Model Judgment, Constraints, evidence, decision authority, and corrective mechanisms.
+A Thinking System combines deterministic responsibilities, Model Judgment, Constraints and their realizations, evidence, decision authority, and corrective mechanisms.
 
 Conventional engineering practices remain necessary, but they do not automatically make explicit:
 
@@ -63,7 +63,7 @@ Conventional engineering practices remain necessary, but they do not automatical
 - who decides and which Actuators can change operation;
 - what happens when realization, evidence, Human Authority, fallback, or economics become inadequate.
 
-The presentation *Designing Non-Deterministic Systems* motivates a four-part teaching model. UA translates it through the [`Control-Loop Capability Anatomy`](../00-doctrine/control-loop-anatomy.md): Constraints define approved boundaries, Sensors produce evidence, Controllers select or authorize action, and Actuators execute change. These are functions, not mandatory physical layers or product categories.
+The presentation *Designing Non-Deterministic Systems* motivates a four-part teaching model. UA translates it through the [`Control-Loop Capability Anatomy`](../00-doctrine/control-loop-anatomy.md): Constraints and their realizations define and operationalize approved boundaries, Sensors produce evidence, Controllers select or authorize action, and Actuators execute change. These are capability families and functions, not mandatory physical layers or product categories.
 
 ## 2. Problem
 
@@ -75,6 +75,8 @@ Recurring gaps include:
 - Judgment Nodes are not mapped to authority and Constraints;
 - prompts or probabilistic evaluators are presented as hard guarantees;
 - project Constraints are copied as prose without concrete realization;
+- different guarantee strengths are mixed into one Constraint record;
+- measured quality, cost, or latency tolerances are mislabeled as Hard Constraints;
 - the same Constraint definition is repeated inconsistently across readiness, completion, release, and runtime records;
 - evaluation evidence has no decision owner or corrective path;
 - completion is confused with release authorization;
@@ -128,14 +130,18 @@ The review should link higher-level decisions and supporting evidence instead of
 Within the delivery artifact, each material Constraint should be defined once in a **Constraint Realization Map** containing:
 
 - Constraint ID and source/version;
-- subject and delivery scope;
-- hard or soft strength;
+- subject, path, and delivery scope;
+- claimed hard or soft strength;
 - realization and enforcement or influence point;
 - assumptions and claimed guarantee;
 - failure, bypass, conflict, and unavailable behavior;
 - evidence and control health;
 - change or override authority and available Actuator;
 - delivery reassessment or project reauthorization trigger.
+
+Hard or soft is a scoped claim about the Constraint and its complete realized path. When one source condition has different guarantee strengths across subjects, paths, or scopes, use separate rows.
+
+Measured quality, cost, latency, or distribution tolerances belong in the Requirement and Operating Envelope unless a separate realization deterministically enforces a specific boundary.
 
 Other sections should reference the Constraint IDs and active versions:
 
@@ -235,9 +241,11 @@ The Operating Envelope is part of the Requirement, not its synonym.
 
 ### Constraint accuracy
 
-A Hard Constraint is one whose violation is deterministically prevented or rejected within stated assumptions, scope, and enforcement boundaries.
+A Hard Constraint is a scoped Constraint whose complete realized path deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries.
 
-A prompt, probabilistic evaluator, model policy, or natural-language instruction is not hard by itself. Composite controls must identify where the deterministic guarantee actually arises.
+A prompt, probabilistic evaluator, model policy, or natural-language instruction is not hard by itself. Composite controls must identify where deterministic enforcement arises and which parts only influence behavior.
+
+Different guarantee strengths require separate Constraint rows.
 
 ### Capability path
 
@@ -252,6 +260,34 @@ Requirement and Constraint
 → observable effect or reassessment
 ```
 
+```mermaid
+flowchart LR
+    R[Requirement and intended conditions]
+    K[Constraints]
+    KR[Constraint Realizations]
+    P[Thinking System]
+    S[Sensors and evidence]
+    C[Controller and decision authority]
+    A[Actuators]
+
+    R --> C
+    R --> K
+    K --> KR
+    K -. defines decision boundary .-> C
+    K -. defines action boundary .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
+    P --> S
+    KR -->|state and health| S
+    A -->|execution state and effects| S
+    S --> C
+    C -->|authorized action| A
+    A --> P
+    A -->|authorized realization change| KR
+```
+
+The arrows describe possible functions. Each Constraint row defines whether its complete realized path provides deterministic enforcement, probabilistic influence, or a composite path.
+
 An evaluator normally performs a Sensor function. Logic selecting `block`, `canary`, or `release` performs a Controller function. Deployment, blocking, rollback, or exposure change performs an Actuator function.
 
 ## 10. Definition of Ready
@@ -265,7 +301,7 @@ Work is Ready when applicable items are explicit enough for implementation or a 
 - consequential Judgment Nodes and authority;
 - Requirement and Operating Envelope;
 - one row for every material Constraint in the realization map;
-- accurate hard/soft claims;
+- accurate, separately scoped hard/soft claims;
 - credible realization or bounded research plan;
 - failure, bypass, conflict, unavailable, and change behavior;
 - evidence strategy and limitations;
