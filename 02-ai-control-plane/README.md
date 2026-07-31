@@ -31,217 +31,217 @@ canonical_for:
 
 ## Purpose
 
-This module defines the control capabilities required to operate Thinking Systems as governed closed-loop systems rather than open-loop model integrations.
+This module defines the capabilities used to operate Thinking Systems as governed closed-loop systems rather than open-loop model integrations.
 
-The AI Control Plane is not necessarily a standalone product, service, platform, or infrastructure layer. Its responsibilities may be distributed across application code, platform services, evaluation systems, human workflows, project and release processes, incident response, and organizational governance mechanisms.
+The AI Control Plane is not necessarily a standalone product, service, platform, or infrastructure layer. Its responsibilities may be distributed across application code, platform services, evaluation systems, human workflows, project and release processes, incident response, and organizational mechanisms.
 
-The [`Nested Control Lifecycle`](../00-doctrine/nested-control-lifecycle.md) defines **where decisions are owned** across organizational, project, delivery, and runtime levels. The [`Control-Loop Capability Anatomy`](../00-doctrine/control-loop-anatomy.md) and this module define **which capabilities make those decisions operational**.
+The [`Nested Control Lifecycle`](../00-doctrine/nested-control-lifecycle.md) defines **where decisions are owned**. The [`Control-Loop Capability Anatomy`](../00-doctrine/control-loop-anatomy.md) defines **which logical functions make those decisions operational**.
 
 ## Four capability classes
 
-UA distinguishes four logical control capabilities:
+UA distinguishes:
 
-1. **Constraints** — define or enforce the allowed operating space.
-2. **Sensors and evidence** — make behavior, outcomes, conditions, control health, and violations observable.
-3. **Controllers and decision authority** — interpret evidence relative to approved intent and authorize or select corrective action.
-4. **Actuators and corrective action** — execute authorized changes to behavior or operating conditions.
+1. **Constraints** — approved conditions that limit the allowed operating space.
+2. **Sensors and evidence** — mechanisms that make behavior, outcomes, conditions, Constraint Realization state, Actuator execution, and control health observable.
+3. **Controllers and decision authority** — functions that compare or interpret evidence against approved conditions and select or authorize action.
+4. **Actuators and corrective action** — mechanisms that execute authorized changes to operation.
 
-The four classes are not a mandatory physical stack. One component may realize several functions, and one function may be distributed across several components and human processes.
+The classes are not a mandatory physical stack. One component may perform several functions, and one function may be distributed across technical and human mechanisms.
 
-## Capability anatomy
+## Feedback loop and bounded operation
+
+A closed feedback loop connects the controlled process to sensing, decision, and action:
 
 ```mermaid
 flowchart LR
-    I[Authorized intent,<br/>Requirement, and assumptions]
-    K[Constraints<br/>states · actions · authority<br/>data · resources · environments]
-    P[Thinking System<br/>controlled process]
-    S[Sensors and evidence<br/>behavior · outcomes · conditions<br/>violations · control health]
-    C[Controller and decision authority<br/>interpret · decide · authorize]
-    A[Actuators and corrective action<br/>change · route · contain<br/>roll back · compensate · stop]
+    R[Reference<br/>Requirement and intended conditions]
+    P[Thinking System]
+    S[Sensors and evidence]
+    C[Controller and decision authority]
+    A[Actuators]
 
-    I --> K
-    K -. bounds .-> P
-    P --> S
-    S --> C
-    C --> A
+    R --> C
+    P --> S --> C
+    C -->|authorized action| A
     A --> P
-    C -->|authorized constraint change| K
 ```
 
-A functioning control loop requires more than telemetry, a policy file, a dashboard, or a kill switch. The relevant operating space must be explicit, evidence must reach decision authority, and that authority must have a real path to change, contain, compensate for, roll back, or stop behavior.
+Closed-loop operation alone is not sufficient. A loop may be closed while over-authorized, unsafe, or able to reach prohibited states.
 
-## Defines
+UA adds explicit Constraints and their realizations:
 
-This module defines or develops:
+```mermaid
+flowchart LR
+    R[Authorized intent,<br/>Requirement, and assumptions]
+    K[Constraints<br/>approved operating boundaries]
+    P[Thinking System]
+    S[Sensors and evidence<br/>behavior · outcomes · conditions<br/>constraint and control state]
+    C[Controller and decision authority<br/>compare · interpret · authorize]
+    A[Actuators<br/>execute authorized change]
 
-- **Constraints** that bound states, actions, authority, data, context, resources, environments, outputs, deployment scope, and Human Authority requirements;
-- **Sensors** that observe outputs, outcomes, drift, incidents, operating conditions, constraint state, and control performance;
-- **Controllers** that interpret evidence and authorize corrective action within explicit decision rights;
-- **Actuators** that execute authorized changes to behavior, constraints, deployment, state, or the socio-technical operating process;
-- feedback loops connecting observation to controlled change;
-- project, release, escalation, fallback, rollback, containment, compensation, and shutdown responsibilities;
-- traceability between constraint sources, evidence, decisions, actuator execution, and system changes.
+    R --> C
+    R --> K
+    K -. bounds .-> P
+    K -. limits authority .-> C
+    K -. gates actions .-> A
+    P --> S
+    K -->|realization state and violations| S
+    A -->|execution state and effects| S
+    S --> C
+    C -->|authorized action| A
+    A --> P
+    A -->|change realization within delegated authority| K
+```
 
-## Does not define
-
-This module does not prescribe:
-
-- one centralized control-plane service;
-- four separate services or products;
-- one specific model, framework, vendor, policy engine, or deployment topology;
-- universal quality, safety, latency, cost, risk, autonomy, or evidence thresholds;
-- fully automated control in contexts that require Human Authority;
-- model quality as a substitute for system-level control;
-- one mandatory project or delivery review process;
-- one universal constraint catalogue;
-- one mandatory tool classification.
-
-## Key concepts
-
-- constraint source and scope;
-- hard and soft constraint;
-- constraint realization and enforcement point;
-- actuator;
-- sensor;
-- controller;
-- evidence and Deviation Signal;
-- approved Requirement and Operating Envelope;
-- Judgment Node boundary and authority constraint;
-- project authorization;
-- delivery Release Gate;
-- escalation and Human Authority;
-- fallback, compensation, rollback, containment, and shutdown;
-- feedback latency and control cadence;
-- local reassessment and project reauthorization.
+Constraints bound the space in which the loop may operate. They are not the feedback edge itself.
 
 ## Capability areas
 
-- [`00-actuators/`](00-actuators/) — mechanisms that execute authorized changes to behavior or operating conditions.
-- [`01-constraints/`](01-constraints/) — conditions and enforcement mechanisms that bound the reachable operating space.
-- [`02-sensors/`](02-sensors/) — evidence about behavior, outcomes, constraints, drift, and operating conditions.
-- [`03-controller/`](03-controller/) — interpretation, decision authority, constraint-change authority, and corrective decisions.
+- [`00-actuators/`](00-actuators/) — mechanisms that execute authorized change.
+- [`01-constraints/`](01-constraints/) — approved boundaries and their realization.
+- [`02-sensors/`](02-sensors/) — evidence about behavior, outcomes, Constraints, Actuator execution, drift, and control health.
+- [`03-controller/`](03-controller/) — interpretation, decision authority, escalation, and authorization of corrective action.
 
-The capability-area documents inherit the module's draft-normative boundary when they define a capability. Implementation examples and technology catalogs are informative unless explicitly classified otherwise.
+The directory numbering is navigation only. It does not define a required execution order or physical layering.
 
-## Constraints are not merely Actuators
+## Constraint, realization, and Actuator boundary
 
-Constraints and Actuators have different jobs:
+- A **Constraint** defines the approved boundary.
+- A **Constraint Realization** implements, enforces, or influences that boundary for a defined scope.
+- An **Actuator** executes an authorized change, including a change to a Constraint Realization within delegated authority.
 
-- a Constraint defines or enforces what is allowed;
-- an Actuator executes an authorized change.
-
-An Actuator may tighten, relax, replace, or disable a Constraint within delegated authority. A Constraint may block an attempted action. One technical component may participate in both functions, but the distinction is necessary to reason about authority, guarantees, evidence, and failure behavior.
+A Constraint Realization may reject an attempted action. An Actuator may install, tighten, relax, replace, or remove a realization. These functions remain distinct even when one component performs several of them.
 
 Example:
 
 ```text
 Constraint: only approved support queues may be selected
 → realization: deterministic queue allowlist
-→ sensor: rejected route and override evidence
-→ controller: release or operational authority
+→ sensor: rejected-route and configuration-health evidence
+→ controller: authorized release or operational decision
 → actuator: update the allowlist, disable automated routing, or switch to manual triage
 ```
 
-The constraint is not equivalent to the allowlist technology, and the allowlist technology is not the complete control loop.
+## Hard and soft Constraints
+
+A **Hard Constraint** deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
+
+A **Soft Constraint** influences probabilistic behavior without guaranteeing that a prohibited state, action, or output remains unreachable.
+
+Prompts, natural-language policies, rubrics, probabilistic evaluators, and model safety classifiers are not hard merely because their failure behavior is documented. A composite control may use probabilistic sensing together with a deterministic downstream block, but the hard guarantee comes from the deterministic enforcement path and its stated assumptions.
+
+## Controller and Actuator boundary
+
+A Controller compares or interprets evidence and selects or authorizes action. An Actuator executes the action.
+
+A single service or human workflow may contain both functions, but the distinction must remain visible so that decision rights, execution rights, evidence, latency, and failure behavior can be reviewed.
+
+## Sensor, gate, and release action
+
+Classification follows the function performed in the specific system:
+
+```text
+Golden Scenarios and evaluation runner
+→ Sensor and evidence
+
+Threshold or policy logic selecting block / canary / release
+→ Controller function
+
+Deployment, exposure change, rollback, or block execution
+→ Actuator function
+```
+
+An `Eval Gate` may package all three functions, but the package name does not collapse their responsibilities.
+
+## Tool mapping rule
+
+Do not classify a product or framework solely by name.
+
+- a Prompt Registry may provide configuration, traceability, evidence, or Actuator inputs;
+- a semantic monitor normally performs a Sensor function;
+- JSON Schema may realize a structural Constraint;
+- a kill-switch endpoint normally performs an Actuator function;
+- a HITL gateway may realize an approval Constraint, a Controller interface, evidence capture, and an Actuator path;
+- a policy engine may realize Constraints and, in a bounded case, Controller logic;
+- an agent framework may host execution, routing, sensing, and constraint mechanisms without owning higher-level authorization.
+
+Classification follows approved function, guarantee, evidence, authority, and corrective path.
 
 ## Control capabilities across the Nested Control Lifecycle
 
-The same capability vocabulary appears at different decision levels without making those levels identical.
-
 ```mermaid
 flowchart TB
-    O[Organizational control context<br/>authoritative constraints · shared capabilities · decision rights]
-    P[Project control architecture and viability<br/>derive constraints · test capability feasibility and cost · authorize]
-    D[Delivery-level review<br/>realize constraints · verify controls · decide release]
+    O[Organizational control context<br/>authoritative Constraints · shared capabilities · decision rights]
+    P[Project control architecture and viability<br/>interpret and derive Constraints · assess feasibility and cost · authorize]
+    D[Delivery-level review<br/>realize Constraints · verify controls · decide release]
     R[Runtime operation<br/>enforce · observe · decide · correct]
 
-    O -->|constraints and capabilities| P
+    O -->|authoritative boundary and capability context| P
     P -->|versioned authorization baseline| D
-    D -->|approved deployment boundary| R
+    D -->|approved deployment and realization| R
     R -->|local implementation or evidence issue| D
     R -->|project assumption invalidated| P
-    R -->|shared constraint or capability invalidated| O
+    R -->|organizational source or shared capability invalidated| O
 ```
 
 ### Organizational level
 
-The organization supplies authoritative constraint sources and shared capabilities, such as prohibited uses, legal and contractual obligations, approved vendors and regions, identity and audit systems, risk appetite, incident processes, and reserved Human Authority.
+The organization supplies authoritative Constraint sources, shared capabilities, and decision rights, such as prohibited uses, legal and contractual obligations, approved vendors and regions, identity, audit, incident response, Human Authority, and shutdown capability.
 
 ### Project level
 
-The [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md) uses the capability model to determine:
+The [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md) determines:
 
-- which material risk scenarios require constraints, sensing, decision authority, intervention, fallback, containment, rollback, compensation, or shutdown;
-- which organizational constraints apply and which project-specific constraints must be derived;
-- which capabilities already exist as organizational services or processes;
-- which controls must be built or adapted by the project;
-- whether constraint enforcement, evidence, and corrective action can arrive within the required time;
-- whether Human Authority and operational capacity are substantive;
-- whether the complete control perimeter is technically, operationally, and economically viable.
-
-A project control architecture is not a list of tools. Each critical scenario should connect an approved boundary to enforcement, evidence, decision authority, and a real corrective mechanism.
+- which organizational Constraints apply;
+- which project-specific Constraints follow from material risk scenarios;
+- which realizations and evidence appear feasible;
+- which Sensors, Controllers, Actuators, Human Authority, fallback, containment, rollback, compensation, or shutdown capabilities are required;
+- whether the complete control perimeter is technically, operationally, and economically viable;
+- which boundary delivery reviews inherit.
 
 ### Delivery level
 
-The [`Thinking System Review`](../01-patterns/thinking-system-review.md) refines the inherited project capability requirements around implementation-level Judgment Nodes, the local Requirement and Operating Envelope, constraint realization, DoR, evidence, DoD, the deployment-specific Release Gate, and local reassessment.
-
-The delivery review may narrow or instantiate project controls. It must not silently remove a required constraint or capability, relax a higher-level boundary, or expand project authority.
+The [`Thinking System Review`](../01-patterns/thinking-system-review.md) links the project baseline and records one concrete Constraint Realization map for the bounded system, feature, or material change. It verifies readiness, completion, deployment-specific release, and local reassessment without redefining project authorization.
 
 ### Runtime level
 
-Runtime operation exercises the actual control loop. It should:
+Runtime exercises deployed realizations, records behavior and control health, routes evidence to authorized Controllers, invokes Actuators within delegated authority, and sends invalidating evidence to the decision level whose basis changed.
 
-- enforce the deployed constraint realization;
-- observe outputs, outcomes, conditions, constraint violations, bypass attempts, and control health;
-- route evidence to an authorized Controller;
-- invoke available Actuators within delegated authority;
-- preserve active versions and material decisions;
-- distinguish local correction from project reauthorization and organizational review.
+## Capability completeness
 
-Runtime evidence may:
+A UA control architecture is incomplete when, for a material scenario:
 
-- trigger a local corrective action or delivery reassessment;
-- invalidate a project risk, authority, capacity, evidence, constraint, or economic assumption and require project reauthorization;
-- expose a missing or degraded shared capability or changed authoritative constraint and require organizational review.
+- no approved Constraint or operating boundary exists;
+- no credible realization exists;
+- a probabilistic influence is represented as a hard guarantee;
+- the realization has no observable state or failure evidence;
+- evidence reaches no Controller with decision authority;
+- the Controller lacks an effective Actuator path;
+- authority to change a Constraint is unclear or exceeds the approved boundary;
+- corrective action cannot occur within the required time;
+- the complete control path is operationally or economically non-viable.
 
-The affected decision level follows the assumption or authority boundary invalidated by evidence.
+## Non-prescription
 
-## Judgment Node boundaries and control capabilities
+This module does not prescribe:
 
-The [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) identifies what must be bounded, observed, and corrected around a particular use of Model Judgment.
-
-The AI Control Plane supplies the capability vocabulary used to operate that boundary:
-
-- Constraints define allowed context, authority, structure, data, tools, resources, outputs, and deployment conditions;
-- Sensors produce evidence about the node, its downstream effects, the operating context, and constraint state;
-- Controllers interpret that evidence and authorize corrective action or escalation;
-- Actuators change configuration, routing, authority, scope, fallback, containment, rollback, compensation, or shutdown state.
-
-A boundary description is not itself a functioning control loop. The loop becomes operational only when constraints are realized, evidence reaches decision authority, and that authority has a real mechanism capable of changing the path.
-
-## Tool mapping rule
-
-Do not classify a product or framework as a Controller, Sensor, Constraint, or Actuator solely by name.
-
-Examples:
-
-- a Prompt Registry may provide traceability, soft-constraint configuration, or actuator inputs;
-- a semantic monitor may be a Sensor;
-- a kill-switch endpoint may be an Actuator;
-- a Human-in-the-Loop gateway may realize a Human Authority constraint, a decision interface, and evidence capture;
-- JSON Schema may realize a structural Constraint;
-- a policy engine may realize constraint enforcement and, in a bounded case, automated controller logic;
-- an agent framework may host tool execution, routing, evidence, and constraint mechanisms without owning the higher-level authorization decisions.
-
-The system function, guarantee, decision right, and corrective path determine classification.
+- one centralized control-plane service;
+- four separate products or services;
+- one vendor, framework, schema technology, policy engine, or topology;
+- universal quality, safety, latency, cost, risk, autonomy, or evidence thresholds;
+- fully automated control when Human Authority is required;
+- one universal Constraint catalogue;
+- one mandatory product classification;
+- one mandatory fail-open or fail-closed rule.
 
 ## Relationships
 
 - [`00-doctrine/control-loop-anatomy.md`](../00-doctrine/control-loop-anatomy.md) defines the four capability classes and their relationships.
-- [`00-doctrine/nested-control-lifecycle.md`](../00-doctrine/nested-control-lifecycle.md) defines decision ownership, inheritance, and upward reassessment.
-- [`01-patterns/project-control-architecture-and-viability-review.md`](../01-patterns/project-control-architecture-and-viability-review.md) uses the capability model for project-level risk-control feasibility, capacity, economics, authorization, and reauthorization.
-- [`01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) uses the capability model for delivery-level readiness, constraint realization, evidence, release, and local reassessment.
-- [`01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) applies capabilities around consequential Judgment Nodes.
-- [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible distributions of control-plane capabilities.
-- [`04-failure-modes/`](../04-failure-modes/) identifies deviations and control failures the plane must detect or mitigate.
-- [`SPECIFICATION.md`](../SPECIFICATION.md) defines the status and normative boundary of this module.
+- [`00-doctrine/glossary.md`](../00-doctrine/glossary.md) owns canonical terminology.
+- [`00-doctrine/nested-control-lifecycle.md`](../00-doctrine/nested-control-lifecycle.md) defines decision ownership and upward reassessment.
+- [`01-patterns/project-control-architecture-and-viability-review.md`](../01-patterns/project-control-architecture-and-viability-review.md) applies the model to project viability and authorization.
+- [`01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) applies it to delivery readiness, completion, release, and reassessment.
+- [`01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) applies it around consequential Model Judgment.
+- [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible distributions of capabilities.
+- [`04-failure-modes/`](../04-failure-modes/) identifies recurring boundary, realization, sensing, decision, and actuation failures.
+- [`SPECIFICATION.md`](../SPECIFICATION.md) defines status and conformance boundaries.
