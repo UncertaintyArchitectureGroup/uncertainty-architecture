@@ -33,6 +33,8 @@ This module defines the control capabilities required to operate Thinking System
 
 The AI Control Plane is not necessarily a standalone product or infrastructure layer. Its responsibilities may be distributed across application code, platform services, evaluation systems, human workflows, project and release processes, and governance mechanisms.
 
+The [`Nested Control Lifecycle`](../00-doctrine/nested-control-lifecycle.md) defines where organizational, project, delivery, and runtime decisions are owned. This module defines the capabilities that make those decisions operational.
+
 ## Defines
 
 This module defines or develops:
@@ -82,6 +84,23 @@ The capability-area documents inherit the module's draft-normative boundary when
 
 The same control-capability vocabulary is used at different decision levels without making those levels identical.
 
+```mermaid
+flowchart LR
+    B[Business outcome and<br/>organizational constraints]
+    P[Project authorization]
+    D[Delivery Release Gate]
+    R[Runtime controller<br/>and Human Authority]
+    E[Evidence and outcomes]
+
+    B --> P
+    P --> D
+    D --> R
+    R --> E
+    E -->|local correction| D
+    E -->|project assumption changed| P
+    E -->|shared constraint changed| B
+```
+
 ### Project level
 
 The [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md) uses the capability model to determine:
@@ -126,7 +145,7 @@ A boundary description is not itself a functioning control loop. The loop become
 
 ## Relationships
 
-- [`00-doctrine/`](../00-doctrine/) explains why probabilistic judgment requires explicit boundaries and feedback, including [`Uncertainty in the Controlled Object`](../00-doctrine/uncertainty-in-the-controlled-object.md) and the [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) taxonomy.
+- [`00-doctrine/`](../00-doctrine/) explains why probabilistic judgment requires explicit boundaries and feedback, including [`Uncertainty in the Controlled Object`](../00-doctrine/uncertainty-in-the-controlled-object.md), the [`Nested Control Lifecycle`](../00-doctrine/nested-control-lifecycle.md), and the [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) taxonomy.
 - [`01-patterns/project-control-architecture-and-viability-review.md`](../01-patterns/project-control-architecture-and-viability-review.md) uses the capability model for project-level risk-control feasibility, capacity, economics, authorization, and reauthorization.
 - [`01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) uses the capability model for delivery-level readiness, evidence, release, and local reassessment.
 - [`01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) applies capabilities around consequential Judgment Nodes.
