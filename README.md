@@ -8,13 +8,60 @@ UA is not about eliminating uncertainty or pretending that AI can be made fully 
 
 The project is designed primarily for small and medium-sized engineering organizations that need practical control without building a large governance bureaucracy.
 
+## Why UA Exists
+
+Traditional software is engineered primarily as explicitly encoded behavior:
+
+```text
+y = f(x)
+```
+
+A Thinking System delegates part of runtime interpretation, judgment, planning, or path selection to a probabilistic model:
+
+```text
+y ~ P(y | x, context, model configuration)
+```
+
+Each model-mediated execution selects one behavior from a space of plausible outcomes. The complete application still contains deterministic code, rules, permissions, data handling, and infrastructure, but part of its consequential behavior is now generated at runtime rather than fully enumerated in advance.
+
+This changes the controlled object itself. Uncertainty no longer exists only outside the software—in requirements, product assumptions, users, infrastructure, or deployment environments. Part of it is produced inside the operating system through Model Judgment.
+
+Different engineering disciplines remain necessary because they address different control problems:
+
+```mermaid
+flowchart TB
+    P[Product and requirement uncertainty]
+    A[Iterative discovery and delivery<br/>learn what to build]
+    O[Environment and operational uncertainty]
+    D[DevOps, observability, and resilience<br/>deliver and recover under change]
+    J[Runtime judgment uncertainty<br/>inside the controlled object]
+    U[Uncertainty Architecture<br/>bound, measure, authorize, correct, or stop]
+
+    P --> A
+    O --> D
+    J --> U
+
+    A --> S[Thinking System in operation]
+    D --> S
+    U --> S
+```
+
+Plan-driven methods reduce uncertainty through analysis and upfront planning. Agile and related iterative methods shorten the learning cycle when product knowledge changes. DevOps responds to operational variability through automation, observation, feedback, and recovery.
+
+Thinking Systems introduce another problem: the deployed object itself continuously produces probabilistic judgment. Agile and DevOps do not automatically define where that judgment may act, which consequences are acceptable, which evidence is sufficient, who has authority to intervene, what control architecture is required, or whether its full cost leaves a viable business case.
+
+UA supplies that missing control lifecycle. It connects project authorization, delivery-level review, runtime observation, correction, and reauthorization around model-mediated behavior. It complements existing engineering disciplines rather than replacing them.
+
+Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/uncertainty-in-the-controlled-object.md).
+
 ## Start Here
 
+- **Understand why the control problem changed:** [`00-doctrine/uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md)
 - **Read the specification boundary and status model:** [`SPECIFICATION.md`](SPECIFICATION.md)
 - **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
 - **Use the canonical vocabulary:** [`00-doctrine/glossary.md`](00-doctrine/glossary.md)
 - **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
-- **Run the SMB review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
+- **Run the delivery-level review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
 - **Copy the practical review template:** [`01-patterns/thinking-system-review-template.md`](01-patterns/thinking-system-review-template.md)
 - **See one completed worked review:** [`03-reference-architectures/worked-thinking-system-review-support-triage.md`](03-reference-architectures/worked-thinking-system-review-support-triage.md)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
@@ -27,6 +74,7 @@ The project is designed primarily for small and medium-sized engineering organiz
 ## Suggested Reader Path
 
 [`Glossary`](00-doctrine/glossary.md)
+→ [`Uncertainty in the Controlled Object`](00-doctrine/uncertainty-in-the-controlled-object.md)
 → [`Requirements, Correctness, and Bugs`](00-doctrine/requirements-correctness-and-bugs.md)
 → [`Model Judgment Placement`](00-doctrine/model-judgment-placement.md)
 → [`Judgment Node Boundary`](01-patterns/judgment-node-boundary.md)
@@ -36,8 +84,6 @@ The project is designed primarily for small and medium-sized engineering organiz
 
 ## The Core Shift
 
-Traditional software is mostly built from deterministic components and predefined execution paths. LLM-backed and agentic systems introduce components whose behavior remains probabilistic at runtime.
-
 UA calls this broader class **Thinking Systems** (previously described in historical UA publications as **Behavioral Software** or **Behavioral Applications**):
 
 - **Linear Software** follows explicitly coded paths.
@@ -45,7 +91,9 @@ UA calls this broader class **Thinking Systems** (previously described in histor
 
 Agentic systems are a higher-autonomy subset of Thinking Systems, not a synonym for the whole category.
 
-The architectural problem is therefore not only model quality. It is how probabilistic judgment is connected to business rules, permissions, data, Human Authority, release processes, monitoring, and correction.
+Useful variance is part of the capability. Contextual interpretation, synthesis, and adaptive judgment are why the model is present. The engineering objective is not to crush the distribution into one exact output. It is to preserve the useful region while preventing, detecting, containing, and correcting behavior that violates the approved operating contract.
+
+The architectural problem is therefore not only model quality. It is how probabilistic judgment is connected to business rules, permissions, data, Human Authority, release processes, monitoring, correction, project viability, and economic boundaries.
 
 ## Core Model
 
@@ -77,6 +125,34 @@ graph TD;
     F --> B;
 ```
 
+## Nested Control Lifecycle
+
+UA currently distinguishes four connected levels:
+
+1. **Organizational control context** — shared constraints, capabilities, risk boundaries, and decision rights.
+2. **Project control architecture and viability** — whether a proposed Thinking System has a credible and economically viable control architecture.
+3. **Delivery-level review** — whether a bounded system, feature, or material change is ready, complete, and acceptable for a stated deployment context.
+4. **Runtime control and reauthorization** — whether production evidence confirms the current decision or requires local correction, project reauthorization, narrowing, rollback, or shutdown.
+
+```mermaid
+flowchart LR
+    O[Organizational constraints<br/>and capabilities]
+    P{Project control architecture<br/>and viability}
+    D[Delivery-level review<br/>system, feature, or material change]
+    R[Runtime operation<br/>observe · contain · learn]
+
+    O --> P
+    P -->|Authorized boundary| D
+    D -->|Approved deployment| R
+    R -->|Local evidence| D
+    R -->|Project assumption changed| P
+    R -->|Shared constraint changed| O
+```
+
+The current [`Thinking System Review`](01-patterns/thinking-system-review.md) implements the delivery level. It may cover a bounded whole system, feature, or material change, but it does not by itself establish the upstream viability of the broader project.
+
+A project-level control-architecture and viability pattern is under development. It will address risk-space mapping, required control capabilities, Human Authority, operational capacity, control economics, project authorization, architectural veto, and reauthorization triggers without creating a large governance organization.
+
 ## What UA Is — and Is Not
 
 UA is:
@@ -84,7 +160,8 @@ UA is:
 - a shared way of thinking about systems at the AI–code boundary;
 - a set of patterns for containment, evaluation, escalation, fallback, and reassessment;
 - an operational doctrine for governing probabilistic behavior;
-- a lightweight SMB-facing review path for consequential model-mediated work;
+- a project-to-runtime control lifecycle for consequential model-mediated work;
+- a lightweight SMB-facing delivery review for a bounded system, feature, or material change;
 - a tool-neutral specification intended to evolve through research and implementation evidence.
 
 UA is not:
@@ -92,16 +169,17 @@ UA is not:
 - an SDK or universal agent framework;
 - a prompt-template collection;
 - a single metric or evaluation method;
+- a replacement for product discovery, Agile, DevOps, QA, security, or incident response;
 - a mandatory governance department or committee;
 - a compliance certification;
 - a claim that uncertainty can be removed from model behavior.
 
 ## Practical SMB Path
 
-The default adoption path uses one living [`Thinking System Review`](01-patterns/thinking-system-review.md) and one copyable [`template`](01-patterns/thinking-system-review-template.md):
+The current delivery path uses one living [`Thinking System Review`](01-patterns/thinking-system-review.md) and one copyable [`template`](01-patterns/thinking-system-review-template.md):
 
 ```text
-Open one template
+Inherit the authorized project boundary
 → map consequential Judgment Nodes
 → complete the model-mediated DoR extension
 → implement or run a bounded experiment
@@ -112,16 +190,18 @@ Open one template
 
 The review embeds Judgment Node cards, responsibility bundles, evidence, residual risk, deployment scope, and the release decision. The default path does not require separate readiness records, completion packages, Judgment Node registries, responsibility matrices, governance-board protocols, or Release Decision Records.
 
+The upstream project decision is distinct. It asks whether the business risk, intended authority, required controls, evidence feasibility, Human Authority, operational capacity, control cost, and residual exposure support launching the project at all. A successful demo is not enough, and `No-Go` is a valid architectural result.
+
 Use the [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md) to see how the same review surface applies to Input Interpretation, Decision Logic, Output Mediation, and a composite system without turning those examples into mandatory topologies.
 
-Then inspect the [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md) to see one full illustrative path from framing through bounded experimentation, DoD, residual risk, a human-supervised Release Gate, and reassessment. Its synthesized evidence is a teaching device, not a claim about a real production deployment or a set of UA-wide thresholds.
+Then inspect the [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md) to see one full illustrative delivery path from framing through bounded experimentation, DoD, residual risk, a human-supervised Release Gate, and reassessment. Its synthesized evidence is a teaching device, not a claim about a real production deployment or a set of UA-wide thresholds.
 
 ## Repository Structure
 
 ### Specification modules
 
-- [`00-doctrine/`](00-doctrine/) — core concepts, terminology, requirement and diagnostic models, and Model Judgment placement.
-- [`01-patterns/`](01-patterns/) — reusable technical and socio-technical control patterns, including the SMB Thinking System Review.
+- [`00-doctrine/`](00-doctrine/) — core concepts, the controlled-object shift, terminology, requirement and diagnostic models, and Model Judgment placement.
+- [`01-patterns/`](01-patterns/) — reusable technical and socio-technical control patterns, including the delivery-level SMB Thinking System Review.
 - [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, and operating controls.
 - [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated placement examples and a completed illustrative Thinking System Review.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
@@ -162,9 +242,11 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The repository now contains the slide 1–6 framework transfer for mixed Requirements, Model Judgment placement, Judgment Node boundaries, one SMB-facing Thinking System Review and template, four placement-focused reference architectures, and one fully populated illustrative review for human-supervised support triage and grounded reply drafting.
+The repository contains the current delivery-level control spine: mixed Requirements, Model Judgment placement, Judgment Node boundaries, one SMB-facing Thinking System Review and template, four placement-focused reference architectures, and one fully populated illustrative review.
 
-The next substantive validation step is a real-team application or documented real system review, followed by evidence-driven work on risk and tolerance mapping, control cost, failure modes, incident loops, or template simplification.
+The controlled-object doctrine now makes explicit that this delivery layer sits inside a broader lifecycle. The next substantive framework work is a lightweight project-level control-architecture and viability pattern, followed by one project-level artifact and a two-level worked application that shows how project constraints flow into delivery reviews and how runtime evidence can trigger reauthorization.
+
+Risk and tolerance mapping, control economics, architectural veto, Human Authority design, failure modes, incident loops, and real-team validation remain active development areas.
 
 See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 

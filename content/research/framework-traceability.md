@@ -14,7 +14,7 @@ tags:
   - ua/status/research
   - ua/topic/provenance
 created: 2026-07-24
-updated: 2026-07-30
+updated: 2026-07-31
 license: CC-BY-4.0
 ---
 
@@ -49,16 +49,17 @@ Traceability entries may point toward:
 
 - **Doctrine** — foundational concepts and distinctions;
 - **Pattern** — repeatable technical or socio-technical solution;
-- **Operating Model** — decision rights, responsibilities, reviews, and escalation;
+- **AI Control Plane capability** — reusable sensing, constraint, controller, authority, or corrective-action capability;
 - **Reference Architecture** — concrete composition of multiple patterns;
 - **Artifact** — canvas, checklist, registry, evidence record, risk map, or other reusable tool;
-- **Failure Mode** — recurring mechanism of technical, semantic, operational, or organizational failure.
+- **Responsibility or process** — reusable decision right, review, escalation, lifecycle, or operating responsibility;
+- **Failure Mode** — recurring mechanism of technical, semantic, operational, economic, or organizational failure.
 
-Lifecycle concerns may be represented across these areas rather than maintained as a separate top-level specification module unless the framework later adopts one explicitly.
+Lifecycle and operating-model concerns may be represented across these areas rather than maintained as a separate top-level specification module unless the framework later adopts one explicitly.
 
 ## Traceability matrix
 
-The historical publication corpus is preserved, while corpus-level synthesis remains in progress. The entries below record the completed slides 1–6 transfer from the original *Designing Non-Deterministic Systems* PPTX into current UA framework material.
+The historical publication corpus is preserved, while corpus-level synthesis remains in progress. The entries below record explicit source-to-framework decisions already made through reviewed pull requests.
 
 | Research finding or source claim | Source or synthesis | Framework area | Status | Current framework decision |
 |---|---|---|---|---|
@@ -69,6 +70,11 @@ The historical publication corpus is preserved, while corpus-level synthesis rem
 | Consequential Model Judgment requires an explicit boundary around purpose, context, authority, deterministic constraints, evidence, failure handling, and ownership. | Presentation control framing plus framework synthesis | Pattern | Active | The Judgment Node Boundary pattern provides proportional minimal and extended boundary modes without requiring a separate node registry. |
 | Readiness, resource cost, completion evidence, and release authorization must change together when Model Judgment affects consequential behavior. | Original PPTX development-contract material, narrowed through framework review | Pattern and artifact | Active | The Thinking System Review owns full model-mediated DoR and DoD extensions, keeps the Release Gate distinct, uses responsibility bundles rather than job titles, and records the decision in one living template. |
 | Placement classes should be demonstrable in isolated and composite systems without becoming a required topology. | Placement doctrine plus slides 1–6 transfer synthesis | Reference Architecture | Active | `03-reference-architectures/judgment-placement-examples.md` shows four non-prescriptive compositions and links back to canonical doctrine and patterns. |
+| A model-mediated responsibility samples from a space of plausible outcomes; uncertainty is therefore produced inside the system being controlled rather than existing only in requirements, users, or infrastructure. | *Beyond Embeddings* chapters 1–2 plus the original PPTX opening and mathematical-fact sections | Doctrine | Active | [`00-doctrine/uncertainty-in-the-controlled-object.md`](../../00-doctrine/uncertainty-in-the-controlled-object.md) defines the controlled-object shift and explains why UA requires an additional control lifecycle. |
+| Product uncertainty, operational uncertainty, and runtime-judgment uncertainty require related but different feedback and control responses. | Cross-source synthesis of the AI delivery lifecycle note, original PPTX process-shift material, and current UA doctrine | Doctrine | Active | UA complements plan-driven analysis, iterative delivery, Agile, DevOps, QA, security, and incident response; it does not replace them. Its distinctive concern is consequential uncertainty produced through runtime Model Judgment. |
+| Feature-level delivery cannot answer whether a whole Thinking System project has a credible control architecture or viable risk-control economics. | *Beyond Embeddings* control-tax, drift-planning, and no-go argument; AI Delivery Lifecycle discovery question; worked-review application | Doctrine and future pattern | Active doctrine; Proposed for Framework Review as pattern | Project authorization is distinct from feature release. A future Project Control Architecture and Viability Review should operationalize risk-space mapping, required controls, Human Authority, operational capacity, control cost, residual risk, authorization, and reauthorization. |
+| Some AI paths should not be built when critical violations cannot be detected or contained, required Human Authority is unavailable, or the control perimeter destroys the business case. | *Beyond Embeddings* chapters 1–2 and original PPTX architectural-veto material | Doctrine; future pattern and artifact | Active doctrine; Candidate for operationalization | Architectural veto is a valid engineering outcome. No universal expected-value formula, risk score, or veto threshold is adopted; hard prohibitions cannot be averaged away through positive expected value. |
+| Production evidence can invalidate feature assumptions or the project-level control architecture. | Thinking System Review reassessment, worked support-triage review, AI Delivery Lifecycle production-feedback section, and framework synthesis | Doctrine and process | Active doctrine | UA distinguishes local feature reassessment, project reauthorization, and organizational review. A material model-mediated release is bounded evidence-generating operation, not uncontrolled experimentation. |
 
 ## Conflict and evolution register
 
@@ -82,7 +88,10 @@ This section records cross-source issues that required an explicit resolution ra
 | Statistical quality contract | Large-sample runs, fixed metrics, and confidence intervals prove readiness or completion | Evidence method and adequacy are derived from the Requirement and decision context | Active | No universal sample size, metric, confidence method, or threshold is adopted. Deterministic and behavioral evidence coexist. |
 | Three connected AI planes | Intent UX → Cognitive Logic → Contextual Output | Input Interpretation, Decision Logic, and Output Mediation as optional, repeatable, combinable functions | Active | Treat the deck composition as illustrative rather than a mandatory pipeline. |
 | Specialized role framing | PM, architect, QA, or other specialist titles own parts of the loop | Implementation, evaluation, operation, and release decision authority are responsibility bundles | Active | Small teams may combine responsibilities; consequential decision authority remains explicit. |
-| Operational records | Separate readiness, completion, risk, role, and release artifacts | One living Thinking System Review plus versioned snapshots | Active | Additional records are optional only where independent ownership or lifecycle genuinely requires them. |
+| Operational records | Separate readiness, completion, risk, role, and release artifacts | One living feature-level Thinking System Review plus versioned snapshots | Active | Additional records are optional only where independent ownership or lifecycle genuinely requires them. A future project-level artifact must inherit and avoid duplicating feature-level detail. |
+| UA relative to delivery methods | The AI shift may be read as requiring a replacement for Scrum, Agile, DevOps, or the existing SDLC | UA adds a control lifecycle for model-mediated behavior and integrates with existing product, delivery, operations, quality, security, and incident practices | Active | Distinguish the control problem by where uncertainty is produced. Do not present UA as a universal successor methodology. |
+| One AI lifecycle | Discovery → engineering → evaluation → production as one illustrative loop | Organizational context → project authorization → feature/change delivery → runtime control and reauthorization as nested levels | Active at doctrine level | Retain the early four-phase lifecycle as research. Use the nested distinction to separate project viability from feature release and local reassessment from project reauthorization. |
+| Every release is an experiment | Production release may be described as experimentation because the real user distribution cannot be reproduced | Every material model-mediated release contains a controlled evidence-generating component while remaining bound by an approved Requirement, authority model, deployment scope, and corrective path | Active | Avoid language that excuses uncontrolled experimentation or weakens production obligations. |
 
 ## Remaining topics for synthesis
 
@@ -93,9 +102,13 @@ Topics still expected to require further review include:
 - AI Control Plane as capability model versus possible platform implementations;
 - actuators versus constraints as separate control categories;
 - automated controller logic versus the socio-technical controller;
-- risk and tolerance mapping;
-- control-economics and architectural-veto guidance;
-- failure-mode taxonomy and the evidence needed to distinguish drift, defects, attacks, and invalid Requirements.
+- the minimum viable Project Control Architecture and Viability Review for SMB teams;
+- risk-scenario representation without a misleading universal score;
+- derivation of tolerances from authority, consequence, detectability, reversibility, propagation, and operational capacity;
+- control-economics methods and the boundary between expected-value reasoning and hard veto conditions;
+- inheritance between project baselines and feature-level Thinking System Reviews;
+- project reauthorization triggers and the relationship to incidents and organizational constraints;
+- failure-mode taxonomy and the evidence needed to distinguish drift, defects, attacks, invalid Requirements, control-capacity failure, and economic non-viability.
 
 ## Update rule
 

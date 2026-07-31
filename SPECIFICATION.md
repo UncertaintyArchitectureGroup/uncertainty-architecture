@@ -34,7 +34,9 @@ This document defines the normative boundary and document structure of Uncertain
 
 UA is an open specification for designing and governing **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic model judgment while consequential deterministic boundaries and control responsibilities remain explicit. Earlier UA publications used **Behavioral Software** and **Behavioral Applications** for this category.
 
-UA treats reliability as a system property produced by explicit boundaries, observable behavior, feedback, decision rights, and controlled change rather than by model quality alone.
+UA treats reliability as a system property produced by explicit boundaries, observable behavior, feedback, decision rights, viable control architecture, and controlled change rather than by model quality alone.
+
+The specification addresses a controlled-object shift: uncertainty does not exist only in requirements, users, infrastructure, or delivery assumptions. A Thinking System may itself produce consequential runtime uncertainty through Model Judgment. UA connects project authorization, delivery-level review, runtime control, and reauthorization around that changed object.
 
 This file is the canonical entry point for the specification. It does not duplicate the detailed content of the modules it indexes.
 
@@ -43,11 +45,15 @@ This file is the canonical entry point for the specification. It does not duplic
 The UA specification covers:
 
 - the distinction between deterministic control logic and probabilistic judgment;
+- the controlled-object shift created when consequential runtime behavior is produced through Model Judgment;
+- the relationship between product uncertainty, operational uncertainty, and runtime-judgment uncertainty;
+- organizational control context, project control architecture and viability, delivery-level review of a bounded system, feature, or material change, and runtime reauthorization as connected levels;
 - functional placement of Model Judgment within a system or workflow;
 - architectural boundaries around model-mediated behavior;
 - control-loop capabilities for constraining, observing, evaluating, and recalibrating behavior;
 - reusable technical and socio-technical patterns;
 - lightweight review patterns and practical artifacts connecting Requirements, Judgment Nodes, evidence, decision authority, release, and reassessment;
+- project-level architectural veto when a credible, operable, or economically viable control boundary cannot be established;
 - recurring failure modes and anti-patterns;
 - reference architectures that demonstrate possible compositions of the specification.
 
@@ -55,14 +61,17 @@ The specification does not prescribe:
 
 - a particular model, vendor, framework, orchestration platform, or deployment topology;
 - a mandatory pipeline of Input Interpretation, Decision Logic, and Output Mediation;
+- replacement of Agile, Scrum, DevOps, QA, security, change management, or an organization's existing SDLC;
+- one mandatory project lifecycle or Project Launch Gate protocol;
 - a mandatory governance department, committee, or organizational structure;
-- a separate registry or decision record for every Judgment Node, readiness review, completion review, or release decision;
+- a separate registry or decision record for every Judgment Node, readiness review, completion review, release decision, or project authorization;
 - universal numerical thresholds for quality, risk, latency, cost, sample size, confidence, or autonomy;
+- one universal risk score or control-cost formula;
 - mandatory job titles or a single organizational structure;
 - identical controls for every AI system;
 - any reference implementation as the standard itself.
 
-Controls, evidence, review depth, and records should be proportional to consequences, uncertainty, autonomy, reversibility, exposure, and operating context.
+Controls, evidence, review depth, and records should be proportional to consequences, uncertainty, autonomy, reversibility, exposure, feedback latency, organizational capacity, and operating context.
 
 ## 3. Normative language
 
@@ -89,7 +98,9 @@ The metadata field `maturity` may describe lifecycle state within a status class
 
 ### 5.1 Core doctrine
 
-[`00-doctrine/`](00-doctrine/README.md) defines the foundational concepts and distinctions on which the rest of UA depends, including the functional placement taxonomy for Model Judgment.
+[`00-doctrine/`](00-doctrine/README.md) defines the foundational concepts and distinctions on which the rest of UA depends, including the controlled-object shift, the nested control lifecycle, mixed-system Requirements, and the functional placement taxonomy for Model Judgment.
+
+[`00-doctrine/uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md) is the current draft-normative owner of the rationale for UA and the distinction between project authorization, delivery-level release, runtime evidence, and reauthorization.
 
 [`00-doctrine/glossary.md`](00-doctrine/glossary.md) is the canonical vocabulary source for terms it currently defines. The glossary remains draft normative and may be refined through framework review.
 
@@ -103,7 +114,11 @@ A pattern may arrange technical mechanisms, artifacts, responsibility bundles, e
 
 Patterns may be normative or draft normative. Examples, compact records, and working templates attached to a pattern are informative unless stated otherwise.
 
-The [`Thinking System Review`](01-patterns/thinking-system-review.md) is the canonical owner of the full model-mediated Definition of Ready, Definition of Done, distinct Release Gate, responsibility bundles, and reassessment flow. The [`Thinking System Review Template`](01-patterns/thinking-system-review-template.md) is its informative working representation and does not create an additional conformance path or independent protocol.
+The [`Thinking System Review`](01-patterns/thinking-system-review.md) is the canonical owner of the full model-mediated Definition of Ready, Definition of Done, distinct Release Gate, responsibility bundles, and reassessment flow for a bounded system, feature, or material change. The [`Thinking System Review Template`](01-patterns/thinking-system-review-template.md) is its informative working representation and does not create an additional conformance path or independent protocol.
+
+The Thinking System Review is a delivery-level review. It does not by itself establish the upstream viability of a broader project merely because its selected boundary is a whole system.
+
+A project-level control-architecture and viability pattern is not yet part of the specification. Its future adoption requires a separate explicit framework decision.
 
 ### 5.3 AI Control Plane
 
@@ -117,11 +132,13 @@ The control plane is an architectural capability model, not necessarily a standa
 
 [`03-reference-architectures/judgment-placement-examples.md`](03-reference-architectures/judgment-placement-examples.md) shows Input Interpretation only, Decision Logic only, Output Mediation only, and one composite Thinking System. These examples identify deterministic responsibilities, authority boundaries, evidence, fallback, risks, and relevant review focus without duplicating the canonical DoR or DoD.
 
+[`03-reference-architectures/worked-thinking-system-review-support-triage.md`](03-reference-architectures/worked-thinking-system-review-support-triage.md) applies the delivery-level review to one illustrative support scenario. Its synthesized evidence is not production validation or a UA-wide threshold set.
+
 Reference architectures MUST NOT be treated as mandatory implementation topologies unless a separate normative document explicitly adopts a requirement they illustrate. Copying a reference architecture does not establish conformance.
 
 ### 5.5 Failure modes
 
-[`04-failure-modes/`](04-failure-modes/README.md) records recurring mechanisms by which AI-integrated systems lose structural, semantic, operational, or organizational control.
+[`04-failure-modes/`](04-failure-modes/README.md) records recurring mechanisms by which AI-integrated systems lose structural, semantic, operational, economic, or organizational control.
 
 A taxonomy may be normative; individual examples and post-mortems are normally informative.
 
@@ -171,7 +188,11 @@ For consequential model-mediated work, the system or team SHOULD also be able to
 - a release decision distinct from completion, with deployment scope, residual risk, conditions, and decision authority;
 - runtime ownership and reassessment triggers after material change, drift, or incident.
 
-UA does not require the provided Thinking System Review template. Equivalent records and processes MAY be integrated into existing product, engineering, security, quality, change-management, or incident systems, provided the relevant distinctions and decision rights remain explicit and traceable.
+At project level, a UA-aligned design SHOULD distinguish the decision to authorize or reject the proposed Thinking System from the decision to release a bounded system, feature, or material change. It SHOULD also identify which organizational constraints and project assumptions delivery-level reviews inherit, and which material changes or runtime findings require project-level reauthorization.
+
+Detailed project-level conformance, risk mapping, control economics, and authorization records remain under development. The controlled-object doctrine does not by itself require one Project Launch Gate, score, template, or committee.
+
+UA does not require the provided Thinking System Review template. Equivalent records and processes MAY be integrated into existing product, engineering, security, quality, change-management, financial, or incident systems, provided the relevant distinctions and decision rights remain explicit and traceable.
 
 The placement classes are a functional taxonomy, not a mandatory pipeline. A node may combine functions, and a workflow may omit or repeat any class. Reference architectures may help a team reason about these distinctions but do not add conformance requirements.
 
@@ -191,6 +212,8 @@ Research findings, talks, articles, implementations, and external frameworks do 
 
 ## 9. Current maturity
 
-UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, a Model Judgment placement taxonomy, a Judgment Node Boundary pattern, an SMB-facing Thinking System Review pattern and template, four placement-focused reference architectures, a control-plane model, research traceability, and failure-mode work. Detailed normative content remains incomplete and may change through worked application and synthesis.
+UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, doctrine for the changed controlled object and nested control levels, a Model Judgment placement taxonomy, a Judgment Node Boundary pattern, an SMB-facing delivery-level Thinking System Review pattern and template, placement-focused reference architectures, one completed illustrative review, a control-plane model, research traceability, and failure-mode work.
+
+The project-level control-architecture and viability pattern, project authorization artifact, risk and tolerance mapping, control-economics guidance, and two-level worked application are not yet complete.
 
 Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples or templates remain **reference** or **informative**, not mandatory implementation requirements.
