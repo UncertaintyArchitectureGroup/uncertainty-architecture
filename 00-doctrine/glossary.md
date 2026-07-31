@@ -28,19 +28,17 @@ canonical_for:
 
 ## Status and use
 
-This glossary defines the current canonical meaning of core Uncertainty Architecture (UA) terms where an entry exists.
+This glossary defines the current canonical meaning of core Uncertainty Architecture terms where an entry exists.
 
-The glossary is **draft normative**. Definitions may be refined through research synthesis and framework review. Historical publications retain their original wording even when a term has since been renamed, narrowed, or superseded.
-
-A term appearing in a research source, talk, example, or external framework does not automatically acquire the UA meaning defined here unless the document explicitly uses it in the UA sense.
+It is **draft normative**. Historical publications retain their original wording when terminology is later renamed, narrowed, or superseded. A term in a talk, article, implementation, or external framework does not automatically acquire the UA meaning defined here.
 
 ## System categories
 
 ### Thinking System
 
-A software system whose runtime behavior depends partly on probabilistic model judgment while consequential deterministic boundaries, invariants, decision rights, and corrective mechanisms remain explicit.
+A software system whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
 
-**Thinking Systems** is the current UA category. Earlier UA publications used **Behavioral Software** and **Behavioral Applications**; those names are historical predecessors, not current synonyms for new framework material.
+**Thinking Systems** is the current UA category. Earlier UA publications used **Behavioral Software** and **Behavioral Applications**; those names remain historical predecessors.
 
 Agentic systems are a higher-autonomy subset of Thinking Systems rather than the whole category.
 
@@ -48,13 +46,13 @@ Agentic systems are a higher-autonomy subset of Thinking Systems rather than the
 
 Software whose relevant execution paths and decision rules are explicitly encoded and intended to produce predictable behavior under defined conditions.
 
-Linear Software may still contain operational uncertainty, concurrency, external dependencies, statistical components, or defects. The term distinguishes explicitly encoded control paths from runtime judgment delegated to probabilistic models; it does not claim that classical software is perfectly simple or failure-free.
+Linear Software may still contain operational uncertainty, concurrency, external dependencies, statistical components, and defects. The term distinguishes explicitly encoded control paths from runtime judgment delegated to probabilistic models.
 
 ## Boundary and responsibility
 
 ### Deterministic Core
 
-The rules, invariants, permissions, data handling, transaction boundaries, audit requirements, and other responsibilities that must remain explicitly controlled and testable regardless of model behavior.
+The rules, Invariants, permissions, data handling, transaction boundaries, audit requirements, and other responsibilities that must remain explicitly controlled and testable regardless of model behavior.
 
 The Deterministic Core is a responsibility boundary, not necessarily one physical component or service.
 
@@ -62,19 +60,17 @@ The Deterministic Core is a responsibility boundary, not necessarily one physica
 
 Interpretation, synthesis, classification, generation, planning, ranking, or action selection performed through a probabilistic model under uncertainty.
 
-Model Judgment may produce useful adaptation and semantic reasoning, but it must not be treated as equivalent to a guaranteed business rule.
+Model Judgment may provide useful adaptation and semantic reasoning. It must not be treated as equivalent to a guaranteed business rule.
 
 ### Judgment Node
 
 A bounded location in a system or workflow where Model Judgment influences an output, decision, path, or action.
 
-A Judgment Node may perform Input Interpretation, Decision Logic, Output Mediation, or a combination. It should make its inputs, allowed authority, deterministic boundaries, applicable constraints, evidence, and failure handling visible enough to review and operate.
+A Judgment Node may perform Input Interpretation, Decision Logic, Output Mediation, or a combination. Its purpose, inputs, authority, applicable Constraints, evidence, failure handling, and ownership should be visible enough to review and operate.
 
 ### Input Interpretation
 
 Model Judgment that converts ambiguous, unstructured, incomplete, or context-dependent input into intent, classification, extracted structure, normalized representation, or usable system context.
-
-Input Interpretation may determine what the system believes was requested or which deterministic path becomes available.
 
 ### Decision Logic
 
@@ -92,93 +88,113 @@ Output Mediation may be consequential even when it does not alter underlying dat
 
 The interface at which deterministic system responsibilities meet Model Judgment.
 
-The boundary includes more than an API call. It may include context assembly, permissions, schemas, policy checks, tool access, validation, evidence collection, fallback, and escalation responsibilities.
+The boundary may include context assembly, permissions, schemas, policy checks, tool access, validation, evidence collection, fallback, and escalation. It is broader than the model API call.
 
 ### Invariant
 
 A condition that must remain true across relevant system states or transitions.
 
-An invariant should be enforced through deterministic mechanisms when violation would create unacceptable consequences. A probabilistic instruction is not by itself an invariant.
+An Invariant should be enforced through deterministic mechanisms when violation would create unacceptable consequences. A probabilistic instruction is not by itself an Invariant.
 
 ### Constraint
 
-A condition intended to limit behavior or reduce the reachable operating space of a Thinking System.
+An approved condition that limits the allowed operating space of a Thinking System.
 
 A Constraint may bound states, transitions, actions, authority, inputs, context, data, tools, outputs, resources, environments, deployment scope, or Human Authority requirements.
 
-A **hard constraint** is enforced deterministically or through a mechanism with explicit failure behavior. A **soft constraint** influences probabilistic behavior but does not guarantee compliance.
+A Constraint is distinct from the concrete mechanism that implements it. That mechanism is a **Constraint Realization**.
 
-A Constraint should remain traceable to its authoritative source, scope, realization, failure behavior, evidence, and change or override authority. Constraints are a first-class AI Control Plane capability rather than merely a subtype of Actuator.
+A material Constraint should remain traceable to its authoritative source or project-risk rationale, subject, scope, strength, realization, assumptions, failure behavior, evidence, and change or override authority.
+
+### Hard Constraint
+
+A Constraint whose violation is deterministically prevented or rejected within explicitly stated assumptions, scope, and enforcement boundaries.
+
+A probabilistic detector, evaluator, prompt, model policy, or natural-language instruction does not become a Hard Constraint merely because its failure behavior is documented.
+
+### Soft Constraint
+
+A Constraint that influences probabilistic behavior without guaranteeing that a prohibited state, action, or output remains unreachable.
+
+Prompts, natural-language policies, rubrics, examples, model preferences, and probabilistic classifiers may provide Soft Constraints. They must not be represented as deterministic guarantees.
 
 ### Constraint Realization
 
-The concrete technical or socio-technical mechanism through which a Constraint is implemented, configured, enforced, evidenced, and operated for a defined scope.
+The concrete technical or socio-technical mechanism through which a Constraint is implemented, configured, enforced or influenced, evidenced, and operated for a defined scope.
 
-Examples may include typed interfaces, schemas, permission gates, policy engines, tool allowlists, state machines, data isolation, resource limits, deployment boundaries, or mandatory Human Authority. A realization is not automatically effective merely because the mechanism exists; enforcement state, failure behavior, evidence, and decision authority remain relevant.
+Examples may include typed interfaces, schemas, permission gates, policy engines, tool allowlists, state machines, data isolation, resource limits, deployment boundaries, deterministic blocks, or mandatory Human Authority.
+
+A Constraint Realization is not automatically effective merely because the mechanism exists. Active version, coverage, failure behavior, evidence, and decision authority remain relevant.
 
 ## Control-loop vocabulary
 
 ### Nested Control Lifecycle
 
-The connected organizational, project, delivery, and runtime decision structure through which authoritative constraints and capabilities flow downward by reference, while evidence flows upward when it invalidates the assumptions of an earlier decision.
+The connected organizational, project, delivery, and runtime decision structure through which authoritative Constraints, capabilities, and decision rights flow downward by reference, while evidence flows upward when it invalidates the basis of an earlier decision.
 
-The Nested Control Lifecycle distinguishes project authorization from delivery release and routes runtime evidence to local correction, project reauthorization, or organizational review according to the decision whose basis changed. It is a decision model, not a requirement for one hierarchy, committee, or additional governance artifact.
+The Nested Control Lifecycle distinguishes project authorization from delivery release and routes runtime evidence to local correction, project reauthorization, or organizational review. It is a decision model, not a mandatory hierarchy, committee, or ceremony sequence.
 
 ### Control-Loop Capability Anatomy
 
 The logical capability model consisting of Constraints, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
 
-The capability anatomy describes the functions required to bound, observe, decide, and change operation. It does not prescribe four physical services or one mandatory deployment topology. One component may realize several capability functions, and one function may be distributed across technical and human mechanisms.
+The capability anatomy describes the functions required to bound, observe, decide, and change operation. It does not prescribe four physical services or one deployment topology.
+
+A closed feedback loop is formed by evidence reaching a Controller and authorized Actuator action affecting the controlled process. Constraints bound the space in which that loop may operate; they are not the feedback edge itself.
 
 ### AI Control Plane
 
 The distributed capability model used to bound, observe, evaluate, decide, and correct model-mediated behavior in a Thinking System.
 
-The AI Control Plane consists of Constraints, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action. It is not necessarily a standalone service, platform, or centralized infrastructure layer. Its responsibilities may be distributed across application code, platform services, evaluation systems, release processes, human workflows, and governance mechanisms.
+Its responsibilities may be distributed across application code, platform services, evaluation systems, release processes, human workflows, and organizational mechanisms. It is not necessarily a standalone product or centralized infrastructure layer.
 
 ### Actuator
 
-A mechanism capable of executing an authorized change in system behavior or operating conditions.
+A mechanism that executes an authorized change in system behavior or operating conditions.
 
-Examples may include changing prompts, models, policies, context, routing, permissions, tool access, constraints, deployment scope, fallback state, rollback state, containment, compensation, or shutdown state.
+Examples may include changing prompts, models, context, routing, permissions, tools, deployment scope, fallback state, rollback state, Constraint Realization, containment, compensation, or shutdown state.
 
-An Actuator may install, tighten, relax, replace, or disable a Constraint within delegated authority. An API call, workflow step, framework, or human action is an Actuator only when it provides a real path from an authorized decision to changed behavior.
+An API call, workflow step, framework, deployment operation, or human action is an Actuator only when it provides a real path from an authorized decision to changed operation.
 
 ### Sensor
 
-A mechanism that produces evidence about outputs, outcomes, operating conditions, drift, incidents, constraint state, violations, or control performance.
+A mechanism that produces evidence about outputs, outcomes, operating conditions, drift, incidents, Constraint Realization state, violations, Actuator execution, or control performance.
 
-A Sensor does not need to produce a single objective truth value. It must produce information useful enough for a Controller to make a bounded decision. Metrics, evaluations, human review, runtime signals, constraint-enforcement evidence, and incident reports may all act as Sensors.
+A Sensor need not produce one objective truth value. It must produce information useful enough for a bounded decision while making uncertainty, coverage, latency, and blind spots visible.
+
+An evaluator normally performs a Sensor function. A gate that interprets evaluation evidence and selects `block`, `canary`, or `release` performs a Controller function.
 
 ### Controller
 
-The decision function that interprets evidence relative to approved outcomes, Requirements, constraints, and operating assumptions, then authorizes or selects corrective action.
+The decision function that compares or interprets evidence relative to approved Requirements, Constraints, and operating assumptions, then selects or authorizes corrective action.
 
-A Controller may be implemented in software, assigned to a human role, or distributed across a socio-technical operating process. It must distinguish constraints it may change from higher-level boundaries that require delivery reassessment, project reauthorization, or organizational review. Telemetry without decision authority and a mechanism for intervention does not form a functioning Controller.
+A Controller may be implemented in software, assigned to a human, or distributed across a socio-technical process. It must distinguish changes within delegated authority from changes requiring delivery reassessment, project reauthorization, or organizational review.
+
+A Controller decides or authorizes. An Actuator executes.
 
 ### Open-Loop System
 
-A system that acts without meaningful feedback connected to corrective authority.
+A system that acts without meaningful feedback connected to corrective authority and an effective intervention path.
 
 Logging alone does not close the loop when evidence cannot change, contain, roll back, escalate, or stop behavior.
 
 ### Closed-Loop System
 
-A system in which observations are evaluated against intended operating conditions and can lead to authorized corrective action.
+A system in which observations are evaluated against intended operating conditions and can lead to authorized action that affects the controlled process.
 
-Closed-loop does not imply fully automated control. Human decision authority may be an essential part of the loop.
+Closed-loop does not imply fully automated control or safe operation. A loop may be closed while operating outside an approved boundary or with inadequate Constraints.
 
 ### Operating Envelope
 
 The approved range of conditions, authority, consequences, resource use, and observed behavior within which a system is considered acceptable to operate under a defined Requirement.
 
-The Operating Envelope is part of a Requirement, not a synonym for the complete Requirement. It should be derived from context and risk rather than copied as a universal threshold.
+The Operating Envelope is part of a Requirement, not a synonym for the complete Requirement.
 
 ## Evidence and change
 
 ### Evidence
 
-A recorded signal, observation, evaluation result, incident, outcome, or review artifact used to support a system decision.
+A recorded signal, observation, evaluation result, incident, outcome, configuration state, or review artifact used to support a system decision.
 
 Evidence has scope and limitations. A metric, benchmark, anecdote, or model-generated score is not automatically sufficient for every decision.
 
@@ -186,37 +202,37 @@ Evidence has scope and limitations. A metric, benchmark, anecdote, or model-gene
 
 A structured process for collecting and interpreting evidence about model-mediated or system-level behavior against defined expectations.
 
-Evaluations may be deterministic, statistical, model-assisted, human, or combined. Evaluation is a Sensor capability; it does not become control until connected to decision authority and corrective action.
+Evaluation normally supplies a Sensor capability. It becomes part of control only when evidence reaches decision authority and an effective Actuator path.
 
 ### Golden Scenario
 
 A curated case representing an important expected behavior, boundary condition, failure mode, or decision context.
 
-Golden scenarios are anchors for regression and change detection. They are not universal ground truth and need not take the form of one ideal output.
+Golden Scenarios anchor regression and change detection. They are not universal ground truth and need not prescribe one ideal output.
 
 ### Drift
 
-A material change in model-mediated behavior, system outcomes, operating conditions, constraints, or the relationship between evidence and expectations over time.
+A material change in model-mediated behavior, system outcomes, operating conditions, Constraint sources or realizations, or the relationship between evidence and expectations over time.
 
-Drift may arise without code changes and may be semantic, logical, statistical, operational, organizational, or constraint-related.
+Drift may arise without application-code changes and may be semantic, logical, statistical, operational, organizational, or constraint-related.
 
 ### Deviation Signal
 
-Evidence indicating that observed behavior, outcomes, constraints, or operating conditions may have moved outside an intended Operating Envelope or expectation.
+Evidence indicating that observed behavior, outcomes, Constraints, or operating conditions may have moved outside an intended Operating Envelope or expectation.
 
-A Deviation Signal may be uncertain and require interpretation; it should not be confused with a guaranteed diagnosis or with a Bug by itself.
+A Deviation Signal may be uncertain and require interpretation. It is not a guaranteed diagnosis or automatically a Bug.
 
 ### Release Gate
 
-A decision point at which an authorized decision-maker determines whether the available evidence and residual risk are acceptable for a specific deployment context.
+A decision point at which an authorized decision-maker determines whether realized Constraints, available evidence, residual risk, and operational capacity are acceptable for a specific deployment context.
 
-A Release Gate is distinct from Definition of Done. DoD establishes whether implementation and required evidence are sufficiently complete; the Release Gate accepts, limits, conditions, escalates, or rejects release for the stated context.
+A Release Gate is distinct from Definition of Done. DoD establishes implementation and evidence completeness; the Release Gate accepts, limits, conditions, escalates, or rejects release.
 
 ### Escalation
 
 The transfer of a decision, incident, or uncertain case to an authority with greater context, competence, or permission to act.
 
-Escalation requires a real recipient, decision right, and expected response path. Merely notifying someone is not necessarily escalation.
+Escalation requires a real recipient, decision right, expected response path, and available action.
 
 ### Containment
 
@@ -226,21 +242,21 @@ Containment may include bounded authority, isolation, fallback, rate limits, deg
 
 ### Fallback
 
-A predefined alternative behavior used when the preferred model-mediated path cannot be accepted or completed safely.
+A predefined alternative behavior used when the preferred model-mediated path cannot be accepted or completed.
 
-A fallback may be deterministic, human-operated, degraded, or unavailable by design. Repeating the same uncertain action is not automatically a fallback.
+A Fallback may be deterministic, human-operated, degraded, or intentionally unavailable. Repeating the same uncertain action is not automatically a Fallback.
 
 ### Rollback
 
-Restoring a previously accepted configuration, model, prompt, policy, constraint, workflow, or system state after a harmful or uncertain change.
+Restoring a previously accepted model, prompt, policy, Constraint Realization, workflow, configuration, deployment, or system state after a harmful or uncertain change.
 
-Rollback capability depends on versioning, traceability, compatibility, and authority to execute it.
+Rollback depends on versioning, traceability, compatibility, and authority to execute it.
 
 ### Human Authority
 
 A human decision right that can materially approve, reject, change, contain, escalate, or stop system behavior.
 
-A nominal human-in-the-loop step without adequate information, time, competence, independence, capacity, or power is not effective Human Authority.
+A nominal human-in-the-loop step without adequate information, competence, time, capacity, independence, or intervention power is not effective Human Authority.
 
 ## Requirement, diagnosis, and decision vocabulary
 
@@ -248,50 +264,60 @@ A nominal human-in-the-loop step without adequate information, time, competence,
 
 The approved operating contract for a system, feature, or change.
 
-A Requirement may include an intended outcome, deterministic and model-mediated obligations, invariants, authority boundaries, applicable constraints, acceptable operating conditions, resource constraints, evidence expectations, and required failure handling. The Operating Envelope is one part of this contract.
+A Requirement may include intended outcomes, deterministic and model-mediated obligations, Invariants, authority boundaries, Constraints, acceptable operating conditions, resource boundaries, evidence expectations, and failure handling. The Operating Envelope is one part of this contract.
 
 ### Correctness
 
 The condition in which observed system behavior satisfies the approved Requirement.
 
-Correctness is a system property. Different obligations may require different forms of evidence, including direct deterministic verification and evidence across relevant model-mediated variation.
+Correctness is a system property. Different obligations may require deterministic verification, evidence across model-mediated variation, or both.
 
 ### Deterministic Defect
 
-A reproducible violation of an explicit rule, invariant, state transition, schema, interface, permission, or deterministic output contract.
+A defect in explicitly encoded logic, configuration, interface, state handling, permission enforcement, Constraint Realization, or another deterministic responsibility.
 
-### Model-Mediated Violation
+A Deterministic Defect may cause model-mediated or non-model behavior to violate the Requirement.
 
-A violation in which behavior produced through Model Judgment leaves approved operating conditions or tolerances, produces a prohibited outcome, or otherwise violates a model-mediated obligation in the Requirement.
+### Behavioral Deviation
 
-### Boundary or Control Failure
+An observed model-mediated behavior or distribution change that differs from an expectation or accepted baseline.
 
-A Requirement violation caused or permitted by an incorrect or missing context, authority boundary, Constraint, Sensor, Controller, validation gate, fallback, escalation, containment, rollback, shutdown, or related boundary responsibility.
+A Behavioral Deviation is evidence. It becomes a Bug only when it violates the approved Requirement.
 
 ### Bug
 
-A violation of an approved Requirement caused or permitted by the implemented system.
+A system-level violation of an approved Requirement.
 
-A Deterministic Defect, Model-Mediated Violation, or Boundary or Control Failure may cause or contribute to the same system-level Bug. An undesirable output or Deviation Signal is evidence, not automatically a Bug.
+A Bug may originate in deterministic code, Model Judgment, context, data, configuration, a Constraint or its realization, evidence, authority, an external dependency, or interaction among them. A single surprising output or tail event is not automatically a Bug without the relevant Requirement and diagnosis.
 
-### Definition of Ready (DoR)
+### Accepted Residual Behavior
 
-The readiness decision that work is sufficiently framed to begin implementation or bounded experimentation.
+Known behavior, uncertainty, or exposure explicitly accepted by an authorized decision within a stated scope, period, Requirement, Constraint baseline, and residual-risk decision.
 
-DoR is not proof of correctness and does not authorize release.
+Acceptance does not make the behavior correct outside that boundary and must be reassessed when its assumptions change.
 
-### Definition of Done (DoD)
+### Project Authorization
 
-The completion decision that implementation and the required evidence are sufficiently complete.
+The project-level decision that a proposed Thinking System has a sufficiently credible and viable Constraint and control architecture to proceed within a defined boundary.
 
-DoD is distinct from release authorization and does not by itself accept residual risk for a deployment context.
+Possible outcomes include bounded research, constrained authorization, redesign, deferral, escalation, or No-Go.
 
-See [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) for the full doctrine and diagnostic model, [`control-loop-anatomy.md`](control-loop-anatomy.md) for the four capability classes, [`nested-control-lifecycle.md`](nested-control-lifecycle.md) for the four-level decision structure, and [`model-judgment-placement.md`](model-judgment-placement.md) for the functional placement taxonomy.
+### Project Reauthorization
 
-## Terminology evolution
+A new project-level decision required when evidence invalidates a material project assumption about risk, authority, Constraint feasibility, evidence, capacity, control economics, deployment scope, or residual exposure.
 
-When current documentation discusses an older UA source, the first relevant reference may use:
+### Architectural Veto
 
-> **Thinking Systems** (previously described as **Behavioral Software** or **Behavioral Applications**)
+A decision not to build or continue an AI path because required Constraints, evidence, authority, corrective mechanisms, operational capacity, or economics cannot credibly support the proposed consequences and scope.
 
-Subsequent current discussion should use **Thinking Systems**. Historical titles, quotations, and preserved source bodies must retain their original language.
+No universal score or role title is required for Architectural Veto.
+
+### Definition of Ready
+
+The delivery-level decision that a bounded system, feature, or material change is sufficiently framed to begin implementation or a bounded experiment within inherited project authorization.
+
+### Definition of Done
+
+The delivery-level decision that implementation and required evidence are sufficiently complete for a separate Release Gate decision.
+
+DoD does not itself authorize deployment.
