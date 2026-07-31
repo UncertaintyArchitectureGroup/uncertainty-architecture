@@ -67,6 +67,7 @@ Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/un
 - **Run the delivery-level review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
 - **Copy the delivery review template:** [`01-patterns/thinking-system-review-template.md`](01-patterns/thinking-system-review-template.md)
 - **See one completed delivery-level review:** [`03-reference-architectures/worked-thinking-system-review-support-triage.md`](03-reference-architectures/worked-thinking-system-review-support-triage.md)
+- **Follow one complete project-to-runtime application:** [`03-reference-architectures/worked-project-to-runtime-support-triage.md`](03-reference-architectures/worked-project-to-runtime-support-triage.md)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
 - **Review minimal placement architectures:** [`03-reference-architectures/judgment-placement-examples.md`](03-reference-architectures/judgment-placement-examples.md)
 - **Review other concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
@@ -86,6 +87,7 @@ Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/un
 → [`Thinking System Review`](01-patterns/thinking-system-review.md)
 → [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md)
 → [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md)
+→ [`Worked Project-to-Runtime Application`](03-reference-architectures/worked-project-to-runtime-support-triage.md)
 
 ## The Core Shift
 
@@ -172,6 +174,8 @@ Its [`delivery template`](01-patterns/thinking-system-review-template.md) links 
 
 Runtime evidence may remain a local delivery issue, invalidate a project assumption, or reveal that an organizational constraint or shared capability must change. The level of reassessment follows the decision whose assumptions were invalidated.
 
+The [`Worked Project-to-Runtime Application`](03-reference-architectures/worked-project-to-runtime-support-triage.md) demonstrates the complete path: organizational sources, project authorization, versioned inheritance, delivery release, local correction, changed project economics, and project reauthorization.
+
 ## What UA Is — and Is Not
 
 UA is:
@@ -220,6 +224,8 @@ Use the [`Judgment Placement Reference Architectures`](03-reference-architecture
 
 Then inspect the [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md) to see one full illustrative delivery path from framing through bounded experimentation, DoD, residual risk, a human-supervised Release Gate, and reassessment. Its synthesized evidence is a teaching device, not a claim about a real production deployment or a set of UA-wide thresholds.
 
+Finally, follow the [`Worked Project-to-Runtime Application`](03-reference-architectures/worked-project-to-runtime-support-triage.md) to see how that delivery record inherits a project authorization and how runtime evidence is routed to local correction or project reauthorization without creating duplicate governance records.
+
 ## Repository Structure
 
 ### Specification modules
@@ -227,7 +233,7 @@ Then inspect the [`Worked Support Triage Review`](03-reference-architectures/wor
 - [`00-doctrine/`](00-doctrine/) — core concepts, the controlled-object shift, nested control lifecycle, terminology, requirement and diagnostic models, and Model Judgment placement.
 - [`01-patterns/`](01-patterns/) — reusable technical and socio-technical controls, including project-level viability and authorization, Judgment Node boundaries, and the delivery-level Thinking System Review.
 - [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, Human Authority, and operating controls.
-- [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated placement examples and a completed illustrative delivery review.
+- [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive applications, including placement examples, a completed delivery review, and a complete project-to-runtime walkthrough.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
 
 The canonical boundary, status vocabulary, and conformance model are defined in [`SPECIFICATION.md`](SPECIFICATION.md).
@@ -266,16 +272,17 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The repository now contains the connected project and delivery control spine:
+The repository now contains the connected project-to-runtime control spine:
 
 - doctrine for the controlled-object shift and the nested four-level control lifecycle;
 - a project-level Control Architecture and Viability Review with one working template;
 - mixed Requirements, Model Judgment placement, and Judgment Node boundaries;
 - one delivery-level Thinking System Review and template;
 - four placement-focused reference architectures;
-- one fully populated illustrative delivery review.
+- one fully populated illustrative delivery review;
+- one completed illustrative project-to-runtime application with inheritance, local correction, and project reauthorization.
 
-The next substantive application step is a two-level worked example showing how a project baseline is inherited by a delivery review and how runtime evidence can trigger project reauthorization. That should be followed by real-team application and evidence-driven refinement.
+The next substantive step is real-team application and evidence-driven refinement. The worked examples establish internal coherence, but they are not production validation.
 
 Risk and tolerance derivation, deeper control-economics methods, Human Authority design, failure modes, incident loops, and real-team validation remain active development areas.
 
