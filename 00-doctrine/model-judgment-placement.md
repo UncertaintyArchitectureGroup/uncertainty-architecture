@@ -20,7 +20,7 @@ tags:
 canonical_for:
   - model-judgment-placement-taxonomy
 source_basis:
-  - "../content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf"
+  - ../content/research/notes/designing-nondeterministic-systems-source-intake.md
 ---
 
 # Model Judgment Placement
@@ -29,7 +29,7 @@ source_basis:
 
 This document is **draft normative**. It defines the functional placement taxonomy used to identify where Model Judgment influences the behavior of a Thinking System.
 
-The presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* is a synthesis source for this formulation. The source remains historical research evidence; this document is the explicit framework decision that translates the relevant ideas into current UA terminology.
+The presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* is a synthesis source for this formulation. The linked source-intake note records the maintainer-supplied original PPTX, the preserved PDF export, and the framework-transfer state. This document is the framework decision that translates the relevant ideas into current UA terminology.
 
 ## 1. Purpose
 
@@ -168,4 +168,5 @@ The detailed boundary record is defined by the [`Judgment Node Boundary`](../01-
 - [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) defines the operating contract against which model-mediated behavior is evaluated.
 - [`../01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) applies this taxonomy through an explicit boundary pattern.
 - [`../02-ai-control-plane/`](../02-ai-control-plane/) defines the capabilities used to constrain, observe, and correct model-mediated behavior.
-- [`../03-reference-architectures/`](../03-reference-architectures/) may demonstrate non-prescriptive compositions of the placement classes.
+- [`../03-reference-architectures/judgment-placement-examples.md`](../03-reference-architectures/judgment-placement-examples.md) demonstrates non-prescriptive isolated and composite applications of the placement classes.
+- [`../content/research/notes/designing-nondeterministic-systems-source-intake.md`](../content/research/notes/designing-nondeterministic-systems-source-intake.md) records the presentation source relationship and slides 1–6 translation state.
