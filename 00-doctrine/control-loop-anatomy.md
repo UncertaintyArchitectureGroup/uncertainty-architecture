@@ -124,8 +124,8 @@ Constraints may bound:
 A material Constraint should identify:
 
 1. authoritative source or project-risk rationale;
-2. subject and scope;
-3. claimed hard or soft strength for that scope;
+2. subject, path, and scope;
+3. claimed hard or soft strength for that subject, path, and scope;
 4. realization and enforcement or influence point;
 5. assumptions supporting the claimed guarantee;
 6. failure, bypass, conflict, and unavailable behavior;
@@ -139,7 +139,7 @@ When one source condition has different guarantee strengths across subjects, pat
 
 Hard or soft strength is a scoped claim about a Constraint together with its complete realized path. It is not an intrinsic property of policy prose, a requirement sentence, or an organizational source.
 
-A **Hard Constraint** is a scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
+A **Hard Constraint** is a scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, subject, path, scope, and enforcement boundaries.
 
 The same source condition may be hard in one system path and soft in another because the realizations, assumptions, and reachable states differ.
 
