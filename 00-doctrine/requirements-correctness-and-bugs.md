@@ -67,7 +67,7 @@ Depending on the system and consequence level, a Requirement may include:
 
 An **Operating Envelope** is part of a Requirement, not a synonym for the complete Requirement. It describes the approved region within which relevant conditions, authority, resource use, behavior, and outcomes remain acceptable. It does not by itself replace the intended outcome, deterministic obligations, evidence expectations, or failure-handling duties that may also form the operating contract.
 
-A Requirement MUST distinguish hard obligations from probabilistic expectations where that distinction is material. A Hard Constraint claim requires a scoped complete realized path that deterministically prevents or rejects violation within stated assumptions and enforcement boundaries. Example thresholds, sample sizes, scores, confidence levels, cost limits, or review cadences do not become universal requirements merely because they appear in a source or reference architecture.
+A Requirement MUST distinguish hard obligations from probabilistic expectations where that distinction is material. A Hard Constraint claim requires a scoped complete realized path that deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries. Example thresholds, sample sizes, scores, confidence levels, cost limits, or review cadences do not become universal requirements merely because they appear in a source or reference architecture.
 
 ### Mixed Requirement
 
