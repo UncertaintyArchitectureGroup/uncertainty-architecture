@@ -29,6 +29,7 @@ Project publications, talks, community discussions, and independent references a
 
 ### Added
 
+- Added an active, non-normative editorial blueprint and Phase 1 completion plan for the planned canonical public synthesis article, *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*. The structure remains under architecture, logic, technical, and editorial review; Phase 2 prose drafting has not begun.
 - Expanded the repository into dedicated areas for doctrine, patterns, the AI Control Plane, reference architectures, and failure modes.
 - Established the UA Research Track under `content/research/` with an explicit boundary between historical research and normative framework material.
 - Added research publication, analysis, and framework-traceability templates.
