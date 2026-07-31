@@ -46,6 +46,7 @@ This module defines or develops the foundational distinctions behind:
 - product, operational, and runtime-judgment uncertainty as related but distinct control problems;
 - UA as a control lifecycle that complements product discovery, iterative delivery, DevOps, QA, security, and incident response;
 - organizational context, project authorization, delivery-level review, and runtime reauthorization as connected control levels;
+- decision ownership, inheritance, and upward reassessment across those levels;
 - functional placement of Model Judgment as Input Interpretation, Decision Logic, or Output Mediation;
 - open-loop and closed-loop operating conditions;
 - uncertainty containment rather than uncertainty elimination;
@@ -80,6 +81,7 @@ Operational checklists, decision flows, and practical records are defined throug
 - **Deterministic Core** — rules, invariants, permissions, data handling, and other responsibilities that must remain explicitly controlled.
 - **Model Judgment** — interpretation, synthesis, classification, generation, planning, or action selection under uncertainty.
 - **Controlled-object shift** — the change created when the engineered system itself produces consequential runtime uncertainty through Model Judgment rather than uncertainty existing only in requirements, users, environments, or delivery assumptions.
+- **Nested Control Lifecycle** — the connected organizational, project, delivery, and runtime decision structure through which constraints flow downward and invalidating evidence flows upward.
 - **Model Judgment placement** — the functional role a Judgment Node performs as Input Interpretation, Decision Logic, Output Mediation, or a combination.
 - **Uncertainty Boundary** — the interface at which deterministic responsibilities meet probabilistic judgment.
 - **Containment** — limiting where uncertainty may propagate and defining what happens when behavior leaves acceptable bounds.
@@ -95,6 +97,7 @@ The canonical wording for terms currently defined by UA is maintained in the [pr
 
 - [`glossary.md`](glossary.md) — canonical draft-normative vocabulary for current UA terms.
 - [`uncertainty-in-the-controlled-object.md`](uncertainty-in-the-controlled-object.md) — draft-normative rationale for UA, the changed controlled object, nested control levels, project authorization versus delivery release, runtime evidence, and architectural veto.
+- [`nested-control-lifecycle.md`](nested-control-lifecycle.md) — draft-normative operating model for decision ownership, inheritance, runtime evidence, corrective action, and reauthorization across the four UA control levels.
 - [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) — draft-normative relationship between Requirements, Operating Envelopes, Correctness, Bugs, evidence, and diagnosis in mixed deterministic and model-mediated systems.
 - [`model-judgment-placement.md`](model-judgment-placement.md) — draft-normative functional taxonomy for locating Model Judgment as Input Interpretation, Decision Logic, or Output Mediation without prescribing a mandatory pipeline.
 

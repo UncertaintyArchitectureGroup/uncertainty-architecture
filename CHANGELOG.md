@@ -59,6 +59,7 @@ Project publications, talks, community discussions, and independent references a
 - Added the draft-normative Project Control Architecture and Viability Review pattern connecting business outcome, material risk scenarios, intended Model Judgment and authority, required control capabilities, evidence feasibility, Human Authority, operational capacity, control economics, project authorization, delivery inheritance, and reauthorization.
 - Added an informative Project Control Architecture and Viability Review template that keeps the project decision, residual risk, control economics, inherited delivery baseline, and decision history in one living artifact without a separate Project Launch Gate record.
 - Expanded the canonical draft glossary with current UA terminology and explicit historical-term boundaries.
+- Added `00-doctrine/nested-control-lifecycle.md` as the canonical draft-normative explanation of decision ownership, inheritance, evidence flow, corrective action, and reauthorization across organizational, project, delivery, and runtime control levels.
 
 ### Changed
 
@@ -105,6 +106,7 @@ Project publications, talks, community discussions, and independent references a
 - Updated the research templates to use the current entity-classification and canonical-owner model instead of treating Lifecycle or Operating Model as automatic repository destinations.
 - Clarified presentation provenance across the raw-source archive, source-intake record, and doctrine source metadata: the original PPTX is the slide-level working source, while the repository PDF is an archival export.
 - Expanded the reference-architecture index and roadmap to expose the first completed worked delivery review while keeping its synthesized evidence separate from production validation.
+- Updated the root landing page and doctrine index to expose the nested control lifecycle without creating a duplicate top-level Operating Model module.
 
 ### Removed
 
