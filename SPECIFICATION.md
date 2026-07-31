@@ -103,7 +103,7 @@ A pattern may arrange technical mechanisms, artifacts, responsibility bundles, e
 
 Patterns may be normative or draft normative. Examples, compact records, and working templates attached to a pattern are informative unless stated otherwise.
 
-The [`Thinking System Review`](01-patterns/thinking-system-review.md) defines the draft-normative review flow. The [`Thinking System Review Template`](01-patterns/thinking-system-review-template.md) is its informative working representation and does not create an additional conformance path.
+The [`Thinking System Review`](01-patterns/thinking-system-review.md) is the canonical owner of the full model-mediated Definition of Ready, Definition of Done, distinct Release Gate, responsibility bundles, and reassessment flow. The [`Thinking System Review Template`](01-patterns/thinking-system-review-template.md) is its informative working representation and does not create an additional conformance path or independent protocol.
 
 ### 5.3 AI Control Plane
 
@@ -115,7 +115,9 @@ The control plane is an architectural capability model, not necessarily a standa
 
 [`03-reference-architectures/`](03-reference-architectures/README.md) contains concrete compositions showing how UA concepts and patterns may be applied.
 
-Reference architectures MUST NOT be treated as mandatory implementation topologies unless a separate normative document explicitly adopts a requirement they illustrate.
+[`03-reference-architectures/judgment-placement-examples.md`](03-reference-architectures/judgment-placement-examples.md) shows Input Interpretation only, Decision Logic only, Output Mediation only, and one composite Thinking System. These examples identify deterministic responsibilities, authority boundaries, evidence, fallback, risks, and relevant review focus without duplicating the canonical DoR or DoD.
+
+Reference architectures MUST NOT be treated as mandatory implementation topologies unless a separate normative document explicitly adopts a requirement they illustrate. Copying a reference architecture does not establish conformance.
 
 ### 5.5 Failure modes
 
@@ -171,7 +173,7 @@ For consequential model-mediated work, the system or team SHOULD also be able to
 
 UA does not require the provided Thinking System Review template. Equivalent records and processes MAY be integrated into existing product, engineering, security, quality, change-management, or incident systems, provided the relevant distinctions and decision rights remain explicit and traceable.
 
-The placement classes are a functional taxonomy, not a mandatory pipeline. A node may combine functions, and a workflow may omit or repeat any class.
+The placement classes are a functional taxonomy, not a mandatory pipeline. A node may combine functions, and a workflow may omit or repeat any class. Reference architectures may help a team reason about these distinctions but do not add conformance requirements.
 
 A claim of UA alignment MUST NOT imply certification, endorsement, or complete conformance unless the project later establishes a formal conformance program.
 
@@ -189,6 +191,6 @@ Research findings, talks, articles, implementations, and external frameworks do 
 
 ## 9. Current maturity
 
-UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, a Model Judgment placement taxonomy, a Judgment Node Boundary pattern, a first SMB-facing Thinking System Review pattern and template, a control-plane model, reference material, and failure-mode work, but detailed normative content remains incomplete and may change.
+UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, a Model Judgment placement taxonomy, a Judgment Node Boundary pattern, an SMB-facing Thinking System Review pattern and template, four placement-focused reference architectures, a control-plane model, research traceability, and failure-mode work. Detailed normative content remains incomplete and may change through worked application and synthesis.
 
 Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples or templates remain **reference** or **informative**, not mandatory implementation requirements.

@@ -99,6 +99,8 @@ Examples and working templates attached to a pattern are informative unless expl
 - [`thinking-system-review.md`](thinking-system-review.md) — draft-normative SMB-facing pattern connecting the Requirement, Judgment Nodes, full DoR and DoD extensions, release decision, responsibility bundles, and runtime reassessment through one lightweight flow.
 - [`thinking-system-review-template.md`](thinking-system-review-template.md) — informative working template that implements the Thinking System Review as one living, versioned artifact.
 
+The [`Thinking System Review`](thinking-system-review.md) is the canonical owner of the full model-mediated Definition of Ready, Definition of Done, Release Gate, responsibility bundles, and reassessment flow. The template mirrors that pattern for practical use and must not be treated as an independent protocol.
+
 The Judgment Node Boundary pattern includes a compact SMB-facing card directly in the document. The same card is embedded in the Thinking System Review template; the repository does not maintain a separate `judgment-node-record.md` artifact.
 
 The Thinking System Review records the release decision inside the same versioned artifact. The repository does not require a separate Release Decision Record for the default SMB adoption path.
@@ -109,6 +111,6 @@ Individual patterns should use the metadata and status conventions in [`DOCUMENT
 
 - [`00-doctrine/`](../00-doctrine/) provides the foundational distinctions used by the patterns, including the [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) taxonomy and the [`Requirements, Correctness, and Bugs`](../00-doctrine/requirements-correctness-and-bugs.md) model.
 - [`02-ai-control-plane/`](../02-ai-control-plane/) provides the control capabilities through which boundaries and review decisions are operated.
-- [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible combinations of patterns.
+- [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible combinations of patterns, including the [`Judgment Placement Reference Architectures`](../03-reference-architectures/judgment-placement-examples.md).
 - [`04-failure-modes/`](../04-failure-modes/) provides the failure mechanisms that patterns should mitigate.
 - [`SPECIFICATION.md`](../SPECIFICATION.md) defines the status and normative boundary of this module.

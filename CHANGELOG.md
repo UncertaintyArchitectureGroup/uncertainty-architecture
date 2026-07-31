@@ -52,6 +52,7 @@ Project publications, talks, community discussions, and independent references a
 - Added the draft-normative Judgment Node Boundary pattern with proportional minimal and extended modes, an embedded SMB-facing node card, placement-specific review prompts, and deterministic-containment guidance.
 - Added the draft-normative Thinking System Review pattern as one lightweight SMB-facing flow connecting outcome framing, Judgment Nodes, Requirements and Operating Envelopes, full model-mediated DoR and DoD extensions, release decisions, responsibility bundles, and runtime reassessment.
 - Added an informative Thinking System Review template that keeps the working contract, evidence, residual risk, deployment scope, release decision, and version history in one living artifact rather than separate governance records.
+- Added `03-reference-architectures/judgment-placement-examples.md` with four non-prescriptive architectures for Input Interpretation, Decision Logic, Output Mediation, and a composite Thinking System.
 - Expanded the canonical draft glossary with current UA terminology and explicit historical-term boundaries.
 
 ### Changed
@@ -81,8 +82,10 @@ Project publications, talks, community discussions, and independent references a
 - Expanded UA conformance to identify each consequential Judgment Node's placement, inputs and approved context, affected behavior, authority, deterministic constraints, evidence, corrective paths, and traceability.
 - Connected Judgment Node boundaries to the distributed AI Control Plane capability model without treating the boundary record itself as a complete control loop.
 - Extended the Patterns module and UA conformance model to recognize equivalent lightweight review records for Requirements, readiness, completion evidence, residual-risk release decisions, runtime ownership, and reassessment without requiring use of one template or a separate Operating Model module.
-- Updated the roadmap to mark pattern and practical-artifact work active, record the initial SMB review deliverables, and prioritize placement reference architectures and worked applications before additional process expansion.
-- Updated the roadmap so cross-publication synthesis is now the immediate substantive priority.
+- Established `01-patterns/thinking-system-review.md` as the canonical owner of the full model-mediated Definition of Ready, Definition of Done, distinct Release Gate, responsibility bundles, and reassessment flow; the template remains its informative working representation.
+- Updated the reference-architecture index, root reader path, specification maturity, and roadmap to include placement-focused examples and mark the slides 1–6 framework transfer complete at the current draft level.
+- Updated the presentation source-intake and framework-traceability records to distinguish the original maintainer-supplied PPTX used for slide-level review from the preserved PDF export and to record active source-to-framework decisions.
+- Updated the roadmap so worked applications of the Thinking System Review are the immediate substantive priority before additional process expansion.
 
 ### Removed
 

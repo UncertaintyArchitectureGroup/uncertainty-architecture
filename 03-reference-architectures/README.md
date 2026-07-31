@@ -6,6 +6,7 @@ maturity: active
 module: reference-architectures
 topics:
   - thinking-systems
+  - model-judgment
   - uncertainty-boundary
   - ai-control-plane
   - containment
@@ -14,6 +15,7 @@ tags:
   - ua/type/reference-index
   - ua/status/reference
   - ua/topic/thinking-systems
+  - ua/topic/model-judgment
   - ua/topic/uncertainty-boundary
   - ua/topic/ai-control-plane
 canonical_for:
@@ -46,8 +48,9 @@ This module provides:
 This module does not prescribe:
 
 - a mandatory system topology;
+- a required pipeline of Input Interpretation, Decision Logic, and Output Mediation;
 - one preferred vendor, framework, or orchestration platform;
-- universal controls for every risk class or operating context;
+- universal controls or thresholds for every consequence level or operating context;
 - conformance merely through copying an example;
 - any reference implementation as the UA standard itself.
 
@@ -63,18 +66,30 @@ A mature reference architecture should identify:
 6. failure, escalation, rollback, and containment paths;
 7. known assumptions, limits, and trade-offs.
 
+Examples should link to canonical doctrine and patterns rather than redefine terms or duplicate complete operational checklists.
+
 ## Current scope
 
-Indranet is one implementation-oriented expression of UA concepts. It is a reference, not the specification itself, and its design choices are not automatically normative.
+- [`judgment-placement-examples.md`](judgment-placement-examples.md) presents four minimal architectures: Input Interpretation only, Decision Logic only, Output Mediation only, and one composite Thinking System.
+- Indranet remains an implementation-oriented expression of UA concepts. It is a reference, not the specification itself, and its design choices are not automatically normative.
+
+## Suggested reader path
+
+[`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md)
+→ [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md)
+→ [`Thinking System Review`](../01-patterns/thinking-system-review.md)
+→ [`Judgment Placement Reference Architectures`](judgment-placement-examples.md)
 
 ## Documents
+
+- [`judgment-placement-examples.md`](judgment-placement-examples.md) — reference architectures showing isolated and composite placement classes with deterministic boundaries, authority, evidence, fallback, risks, and review focus.
 
 Individual reference architectures should declare `status: reference` and follow [`DOCUMENT-METADATA.md`](../DOCUMENT-METADATA.md).
 
 ## Relationships
 
 - [`00-doctrine/`](../00-doctrine/) provides the conceptual foundation.
-- [`01-patterns/`](../01-patterns/) provides reusable architectural building blocks.
+- [`01-patterns/`](../01-patterns/) provides reusable architectural and socio-technical building blocks.
 - [`02-ai-control-plane/`](../02-ai-control-plane/) provides the control capability model used in compositions.
 - [`04-failure-modes/`](../04-failure-modes/) provides failure mechanisms that references should address explicitly.
 - [`SPECIFICATION.md`](../SPECIFICATION.md) defines why reference architectures remain outside the mandatory topology of the specification.
