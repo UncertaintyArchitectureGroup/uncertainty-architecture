@@ -143,19 +143,34 @@ Five normalized publication editions are preserved under [`publications/`](publi
 Two additional synthesis sources are tracked:
 
 - [*On-Device LLM or Cloud API?*](notes/on-device-cloud-source-intake.md) — full author-provided Markdown source available; raw preservation and normalization remain pending;
-- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the maintainer-supplied original PPTX is the slide-level working source, while a PDF export is preserved under [`content/raw/`](../raw/). Slides 1–6 have been translated into current draft framework components; a complete Markdown transcript or normalized repository edition remains optional future work.
+- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the maintainer-supplied original PPTX is the slide-level working source, while a PDF export is preserved under [`content/raw/`](../raw/). Slides 1–6 and a later bounded extraction of the controlled-object, process-shift, feedback, and architectural-veto material have been translated through explicit framework review. A complete Markdown transcript or normalized repository edition remains optional future work.
 
-The slides 1–6 transfer produced explicit framework decisions for:
+The presentation and publication corpus have now produced explicit framework decisions for:
 
 - mixed Requirements, Operating Envelopes, Correctness, Bugs, and diagnostic sources;
 - Input Interpretation, Decision Logic, and Output Mediation;
 - Judgment Node boundaries;
-- the SMB Thinking System Review and template;
-- placement-focused reference architectures.
+- the feature-level SMB Thinking System Review and template;
+- placement-focused reference architectures;
+- the controlled-object shift from explicitly encoded behavior toward consequential runtime Model Judgment;
+- UA as a control lifecycle that complements rather than replaces Agile, DevOps, QA, security, and incident response;
+- organizational context, project authorization, feature/change delivery, and runtime reauthorization as connected control levels;
+- architectural veto as a valid engineering outcome when a credible or viable control boundary cannot be established.
 
-Those decisions and presentation simplifications are recorded in [`framework-traceability.md`](framework-traceability.md). The rest of the deck is not promoted by implication.
+Those decisions and their source qualifications are recorded in [`framework-traceability.md`](framework-traceability.md). Unreviewed parts of the presentation and publications are not promoted by implication.
 
-The next major corpus task is a cross-publication synthesis that identifies:
+The next framework research question is how to operationalize the project level without creating false precision or governance overload. The candidate Project Control Architecture and Viability Review should determine the minimum decision surface an SMB team needs to:
+
+- map material domain and business-risk scenarios;
+- identify intended Model Judgment, authority, autonomy, and prohibited regions;
+- derive required control capabilities and Human Authority;
+- assess evidence feasibility, feedback latency, and operational capacity;
+- estimate control build and run cost;
+- distinguish expected-value trade-offs from hard veto conditions;
+- authorize, limit, redirect to research, redesign, escalate, or reject the AI path;
+- define which runtime or design changes require project reauthorization.
+
+The next major corpus task also remains a cross-publication synthesis that identifies:
 
 - concepts that remained stable;
 - concepts that were refined or superseded;
@@ -164,7 +179,7 @@ The next major corpus task is a cross-publication synthesis that identifies:
 - candidates for the framework spine;
 - material that should remain research context only.
 
-This synthesis should proceed alongside worked Thinking System Reviews and other practical applications. Application evidence may refine the review template, expose missing failure modes, or create more precise questions about risk, tolerance, control economics, and adoption.
+Project-level framework work and corpus synthesis should proceed as a feedback loop. A project pattern should be tested through a two-level worked application and then through a real team or documented real system. Application evidence may refine the feature review, expose missing failure modes, or create more precise questions about risk, tolerance, control economics, Human Authority, and adoption.
 
 Source-specific analysis may still be added when it contributes evidence, clarifies provenance, or resolves a concrete question. It is not a prerequisite for beginning corpus-level synthesis or practical validation.
 
