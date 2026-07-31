@@ -65,8 +65,8 @@ The maintainer-defined slides 1–6 transfer scope has been reviewed against the
 - [`00-doctrine/requirements-correctness-and-bugs.md`](../../../00-doctrine/requirements-correctness-and-bugs.md) — mixed Requirements, Operating Envelopes, Correctness, Bugs, and diagnostic sources;
 - [`00-doctrine/model-judgment-placement.md`](../../../00-doctrine/model-judgment-placement.md) — Input Interpretation, Decision Logic, and Output Mediation as a functional taxonomy;
 - [`01-patterns/judgment-node-boundary.md`](../../../01-patterns/judgment-node-boundary.md) — explicit boundaries around consequential Judgment Nodes;
-- [`01-patterns/thinking-system-review.md`](../../../01-patterns/thinking-system-review.md) — one lightweight feature/change review flow with full model-mediated DoR and DoD extensions, a distinct Release Gate, responsibility bundles, and reassessment;
-- [`01-patterns/thinking-system-review-template.md`](../../../01-patterns/thinking-system-review-template.md) — one living SMB working artifact;
+- [`01-patterns/thinking-system-review.md`](../../../01-patterns/thinking-system-review.md) — one lightweight delivery-level review flow with full model-mediated DoR and DoD extensions, a distinct Release Gate, responsibility bundles, inherited project constraints, and reassessment;
+- [`01-patterns/thinking-system-review-template.md`](../../../01-patterns/thinking-system-review-template.md) — one living SMB delivery artifact;
 - [`03-reference-architectures/judgment-placement-examples.md`](../../../03-reference-architectures/judgment-placement-examples.md) — isolated and composite placement reference architectures;
 - [`content/research/framework-traceability.md`](../framework-traceability.md) — current source-to-framework decisions and resolved presentation shorthand.
 
@@ -76,22 +76,31 @@ The slides 1–6 transfer is complete at the current draft-framework level. Late
 
 A later review pass used the original PPTX—not the repository PDF export—to examine the opening thesis, mathematical framing, process-shift material, architectural-veto section, role implications, and closing feedback-loop model.
 
-This pass informed [`00-doctrine/uncertainty-in-the-controlled-object.md`](../../../00-doctrine/uncertainty-in-the-controlled-object.md), which translates the deck's argument that:
+This pass informed:
+
+- [`00-doctrine/uncertainty-in-the-controlled-object.md`](../../../00-doctrine/uncertainty-in-the-controlled-object.md);
+- [`01-patterns/project-control-architecture-and-viability-review.md`](../../../01-patterns/project-control-architecture-and-viability-review.md);
+- [`01-patterns/project-control-architecture-and-viability-review-template.md`](../../../01-patterns/project-control-architecture-and-viability-review-template.md).
+
+Together, these documents translate the deck's argument that:
 
 - the model-mediated part of the system moves from an explicitly computed function toward sampling from a conditional distribution;
 - uncertainty therefore exists inside the controlled object during runtime judgment;
 - Scrum, Agile, DevOps, QA, security, and operations remain necessary but do not automatically define the control contract for probabilistic business judgment;
-- project-level authorization must be distinguished from feature-level release;
+- project-level authorization must be distinguished from delivery-level release;
+- project risk must be connected to required control capabilities, evidence, Human Authority, operating capacity, and economics rather than represented only by a generic score;
 - runtime evidence may require local correction, project reauthorization, or organizational review;
-- architectural veto is part of engineering rigor when safety, operational capacity, latency, vendor volatility, or control cost make the proposed path non-viable.
+- architectural veto is part of engineering rigor when safety, operational capacity, latency, vendor volatility, missing controls, or control cost make the proposed path non-viable.
 
-The doctrine narrows several presentation formulations:
+The framework narrows several presentation formulations:
 
 - UA complements rather than replaces existing delivery and operations disciplines;
 - the nested control lifecycle is a conceptual distinction, not a mandatory sequence of ceremonies or departments;
-- a material release contains a controlled evidence-generating component, but production remains bound by an approved Requirement and authority model;
+- a material release contains a controlled evidence-generating component, but production remains bound by an approved Requirement, project authorization, and authority model;
 - architectural veto has no universal score, expected-value threshold, or role owner;
-- project-level risk mapping, control economics, and authorization remain candidates for a separate reviewed pattern and artifact.
+- material risk is mapped through scenarios connected to consequences, detectability, feedback latency, reversibility, propagation, controls, and residual risk;
+- expected-value reasoning is optional and cannot override hard prohibitions or unavailable controls;
+- one living project review and one living delivery review preserve distinct decision ownership without requiring separate project-gate or release-decision records.
 
 This additional extraction does not mean the entire deck has been normalized or promoted. Unreviewed role, threshold, metric, and topology claims remain research context.
 
@@ -107,7 +116,9 @@ The transfer preserves the deck's engineering concerns while narrowing presentat
 - Input Interpretation, Decision Logic, and Output Mediation are functional placement classes, not a mandatory pipeline;
 - responsibility bundles and Human Authority do not imply mandatory job titles;
 - reference architectures remain non-prescriptive;
-- project authorization, feature release, and runtime reauthorization are distinct decisions, but their future operational forms remain subject to pattern review.
+- project authorization, delivery release, and runtime reauthorization are distinct decisions with separate canonical pattern owners;
+- project context flows to delivery reviews through a versioned inheritance package rather than duplicated risk and economic records;
+- runtime evidence returns to the decision level whose assumption it invalidates.
 
 ## Remaining follow-up
 
@@ -115,7 +126,8 @@ The transfer preserves the deck's engineering concerns while narrowing presentat
 2. Create a complete Markdown transcript or normalized repository edition with slide-level provenance only when that work becomes useful.
 3. Continue reviewing later deck sections against the broader publication corpus rather than promoting presentation shorthand in isolation.
 4. Record contradictions, superseded claims, and newly extracted entities in the existing research-to-framework traceability matrix.
-5. Define and review a project-level control-architecture and viability pattern before introducing a project template or mandatory gate terminology.
-6. Use two-level worked applications and real-team evidence to test inheritance between project constraints, feature reviews, and runtime reauthorization.
+5. Build a two-level worked application that connects one project authorization to one or more delivery-level Thinking System Reviews and distinguishes local runtime reassessment from project reauthorization.
+6. Use real-team or documented real-system evidence to test whether the two review surfaces are proportionate, complete, non-duplicative, and economically useful.
+7. Refine risk-tolerance derivation, control economics, Human Authority, incident loops, and failure modes only where application evidence exposes a concrete gap.
 
 Research-state changes should be reconciled under the [`Research Review Process`](../review-process.md) rather than tracked through a parallel presentation ledger.
