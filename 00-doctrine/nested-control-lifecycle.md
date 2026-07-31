@@ -156,7 +156,9 @@ flowchart TB
     R -->|organizational source or shared capability invalidated| O
 ```
 
-A material Constraint should remain traceable through source, subject, scope, strength, realization, assumptions, failure behavior, evidence, active version, decision authority, execution path, and reassessment trigger.
+A material Constraint should remain traceable through source, subject, scope, claimed strength, realization, assumptions, failure behavior, evidence, active version, decision authority, execution path, and reassessment trigger.
+
+Hard or soft strength is scoped to the Constraint and its complete realized path. When one source condition has different guarantee strengths across subjects, paths, or scopes, the project and delivery records should separate those claims.
 
 A lower-level Controller may authorize only changes inside delegated authority. An Actuator executes the change to operation or a Constraint Realization. Technical configurability does not authorize relaxation of a project or organizational boundary.
 
@@ -197,7 +199,7 @@ Typical triggers include:
 
 ## 8. Relationship to the AI Control Plane
 
-The lifecycle defines **where decisions are owned**. The capability model defines **which functions make them operational**.
+The lifecycle defines **where decisions are owned**. The capability-family model defines **which functions make them operational**.
 
 ```mermaid
 flowchart LR
@@ -214,8 +216,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state and health| S
     A -->|execution state| S
