@@ -21,6 +21,7 @@ canonical_for:
   - constraint-capability
 related:
   - ../../00-doctrine/control-loop-anatomy.md
+  - ../../00-doctrine/glossary.md
   - ../README.md
   - constraint-realization-catalog.md
 ---
@@ -28,67 +29,121 @@ related:
 # Constraint Capabilities
 
 **Status:** Draft normative  
-**Role:** Conditions and enforcement mechanisms that bound the reachable operating space of a Thinking System
+**Role:** Defines approved operating boundaries and the information needed to realize, operate, evidence, and change them
 
 ## Purpose
 
-Constraints make the approved operating boundary concrete.
+Constraints make the approved operating boundary explicit.
 
-They limit which states, actions, authority, data, tools, resources, environments, outputs, or deployment conditions are reachable by the system. They may be inherited from organizational sources, derived from project risk and authorization, realized in delivery architecture, and exercised at runtime.
+They state which states, actions, authority, data, tools, resources, environments, outputs, deployment conditions, or human decisions are allowed or prohibited.
 
-Constraints are a first-class AI Control Plane capability. They are not merely examples of Actuators, prompts, schemas, or policy documents.
+A Constraint is not the same as the technical or socio-technical mechanism that implements it. UA calls that mechanism a **Constraint Realization**.
+
+Constraints are a first-class AI Control Plane capability. They are not merely examples of Actuators, prompts, schemas, policy documents, or validators.
 
 ## Canonical relationship
 
-The [`Control-Loop Capability Anatomy`](../../00-doctrine/control-loop-anatomy.md) defines the relationship between Constraints, Sensors, Controllers, and Actuators.
+The [`Control-Loop Capability Anatomy`](../../00-doctrine/control-loop-anatomy.md) defines the relationship among:
 
-In summary:
+- **Constraints** — approved boundaries;
+- **Constraint Realizations** — mechanisms implementing or influencing those boundaries;
+- **Sensors** — evidence about behavior, outcomes, realization state, and control health;
+- **Controllers** — interpretation and decision authority;
+- **Actuators** — execution of authorized changes.
 
-- **Constraints** define or enforce the allowed operating space.
-- **Sensors** produce evidence about behavior, conditions, control health, and violations.
-- **Controllers** interpret evidence and authorize decisions.
-- **Actuators** execute authorized changes to behavior or operating conditions.
-
-An actuator may change a constraint. A constraint may block an action. A technical component may implement several capability functions, but the functions should remain distinguishable.
+An Actuator may install, tighten, relax, replace, or remove a Constraint Realization within delegated authority. A Constraint Realization may reject or block an attempted action. A single component may perform several functions, but the functions remain distinguishable.
 
 ## Constraint description
 
-A mature constraint description should identify:
+A material Constraint should identify:
 
-1. **Source** — the authoritative organizational, project, delivery, or runtime decision from which it originates.
-2. **Subject** — the state, action, authority, input, context, data, tool, output, resource, environment, or human decision path being bounded.
-3. **Scope** — the users, population, domain, geography, deployment, component, Judgment Node, tool, data class, or time period to which it applies.
-4. **Class** — structural, authority, state, data, resource, environment, Human Authority, or soft behavioral constraint.
+1. **Source or rationale** — the authoritative organizational source or project-risk rationale.
+2. **Subject** — the behavior, state, action, authority, input, context, data, tool, output, resource, environment, deployment, or human decision being bounded.
+3. **Scope** — the users, population, domain, geography, deployment, component, Judgment Node, data class, tool, or time period to which it applies.
+4. **Class** — structural, authority, state, data, resource, environment, Human Authority, or behavioral.
 5. **Strength** — hard or soft.
-6. **Realization** — the mechanism and enforcement point.
-7. **Failure behavior** — blocked, rejected, repaired, degraded, escalated, isolated, rolled back, or allowed with explicit residual risk.
-8. **Change authority** — who or what may tighten, relax, override, disable, or replace it.
-9. **Evidence** — how enforcement state, violations, bypass attempts, friction, and degradation are observed.
-10. **Traceability** — version, configuration, source decision, and affected Requirement or risk scenario.
-11. **Reassessment rule** — which change requires delivery reassessment, project reauthorization, or organizational review.
+6. **Realization** — the mechanism and enforcement or influence point.
+7. **Assumptions** — the conditions under which the claimed guarantee is valid.
+8. **Failure behavior** — violation, conflict, bypass, uncertainty, degradation, and unavailability behavior.
+9. **Change authority** — who may propose, approve, execute, override, disable, or replace it.
+10. **Evidence** — activation, violations, bypass attempts, degradation, false blocks, friction, and coverage.
+11. **Traceability** — version, source decision, affected Requirement, risk scenario, and deployed realization.
+12. **Reassessment rule** — which changes remain local and which require delivery reassessment, project reauthorization, or organizational review.
+
+## Hard and soft Constraints
+
+### Hard Constraint
+
+A Hard Constraint is one whose violation is deterministically prevented or rejected within explicitly stated assumptions, scope, and enforcement boundaries.
+
+Examples may include:
+
+- permission checks;
+- typed interface or schema rejection;
+- transaction preconditions;
+- deterministic state-machine guards;
+- tool allowlists;
+- tenant, row-level, network, or regional isolation;
+- rate, cost, concurrency, time, or exposure caps;
+- mandatory approval gates that technically prevent execution before approval.
+
+A probabilistic detector, evaluator, prompt, model policy, or natural-language instruction is not hard merely because its failure behavior is documented.
+
+### Soft Constraint
+
+A Soft Constraint influences probabilistic behavior but cannot guarantee that a prohibited state, action, or output remains unreachable.
+
+Examples include:
+
+- prompts and system instructions;
+- natural-language policies;
+- rubrics and style guidance;
+- demonstrations and model preferences;
+- probabilistic safety or semantic classifiers used without deterministic downstream enforcement.
+
+Soft Constraints may be useful and necessary. They must not be represented as deterministic guarantees.
+
+### Composite realization
+
+One business Constraint may require several realizations.
+
+Example:
+
+> Customer replies must not contain unsupported product claims.
+
+Possible control path:
+
+- approved-source restriction — data/context realization;
+- grounding instruction — soft realization;
+- claim-to-source evaluator — Sensor;
+- deterministic block when required evidence is absent — hard realization;
+- Human Authority for unresolved cases — approval Constraint plus Controller path;
+- feature disable or prompt rollback — Actuator;
+- support or release authority — Controller.
+
+The business Constraint is hard only to the extent that the complete realized path deterministically prevents or rejects the prohibited outcome within stated assumptions.
 
 ## Constraint classes
 
-### 1. Structural and interface constraints
+### 1. Structural and interface
 
-These constrain format, type, shape, allowed values, protocol, and interface behavior.
+Bound format, type, shape, protocol, and allowed values.
 
-Examples include:
+Examples:
 
-- JSON Schema and OpenAPI contracts;
-- typed interfaces and data-transfer objects;
+- JSON Schema, OpenAPI, Protobuf, and typed DTOs;
 - constrained decoding and formal grammars;
 - parser and serialization rules;
-- enum and range restrictions;
+- enums and range restrictions;
 - deterministic output validation.
 
-Structural validity does not establish semantic acceptability. A valid object may still violate the Requirement.
+Structural validity does not establish semantic acceptability.
 
-### 2. Authority and action constraints
+### 2. Authority and action
 
-These constrain what the model-mediated path may decide, invoke, modify, or cause.
+Bound what the model-mediated path may decide, invoke, modify, or cause.
 
-Examples include:
+Examples:
 
 - authentication and authorization;
 - RBAC, ABAC, and capability-based access;
@@ -96,252 +151,228 @@ Examples include:
 - action approval requirements;
 - separation of recommendation from execution;
 - maximum autonomy;
-- prohibited actions and side effects.
+- prohibited side effects.
 
-A probabilistic instruction not to perform an action is not equivalent to an enforceable authority boundary.
+A prompt asking the model not to act is not equivalent to an enforceable authority boundary.
 
-### 3. State and transaction constraints
+### 3. State and transaction
 
-These constrain allowed system states and transitions.
+Bound allowed states and transitions.
 
-Examples include:
+Examples:
 
 - state machines;
 - transaction boundaries;
-- idempotency requirements;
+- idempotency;
 - preconditions and postconditions;
 - approval-before-commit rules;
 - consistency, isolation, and rollback obligations.
 
-Model Judgment may propose a transition. Deterministic logic should enforce critical state and transaction invariants.
+Model Judgment may propose a transition. Deterministic logic should protect critical state and transaction Invariants.
 
-### 4. Data and context constraints
+### 4. Data and context
 
-These constrain what information may enter, influence, or leave the model-mediated path.
+Bound what information may enter, influence, or leave the model-mediated path.
 
-Examples include:
+Examples:
 
 - tenant and row-level isolation;
 - source allowlists;
 - provenance requirements;
 - data classification and residency;
-- context-size and relevance policies;
+- context-source restrictions;
 - deterministic redaction and DLP;
-- prompt-injection isolation boundaries;
-- disclosure and retention rules.
+- disclosure and retention rules;
+- prompt-injection isolation boundaries.
 
-A rich context window is not automatically an authorized context boundary.
+A large context window is not automatically an authorized context boundary.
 
-### 5. Resource and exposure constraints
+### 5. Resource and exposure
 
-These constrain resource use and the scale of possible consequences.
+Bound resource use and possible consequence scale.
 
-Examples include:
+Examples:
 
 - token, inference, compute, and tool-cost budgets;
 - latency and timeout limits;
 - rate, concurrency, iteration, recursion, and duration limits;
 - affected population and deployment limits;
-- rollout, canary, geography, and time-window boundaries;
+- canary, geography, and time-window boundaries;
 - bounded experiment exposure.
 
-Resource constraints may be hard technical stops, project authorization conditions, or both.
+### 6. Environment and dependency
 
-### 6. Environment and dependency constraints
+Bound where and through which dependencies the system may operate.
 
-These constrain where and through which dependencies the system may operate.
-
-Examples include:
+Examples:
 
 - approved models, providers, and deployment modes;
 - network egress controls;
 - sandboxing and process isolation;
 - approved regions and jurisdictions;
 - vendor, version, and data-source pinning;
-- tool availability and dependency health requirements.
+- dependency health requirements.
 
-A provider or model change may invalidate project evidence even when application code does not change.
+A provider or model change may invalidate project evidence even when application code is unchanged.
 
-### 7. Human-decision constraints
+### 7. Human-decision
 
-These constrain when a human decision is required and what authority is reserved for people.
+Bound when human approval is required and which authority remains reserved for people.
 
-Examples include:
+Examples:
 
 - mandatory approval before consequential execution;
 - dual control or separation of duties;
-- required escalation for defined conditions;
-- review-volume and response-time limits;
+- escalation for defined conditions;
+- response-time and review-volume limits;
 - authority reserved for legal, security, financial, safety, or business owners;
 - prohibition on automated override of a human decision.
 
-Human involvement is not a hard constraint when the person lacks evidence, competence, time, capacity, independence, or real power to block.
+Human involvement is not a Hard Constraint when the person lacks information, competence, time, capacity, independence, or real power to block.
 
-### 8. Soft behavioral constraints
+### 8. Behavioral
 
-These influence probabilistic behavior but do not guarantee compliance.
+Influence model behavior without guaranteeing compliance.
 
-Examples include:
+Examples:
 
 - prompts and system instructions;
 - natural-language policies;
 - rubrics and style guides;
-- examples and few-shot demonstrations;
-- model-level preference or safety tuning.
+- demonstrations;
+- preference or safety tuning.
 
-Soft constraints may improve behavior, but they require evidence and must not be used as the sole enforcement of a critical invariant.
+Behavioral Constraints are normally soft unless a separate deterministic realization makes the prohibited result unreachable.
 
 ## Constraint inheritance and realization
 
-Constraints become more concrete as they move through the Nested Control Lifecycle.
+Constraints become more concrete through the Nested Control Lifecycle:
 
 ```mermaid
 flowchart TB
     O[Organizational source<br/>prohibition · policy · law · shared capability]
-    P[Project constraint architecture<br/>interpret · derive · assess feasibility and cost]
-    D[Delivery realization<br/>implement · configure · verify · version]
-    R[Runtime enforcement<br/>observe · block · contain · record]
+    P[Project Constraint architecture<br/>interpret · derive · assess feasibility and cost]
+    D[Delivery Constraint Realization<br/>implement · configure · verify · version]
+    R[Runtime operation<br/>enforce · observe · decide · correct · record]
 
     O -->|authoritative boundary| P
     P -->|versioned inheritance package| D
     D -->|deployed realization| R
-    R -->|local defect or evidence issue| D
-    R -->|project assumption changed| P
-    R -->|shared boundary changed| O
+    R -->|local implementation or evidence issue| D
+    R -->|project assumption invalidated| P
+    R -->|organizational source or shared capability invalidated| O
 ```
 
 ### Organizational level
 
-Authoritative sources may define prohibited uses, risk appetite, legal and contractual obligations, data handling, vendors, geographies, deployment models, procurement limits, and reserved decision rights.
+Authoritative sources may define prohibited uses, risk appetite, legal and contractual obligations, approved data, vendors, models, geographies, deployment modes, procurement limits, and reserved decision rights.
 
 ### Project level
 
 The project review should:
 
-- interpret applicable organizational constraints;
-- derive project-specific constraints from material risk scenarios;
-- identify the required enforcement and evidence capabilities;
-- determine whether shared capabilities are sufficient;
-- identify missing or vendor-dependent constraints;
-- include constraint build, operation, review, and incident cost in the viability decision;
-- define which constraints are inherited by delivery reviews;
+- interpret applicable organizational Constraints;
+- derive project-specific Constraints from material risk scenarios;
+- identify required realization and evidence capabilities;
+- assess shared capability sufficiency;
+- include design, operation, review, fallback, and incident cost in viability;
+- create one versioned Constraint baseline for delivery inheritance;
 - define project reauthorization triggers.
 
 ### Delivery level
 
-The delivery review should:
+The delivery review should maintain one canonical **Constraint Realization Map** for the bounded system, feature, or material change. It links each material Constraint to source/version, delivery scope, realization, failure behavior, evidence, active configuration, change authority, and reassessment trigger.
 
-- link the inherited constraint and source version;
-- identify the local realization and enforcement point;
-- verify hard versus soft claims;
-- test failure behavior, bypass resistance, and traceability;
-- confirm the deployment scope and configuration;
-- identify operational ownership and change authority;
-- preserve runtime evidence and reassessment triggers.
+DoR, DoD, Release Gate, and runtime sections should reference that map rather than restating the same Constraint definition.
 
 ### Runtime level
 
-Runtime operation should:
+Runtime should:
 
-- preserve the active constraint and source versions;
-- observe enforcement state and health;
-- record violations, blocks, bypass attempts, overrides, and false blocks;
-- apply authorized fallback, containment, rollback, or shutdown;
+- preserve active source and realization versions;
+- observe realization state and health;
+- record violations, blocks, bypass attempts, overrides, false blocks, and friction;
+- route evidence to an authorized Controller;
+- invoke Actuators within delegated authority;
 - prevent runtime tuning from silently changing project or organizational authority;
 - route invalidating evidence to the correct decision level.
 
-## Hard, soft, and composite realization
+## Failure behavior
 
-A single business constraint may require several mechanisms.
+For each material Constraint and realization, define what happens when:
 
-Example:
-
-> Customer replies must not contain unsupported product claims.
-
-Possible realization:
-
-- source allowlist and provenance requirement — hard data/context constraint;
-- grounding instruction — soft behavioral constraint;
-- claim-to-source evaluator — sensor;
-- deterministic block when required references are missing — hard output constraint;
-- human review for unresolved claims — Human Authority constraint and controller path;
-- feature disable or prompt rollback — actuator;
-- support lead or release authority — controller.
-
-The business constraint is not equivalent to any single tool in the chain.
-
-## Constraint failure behavior
-
-For each material constraint, define what happens when:
-
-- the system attempts to violate it;
-- enforcement is unavailable;
-- enforcement returns an uncertain result;
-- the constraint conflicts with another constraint;
-- the constraint is stale or its source changed;
-- the constraint creates excessive false blocks, latency, cost, or human workload;
+- violation is attempted;
+- realization is unavailable or uncertain;
+- two Constraints conflict;
+- the source or realization becomes stale;
+- false blocks, latency, cost, or human workload become excessive;
 - an override is requested;
-- the mechanism is bypassed or misconfigured.
+- the mechanism is bypassed or misconfigured;
+- the stated enforcement assumptions no longer hold.
 
-Fail-open and fail-closed behavior must be context-derived. A universal rule is not credible. The chosen behavior should follow consequence, reversibility, evidence latency, fallback capacity, and the approved Requirement.
+Fail-open and fail-closed behavior must be context-derived. The decision should follow consequence, reversibility, evidence latency, fallback capacity, and the approved Requirement.
 
 ## Change and override authority
 
-Every material constraint should distinguish:
+Distinguish:
 
 - who may propose a change;
-- who may approve a change;
-- who may execute a change;
+- who may approve it;
+- which Actuator or operator may execute it;
 - whether emergency override is permitted;
-- how an override is time-bounded, logged, and reviewed;
-- which changes stay within delivery authority;
-- which changes require project reauthorization;
-- which changes require organizational review.
+- how an override is bounded, logged, and reviewed;
+- which changes remain inside delivery authority;
+- which require project reauthorization;
+- which require organizational review.
 
-A runtime Controller may change only constraints inside its delegated authority. It must not silently relax a hard project or organizational boundary.
+Technical configurability does not create authority.
 
 ## Evidence expectations
 
 Relevant evidence may include:
 
 - deterministic contract and permission tests;
-- policy-engine decision logs;
+- policy-engine decisions;
+- activation and configuration state;
 - violation and bypass-attempt records;
-- active configuration and version evidence;
 - output and outcome evaluation;
 - false-block and fallback rates;
 - latency, cost, capacity, and availability;
-- human overrides and escalation results;
+- human overrides and escalation outcomes;
 - incident and near-miss evidence;
-- control-health and dependency-change evidence.
+- dependency and enforcement-assumption changes.
 
-A constraint with no evidence of activation, coverage, failure, or operational effect should not be assumed effective.
+A realization with no evidence of activation, coverage, failure, or operational effect should not be assumed effective.
 
 ## Anti-patterns
 
 ### Constraint-as-prompt fallacy
 
-Treating a natural-language instruction as a deterministic guarantee.
+Treating a probabilistic instruction as a deterministic guarantee.
 
-### Declared but unenforced
+### Constraint–realization collapse
 
-Recording a policy or boundary without an enforcement point, failure behavior, or owner.
+Treating the approved boundary, implementation mechanism, runtime state, and resulting guarantee as one undifferentiated object.
+
+### Declared but unrealized
+
+Recording a policy or boundary without a credible realization, failure behavior, evidence, or owner.
 
 ### Tool-name taxonomy
 
-Classifying a product as a Constraint, Sensor, Controller, or Actuator without identifying the function it actually performs in the loop.
+Classifying a product as a Constraint, Sensor, Controller, or Actuator without identifying the function it performs.
 
 ### Fail-open by accident
 
-Allowing operation after constraint-service failure without an explicit, authorized decision.
+Continuing operation after realization failure without an explicit, authorized decision.
 
-### Runtime policy overreach
+### Runtime authority overreach
 
-Allowing a runtime component or operator to relax project or organizational constraints outside delegated authority.
+Allowing a runtime component or operator to relax project or organizational Constraints outside delegated authority.
 
 ### Constraint drift
 
-Changing schemas, permissions, prompts, policies, models, tools, data, or deployment conditions without preserving the relationship to the approved Requirement and source decision.
+Changing sources, schemas, permissions, prompts, policies, models, tools, data, or deployment conditions without preserving traceability to the approved Requirement and decision.
 
 ### Constraint accumulation
 
@@ -351,25 +382,24 @@ Adding overlapping checks and policies without resolving conflicts, ownership, l
 
 UA does not require:
 
-- one universal constraint catalogue;
-- one policy engine;
-- one schema technology;
+- one universal Constraint catalogue;
+- one policy engine or schema technology;
 - one centralized enforcement layer;
-- hard constraints for every behavior;
+- hard Constraints for every behavior;
 - automatic blocking for every deviation;
 - a separate Constraint Register for the default SMB path;
 - one mandatory product or vendor.
 
-The project and delivery review artifacts may embed the required constraint fields and link supporting evidence. Independent records are optional only when separate ownership or lifecycle genuinely requires them.
+Project and delivery reviews embed the necessary Constraint fields and link supporting evidence. Separate records are optional only when independent ownership or lifecycle genuinely requires them.
 
 ## Relationships
 
-- [`../../00-doctrine/control-loop-anatomy.md`](../../00-doctrine/control-loop-anatomy.md) defines the four capability classes.
-- [`../../00-doctrine/glossary.md`](../../00-doctrine/glossary.md) provides concise canonical definitions.
+- [`../../00-doctrine/control-loop-anatomy.md`](../../00-doctrine/control-loop-anatomy.md) defines the capability relationships.
+- [`../../00-doctrine/glossary.md`](../../00-doctrine/glossary.md) owns canonical terminology.
 - [`../README.md`](../README.md) defines the AI Control Plane module.
 - [`../00-actuators/`](../00-actuators/) defines mechanisms that execute authorized changes.
 - [`../02-sensors/`](../02-sensors/) defines evidence capabilities.
 - [`../03-controller/`](../03-controller/) defines decision authority.
 - [`constraint-realization-catalog.md`](constraint-realization-catalog.md) provides informative implementation examples.
-- [`../../01-patterns/project-control-architecture-and-viability-review.md`](../../01-patterns/project-control-architecture-and-viability-review.md) applies constraints to project authorization and viability.
+- [`../../01-patterns/project-control-architecture-and-viability-review.md`](../../01-patterns/project-control-architecture-and-viability-review.md) applies Constraints to project authorization and viability.
 - [`../../01-patterns/thinking-system-review.md`](../../01-patterns/thinking-system-review.md) applies them to delivery and release.
