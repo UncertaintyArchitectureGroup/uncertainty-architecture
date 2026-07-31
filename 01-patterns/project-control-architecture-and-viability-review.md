@@ -25,7 +25,6 @@ canonical_for:
 related:
   - project-control-architecture-and-viability-review-template.md
   - thinking-system-review.md
-  - thinking-system-review-template.md
   - ../00-doctrine/uncertainty-in-the-controlled-object.md
   - ../00-doctrine/control-loop-anatomy.md
   - ../00-doctrine/nested-control-lifecycle.md
@@ -37,106 +36,87 @@ related:
 
 ## Status
 
-This document is **draft normative**. It defines a lightweight project-level pattern for deciding whether a proposed Thinking System has a credible, operable, and economically viable Constraint and control architecture.
+This document is **draft normative**. It defines a lightweight project-level pattern for deciding whether a proposed Thinking System has a credible, operable, and economically viable control architecture.
 
-The pattern is designed for small and medium-sized organizations. It uses one living project review and linked evidence rather than requiring a separate risk register, Constraint Register, control catalogue, responsibility matrix, financial model, or governance-board protocol.
+The pattern uses one living project review and linked evidence. It does not require a separate risk register, Constraint Register, control catalogue, responsibility matrix, financial model, or governance-board protocol for the default SMB path.
 
 The informative working representation is the [`Project Control Architecture and Viability Review Template`](project-control-architecture-and-viability-review-template.md).
 
-## 1. Context
+## 1. Context and problem
 
-A feature-level delivery review cannot answer whether an entire proposed Thinking System should exist, what authority it may possess, or whether the surrounding control perimeter is feasible and worth operating.
+A delivery-level feature review cannot decide whether an entire proposed Thinking System should exist, what authority it may possess, or whether the surrounding control perimeter is feasible and worth operating.
 
-Project-level questions include:
+Projects often begin from a prototype or vendor demonstration while:
 
-- Is Model Judgment necessary for the intended outcome?
-- Which organizational Constraints and decision rights apply?
-- What new project Constraints follow from material scenarios?
-- Can those Constraints be realized within the required latency and scope?
-- Can behavior, outcomes, realization state, and control health be observed?
-- Who may decide, intervene, override, or stop?
-- Which Actuators and fallback paths exist?
-- Is Human Authority substantive and sufficiently staffed?
-- Does the complete control path preserve a viable business case?
-- Which boundary and conditions should delivery reviews inherit?
-
-## 2. Problem
-
-Projects often begin with a business case, prototype, or vendor demonstration before they have a project-level control decision.
-
-This creates recurring failure patterns:
-
-- risk is compressed into one generic score;
-- policy prose is copied without project interpretation;
-- prompts or probabilistic evaluators are represented as Hard Constraints;
-- tools are listed without connecting them to evidence, authority, and action;
+- risk is compressed into one score;
+- organizational policy is copied without project interpretation;
+- prompts or probabilistic evaluators are presented as Hard Constraints;
+- tools are listed without evidence, authority, or corrective paths;
 - control cost, false blocks, fallback load, and Human Authority capacity are omitted;
-- project authorization is confused with a delivery Release Gate;
-- every feature repeats the project risk and Constraint analysis differently;
+- project authorization is confused with delivery release;
+- every feature redefines project Constraints differently;
 - runtime evidence cannot invalidate the project decision;
-- teams continue building even when credible control is unavailable or economically destructive.
+- teams continue building despite missing or uneconomic control.
 
-## 3. Pattern
+## 2. Pattern
 
 > **Use one living Project Control Architecture and Viability Review to connect business outcome, AI necessity, project boundary, material scenarios, one canonical Project Constraint Architecture, capability feasibility, evidence, Human Authority, capacity, economics, authorization, delivery inheritance, and reauthorization.**
 
-The pattern complements product discovery, architecture, security, legal review, finance, delivery, QA, operations, and incident response. It does not replace them.
+The pattern complements product discovery, architecture, security, legal review, finance, delivery, QA, operations, and incident response.
 
-## 4. Decision ownership
+## 3. Decision ownership
 
 The project review owns:
 
 - business outcome and AI necessity;
 - project boundary and intended Judgment landscape;
-- material project scenarios and consequences;
+- material project scenarios;
 - interpretation of organizational Constraint sources;
 - project-specific Constraints;
-- feasibility of Constraint Realization, Sensors, Controllers, Actuators, Human Authority, fallback, containment, rollback, compensation, and shutdown;
+- feasibility of Constraint Realizations, Sensors, Controllers, Actuators, Human Authority, fallback, containment, compensation, rollback, and shutdown;
 - evidence and feedback latency;
 - operational capacity and control economics;
-- project authorization, conditions, limitation, redesign, bounded research, deferral, escalation, or No-Go;
+- project authorization, conditions, limitation, research, redesign, deferral, escalation, or No-Go;
 - the versioned baseline inherited by delivery reviews;
 - project reauthorization.
 
-The [`Thinking System Review`](thinking-system-review.md) owns implementation-level Judgment Nodes, concrete delivery realization, DoR, DoD, deployment-specific Release Gate, and local reassessment.
+The [`Thinking System Review`](thinking-system-review.md) owns implementation-level Judgment Nodes, concrete realizations, DoR, DoD, deployment-specific Release Gate, and local reassessment.
 
-A delivery Release Gate does not authorize a broader project. A project authorization does not approve a specific deployment before delivery evidence exists.
+A project authorization does not approve a specific deployment before delivery evidence exists. A delivery Release Gate does not authorize a broader project.
 
-## 5. One canonical Project Constraint Architecture
+## 4. One canonical Project Constraint Architecture
 
-The project artifact should define each material Constraint once. The canonical project table records:
+Each material Constraint is recorded once with:
 
 - Constraint ID;
-- source or project-risk rationale;
+- authoritative source or project-risk rationale;
 - subject and project scope;
 - class and hard or soft strength;
 - required realization and assumptions;
 - failure, bypass, conflict, and unavailable behavior;
 - evidence and control health;
 - change, exception, and execution authority;
-- delivery inheritance and project reauthorization trigger.
+- delivery inheritance and reauthorization trigger.
 
-Other project sections reference these IDs:
+Other sections reference these IDs:
 
-- scenario map identifies which Constraints are required;
+- scenario map identifies required Constraints;
 - capability feasibility identifies what must realize, observe, decide, and act;
-- evidence and economics assess whether the architecture is viable;
-- authorization records the accepted Constraint baseline;
-- delivery inheritance passes the relevant IDs and expectations;
+- evidence and economics assess viability;
+- authorization records the accepted baseline;
+- delivery inheritance passes relevant IDs and expectations;
 - runtime reauthorization identifies which basis changed.
 
-This prevents the project review from becoming several overlapping records inside one file.
-
-## 6. Review flow
+## 5. Review flow
 
 ```mermaid
 flowchart LR
     O[Link organizational sources<br/>and shared capabilities]
-    B[Define business outcome<br/>and alternatives]
-    J[Map project boundary<br/>and Judgment landscape]
+    B[Define outcome and alternatives]
+    J[Map boundary and Judgment landscape]
     R[Map material scenarios]
     K[Define Project Constraint Architecture]
-    F[Assess capabilities, evidence,<br/>capacity, and economics]
+    F[Assess realization, evidence,<br/>capacity, and economics]
     D{Project decision}
     I[Versioned delivery inheritance]
     X[Bounded research or redesign]
@@ -154,33 +134,27 @@ flowchart LR
 
 The flow is iterative and proportional. It does not require one sequence of meetings or one organizational owner.
 
-## 7. Organizational context
+## 6. Organizational context
 
-Link rather than copy authoritative sources, such as:
+Link rather than copy authoritative sources, such as prohibited uses, legal and contractual obligations, approved vendors and regions, data classes, identity, audit, evaluation, incident, fallback, shutdown, Human Authority, and exception rights.
 
-- prohibited uses and risk appetite;
-- legal, privacy, security, safety, contractual, procurement, residency, and financial obligations;
-- approved vendors, models, data classes, geographies, and deployment modes;
-- identity, audit, evaluation, incident, fallback, and shutdown capabilities;
-- Human Authority and exception rights.
+The project interprets what those sources mean for the proposed system. It does not redefine them.
 
-The project review interprets what these sources mean for the proposed system. It does not redefine them.
+## 7. Outcome, AI necessity, and alternatives
 
-## 8. Business outcome, AI necessity, and alternatives
+State:
 
-The review should state:
-
-- the intended user or business outcome;
+- intended user or business outcome;
 - affected parties and expected value;
 - why Model Judgment is needed;
-- which useful variance should remain available;
-- what value is lost when necessary Constraints narrow autonomy, data, tools, population, or speed;
+- useful variance to preserve;
+- value lost when necessary Constraints narrow autonomy, data, tools, population, or speed;
 - deterministic, manual, narrower model-assisted, and non-AI alternatives;
 - conditions under which an alternative becomes preferable.
 
 A successful prototype is evidence about possibility, not project authorization.
 
-## 9. Boundary and Judgment landscape
+## 8. Boundary and Judgment landscape
 
 Define:
 
@@ -189,21 +163,19 @@ Define:
 - intended Input Interpretation, Decision Logic, and Output Mediation;
 - authority and maximum autonomy;
 - deterministic Invariants and prohibited authority;
-- Human Authority and affected downstream systems;
+- Human Authority and downstream consequences;
 - initial Operating Envelope assumptions;
 - dependency and configuration risks.
 
 Detailed Judgment Node cards belong in delivery reviews.
 
-## 10. Material scenario reasoning
-
-Use scenario-based reasoning rather than one aggregate score.
+## 9. Material scenarios
 
 For each material scenario, identify:
 
 - affected Requirement or obligation;
 - source or mechanism;
-- authority, exposure, and population;
+- authority and exposure;
 - consequence and any hard prohibition;
 - detectability and feedback latency;
 - reversibility, containment, and compensation;
@@ -211,22 +183,22 @@ For each material scenario, identify:
 - required Constraint IDs and capabilities;
 - residual decision effect.
 
-Local scales may be used only when their meaning, evidence, and limitations are explicit. A score must not override a hard prohibition, missing capability, or non-substantive Human Authority.
+A local score may support but must not replace scenario reasoning. It cannot override a hard prohibition, missing capability, or non-substantive Human Authority.
 
-## 11. Constraint accuracy and realization feasibility
+## 10. Constraint accuracy and realization feasibility
 
 A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
 
 A prompt, natural-language policy, probabilistic evaluator, classifier, or model safety layer is not hard by itself.
 
-A project may depend on a composite realization. The review must identify where deterministic enforcement actually occurs, what assumptions support the guarantee, and what happens when the path is unavailable, uncertain, bypassed, or too costly.
+A project may depend on a composite realization. The review must identify where deterministic enforcement occurs, what assumptions support the guarantee, and what happens when the path is unavailable, uncertain, bypassed, conflicting, or too costly.
 
-## 12. Complete capability path
+## 11. Complete capability path
 
-For each critical scenario, the project should be able to describe a credible path:
+For each critical scenario, describe:
 
 ```text
-Requirement and project Constraint
+Requirement and Project Constraint
 → required Constraint Realization
 → Sensor evidence
 → Controller and decision authority
@@ -234,12 +206,11 @@ Requirement and project Constraint
 → observable effect, fallback, or reassessment
 ```
 
-The canonical relationship is:
-
 ```mermaid
 flowchart LR
     R[Requirement and project assumptions]
     K[Project Constraints]
+    KR[Required Constraint Realizations]
     P[Proposed Thinking System]
     S[Sensors and evidence]
     C[Controller and decision authority]
@@ -247,53 +218,46 @@ flowchart LR
 
     R --> C
     R --> K
-    K -. bounds .-> P
-    K -. limits authority .-> C
-    K -. gates actions .-> A
+    K --> KR
+    K -. defines decision boundary .-> C
+    K -. defines action boundary .-> A
+    KR -. bounds .-> P
+    KR -. gates .-> A
     P --> S
-    K -->|realization state| S
-    A -->|execution state| S
+    KR -->|state and health| S
+    A -->|execution state and effects| S
     S --> C
     C -->|authorized action| A
     A --> P
-    A -->|authorized realization change| K
+    A -->|authorized realization change| KR
 ```
 
-The project review should expose missing links rather than compensate with confident prose or tool names.
+The project review should expose missing links rather than compensate with confident prose or product names.
 
-## 13. Evidence and feedback latency
+## 12. Evidence and feedback latency
 
-Assess whether evidence can support the decision and arrive before unacceptable propagation.
-
-Consider:
+Assess:
 
 - representative, consequential, and adversarial scenarios;
 - deterministic contract and realization evidence;
 - runtime outcome and incident evidence;
 - activation, violation, bypass, false-block, and control-health evidence;
 - evaluator calibration and blind spots;
-- dependency, model, prompt, policy, context, data, permission, and tool change detection;
-- ability to reconstruct incidents and decisions;
+- dependency and configuration-change detection;
+- incident and decision reconstruction;
 - required decision and Actuator latency.
 
 Evidence feasibility is part of project viability, not a later QA detail.
 
-## 14. Human Authority and operational capacity
+## 13. Human Authority and capacity
 
-Human involvement is substantive only when the person or group has:
-
-- relevant information and context;
-- competence;
-- time and response capacity;
-- independence where needed;
-- real authority to approve, reject, contain, roll back, compensate, or stop;
-- an operable escalation and Actuator path.
+Human Authority is substantive only when people have relevant information, competence, time, capacity, independence where needed, real decision rights, and an operable Actuator or escalation path.
 
 Estimate ordinary and peak review volume, response latency, fallback load, and incident demand.
 
-## 15. Control economics
+## 14. Control economics
 
-The cost of controlling the system includes more than the model call:
+Control cost includes:
 
 - Constraint design and realization;
 - evaluation and evidence;
@@ -302,103 +266,80 @@ The cost of controlling the system includes more than the model call:
 - fallback and degraded operation;
 - latency and infrastructure;
 - incident response, compensation, and reassessment;
-- vendor and dependency volatility;
+- vendor volatility;
 - residual exposure.
 
 Estimate only to the precision needed for the decision. A hard prohibition or unavailable capability cannot be averaged away by expected value.
 
-## 16. Project decision
+## 15. Project decision
 
-Possible outcomes include:
+Possible outcomes include bounded research, authorization, authorization with conditions, redesign, deferral, escalation, No-Go, or reauthorization required.
 
-- bounded research;
-- authorization;
-- authorization with conditions;
-- redesign;
-- deferral;
-- escalation;
-- No-Go / AI path rejected;
-- reauthorization required.
-
-The decision should record:
+Record:
 
 - authorized or rejected scope;
-- approved Constraint baseline;
+- approved Project Constraint Architecture;
 - maximum autonomy and prohibited authority;
 - required capabilities and Human Authority;
 - evidence, capacity, cost, and release conditions;
 - accepted residual risk;
 - decision authority and validity.
 
-Architectural Veto is part of engineering rigor when credible control or viability is unavailable.
+Architectural Veto is part of engineering rigor when credible and viable control is unavailable.
 
-## 17. Delivery inheritance
+## 16. Delivery inheritance
 
 The project creates one versioned package containing:
 
 - project review identifier, version, and decision;
 - authorized scope and maximum autonomy;
 - relevant scenario IDs;
-- Constraint IDs, sources, strength, and delivery realization expectations;
+- Constraint IDs, sources, strength, assumptions, and delivery realization expectations;
 - required Sensors, Controller, Actuators, Human Authority, fallback, containment, compensation, rollback, and shutdown;
 - evidence and feedback expectations;
-- capacity, resource, and control-cost boundaries;
+- capacity, resource, and cost boundaries;
 - conditions delivery must close;
 - changes allowed within delivery authority;
-- project reauthorization triggers.
+- reauthorization triggers.
 
-Delivery reviews link this package and record concrete realization. They do not recreate the complete project decision.
+Delivery reviews link this package and record concrete realizations. They do not recreate the complete project decision.
 
-## 18. Runtime evidence and reauthorization
+## 17. Runtime evidence and reauthorization
 
-Project reauthorization is required when evidence invalidates a material basis of authorization, including:
-
-- risk or consequence assumptions;
-- authority or autonomy;
-- Constraint source, meaning, or feasibility;
-- population, data, geography, deployment, tool, or consequence scope;
-- evidence quality or feedback latency;
-- Human Authority, fallback, or operational capacity;
-- control cost or unit economics;
-- availability or effectiveness of required capabilities;
-- accepted residual risk.
+Project reauthorization is required when evidence invalidates a material basis of authorization, including risk, authority, Constraint meaning or feasibility, scope, evidence quality, Human Authority, capacity, economics, required capabilities, or residual exposure.
 
 Local defects remain delivery-level when the project basis remains valid. Organizational review is required when an authoritative source, shared capability, or decision right changes.
 
-## 19. Proportionality
+## 18. Proportionality
 
-Use the smallest review that preserves the project decision.
-
-For a low-consequence project, a small scenario map, a few Constraint rows, a capability check, and a short decision may be sufficient.
+Use the smallest review that preserves the project decision. A low-consequence project may need only a small scenario map, a few Constraint rows, a capability check, and a short decision.
 
 Increase depth when consequence, authority, exposure, irreversibility, evidence uncertainty, latency, Human Authority load, realization difficulty, or economics justify it.
 
-Link existing records instead of recreating them.
-
-## 20. Consequences
+## 19. Consequences
 
 ### Benefits
 
-- makes project authorization distinct from delivery release;
-- translates risk into explicit Constraints and capability requirements;
-- exposes infeasible, unsafe, or uneconomic AI paths early;
+- distinguishes project authorization from delivery release;
+- translates risk into Constraints and capability requirements;
+- exposes unsafe, infeasible, or uneconomic paths early;
 - creates one baseline for delivery inheritance;
 - preserves runtime reauthorization;
-- remains usable without a large governance organization.
+- remains usable without governance bureaucracy.
 
-### Costs and limitations
+### Limitations
 
-- requires cross-functional input and explicit decision authority;
-- may expose that the AI path should be narrowed or rejected;
+- requires cross-functional input and real decision authority;
+- may expose that an AI path should be narrowed or rejected;
 - depends on evidence quality and honest capacity estimates;
-- does not prove universal safety or eliminate uncertainty;
-- requires real-team evidence to refine proportionality.
+- does not prove universal safety;
+- requires application evidence to refine proportionality.
 
 ## Relationships
 
 - [`project-control-architecture-and-viability-review-template.md`](project-control-architecture-and-viability-review-template.md) is the informative working artifact.
-- [`thinking-system-review.md`](thinking-system-review.md) owns delivery-level realization and release.
+- [`thinking-system-review.md`](thinking-system-review.md) owns delivery realization and release.
 - [`../00-doctrine/control-loop-anatomy.md`](../00-doctrine/control-loop-anatomy.md) defines capability relationships.
-- [`../00-doctrine/nested-control-lifecycle.md`](../00-doctrine/nested-control-lifecycle.md) defines decision inheritance and reassessment.
+- [`../00-doctrine/nested-control-lifecycle.md`](../00-doctrine/nested-control-lifecycle.md) defines inheritance and reassessment.
 - [`../02-ai-control-plane/01-constraints/`](../02-ai-control-plane/01-constraints/) defines Constraints and Constraint Realization.
-- [`../04-failure-modes/`](../04-failure-modes/) records recurring control failures.
+- [`../04-failure-modes/`](../04-failure-modes/) records recurring failures.
