@@ -86,6 +86,11 @@ Project publications, talks, community discussions, and independent references a
 - Updated the reference-architecture index, root reader path, specification maturity, and roadmap to include placement-focused examples and mark the slides 1–6 framework transfer complete at the current draft level.
 - Updated the presentation source-intake and framework-traceability records to distinguish the original maintainer-supplied PPTX used for slide-level review from the preserved PDF export and to record active source-to-framework decisions.
 - Updated the roadmap so worked applications of the Thinking System Review are the immediate substantive priority before additional process expansion.
+- Added a research-state reconciliation trigger to `AGENTS.md`, `CONTRIBUTING.md`, and the Research Review Process so source-derived framework work and worked applications update affected research questions and traceability without creating a parallel worklog.
+- Synchronized the Research Track and Research Notes indexes with the completed slides 1–6 transfer and clarified that cross-publication synthesis and worked applications proceed as an iterative feedback loop.
+- Normalized the metadata and current scope of the control-theory, metrics, and reference-implementation briefs; reconciled the AI delivery lifecycle note with framework decisions already adopted through the Thinking System Review.
+- Updated the research templates to use the current entity-classification and canonical-owner model instead of treating Lifecycle or Operating Model as automatic repository destinations.
+- Clarified presentation provenance across the raw-source archive, source-intake record, and doctrine source metadata: the original PPTX is the slide-level working source, while the repository PDF is an archival export.
 
 ### Removed
 
