@@ -1,5 +1,5 @@
 ---
-title: Constraint Capabilities
+title: Constraint Capability Family
 artifact_type: control-capability
 status: draft-normative
 maturity: active
@@ -26,27 +26,29 @@ related:
   - constraint-realization-catalog.md
 ---
 
-# Constraint Capabilities
+# Constraint Capability Family
 
 **Status:** Draft normative  
-**Role:** Defines approved operating boundaries and the information needed to realize, operate, evidence, and change them
+**Role:** Defines approved operating boundaries and the capability needed to realize, operate, evidence, and change them
 
 ## Purpose
 
-Constraints make the approved operating boundary explicit.
+The Constraints family makes the approved operating boundary explicit and operational.
 
-They state which states, actions, authority, data, tools, resources, environments, outputs, deployment conditions, or human decisions are allowed or prohibited.
+A **Constraint** states which states, actions, authority, data, tools, resources, environments, outputs, deployment conditions, or human decisions are allowed or prohibited. It is an authoritative decision object, not an execution mechanism.
 
-A Constraint is not the same as the technical or socio-technical mechanism that implements it. UA calls that mechanism a **Constraint Realization**.
+A **Constraint Realization** is the technical or socio-technical mechanism that implements, enforces, or influences the approved boundary for a defined scope.
 
-Constraints are a first-class AI Control Plane capability. They are not merely examples of Actuators, prompts, schemas, policy documents, or validators.
+UA groups both in one capability family because control is incomplete when either the authoritative boundary or its operational realization is missing. Constraint Realization is not a fifth capability family.
+
+Constraints are not merely examples of Actuators, prompts, schemas, policy documents, or validators.
 
 ## Canonical relationship
 
 The [`Control-Loop Capability Anatomy`](../../00-doctrine/control-loop-anatomy.md) defines the relationship among:
 
 - **Constraints** — approved boundaries;
-- **Constraint Realizations** — mechanisms implementing or influencing those boundaries;
+- **Constraint Realizations** — mechanisms implementing, enforcing, or influencing those boundaries;
 - **Sensors** — evidence about behavior, outcomes, realization state, and control health;
 - **Controllers** — interpretation and decision authority;
 - **Actuators** — execution of authorized changes.
@@ -61,7 +63,7 @@ A material Constraint should identify:
 2. **Subject** — the behavior, state, action, authority, input, context, data, tool, output, resource, environment, deployment, or human decision being bounded.
 3. **Scope** — the users, population, domain, geography, deployment, component, Judgment Node, data class, tool, or time period to which it applies.
 4. **Class** — structural, authority, state, data, resource, environment, Human Authority, or behavioral.
-5. **Strength** — hard or soft.
+5. **Claimed strength** — hard or soft for that subject, path, and scope.
 6. **Realization** — the mechanism and enforcement or influence point.
 7. **Assumptions** — the conditions under which the claimed guarantee is valid.
 8. **Failure behavior** — violation, conflict, bypass, uncertainty, degradation, and unavailability behavior.
@@ -70,11 +72,15 @@ A material Constraint should identify:
 11. **Traceability** — version, source decision, affected Requirement, risk scenario, and deployed realization.
 12. **Reassessment rule** — which changes remain local and which require delivery reassessment, project reauthorization, or organizational review.
 
-## Hard and soft Constraints
+When one source condition has different guarantee strengths across subjects, paths, or scopes, split it into separate Constraint records rather than marking one row as partly hard and partly soft.
+
+## Hard and Soft Constraint claims
+
+Hard or soft strength is a scoped claim about a Constraint together with its complete realized path. It is not an intrinsic property of policy prose, a Requirement sentence, or an organizational source.
 
 ### Hard Constraint
 
-A Hard Constraint is one whose violation is deterministically prevented or rejected within explicitly stated assumptions, scope, and enforcement boundaries.
+A Hard Constraint is a scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
 
 Examples may include:
 
@@ -87,11 +93,13 @@ Examples may include:
 - rate, cost, concurrency, time, or exposure caps;
 - mandatory approval gates that technically prevent execution before approval.
 
+The same source condition may be hard in one path and soft in another because the realization, assumptions, and reachable states differ.
+
 A probabilistic detector, evaluator, prompt, model policy, or natural-language instruction is not hard merely because its failure behavior is documented.
 
 ### Soft Constraint
 
-A Soft Constraint influences probabilistic behavior but cannot guarantee that a prohibited state, action, or output remains unreachable.
+A Soft Constraint is a scoped Constraint whose realized path influences probabilistic behavior but cannot guarantee that a prohibited state, action, or output remains unreachable.
 
 Examples include:
 
@@ -121,7 +129,7 @@ Possible control path:
 - feature disable or prompt rollback — Actuator;
 - support or release authority — Controller.
 
-The business Constraint is hard only to the extent that the complete realized path deterministically prevents or rejects the prohibited outcome within stated assumptions.
+The business Constraint is hard only for the scope in which the complete realized path deterministically prevents or rejects the prohibited outcome within stated assumptions. If the semantic claim remains probabilistic, record the narrower structural or authority Hard Constraint and the remaining semantic Soft Constraint separately.
 
 ## Constraint classes
 
@@ -228,7 +236,7 @@ Examples:
 - authority reserved for legal, security, financial, safety, or business owners;
 - prohibition on automated override of a human decision.
 
-Human involvement is not a Hard Constraint when the person lacks information, competence, time, capacity, independence, or real power to block.
+Human involvement is not a Hard Constraint when the person lacks information, competence, time, capacity, independence, or real power to block. A hard approval boundary also requires that execution cannot bypass the approval path.
 
 ### 8. Behavioral
 
@@ -242,7 +250,7 @@ Examples:
 - demonstrations;
 - preference or safety tuning.
 
-Behavioral Constraints are normally soft unless a separate deterministic realization makes the prohibited result unreachable.
+Behavioral Constraints are normally soft unless a separate deterministic realization creates a narrower Hard Constraint that makes a specified prohibited result unreachable.
 
 ## Constraint inheritance and realization
 
@@ -251,7 +259,7 @@ Constraints become more concrete through the Nested Control Lifecycle:
 ```mermaid
 flowchart TB
     O[Organizational source<br/>prohibition · policy · law · shared capability]
-    P[Project Constraint architecture<br/>interpret · derive · assess feasibility and cost]
+    P[Project Constraint Architecture<br/>interpret · derive · assess feasibility and cost]
     D[Delivery Constraint Realization<br/>implement · configure · verify · version]
     R[Runtime operation<br/>enforce · observe · decide · correct · record]
 
@@ -265,7 +273,7 @@ flowchart TB
 
 ### Organizational level
 
-Authoritative sources may define prohibited uses, risk appetite, legal and contractual obligations, approved data, vendors, models, geographies, deployment modes, procurement limits, and reserved decision rights.
+Authoritative sources may define prohibited uses, risk appetite, legal and contractual obligations, approved data, vendors, models, geographies, deployment modes, procurement limits, and reserved decision rights. The source does not by itself establish that a resulting project Constraint is hard.
 
 ### Project level
 
@@ -273,6 +281,7 @@ The project review should:
 
 - interpret applicable organizational Constraints;
 - derive project-specific Constraints from material risk scenarios;
+- state scoped hard or soft claims only after required realization and assumptions are understood;
 - identify required realization and evidence capabilities;
 - assess shared capability sufficiency;
 - include design, operation, review, fallback, and incident cost in viability;
@@ -284,6 +293,8 @@ The project review should:
 The delivery review should maintain one canonical **Constraint Realization Map** for the bounded system, feature, or material change. It links each material Constraint to source/version, delivery scope, realization, failure behavior, evidence, active configuration, change authority, and reassessment trigger.
 
 DoR, DoD, Release Gate, and runtime sections should reference that map rather than restating the same Constraint definition.
+
+A delivery row should contain one reviewable guarantee strength. Split a compound condition when different subjects or paths have different strengths.
 
 ### Runtime level
 
@@ -354,6 +365,10 @@ Treating a probabilistic instruction as a deterministic guarantee.
 
 Treating the approved boundary, implementation mechanism, runtime state, and resulting guarantee as one undifferentiated object.
 
+### Mixed-strength Constraint record
+
+Combining distinct subjects or paths with different guarantee strengths in one hard/soft field, making the claimed boundary impossible to review or trace.
+
 ### Declared but unrealized
 
 Recording a policy or boundary without a credible realization, failure behavior, evidence, or owner.
@@ -385,7 +400,7 @@ UA does not require:
 - one universal Constraint catalogue;
 - one policy engine or schema technology;
 - one centralized enforcement layer;
-- hard Constraints for every behavior;
+- Hard Constraints for every behavior;
 - automatic blocking for every deviation;
 - a separate Constraint Register for the default SMB path;
 - one mandatory product or vendor.
