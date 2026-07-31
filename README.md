@@ -16,6 +16,7 @@ The project is designed primarily for small and medium-sized engineering organiz
 - **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
 - **Run the SMB review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
 - **Copy the practical review template:** [`01-patterns/thinking-system-review-template.md`](01-patterns/thinking-system-review-template.md)
+- **See one completed worked review:** [`03-reference-architectures/worked-thinking-system-review-support-triage.md`](03-reference-architectures/worked-thinking-system-review-support-triage.md)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
 - **Review minimal placement architectures:** [`03-reference-architectures/judgment-placement-examples.md`](03-reference-architectures/judgment-placement-examples.md)
 - **Review other concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
@@ -31,6 +32,7 @@ The project is designed primarily for small and medium-sized engineering organiz
 → [`Judgment Node Boundary`](01-patterns/judgment-node-boundary.md)
 → [`Thinking System Review`](01-patterns/thinking-system-review.md)
 → [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md)
+→ [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md)
 
 ## The Core Shift
 
@@ -112,6 +114,8 @@ The review embeds Judgment Node cards, responsibility bundles, evidence, residua
 
 Use the [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md) to see how the same review surface applies to Input Interpretation, Decision Logic, Output Mediation, and a composite system without turning those examples into mandatory topologies.
 
+Then inspect the [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md) to see one full illustrative path from framing through bounded experimentation, DoD, residual risk, a human-supervised Release Gate, and reassessment. Its synthesized evidence is a teaching device, not a claim about a real production deployment or a set of UA-wide thresholds.
+
 ## Repository Structure
 
 ### Specification modules
@@ -119,7 +123,7 @@ Use the [`Judgment Placement Reference Architectures`](03-reference-architecture
 - [`00-doctrine/`](00-doctrine/) — core concepts, terminology, requirement and diagnostic models, and Model Judgment placement.
 - [`01-patterns/`](01-patterns/) — reusable technical and socio-technical control patterns, including the SMB Thinking System Review.
 - [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, and operating controls.
-- [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated and composite placement examples.
+- [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated placement examples and a completed illustrative Thinking System Review.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
 
 The canonical boundary, status vocabulary, and conformance model are defined in [`SPECIFICATION.md`](SPECIFICATION.md).
@@ -150,7 +154,7 @@ UA keeps different kinds of evidence separate:
 - [**Talks and presentations**](content/history/talks.md) record practitioner sessions and public presentations without treating invitations as technical validation.
 - The [**changelog**](CHANGELOG.md) records changes to repository and specification artifacts.
 
-This separation prevents visibility, attention, recommendations, advisory relationships, or invited talks from being mistaken for technical validation, certification, institutional endorsement, or formal adoption.
+This separation prevents visibility, attention, recommendations, advisory relationships, invited talks, or synthesized examples from being mistaken for technical validation, certification, institutional endorsement, formal adoption, or production evidence.
 
 The evidence policy and complete historical index are maintained in [`content/history/`](content/history/).
 
@@ -158,7 +162,9 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The repository now contains the slide 1–6 framework transfer for mixed Requirements, Model Judgment placement, Judgment Node boundaries, one SMB-facing Thinking System Review and template, and four placement-focused reference architectures. The next substantive work is to apply the review to worked domain examples and continue developing risk, tolerance, control-cost, failure-mode, and adoption guidance.
+The repository now contains the slide 1–6 framework transfer for mixed Requirements, Model Judgment placement, Judgment Node boundaries, one SMB-facing Thinking System Review and template, four placement-focused reference architectures, and one fully populated illustrative review for human-supervised support triage and grounded reply drafting.
+
+The next substantive validation step is a real-team application or documented real system review, followed by evidence-driven work on risk and tolerance mapping, control cost, failure modes, incident loops, or template simplification.
 
 See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 

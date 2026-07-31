@@ -53,6 +53,7 @@ Project publications, talks, community discussions, and independent references a
 - Added the draft-normative Thinking System Review pattern as one lightweight SMB-facing flow connecting outcome framing, Judgment Nodes, Requirements and Operating Envelopes, full model-mediated DoR and DoD extensions, release decisions, responsibility bundles, and runtime reassessment.
 - Added an informative Thinking System Review template that keeps the working contract, evidence, residual risk, deployment scope, release decision, and version history in one living artifact rather than separate governance records.
 - Added `03-reference-architectures/judgment-placement-examples.md` with four non-prescriptive architectures for Input Interpretation, Decision Logic, Output Mediation, and a composite Thinking System.
+- Added a completed illustrative Thinking System Review for human-supervised support triage and grounded reply drafting, including three bounded Judgment Nodes, a staged experiment, full DoR and DoD decisions, residual risk, a human-supervised Release Gate, runtime control, and framework-application observations.
 - Expanded the canonical draft glossary with current UA terminology and explicit historical-term boundaries.
 
 ### Changed
@@ -91,6 +92,7 @@ Project publications, talks, community discussions, and independent references a
 - Normalized the metadata and current scope of the control-theory, metrics, and reference-implementation briefs; reconciled the AI delivery lifecycle note with framework decisions already adopted through the Thinking System Review.
 - Updated the research templates to use the current entity-classification and canonical-owner model instead of treating Lifecycle or Operating Model as automatic repository destinations.
 - Clarified presentation provenance across the raw-source archive, source-intake record, and doctrine source metadata: the original PPTX is the slide-level working source, while the repository PDF is an archival export.
+- Expanded the reference-architecture index and roadmap to expose the first completed worked review while keeping its synthesized evidence separate from production validation.
 
 ### Removed
 

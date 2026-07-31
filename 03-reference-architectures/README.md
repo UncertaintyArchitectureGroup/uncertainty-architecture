@@ -38,6 +38,7 @@ Reference architectures make abstract responsibilities visible: where Model Judg
 This module provides:
 
 - worked architectural compositions;
+- completed illustrative applications of UA review patterns;
 - examples of deterministic and probabilistic responsibility boundaries;
 - possible distributions of AI Control Plane capabilities;
 - implementation-oriented demonstrations of UA patterns;
@@ -53,6 +54,8 @@ This module does not prescribe:
 - universal controls or thresholds for every consequence level or operating context;
 - conformance merely through copying an example;
 - any reference implementation as the UA standard itself.
+
+Illustrative evidence, dates, thresholds, and results in a worked reference are not production claims or UA defaults unless the document explicitly supplies independently verifiable evidence and the owning specification accepts the resulting decision.
 
 ## Reference expectations
 
@@ -71,6 +74,7 @@ Examples should link to canonical doctrine and patterns rather than redefine ter
 ## Current scope
 
 - [`judgment-placement-examples.md`](judgment-placement-examples.md) presents four minimal architectures: Input Interpretation only, Decision Logic only, Output Mediation only, and one composite Thinking System.
+- [`worked-thinking-system-review-support-triage.md`](worked-thinking-system-review-support-triage.md) provides one fully populated, realistically bounded Thinking System Review for human-supervised support triage and grounded reply drafting. Its evidence is explicitly illustrative rather than a claim about a real deployment.
 - Indranet remains an implementation-oriented expression of UA concepts. It is a reference, not the specification itself, and its design choices are not automatically normative.
 
 ## Suggested reader path
@@ -79,10 +83,12 @@ Examples should link to canonical doctrine and patterns rather than redefine ter
 → [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md)
 → [`Thinking System Review`](../01-patterns/thinking-system-review.md)
 → [`Judgment Placement Reference Architectures`](judgment-placement-examples.md)
+→ [`Worked Support Triage Review`](worked-thinking-system-review-support-triage.md)
 
 ## Documents
 
 - [`judgment-placement-examples.md`](judgment-placement-examples.md) — reference architectures showing isolated and composite placement classes with deterministic boundaries, authority, evidence, fallback, risks, and review focus.
+- [`worked-thinking-system-review-support-triage.md`](worked-thinking-system-review-support-triage.md) — completed illustrative review covering three Judgment Nodes, a bounded experiment, full DoR and DoD decisions, residual risk, a human-supervised Release Gate, runtime control, and framework-application observations.
 
 Individual reference architectures should declare `status: reference` and follow [`DOCUMENT-METADATA.md`](../DOCUMENT-METADATA.md).
 
