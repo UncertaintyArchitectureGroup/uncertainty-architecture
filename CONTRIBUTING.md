@@ -32,7 +32,7 @@ Contributions may include:
 - AI Control Plane material in `02-ai-control-plane/`;
 - reference architectures in `03-reference-architectures/`;
 - failure modes and anti-patterns in `04-failure-modes/`;
-- research publications, notes, analyses, synthesis, and traceability material in `content/research/`;
+- research publications, notes, analyses, synthesis, worked-application observations, and traceability material in `content/research/`;
 - corrections or additions to project-history records in `content/history/`;
 - provenance corrections for preserved source snapshots in `content/raw/`;
 - diagrams and visual references in `assets/`.
@@ -131,10 +131,13 @@ The purpose of review is to improve the specification, not to create ceremony ar
 2. Keep the change focused and use the current repository structure.
 3. Explain what changed, why it changed, and whether the change is research, normative guidance, reference material, historical material, or maintenance.
 4. Add or update metadata, local navigation, and cross-links where needed.
-5. Confirm licensing and attribution requirements.
-6. Open a pull request for maintainer review.
+5. When the change resolves, narrows, rejects, supersedes, reopens, or promotes a research question, reconcile the affected source-intake note, working note, analysis, or [`framework-traceability.md`](content/research/framework-traceability.md) under the [`Research Review Process`](content/research/review-process.md).
+6. Confirm licensing and attribution requirements.
+7. Open a pull request for maintainer review.
 
 One logical change per pull request is a useful default for substantial work, but tightly related updates may be grouped when that makes review clearer.
+
+Research reconciliation records meaningful changes in evidence, interpretation, question state, or framework destination. It should not duplicate pull-request history or become a session log.
 
 ## 8. Writing guidelines
 
@@ -155,6 +158,8 @@ One logical change per pull request is a useful default for substantial work, bu
 Language models and coding agents should read [`AGENTS.md`](AGENTS.md) before making repository-wide or normative changes.
 
 Agent-assisted work must preserve the same boundaries as human-authored work. In particular, an agent must not promote research by implication, rewrite provenance, create parallel canonical entry points, or infer authority from tags, recency, visibility, or external attention.
+
+Agents should use the research reconciliation trigger in `AGENTS.md` when source-derived framework work, worked applications, incidents, or operational observations change research state.
 
 ## 10. Licensing
 

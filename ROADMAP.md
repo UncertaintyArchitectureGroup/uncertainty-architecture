@@ -80,7 +80,8 @@ The objective is to consolidate the existing research into a coherent, bounded s
 - the SMB Thinking System Review established as the canonical owner of the full model-mediated DoR, DoD, Release Gate, responsibility bundles, and reassessment flow;
 - one informative Thinking System Review template added as the default living SMB working artifact;
 - four placement-focused reference architectures added for Input Interpretation, Decision Logic, Output Mediation, and one composite Thinking System;
-- slides 1–6 source-to-framework traceability updated to distinguish the original PPTX used for review from the preserved PDF export and to record active framework decisions.
+- slides 1–6 source-to-framework traceability updated to distinguish the original PPTX used for review from the preserved PDF export and to record active framework decisions;
+- research-state reconciliation added to the agent and research workflows so framework changes and worked applications update affected questions and traceability without creating a parallel worklog.
 
 ### Active and next milestones
 
@@ -158,6 +159,10 @@ No universal SDK or platform is currently planned.
 
 ## Current priority
 
-The slides 1–6 framework transfer is complete at the current draft level. The immediate priority is to apply the Thinking System Review to worked domain examples, use that evidence to refine the SMB artifact, and then develop risk and tolerance mapping, control-cost estimation, failure modes, and adoption guidance without multiplying governance documents prematurely.
+The slides 1–6 framework transfer is complete at the current draft level. The immediate practical priority is one completed, realistically bounded Thinking System Review that tests the current template and exposes missing distinctions.
+
+Cross-publication synthesis should proceed alongside that application rather than wait for every framework concept to be finished. Material findings from either track should reconcile the affected research questions, traceability, doctrine, patterns, or practical artifact through explicit review.
+
+Evidence from the worked review should determine whether the next coherent expansion is risk and tolerance mapping, control-cost estimation, failure modes, incident-loop refinement, or template simplification. The project should not multiply governance documents before that evidence exists.
 
 The project optimizes for durable clarity, traceability, and practical usefulness rather than rapid expansion of repository volume.

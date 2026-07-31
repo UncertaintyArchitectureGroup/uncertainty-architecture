@@ -13,7 +13,7 @@ tags:
   - ua/status/informative
   - ua/topic/provenance
 created: 2026-07-24
-updated: 2026-07-30
+updated: 2026-07-31
 license: CC-BY-4.0
 ---
 
@@ -81,11 +81,11 @@ A focused document that resolves, narrows, or records disagreement around termin
 
 ### Framework-candidate note
 
-A proposal translating one or more research findings into a possible Doctrine, Pattern, Operating Model, Reference Architecture, Failure Mode, or practical artifact.
+A proposal translating one or more research findings into a possible Doctrine, Pattern, AI Control Plane capability, Reference Architecture, Failure Mode, practical Artifact, responsibility bundle, process, or technical reference artifact.
 
 ### Lightweight research note
 
-A bounded record derived from a talk, working session, operational observation, external critique, or emerging question when a full source review is unnecessary.
+A bounded record derived from a talk, working session, operational observation, external critique, worked application, or emerging question when a full source review is unnecessary.
 
 ## Optional review artifacts
 
@@ -96,7 +96,8 @@ The following are available tools rather than mandatory components of every rese
 - traceability delta;
 - contradiction review;
 - terminology review;
-- framework-candidate proposal.
+- framework-candidate proposal;
+- lightweight observation or worked-application note.
 
 Use the artifacts that make the reasoning visible and proportionate to the change.
 
@@ -105,16 +106,17 @@ Use the artifacts that make the reasoning visible and proportionate to the chang
 The typical flow is:
 
 ```text
-Research Source or Observation
+Research Source, Observation, or Worked Application
 → Repository Edition or Research Note when useful
 → Analysis or Multi-Source Synthesis
 → Contradiction and Terminology Review when needed
 → Framework Candidate
 → Deliberate Normative Decision
-→ Practical Artifact or Reference Implementation
+→ Practical Artifact, Worked Example, or Reference Implementation
+→ New Evidence and Reassessment
 ```
 
-No step is automatic, and not every item requires every intermediate document.
+No step is automatic, and not every item requires every intermediate document. The flow is iterative: framework application may create new evidence that reopens, narrows, or resolves a research question.
 
 ## Source extraction and framework crystallization
 
@@ -138,7 +140,7 @@ Use this default ownership rule:
 | Control capability | `02-ai-control-plane/` |
 | Concrete composition | `03-reference-architectures/` |
 | Reusable mechanism of loss of control | `04-failure-modes/` |
-| Evidence, critique, or unresolved hypothesis | `content/research/` |
+| Evidence, critique, unresolved hypothesis, or worked-application observation | `content/research/` |
 | Historical wording or chronology | `content/history/` |
 | Original preserved source | `content/raw/` |
 
@@ -149,6 +151,37 @@ Do not move directly from source wording into normative specification. Do not du
 When the source contains an operational procedure, preserve its executable structure through the appropriate combination of inputs, outputs, entry and exit criteria, evidence, decision rights, checklists, tables, and explicit outcomes such as pass, block, limit, escalate, revise, roll back, or stop.
 
 Use Mermaid only when sequence, feedback, authority, state, ownership, or dependency structure is materially clearer as a diagram. The diagram and written rules must express the same model.
+
+## Research-state reconciliation
+
+A repository change requires research-state reconciliation when it does one or more of the following:
+
+- registers or materially reinterprets a source;
+- resolves, narrows, rejects, supersedes, or reopens an explicit research question;
+- promotes a research candidate into doctrine, a pattern, a control capability, a failure mode, an artifact, or a reference architecture;
+- produces material evidence from a worked application, incident, operational observation, or reference implementation;
+- changes the relationship between an existing source and the current framework.
+
+When a trigger applies, review and update only the records whose state actually changed:
+
+1. the owning source-intake, analysis, synthesis, or research note;
+2. [`framework-traceability.md`](framework-traceability.md) when the decision needs an auditable source-to-framework link;
+3. open questions, maturity, or translation status in affected briefs and working notes;
+4. [`index.md`](index.md) or a local research index when the current research direction or navigation materially changes;
+5. [`CHANGELOG.md`](../../CHANGELOG.md) for notable repository or specification-artifact effects.
+
+Research records should capture meaningful state transitions, for example:
+
+```text
+Question open
+→ evidence reviewed
+→ candidate formulated
+→ accepted, narrowed, rejected, or deferred
+→ framework destination recorded
+→ remaining uncertainty stated
+```
+
+Do not use the Research Track as a session log or duplicate pull-request history. Routine edits that do not change research state require no research record update. Do not create a second traceability ledger.
 
 ## Changes requiring deliberate framework review
 
@@ -183,7 +216,9 @@ The project owner retains final merge authority.
 
 ## Current research direction
 
-The historical repository editions are now preserved under `content/research/publications/`. The next major research task is a cross-publication synthesis identifying:
+The historical repository editions are preserved under `content/research/publications/`. The slides 1–6 transfer from *Designing Non-Deterministic Systems* has been translated into current draft framework components and recorded in source intake and traceability.
+
+The next major corpus task is a cross-publication synthesis identifying:
 
 - concepts that remained stable;
 - concepts that were refined or superseded;
@@ -191,6 +226,8 @@ The historical repository editions are now preserved under `content/research/pub
 - terminology requiring separate review;
 - candidates for the framework spine;
 - material that should remain research context only.
+
+This synthesis should proceed alongside worked applications of the current framework rather than wait for every concept to be completed. Worked Thinking System Reviews, operational observations, incidents, and reference implementations may produce evidence that refines the research questions and the practical artifact.
 
 Source-specific analysis may still be added where it produces useful evidence or resolves a concrete question.
 

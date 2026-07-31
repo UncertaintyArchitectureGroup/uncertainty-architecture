@@ -376,7 +376,9 @@ Identify the reusable mechanism, not only the symptom. Distinguish deterministic
 
 ### 9.7 Working with research or source extraction
 
-Start with `content/research/index.md`. Distinguish source, normalized edition, analysis, synthesis, and framework candidate. Preserve evidence quality, scope, limitations, and contradictions.
+Start with [`content/research/index.md`](content/research/index.md). Use [`content/research/review-process.md`](content/research/review-process.md) for the detailed proportional workflow and [`content/research/framework-traceability.md`](content/research/framework-traceability.md) as the single canonical record for material source-to-framework decisions.
+
+Distinguish source, normalized edition, analysis, synthesis, framework candidate, and worked-application evidence. Preserve evidence quality, scope, limitations, and contradictions.
 
 For each extracted entity:
 
@@ -387,6 +389,17 @@ For each extracted entity:
 5. check glossary impact;
 6. identify dependencies and cross-references;
 7. update the changelog when the repository changes.
+
+#### Research reconciliation trigger
+
+After a source-derived framework change, worked application, incident, or operational observation, check whether the work:
+
+- registers or materially reinterprets a source;
+- resolves, narrows, rejects, supersedes, or reopens a research question;
+- promotes a candidate into doctrine, a pattern, a control capability, a failure mode, an artifact, or a reference architecture;
+- changes the relationship between existing research and the current framework.
+
+When any trigger applies, review the owning research note or source-intake record, `framework-traceability.md`, affected open questions or maturity, and the research index when direction or navigation changed. Update only records whose state actually changed. Do not create a second ledger or use research as a session log.
 
 ### 9.8 Working with history
 
@@ -406,9 +419,10 @@ For repository-changing work:
 8. **Cross-reference** — connect doctrine, patterns, control capabilities, evidence, failure modes, and history.
 9. **Check terminology** — compare UA-specific wording with the glossary.
 10. **Update the changelog** — record every notable repository or specification-artifact change under `[Unreleased]` in the same branch and pull request.
-11. **Check repository integrity** — verify metadata, navigation, provenance, and status boundaries.
-12. **Report uncertainty** — disclose contradictions, assumptions, evidence gaps, and unresolved decisions.
-13. **Finish the session protocol** — complete the checks below.
+11. **Reconcile research state when triggered** — update only the affected intake, note, analysis, traceability, or research navigation.
+12. **Check repository integrity** — verify metadata, navigation, provenance, and status boundaries.
+13. **Report uncertainty** — disclose contradictions, assumptions, evidence gaps, and unresolved decisions.
+14. **Finish the session protocol** — complete the checks below.
 
 Substantial framework changes should use a branch and pull request under [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
@@ -477,7 +491,19 @@ When no changelog entry is appropriate because the change is purely mechanical o
 - Were research conclusions separated from source evidence?
 - Were recognition and visibility kept separate from validation and adoption?
 
-### 11.7 Change-control review
+### 11.7 Research-state review
+
+When the research reconciliation trigger applies:
+
+- Was the owning source-intake, analysis, synthesis, or working note reviewed?
+- Were resolved, narrowed, rejected, superseded, reopened, and remaining questions stated accurately?
+- Was `framework-traceability.md` updated when an auditable source-to-framework decision changed?
+- Was research navigation updated only when direction or state materially changed?
+- Was duplicate logging avoided?
+
+When no research state changed, do not add a research record merely to document that the session happened.
+
+### 11.8 Change-control review
 
 - Is the change one coherent architectural decision?
 - Are compatibility, supersession, and unresolved uncertainty explicit?
@@ -493,6 +519,7 @@ When no changelog entry is appropriate because the change is purely mechanical o
 - [ ] Current terminology outside historical material.
 - [ ] Glossary reviewed and updated when required.
 - [ ] Changelog reviewed and updated when required.
+- [ ] Research state reconciled when triggered.
 - [ ] No canonical concept redefined locally.
 - [ ] Examples are not universal requirements.
 - [ ] Responsibilities are not confused with mandatory titles.
@@ -546,10 +573,16 @@ Making a notable repository or specification-artifact change without updating `C
 
 Preferred response: add a concise entry under `[Unreleased]` that describes the repository-level effect.
 
+### Research log duplication
+
+Recording routine sessions or pull-request history as research without a change in evidence, question state, interpretation, or framework destination.
+
+Preferred response: update only the owning research record when a meaningful state transition occurs.
+
 ## 14. Scope of this file
 
 `AGENTS.md` is the tool-neutral operational protocol for AI-assisted contributors.
 
 Tool-specific adapters such as `CLAUDE.md` or `.cursorrules` should point here and contain only the minimal tool-specific delta.
 
-This file should evolve when repository structure, authority rules, terminology workflow, change-record policy, or contribution practice changes. It must not become a parallel specification of UA itself.
+This file should evolve when repository structure, authority rules, terminology workflow, change-record policy, research reconciliation, or contribution practice changes. It must not become a parallel specification of UA itself.

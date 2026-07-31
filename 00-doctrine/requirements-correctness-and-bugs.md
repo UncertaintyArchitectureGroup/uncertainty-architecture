@@ -22,7 +22,7 @@ canonical_for:
   - correctness-model
   - bug-model
 source_basis:
-  - "../content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf"
+  - ../content/research/notes/designing-nondeterministic-systems-source-intake.md
 ---
 
 # Requirements, Correctness, and Bugs in Thinking Systems
@@ -31,7 +31,7 @@ source_basis:
 
 This document is **draft normative**. It defines the canonical relationship between Requirements, Operating Envelopes, Correctness, and Bugs when probabilistic Model Judgment performs part of the behavior of a Thinking System.
 
-The presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* is a synthesis source for this formulation. The source remains historical research evidence; this document is the explicit framework decision that translates the relevant ideas into current UA terminology.
+The presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* is a synthesis source for this formulation. The linked source-intake note records the maintainer-supplied original PPTX, the preserved PDF export, and the explicit framework-transfer state. This document is the framework decision that translates the relevant ideas into current UA terminology.
 
 ## 1. Mixed-system framing
 
@@ -176,4 +176,4 @@ DoR, DoD, and Release Gate remain distinct. Detailed checklists, decision outcom
 - [`../01-patterns/`](../01-patterns/) contains reusable technical and socio-technical responses that apply this doctrine.
 - [`../02-ai-control-plane/`](../02-ai-control-plane/) defines capabilities used to constrain, observe, evaluate, and correct model-mediated behavior.
 - [`../04-failure-modes/`](../04-failure-modes/) distinguishes recurring mechanisms of control loss from individual Bug instances.
-- [`../content/research/notes/designing-nondeterministic-systems-source-intake.md`](../content/research/notes/designing-nondeterministic-systems-source-intake.md) records the presentation source and its normalization state.
+- [`../content/research/notes/designing-nondeterministic-systems-source-intake.md`](../content/research/notes/designing-nondeterministic-systems-source-intake.md) records the presentation source relationship and slides 1–6 translation state.
