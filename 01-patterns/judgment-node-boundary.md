@@ -28,309 +28,287 @@ related:
   - ../00-doctrine/control-loop-anatomy.md
   - ../02-ai-control-plane/README.md
   - ../02-ai-control-plane/01-constraints/README.md
+  - thinking-system-review.md
 ---
 
 # Judgment Node Boundary
 
 ## Status
 
-This document is **draft normative**. It defines a reusable pattern for making consequential Model Judgment explicit, constrained, observable, and operable without requiring a separate registry or governance system.
+This document is **draft normative**. It defines a reusable pattern for making consequential Model Judgment explicit, bounded, observable, and operable without requiring a separate registry or governance system.
 
 ## 1. Context
 
 A Thinking System may contain one or more locations where Model Judgment influences an output, decision, path, or action. UA calls each bounded location a **Judgment Node**.
 
-The model call itself is rarely the complete boundary. The effective behavior of a Judgment Node also depends on:
+The model call is rarely the complete boundary. Effective behavior also depends on:
 
-- the inputs and context supplied to it;
-- the authority granted around its output;
-- the organizational, project, and local constraints that apply;
-- where those constraints are realized and how they fail;
-- deterministic validation and execution logic;
-- the evidence collected about behavior and constraint state;
-- the fallback, containment, and escalation path;
-- the people or systems authorized to change the node or its constraints.
+- inputs and context;
+- authority around the output;
+- applicable Constraints and their sources;
+- concrete Constraint Realizations;
+- deterministic validation and execution;
+- evidence about behavior, realization state, and Actuator execution;
+- Controller and Human Authority;
+- fallback, containment, escalation, rollback, or shutdown;
+- change and reauthorization rights.
 
 ## 2. Problem
 
 When a Judgment Node remains implicit, the team cannot reliably determine:
 
 - what the model is expected to judge;
-- what the model must not decide or do;
-- which context sources are allowed;
-- how much authority the node possesses;
-- which constraints are inherited and which are local;
-- whether a claimed hard boundary is actually enforced;
-- which failures belong to Model Judgment, orchestration, constraint enforcement, or deterministic controls;
+- what it must not decide or do;
+- which context sources are authorized;
+- how much authority it possesses;
+- which Constraints are inherited and which are local;
+- whether a claimed Hard Constraint is actually deterministic within stated assumptions;
+- whether the approved boundary and its realization are being conflated;
 - what evidence is required before and after release;
-- how unacceptable behavior or a constraint failure is contained or escalated;
-- who owns operation, change, override, and reauthorization.
+- who may decide, execute change, override, or escalate;
+- how failure is contained or routed upward.
 
-The result is an unreviewable boundary: uncertainty can propagate into business behavior without a clear contract, constraint realization, or correction path.
+The result is an unreviewable boundary through which uncertainty can propagate into business consequences.
 
 ## 3. Forces and trade-offs
 
-A useful boundary must balance:
+A useful boundary balances:
 
-- **flexibility and constraint** — enough freedom for Model Judgment to be useful without delegating hard invariants;
-- **context richness and contamination risk** — enough information to judge well without accepting untrusted, irrelevant, or unauthorized context;
-- **authority and recoverability** — enough authority to create value while keeping effects bounded and reversible where necessary;
-- **constraint strength and viability** — enough enforceable structure for the consequence level without making the path technically, operationally, or economically non-viable;
-- **observability and cost** — enough evidence for diagnosis without collecting telemetry that no Controller can use;
-- **completeness and adoption effort** — enough detail for the consequence level without forcing a small team to maintain a large registry.
+- **useful variance and Constraint strength**;
+- **context richness and contamination risk**;
+- **authority and recoverability**;
+- **enforcement strength and viability**;
+- **observability and cost**;
+- **completeness and adoption effort**.
 
 ## 4. Solution
 
-> **Every consequential Judgment Node SHOULD have an explicit boundary proportional to its authority, downstream impact, reversibility, constraint requirements, and failure consequences.**
+> **Every consequential Judgment Node SHOULD have an explicit boundary proportional to its authority, downstream impact, reversibility, realization difficulty, evidence uncertainty, and failure consequences.**
 
-The boundary makes visible:
+The boundary is a reviewable description of responsibility. It is not necessarily a separate service, runtime component, or document.
 
-- purpose;
-- placement;
-- inputs and approved context;
-- allowed authority;
-- applicable constraints and their sources;
-- hard versus soft strength;
-- realization and enforcement behavior;
-- unacceptable outcomes;
-- evidence and telemetry;
-- fallback, containment, and escalation;
-- operational and change ownership.
-
-The boundary is a reviewable description of responsibility, not necessarily a separate service, runtime component, or document. For an SMB team, it may be recorded as a compact card inside an architecture note or a Thinking System Review artifact.
+For the default SMB path, record the node inside the relevant [`Thinking System Review`](thinking-system-review.md) and reference the canonical delivery Constraint Realization Map rather than copying it.
 
 ## 5. Core boundary structure
 
 ```mermaid
 flowchart LR
-    IN[Inputs]
-    CTX[Approved context sources]
-    K[Applicable constraints<br/>context · authority · structure<br/>data · resources · environment]
+    R[Requirement and intended conditions]
+    IN[Inputs and approved context]
+    K[Applicable Constraints]
+    KR[Constraint Realizations]
     JN[Judgment Node]
-    AUTH[Authority and execution boundary]
+    AUTH[Deterministic authority<br/>and execution boundary]
     OUT[Output / Decision / Action]
-    EV[Sensors and evidence]
+    S[Sensors and evidence]
     C[Controller or Human Authority]
-    A[Actuator / corrective path]
-    FB[Fallback / containment / escalation]
+    A[Actuators]
+    F[Fallback / containment / escalation]
 
-    IN --> JN
-    CTX --> JN
-    K -. bounds .-> IN
-    K -. bounds .-> CTX
-    K -. bounds .-> JN
-    JN --> AUTH --> OUT
-    JN --> EV
-    AUTH --> EV
-    K --> EV
-    EV --> C --> A
-    A --> FB
-    C -->|authorized constraint change| K
+    R --> C
+    R --> K
+    K --> KR
+    KR -. bounds .-> IN
+    KR -. bounds .-> JN
+    KR -. gates .-> AUTH
+    IN --> JN --> AUTH --> OUT
+    JN --> S
+    AUTH --> S
+    KR -->|state and violations| S
+    A -->|execution state and effects| S
+    S --> C
+    C -->|authorized action| A
+    A --> JN
+    A --> AUTH
+    A --> F
+    A -->|authorized realization change| KR
 ```
 
-The diagram does not imply that evidence must flow only after execution or that fallback is triggered automatically. Implementations may collect pre-release and runtime evidence and may use software or Human Authority as the Controller.
+The diagram is functional, not a required topology. Evidence may be pre-release or runtime. Human Authority may perform the Controller function. One component may perform several functions, but Constraint, realization, decision, and execution responsibilities should remain distinguishable.
 
 ## 6. Minimal boundary
 
-The **minimal boundary** is intended for an ordinary SMB use case in which the node has limited authority, bounded downstream effects, and a clear fallback.
+For an ordinary bounded use case, record:
 
-Record at least:
+- **Name and purpose**;
+- **Placement** — Input Interpretation, Decision Logic, Output Mediation, or combination;
+- **Inputs and approved context**;
+- **Allowed authority**;
+- **Applicable Constraint IDs** from the delivery realization map;
+- **Unacceptable outcomes**;
+- **Evidence and control-health signals**;
+- **Controller or Human Authority**;
+- **Fallback, containment, or escalation**;
+- **Operational owner**;
+- **Local change authority**;
+- **Delivery reassessment or project reauthorization trigger**.
 
-- **Purpose** — why Model Judgment is used here;
-- **Placement** — Input Interpretation, Decision Logic, Output Mediation, or a combination;
-- **Inputs and approved context** — what the node may receive and from which sources;
-- **Allowed authority** — what output, decision, path, or action it may influence;
-- **Applicable constraints and source** — which project, organizational, or local boundaries apply;
-- **Hard constraints and realization** — deterministic obligations and how they are enforced;
-- **Unacceptable outcomes** — behavior the Requirement does not permit;
-- **Evidence and constraint health** — what is recorded or evaluated to determine whether the node and its boundaries remain acceptable;
-- **Fallback or escalation** — what happens when the node cannot be accepted, a constraint fails, or evidence is insufficient;
-- **Operational owner** — who holds responsibility for the boundary;
-- **Change or override authority** — who may change the node or its material constraints.
-
-A minimal boundary is not a reduced safety standard. It is a proportional representation for a node whose authority and consequences do not justify the extended field set.
+A minimal boundary is a proportional representation, not a reduced safety standard.
 
 ## 7. Extended boundary
 
-Use the **extended boundary** when the node has material authority, greater autonomy, difficult-to-reverse effects, broad exposure, regulated consequences, difficult constraint realization, or a high cost of failure.
+Add detail when the node has material authority, difficult-to-reverse effects, broad exposure, regulated consequences, difficult realization, or high failure cost.
 
-In addition to the minimal fields, record applicable details about:
+Possible extensions include:
 
-- name and versioned purpose;
-- consequentiality and downstream impact;
-- complete input set and context provenance;
-- model, configuration, prompt, policy, constraint, and tool dependencies;
-- allowed decisions, actions, and execution scope;
-- deterministic invariants;
-- inherited constraint identifiers and source versions;
-- hard and soft constraint classification;
-- enforcement points and failure behavior;
-- prohibited actions;
-- expected behavior and acceptable variation;
+- complete context provenance;
+- model, prompt, policy, tool, permission, and configuration dependencies;
 - output contract;
-- pre-release evidence;
-- runtime Sensors, constraint-health evidence, and telemetry;
-- failure conditions and Deviation Signals;
-- fallback;
-- containment;
-- escalation;
-- rollback or shutdown applicability;
-- operational owner;
-- change, override, and exception authority;
-- delivery reassessment and project reauthorization triggers.
+- acceptable variation;
+- deterministic Invariants;
+- realization assumptions and claimed guarantees;
+- failure, bypass, conflict, degradation, and unavailable behavior;
+- pre-release evidence and runtime sensing;
+- decision and execution latency;
+- fallback, containment, compensation, rollback, or shutdown;
+- override and exception authority;
+- delivery and project reassessment triggers.
 
-The extended boundary should still remain one coherent record. Do not split every field into a separate governance artifact unless the operating context genuinely requires independent ownership or lifecycle management.
+Do not split every field into a separate artifact unless independent ownership or lifecycle genuinely requires it.
 
 ## 8. Compact Judgment Node card
-
-The following card is the default SMB representation. Complete the minimal fields and add extended fields only where consequence and authority justify them.
 
 ```markdown
 ### Judgment Node
 
-- **Name:**
-- **Purpose:**
+- **Name and purpose:**
 - **Placement:** Input Interpretation / Decision Logic / Output Mediation / Combination
 - **Inputs and approved context:**
 - **Allowed authority:**
-- **Applicable constraints and source:**
-- **Hard constraints and realization:**
+- **Applicable Constraint IDs:**
 - **Unacceptable outcomes:**
-- **Evidence, telemetry, and constraint health:**
+- **Evidence and control health:**
+- **Controller or Human Authority:**
 - **Fallback, containment, or escalation:**
 - **Operational owner:**
-- **Change or override authority:**
+- **Local change authority:**
+- **Reassessment or reauthorization trigger:**
 
-Optional extensions:
+Optional:
 - **Consequentiality and downstream impact:**
-- **Model, prompt, policy, constraint, tool, and configuration dependencies:**
-- **Soft constraints and expected influence:**
-- **Acceptable variation:**
-- **Output contract:**
-- **Constraint failure or degraded behavior:**
-- **Failure signals:**
-- **Rollback or shutdown:**
-- **Delivery reassessment trigger:**
-- **Project reauthorization trigger:**
+- **Dependencies and active versions:**
+- **Acceptable variation and output contract:**
+- **Realization assumptions and failure behavior:**
+- **Rollback, compensation, or shutdown:**
 ```
 
-This card is shown inside the pattern rather than maintained as a separate `judgment-node-record.md`. A practical review artifact may embed the same fields without creating a second canonical record type.
+The card references the canonical Constraint Realization Map maintained by the delivery review. It does not redefine each Constraint locally.
 
-## 9. Deterministic containment
+## 9. Hard and soft accuracy
+
+A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
+
+A prompt, natural-language policy, probabilistic evaluator, classifier, or model preference is not hard by itself.
+
+A composite path may use probabilistic sensing followed by deterministic rejection. The hard guarantee arises from the deterministic enforcement path and is limited by its stated assumptions.
+
+## 10. Deterministic containment
 
 ```mermaid
 flowchart LR
-    K[Applicable hard constraints]
+    K[Hard Constraints]
+    KR[Deterministic realizations]
     J[Model Judgment]
-    V{Deterministic authority,<br/>schema, state, or policy gate}
-    A[Allowed action]
+    G{Authority, schema,<br/>state, or policy gate}
+    OK[Allowed action]
     B[Blocked or transformed]
-    E[Fallback / containment / escalation]
+    F[Fallback / containment / escalation]
     S[Violation and control-health evidence]
 
-    K -. bounds .-> J
-    J --> V
-    K --> V
-    V -->|Within authority and constraints| A
-    V -->|Constraint violated or enforcement unavailable| B
-    B --> E
-    V --> S
-    B --> S
+    K --> KR
+    J --> G
+    KR --> G
+    G -->|Allowed| OK
+    G -->|Rejected or unavailable| B --> F
+    G --> S
+    KR --> S
 ```
 
-Deterministic containment does not mean every semantic error can be detected by one validator. It means that authority, hard constraints, schemas, permissions, state transitions, and other enforceable obligations are not delegated to probabilistic instructions alone.
+Deterministic containment does not mean every semantic error can be detected by one validator. It means critical authority, state, permission, transaction, data, and interface obligations are not delegated solely to probabilistic instructions.
 
-## 10. Constraint review prompts
+## 11. Review prompts
 
-For each material constraint around the node, ask:
+### Purpose and placement
 
-- What is the authoritative source?
-- What subject and scope does it bound?
-- Is it hard or soft?
-- Where is it realized or enforced?
-- What happens when enforcement is unavailable, uncertain, bypassed, or violated?
-- What evidence shows activation, violations, false blocks, or degradation?
-- Who may change, override, or disable it?
-- Which change remains local, which requires delivery reassessment, and which requires project reauthorization?
+- Why is Model Judgment useful here?
+- Which placement function does the node perform?
+- What useful variance must remain available?
 
-## 11. Placement-specific review prompts
+### Context
+
+- Which inputs and sources are allowed?
+- What provenance, isolation, freshness, or data-class boundaries apply?
+- What happens when context is missing, conflicting, or adversarial?
+
+### Authority
+
+- Which decisions, paths, outputs, tools, or actions may the node influence?
+- Which actions remain prohibited or reserved for Human Authority?
+- Can downstream deterministic logic reject the proposal?
+
+### Constraints and realization
+
+- Which delivery Constraint IDs apply?
+- Which are hard or soft?
+- Where are they realized?
+- Under which assumptions does a claimed guarantee hold?
+- What happens on violation, bypass, conflict, degradation, or unavailability?
+
+### Evidence and decision
+
+- Which Sensor evidence supports the Controller decision?
+- What are its coverage, latency, and blind spots?
+- Who may authorize action or escalation?
+- Which Actuator can execute the decision?
+
+### Recovery and reassessment
+
+- What fallback, containment, compensation, rollback, or shutdown exists?
+- Which changes remain local?
+- Which evidence invalidates the delivery or project baseline?
+
+## 12. Placement-specific concerns
 
 ### Input Interpretation
 
-Check for:
-
-- ambiguous intent;
-- prompt injection or malicious reinterpretation;
-- contaminated or untrusted context;
-- unauthorized or stale context sources;
-- unsupported assumptions;
-- identity or authorization confusion;
-- loss of qualifiers that materially change the request;
-- structural validity that hides incorrect semantic interpretation.
+Focus on ambiguous intent, source authorization, prompt injection, missing context, confidence, and deterministic validation before consequential routing.
 
 ### Decision Logic
 
-Check for:
-
-- excessive authority;
-- unsafe routing or prioritization;
-- incorrect tool or action selection;
-- unauthorized execution;
-- plan drift or compounding error;
-- hidden substitution of model preference for approved policy;
-- failure to escalate when the node reaches its boundary;
-- runtime relaxation of a project or organizational constraint.
+Focus on autonomy, tool and action permissions, state transitions, reversibility, Human Authority, and deterministic execution gates.
 
 ### Output Mediation
 
-Check for:
+Focus on factual support, disclosure, downstream interpretation, data leakage, prohibited claims, safe fallback, and whether presentation itself creates consequence.
 
-- semantic inaccuracy;
-- unsupported claims;
-- misleading confidence;
-- unsafe transformation or omission;
-- downstream schema or parser mismatch;
-- disclosure failure;
-- presentation that implies more certainty than the evidence supports;
-- output that is structurally valid but violates a semantic or authority constraint.
+A node may combine placements. Review the authority and failure path of each consequential function.
 
-These prompts help discover boundary obligations. They are not universal checklists and do not replace a Requirement derived from the actual context.
+## 13. Failure modes
 
-## 12. Relationship to the AI Control Plane
+Common failures include:
 
-The Judgment Node Boundary defines **what must be bounded, observed, decided, and corrected** around a particular use of Model Judgment.
+- boundary omitted;
+- Constraint and realization collapsed;
+- prompt treated as Hard Constraint;
+- authority broader than the project baseline;
+- context source not authorized or traceable;
+- realization unavailable or bypassable;
+- telemetry without Controller authority;
+- Controller without effective Actuator;
+- Human Authority without capacity or power;
+- fallback repeating the same uncertain path;
+- local change silently requiring project reauthorization.
 
-The [`Control-Loop Capability Anatomy`](../00-doctrine/control-loop-anatomy.md) and [`AI Control Plane`](../02-ai-control-plane/) provide the capabilities used to operate that boundary:
+## 14. Proportionality
 
-- Constraints define allowed context, authority, structure, data, resources, environment, and Human Authority requirements;
-- Sensors produce evidence about behavior, outcomes, constraint state, and control health;
-- Controllers interpret evidence and authorize corrective action or escalation;
-- Actuators change configuration, routing, authority, scope, fallback, containment, rollback, compensation, or shutdown state.
+Use the compact card by default. Add fields only when consequence, authority, exposure, irreversibility, realization difficulty, evidence uncertainty, or operating burden justifies them.
 
-The pattern does not duplicate the Control Plane capability model. A boundary may be implemented through capabilities distributed across application code, platform services, evaluation systems, human workflows, and release processes.
+Do not create a separate node registry, Constraint Register, decision log, and control catalogue when one delivery review plus linked evidence is sufficient.
 
-A prompt, schema, evaluation, approval screen, workflow engine, or kill switch does not constitute the whole boundary by itself.
+## 15. Relationships
 
-## 13. Consequences and limitations
-
-Applying this pattern:
-
-- makes model-mediated responsibility visible;
-- separates probabilistic judgment from deterministic authority;
-- makes inherited and local constraints traceable;
-- exposes soft constraints misrepresented as hard guarantees;
-- improves evaluation, constraint-health monitoring, and incident diagnosis;
-- exposes missing fallback, enforcement, ownership, or change authority;
-- creates a stable unit for later readiness, completion, release, and reassessment review.
-
-It also introduces documentation and operating effort. The record should therefore be proportional and should focus on nodes that materially influence system behavior. The pattern does not guarantee acceptable behavior, replace evaluation, prove constraint effectiveness, or close the control loop by itself.
-
-## 14. Related UA concepts
-
-- [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) defines the functional placement taxonomy used by this pattern.
-- [`Control-Loop Capability Anatomy`](../00-doctrine/control-loop-anatomy.md) defines the relationship between Constraints, Sensors, Controllers, and Actuators.
-- [`Requirements, Correctness, and Bugs`](../00-doctrine/requirements-correctness-and-bugs.md) defines the operating contract and diagnostic model.
-- [`glossary.md`](../00-doctrine/glossary.md) contains the canonical concise vocabulary.
-- [`Constraint Capabilities`](../02-ai-control-plane/01-constraints/) defines constraint classes, realization, evidence, failure behavior, and authority.
-- [`AI Control Plane`](../02-ai-control-plane/) defines the complete capability model used around the boundary.
-- [`reference architectures`](../03-reference-architectures/) may demonstrate non-prescriptive compositions of Judgment Nodes, constraints, evidence, authority, and corrective action.
+- [`thinking-system-review.md`](thinking-system-review.md) owns the delivery decision surface and canonical realization map.
+- [`../00-doctrine/model-judgment-placement.md`](../00-doctrine/model-judgment-placement.md) defines placement classes.
+- [`../00-doctrine/control-loop-anatomy.md`](../00-doctrine/control-loop-anatomy.md) defines capability relationships.
+- [`../02-ai-control-plane/01-constraints/`](../02-ai-control-plane/01-constraints/) defines Constraints and Constraint Realization.
+- [`../04-failure-modes/`](../04-failure-modes/) records recurring loss-of-control mechanisms.
