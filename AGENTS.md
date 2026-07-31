@@ -289,6 +289,7 @@ One product may package several functions.
 For Mermaid and other architecture diagrams:
 
 - show reference conditions or approved intent reaching the relevant Controller;
+- show actual outputs, actions, and downstream outcomes reaching Sensors where material;
 - show evidence reaching decision authority;
 - show authorized action reaching an Actuator;
 - show the Actuator changing operation or a Constraint Realization;
@@ -393,6 +394,7 @@ Additional rules:
 - Controller and Actuator responsibilities are not collapsed.
 - Hard and Soft claims are scoped to complete realized paths.
 - Mixed-strength Constraint records are split.
+- Controlled-process outputs, actions, and downstream outcomes reach Sensors where material.
 - Closed-loop feedback is not confused with bounded acceptable operation.
 - Generic diagrams do not imply deterministic enforcement for every Soft Constraint Realization.
 
