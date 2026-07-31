@@ -61,16 +61,17 @@ A material Constraint should identify:
 
 1. **Source or rationale** — the authoritative organizational source or project-risk rationale.
 2. **Subject** — the behavior, state, action, authority, input, context, data, tool, output, resource, environment, deployment, or human decision being bounded.
-3. **Scope** — the users, population, domain, geography, deployment, component, Judgment Node, data class, tool, or time period to which it applies.
-4. **Class** — structural, authority, state, data, resource, environment, Human Authority, or behavioral.
-5. **Claimed strength** — hard or soft for that subject, path, and scope.
-6. **Realization** — the mechanism and enforcement or influence point.
-7. **Assumptions** — the conditions under which the claimed guarantee is valid.
-8. **Failure behavior** — violation, conflict, bypass, uncertainty, degradation, and unavailability behavior.
-9. **Change authority** — who may propose, approve, execute, override, disable, or replace it.
-10. **Evidence** — activation, violations, bypass attempts, degradation, false blocks, friction, and coverage.
-11. **Traceability** — version, source decision, affected Requirement, risk scenario, and deployed realization.
-12. **Reassessment rule** — which changes remain local and which require delivery reassessment, project reauthorization, or organizational review.
+3. **Path** — the system, workflow, execution, data, or decision path through which the subject can be reached or affected.
+4. **Scope** — the users, population, domain, geography, deployment, component, Judgment Node, data class, tool, or time period to which it applies.
+5. **Class** — structural, authority, state, data, resource, environment, Human Authority, or behavioral.
+6. **Claimed strength** — hard or soft for that subject, path, and scope.
+7. **Realization** — the mechanism and enforcement or influence point.
+8. **Assumptions** — the conditions under which the claimed guarantee is valid.
+9. **Failure behavior** — violation, conflict, bypass, uncertainty, degradation, and unavailability behavior.
+10. **Change authority** — who may propose, approve, execute, override, disable, or replace it.
+11. **Evidence** — activation, violations, bypass attempts, degradation, false blocks, friction, and coverage.
+12. **Traceability** — version, source decision, affected Requirement, risk scenario, and deployed realization.
+13. **Reassessment rule** — which changes remain local and which require delivery reassessment, project reauthorization, or organizational review.
 
 When one source condition has different guarantee strengths across subjects, paths, or scopes, split it into separate Constraint records rather than marking one row as partly hard and partly soft.
 
@@ -80,7 +81,7 @@ Hard or soft strength is a scoped claim about a Constraint together with its com
 
 ### Hard Constraint
 
-A Hard Constraint is a scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
+A Hard Constraint is a scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, subject, path, scope, and enforcement boundaries.
 
 Examples may include:
 
@@ -223,7 +224,7 @@ Examples:
 
 A provider or model change may invalidate project evidence even when application code is unchanged.
 
-### 7. Human-decision
+### 7. Human Authority
 
 Bound when human approval is required and which authority remains reserved for people.
 
@@ -290,11 +291,11 @@ The project review should:
 
 ### Delivery level
 
-The delivery review should maintain one canonical **Constraint Realization Map** for the bounded system, feature, or material change. It links each material Constraint to source/version, delivery scope, realization, failure behavior, evidence, active configuration, change authority, and reassessment trigger.
+The delivery review should maintain one canonical **Constraint Realization Map** for the bounded system, feature, or material change. It links each material Constraint to source/version, subject, path, delivery scope, realization, failure behavior, evidence, active configuration, change authority, and reassessment trigger.
 
 DoR, DoD, Release Gate, and runtime sections should reference that map rather than restating the same Constraint definition.
 
-A delivery row should contain one reviewable guarantee strength. Split a compound condition when different subjects or paths have different strengths.
+A delivery row should contain one reviewable guarantee strength. Split a compound condition when different subjects, paths, or scopes have different strengths.
 
 ### Runtime level
 
@@ -367,7 +368,7 @@ Treating the approved boundary, implementation mechanism, runtime state, and res
 
 ### Mixed-strength Constraint record
 
-Combining distinct subjects or paths with different guarantee strengths in one hard/soft field, making the claimed boundary impossible to review or trace.
+Combining distinct subjects, paths, or scopes with different guarantee strengths in one hard/soft field, making the claimed boundary impossible to review or trace.
 
 ### Declared but unrealized
 
