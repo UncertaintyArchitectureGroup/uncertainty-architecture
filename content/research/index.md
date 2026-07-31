@@ -124,7 +124,7 @@ Five normalized publication editions are preserved under [`publications/`](publi
 Two additional synthesis sources are tracked:
 
 - [*On-Device LLM or Cloud API?*](notes/on-device-cloud-source-intake.md) — full author-provided Markdown source available; raw preservation and normalization remain pending;
-- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the maintainer-supplied original PPTX is the slide-level working source, while a PDF export is preserved under [`content/raw/`](../raw/). Slides 1–6 and a later bounded extraction of the controlled-object, process-shift, feedback, and architectural-veto material have been translated through explicit framework review.
+- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the maintainer-supplied original PPTX is the slide-level working source, while a PDF export is preserved under [`content/raw/`](../raw/). Slides 1–6 and a later bounded extraction of the controlled-object, process-shift, feedback, project-viability, and architectural-veto material have been translated through explicit framework review.
 
 The presentation and publication corpus have now produced explicit framework decisions for:
 
@@ -137,11 +137,12 @@ The presentation and publication corpus have now produced explicit framework dec
 - UA as a control lifecycle that complements rather than replaces Agile, DevOps, QA, security, and incident response;
 - organizational context, project authorization, delivery-level review, and runtime reauthorization as connected control levels;
 - architectural veto as a valid engineering outcome;
-- the project-level Project Control Architecture and Viability Review and its single living template.
+- the project-level [`Project Control Architecture and Viability Review`](../../01-patterns/project-control-architecture-and-viability-review.md) and its single living [`template`](../../01-patterns/project-control-architecture-and-viability-review-template.md);
+- versioned project-baseline inheritance into the [`Thinking System Review`](../../01-patterns/thinking-system-review.md).
 
 Those decisions and their source qualifications are recorded in [`framework-traceability.md`](framework-traceability.md). Unreviewed parts of the presentation and publications are not promoted by implication.
 
-The project-level decision surface is now active at draft-framework level. The next research and application questions concern whether it is proportionate, understandable, and economically useful in practice:
+The project-level decision surface is now active at draft-framework level. The next research and application questions concern whether the connected project and delivery reviews are proportionate, understandable, non-duplicative, and economically useful in practice:
 
 - which fields can be completed briefly for low-consequence SMB projects without hiding material risk;
 - whether scenario-based risk mapping produces better control decisions than aggregate scoring;
@@ -160,7 +161,7 @@ Project Control Architecture and Viability Review
 → local reassessment or project reauthorization
 ```
 
-This sequence should first be exercised through a two-level worked application and then through a real team or documented real system. Application evidence may refine the project review, feature review, control-plane capability model, failure modes, or research questions.
+This sequence should first be exercised through a two-level worked application and then through a real team or documented real system. Application evidence may refine the project review, delivery review, control-plane capability model, failure modes, or research questions.
 
 The next major corpus task also remains a cross-publication synthesis that identifies stable concepts, refinements, contradictions, superseded claims, terminology requiring review, framework candidates, and material that should remain research context only.
 
