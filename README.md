@@ -57,6 +57,7 @@ Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/un
 ## Start Here
 
 - **Understand why the control problem changed:** [`00-doctrine/uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md)
+- **See how the four control levels work together:** [`00-doctrine/nested-control-lifecycle.md`](00-doctrine/nested-control-lifecycle.md)
 - **Read the specification boundary and status model:** [`SPECIFICATION.md`](SPECIFICATION.md)
 - **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
 - **Use the canonical vocabulary:** [`00-doctrine/glossary.md`](00-doctrine/glossary.md)
@@ -77,6 +78,7 @@ Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/un
 
 [`Glossary`](00-doctrine/glossary.md)
 → [`Uncertainty in the Controlled Object`](00-doctrine/uncertainty-in-the-controlled-object.md)
+→ [`Nested Control Lifecycle`](00-doctrine/nested-control-lifecycle.md)
 → [`Requirements, Correctness, and Bugs`](00-doctrine/requirements-correctness-and-bugs.md)
 → [`Model Judgment Placement`](00-doctrine/model-judgment-placement.md)
 → [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md)
@@ -152,6 +154,8 @@ flowchart LR
     R -->|Shared constraint changed| O
 ```
 
+The canonical [`Nested Control Lifecycle`](00-doctrine/nested-control-lifecycle.md) explains decision ownership, downward inheritance, upward evidence flow, reauthorization triggers, and the relationship between the lifecycle and AI Control Plane capabilities.
+
 ### Project level
 
 The [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md) maps the business outcome, intended Judgment and authority, material risk scenarios, required control capabilities, evidence feasibility, Human Authority, operational capacity, control economics, residual risk, project authorization, delivery inheritance, and reauthorization triggers.
@@ -204,6 +208,8 @@ Open the Project Control Architecture and Viability Review
 → operate, observe, and reassess at the local, project, or organizational level
 ```
 
+The [`Nested Control Lifecycle`](00-doctrine/nested-control-lifecycle.md) explains why these are separate decisions and how runtime evidence routes back to the correct level.
+
 The [`project review template`](01-patterns/project-control-architecture-and-viability-review-template.md) embeds the project decision, residual risk, control economics, delivery inheritance package, and reauthorization triggers. It does not require separate risk maps, responsibility matrices, financial records, governance-board protocols, or Project Launch Gate records when linked evidence and one review are sufficient.
 
 The [`delivery review template`](01-patterns/thinking-system-review-template.md) embeds Judgment Node cards, responsibility bundles, evidence, residual risk, deployment scope, and the release decision. It does not require separate readiness records, completion packages, Judgment Node registries, responsibility matrices, governance-board protocols, or Release Decision Records.
@@ -218,7 +224,7 @@ Then inspect the [`Worked Support Triage Review`](03-reference-architectures/wor
 
 ### Specification modules
 
-- [`00-doctrine/`](00-doctrine/) — core concepts, the controlled-object shift, terminology, requirement and diagnostic models, and Model Judgment placement.
+- [`00-doctrine/`](00-doctrine/) — core concepts, the controlled-object shift, nested control lifecycle, terminology, requirement and diagnostic models, and Model Judgment placement.
 - [`01-patterns/`](01-patterns/) — reusable technical and socio-technical controls, including project-level viability and authorization, Judgment Node boundaries, and the delivery-level Thinking System Review.
 - [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, Human Authority, and operating controls.
 - [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated placement examples and a completed illustrative delivery review.
@@ -262,7 +268,7 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 The repository now contains the connected project and delivery control spine:
 
-- doctrine for the controlled-object shift and four control levels;
+- doctrine for the controlled-object shift and the nested four-level control lifecycle;
 - a project-level Control Architecture and Viability Review with one working template;
 - mixed Requirements, Model Judgment placement, and Judgment Node boundaries;
 - one delivery-level Thinking System Review and template;
