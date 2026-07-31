@@ -104,11 +104,11 @@ A Constraint may bound states, transitions, actions, authority, inputs, context,
 
 A Constraint is an authoritative decision object, not an execution mechanism. It is distinct from the concrete mechanism that implements, enforces, or influences it. That mechanism is a **Constraint Realization**.
 
-A material Constraint should remain traceable to its authoritative source or project-risk rationale, subject, scope, claimed strength, realization, assumptions, failure behavior, evidence, and change or override authority.
+A material Constraint should remain traceable to its authoritative source or project-risk rationale, subject, path, scope, claimed strength, realization, assumptions, failure behavior, evidence, and change or override authority.
 
 ### Hard Constraint
 
-A scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
+A scoped Constraint whose complete realized path deterministically prevents or rejects violation within explicitly stated assumptions, subject, path, scope, and enforcement boundaries.
 
 Hard or soft strength is a claim about a Constraint together with its realized path. It is not an intrinsic property of policy prose, a requirement sentence, or an organizational source. The same source condition may be hard in one system path and soft in another.
 
