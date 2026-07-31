@@ -64,6 +64,7 @@ When a Judgment Node remains implicit, the team cannot reliably determine:
 - which Constraints are inherited and which are local;
 - whether a claimed Hard Constraint is actually deterministic within stated assumptions;
 - whether the approved boundary and its realization are being conflated;
+- whether different strength claims are being mixed into one record;
 - what evidence is required before and after release;
 - who may decide, execute change, override, or escalate;
 - how failure is contained or routed upward.
@@ -108,9 +109,9 @@ flowchart LR
     R --> C
     R --> K
     K --> KR
-    KR -. bounds .-> IN
-    KR -. bounds .-> JN
-    KR -. gates .-> AUTH
+    KR -. enforces or influences .-> IN
+    KR -. enforces or influences .-> JN
+    KR -. may gate .-> AUTH
     IN --> JN --> AUTH --> OUT
     JN --> S
     AUTH --> S
@@ -124,7 +125,9 @@ flowchart LR
     A -->|authorized realization change| KR
 ```
 
-The diagram is functional, not a required topology. Evidence may be pre-release or runtime. Human Authority may perform the Controller function. One component may perform several functions, but Constraint, realization, decision, and execution responsibilities should remain distinguishable.
+The diagram is functional, not a required topology. The realization arrows describe possible functions, not a deterministic guarantee for every applicable Constraint. Each referenced Constraint row defines whether the realized path enforces, gates, or only influences behavior.
+
+Evidence may be pre-release or runtime. Human Authority may perform the Controller function. One component may perform several functions, but Constraint, realization, decision, and execution responsibilities should remain distinguishable.
 
 ## 6. Minimal boundary
 
@@ -196,11 +199,15 @@ The card references the canonical Constraint Realization Map maintained by the d
 
 ## 9. Hard and soft accuracy
 
-A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
+Hard or soft is a scoped claim about a Constraint and its complete realized path.
+
+A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries.
 
 A prompt, natural-language policy, probabilistic evaluator, classifier, or model preference is not hard by itself.
 
 A composite path may use probabilistic sensing followed by deterministic rejection. The hard guarantee arises from the deterministic enforcement path and is limited by its stated assumptions.
+
+When different subjects or paths have different guarantee strengths, the delivery map should use separate Constraint rows. A Judgment Node should reference the relevant IDs rather than summarizing them as one mixed hard/soft boundary.
 
 ## 10. Deterministic containment
 
@@ -223,6 +230,8 @@ flowchart LR
     G --> S
     KR --> S
 ```
+
+This diagram is explicitly limited to hard deterministic realizations.
 
 Deterministic containment does not mean every semantic error can be detected by one validator. It means critical authority, state, permission, transaction, data, and interface obligations are not delegated solely to probabilistic instructions.
 
@@ -249,7 +258,8 @@ Deterministic containment does not mean every semantic error can be detected by 
 ### Constraints and realization
 
 - Which delivery Constraint IDs apply?
-- Which are hard or soft?
+- What subject, path, and scope does each claim cover?
+- Which claims are hard or soft?
 - Where are they realized?
 - Under which assumptions does a claimed guarantee hold?
 - What happens on violation, bypass, conflict, degradation, or unavailability?
@@ -290,6 +300,7 @@ Common failures include:
 - boundary omitted;
 - Constraint and realization collapsed;
 - prompt treated as Hard Constraint;
+- mixed-strength Constraint record;
 - authority broader than the project baseline;
 - context source not authorized or traceable;
 - realization unavailable or bypassable;
