@@ -187,13 +187,17 @@ Add optional detail only when consequence, authority, reversibility, or realizat
 
 ### Constraint Realization Map
 
-| Constraint ID and source/version | Subject and delivery scope | Hard/soft | Realization and enforcement/influence point | Assumptions and claimed guarantee | Failure/bypass/conflict/unavailable behavior | Evidence/control health | Change/override authority and Actuator | Reassessment/reauthorization trigger |
+| Constraint ID and source/version | Subject, path, and delivery scope | Claimed strength | Realization and enforcement/influence point | Assumptions and claimed guarantee | Failure/bypass/conflict/unavailable behavior | Evidence/control health | Change/override authority and Actuator | Reassessment/reauthorization trigger |
 |---|---|---|---|---|---|---|---|---|
-| K-01 | | | | | | | | |
+| K-01 | | Hard / Soft | | | | | | |
 | K-02 | | | | | | | | |
 | K-03 | | | | | | | | |
 
-For each Hard Constraint, verify deterministic prevention or rejection within stated assumptions and scope. A prompt, probabilistic evaluator, classifier, or model policy is not hard by itself.
+For each Hard Constraint, verify that its complete realized path deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundary. A prompt, probabilistic evaluator, classifier, or model policy is not hard by itself.
+
+When one source condition has different guarantee strengths across subjects, paths, or scopes, split it into separate rows rather than using one mixed hard/soft record.
+
+Measured quality, cost, latency, or distribution tolerances belong in the Requirement and Operating Envelope unless a separate realization deterministically enforces a specific boundary.
 
 ### Control-loop design
 
@@ -212,8 +216,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state and health| S
     A -->|execution state and effects| S
@@ -222,6 +226,8 @@ flowchart LR
     A --> P
     A -->|authorized realization change| KR
 ```
+
+The realization arrows describe possible functions. The rows above define the actual guarantee strength and enforcement or influence path.
 
 - **Feedback latency/review timing:**
 - **Critical missing capability:**
@@ -251,7 +257,8 @@ Mark `[x]`, `[ ]`, or `N/A` and link evidence or explain the gap.
 
 - [ ] Requirement and Operating Envelope are sufficient for the next decision.
 - [ ] Every material Constraint has one row in section 5.
-- [ ] Hard/Soft claims are accurate.
+- [ ] Hard and Soft claims are accurately scoped and not mixed in one row.
+- [ ] Aggregate tolerances are not mislabeled as Hard Constraints.
 - [ ] A credible realization or bounded research plan exists.
 - [ ] Failure, bypass, conflict, unavailable, evidence, and change behavior are planned.
 
@@ -297,7 +304,7 @@ Mark `[x]`, `[ ]`, or `N/A` and link evidence or explain the gap.
 
 - [ ] Applicable deterministic tests passed.
 - [ ] Invariants, interfaces, permissions, state, transaction, and data obligations were verified.
-- [ ] Each section 5 realization is implemented or explicitly retained as Soft.
+- [ ] Each section 5 row records the actual realization state and retained Soft influence where applicable.
 - [ ] Hard realizations were tested against bypass and negative-authority scenarios.
 - [ ] Material failure, conflict, degradation, and unavailable behavior were tested.
 - [ ] Active source, realization, configuration, and version are traceable.
@@ -423,7 +430,9 @@ Mark `[x]`, `[ ]`, or `N/A` and link evidence or explain the gap.
 - [ ] Project review/version are linked.
 - [ ] Scope does not expand or weaken project authorization.
 - [ ] Section 5 is the current canonical Constraint Realization Map.
-- [ ] Hard claims match deterministic guarantees and assumptions.
+- [ ] Hard claims match complete deterministic realized paths and assumptions.
+- [ ] Mixed-strength claims are split into separate rows.
+- [ ] Aggregate tolerances are not mislabeled as Hard Constraints.
 - [ ] Requirement, Operating Envelope, Judgment Nodes, evidence, authority, and corrective paths are current.
 - [ ] DoR, DoD, and Release Gate remain distinct.
 - [ ] Active versions and evidence resolve.
