@@ -62,7 +62,7 @@ y ~ P(y | x, c, m)
 
 where `c` is relevant context and `m` is the model and behavior-affecting configuration.
 
-A Thinking System remains a mixed system. It contains deterministic obligations, Model Judgment, Constraints, Constraint Realizations, evidence, decision authority, and corrective mechanisms. The change is that some consequential runtime behavior is produced through probabilistic judgment inside the engineered object.
+A Thinking System remains a mixed system. It contains deterministic obligations, Model Judgment, Constraints and their realizations, evidence, decision authority, and corrective mechanisms. The change is that some consequential runtime behavior is produced through probabilistic judgment inside the engineered object.
 
 > **Uncertainty is no longer only outside the software. Part of it is produced by the controlled object during operation.**
 
@@ -132,23 +132,23 @@ A project that cannot credibly prevent or reject critical violations where requi
 
 ## 5. Two orthogonal models
 
-The [`Control-Loop Capability Anatomy`](control-loop-anatomy.md) identifies:
+The [`Control-Loop Capability Anatomy`](control-loop-anatomy.md) identifies four capability families:
 
-- Constraints — approved boundaries;
+- Constraints and their realizations — approved boundaries and their operational mechanisms;
 - Sensors and evidence — observation;
 - Controllers and decision authority — comparison, interpretation, and authorization;
 - Actuators and corrective action — execution of authorized change.
 
-A Constraint Realization operationalizes a Constraint. It is not a fifth capability.
+The Constraints family is intentionally composite. A Constraint is the authoritative boundary object; a Constraint Realization operationalizes it. Constraint Realization is not a fifth capability family.
 
 The [`Nested Control Lifecycle`](nested-control-lifecycle.md) identifies:
 
 1. organizational control context;
 2. project control architecture and viability;
 3. delivery-level review;
-4. runtime control and reauthorization.
+4. runtime control and reassessment.
 
-The capabilities do not map one-to-one onto the decision levels.
+The capability families do not map one-to-one onto the decision levels.
 
 ## 6. Closed feedback versus bounded operation
 
@@ -185,8 +185,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state and health| S
     A -->|execution state and effects| S
@@ -195,6 +195,8 @@ flowchart LR
     A --> P
     A -->|authorized realization change| KR
 ```
+
+The realization arrows describe possible functions. Each scoped Constraint claim identifies whether its complete realized path provides deterministic enforcement, probabilistic influence, or a composite path.
 
 Constraints are not the feedback edge. They define the operating space; realizations make that boundary operational.
 
@@ -212,7 +214,7 @@ The project determines whether a credible and viable architecture exists. The de
 
 The delivery review owns implementation-level Judgment Nodes, the Requirement and Operating Envelope, one Constraint Realization Map, DoR, DoD, Release Gate, and local reassessment.
 
-### Runtime control and reauthorization
+### Runtime control and reassessment
 
 Runtime exercises deployed realizations, observes evidence, routes it to authorized Controllers, and executes selected actions through Actuators.
 
@@ -248,6 +250,8 @@ Organizational source
 ```
 
 Constraint authority flows downward by reference. Realization becomes more concrete. Evidence flows upward when an earlier decision basis changes.
+
+Hard or soft strength is scoped to a Constraint and its complete realized path. The same source condition may produce different claims for different subjects, paths, or scopes. Those claims must remain separate and traceable.
 
 A runtime Controller may authorize only changes within delegated authority. An Actuator executes changes to operation or a Constraint Realization. Technical configurability does not authorize relaxation of a project or organizational boundary.
 
@@ -291,18 +295,21 @@ UA uses two connected but distinct patterns:
 
 The project pattern creates one Project Constraint Architecture and authorization decision. The delivery pattern creates one Constraint Realization Map and separate DoR, DoD, Release Gate, and reassessment decisions.
 
+Measured quality, distribution, cost, latency, or capacity tolerances remain part of the Requirement and Operating Envelope unless a separate scoped realization deterministically enforces a specific boundary.
+
 ## Invariants
 
 1. Useful variance may be preserved, but consequential deterministic responsibilities remain explicit.
 2. Constraint and Constraint Realization remain distinct.
-3. Hard Constraint claims require deterministic prevention or rejection within stated assumptions and scope.
-4. Controller decision and Actuator execution remain distinct.
-5. Closed-loop feedback does not establish bounded acceptable operation by itself.
-6. Project authorization and delivery release remain separate.
-7. Higher-level decisions are inherited by reference.
-8. Invalidating evidence returns to the owning decision level.
-9. Human Authority must be substantive where required.
-10. The complete control perimeter must remain technically, operationally, and economically viable.
+3. Hard Constraint claims require a complete realized path that deterministically prevents or rejects violation within stated assumptions, subject, path, and scope.
+4. Different guarantee strengths remain separate rather than collapsed into one mixed record.
+5. Controller decision and Actuator execution remain distinct.
+6. Closed-loop feedback does not establish bounded acceptable operation by itself.
+7. Project authorization and delivery release remain separate.
+8. Higher-level decisions are inherited by reference.
+9. Invalidating evidence returns to the owning decision level.
+10. Human Authority must be substantive where required.
+11. The complete control perimeter must remain technically, operationally, and economically viable.
 
 ## Relationships
 
