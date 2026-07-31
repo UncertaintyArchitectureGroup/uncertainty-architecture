@@ -27,26 +27,26 @@ canonical_for:
 # The AI Control Plane
 
 **Status:** Draft normative  
-**Role:** Distributed capability model for bounding, observing, deciding, and correcting model-mediated behavior
+**Role:** Distributed capability model for defining and realizing boundaries, observing behavior, deciding, and correcting model-mediated operation
 
 ## Purpose
 
-This module develops the capabilities used to operate Thinking Systems as governed closed-loop systems rather than open-loop model integrations.
+This module develops the capability families used to operate Thinking Systems as governed closed-loop systems rather than open-loop model integrations.
 
 The AI Control Plane is not necessarily a standalone product, service, platform, or infrastructure layer. Responsibilities may be distributed across application code, platform services, evaluation systems, human workflows, release processes, incident response, and organizational mechanisms.
 
 The [`Nested Control Lifecycle`](../00-doctrine/nested-control-lifecycle.md) defines **where decisions are owned**. The [`Control-Loop Capability Anatomy`](../00-doctrine/control-loop-anatomy.md) defines **which logical functions make those decisions operational**.
 
-## Four capability classes
+## Four capability families
 
-1. **Constraints** — approved conditions limiting the allowed operating space.
+1. **Constraints and their realizations** — approved boundaries plus the mechanisms that implement, enforce, or influence them.
 2. **Sensors and evidence** — mechanisms observing behavior, outcomes, operating conditions, Constraint Realization state, Actuator execution, and control health.
 3. **Controllers and decision authority** — functions comparing or interpreting evidence against approved conditions and selecting or authorizing action.
 4. **Actuators and corrective action** — mechanisms executing authorized changes to operation.
 
-A **Constraint Realization** operationalizes a Constraint. It is not a fifth capability class.
+The first family is intentionally composite. A Constraint is an authoritative decision object, while a Constraint Realization is its operational mechanism. Constraint Realization is not a fifth capability family.
 
-The capability classes are not a mandatory physical stack. One component may perform several functions, and one function may be distributed.
+The capability families are not a mandatory physical stack. One component may perform several functions, and one function may be distributed.
 
 ## Feedback loop and bounded operation
 
@@ -83,8 +83,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state, violations, and health| S
     A -->|execution state and effects| S
@@ -94,7 +94,7 @@ flowchart LR
     A -->|authorized realization change| KR
 ```
 
-Constraints bound the space in which the loop may operate. They are not the feedback edge itself.
+Constraints bound the space in which the loop may operate. Their realizations make that boundary operational. Neither is the feedback edge itself.
 
 ## Capability areas
 
@@ -111,6 +111,7 @@ The directory numbering is navigation only. It does not define a required execut
 
 - A **Constraint** defines the approved boundary.
 - A **Constraint Realization** implements, enforces, or influences it for a defined scope.
+- The Constraints capability family depends on both remaining connected and traceable.
 
 ### Controller and Actuator
 
@@ -132,13 +133,17 @@ Deployment, exposure change, blocking, or rollback
 
 A product may package several functions. Its name does not remove their different evidence, authority, and failure responsibilities.
 
-## Hard and Soft Constraints
+## Hard and Soft Constraint claims
+
+Hard or soft is a scoped claim about a Constraint together with its complete realized path, not an intrinsic property of source policy text.
 
 A **Hard Constraint** deterministically prevents or rejects violation within explicitly stated assumptions, scope, and enforcement boundaries.
 
 A **Soft Constraint** influences probabilistic behavior without guaranteeing that a prohibited state, action, or output remains unreachable.
 
 Prompts, natural-language policies, rubrics, probabilistic evaluators, and model safety classifiers are not hard by themselves. A composite control may use probabilistic sensing and deterministic downstream blocking, but the claimed guarantee follows the complete realized path and its assumptions.
+
+When one source condition has different guarantee strengths across subjects, paths, or scopes, record separate Constraint claims rather than one mixed hard/soft record.
 
 ## Tool mapping rule
 
