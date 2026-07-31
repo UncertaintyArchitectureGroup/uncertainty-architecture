@@ -92,9 +92,8 @@ flowchart LR
 
     R --> C
     R --> K --> KR
-    KR -. bounds .-> U
-    KR -. bounds .-> J
     U --> J --> V
+    KR -. restricts accepted context<br/>and output contract .-> J
     KR --> V
     V -->|Accepted| Q
     V -->|Rejected or uncertain| F
@@ -147,7 +146,7 @@ flowchart LR
     R --> C
     R --> K --> KR
     I --> J --> G
-    KR -. bounds .-> J
+    KR -. restricts available<br/>action proposals .-> J
     KR --> G
     G -->|Allowed| X
     G -->|Approval required| H --> X
@@ -192,6 +191,7 @@ flowchart LR
     D[Verified facts and decision]
     J[Output Mediation<br/>Judgment Node]
     V{Deterministic source,<br/>structure, and policy checks}
+    DEL[Deterministic delivery<br/>and exposure boundary]
     U[Consumer]
     F[Safe template or human review]
     S[Sensors<br/>claim support · omissions · corrections<br/>privacy events · realization health]
@@ -201,13 +201,13 @@ flowchart LR
     R --> C
     R --> K --> KR
     D --> J --> V
-    KR -. bounds .-> D
-    KR -. bounds .-> J
+    KR -. restricts approved sources<br/>and output contract .-> J
     KR --> V
-    V -->|Accepted| U
+    V -->|Accepted| DEL --> U
     V -->|Rejected or uncertain| F
     J --> S
     V --> S
+    DEL --> S
     U --> S
     F --> S
     KR -->|state and violations| S
@@ -215,7 +215,7 @@ flowchart LR
     S --> C
     C -->|authorized action| A
     A --> J
-    A --> U
+    A --> DEL
     A --> F
     A -->|authorized realization change| KR
 ```
@@ -224,9 +224,9 @@ flowchart LR
 |---|---|
 | Constraint | Approved sources, mandatory disclosure, privacy and tenant boundaries, output contract, no fact or decision alteration, no autonomous action. |
 | Realization | Source IDs, retrieval allowlist, disclosure rules, schema validation, permission boundary, deterministic block, and Human Authority where semantic enforcement is incomplete. |
-| Sensor | Claim support, omission, disclosure coverage, corrections, privacy events, parser failures, and source or policy drift. |
+| Sensor | Claim support, omission, disclosure coverage, corrections, privacy events, parser failures, delivery/exposure state, and source or policy drift. |
 | Controller | Release or operational authority authorizes source, policy, audience, model, prompt, fallback, or deployment changes. |
-| Actuator | Deploy approved-source or disclosure changes, roll back, narrow audience, switch template, hide output, or disable the path. |
+| Actuator | Deploy approved-source or disclosure changes, roll back, narrow audience, switch template, hide delivery, or disable the path. |
 | Fallback | Deterministic template, verified facts, refusal, or human review. |
 
 Primary risks include unsupported claims, misleading confidence, omission, privacy failure, and wording that changes user behavior despite unchanged source facts.
@@ -259,14 +259,13 @@ flowchart LR
     R --> C
     R --> K --> KR
     I --> J1 --> J2 --> G
-    KR -. bounds .-> I
-    KR -. bounds .-> J1
-    KR -. bounds .-> J2
+    KR -. enforces or influences .-> J1
+    KR -. enforces or influences .-> J2
     KR --> G
     G -->|Allowed| X --> J3 --> V
     G -->|Approval required| H --> X
     G -->|Rejected| F
-    KR -. bounds .-> J3
+    KR -. enforces or influences .-> J3
     KR --> V
     V -->|Accepted| O
     V -->|Rejected| F
@@ -292,6 +291,8 @@ flowchart LR
 ```
 
 This composition requires system-level evidence. Strong local evaluations do not prove that error propagation, authority, transactions, disclosures, and user outcomes remain acceptable end to end.
+
+The distributed realization arrows may represent deterministic enforcement, probabilistic influence, or a composite path. The delivery Constraint Realization Map must state the actual guarantee for each subject, path, and scope.
 
 Primary risks include cross-node error propagation, lost or conflicting Constraints, orchestration-based authority expansion, partial execution, inconsistent state, and local metrics disconnected from business outcomes.
 
