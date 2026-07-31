@@ -67,7 +67,7 @@ Publications, talks, community discussions, and independent references belong un
 - Updated reference architectures so diagrams distinguish Constraints, realizations, Sensors, Controllers, and Actuators.
 - Updated the failure taxonomy to distinguish open-loop operation from closed-loop but unbounded operation.
 - Simplified the root README into a landing page that links to canonical doctrine instead of acting as a second specification.
-- Simplified `AGENTS.md` into an operational protocol and added checks for terminology ownership, capability boundaries, scoped strength, mixed-strength records, proportionality, compatibility, and provenance.
+- Reworked `AGENTS.md` around an explicit SMB-first operating model, practical organization–architecture/project–delivery-team–runtime ownership, and a four-decision-level by four-capability-family review matrix while preserving role flexibility and rejecting unnecessary enterprise-governance artifacts.
 - Updated `SPECIFICATION.md` conformance to require accurate scoped Hard/Soft claims, explicit realization assumptions, reference conditions, decision authority, execution paths, and reassessment.
 - Updated the Nested Control Lifecycle so project and delivery each maintain one canonical Constraint record for their decision surface and lower levels inherit higher-level decisions by reference.
 - Updated the roadmap to reflect the reviewed four-family consolidation and its remaining validation work.
