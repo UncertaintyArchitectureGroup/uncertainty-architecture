@@ -128,7 +128,7 @@ Constraints may address structure, authority, states, data, context, resources, 
 
 Hard or soft is a scoped claim about a Constraint together with its complete realized path, not an intrinsic property of policy text.
 
-A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
+A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries.
 
 A prompt, natural-language policy, probabilistic evaluator, classifier, or model policy is not hard by itself.
 
