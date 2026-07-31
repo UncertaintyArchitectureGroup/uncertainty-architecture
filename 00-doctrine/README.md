@@ -9,6 +9,7 @@ topics:
   - deterministic-core
   - model-judgment
   - uncertainty-boundary
+  - control-loop
   - containment
 tags:
   - ua/module/doctrine
@@ -18,6 +19,7 @@ tags:
   - ua/topic/deterministic-core
   - ua/topic/model-judgment
   - ua/topic/uncertainty-boundary
+  - ua/topic/control-loop
 canonical_for:
   - doctrine-module
 ---
@@ -62,15 +64,15 @@ This module does not prescribe:
 - a specific model, vendor, framework, or implementation stack;
 - a mandatory three-stage Model Judgment pipeline or physical topology;
 - a complete runtime control-plane design;
-- one universal set of controls, sample sizes, confidence levels, or evaluation thresholds;
+- one universal set of controls, sample sizes, confidence levels, evaluation thresholds, risk scores, or control-cost formulas;
+- detailed project or delivery review checklists;
 - detailed Definition of Ready or Definition of Done checklists;
-- a detailed project-review checklist, risk-scoring method, control-cost formula, or Project Launch Gate protocol;
-- a release protocol, evidence package, or responsibility matrix;
+- a release protocol, evidence package, responsibility matrix, or mandatory Project Launch Gate;
 - replacement of Agile, Scrum, DevOps, or an organization's existing SDLC;
 - a mandatory organizational structure;
 - a certification or conformance program.
 
-Operational checklists, decision flows, and practical records should be defined through reusable patterns and artifacts rather than embedded in doctrine.
+Operational checklists, decision flows, and practical records are defined through reusable patterns and artifacts rather than embedded in doctrine.
 
 ## Key concepts
 
@@ -96,11 +98,13 @@ The canonical wording for terms currently defined by UA is maintained in the [pr
 - [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) — draft-normative relationship between Requirements, Operating Envelopes, Correctness, Bugs, evidence, and diagnosis in mixed deterministic and model-mediated systems.
 - [`model-judgment-placement.md`](model-judgment-placement.md) — draft-normative functional taxonomy for locating Model Judgment as Input Interpretation, Decision Logic, or Output Mediation without prescribing a mandatory pipeline.
 
-Process hypotheses, lifecycle sketches, operational checklists, and historical terminology belong outside doctrine unless deliberately adopted as a foundational concept.
+Process hypotheses, operational checklists, and historical terminology belong outside doctrine unless deliberately adopted as a foundational concept.
 
 ## Relationships
 
-- [`01-patterns/`](../01-patterns/) translates doctrine into reusable technical and socio-technical responses, including the [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) and delivery-level [`Thinking System Review`](../01-patterns/thinking-system-review.md). A future project-level control-architecture and viability pattern may operationalize the project-authorization distinction without creating a new top-level module by implication.
+- [`01-patterns/project-control-architecture-and-viability-review.md`](../01-patterns/project-control-architecture-and-viability-review.md) operationalizes project-level risk scenarios, control architecture, evidence feasibility, Human Authority, operating capacity, control economics, authorization, inheritance, and reauthorization.
+- [`01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) operationalizes delivery-level Judgment Nodes, Requirements, DoR, bounded experimentation, DoD, release, and local reassessment.
+- [`01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) makes consequential Model Judgment explicit and bounded.
 - [`02-ai-control-plane/`](../02-ai-control-plane/) defines the capabilities used to constrain, observe, and correct model-mediated behavior.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible compositions of the doctrine and patterns.
 - [`04-failure-modes/`](../04-failure-modes/) records recurring mechanisms through which these distinctions are violated or lost.

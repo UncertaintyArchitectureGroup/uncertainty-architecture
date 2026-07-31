@@ -21,6 +21,8 @@ tags:
 canonical_for:
   - thinking-system-review-template
 related:
+  - project-control-architecture-and-viability-review.md
+  - project-control-architecture-and-viability-review-template.md
   - thinking-system-review.md
   - judgment-node-boundary.md
   - ../00-doctrine/requirements-correctness-and-bugs.md
@@ -35,14 +37,16 @@ source_basis:
 
 This is the default working artifact for the draft-normative [`Thinking System Review`](thinking-system-review.md) pattern.
 
-Use one copy for one system, feature, or material change. Keep it as a living document through framing, implementation or experimentation, completion, release, and operation.
+Use one copy for one bounded system, feature, or material change. Keep it as a living document through framing, implementation or experimentation, completion, release, and operation.
+
+When the work belongs to an authorized Thinking System project, link the applicable [`Project Control Architecture and Viability Review`](project-control-architecture-and-viability-review.md) version and complete the inherited project baseline below. Do not copy the complete project risk map, control economics, or organizational policy into this review.
 
 After a release decision:
 
 1. preserve an immutable or versioned snapshot;
-2. link the deployed system, model, prompt, policy, tool, and configuration versions where material;
+2. link the project decision and the deployed system, model, prompt, policy, tool, and configuration versions where material;
 3. create a new version when a reassessment trigger occurs;
-4. preserve the relationship to the previous decision.
+4. preserve the relationship to the previous delivery and project decisions.
 
 Mark an item `N/A` with a reason when it does not apply. Do not silently delete review areas because they appear inconvenient.
 
@@ -50,7 +54,7 @@ Mark an item `N/A` with a reason when it does not apply. Do not silently delete 
 
 ## 1. Review identity
 
-- **System or feature:**
+- **System, feature, or material change:**
 - **Review version:**
 - **Previous review or decision:**
 - **Review status:** Draft / Ready review / In implementation / In experiment / Done review / Release review / Operating / Reassessment
@@ -63,6 +67,8 @@ Mark an item `N/A` with a reason when it does not apply. Do not silently delete 
 
 ### Relevant versions and references
 
+- **Project Control Architecture and Viability Review identifier and version:**
+- **Project authorization outcome and snapshot:**
 - **Requirement or feature record:**
 - **Architecture or design record:**
 - **Repository and revision:**
@@ -85,6 +91,27 @@ Mark an item `N/A` with a reason when it does not apply. Do not silently delete 
 - **Current lifecycle context:** Bounded experiment / Prototype / Limited deployment / Production change
 - **Key assumptions:**
 - **Known unknowns:**
+
+### 2.1 Inherited project baseline
+
+Complete by reference to the approved project review. Mark `N/A` with a reason only when this delivery review is itself the first bounded project-level investigation and no project authorization exists yet.
+
+- **Authorized project boundary:**
+- **Intended project outcome:**
+- **Applicable organizational constraints:**
+- **Authorized Model Judgment and maximum autonomy:**
+- **Prohibited authority and hard invariants:**
+- **Material project risk scenarios relevant to this change:**
+- **Shared controls available:**
+- **Project-specific controls required:**
+- **Evidence and feedback expectations:**
+- **Human Authority and operational-capacity assumptions:**
+- **Control-cost and resource boundaries:**
+- **Project-level release constraints:**
+- **Conditions this delivery work must close:**
+- **Project reauthorization triggers:**
+
+If the proposed delivery scope contradicts or expands this baseline, stop and request project reassessment rather than silently rewriting the project decision here.
 
 ### System boundary
 
@@ -200,12 +227,15 @@ Copy the card above as needed. Do not create a separate registry unless independ
 
 For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain open conditions.
 
-### 6.1 Outcome and scope
+### 6.1 Outcome, scope, and inherited boundary
 
 - [ ] Intended user or business outcome is defined.
 - [ ] System boundary is defined.
 - [ ] In-scope and out-of-scope behavior is identified.
 - [ ] Experiment, prototype, limited deployment, and production Requirement are distinguished where relevant.
+- [ ] The applicable project review version and authorization outcome are linked, or the reason no project baseline exists is explicit.
+- [ ] The proposed delivery scope remains inside the inherited authority, population, domain, data, geography, tool, and consequence boundaries.
+- [ ] Project conditions this change must close are identified.
 
 **Evidence or notes:**
 
@@ -224,6 +254,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain open co
 - [ ] Prohibited decisions and actions are defined.
 - [ ] Human Authority or approval points are identified where required.
 - [ ] Deterministic execution boundary is defined.
+- [ ] Authority does not silently exceed the inherited project baseline.
 
 **Evidence or notes:**
 
@@ -235,6 +266,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain open co
 - [ ] Material tolerances or thresholds are defined where feasible and justified.
 - [ ] Resource envelope is defined where material.
 - [ ] Required failure handling is specified.
+- [ ] Inherited project constraints remain represented in the local Requirement.
 
 **Evidence or notes:**
 
@@ -246,6 +278,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain open co
 - [ ] Evidence sources and limitations are understood.
 - [ ] Success and failure criteria are defined.
 - [ ] Known unknowns are recorded.
+- [ ] Applicable project-level evidence and feedback expectations are addressed.
 
 **Evidence or notes:**
 
@@ -256,6 +289,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain open co
 - [ ] Fallback, containment, or escalation is defined.
 - [ ] Observability expectations are defined.
 - [ ] Rollback or shutdown feasibility is considered.
+- [ ] Required shared and project-specific controls are available or explicitly conditioned.
 
 **Evidence or notes:**
 
@@ -265,6 +299,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain open co
 - [ ] Evaluation responsibility is assigned.
 - [ ] Operational responsibility is assigned.
 - [ ] Release decision authority is explicit.
+- [ ] Project reauthorization authority is known when a trigger occurs.
 
 **Evidence or notes:**
 
@@ -274,6 +309,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain open co
 - [ ] Required data, environments, and tools are available.
 - [ ] Legal, security, privacy, and compliance dependencies are identified.
 - [ ] Unresolved risks are closed or explicitly accepted for a bounded experiment.
+- [ ] The change remains inside inherited control-cost, capacity, and resource assumptions.
 
 **Evidence or notes:**
 
@@ -285,6 +321,7 @@ Select one:
 - [ ] Ready for bounded experiment
 - [ ] Ready with explicit conditions
 - [ ] Needs clarification
+- [ ] Project reauthorization required
 - [ ] Control cost not justified
 - [ ] AI path rejected
 
@@ -292,6 +329,7 @@ Select one:
 - **Decision authority:**
 - **Conditions or open questions:**
 - **Bounded-experiment limits and stopping conditions, if applicable:**
+- **Project-level contradiction or reauthorization need, if applicable:**
 - **Rationale:**
 
 ---
@@ -309,6 +347,7 @@ Select one:
 - **Evidence collected:**
 - **Requirement, Operating Envelope, or boundary refinements:**
 - **Material deviations or incidents:**
+- **Project assumptions confirmed, contradicted, or reopened:**
 
 ---
 
@@ -356,6 +395,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain limitat
 - [ ] Tool-use constraints were tested where applicable.
 - [ ] Deterministic validation around Judgment Nodes was verified.
 - [ ] Human Authority or approval points were tested where applicable.
+- [ ] The implemented authority remains inside the authorized project boundary.
 
 **Evidence or notes:**
 
@@ -366,6 +406,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain limitat
 - [ ] Concurrency or rate behavior was assessed where material.
 - [ ] Tool and external-service cost was assessed.
 - [ ] Resource limits and failure behavior were tested.
+- [ ] Evidence does not invalidate project-level control-cost or capacity assumptions, or project reassessment is recorded.
 
 **Evidence or notes:**
 
@@ -387,6 +428,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain limitat
 - [ ] Rollback or disable mechanisms were tested where applicable.
 - [ ] Degraded mode is understood.
 - [ ] Partial-failure behavior was assessed.
+- [ ] Project-level reauthorization and organizational escalation paths are known where applicable.
 
 **Evidence or notes:**
 
@@ -397,6 +439,7 @@ For each item, mark `[x]`, `[ ]`, or `N/A`, and link evidence or explain limitat
 - [ ] Reassessment triggers are documented.
 - [ ] Material residual risks are recorded.
 - [ ] Relevant operational documentation is complete.
+- [ ] Human Authority and fallback capacity remain consistent with the project baseline.
 
 **Evidence or notes:**
 
@@ -410,12 +453,14 @@ Select one:
 - [ ] Controls incomplete
 - [ ] Return to implementation
 - [ ] Return to bounded experiment
+- [ ] Project reauthorization required
 
 - **Decision date:**
 - **Decision responsibility:**
 - **Evidence references:**
 - **Known limitations:**
 - **Material gaps:**
+- **Project assumptions confirmed, contradicted, or reopened:**
 - **Rationale:**
 
 ---
@@ -429,6 +474,7 @@ Select one:
 - **Evidence uncertainty:**
 - **Accepted residual behavior handled as designed:**
 - **Conditions under which current acceptance is no longer valid:**
+- **Relationship to project-level residual risk:**
 
 ---
 
@@ -444,6 +490,7 @@ Select one:
 - **Human supervision:**
 - **Rollout approach:** Full / Limited / Phased / Canary
 - **Conditions:**
+- **Confirmation that scope remains inside project authorization:**
 
 ---
 
@@ -451,8 +498,11 @@ Select one:
 
 DoD establishes completeness. This section records whether the available evidence and residual risk are acceptable for the proposed deployment context.
 
+A Release Gate does not authorize expansion beyond the linked project boundary. When the proposed deployment changes a project-level assumption, record `Project reauthorization required` instead of weakening the inherited baseline.
+
 ### 11.1 Evidence reviewed
 
+- **Project authorization and inherited baseline:**
 - **Approved Requirement and Operating Envelope:**
 - **DoD outcome:**
 - **Deterministic evidence:**
@@ -474,6 +524,7 @@ Select one:
 - [ ] Human-supervised release
 - [ ] Block
 - [ ] Return to experimentation
+- [ ] Project reauthorization required
 - [ ] Roll back
 - [ ] Escalate
 
@@ -483,6 +534,7 @@ Select one:
 - **Conditions:**
 - **Monitoring and review expectations:**
 - **Rollback, containment, or shutdown trigger:**
+- **Project reauthorization trigger:**
 - **Decision validity period or reassessment date, if applicable:**
 
 ---
@@ -496,6 +548,7 @@ Select one:
 - **Review or alert thresholds and rationale:**
 - **Named response path:**
 - **Corrective actions available:**
+- **Project assumptions monitored:**
 
 ### 12.2 Reassessment triggers
 
@@ -503,14 +556,18 @@ Mark applicable triggers and add system-specific triggers.
 
 - [ ] Material model or model-configuration change
 - [ ] Prompt or policy change
-- [ ] Authority change
-- [ ] New tool integration
+- [ ] Authority or autonomy change
+- [ ] New tool or state-changing action
 - [ ] Significant data or context-source change
 - [ ] Incident or confirmed Requirement violation
 - [ ] Material drift or evidence degradation
-- [ ] Expansion of deployment scope or population
-- [ ] Material change in resource use, latency, or external dependency
-- [ ] New legal, security, privacy, compliance, or business constraint
+- [ ] Expansion of deployment scope, population, domain, geography, language, product, or data class
+- [ ] Material change in resource use, latency, review volume, control cost, or external dependency
+- [ ] Human Authority or fallback capacity no longer supports the assumed load
+- [ ] Required project or shared control is lost or degraded
+- [ ] New legal, security, privacy, compliance, contractual, financial, or business constraint
+- [ ] Delivery evidence contradicts a project-level risk, authority, capacity, evidence, or economic assumption
+- [ ] Repeated local exceptions collectively change the project boundary
 - [ ] Other:
 
 ### 12.3 Reassessment outcome
@@ -521,6 +578,8 @@ Mark applicable triggers and add system-specific triggers.
 - [ ] Return to implementation
 - [ ] Return to bounded experiment
 - [ ] Release conditions changed
+- [ ] Project reauthorization required
+- [ ] Organizational review required
 - [ ] Rollback or containment initiated
 - [ ] Escalated
 - [ ] Shutdown or AI path rejected
@@ -528,15 +587,16 @@ Mark applicable triggers and add system-specific triggers.
 - **Date:**
 - **Decision authority:**
 - **Rationale:**
-- **Link to next review version:**
+- **Effect on linked project decision:**
+- **Link to next delivery or project review version:**
 
 ---
 
 ## 13. Version and decision history
 
-| Review version | Date | Trigger | Readiness outcome | Completion outcome | Release or reassessment decision | Decision authority | Snapshot or link |
-|---|---|---|---|---|---|---|---|
-| | | | | | | | |
+| Review version | Date | Trigger | Project review version | Readiness outcome | Completion outcome | Release or reassessment decision | Decision authority | Snapshot or link |
+|---|---|---|---|---|---|---|---|---|
+| | | | | | | | | |
 
 ---
 
@@ -544,11 +604,14 @@ Mark applicable triggers and add system-specific triggers.
 
 Before preserving a release or reassessment snapshot:
 
-- [ ] Requirement and Operating Envelope reflect the actual approved contract.
+- [ ] The applicable project review version and authorization outcome are linked.
+- [ ] The inherited project baseline remains current and conflicts are visible.
+- [ ] The delivery scope does not silently expand project authority, autonomy, population, data, domain, geography, tool access, or consequence.
+- [ ] Requirement and Operating Envelope reflect the actual approved delivery contract.
 - [ ] Consequential Judgment Nodes and authority boundaries are current.
 - [ ] DoR, DoD, and Release Gate outcomes are distinct and recorded.
 - [ ] Evidence references resolve and known limitations are visible.
 - [ ] Residual risk and deployment scope are explicit.
 - [ ] Operational responsibility and corrective paths are real.
-- [ ] Reassessment triggers are documented.
-- [ ] Relevant versions and dependencies are traceable.
+- [ ] Local, project, and organizational reassessment triggers are documented.
+- [ ] Relevant project, delivery, system, model, prompt, policy, tool, and dependency versions are traceable.

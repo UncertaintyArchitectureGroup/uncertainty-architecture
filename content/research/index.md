@@ -27,7 +27,7 @@ license: CC-BY-4.0
 
 The Uncertainty Architecture (UA) Research Track preserves and reviews the work that led to the framework.
 
-UA did not begin as a finished standard. It evolved through architectural, operational, governance, verification, and economic investigations. This section makes that evolution explicit and creates a controlled bridge from research to future doctrine, patterns, control capabilities, reference architectures, failure modes, practical artifacts, and operating responsibilities.
+UA did not begin as a finished standard. It evolved through architectural, operational, governance, verification, and economic investigations. This section makes that evolution explicit and creates a controlled bridge from research to doctrine, patterns, control capabilities, reference architectures, failure modes, practical artifacts, and operating responsibilities.
 
 ## Canonical namespace
 
@@ -38,20 +38,13 @@ UA did not begin as a finished standard. It evolved through architectural, opera
 - preserved unnormalized source snapshots belong in [`content/raw/`](../raw/);
 - public milestones, talks, discussions, and superseded project-process records belong in [`content/history/`](../history/).
 
-A new root-level `research/` directory should not be created. Research material should be classified inside this namespace so that working notes, archived sources, analyses, and framework decisions do not compete as separate entry points.
+A new root-level `research/` directory should not be created.
 
 ## Normative boundary
 
 Documents in this section are **research materials**. They are not automatically binding parts of the UA specification.
 
-Research publications may contain:
-
-- early terminology;
-- provisional role names;
-- strong recommendations;
-- illustrative numerical thresholds;
-- assumptions that were later refined;
-- conclusions that conflict with later work.
+Research publications may contain early terminology, provisional role names, strong recommendations, illustrative numerical thresholds, assumptions later refined, or conclusions that conflict with later work.
 
 A research conclusion becomes normative only after it is reviewed, translated into the appropriate framework component, and accepted through the UA contribution and change-control process.
 
@@ -67,21 +60,11 @@ Documents that combine overlapping public versions, translations, or technically
 
 ### Research analysis
 
-Focused analysis of one or more sources that may record:
-
-- the research question;
-- key findings;
-- contributions to UA;
-- claims that remain useful;
-- claims that were later refined or superseded;
-- contradictions with other UA work;
-- terminology evolution;
-- framework candidates;
-- unresolved questions.
+Focused analysis of one or more sources that may record the research question, key findings, contributions to UA, later refinements, contradictions, terminology evolution, framework candidates, and unresolved questions.
 
 ### Research notes
 
-Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, worked applications, emerging questions, or source-intake gaps. A planning brief or intake record is not completed evidence and should state its maturity explicitly.
+Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, worked applications, emerging questions, or source-intake gaps.
 
 See the [Research Notes index](notes/README.md).
 
@@ -93,7 +76,7 @@ A controlled map from research findings to current or possible Doctrine, Pattern
 
 Research work uses a proportional review model rather than a mandatory source-by-source pipeline.
 
-Depending on the question and impact, a change may contain one or more of the following:
+Depending on the question and impact, a change may contain one or more of:
 
 1. a repository edition of a source;
 2. a source-specific analysis;
@@ -103,8 +86,6 @@ Depending on the question and impact, a change may contain one or more of the fo
 6. a framework-candidate note;
 7. a bounded worked-application or operational observation note.
 
-One logical change per pull request remains a useful default for substantial work, but every source does not require its own pull request or a fixed package of artifacts.
-
 Research changes do **not** automatically rewrite the framework. Normative changes are proposed separately after the relevant evidence has been synthesized and reviewed.
 
 See [Research Review Process](review-process.md).
@@ -113,7 +94,7 @@ See [Research Review Process](review-process.md).
 
 Research is not a one-time phase that begins only after all framework concepts are merged. It operates as a feedback loop with specification work and practical application.
 
-When a framework change or worked application resolves, narrows, rejects, supersedes, or reopens a research question, update the affected source-intake note, working brief, analysis, or [`framework-traceability.md`](framework-traceability.md) as described in the [Research Review Process](review-process.md).
+When a framework change or worked application resolves, narrows, rejects, supersedes, or reopens a research question, update the affected source-intake note, working brief, analysis, or [`framework-traceability.md`](framework-traceability.md).
 
 Do not record every editing session. Research records should capture meaningful changes in evidence, interpretation, question state, or framework destination.
 
@@ -143,45 +124,48 @@ Five normalized publication editions are preserved under [`publications/`](publi
 Two additional synthesis sources are tracked:
 
 - [*On-Device LLM or Cloud API?*](notes/on-device-cloud-source-intake.md) — full author-provided Markdown source available; raw preservation and normalization remain pending;
-- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the maintainer-supplied original PPTX is the slide-level working source, while a PDF export is preserved under [`content/raw/`](../raw/). Slides 1–6 and a later bounded extraction of the controlled-object, process-shift, feedback, and architectural-veto material have been translated through explicit framework review. A complete Markdown transcript or normalized repository edition remains optional future work.
+- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the maintainer-supplied original PPTX is the slide-level working source, while a PDF export is preserved under [`content/raw/`](../raw/). Slides 1–6 and a later bounded extraction of the controlled-object, process-shift, feedback, project-viability, and architectural-veto material have been translated through explicit framework review.
 
 The presentation and publication corpus have now produced explicit framework decisions for:
 
 - mixed Requirements, Operating Envelopes, Correctness, Bugs, and diagnostic sources;
 - Input Interpretation, Decision Logic, and Output Mediation;
 - Judgment Node boundaries;
-- the feature-level SMB Thinking System Review and template;
+- the delivery-level SMB Thinking System Review and template;
 - placement-focused reference architectures;
 - the controlled-object shift from explicitly encoded behavior toward consequential runtime Model Judgment;
 - UA as a control lifecycle that complements rather than replaces Agile, DevOps, QA, security, and incident response;
-- organizational context, project authorization, feature/change delivery, and runtime reauthorization as connected control levels;
-- architectural veto as a valid engineering outcome when a credible or viable control boundary cannot be established.
+- organizational context, project authorization, delivery-level review, and runtime reauthorization as connected control levels;
+- architectural veto as a valid engineering outcome;
+- the project-level [`Project Control Architecture and Viability Review`](../../01-patterns/project-control-architecture-and-viability-review.md) and its single living [`template`](../../01-patterns/project-control-architecture-and-viability-review-template.md);
+- versioned project-baseline inheritance into the [`Thinking System Review`](../../01-patterns/thinking-system-review.md).
 
 Those decisions and their source qualifications are recorded in [`framework-traceability.md`](framework-traceability.md). Unreviewed parts of the presentation and publications are not promoted by implication.
 
-The next framework research question is how to operationalize the project level without creating false precision or governance overload. The candidate Project Control Architecture and Viability Review should determine the minimum decision surface an SMB team needs to:
+The project-level decision surface is now active at draft-framework level. The next research and application questions concern whether the connected project and delivery reviews are proportionate, understandable, non-duplicative, and economically useful in practice:
 
-- map material domain and business-risk scenarios;
-- identify intended Model Judgment, authority, autonomy, and prohibited regions;
-- derive required control capabilities and Human Authority;
-- assess evidence feasibility, feedback latency, and operational capacity;
-- estimate control build and run cost;
-- distinguish expected-value trade-offs from hard veto conditions;
-- authorize, limit, redirect to research, redesign, escalate, or reject the AI path;
-- define which runtime or design changes require project reauthorization.
+- which fields can be completed briefly for low-consequence SMB projects without hiding material risk;
+- whether scenario-based risk mapping produces better control decisions than aggregate scoring;
+- how teams estimate control build cost, recurring control cost, Human Authority capacity, and residual exposure with honest ranges;
+- which project constraints and shared controls should be inherited directly by delivery-level Thinking System Reviews;
+- which runtime findings require local correction versus project reauthorization;
+- which failure modes become visible only when project and delivery reviews are applied together;
+- where the required control perimeter makes the AI path structurally unattractive.
 
-The next major corpus task also remains a cross-publication synthesis that identifies:
+The next practical validation sequence is:
 
-- concepts that remained stable;
-- concepts that were refined or superseded;
-- unresolved contradictions;
-- terminology requiring separate review;
-- candidates for the framework spine;
-- material that should remain research context only.
+```text
+Project Control Architecture and Viability Review
+→ delivery-level Thinking System Review
+→ runtime evidence
+→ local reassessment or project reauthorization
+```
 
-Project-level framework work and corpus synthesis should proceed as a feedback loop. A project pattern should be tested through a two-level worked application and then through a real team or documented real system. Application evidence may refine the feature review, expose missing failure modes, or create more precise questions about risk, tolerance, control economics, Human Authority, and adoption.
+This sequence should first be exercised through a two-level worked application and then through a real team or documented real system. Application evidence may refine the project review, delivery review, control-plane capability model, failure modes, or research questions.
 
-Source-specific analysis may still be added when it contributes evidence, clarifies provenance, or resolves a concrete question. It is not a prerequisite for beginning corpus-level synthesis or practical validation.
+The next major corpus task also remains a cross-publication synthesis that identifies stable concepts, refinements, contradictions, superseded claims, terminology requiring review, framework candidates, and material that should remain research context only.
+
+Project-level validation and corpus synthesis should proceed as a feedback loop rather than sequential phases.
 
 The intended synthesis corpus includes:
 
@@ -196,11 +180,11 @@ The intended synthesis corpus includes:
 
 Current UA terminology uses **Thinking Systems** for software that delegates part of runtime interpretation, judgment, planning, or decision-making to probabilistic models while retaining explicit deterministic boundaries and control responsibilities.
 
-Historical publications used **Behavioral Software** and **Behavioral Applications**. Current framework documents may identify the migration on first use as **Thinking Systems** (previously described as **Behavioral Software** or **Behavioral Applications**), but should use **Thinking Systems** thereafter.
+Historical publications used **Behavioral Software** and **Behavioral Applications**. Current framework documents may identify the migration on first use, but should use **Thinking Systems** thereafter.
 
 Agentic systems are treated as a higher-autonomy subset of Thinking Systems rather than as a synonym for the whole category.
 
-Historical publications and raw sources retain their original language for provenance. Repository editions should include a terminology note when the legacy category is material to the text.
+Historical publications and raw sources retain their original language for provenance.
 
 ## Metadata
 

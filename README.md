@@ -61,9 +61,11 @@ Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/un
 - **Understand the core concepts:** [`00-doctrine/`](00-doctrine/)
 - **Use the canonical vocabulary:** [`00-doctrine/glossary.md`](00-doctrine/glossary.md)
 - **Apply reusable engineering patterns:** [`01-patterns/`](01-patterns/)
+- **Decide whether the project has a viable control architecture:** [`01-patterns/project-control-architecture-and-viability-review.md`](01-patterns/project-control-architecture-and-viability-review.md)
+- **Copy the project-level review template:** [`01-patterns/project-control-architecture-and-viability-review-template.md`](01-patterns/project-control-architecture-and-viability-review-template.md)
 - **Run the delivery-level review flow:** [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
-- **Copy the practical review template:** [`01-patterns/thinking-system-review-template.md`](01-patterns/thinking-system-review-template.md)
-- **See one completed worked review:** [`03-reference-architectures/worked-thinking-system-review-support-triage.md`](03-reference-architectures/worked-thinking-system-review-support-triage.md)
+- **Copy the delivery review template:** [`01-patterns/thinking-system-review-template.md`](01-patterns/thinking-system-review-template.md)
+- **See one completed delivery-level review:** [`03-reference-architectures/worked-thinking-system-review-support-triage.md`](03-reference-architectures/worked-thinking-system-review-support-triage.md)
 - **Design the control loop:** [`02-ai-control-plane/`](02-ai-control-plane/)
 - **Review minimal placement architectures:** [`03-reference-architectures/judgment-placement-examples.md`](03-reference-architectures/judgment-placement-examples.md)
 - **Review other concrete architectures:** [`03-reference-architectures/`](03-reference-architectures/)
@@ -77,6 +79,7 @@ Read the draft doctrine: [`Uncertainty in the Controlled Object`](00-doctrine/un
 → [`Uncertainty in the Controlled Object`](00-doctrine/uncertainty-in-the-controlled-object.md)
 → [`Requirements, Correctness, and Bugs`](00-doctrine/requirements-correctness-and-bugs.md)
 → [`Model Judgment Placement`](00-doctrine/model-judgment-placement.md)
+→ [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md)
 → [`Judgment Node Boundary`](01-patterns/judgment-node-boundary.md)
 → [`Thinking System Review`](01-patterns/thinking-system-review.md)
 → [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md)
@@ -127,10 +130,10 @@ graph TD;
 
 ## Nested Control Lifecycle
 
-UA currently distinguishes four connected levels:
+UA distinguishes four connected levels:
 
 1. **Organizational control context** — shared constraints, capabilities, risk boundaries, and decision rights.
-2. **Project control architecture and viability** — whether a proposed Thinking System has a credible and economically viable control architecture.
+2. **Project control architecture and viability** — whether a proposed Thinking System has a credible, operable, and economically viable control architecture.
 3. **Delivery-level review** — whether a bounded system, feature, or material change is ready, complete, and acceptable for a stated deployment context.
 4. **Runtime control and reauthorization** — whether production evidence confirms the current decision or requires local correction, project reauthorization, narrowing, rollback, or shutdown.
 
@@ -149,9 +152,21 @@ flowchart LR
     R -->|Shared constraint changed| O
 ```
 
-The current [`Thinking System Review`](01-patterns/thinking-system-review.md) implements the delivery level. It may cover a bounded whole system, feature, or material change, but it does not by itself establish the upstream viability of the broader project.
+### Project level
 
-A project-level control-architecture and viability pattern is under development. It will address risk-space mapping, required control capabilities, Human Authority, operational capacity, control economics, project authorization, architectural veto, and reauthorization triggers without creating a large governance organization.
+The [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md) maps the business outcome, intended Judgment and authority, material risk scenarios, required control capabilities, evidence feasibility, Human Authority, operational capacity, control economics, residual risk, project authorization, delivery inheritance, and reauthorization triggers.
+
+Its [`project-level template`](01-patterns/project-control-architecture-and-viability-review-template.md) keeps the authorization decision and inherited baseline in one living artifact. `No-Go`, bounded research, redesign, deferral, and constrained authorization are valid outcomes.
+
+### Delivery level
+
+The [`Thinking System Review`](01-patterns/thinking-system-review.md) implements the delivery level for a bounded whole system, feature, or material change. It owns the model-mediated DoR, bounded experiment, DoD, deployment-specific Release Gate, and local reassessment.
+
+Its [`delivery template`](01-patterns/thinking-system-review-template.md) links the project decision and refines implementation-level Judgment Nodes, Requirements, controls, evidence, and release scope without silently expanding project authority.
+
+### Runtime level
+
+Runtime evidence may remain a local delivery issue, invalidate a project assumption, or reveal that an organizational constraint or shared capability must change. The level of reassessment follows the decision whose assumptions were invalidated.
 
 ## What UA Is — and Is Not
 
@@ -161,6 +176,7 @@ UA is:
 - a set of patterns for containment, evaluation, escalation, fallback, and reassessment;
 - an operational doctrine for governing probabilistic behavior;
 - a project-to-runtime control lifecycle for consequential model-mediated work;
+- a lightweight SMB-facing project authorization review;
 - a lightweight SMB-facing delivery review for a bounded system, feature, or material change;
 - a tool-neutral specification intended to evolve through research and implementation evidence.
 
@@ -176,23 +192,25 @@ UA is not:
 
 ## Practical SMB Path
 
-The current delivery path uses one living [`Thinking System Review`](01-patterns/thinking-system-review.md) and one copyable [`template`](01-patterns/thinking-system-review-template.md):
+The default project-to-runtime path uses two living reviews with different ownership:
 
 ```text
-Inherit the authorized project boundary
-→ map consequential Judgment Nodes
-→ complete the model-mediated DoR extension
-→ implement or run a bounded experiment
-→ complete the model-mediated DoD extension
-→ record the release decision
-→ preserve a snapshot and reassess after material change or incident
+Open the Project Control Architecture and Viability Review
+→ map outcome, Judgment landscape, material risk, controls, evidence, capacity, and economics
+→ authorize, condition, redirect to research, redesign, defer, escalate, or reject the AI path
+→ pass one versioned project baseline to delivery reviews
+→ run a Thinking System Review for each bounded system, feature, or material change
+→ complete DoR, bounded experiment or implementation, DoD, and the Release Gate
+→ operate, observe, and reassess at the local, project, or organizational level
 ```
 
-The review embeds Judgment Node cards, responsibility bundles, evidence, residual risk, deployment scope, and the release decision. The default path does not require separate readiness records, completion packages, Judgment Node registries, responsibility matrices, governance-board protocols, or Release Decision Records.
+The [`project review template`](01-patterns/project-control-architecture-and-viability-review-template.md) embeds the project decision, residual risk, control economics, delivery inheritance package, and reauthorization triggers. It does not require separate risk maps, responsibility matrices, financial records, governance-board protocols, or Project Launch Gate records when linked evidence and one review are sufficient.
 
-The upstream project decision is distinct. It asks whether the business risk, intended authority, required controls, evidence feasibility, Human Authority, operational capacity, control cost, and residual exposure support launching the project at all. A successful demo is not enough, and `No-Go` is a valid architectural result.
+The [`delivery review template`](01-patterns/thinking-system-review-template.md) embeds Judgment Node cards, responsibility bundles, evidence, residual risk, deployment scope, and the release decision. It does not require separate readiness records, completion packages, Judgment Node registries, responsibility matrices, governance-board protocols, or Release Decision Records.
 
-Use the [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md) to see how the same review surface applies to Input Interpretation, Decision Logic, Output Mediation, and a composite system without turning those examples into mandatory topologies.
+A successful demo is not project authorization. A completed implementation is not release authorization. A release decision does not silently expand the project boundary. `No-Go` remains a valid architectural result.
+
+Use the [`Judgment Placement Reference Architectures`](03-reference-architectures/judgment-placement-examples.md) to see how the same delivery review surface applies to Input Interpretation, Decision Logic, Output Mediation, and a composite system without turning those examples into mandatory topologies.
 
 Then inspect the [`Worked Support Triage Review`](03-reference-architectures/worked-thinking-system-review-support-triage.md) to see one full illustrative delivery path from framing through bounded experimentation, DoD, residual risk, a human-supervised Release Gate, and reassessment. Its synthesized evidence is a teaching device, not a claim about a real production deployment or a set of UA-wide thresholds.
 
@@ -201,9 +219,9 @@ Then inspect the [`Worked Support Triage Review`](03-reference-architectures/wor
 ### Specification modules
 
 - [`00-doctrine/`](00-doctrine/) — core concepts, the controlled-object shift, terminology, requirement and diagnostic models, and Model Judgment placement.
-- [`01-patterns/`](01-patterns/) — reusable technical and socio-technical control patterns, including the delivery-level SMB Thinking System Review.
-- [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, and operating controls.
-- [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated placement examples and a completed illustrative Thinking System Review.
+- [`01-patterns/`](01-patterns/) — reusable technical and socio-technical controls, including project-level viability and authorization, Judgment Node boundaries, and the delivery-level Thinking System Review.
+- [`02-ai-control-plane/`](02-ai-control-plane/) — actuators, sensors, controllers, Human Authority, and operating controls.
+- [`03-reference-architectures/`](03-reference-architectures/) — worked, non-prescriptive architectural applications, including isolated placement examples and a completed illustrative delivery review.
 - [`04-failure-modes/`](04-failure-modes/) — recurring technical and socio-technical failure modes.
 
 The canonical boundary, status vocabulary, and conformance model are defined in [`SPECIFICATION.md`](SPECIFICATION.md).
@@ -220,7 +238,7 @@ The canonical boundary, status vocabulary, and conformance model are defined in 
 ### Navigation for Obsidian and AI tools
 
 - [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) defines the controlled frontmatter fields and hierarchical `ua/...` tag vocabulary.
-- [`AGENTS.md`](AGENTS.md) provides a tool-neutral repository map, authority order, reading strategies, and editing invariants for language models and coding agents.
+- [`AGENTS.md`](AGENTS.md) provides a tool-neutral repository map, authority order, four-level control context, reading strategies, and editing invariants for language models and coding agents.
 
 These files improve navigation and retrieval. They are informative and do not create a second specification or change document authority.
 
@@ -242,11 +260,18 @@ The evidence policy and complete historical index are maintained in [`content/hi
 
 **Active specification development.**
 
-The repository contains the current delivery-level control spine: mixed Requirements, Model Judgment placement, Judgment Node boundaries, one SMB-facing Thinking System Review and template, four placement-focused reference architectures, and one fully populated illustrative review.
+The repository now contains the connected project and delivery control spine:
 
-The controlled-object doctrine now makes explicit that this delivery layer sits inside a broader lifecycle. The next substantive framework work is a lightweight project-level control-architecture and viability pattern, followed by one project-level artifact and a two-level worked application that shows how project constraints flow into delivery reviews and how runtime evidence can trigger reauthorization.
+- doctrine for the controlled-object shift and four control levels;
+- a project-level Control Architecture and Viability Review with one working template;
+- mixed Requirements, Model Judgment placement, and Judgment Node boundaries;
+- one delivery-level Thinking System Review and template;
+- four placement-focused reference architectures;
+- one fully populated illustrative delivery review.
 
-Risk and tolerance mapping, control economics, architectural veto, Human Authority design, failure modes, incident loops, and real-team validation remain active development areas.
+The next substantive application step is a two-level worked example showing how a project baseline is inherited by a delivery review and how runtime evidence can trigger project reauthorization. That should be followed by real-team application and evidence-driven refinement.
+
+Risk and tolerance derivation, deeper control-economics methods, Human Authority design, failure modes, incident loops, and real-team validation remain active development areas.
 
 See [`ROADMAP.md`](ROADMAP.md) for current sequencing.
 

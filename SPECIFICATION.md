@@ -36,7 +36,7 @@ UA is an open specification for designing and governing **Thinking Systems**: so
 
 UA treats reliability as a system property produced by explicit boundaries, observable behavior, feedback, decision rights, viable control architecture, and controlled change rather than by model quality alone.
 
-The specification addresses a controlled-object shift: uncertainty does not exist only in requirements, users, infrastructure, or delivery assumptions. A Thinking System may itself produce consequential runtime uncertainty through Model Judgment. UA connects project authorization, delivery-level review, runtime control, and reauthorization around that changed object.
+The specification addresses a controlled-object shift: uncertainty does not exist only in requirements, users, infrastructure, or delivery assumptions. A Thinking System may itself produce consequential runtime uncertainty through Model Judgment. UA connects organizational context, project authorization, delivery-level review, runtime control, and reauthorization around that changed object.
 
 This file is the canonical entry point for the specification. It does not duplicate the detailed content of the modules it indexes.
 
@@ -48,11 +48,12 @@ The UA specification covers:
 - the controlled-object shift created when consequential runtime behavior is produced through Model Judgment;
 - the relationship between product uncertainty, operational uncertainty, and runtime-judgment uncertainty;
 - organizational control context, project control architecture and viability, delivery-level review of a bounded system, feature, or material change, and runtime reauthorization as connected levels;
+- project-level material risk scenarios, intended Judgment and authority, required control capabilities, evidence feasibility, Human Authority, operating capacity, control economics, authorization, inheritance, and reauthorization;
 - functional placement of Model Judgment within a system or workflow;
 - architectural boundaries around model-mediated behavior;
 - control-loop capabilities for constraining, observing, evaluating, and recalibrating behavior;
 - reusable technical and socio-technical patterns;
-- lightweight review patterns and practical artifacts connecting Requirements, Judgment Nodes, evidence, decision authority, release, and reassessment;
+- lightweight review patterns and practical artifacts connecting project decisions, Requirements, Judgment Nodes, evidence, decision authority, release, and reassessment;
 - project-level architectural veto when a credible, operable, or economically viable control boundary cannot be established;
 - recurring failure modes and anti-patterns;
 - reference architectures that demonstrate possible compositions of the specification.
@@ -69,6 +70,7 @@ The specification does not prescribe:
 - one universal risk score or control-cost formula;
 - mandatory job titles or a single organizational structure;
 - identical controls for every AI system;
+- duplication of project risk, economics, or organizational constraints inside every delivery review;
 - any reference implementation as the standard itself.
 
 Controls, evidence, review depth, and records should be proportional to consequences, uncertainty, autonomy, reversibility, exposure, feedback latency, organizational capacity, and operating context.
@@ -108,17 +110,21 @@ Stable doctrine is expected to become normative; unfinished doctrine remains dra
 
 ### 5.2 Patterns
 
-[`01-patterns/`](01-patterns/README.md) contains reusable solutions for recurring technical and socio-technical control problems, including explicit boundaries around consequential Judgment Nodes and a lightweight Thinking System Review for SMB teams.
+[`01-patterns/`](01-patterns/README.md) contains reusable solutions for recurring technical and socio-technical control problems, including project viability and authorization, explicit boundaries around consequential Judgment Nodes, and delivery-level review for SMB teams.
 
-A pattern may arrange technical mechanisms, artifacts, responsibility bundles, evidence, and decision processes when those elements jointly address a recurring control problem. This does not create a separate top-level Operating Model module by implication.
+A pattern may arrange technical mechanisms, artifacts, responsibility bundles, evidence, economics, and decision processes when those elements jointly address a recurring control problem. This does not create a separate top-level Operating Model module by implication.
 
 Patterns may be normative or draft normative. Examples, compact records, and working templates attached to a pattern are informative unless stated otherwise.
 
-The [`Thinking System Review`](01-patterns/thinking-system-review.md) is the canonical owner of the full model-mediated Definition of Ready, Definition of Done, distinct Release Gate, responsibility bundles, and reassessment flow for a bounded system, feature, or material change. The [`Thinking System Review Template`](01-patterns/thinking-system-review-template.md) is its informative working representation and does not create an additional conformance path or independent protocol.
+The [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md) is the canonical owner of the project-level material risk and consequence model, intended Judgment and authority landscape, required control capabilities, evidence feasibility, Human Authority and operating capacity, control economics, project authorization, delivery inheritance package, and project reauthorization triggers.
 
-The Thinking System Review is a delivery-level review. It does not by itself establish the upstream viability of a broader project merely because its selected boundary is a whole system.
+The [`Project Control Architecture and Viability Review Template`](01-patterns/project-control-architecture-and-viability-review-template.md) is its informative working representation. It keeps the project decision in one living artifact and does not create a separate Project Launch Gate protocol.
 
-A project-level control-architecture and viability pattern is not yet part of the specification. Its future adoption requires a separate explicit framework decision.
+The [`Thinking System Review`](01-patterns/thinking-system-review.md) is the canonical owner of the model-mediated Definition of Ready, Definition of Done, distinct Release Gate, responsibility bundles, and local reassessment flow for a bounded system, feature, or material change.
+
+The [`Thinking System Review Template`](01-patterns/thinking-system-review-template.md) is its informative working representation. It links the applicable project decision and inherited baseline without creating an additional conformance path or independent protocol.
+
+The project review and delivery review are connected but do not share canonical ownership. Project-level constraints flow downward by reference. Delivery and runtime evidence flows upward when it invalidates a project-level risk, authority, capacity, evidence, or economic assumption.
 
 ### 5.3 AI Control Plane
 
@@ -180,19 +186,37 @@ A system or design claiming alignment with UA SHOULD be able to identify:
 8. who or what may authorize corrective action and how escalation, containment, fallback, rollback, or shutdown occurs;
 9. how decisions, assumptions, dependencies, and changes remain traceable.
 
-For consequential model-mediated work, the system or team SHOULD also be able to show an equivalent of:
+### 7.1 Project-level alignment
 
+For a consequential proposed Thinking System project, the organization or team SHOULD be able to show an equivalent of:
+
+- the intended business outcome, non-AI alternative, and reason Model Judgment is needed;
+- a defined project boundary and intended Judgment, autonomy, and authority landscape;
+- material risk scenarios connected to affected obligations, consequence, detectability, feedback latency, reversibility, propagation, required controls, and residual risk;
+- deterministic invariants and prohibited authority;
+- required shared and project-specific constraints, sensors, controllers, Human Authority, actuators, fallback, containment, rollback, and shutdown capabilities;
+- evidence feasibility and material blind spots;
+- substantive Human Authority and sufficient operational capacity where human intervention is part of the control design;
+- one-time and recurring control costs, remaining exposure, and the effect of controls on the business case;
+- a project authorization outcome distinct from delivery release;
+- a versioned inheritance package for delivery reviews;
+- project reauthorization triggers after material change or runtime evidence.
+
+The project outcome MAY authorize delivery, authorize with conditions, authorize only bounded research, require redesign, escalate, defer, or reject the AI path.
+
+### 7.2 Delivery-level alignment
+
+For consequential model-mediated delivery work, the system or team SHOULD also be able to show an equivalent of:
+
+- a link to the applicable project decision and inherited baseline, or an explicit reason no project baseline yet exists;
 - an approved Requirement and context-derived Operating Envelope;
 - a readiness decision distinguishing implementation from bounded experimentation;
 - completion evidence covering applicable deterministic, behavioral, boundary, resource, operational, and failure-handling responsibilities;
 - a release decision distinct from completion, with deployment scope, residual risk, conditions, and decision authority;
-- runtime ownership and reassessment triggers after material change, drift, or incident.
+- runtime ownership and reassessment triggers after material change, drift, or incident;
+- evidence that the delivery scope does not silently expand project authority or invalidate project assumptions without reauthorization.
 
-At project level, a UA-aligned design SHOULD distinguish the decision to authorize or reject the proposed Thinking System from the decision to release a bounded system, feature, or material change. It SHOULD also identify which organizational constraints and project assumptions delivery-level reviews inherit, and which material changes or runtime findings require project-level reauthorization.
-
-Detailed project-level conformance, risk mapping, control economics, and authorization records remain under development. The controlled-object doctrine does not by itself require one Project Launch Gate, score, template, or committee.
-
-UA does not require the provided Thinking System Review template. Equivalent records and processes MAY be integrated into existing product, engineering, security, quality, change-management, financial, or incident systems, provided the relevant distinctions and decision rights remain explicit and traceable.
+UA does not require the provided project or delivery templates. Equivalent records and processes MAY be integrated into existing product, business-case, architecture, engineering, security, quality, financial, change-management, risk, or incident systems, provided the relevant distinctions, decision rights, inheritance, and reauthorization paths remain explicit and traceable.
 
 The placement classes are a functional taxonomy, not a mandatory pipeline. A node may combine functions, and a workflow may omit or repeat any class. Reference architectures may help a team reason about these distinctions but do not add conformance requirements.
 
@@ -212,8 +236,8 @@ Research findings, talks, articles, implementations, and external frameworks do 
 
 ## 9. Current maturity
 
-UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, doctrine for the changed controlled object and nested control levels, a Model Judgment placement taxonomy, a Judgment Node Boundary pattern, an SMB-facing delivery-level Thinking System Review pattern and template, placement-focused reference architectures, one completed illustrative review, a control-plane model, research traceability, and failure-mode work.
+UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, doctrine for the changed controlled object and nested control levels, a project-level Control Architecture and Viability Review pattern and template, a Model Judgment placement taxonomy, a Judgment Node Boundary pattern, an SMB-facing delivery-level Thinking System Review pattern and template with project inheritance, placement-focused reference architectures, one completed illustrative delivery review, a control-plane model, research traceability, and failure-mode work.
 
-The project-level control-architecture and viability pattern, project authorization artifact, risk and tolerance mapping, control-economics guidance, and two-level worked application are not yet complete.
+A two-level worked application, real-team application, deeper risk and tolerance derivation, detailed control-economics methods, and additional failure-mode and incident-loop work remain incomplete.
 
 Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples or templates remain **reference** or **informative**, not mandatory implementation requirements.

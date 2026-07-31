@@ -25,6 +25,7 @@ canonical_for:
 related:
   - requirements-correctness-and-bugs.md
   - model-judgment-placement.md
+  - ../01-patterns/project-control-architecture-and-viability-review.md
   - ../01-patterns/judgment-node-boundary.md
   - ../01-patterns/thinking-system-review.md
   - ../02-ai-control-plane/README.md
@@ -39,7 +40,7 @@ source_basis:
 
 This document is **draft normative**. It defines why Thinking Systems require an additional control lifecycle and distinguishes project authorization, delivery-level review, and runtime reauthorization.
 
-It does not define the detailed project-review process, a risk-scoring method, a control-cost formula, or a mandatory organizational structure. Those operational elements belong in patterns and practical artifacts after separate review.
+It does not define the detailed project or delivery review procedures, a universal risk score, a universal control-cost formula, or a mandatory organizational structure. Project-level operationalization belongs to the [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md); delivery-level readiness, completion, release, and reassessment belong to the [`Thinking System Review`](../01-patterns/thinking-system-review.md).
 
 ## 1. The controlled object has changed
 
@@ -182,7 +183,7 @@ Before an organization commits to a consequential Thinking System, it needs a cr
 - the expected cost of building and operating the control system;
 - conditions under which the AI path must not proceed.
 
-These are not a universal checklist or scoring formula. They identify the categories of reasoning needed to decide whether a credible project-level control architecture can exist.
+These are not a universal checklist or scoring formula. They identify the categories of reasoning needed to decide whether a credible project-level control architecture can exist. The project-level pattern translates them into one proportional review surface.
 
 A project that cannot identify a plausible way to detect and contain its critical violations does not yet have a deployable control architecture. A project whose required control perimeter destroys its expected value may be technically possible but economically non-viable.
 
@@ -214,7 +215,9 @@ The project level determines whether a proposed Thinking System has:
 - acceptable residual risk;
 - viable control economics.
 
-The result is a project-level authorization, limitation, redesign, research-only decision, escalation, or rejection of the AI path.
+The result is a project-level authorization, limitation, redesign, research-only decision, escalation, deferral, or rejection of the AI path.
+
+The [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md) owns this project-level decision surface and the baseline inherited by delivery reviews.
 
 ### 6.3 Delivery-level review
 
@@ -231,7 +234,7 @@ The delivery-level review owns:
 - the deployment-specific Release Gate;
 - local reassessment triggers.
 
-A delivery review may inherit project-level constraints and shared controls rather than redefine the entire domain and project risk space.
+A delivery review inherits project-level constraints and shared controls rather than redefining the entire domain, project risk space, operating-capacity assumptions, and control economics.
 
 ### 6.4 Runtime control and reauthorization
 
@@ -260,7 +263,7 @@ flowchart TB
     ORG --> PROJ
     PROJ -->|Authorized boundary| DELIV
     PROJ -->|Research or redesign| RESEARCH --> PROJ
-    PROJ -->|No-go| STOP
+    PROJ -->|No-Go or defer| STOP
     DELIV -->|Approved deployment| RUN
     RUN -->|Local evidence or change| LOCAL --> DELIV
     RUN -->|Project assumption changed| REAUTH --> PROJ
@@ -279,7 +282,7 @@ The project-level decision asks:
 
 > Is there a credible, operable, and economically viable control architecture for pursuing this Thinking System within a defined boundary?
 
-It may authorize only research, a bounded pilot, a constrained project, or full project delivery. It may also require redesign, escalation, or rejection of the AI path.
+It may authorize only research, a bounded pilot, a constrained project, or full project delivery. It may also require redesign, escalation, deferral, or rejection of the AI path.
 
 ### Delivery-level Release Gate
 
@@ -330,14 +333,23 @@ No-Go is not a delivery failure. It is a valid output of control-oriented archit
 
 ## 10. Implications for the UA framework
 
-This doctrine establishes the conceptual distinction needed for two related but separate patterns:
+This doctrine is operationalized through two related but distinct patterns:
 
-1. the current delivery-level [`Thinking System Review`](../01-patterns/thinking-system-review.md);
-2. a future project-level control-architecture and viability review.
+1. the project-level [`Project Control Architecture and Viability Review`](../01-patterns/project-control-architecture-and-viability-review.md);
+2. the delivery-level [`Thinking System Review`](../01-patterns/thinking-system-review.md).
 
-The future project-level pattern should define how an SMB team can map material risk scenarios, derive required control capabilities, assess Human Authority and operational capacity, estimate control cost, make a project authorization decision, and identify reauthorization triggers without creating a large governance bureaucracy.
+The project-level pattern maps material risk scenarios, intended Model Judgment and authority, required control capabilities, evidence feasibility, Human Authority, operational capacity, control cost, residual risk, project authorization, delivery inheritance, and reauthorization triggers.
 
-Until that pattern is accepted, this document does not create a mandatory Project Launch Gate, risk score, template, review board, or new repository module.
+The delivery-level pattern refines the authorized boundary into implementation-level Judgment Nodes, Requirements, readiness, evidence, completion, a deployment-specific Release Gate, and local reassessment.
+
+The two patterns must remain connected without duplicating ownership:
+
+- project reviews establish and version the inherited baseline;
+- delivery reviews link that baseline and refine local details;
+- delivery or runtime evidence that invalidates a project assumption returns to project reauthorization;
+- organizational constraints and shared capabilities remain owned by their existing sources.
+
+Neither pattern creates a mandatory committee, universal score, separate gate record, or new top-level repository module.
 
 ## 11. Non-prescription
 
@@ -353,4 +365,4 @@ UA does not require:
 - autonomous control where Human Authority is more appropriate;
 - Human-in-the-Loop where deterministic containment is sufficient.
 
-Organizations may integrate these control decisions into existing product, architecture, security, quality, delivery, change-management, financial, or incident processes, provided the boundaries, evidence, authority, corrective action, and decision state remain explicit and traceable.
+Organizations may integrate these control decisions into existing product, architecture, security, quality, delivery, change-management, financial, or incident processes, provided the boundaries, evidence, authority, corrective action, decision state, inheritance, and reauthorization path remain explicit and traceable.
