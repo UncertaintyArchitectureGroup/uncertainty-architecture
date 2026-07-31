@@ -49,7 +49,7 @@ This module defines or develops:
 - UA as a control lifecycle complementing product discovery, iterative delivery, DevOps, QA, security, and incident response;
 - organizational, project, delivery, and runtime decision levels;
 - decision ownership, Constraint inheritance, realization, and upward reassessment;
-- the Control-Loop Capability Anatomy of Constraints, Sensors, Controllers, and Actuators;
+- the Control-Loop Capability Anatomy of Constraints and their realizations, Sensors, Controllers, and Actuators;
 - the distinction between a closed feedback loop and a complete bounded UA control architecture;
 - the distinction between capability functions and physical topology;
 - functional placement of Model Judgment;
@@ -80,10 +80,10 @@ Operational checklists, decision flows, practical records, and implementation ex
 - **Model Judgment** — interpretation, synthesis, classification, generation, planning, or action selection under uncertainty.
 - **Controlled-object shift** — the change created when the engineered system itself produces consequential runtime uncertainty.
 - **Nested Control Lifecycle** — the organizational, project, delivery, and runtime decision structure through which authoritative Constraints and capabilities flow downward and invalidating evidence flows upward.
-- **Control-Loop Capability Anatomy** — Constraints define approved boundaries, Sensors produce evidence, Controllers select or authorize, and Actuators execute change.
+- **Control-Loop Capability Anatomy** — four capability families: Constraints and their realizations, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
 - **Constraint** — an approved condition limiting the allowed operating space.
 - **Constraint Realization** — the concrete mechanism implementing, enforcing, or influencing a Constraint for a defined scope.
-- **Hard Constraint** — a Constraint whose violation is deterministically prevented or rejected within stated assumptions, scope, and enforcement boundaries.
+- **Hard Constraint** — a scoped Constraint whose complete realized path deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
 - **Uncertainty Boundary** — the interface at which deterministic responsibilities meet probabilistic judgment.
 - **Containment** — limiting where uncertainty or failure may propagate.
 - **Requirement** — the approved operating contract for a system, feature, or change.
@@ -97,7 +97,7 @@ Canonical wording belongs to the [`glossary`](glossary.md). Undefined or unresol
 
 - [`glossary.md`](glossary.md) — canonical vocabulary.
 - [`uncertainty-in-the-controlled-object.md`](uncertainty-in-the-controlled-object.md) — controlled-object rationale and lifecycle need.
-- [`control-loop-anatomy.md`](control-loop-anatomy.md) — four capabilities, feedback closure, bounded operation, and capability relationships.
+- [`control-loop-anatomy.md`](control-loop-anatomy.md) — four capability families, feedback closure, bounded operation, and capability relationships.
 - [`nested-control-lifecycle.md`](nested-control-lifecycle.md) — decision ownership, inheritance, runtime evidence, and reauthorization.
 - [`requirements-correctness-and-bugs.md`](requirements-correctness-and-bugs.md) — Requirements, Operating Envelopes, Correctness, Bugs, and diagnosis.
 - [`model-judgment-placement.md`](model-judgment-placement.md) — Input Interpretation, Decision Logic, and Output Mediation.
@@ -107,7 +107,7 @@ Canonical wording belongs to the [`glossary`](glossary.md). Undefined or unresol
 - [`01-patterns/project-control-architecture-and-viability-review.md`](../01-patterns/project-control-architecture-and-viability-review.md) operationalizes project risk, Constraint architecture, capability feasibility, economics, authorization, and reauthorization.
 - [`01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) operationalizes delivery realization, DoR, DoD, Release Gate, and reassessment.
 - [`01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) makes consequential Model Judgment explicit and bounded.
-- [`02-ai-control-plane/`](../02-ai-control-plane/) develops Constraints, Sensors, Controllers, Actuators, and implementation-oriented guidance.
+- [`02-ai-control-plane/`](../02-ai-control-plane/) develops Constraints and their realizations, Sensors, Controllers, Actuators, and implementation-oriented guidance.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible compositions.
 - [`04-failure-modes/`](../04-failure-modes/) records recurring loss-of-control mechanisms.
 - [`SPECIFICATION.md`](../SPECIFICATION.md) defines status and normative boundaries.
