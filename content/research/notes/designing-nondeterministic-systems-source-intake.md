@@ -92,12 +92,14 @@ The slide concludes that execution, limits, measurement, and judgment must form 
 
 ### Accepted framework decision
 
-UA adopts the durable distinction among four logical capability functions:
+UA adopts a durable distinction among four logical capability families:
 
-1. **Constraints** define approved operating boundaries.
+1. **Constraints and their realizations** define and operationalize approved operating boundaries.
 2. **Sensors and evidence** make behavior, outcomes, operating conditions, realization state, Actuator execution, and control health observable.
 3. **Controllers and decision authority** compare or interpret evidence and select or authorize action.
 4. **Actuators and corrective action** execute authorized changes to operation.
+
+The Constraints family is intentionally composite. A Constraint is the authoritative boundary object; a Constraint Realization is the technical or socio-technical mechanism that implements, enforces, or influences it. Constraint Realization is not a fifth capability family.
 
 The decision is represented in:
 
@@ -135,7 +137,7 @@ Complete UA control architecture
 + reassessment path
 ```
 
-Removing effective sensing, decision, or actuation can leave the system open-loop or unable to correct. Removing explicit Constraints may leave the loop closed while allowing unsafe, unauthorized, or economically unacceptable operation.
+Removing effective sensing, decision, or actuation can leave the system open-loop or unable to correct. Removing explicit Constraints or credible realizations may leave the loop closed while allowing unsafe, unauthorized, or economically unacceptable operation.
 
 ### Function-based interpretation of the named examples
 
@@ -155,7 +157,7 @@ Classification follows the function, guarantee, evidence, decision authority, an
 
 The slide visually groups schemas and validators under Constraints. UA narrows this relationship:
 
-- a **Constraint** is the approved boundary;
+- a **Constraint** is the authoritative approved boundary;
 - a **Constraint Realization** is the mechanism implementing, enforcing, or influencing it;
 - a realization may block an attempted action;
 - a Sensor provides evidence about realization state and effects;
@@ -164,16 +166,20 @@ The slide visually groups schemas and validators under Constraints. UA narrows t
 
 ### Hard and soft interpretation
 
-A Hard Constraint deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
+Hard or soft is a scoped claim about a Constraint together with its complete realized path. It is not an intrinsic property of source policy text or a requirement sentence.
+
+A Hard Constraint deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries.
 
 A probabilistic detector, evaluator, prompt, model policy, or natural-language instruction does not become hard merely because its failure behavior is documented. A composite control may use probabilistic sensing and deterministic downstream enforcement, but the claimed guarantee must follow the complete realized path and its assumptions.
 
+When one source condition has different guarantee strengths across subjects, paths, or scopes, UA records separate Constraint claims rather than one mixed hard/soft record.
+
 ### Relationship to the four decision levels
 
-The four capabilities are orthogonal to the four UA decision levels.
+The four capability families are orthogonal to the four UA decision levels.
 
 - The **Nested Control Lifecycle** identifies where decisions are owned: organizational, project, delivery, and runtime.
-- The **Control-Loop Capability Anatomy** identifies which functions make those decisions operational: Constraints, Sensors, Controllers, and Actuators.
+- The **Control-Loop Capability Anatomy** identifies which families make those decisions operational: Constraints and their realizations, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
 
 The presentation stack remains a useful teaching metaphor. It is not the canonical architecture diagram or conformance topology.
 
@@ -209,8 +215,10 @@ The transfer preserves the deck's engineering concerns while narrowing presentat
 - deterministic verification remains necessary alongside behavioral evidence;
 - sample sizes, confidence methods, metrics, tolerances, and thresholds are context-derived;
 - Input Interpretation, Decision Logic, and Output Mediation are functional placement classes, not a mandatory pipeline;
-- Constraints, Sensors, Controllers, and Actuators are logical capabilities, not mandatory services;
+- Constraints and their realizations, Sensors, Controllers, and Actuators are logical capability families, not mandatory services;
 - Constraint and Constraint Realization remain distinct;
+- hard or soft strength is scoped to a realized path;
+- mixed-strength records should be split;
 - a Soft Constraint does not create a hard guarantee;
 - responsibility bundles and Human Authority do not imply mandatory job titles;
 - project authorization, delivery release, and runtime reassessment remain separate decisions;
@@ -224,7 +232,7 @@ The transfer preserves the deck's engineering concerns while narrowing presentat
 3. Continue reviewing the deck against the broader publication corpus rather than promoting presentation shorthand in isolation.
 4. Record contradictions, superseded claims, and newly extracted entities in the existing research-to-framework traceability matrix.
 5. Build a two-level worked application tracing Constraints from source through project derivation, delivery realization, runtime operation, evidence, and reauthorization.
-6. Use real-team or documented real-system evidence to test whether the capability taxonomy and two review surfaces are proportionate, complete, operable, and economically useful.
-7. Refine Constraint conflicts, precedence, control economics, Human Authority, incident loops, and failure modes only where application evidence exposes a concrete gap.
+6. Use real-team or documented real-system evidence to test whether the capability-family model and two review surfaces are proportionate, complete, operable, and economically useful.
+7. Refine Constraint conflicts, precedence, control economics, Human Authority, incident loops, tolerances, and failure modes only where application evidence exposes a concrete gap.
 
 Research-state changes should be reconciled under the [`Research Review Process`](../review-process.md) rather than tracked through a parallel presentation ledger.
