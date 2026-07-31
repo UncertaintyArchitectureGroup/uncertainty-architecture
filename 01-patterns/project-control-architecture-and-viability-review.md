@@ -90,13 +90,15 @@ Each material Constraint is recorded once with:
 
 - Constraint ID;
 - authoritative source or project-risk rationale;
-- subject and project scope;
-- class and hard or soft strength;
+- subject, path, and project scope;
+- class and claimed hard or soft strength;
 - required realization and assumptions;
 - failure, bypass, conflict, and unavailable behavior;
 - evidence and control health;
 - change, exception, and execution authority;
 - delivery inheritance and reauthorization trigger.
+
+Hard or soft is a scoped claim about the Constraint together with its complete realized path. When one source condition has different guarantee strengths across subjects, paths, or scopes, record separate Constraint claims rather than one mixed-strength row.
 
 Other sections reference these IDs:
 
@@ -138,7 +140,7 @@ The flow is iterative and proportional. It does not require one sequence of meet
 
 Link rather than copy authoritative sources, such as prohibited uses, legal and contractual obligations, approved vendors and regions, data classes, identity, audit, evaluation, incident, fallback, shutdown, Human Authority, and exception rights.
 
-The project interprets what those sources mean for the proposed system. It does not redefine them.
+The project interprets what those sources mean for the proposed system. It does not redefine them. An organizational source does not become a Hard Constraint merely because it uses mandatory language; the project must identify the scoped realized path supporting any hard claim.
 
 ## 7. Outcome, AI necessity, and alternatives
 
@@ -187,11 +189,13 @@ A local score may support but must not replace scenario reasoning. It cannot ove
 
 ## 10. Constraint accuracy and realization feasibility
 
-A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, scope, and enforcement boundaries.
+A **Hard Constraint** is a scoped Constraint whose complete realized path deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries.
 
 A prompt, natural-language policy, probabilistic evaluator, classifier, or model safety layer is not hard by itself.
 
-A project may depend on a composite realization. The review must identify where deterministic enforcement occurs, what assumptions support the guarantee, and what happens when the path is unavailable, uncertain, bypassed, conflicting, or too costly.
+A project may depend on a composite realization. The review must identify where deterministic enforcement occurs, which parts only influence behavior, what assumptions support the claimed guarantee, and what happens when the path is unavailable, uncertain, bypassed, conflicting, or too costly.
+
+Measured quality, cost, latency, or distribution tolerances remain part of the Requirement and Operating Envelope unless a separate realization deterministically enforces a specific boundary.
 
 ## 11. Complete capability path
 
@@ -221,8 +225,8 @@ flowchart LR
     K --> KR
     K -. defines decision boundary .-> C
     K -. defines action boundary .-> A
-    KR -. bounds .-> P
-    KR -. gates .-> A
+    KR -. enforces or influences .-> P
+    KR -. may gate .-> A
     P --> S
     KR -->|state and health| S
     A -->|execution state and effects| S
@@ -231,6 +235,8 @@ flowchart LR
     A --> P
     A -->|authorized realization change| KR
 ```
+
+The arrows describe possible realization functions. Each Constraint row must state whether its realized path provides deterministic enforcement, probabilistic influence, or a composite path.
 
 The project review should expose missing links rather than compensate with confident prose or product names.
 
@@ -294,7 +300,7 @@ The project creates one versioned package containing:
 - project review identifier, version, and decision;
 - authorized scope and maximum autonomy;
 - relevant scenario IDs;
-- Constraint IDs, sources, strength, assumptions, and delivery realization expectations;
+- Constraint IDs, sources, scoped strength, assumptions, and delivery realization expectations;
 - required Sensors, Controller, Actuators, Human Authority, fallback, containment, compensation, rollback, and shutdown;
 - evidence and feedback expectations;
 - capacity, resource, and cost boundaries;
@@ -306,7 +312,7 @@ Delivery reviews link this package and record concrete realizations. They do not
 
 ## 17. Runtime evidence and reauthorization
 
-Project reauthorization is required when evidence invalidates a material basis of authorization, including risk, authority, Constraint meaning or feasibility, scope, evidence quality, Human Authority, capacity, economics, required capabilities, or residual exposure.
+Project reauthorization is required when evidence invalidates a material basis of authorization, including risk, authority, Constraint meaning or feasibility, scope, claimed strength, evidence quality, Human Authority, capacity, economics, required capabilities, or residual exposure.
 
 Local defects remain delivery-level when the project basis remains valid. Organizational review is required when an authoritative source, shared capability, or decision right changes.
 
