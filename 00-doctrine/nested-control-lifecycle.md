@@ -156,7 +156,7 @@ flowchart TB
     R -->|organizational source or shared capability invalidated| O
 ```
 
-A material Constraint should remain traceable through source, subject, scope, claimed strength, realization, assumptions, failure behavior, evidence, active version, decision authority, execution path, and reassessment trigger.
+A material Constraint should remain traceable through source, subject, path, scope, claimed strength, realization, assumptions, failure behavior, evidence, active version, decision authority, execution path, and reassessment trigger.
 
 Hard or soft strength is scoped to the Constraint and its complete realized path. When one source condition has different guarantee strengths across subjects, paths, or scopes, the project and delivery records should separate those claims.
 
@@ -250,7 +250,7 @@ Separate Constraint Registers, Judgment Node registries, gate files, or responsi
 2. A lower level may narrow but must not expand a higher-level authorization.
 3. A lower-level implementation must not weaken an inherited Hard Constraint.
 4. Higher-level context is inherited by reference.
-5. Project and delivery each maintain one canonical Constraint record for their decision surface.
+5. Project and delivery each maintain one canonical Constraint artifact for their decision surface: the Project Constraint Architecture and the delivery Constraint Realization Map.
 6. Runtime evidence remains connected to active versions.
 7. Reassessment follows the basis invalidated by evidence.
 8. Telemetry without decision authority and an effective Actuator path is observation, not control.
