@@ -19,7 +19,7 @@ tags:
   - ua/topic/evaluation
   - ua/topic/drift
 created: 2026-01-26
-updated: 2026-07-26
+updated: 2026-07-31
 migrated_from: ../../../00-doctrine/LLM_Delivery_SDLC.md
 license: CC-BY-4.0
 ---
@@ -179,20 +179,35 @@ One person or existing team may hold several responsibilities in a small organiz
 
 ## Open questions
 
-- Which lifecycle responsibilities belong in doctrine, patterns, or an operating model?
 - Which evidence types are useful for different consequence and autonomy classes?
 - How should release and reassessment cadence scale with feedback latency and operating change?
-- Which process artifacts can remain lightweight enough for SMB teams?
 - When does the cost of control make the proposed automation structurally unattractive?
+- Which incident and learning-loop refinements are needed beyond the current review pattern?
+- Which lifecycle distinctions remain useful across very different delivery organizations and product types?
+
+## Framework translation status
+
+Several questions from the original sketch have now been translated into current draft framework components:
+
+| Earlier lifecycle question | Current framework decision |
+|---|---|
+| Where should lifecycle responsibilities live? | Reusable delivery responsibilities are expressed through the [`Thinking System Review`](../../../01-patterns/thinking-system-review.md) pattern rather than embedded in doctrine or placed in a new top-level Operating Model module. |
+| Which lightweight artifacts can SMB teams maintain? | One living [`Thinking System Review Template`](../../../01-patterns/thinking-system-review-template.md) contains Judgment Node cards, DoR, DoD, residual risk, deployment scope, release decision, and reassessment history. |
+| How should readiness, completion, and release differ? | Full model-mediated DoR and DoD extensions have one canonical owner in the review pattern, while the Release Gate remains a distinct residual-risk decision. |
+| Are specialist AI role titles mandatory? | Implementation, evaluation, operation, and release decision authority are responsibility bundles, not mandatory job titles. |
+| Does every change require separate governance records? | The default SMB path uses versioned snapshots of one review artifact rather than separate readiness, completion, role, node-registry, and release records. |
+
+These translations do not make the four-phase diagram a mandatory lifecycle. The remaining open questions concern evidence proportionality, control economics, incident learning, reassessment cadence, and compatibility across delivery contexts.
 
 ## Framework relationship
 
-This note may inform future work on:
+This note may continue to inform future work on:
 
-- release-gate patterns;
 - evaluation and evidence patterns;
 - change and incident loops;
-- operating-model responsibilities;
-- SMB-facing risk and control mapping.
+- risk and tolerance mapping;
+- control-economics guidance;
+- SMB-facing application examples;
+- failure modes revealed through practical use.
 
-It does not activate any of those elements as normative requirements.
+It does not activate those elements as normative requirements. Research-state changes should be reconciled through [`content/research/review-process.md`](../review-process.md) and the existing traceability matrix rather than a parallel lifecycle ledger.
