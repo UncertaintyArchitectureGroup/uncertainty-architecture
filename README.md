@@ -235,7 +235,7 @@ Focus: project-management standards, organizational alignment, and the operation
 
 ### Otman Basir, Ph.D. — Academic Advisor
 
-Professor of Intelligent Systems at the University of Waterloo and author of the Social Responsibility Stack. His role supports the connection between control-theoretic research and practical engineering governance.
+Professor in the Department of Electrical and Computer Engineering at the University of Waterloo and author of the Social Responsibility Stack. His role supports the connection between control-theoretic research and practical engineering governance.
 
 - [LinkedIn](https://www.linkedin.com/in/otman-basir-ba1258178)
 
