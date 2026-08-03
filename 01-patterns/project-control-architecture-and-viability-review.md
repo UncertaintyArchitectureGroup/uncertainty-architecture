@@ -107,7 +107,7 @@ Other sections reference these IDs:
 - evidence and economics assess viability;
 - authorization records the accepted baseline;
 - delivery inheritance passes relevant IDs and expectations;
-- runtime reauthorization identifies which basis changed.
+- runtime reassessment identifies which project basis changed and whether reauthorization is required.
 
 ## 5. Review flow
 
@@ -330,7 +330,7 @@ Increase depth when consequence, authority, exposure, irreversibility, evidence 
 - translates risk into Constraints and capability requirements;
 - exposes unsafe, infeasible, or uneconomic paths early;
 - creates one baseline for delivery inheritance;
-- preserves runtime reauthorization;
+- routes runtime evidence to project reauthorization;
 - remains usable without governance bureaucracy.
 
 ### Limitations
