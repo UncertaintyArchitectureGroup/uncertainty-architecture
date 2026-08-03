@@ -26,6 +26,14 @@ canonical_for:
 
 # The AI Control Plane
 
+> **UA navigation**
+>
+> [UA Home](../README.md) · [Specification](../SPECIFICATION.md)
+>
+> **Lifecycle:** [Organization / boundaries](../00-doctrine/nested-control-lifecycle.md#1-organizational-control-context) · [Project / architecture](../01-patterns/project-control-architecture-and-viability-review.md) · [Delivery / release](../01-patterns/thinking-system-review.md) · [Runtime / reassessment](../00-doctrine/nested-control-lifecycle.md#4-runtime-operation-and-reassessment)
+>
+> **Explore:** [Doctrine](../00-doctrine/) · [Patterns](../01-patterns/) · [Control capabilities](README.md) · [Reference architectures](../03-reference-architectures/) · [Failure modes](../04-failure-modes/) · [Research](../content/research/index.md)
+
 **Status:** Draft normative  
 **Role:** Distributed capability model for defining and realizing boundaries, observing behavior, deciding, and correcting model-mediated operation
 
