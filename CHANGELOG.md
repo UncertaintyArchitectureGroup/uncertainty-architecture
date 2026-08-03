@@ -31,7 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
-- Added a non-normative drafting-ready editorial contract and Phase 1 completion record for the planned public synthesis article, *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*. The proposed outline uses eight sections, three figures, and one continuous Constraint trace; article prose has not begun and maintainer freeze remains pending.
+- Added a non-normative drafting-ready editorial contract and Phase 1 completion-candidate record for the planned public synthesis article, *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*. The proposed structure uses one unnumbered abstract, eight numbered sections, three figures, and one illustrative continuous Constraint trace; article prose has not begun and maintainer freeze remains pending.
 - Added draft-normative [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md), distinguishing a closed feedback loop from a complete bounded UA control architecture.
 - Added the composite [`Constraint Capability Family`](02-ai-control-plane/01-constraints/) and an informative [`Constraint Realization Catalog`](02-ai-control-plane/01-constraints/constraint-realization-catalog.md).
 - Added canonical definitions for **Constraint**, **Hard Constraint**, **Soft Constraint**, and **Constraint Realization**.
@@ -49,6 +49,7 @@ Publications, talks, community discussions, and independent references belong un
 ### Changed
 
 - Recorded the merged four-family capability architecture as the current draft roadmap baseline while retaining worked-application, real-team, tooling, operational-evidence, and terminology validation as open maturity work.
+- Corrected the root README so the runtime decision level is described as operation and reassessment rather than runtime reauthorization.
 - Established four logical capability families orthogonal to the four organizational-to-runtime decision levels: **Constraints and their realizations**, **Sensors and evidence**, **Controllers and decision authority**, and **Actuators and corrective action**.
 - Clarified that the Constraints family is intentionally composite: the Constraint is the authoritative boundary object, while the Constraint Realization is the operational mechanism; realization is not a fifth capability family.
 - Corrected canonical control diagrams so reference conditions reach the Controller, Controllers select or authorize action, Actuators execute change, and generic realization arrows do not imply deterministic enforcement for every Soft Constraint.
