@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use Uncertainty Architecture, please cite the repository using the metadata below."
+title: "Uncertainty Architecture"
+type: generic
+authors:
+  - family-names: "Oborskyi"
+    given-names: "Vitalii"
+  - family-names: "Walker"
+    given-names: "Sam"
+date-released: 2025-12-09
+repository-code: "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture"
+url: "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture"
+license: "CC-BY-4.0"
+abstract: "An open engineering specification and pattern language for designing and operating Thinking Systems with explicit constraints, evidence, decision authority, and corrective action."
