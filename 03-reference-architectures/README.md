@@ -26,6 +26,14 @@ canonical_for:
 
 # Reference Architectures
 
+> **UA navigation**
+>
+> [UA Home](../README.md) · [Specification](../SPECIFICATION.md)
+>
+> **Lifecycle:** [Organization / boundaries](../00-doctrine/nested-control-lifecycle.md#1-organizational-control-context) · [Project / architecture](../01-patterns/project-control-architecture-and-viability-review.md) · [Delivery / release](../01-patterns/thinking-system-review.md) · [Runtime / reassessment](../00-doctrine/nested-control-lifecycle.md#4-runtime-operation-and-reassessment)
+>
+> **Explore:** [Doctrine](../00-doctrine/) · [Patterns](../01-patterns/) · [Control capabilities](../02-ai-control-plane/) · [Reference architectures](README.md) · [Failure modes](../04-failure-modes/) · [Research](../content/research/index.md)
+
 **Status:** Reference  
 **Role:** Concrete, non-prescriptive compositions of UA concepts and patterns
 
