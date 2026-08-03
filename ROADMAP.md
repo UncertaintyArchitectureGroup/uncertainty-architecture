@@ -65,6 +65,7 @@ The objective is to consolidate research into a coherent, bounded specification.
 - Four logical capability families are established as the current draft baseline: Constraints and their realizations, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
 - A closed feedback loop is distinguished from a complete bounded UA control architecture.
 - One canonical Project Constraint Architecture and one canonical delivery Constraint Realization Map are established as the default proportional Constraint records.
+- Repository-relative links, navigation routes, citation metadata, critical repository structure, compatibility markers, and the top-level namespace have deterministic validation foundations.
 
 ### Four-family capability baseline
 
@@ -90,7 +91,9 @@ The repository integration is complete. The relevant framework documents remain 
 - [x] Complete architectural and logical consistency review of the capability-family model.
 - [x] Confirm one Project Constraint Architecture and one delivery Constraint Realization Map as the default proportional record structure.
 - [x] Integrate the four-family capability model across current repository doctrine, patterns, Control Plane, references, failure modes, conformance, navigation, and traceability.
-- [ ] Complete automated Mermaid rendering and internal-link validation when repository tooling exists.
+- [x] Complete automated internal-link, navigation-route, anchor, and citation validation.
+- [x] Establish a machine-readable repository contract protecting critical files, landing-page functions, compatibility paths, and the top-level namespace, with independent regression fixtures.
+- [ ] Complete automated Mermaid rendering.
 - [ ] Build a two-level worked application tracing Constraints from organizational source through project architecture, delivery realization, runtime evidence, and reauthorization.
 - [ ] Apply both reviews to a real team or documented real system boundary.
 - [ ] Complete cross-publication synthesis and resolve remaining terminology conflicts.
@@ -149,11 +152,22 @@ A new top-level Operating Model module is not planned at this stage.
 
 **Status: Later**
 
-Possible tooling includes:
+### Current repository-integrity foundation
 
-- metadata and internal-link validation;
+- deterministic navigation coverage and route validation;
+- offline repository-relative link and anchor validation;
+- machine-readable citation validation;
+- a machine-readable repository contract for critical paths, sections, links, compatibility markers, and the top-level namespace;
+- independent mutation fixtures proving that protected deletions and namespace proliferation fail predictably;
+- explicit repository ownership through `CODEOWNERS` and structured pull-request input through the default template.
+
+### Later tooling
+
+- controlled metadata and canonical-ownership validation;
+- diff-aware changelog, glossary, roadmap, traceability, deletion, and compatibility coupling;
 - Mermaid rendering checks;
 - checks for stale or duplicate canonical paths;
+- publishing build and dependency checks scoped to relevant changes;
 - example Constraint, realization, prompt, policy, evaluation, and release manifests;
 - executable realization examples;
 - reference control-plane implementations;
