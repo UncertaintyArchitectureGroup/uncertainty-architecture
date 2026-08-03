@@ -428,3 +428,26 @@ Summarize:
 - which checks were performed;
 - what remains unresolved;
 - whether the PR is still Draft or ready for review.
+
+## 11. Repository contract checks
+
+The machine-readable repository contract lives at [`.github/policy/repository-contract.json`](.github/policy/repository-contract.json). It protects critical files and sections, the top-level namespace, stable repository links, and compatibility paths. It is a repository-integrity mechanism, not a source of UA architectural meaning.
+
+Before pushing a repository-policy change or any change that affects a protected path, run:
+
+```bash
+python3 .github/scripts/validate_repository_contract.py
+python3 .github/tests/repository_contract/test_repository_contract.py
+```
+
+The validator and self-tests use only the Python standard library and resolve the repository root from their own location.
+
+When a legitimate repository change adds, removes, renames, or deliberately changes a protected path, section, link, or marker:
+
+1. update the owning document first;
+2. update the contract in the same pull request;
+3. add or modify a regression fixture showing the old failure and the intended new baseline;
+4. explain the compatibility and ownership decision in the pull-request description;
+5. update `CHANGELOG.md`, and `ROADMAP.md` when the repository-tooling baseline changes.
+
+Do not weaken or bypass the contract merely to make a failing check green. Determine whether the repository change is wrong, the contract is stale, or an explicit compatibility decision is required.
