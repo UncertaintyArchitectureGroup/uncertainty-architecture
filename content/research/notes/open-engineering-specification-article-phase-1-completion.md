@@ -1,5 +1,5 @@
 ---
-title: Open Engineering Specification Article Phase 1 Completion Record
+title: Open Engineering Specification Article Phase 1 Completion Candidate Record
 artifact_type: research-note
 status: research
 maturity: draft
@@ -26,11 +26,11 @@ license: CC-BY-4.0
 draft: true
 ---
 
-# Phase 1 Completion Record: Editorial Architecture
+# Phase 1 Completion Candidate Record: Editorial Architecture
 
-> **Current state:** The accepted architecture from PR #32 has been integrated into the branch. Architecture, logic, technical, metadata, and editorial review have produced a drafting-ready editorial contract. Phase 1 remains open only for explicit maintainer review and freeze; article prose has not begun.
+> **Current state:** The accepted architecture from PR #32 has been integrated into the branch. Architecture, logic, technical, metadata, repository, and editorial review have produced a drafting-ready editorial contract. Phase 1 remains open until explicit maintainer review and freeze; article prose has not begun.
 
-## 1. Purpose of Phase 1
+## 1. Purpose
 
 Phase 1 converts a large working skeleton into a stable editorial contract for the public synthesis article:
 
@@ -40,13 +40,13 @@ Phase 1 converts a large working skeleton into a stable editorial contract for t
 The output is not publishable prose and does not create specification authority. It defines:
 
 - the article's central thesis and claim boundary;
-- the final reader journey;
-- one unique job for every section;
+- one unnumbered abstract and eight numbered sections;
+- one unique logical job for every section;
 - the canonical and external source rules;
 - the three figures;
-- the continuous worked Constraint trace;
+- the continuous illustrative Constraint trace;
 - the maturity statement and external validation request;
-- the Phase 2 drafting sequence.
+- the Phase 2 repository path and drafting sequence.
 
 ## 2. Baseline integrated
 
@@ -59,7 +59,7 @@ The branch includes the current `main` baseline containing:
 - the corrected Nested Control Lifecycle;
 - current AI Control Plane, conformance, failure-mode, roadmap, and provenance decisions.
 
-The earlier temporary dependency on PR #32 is resolved.
+The earlier temporary dependency on PR #32 is resolved. The branch is ahead of and not behind `main`.
 
 ## 3. Architecture review decision
 
@@ -71,12 +71,14 @@ missing engineering connection
 → model quality versus bounded control
 → four decision levels
 → two living reviews and inheritance
-→ one Constraint across the lifecycle
-→ platform implementation versus authority
+→ one illustrative Constraint across the lifecycle
+→ platform implementation versus acquired authority
 → current specification state, limits, and validation request
 ```
 
-### Final section sequence
+### Final structure
+
+Unnumbered abstract, followed by:
 
 1. **The Missing Engineering Connection**
 2. **The Controlled Object Has Changed**
@@ -84,19 +86,20 @@ missing engineering connection
 4. **Four Decision Levels of Uncertainty Architecture**
 5. **From Authority to Operation: Two Living Reviews**
 6. **One Constraint Across the Full Lifecycle**
-7. **What Platforms Can Implement — and What They Cannot Authorize**
+7. **What Platforms Can Implement — and What Authority They Do Not Acquire by Default**
 8. **Open Specification: Current State, Limits, and Invitation**
 
 ### Structural decisions
 
 - The four decision levels remain the conceptual center.
 - The four capability families explain how control becomes operational at every level and do not become a second lifecycle.
-- The control-theory material remains a distinct section because it establishes the difference between measurement, feedback closure, and bounded acceptable operation before the lifecycle is introduced.
+- The control-theory material remains distinct because it establishes the difference between measurement, feedback closure, and bounded acceptable operation before the lifecycle is introduced.
 - Inheritance and the two living artifacts are combined into one operating-path section.
 - Openness, maturity, limitations, and invitation are combined into one ending.
-- The worked narrative traces one Constraint rather than retelling the entire support-triage architecture.
+- The worked narrative illustrates one Constraint rather than retelling the entire support-triage architecture or claiming real-world application evidence.
+- The platform section allows bounded delegated Controller authority while rejecting automatic transfer of organizational or project authority.
 
-## 4. Logic review record
+## 4. Logic and editorial review record
 
 The revised blueprint removes repeated or competing explanations of:
 
@@ -109,27 +112,25 @@ The revised blueprint removes repeated or competing explanations of:
 - the platform boundary;
 - repository maturity and openness.
 
-Each section now contains:
+The unnumbered abstract has a separate purpose and budget. Each numbered section contains:
 
 - purpose;
 - core claim;
 - required supporting points;
 - canonical source anchors;
 - material not to repeat elsewhere;
-- transition;
 - intended closing claim;
 - word budget.
 
-The earlier ten-section plan is reduced to eight sections so the final article reads as one argument rather than adjacent mini-essays.
+Each non-final numbered section contains a necessary transition. The final section closes the argument rather than creating another transition.
 
 The final review also separates:
 
-- runtime evidence that invalidates a delivery or project basis;
-- a proposed authority change that must enter project and organizational decision paths before implementation.
+- runtime evidence that invalidates a delivery, project, or organizational basis;
+- a proposed authority change that must enter the owning decision process before implementation;
+- illustrative synthesis from independent application evidence.
 
-An autonomous-send request is therefore not presented as runtime evidence.
-
-## 5. Technical and repository review record
+## 5. Technical review record
 
 ### Canonical concepts aligned
 
@@ -165,20 +166,30 @@ An autonomous-send request is therefore not presented as runtime evidence.
 
 ### Constraint trace aligned
 
-`K-SEND-01` is one scoped **Human Authority** Constraint. Its complete realization uses deterministic authority controls, a separate human-operated send path, evidence, and authorized Actuators. The class is not recorded as a local hybrid taxonomy.
+`K-SEND-01` is one scoped **Human Authority** Constraint. Its complete realization uses deterministic authority controls, a separate human-operated send path, evidence, and authorized Actuators.
 
-### Repository-state correction
+The Hard claim is bounded by:
 
-The old blueprint incorrectly listed a complete project-to-runtime worked application as already present. The revised blueprint states the actual boundary:
+- subject;
+- every reachable model-mediated send path in the reviewed scope;
+- stated assumptions;
+- fail-closed behavior;
+- alternate-path and bypass verification;
+- active realization evidence.
 
-- the repository contains one illustrative delivery-level support-triage review;
-- a complete two-level project-and-delivery worked application remains roadmap work;
-- the article's K-SEND-01 lifecycle narrative is an editorial synthesis, not evidence that the repository application already exists.
+DoD now requires coverage of every reachable send path in the reviewed scope and explicit proof that no alternate path bypasses the realization. “Every reviewed path” is not treated as sufficient evidence by itself.
+
+### Repository-state boundary
+
+The repository contains one illustrative delivery-level support-triage review. It does not yet contain a complete two-level project-and-delivery worked application.
+
+The article's K-SEND-01 lifecycle narrative is an editorial synthesis that illustrates specification behavior. It is not evidence that the complete lifecycle has been independently applied.
 
 ### Metadata and provenance
 
 - frontmatter uses controlled topics and tags from `DOCUMENT-METADATA.md`;
-- the article notes remain `status: research`, `maturity: draft`, and `draft: true` for publishing visibility;
+- the article notes remain `status: research`, `maturity: draft`, and `draft: true`;
+- the blueprint H1 identifies the artifact as an article blueprint rather than presenting itself as completed article prose;
 - the research index uses the verified PDF boundary and does not claim an available or reviewed editable PPTX.
 
 ### External evidence boundary
@@ -192,26 +203,16 @@ Phase 2 must:
 - date comparative claims where material;
 - distinguish source-supported facts from practitioner observations and UA proposals.
 
-## 6. Editorial review record
-
-The original blueprint contained extensive draft-like prose, repeated headlines, multiple competing figure plans, and unresolved chapter questions.
-
-The revised contract:
-
-- retains one stable thesis paragraph;
-- separates article structure from optional distribution framing;
-- uses exactly three primary figures;
-- keeps claim-safety rules in one section;
-- distinguishes canonical UA sources from external factual evidence;
-- defines one Phase 2 drafting sequence;
-- removes instructions that attempted to draft the same final passage in several places;
-- uses a target length of 4,300–5,200 words with section ranges totaling approximately 4,300–5,150 words.
-
-## 7. Figure decision
+## 6. Figure decision
 
 ### Figure 1 — Controlled-object shift
 
-Shows why consequential runtime Model Judgment changes the engineered object.
+Uses a two-panel view:
+
+- primarily explicit runtime behavior;
+- a Thinking System with bounded Model Judgment inside the controlled object.
+
+It shows deterministic ingress and output/action responsibilities, Constraints and realizations around the Judgment region, observed outputs and outcomes, decision authority, and corrective paths without turning the four capability families into a mandatory pipeline.
 
 ### Figure 2 — Two orthogonal UA models
 
@@ -236,61 +237,70 @@ separate proposed authority expansion
 → project reauthorization and organizational review
 ```
 
-The presentation's brain/nerves/skeleton/muscles stack is not used as the canonical article architecture diagram.
+The figure is labeled as an illustrative editorial synthesis. The presentation's brain/nerves/skeleton/muscles stack is not used as the canonical article architecture diagram.
 
-## 8. Worked narrative decision
+## 7. Publication and repository decision
 
-The article will trace one Human Authority Constraint whose complete realization uses authority controls:
+### Target length
 
-> The model-mediated path may create a draft but must not send customer communication without Human Authority.
+The target remains 4,300–5,200 English words. The section ranges total 4,300–5,150 words.
 
-The trace includes:
+### Draft location
 
-- organizational prohibition and decision rights;
-- Project Constraint `K-SEND-01` with source, subject, path, scope, class, strength, realization, assumptions, failure behavior, evidence, and change authority;
-- delivery realization through a no-send service identity, deterministic authorization gate, human-operated send path, auditable trace, fail-closed behavior, and tests;
-- distinct DoR, DoD, and Release Gate decisions;
-- local realization defect routed to delivery;
-- capacity and economics failure routed to project reauthorization;
-- a separate autonomous-send request routed to project reauthorization and organizational review.
+Phase 2 article prose begins in a separate branch and pull request under:
 
-This single trace replaces the earlier broad retelling of three Judgment Nodes and many controls.
+```text
+content/research/notes/open-engineering-specification-article-draft.md
+```
 
-## 9. Phase 1 exit checklist
+The draft remains non-normative research material and must not be placed in the root README, doctrine, patterns, or another specification-owning file.
+
+### Publication location
+
+After editorial acceptance and public release, the normalized canonical repository edition belongs under:
+
+```text
+content/research/publications/uncertainty-architecture-open-engineering-specification.md
+```
+
+The research publications index and relevant history record must be updated. Medium and LinkedIn editions remain distribution copies linking back to the repository edition.
+
+## 8. Phase 1 exit checklist
 
 - [x] PR #32 is merged into `main`.
 - [x] Current `main` is integrated into the article branch through a merge commit.
 - [x] One stable thesis paragraph exists.
-- [x] The final section sequence is fixed.
-- [x] Every section has a unique logical function.
+- [x] The unnumbered abstract and final section sequence are fixed.
+- [x] Every numbered section has a unique logical function.
+- [x] Every non-final numbered section has a necessary transition.
 - [x] The four decision levels are technically correct and central.
 - [x] The four capability families are technically correct and orthogonal to the levels.
 - [x] Constraint and Constraint Realization remain distinct.
 - [x] Project authorization, DoR, DoD, Release Gate, runtime correction, and project reauthorization are not conflated.
 - [x] Runtime evidence and proposed authority changes are not conflated.
 - [x] Project Constraint Architecture and delivery Constraint Realization Map are the canonical Constraint artifacts.
-- [x] Inheritance down and evidence up are demonstrated concretely.
+- [x] Inheritance down and evidence up are illustrated concretely.
 - [x] The two living reviews are accurately scoped and not presented as universally sufficient.
-- [x] The worked example has one fixed Constraint narrative and source boundary.
-- [x] The platform boundary is precise and non-defensive.
+- [x] The worked narrative has one fixed illustrative Constraint and source boundary.
+- [x] The platform boundary allows delegated Controller authority without automatically transferring project or organizational authority.
 - [x] Canonical terminology is aligned with the current glossary and doctrine.
 - [x] Metadata uses controlled values.
 - [x] Maturity, openness, validation, and repository-state claims are restrained.
 - [x] Current external factual claims have an explicit Phase 2 verification rule.
-- [x] Three figure briefs are agreed and introduce no new doctrine.
-- [x] Word allocation and Phase 2 sequence are explicit and arithmetically consistent.
-- [x] No unresolved architecture, logic, technical, metadata, or editorial blocker remains in the blueprint.
+- [x] Three figure briefs have distinct jobs and introduce no new doctrine.
+- [x] Word allocation, source plan, repository path, and Phase 2 sequence are explicit.
+- [x] No known architecture, logic, technical, metadata, repository, or editorial blocker remains in the blueprint.
 - [ ] Maintainer review explicitly freezes the editorial contract for drafting.
 
-## 10. Phase 2 boundary
+## 9. Phase 2 boundary
 
 Phase 2 must be a separate branch and pull request after Phase 1 is accepted and PR #31 is merged.
 
-Phase 2 will draft the article in four connected blocks:
+Draft in four connected blocks:
 
-1. problem and controlled-object doctrine;
+1. abstract, problem, and controlled-object doctrine;
 2. bounded control and decision levels;
 3. two reviews and the K-SEND-01 lifecycle trace;
 4. platform boundary, current state, limits, openness, and invitation.
 
-Each block must continue to defer to canonical repository sources. Article prose must not create new normative concepts by repetition, silently update repository maturity, treat historical publications as current definitions, or use internal UA material as evidence for current external facts.
+Each block must continue to defer to canonical repository sources. Article prose must not create new normative concepts by repetition, silently update repository maturity, treat historical publications as current definitions, present illustrative synthesis as application evidence, or use internal UA material as evidence for current external facts.
