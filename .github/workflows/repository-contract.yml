@@ -17,7 +17,7 @@ concurrency:
 jobs:
   critical-structure:
     name: Contract / critical structure
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
 
     steps:
@@ -32,7 +32,7 @@ jobs:
 
   self-tests:
     name: Policy / contract self-tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
 
     steps:
