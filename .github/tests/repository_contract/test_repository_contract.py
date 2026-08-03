@@ -7,12 +7,30 @@ import shutil
 import sys
 import tempfile
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Set
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_PATH = REPOSITORY_ROOT / ".github/scripts/validate_repository_contract.py"
 CONTRACT_PATH = REPOSITORY_ROOT / ".github/policy/repository-contract.json"
 CASES_PATH = Path(__file__).with_name("cases.json")
+
+REQUIRED_CASE_NAMES: Set[str] = {
+    "valid synthetic repository passes",
+    "critical file deletion is rejected",
+    "critical README section deletion is rejected",
+    "protected attribution text deletion is rejected",
+    "required canonical link deletion is rejected",
+    "unexpected top-level directory is rejected",
+    "unexpected top-level file is rejected",
+    "legacy runtime anchor deletion is rejected",
+    "compatibility path deletion is rejected",
+    "immutable documentation license modification is rejected",
+    "CODEOWNERS default ownership deletion is rejected",
+    "PR contract marker deletion is rejected",
+    "CITATION author deletion is rejected",
+    "link-integrity citation step deletion is rejected",
+    "navigation routing declaration deletion is rejected",
+}
 
 
 def load_validator():
@@ -94,11 +112,31 @@ def apply_mutation(root: Path, mutation: Dict[str, str]) -> None:
     raise ValueError("Unsupported fixture mutation: {}".format(mutation_type))
 
 
+def validate_case_manifest(cases: List[Dict[str, object]]) -> List[str]:
+    """Ensure the regression suite itself cannot silently lose required cases."""
+    names = [str(case.get("name", "")) for case in cases]
+    errors: List[str] = []
+
+    missing = sorted(REQUIRED_CASE_NAMES - set(names))
+    if missing:
+        errors.append("missing required cases: {}".format(", ".join(missing)))
+
+    duplicates = sorted({name for name in names if names.count(name) > 1})
+    if duplicates:
+        errors.append("duplicate case names: {}".format(", ".join(duplicates)))
+
+    unnamed = [str(index) for index, name in enumerate(names, start=1) if not name]
+    if unnamed:
+        errors.append("unnamed cases at positions: {}".format(", ".join(unnamed)))
+
+    return errors
+
+
 def main() -> int:
     validator = load_validator()
     contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
     cases = json.loads(CASES_PATH.read_text(encoding="utf-8"))["cases"]
-    failures: List[str] = []
+    failures = validate_case_manifest(cases)
 
     for case in cases:
         with tempfile.TemporaryDirectory(prefix="ua-contract-") as temporary:
