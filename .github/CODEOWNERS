@@ -1,0 +1,30 @@
+# Default ownership for the maintainer-led UA specification.
+* @oborskyivitalii
+
+# Repository policy, workflows, and automation.
+/.github/ @oborskyivitalii
+
+# Public authority and process entry points.
+/README.md @oborskyivitalii
+/SPECIFICATION.md @oborskyivitalii
+/AGENTS.md @oborskyivitalii
+/CONTRIBUTING.md @oborskyivitalii
+/DOCUMENT-METADATA.md @oborskyivitalii
+/ROADMAP.md @oborskyivitalii
+/CHANGELOG.md @oborskyivitalii
+/CITATION.cff @oborskyivitalii
+
+# License and attribution boundaries.
+/LICENSE-CODE.md @oborskyivitalii
+/LICENSE-DOCS.md @oborskyivitalii
+/LICENSING.md @oborskyivitalii
+
+# Canonical doctrine and practical decision surfaces.
+/00-doctrine/ @oborskyivitalii
+/01-patterns/ @oborskyivitalii
+/02-ai-control-plane/ @oborskyivitalii
+
+# Preserved evidence, history, and provenance.
+/content/research/ @oborskyivitalii
+/content/history/ @oborskyivitalii
+/content/raw/ @oborskyivitalii
