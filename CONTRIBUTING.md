@@ -92,6 +92,21 @@ The validator has no third-party Python dependencies and is compatible with Pyth
 
 GitHub Actions additionally runs the validator and an offline `lychee` scan on every pull request and every push to `main`. The CI scan validates maintained repository-relative links, directory indexes, Markdown heading fragments, and explicit HTML compatibility anchors. External-network availability is intentionally outside the deterministic repository-integrity check.
 
+### Local repository contract validation
+
+Before pushing a repository-policy change or any change that adds, removes, renames, or materially edits a protected path or landing-page function, run:
+
+```bash
+python3 .github/scripts/validate_repository_contract.py
+python3 .github/tests/repository_contract/test_repository_contract.py
+```
+
+The machine-readable contract is maintained in [`.github/policy/repository-contract.json`](.github/policy/repository-contract.json). It protects critical files and sections, required canonical and compatibility paths, stable repository links, explicit compatibility markers, and the current top-level namespace. It does not freeze complete Markdown documents or replace architectural review.
+
+A legitimate contract change must update the owning document, the contract, and an appropriate regression fixture in the same pull request. Do not remove a protected rule merely because a check fails; determine whether the repository change is wrong, the contract is stale, or a deliberate compatibility decision is required.
+
+GitHub Actions runs the real-repository contract validation and the independent mutation fixtures as separate checks on every pull request and every push to `main`.
+
 ## 4. Repository ownership and attribution
 
 Vitalii Oborskyi is the project creator and primary maintainer. He retains final authority over repository scope and merges.
@@ -145,7 +160,8 @@ The purpose of review is to improve the specification, not to create ceremony ar
 4. Add or update metadata, local navigation, and cross-links where needed.
 5. When the change resolves, narrows, rejects, supersedes, reopens, or promotes a research question, reconcile the affected source-intake note, working note, analysis, or [`framework-traceability.md`](content/research/framework-traceability.md) under the [`Research Review Process`](content/research/review-process.md).
 6. Confirm licensing and attribution requirements.
-7. Open a pull request for maintainer review.
+7. Run the applicable local navigation and repository-contract validators.
+8. Open a pull request for maintainer review and complete the repository-placement and companion-update fields in the pull-request template.
 
 One logical change per pull request is a useful default for substantial work, but tightly related updates may be grouped when that makes review clearer.
 
