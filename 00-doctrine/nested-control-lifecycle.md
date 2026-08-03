@@ -94,6 +94,7 @@ The [`Thinking System Review`](../01-patterns/thinking-system-review.md) owns:
 The delivery review may narrow authority, population, scope, data, deployment, resources, or operating conditions. It must not expand them or weaken an inherited Hard Constraint.
 
 <a id="4-runtime-control-and-reassessment"></a>
+
 ## 4. Runtime operation and reassessment
 
 Runtime exercises the deployed realization and produces evidence about:
