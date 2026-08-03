@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   internal-links:
-    name: Repository links and anchors
+    name: Repository navigation, links, and anchors
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +30,106 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+
+      - name: Validate navigation coverage contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          navigation_marker = "> **UA navigation**"
+          framework_entry_pages = {
+              Path("README.md"),
+              Path("SPECIFICATION.md"),
+              Path("00-doctrine/README.md"),
+              Path("01-patterns/README.md"),
+              Path("02-ai-control-plane/README.md"),
+              Path("03-reference-architectures/README.md"),
+              Path("04-failure-modes/README.md"),
+              Path("content/research/index.md"),
+          }
+          required_navigation_labels = (
+              "[UA Home]",
+              "[Specification]",
+              "**Lifecycle:**",
+              "[Organization / boundaries]",
+              "[Project / architecture]",
+              "[Delivery / release]",
+              "[Runtime / reassessment]",
+              "**Explore:**",
+              "[Doctrine]",
+              "[Patterns]",
+              "[Control capabilities]",
+              "[Reference architectures]",
+              "[Failure modes]",
+              "[Research]",
+          )
+          compact_breadcrumbs = {
+              Path("01-patterns/project-control-architecture-and-viability-review-template.md"): (
+                  "[← Owning pattern]",
+                  "[↑ Patterns index]",
+                  "[UA Home]",
+              ),
+              Path("01-patterns/thinking-system-review-template.md"): (
+                  "[← Owning pattern]",
+                  "[↑ Patterns index]",
+                  "[UA Home]",
+              ),
+              Path("03-reference-architectures/judgment-placement-examples.md"): (
+                  "[← Reference Architectures]",
+                  "[Judgment Node Boundary]",
+                  "[UA Home]",
+              ),
+          }
+
+          errors: list[str] = []
+
+          for path in sorted(framework_entry_pages):
+              if not path.is_file():
+                  errors.append(f"Missing framework entry page: {path}")
+                  continue
+              text = path.read_text(encoding="utf-8")
+              if text.count(navigation_marker) != 1:
+                  errors.append(
+                      f"{path}: expected exactly one {navigation_marker!r} block"
+                  )
+              for label in required_navigation_labels:
+                  if label not in text:
+                      errors.append(f"{path}: missing navigation label {label!r}")
+
+          actual_navigation_pages = {
+              path
+              for path in Path(".").rglob("*.md")
+              if navigation_marker in path.read_text(encoding="utf-8")
+          }
+          unexpected_navigation_pages = actual_navigation_pages - framework_entry_pages
+          missing_navigation_pages = framework_entry_pages - actual_navigation_pages
+
+          for path in sorted(unexpected_navigation_pages):
+              errors.append(f"Unexpected full navigation block: {path}")
+          for path in sorted(missing_navigation_pages):
+              errors.append(f"Missing full navigation block: {path}")
+
+          for path, labels in compact_breadcrumbs.items():
+              if not path.is_file():
+                  errors.append(f"Missing breadcrumb document: {path}")
+                  continue
+              text = path.read_text(encoding="utf-8")
+              for label in labels:
+                  if label not in text:
+                      errors.append(f"{path}: missing breadcrumb label {label!r}")
+
+          if errors:
+              print("Navigation coverage validation failed:")
+              for error in errors:
+                  print(f"- {error}")
+              raise SystemExit(1)
+
+          print(
+              "Navigation coverage valid: "
+              f"{len(framework_entry_pages)} framework entry pages and "
+              f"{len(compact_breadcrumbs)} compact breadcrumb documents."
+          )
+          PY
 
       - name: Validate maintained Markdown links and anchors
         uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
