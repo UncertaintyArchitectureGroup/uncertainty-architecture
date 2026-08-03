@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+"""Validate UA navigation coverage and route ownership."""
+
+from pathlib import Path
+import re
+from urllib.parse import unquote
+
+ROOT = Path.cwd().resolve()
+NAVIGATION_MARKER = "> **UA navigation**"
+LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+
+FRAMEWORK_ENTRY_PAGES = {
+    Path("README.md"),
+    Path("SPECIFICATION.md"),
+    Path("00-doctrine/README.md"),
+    Path("01-patterns/README.md"),
+    Path("02-ai-control-plane/README.md"),
+    Path("03-reference-architectures/README.md"),
+    Path("04-failure-modes/README.md"),
+    Path("content/research/index.md"),
+}
+
+EXPECTED_NAVIGATION_ROUTES: dict[str, tuple[Path, str | None]] = {
+    "UA Home": (Path("README.md"), None),
+    "Specification": (Path("SPECIFICATION.md"), None),
+    "Organization / boundaries": (
+        Path("00-doctrine/nested-control-lifecycle.md"),
+        "1-organizational-control-context",
+    ),
+    "Project / architecture": (
+        Path("01-patterns/project-control-architecture-and-viability-review.md"),
+        None,
+    ),
+    "Delivery / release": (
+        Path("01-patterns/thinking-system-review.md"),
+        None,
+    ),
+    "Runtime / reassessment": (
+        Path("00-doctrine/nested-control-lifecycle.md"),
+        "4-runtime-operation-and-reassessment",
+    ),
+    "Doctrine": (Path("00-doctrine/README.md"), None),
+    "Patterns": (Path("01-patterns/README.md"), None),
+    "Control capabilities": (Path("02-ai-control-plane/README.md"), None),
+    "Reference architectures": (Path("03-reference-architectures/README.md"), None),
+    "Failure modes": (Path("04-failure-modes/README.md"), None),
+    "Research": (Path("content/research/index.md"), None),
+}
+
+COMPACT_BREADCRUMBS: dict[Path, dict[str, tuple[Path, str | None]]] = {
+    Path("01-patterns/project-control-architecture-and-viability-review-template.md"): {
+        "← Owning pattern": (
+            Path("01-patterns/project-control-architecture-and-viability-review.md"),
+            None,
+        ),
+        "↑ Patterns index": (Path("01-patterns/README.md"), None),
+        "UA Home": (Path("README.md"), None),
+    },
+    Path("01-patterns/thinking-system-review-template.md"): {
+        "← Owning pattern": (Path("01-patterns/thinking-system-review.md"), None),
+        "↑ Patterns index": (Path("01-patterns/README.md"), None),
+        "UA Home": (Path("README.md"), None),
+    },
+    Path("03-reference-architectures/judgment-placement-examples.md"): {
+        "← Reference Architectures": (
+            Path("03-reference-architectures/README.md"),
+            None,
+        ),
+        "Judgment Node Boundary": (
+            Path("01-patterns/judgment-node-boundary.md"),
+            None,
+        ),
+        "UA Home": (Path("README.md"), None),
+    },
+}
+
+
+def blockquotes(text: str) -> list[str]:
+    """Return contiguous Markdown blockquote regions."""
+    blocks: list[str] = []
+    current: list[str] = []
+
+    for line in text.splitlines():
+        if line.startswith(">"):
+            current.append(line)
+        elif current:
+            blocks.append("\n".join(current))
+            current = []
+
+    if current:
+        blocks.append("\n".join(current))
+
+    return blocks
+
+
+def parse_links(block: str, source: Path, errors: list[str]) -> dict[str, str]:
+    """Parse Markdown links and report duplicate labels."""
+    links: dict[str, str] = {}
+
+    for label, target in LINK_PATTERN.findall(block):
+        if label in links:
+            errors.append(f"{source}: duplicate navigation label {label!r}")
+        links[label] = target
+
+    return links
+
+
+def resolve_target(source: Path, target: str) -> tuple[Path | None, str | None]:
+    """Resolve a repository-relative Markdown target and optional fragment."""
+    path_text, separator, fragment = target.partition("#")
+    candidate = (ROOT / source.parent / unquote(path_text)).resolve()
+
+    if candidate.is_dir():
+        index_candidates = (candidate / "README.md", candidate / "index.md")
+        candidate = next((item for item in index_candidates if item.is_file()), candidate)
+
+    try:
+        repository_path = candidate.relative_to(ROOT)
+    except ValueError:
+        return None, unquote(fragment) if separator else None
+
+    return repository_path, unquote(fragment) if separator else None
+
+
+def validate_routes(
+    source: Path,
+    block: str,
+    expected: dict[str, tuple[Path, str | None]],
+    errors: list[str],
+) -> None:
+    """Validate labels and their owning repository destinations."""
+    links = parse_links(block, source, errors)
+    actual_labels = set(links)
+    expected_labels = set(expected)
+
+    for label in sorted(expected_labels - actual_labels):
+        errors.append(f"{source}: missing navigation label {label!r}")
+    for label in sorted(actual_labels - expected_labels):
+        errors.append(f"{source}: unexpected navigation label {label!r}")
+
+    for label in sorted(actual_labels & expected_labels):
+        actual_path, actual_fragment = resolve_target(source, links[label])
+        expected_path, expected_fragment = expected[label]
+        if actual_path != expected_path or actual_fragment != expected_fragment:
+            errors.append(
+                f"{source}: {label!r} resolves to "
+                f"{actual_path}#{actual_fragment or ''}, expected "
+                f"{expected_path}#{expected_fragment or ''}"
+            )
+
+
+def validate_framework_entry_pages(errors: list[str]) -> None:
+    """Validate complete navigation blocks on declared framework entry pages."""
+    for path in sorted(FRAMEWORK_ENTRY_PAGES):
+        if not path.is_file():
+            errors.append(f"Missing framework entry page: {path}")
+            continue
+
+        text = path.read_text(encoding="utf-8")
+        navigation_blocks = [
+            block for block in blockquotes(text) if NAVIGATION_MARKER in block
+        ]
+
+        if len(navigation_blocks) != 1:
+            errors.append(
+                f"{path}: expected exactly one navigation block, "
+                f"found {len(navigation_blocks)}"
+            )
+            continue
+
+        block = navigation_blocks[0]
+        if "**Lifecycle:**" not in block:
+            errors.append(f"{path}: navigation block lacks Lifecycle section")
+        if "**Explore:**" not in block:
+            errors.append(f"{path}: navigation block lacks Explore section")
+
+        validate_routes(path, block, EXPECTED_NAVIGATION_ROUTES, errors)
+
+    actual_navigation_pages = {
+        path
+        for path in Path(".").rglob("*.md")
+        if NAVIGATION_MARKER in path.read_text(encoding="utf-8")
+    }
+
+    for path in sorted(actual_navigation_pages - FRAMEWORK_ENTRY_PAGES):
+        errors.append(f"Unexpected full navigation block: {path}")
+    for path in sorted(FRAMEWORK_ENTRY_PAGES - actual_navigation_pages):
+        errors.append(f"Missing full navigation block: {path}")
+
+
+def validate_compact_breadcrumbs(errors: list[str]) -> None:
+    """Validate compact owner/back navigation on selected leaf documents."""
+    for path, expected_routes in COMPACT_BREADCRUMBS.items():
+        if not path.is_file():
+            errors.append(f"Missing breadcrumb document: {path}")
+            continue
+
+        text = path.read_text(encoding="utf-8")
+        expected_labels = set(expected_routes)
+        candidates = []
+
+        for block in blockquotes(text):
+            labels = {label for label, _ in LINK_PATTERN.findall(block)}
+            if expected_labels <= labels:
+                candidates.append(block)
+
+        if len(candidates) != 1:
+            errors.append(
+                f"{path}: expected exactly one compact breadcrumb block, "
+                f"found {len(candidates)}"
+            )
+            continue
+
+        validate_routes(path, candidates[0], expected_routes, errors)
+
+
+def main() -> int:
+    """Run all navigation integrity checks."""
+    errors: list[str] = []
+    validate_framework_entry_pages(errors)
+    validate_compact_breadcrumbs(errors)
+
+    if errors:
+        print("Navigation coverage and routing validation failed:")
+        for error in errors:
+            print(f"- {error}")
+        return 1
+
+    print(
+        "Navigation coverage and routing valid: "
+        f"{len(FRAMEWORK_ENTRY_PAGES)} framework entry pages and "
+        f"{len(COMPACT_BREADCRUMBS)} compact breadcrumb documents."
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
