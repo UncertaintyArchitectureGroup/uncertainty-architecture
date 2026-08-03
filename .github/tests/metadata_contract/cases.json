@@ -1,0 +1,165 @@
+{
+  "cases": [
+    {
+      "name": "valid synthetic metadata repository passes",
+      "mutations": [],
+      "mode": "all",
+      "expected_valid": true
+    },
+    {
+      "name": "required frontmatter deletion is rejected",
+      "mutations": [
+        {"type": "remove_frontmatter", "path": "00-doctrine/control-loop-anatomy.md"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "required document has no YAML frontmatter"
+    },
+    {
+      "name": "uncontrolled artifact type is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "artifact_type: doctrine", "new": "artifact_type: generic-document"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "field 'artifact_type' uses uncontrolled value 'generic-document'"
+    },
+    {
+      "name": "uncontrolled status is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "status: informative", "new": "status: draft"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "field 'status' uses uncontrolled value 'draft'"
+    },
+    {
+      "name": "uncontrolled maturity is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "maturity: active", "new": "maturity: experimental"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "field 'maturity' uses uncontrolled value 'experimental'"
+    },
+    {
+      "name": "uncontrolled module is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "module: doctrine", "new": "module: governance"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "field 'module' uses uncontrolled value 'governance'"
+    },
+    {
+      "name": "uncontrolled topic is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "  - control-loop", "new": "  - guardrails"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "topics contains uncontrolled value 'guardrails'"
+    },
+    {
+      "name": "missing structural tag is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "  - ua/status/informative\n", "new": ""}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "missing projected tag 'ua/status/informative'"
+    },
+    {
+      "name": "contradictory structural tag is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "  - ua/module/doctrine", "new": "  - ua/module/research"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "tag 'ua/module/research' contradicts structured fields"
+    },
+    {
+      "name": "topic projection contradiction is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "  - ua/topic/control-loop", "new": "  - ua/topic/drift"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "topic tag 'ua/topic/drift' is not present in topics"
+    },
+    {
+      "name": "duplicate active canonical owner is rejected",
+      "mutations": [
+        {"type": "insert_frontmatter", "path": "00-doctrine/control-loop-anatomy.md", "text": "canonical_for:\n  - duplicated-responsibility\n"},
+        {"type": "insert_frontmatter", "path": "00-doctrine/model-judgment-placement.md", "text": "canonical_for:\n  - duplicated-responsibility\n"}
+      ],
+      "mode": "canonical",
+      "expected_severity": "error",
+      "expected_message": "active canonical_for 'duplicated-responsibility' has multiple owners"
+    },
+    {
+      "name": "superseded canonical claim does not conflict",
+      "mutations": [
+        {"type": "insert_frontmatter", "path": "00-doctrine/control-loop-anatomy.md", "text": "canonical_for:\n  - transferred-responsibility\n"},
+        {"type": "insert_frontmatter", "path": "00-doctrine/model-judgment-placement.md", "text": "canonical_for:\n  - transferred-responsibility\n"},
+        {"type": "replace", "path": "00-doctrine/model-judgment-placement.md", "old": "maturity: active", "new": "maturity: superseded"}
+      ],
+      "mode": "canonical",
+      "expected_valid": true
+    },
+    {
+      "name": "protected glossary entry deletion is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/glossary.md", "old": "### Constraint Realization\n", "new": ""}
+      ],
+      "mode": "terminology",
+      "expected_severity": "error",
+      "expected_message": "protected glossary entry 'Constraint Realization' is missing"
+    },
+    {
+      "name": "duplicate protected glossary entry is rejected",
+      "mutations": [
+        {"type": "append", "path": "00-doctrine/glossary.md", "text": "\n### Controller\n\nDuplicate fixture.\n"}
+      ],
+      "mode": "terminology",
+      "expected_severity": "error",
+      "expected_message": "protected glossary entry 'Controller' appears 2 times"
+    },
+    {
+      "name": "historical category usage produces warning",
+      "mutations": [
+        {"type": "append", "path": "00-doctrine/control-loop-anatomy.md", "text": "\nBehavioral Software\n"}
+      ],
+      "mode": "terminology",
+      "expected_severity": "warning",
+      "expected_message": "Use Thinking Systems in current framework material"
+    },
+    {
+      "name": "runtime reauthorization label produces warning",
+      "mutations": [
+        {"type": "append", "path": "01-patterns/thinking-system-review.md", "text": "\nRuntime reauthorization\n"}
+      ],
+      "mode": "terminology",
+      "expected_severity": "warning",
+      "expected_message": "The fourth decision level is Runtime operation and reassessment"
+    },
+    {
+      "name": "duplicate frontmatter field is rejected",
+      "mutations": [
+        {"type": "insert_frontmatter", "path": "00-doctrine/control-loop-anatomy.md", "text": "status: informative\n"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "duplicate field 'status'"
+    },
+    {
+      "name": "unclosed frontmatter is rejected",
+      "mutations": [
+        {"type": "remove_closing_frontmatter", "path": "00-doctrine/control-loop-anatomy.md"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "frontmatter starts with '---' but has no closing delimiter"
+    }
+  ]
+}
