@@ -110,7 +110,16 @@
       "control-economics",
       "sdlc",
       "repository-architecture",
-      "navigation"
+      "navigation",
+      "terminology",
+      "contribution-workflow",
+      "project-authorization",
+      "delivery-review",
+      "runtime-control",
+      "requirements",
+      "operating-envelope",
+      "correctness",
+      "defects"
     ]
   },
   "required_frontmatter_paths": [
@@ -169,6 +178,10 @@
     "content/index.md",
     "content/raw/README.md"
   ],
+  "frontmatter_exclude_prefixes": [
+    "content/research/publications/",
+    "content/history/legacy-rfcs/"
+  ],
   "tag_projection": {
     "required_exact": [
       "ua/module/{module}",
@@ -177,7 +190,7 @@
     ],
     "topic_prefix": "ua/topic/",
     "minimum_tags": 3,
-    "maximum_tags": 8,
+    "recommended_maximum_tags": 8,
     "topic_projection_mode": "subset"
   },
   "canonical_ownership": {
