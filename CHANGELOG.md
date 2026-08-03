@@ -67,7 +67,7 @@ Publications, talks, community discussions, and independent references belong un
 - Tightened the Hard Constraint definition: the complete realized path must deterministically prevent or reject violation within stated assumptions, subject, path, scope, and enforcement boundaries.
 - Clarified that hard or soft is a scoped claim about a Constraint and its complete realized path, not an intrinsic property of policy prose, a Requirement sentence, or an organizational source.
 - Required separate Constraint records when one source condition has different guarantee strengths across subjects, paths, or scopes.
-- Clarified that measured distribution, quality, cost, latency, and capacity tolerances remain part of the Requirement and Operating Envelope unless a separate scoped realization deterministically enforces a specific boundary.
+- Clarified that measured distribution, quality, cost, latency, and capacity tolerances remain part of the Requirement and Operating Envelope unless a separate realization deterministically enforces a specific boundary.
 - Updated the worked support-triage review so deterministic per-request execution and exposure limits remain Hard Constraints while aggregate cost and p95 latency remain measured Release Gate and reauthorization evidence.
 - Clarified that a prompt, natural-language policy, probabilistic evaluator, classifier, or model policy is not a Hard Constraint by itself.
 - Decomposed evaluation gates by function: evaluator and metrics are Sensors; block/canary/release selection is a Controller function; deployment, blocking, exposure change, and rollback are Actuator functions.
