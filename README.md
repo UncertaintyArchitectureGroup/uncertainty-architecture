@@ -185,11 +185,23 @@ UA is a shared architectural language, a project-to-runtime control lifecycle, a
 
 UA is not an SDK, universal agent framework, prompt collection, single guardrail product, mandatory four-service topology, replacement SDLC, governance department, compliance certification, or claim that uncertainty can be eliminated.
 
-## Status and contribution
+## Status, Evidence, and Contributions
 
-The repository is an evolving open specification. Documents declare their own status and maturity. See [`SPECIFICATION.md`](SPECIFICATION.md).
+**Active specification development.** The current draft baseline connects the controlled-object doctrine, four capability families, project authorization, delivery realization and release, and runtime reassessment. A complete two-level worked application, real-team use, operational evidence, and further terminology validation remain open before a broader maturity claim. See [`ROADMAP.md`](ROADMAP.md).
 
-For contribution guidance:
+UA keeps different kinds of evidence separate:
+
+- [**Research**](content/research/) records sources, analysis, synthesis, and framework traceability.
+- [**Public discussions and stress tests**](content/history/community-discussions.md) record critique, alternatives, and unresolved questions.
+- [**Independent references and recognition**](content/history/external-recognition.md) record how third parties cited, interpreted, recommended, or used UA.
+- [**Talks and presentations**](content/history/talks.md) record practitioner exposure without treating invitations as technical validation.
+- The [**changelog**](CHANGELOG.md) records changes to repository and specification artifacts.
+
+Visibility, recommendations, advisory relationships, invited talks, and synthesized examples are not treated as certification, institutional endorsement, formal adoption, or production evidence. The evidence policy and complete historical index are maintained in [`content/history/`](content/history/).
+
+GitHub is the canonical home for doctrine and specification changes. Useful contributions include operational failure reports, worked applications, pattern proposals, critiques of terminology or control assumptions, evidence about Human Authority and control cost, and provenance corrections.
+
+For contribution and review guidance:
 
 - [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - [`AGENTS.md`](AGENTS.md)
