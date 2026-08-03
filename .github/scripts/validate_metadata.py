@@ -60,6 +60,7 @@ def load_contract(path: Path) -> Dict[str, object]:
         "required_frontmatter_paths",
         "frontmatter_scan_roots",
         "frontmatter_scan_files",
+        "frontmatter_exclude_prefixes",
         "tag_projection",
         "canonical_ownership",
         "glossary",
@@ -145,13 +146,10 @@ def parse_frontmatter(lines: Sequence[str]) -> Tuple[Dict[str, MetadataValue], L
                     )
                 )
                 continue
-            item = unquote(raw_line.split("- ", 1)[1])
-            current.append(item)
+            current.append(unquote(raw_line.split("- ", 1)[1]))
             continue
 
         if raw_line[:1].isspace():
-            # Unknown nested metadata is outside the controlled UA fields. Preserve
-            # forward compatibility without treating it as a controlled value.
             continue
 
         if ":" not in raw_line:
@@ -171,13 +169,17 @@ def parse_frontmatter(lines: Sequence[str]) -> Tuple[Dict[str, MetadataValue], L
             continue
 
         value = unquote(raw_value)
-        if value == "":
-            metadata[key] = []
-        else:
-            metadata[key] = value
+        metadata[key] = [] if value == "" else value
         current_key = key
 
     return metadata, errors
+
+
+def is_excluded(relative: str, contract: Dict[str, object]) -> bool:
+    return any(
+        relative.startswith(str(prefix))
+        for prefix in contract["frontmatter_exclude_prefixes"]
+    )
 
 
 def discover_documents(root: Path, contract: Dict[str, object]) -> List[Path]:
@@ -199,7 +201,14 @@ def discover_documents(root: Path, contract: Dict[str, object]) -> List[Path]:
         if path is not None and path.is_file():
             discovered.add(path)
 
-    return sorted(discovered, key=lambda item: relative_path(root, item))
+    return sorted(
+        (
+            item
+            for item in discovered
+            if not is_excluded(relative_path(root, item), contract)
+        ),
+        key=lambda item: relative_path(root, item),
+    )
 
 
 def first_h1(text: str) -> Optional[str]:
@@ -229,21 +238,10 @@ def validate_document_metadata(
     relative = relative_path(root, path)
     findings: List[Finding] = []
     required_fields = set(str(item) for item in contract["required_fields"])
-    optional_fields = set(str(item) for item in contract["optional_fields"])
     list_fields = set(str(item) for item in contract["list_fields"])
-    known_fields = required_fields | optional_fields
 
     for field in sorted(required_fields - set(metadata)):
         findings.append(Finding("error", relative, "missing required field {!r}".format(field)))
-
-    for field in sorted(set(metadata) - known_fields):
-        findings.append(
-            Finding(
-                "warning",
-                relative,
-                "uncontrolled frontmatter field {!r}; document or add it deliberately".format(field),
-            )
-        )
 
     for field in sorted(list_fields):
         if field in metadata and not isinstance(metadata[field], list):
@@ -305,15 +303,26 @@ def validate_document_metadata(
     else:
         projection = contract["tag_projection"]
         minimum = int(projection["minimum_tags"])
-        maximum = int(projection["maximum_tags"])
-        if len(tags) < minimum or len(tags) > maximum:
+        recommended_maximum = int(projection["recommended_maximum_tags"])
+        if len(tags) < minimum:
             findings.append(
                 Finding(
                     "error",
                     relative,
-                    "tags must contain {} to {} values, found {}".format(minimum, maximum, len(tags)),
+                    "tags must contain at least {} values, found {}".format(minimum, len(tags)),
                 )
             )
+        elif len(tags) > recommended_maximum:
+            findings.append(
+                Finding(
+                    "warning",
+                    relative,
+                    "tags normally contain at most {} values, found {}".format(
+                        recommended_maximum, len(tags)
+                    ),
+                )
+            )
+
         for duplicate in sorted({item for item in tags if tags.count(item) > 1}):
             findings.append(Finding("error", relative, "tags contains duplicate {!r}".format(duplicate)))
         for tag in tags:
@@ -374,7 +383,9 @@ def validate_document_metadata(
 
 
 def collect_metadata(
-    root: Path, contract: Dict[str, object]
+    root: Path,
+    contract: Dict[str, object],
+    validate_fields: bool,
 ) -> Tuple[Dict[str, Dict[str, MetadataValue]], List[Finding]]:
     records: Dict[str, Dict[str, MetadataValue]] = {}
     findings: List[Finding] = []
@@ -408,7 +419,8 @@ def collect_metadata(
         for message in parse_errors:
             findings.append(Finding("error", relative, message))
         records[relative] = metadata
-        findings.extend(validate_document_metadata(root, path, text, metadata, contract))
+        if validate_fields:
+            findings.extend(validate_document_metadata(root, path, text, metadata, contract))
 
     return records, findings
 
@@ -521,23 +533,21 @@ def terminology_findings(root: Path, contract: Dict[str, object]) -> List[Findin
     return findings
 
 
-def validate(
-    root: Path, contract_path: Path, mode: str = "all"
-) -> List[Finding]:
+def validate(root: Path, contract_path: Path, mode: str = "all") -> List[Finding]:
     root = root.resolve()
     contract = load_contract(contract_path.resolve())
     findings: List[Finding] = []
-    records: Dict[str, Dict[str, MetadataValue]] = {}
 
     if not root.is_dir():
         return [Finding("error", str(root), "repository root is not a directory")]
 
-    if mode in ("all", "metadata", "canonical"):
-        records, metadata_findings = collect_metadata(root, contract)
-        if mode in ("all", "metadata"):
-            findings.extend(metadata_findings)
-        elif mode == "canonical":
-            findings.extend(item for item in metadata_findings if item.severity == "error")
+    records: Dict[str, Dict[str, MetadataValue]] = {}
+    if mode in ("all", "metadata"):
+        records, metadata_findings = collect_metadata(root, contract, True)
+        findings.extend(metadata_findings)
+    elif mode == "canonical":
+        records, collection_findings = collect_metadata(root, contract, False)
+        findings.extend(collection_findings)
 
     if mode in ("all", "canonical"):
         findings.extend(validate_canonical_ownership(records, contract))
