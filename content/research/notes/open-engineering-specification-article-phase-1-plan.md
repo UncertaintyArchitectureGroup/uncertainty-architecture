@@ -1,5 +1,5 @@
 ---
-title: Open Engineering Specification Article Phase 1 Completion Plan
+title: Open Engineering Specification Article Phase 1 Completion Record
 artifact_type: research-note
 status: research
 maturity: draft
@@ -7,6 +7,7 @@ module: research
 topics:
   - thinking-systems
   - control-loop
+  - constraints
   - open-specification
   - publishing
   - repository-architecture
@@ -16,180 +17,246 @@ tags:
   - ua/status/research
   - ua/topic/thinking-systems
   - ua/topic/control-loop
+  - ua/topic/constraints
   - ua/topic/open-specification
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-03
 language: en
 license: CC-BY-4.0
 draft: true
 ---
 
-# Phase 1 Completion Plan: Editorial Architecture
+# Phase 1 Completion Record: Editorial Architecture
 
-> **Current state:** Phase 1 is active and incomplete. The article blueprint is a working editorial skeleton, not an accepted outline and not finished article prose. Phase 2 drafting must not begin until the exit criteria below are satisfied.
+> **Current state:** The accepted architecture from PR #32 has been integrated into the branch. Architecture, logic, technical, and editorial review have produced a drafting-ready editorial contract. Phase 1 remains open only for explicit maintainer review and freeze; article prose has not begun.
 
-## Purpose
+## 1. Purpose of Phase 1
 
-Phase 1 exists to turn the current large editorial blueprint into an agreed argument architecture for the canonical public synthesis of Uncertainty Architecture.
+Phase 1 converts a large working skeleton into a stable editorial contract for the public synthesis article:
 
-The output of this phase is not a publishable article. It is a stable editorial contract that defines:
+**Uncertainty Architecture: An Open Engineering Specification for Thinking Systems**  
+*From project viability to delivery realization, runtime evidence, and reauthorization*
 
-- the article's central claim and defensible claim boundary;
-- the minimum logical sequence required to explain the specification;
-- the ownership and purpose of every section;
-- the diagrams and worked example required to carry the argument;
-- the relationship between the article and canonical repository sources;
-- the maturity statements and validation request that prevent overclaiming.
+The output is not publishable prose and does not create specification authority. It defines:
 
-## Architecture review
+- the article's central thesis and claim boundary;
+- the final reader journey;
+- one unique job for every section;
+- the canonical source set;
+- the three figures;
+- the continuous worked Constraint trace;
+- the maturity statement and external validation request;
+- the Phase 2 drafting sequence.
 
-The architecture review must confirm that the article has one coherent spine rather than several adjacent explanations of UA.
+## 2. Baseline integrated
 
-Required decisions:
+The branch now includes the current `main` baseline containing:
 
-1. Confirm the canonical reader journey:
+- the four-family Control-Loop Capability Anatomy;
+- Constraint and Constraint Realization as distinct concepts;
+- scoped Hard and Soft Constraint claims;
+- Project Constraint Architecture and delivery Constraint Realization Map;
+- the corrected Nested Control Lifecycle;
+- current AI Control Plane, conformance, failure-mode, roadmap, and provenance decisions.
 
-   ```text
-   missing engineering connection
-   → controlled-object shift
-   → control-theory framing
-   → four connected control levels
-   → inheritance down and evidence up
-   → two living review artifacts
-   → end-to-end worked application
-   → boundary with agent platforms
-   → open-specification status, limits, and review request
-   ```
+The earlier temporary dependency on PR #32 is resolved.
 
-2. Decide whether the control-theory explanation should remain a standalone section or be integrated into the controlled-object shift and four-level lifecycle.
-3. Confirm that the four-level lifecycle is the article's conceptual center, not merely one section among many.
-4. Preserve the distinction between:
-   - organizational constraints and shared capabilities;
-   - project viability and authorization;
-   - delivery-level readiness, completion, and release;
-   - runtime evidence, corrective action, and reauthorization.
-5. Confirm that the two living artifacts are presented as practical operating surfaces, not as the complete specification.
-6. Confirm that the worked support-triage example demonstrates the full project-to-runtime path without duplicating the reference architecture field by field.
-7. Ensure that the article's ending moves from current specification state to explicit limits and external review, rather than to promotion or a product-style call to action.
+## 3. Architecture review decision
 
-## Logic review
+### Final reader journey
 
-Every section must have one job, one closing claim, and one necessary transition.
+```text
+missing engineering connection
+→ controlled-object shift
+→ model quality versus bounded control
+→ four decision levels
+→ two living reviews and inheritance
+→ one Constraint across the lifecycle
+→ platform implementation versus authority
+→ current specification state, limits, and validation request
+```
 
-The review must remove or merge passages that repeat any of the following without adding a new logical function:
-
-- deterministic versus probabilistic behavior;
-- policies, tools, and evaluations being insufficient in isolation;
-- control requiring sensors, decision authority, and corrective action;
-- governance being socio-technical;
-- project authorization being distinct from release;
-- runtime evidence triggering higher-level reassessment;
-- UA complementing rather than replacing existing engineering disciplines.
-
-The final skeleton must answer these questions in order:
-
-1. What engineering connection is missing?
-2. What changed in the controlled object?
-3. Why is this a control problem rather than only a quality or compliance problem?
-4. Which decisions exist at each control level?
-5. How do constraints and authorization travel downward?
-6. How does operational evidence travel upward?
-7. Which minimal artifacts keep those decisions traceable?
-8. What does the complete lifecycle look like in one concrete system?
-9. What can an agent platform implement, and what remains outside its ownership?
-10. What is already specified, what remains draft, and what evidence is still missing?
-
-## Technical review
-
-The skeleton must be checked against current canonical repository material before editorial acceptance.
-
-Required source checks:
-
-- `SPECIFICATION.md` for status, conformance, and specification boundaries;
-- `00-doctrine/glossary.md` for canonical terminology;
-- `00-doctrine/uncertainty-in-the-controlled-object.md` for the controlled-object shift;
-- `00-doctrine/nested-control-lifecycle.md` for decision ownership, inheritance, evidence flow, and reauthorization;
-- `01-patterns/project-control-architecture-and-viability-review.md` and its template for project-level ownership;
-- `01-patterns/thinking-system-review.md` and its template for delivery-level ownership;
-- `02-ai-control-plane/` for distributed control capabilities;
-- the support-triage reference architecture and completed illustrative review for the worked example;
-- `04-failure-modes/` for failure mechanisms used in examples;
-- current research publications and presentation source-intake records for provenance, not normative authority.
-
-Technical acceptance requires:
-
-- no local redefinition of a glossary term;
-- no silent transfer of ownership between project, delivery, runtime, and organizational levels;
-- no claim that telemetry or evaluation alone constitutes control;
-- no implication that one template, committee, platform, role title, threshold, or implementation topology is mandatory;
-- no claim that UA is a finished standard or independently validated universal method;
-- no use of historical terms as current canonical terminology except where explicitly contextualized.
-
-## Editorial review
-
-After architecture, logic, and technical review, the skeleton must be reduced to a drafting-ready outline.
-
-Each retained section must contain only:
-
-- section purpose;
-- core claim;
-- required supporting points;
-- required source references;
-- required figure or example, where applicable;
-- material that must not be repeated elsewhere;
-- transition to the next section;
-- intended closing claim;
-- approximate word budget.
-
-Editorial cleanup must:
-
-- remove prose that already attempts to write the final article;
-- separate canonical article structure from optional distribution headlines and post copy;
-- mark all unresolved structural questions explicitly;
-- keep figure briefs separate from body-argument notes;
-- keep claim-safety notes and exclusions in one place;
-- replace premature drafting instructions with a clear Phase 2 sequence.
-
-## Proposed drafting-ready structure to validate
-
-This is a review target, not a final approved table of contents:
+### Final section sequence
 
 1. **The Missing Engineering Connection**
 2. **The Controlled Object Has Changed**
-3. **From Model Behavior to System Control**
-4. **Four Levels of Control**
-5. **Inheritance Down, Evidence Up**
-6. **Two Living Review Artifacts**
-7. **One System Across the Full Lifecycle**
-8. **What Agent Platforms Can and Cannot Own**
-9. **UA as an Open Engineering Specification**
-10. **Current State, Limits, and Invitation for Review**
+3. **From Model Quality to Bounded Control**
+4. **Four Decision Levels of Uncertainty Architecture**
+5. **From Authority to Operation: Two Living Reviews**
+6. **One Constraint Across the Full Lifecycle**
+7. **What Platforms Can Implement — and What They Cannot Authorize**
+8. **Open Specification: Current State, Limits, and Invitation**
 
-The separate sections previously proposed for “Why Open” and “Invitation for Review” should remain separate only if each carries a distinct argument. Otherwise they should be integrated into the final specification-status section to avoid an extended promotional ending.
+### Structural decisions
 
-## Phase 1 exit criteria
+- The four decision levels remain the conceptual center.
+- The four capability families explain how control becomes operational at every level and do not become a second lifecycle.
+- The control-theory material remains a distinct section because it must establish the difference between measurement, feedback closure, and bounded acceptable operation before the lifecycle is introduced.
+- Inheritance and the two living artifacts are combined into one operating-path section.
+- Openness, maturity, limitations, and invitation are combined into one ending.
+- The worked narrative traces one Constraint rather than retelling the entire support-triage architecture.
 
-Phase 1 is complete only when all of the following are true:
+## 4. Logic review record
 
-- [ ] The central thesis is stated in one stable, defensible paragraph.
-- [ ] The final section sequence is accepted.
-- [ ] Every section has a unique logical function.
-- [ ] The four control levels and their decision ownership are technically correct.
-- [ ] Project authorization, delivery release, runtime correction, and reauthorization are not conflated.
-- [ ] Inheritance down and evidence up are demonstrated concretely.
-- [ ] The two living artifacts are accurately scoped.
-- [ ] The worked example has a fixed narrative boundary and source set.
-- [ ] The agent-platform boundary is precise and non-defensive.
-- [ ] All canonical terminology has been checked against the glossary.
-- [ ] Claims about maturity, openness, validation, and applicability are restrained.
-- [ ] Figure briefs are agreed and do not introduce new doctrine.
-- [ ] Approximate word allocation is agreed.
-- [ ] Unresolved questions are either decided or explicitly deferred.
-- [ ] The blueprint is reduced to a drafting-ready editorial contract.
-- [ ] The PR remains draft until this checklist is completed and reviewed.
+The revised blueprint removes repeated or competing explanations of:
 
-## Phase 2 boundary
+- deterministic versus model-mediated behavior;
+- policies, tools, and evaluations being insufficient in isolation;
+- feedback closure versus bounded operation;
+- the four decision levels;
+- inheritance and evidence routing;
+- the two review artifacts;
+- the platform boundary;
+- repository maturity and openness.
 
-Phase 2 begins only after Phase 1 acceptance.
+Each section now contains:
 
-Phase 2 will draft the article section by section. Each section must pass architecture, logic, technical, and editorial review before the next section is treated as stable. Drafting must continue to defer to canonical repository sources and must not convert research language into normative requirements by repetition.
+- purpose;
+- core claim;
+- required supporting points;
+- canonical source anchors;
+- material not to repeat elsewhere;
+- transition;
+- intended closing claim;
+- word budget.
+
+The earlier ten-section plan is reduced to eight sections so the final article reads as one argument rather than adjacent mini-essays.
+
+## 5. Technical review record
+
+### Canonical concepts aligned
+
+- Thinking System and Model Judgment;
+- Control-Loop Capability Anatomy;
+- Constraint versus Constraint Realization;
+- Hard and Soft Constraint as scoped complete-realized-path claims;
+- Sensor, Controller, and Actuator functions;
+- Human Authority;
+- Nested Control Lifecycle;
+- Project Constraint Architecture;
+- delivery Constraint Realization Map;
+- Project Authorization and Project Reauthorization;
+- DoR, DoD, and Release Gate;
+- runtime operation and reassessment.
+
+### Ownership preserved
+
+- Organization owns authoritative sources, shared capabilities, and decision rights.
+- Project owns viability, Project Constraint Architecture, authorization, inheritance, economics, and reauthorization.
+- Delivery owns implementation-level Judgment Nodes, Constraint Realization Map, DoR, DoD, Release Gate, and local reassessment.
+- Runtime exercises active realizations, produces evidence, and invokes authorized action; it does not automatically reauthorize the project.
+
+### Capability boundaries preserved
+
+- Constraint defines the approved boundary.
+- Constraint Realization implements, enforces, or influences it.
+- Sensor produces evidence.
+- Controller compares or interprets evidence and selects or authorizes action.
+- Actuator executes authorized change.
+- Evaluator, gate decision, and release execution are not collapsed.
+- A closed feedback loop is not represented as a complete bounded UA control architecture.
+
+### Repository-state correction
+
+The old blueprint incorrectly listed a complete project-to-runtime worked application as already present. The revised blueprint states the actual boundary:
+
+- the repository contains one illustrative delivery-level support-triage review;
+- a complete two-level project-and-delivery worked application remains roadmap work;
+- the article's K-SEND-01 lifecycle narrative is an editorial synthesis, not evidence that the repository application already exists.
+
+## 6. Editorial review record
+
+The original blueprint contained extensive draft-like prose, repeated headlines, multiple competing figure plans, and unresolved chapter questions.
+
+The revised contract:
+
+- retains one stable thesis paragraph;
+- separates article structure from optional distribution framing;
+- uses exactly three primary figures;
+- keeps claim-safety rules in one section;
+- keeps the canonical source set in one section;
+- defines one Phase 2 drafting sequence;
+- removes instructions that attempted to draft the same final passage in several places;
+- increases the target length to 4,300–5,200 words because the accepted capability anatomy and continuous Constraint trace require explicit treatment.
+
+## 7. Figure decision
+
+### Figure 1 — Controlled-object shift
+
+Shows why consequential runtime Model Judgment changes the engineered object.
+
+### Figure 2 — Two orthogonal UA models
+
+Shows:
+
+- the four decision levels with downward inheritance and upward reassessment;
+- the four capability families applying at every level;
+- no one-to-one mapping, mandatory stack, or one-way waterfall.
+
+### Figure 3 — K-SEND-01 Constraint trace
+
+Shows:
+
+```text
+organizational source
+→ scoped Project Constraint
+→ delivery Constraint Realization
+→ runtime evidence
+→ delivery reassessment / project reauthorization / organizational review
+```
+
+The presentation's brain/nerves/skeleton/muscles stack is not used as the canonical article architecture diagram.
+
+## 8. Worked narrative decision
+
+The article will trace one authority and Human Authority Constraint:
+
+> The model-mediated path may create a draft but must not send customer communication without Human Authority.
+
+The trace includes:
+
+- organizational prohibition and decision rights;
+- Project Constraint `K-SEND-01` with source, subject, path, scope, class, strength, realization, assumptions, failure behavior, evidence, and change authority;
+- delivery realization through a no-send service identity, deterministic authorization gate, human-operated send path, audit trace, fail-closed behavior, and tests;
+- distinct DoR, DoD, and Release Gate decisions;
+- local realization defect routed to delivery;
+- capacity and economics failure routed to project reauthorization;
+- autonomous-send request routed to project reauthorization and organizational review.
+
+This single trace replaces the earlier broad retelling of three Judgment Nodes and many controls.
+
+## 9. Phase 1 exit checklist
+
+- [x] PR #32 is merged into `main`.
+- [x] Current `main` is integrated into the article branch through a merge commit.
+- [x] One stable thesis paragraph exists.
+- [x] The final section sequence is fixed.
+- [x] Every section has a unique logical function.
+- [x] The four decision levels are technically correct and central.
+- [x] The four capability families are technically correct and orthogonal to the levels.
+- [x] Constraint and Constraint Realization remain distinct.
+- [x] Project authorization, DoR, DoD, Release Gate, runtime correction, and project reauthorization are not conflated.
+- [x] Project Constraint Architecture and delivery Constraint Realization Map are the canonical Constraint artifacts.
+- [x] Inheritance down and evidence up are demonstrated concretely.
+- [x] The two living reviews are accurately scoped and not presented as universally sufficient.
+- [x] The worked example has one fixed Constraint narrative and source boundary.
+- [x] The platform boundary is precise and non-defensive.
+- [x] Canonical terminology is aligned with the current glossary and doctrine.
+- [x] Maturity, openness, validation, and repository-state claims are restrained.
+- [x] Three figure briefs are agreed and introduce no new doctrine.
+- [x] Word allocation and Phase 2 sequence are explicit.
+- [x] No unresolved architecture, logic, technical, or editorial blocker remains in the blueprint.
+- [ ] Maintainer review explicitly freezes the editorial contract for drafting.
+
+## 10. Phase 2 boundary
+
+Phase 2 must be a separate branch and pull request after Phase 1 is accepted and PR #31 is merged.
+
+Phase 2 will draft the article in four connected blocks:
+
+1. problem and controlled-object doctrine;
+2. bounded control and decision levels;
+3. two reviews and the K-SEND-01 lifecycle trace;
+4. platform boundary, current state, limits, openness, and invitation.
+
+Each block must continue to defer to canonical repository sources. Article prose must not create new normative concepts by repetition, silently update repository maturity, or treat historical publications as current definitions.
