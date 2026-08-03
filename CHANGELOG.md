@@ -48,7 +48,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Changed
 
-- Improved navigation from the root README, specification scope, and AI Control Plane index by linking the four decision levels and four capability families to their owning sections, patterns, and capability directories; aligned the runtime lifecycle heading to **Runtime operation and reassessment** while preserving the previous deep-link anchor.
+- Established a consistent navigation system across the root, specification, doctrine, patterns, AI Control Plane, reference-architecture, failure-mode, and research entry pages; linked the four decision levels and four capability families to their owning locations; added owner/back links to the two practical templates and the Judgment Placement references; aligned the runtime lifecycle heading to **Runtime operation and reassessment** while preserving the previous deep-link anchor; and corrected stale PDF/PPTX provenance and runtime terminology in research and raw-source indexes.
 - Recorded the merged four-family capability architecture as the current draft roadmap baseline while retaining worked-application, real-team, tooling, operational-evidence, and terminology validation as open maturity work.
 - Corrected the root README so the runtime decision level is described as operation and reassessment rather than runtime reauthorization.
 - Established four logical capability families orthogonal to the four organizational-to-runtime decision levels: **Constraints and their realizations**, **Sensors and evidence**, **Controllers and decision authority**, and **Actuators and corrective action**.
