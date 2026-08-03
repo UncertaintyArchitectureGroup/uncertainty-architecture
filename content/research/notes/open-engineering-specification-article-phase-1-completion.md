@@ -77,12 +77,12 @@ The reviewed baseline includes:
 
 - The contract contains one unnumbered abstract and eight numbered sections.
 - Each numbered section has one distinct role and each non-final section creates the need for the next.
-- Three figures have separate jobs: controlled-object shift, orthogonal models, and the K-SEND-01 trace.
+- Three figures have separate jobs: a controlled-object responsibility comparison without a fixed Judgment pipeline, the two orthogonal models, and the K-SEND-01 trace.
 - Word ranges total 4,300–5,150 words against a 4,300–5,200 target.
 
 ### Sources and repository integrity
 
-- Current UA claims defer to canonical repository sources.
+- Current UA claims follow repository authority order and the owning doctrine, pattern, or capability document; supporting sources retain their declared status.
 - All four Control Plane capability-owner documents are included in the Phase 2 source plan.
 - Current external claims require primary or authoritative evidence; named product claims require first-party documentation.
 - Frontmatter uses controlled metadata values.
