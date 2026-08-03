@@ -3,13 +3,16 @@
 
 from pathlib import Path
 import re
+from typing import Dict, List, Optional, Set, Tuple
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[2]
 NAVIGATION_MARKER = "> **UA navigation**"
 LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 
-FRAMEWORK_ENTRY_PAGES = {
+Route = Tuple[Path, Optional[str]]
+
+FRAMEWORK_ENTRY_PAGES: Set[Path] = {
     Path("README.md"),
     Path("SPECIFICATION.md"),
     Path("00-doctrine/README.md"),
@@ -20,7 +23,7 @@ FRAMEWORK_ENTRY_PAGES = {
     Path("content/research/index.md"),
 }
 
-EXPECTED_NAVIGATION_ROUTES: dict[str, tuple[Path, str | None]] = {
+EXPECTED_NAVIGATION_ROUTES: Dict[str, Route] = {
     "UA Home": (Path("README.md"), None),
     "Specification": (Path("SPECIFICATION.md"), None),
     "Organization / boundaries": (
@@ -47,7 +50,7 @@ EXPECTED_NAVIGATION_ROUTES: dict[str, tuple[Path, str | None]] = {
     "Research": (Path("content/research/index.md"), None),
 }
 
-COMPACT_BREADCRUMBS: dict[Path, dict[str, tuple[Path, str | None]]] = {
+COMPACT_BREADCRUMBS: Dict[Path, Dict[str, Route]] = {
     Path("01-patterns/project-control-architecture-and-viability-review-template.md"): {
         "← Owning pattern": (
             Path("01-patterns/project-control-architecture-and-viability-review.md"),
@@ -80,10 +83,10 @@ def repository_file(path: Path) -> Path:
     return ROOT / path
 
 
-def blockquotes(text: str) -> list[str]:
+def blockquotes(text: str) -> List[str]:
     """Return contiguous Markdown blockquote regions."""
-    blocks: list[str] = []
-    current: list[str] = []
+    blocks: List[str] = []
+    current: List[str] = []
 
     for line in text.splitlines():
         if line.startswith(">"):
@@ -101,11 +104,11 @@ def blockquotes(text: str) -> list[str]:
 def parse_links(
     block: str,
     source: Path,
-    errors: list[str],
-) -> list[tuple[str, str]]:
+    errors: List[str],
+) -> List[Tuple[str, str]]:
     """Parse Markdown links in display order and report duplicate labels."""
     parsed = LINK_PATTERN.findall(block)
-    seen: set[str] = set()
+    seen: Set[str] = set()
 
     for label, _ in parsed:
         if label in seen:
@@ -115,7 +118,7 @@ def parse_links(
     return parsed
 
 
-def resolve_target(source: Path, target: str) -> tuple[Path | None, str | None]:
+def resolve_target(source: Path, target: str) -> Tuple[Optional[Path], Optional[str]]:
     """Resolve a repository-relative Markdown target and optional fragment."""
     path_text, separator, fragment = target.partition("#")
     candidate = (ROOT / source.parent / unquote(path_text)).resolve()
@@ -135,8 +138,8 @@ def resolve_target(source: Path, target: str) -> tuple[Path | None, str | None]:
 def validate_routes(
     source: Path,
     block: str,
-    expected: dict[str, tuple[Path, str | None]],
-    errors: list[str],
+    expected: Dict[str, Route],
+    errors: List[str],
 ) -> None:
     """Validate ordered labels and their owning repository destinations."""
     parsed_links = parse_links(block, source, errors)
@@ -179,7 +182,7 @@ def validate_routes(
             )
 
 
-def validate_framework_entry_pages(errors: list[str]) -> None:
+def validate_framework_entry_pages(errors: List[str]) -> None:
     """Validate complete navigation blocks on declared framework entry pages."""
     for path in sorted(FRAMEWORK_ENTRY_PAGES):
         absolute_path = repository_file(path)
@@ -231,7 +234,7 @@ def validate_framework_entry_pages(errors: list[str]) -> None:
         errors.append(f"Missing full navigation block: {path}")
 
 
-def validate_compact_breadcrumbs(errors: list[str]) -> None:
+def validate_compact_breadcrumbs(errors: List[str]) -> None:
     """Validate compact owner/back navigation on selected leaf documents."""
     for path, expected_routes in COMPACT_BREADCRUMBS.items():
         absolute_path = repository_file(path)
@@ -260,7 +263,7 @@ def validate_compact_breadcrumbs(errors: list[str]) -> None:
 
 def main() -> int:
     """Run all navigation integrity checks from any working directory."""
-    errors: list[str] = []
+    errors: List[str] = []
     validate_framework_entry_pages(errors)
     validate_compact_breadcrumbs(errors)
 
