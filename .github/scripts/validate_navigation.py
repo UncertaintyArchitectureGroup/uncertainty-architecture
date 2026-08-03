@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Validate UA navigation coverage and route ownership."""
+"""Validate UA navigation coverage, order, and route ownership."""
 
 from pathlib import Path
 import re
 from urllib.parse import unquote
 
-ROOT = Path.cwd().resolve()
+ROOT = Path(__file__).resolve().parents[2]
 NAVIGATION_MARKER = "> **UA navigation**"
 LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 
@@ -75,6 +75,11 @@ COMPACT_BREADCRUMBS: dict[Path, dict[str, tuple[Path, str | None]]] = {
 }
 
 
+def repository_file(path: Path) -> Path:
+    """Return an absolute path for a repository-relative path."""
+    return ROOT / path
+
+
 def blockquotes(text: str) -> list[str]:
     """Return contiguous Markdown blockquote regions."""
     blocks: list[str] = []
@@ -93,16 +98,21 @@ def blockquotes(text: str) -> list[str]:
     return blocks
 
 
-def parse_links(block: str, source: Path, errors: list[str]) -> dict[str, str]:
-    """Parse Markdown links and report duplicate labels."""
-    links: dict[str, str] = {}
+def parse_links(
+    block: str,
+    source: Path,
+    errors: list[str],
+) -> list[tuple[str, str]]:
+    """Parse Markdown links in display order and report duplicate labels."""
+    parsed = LINK_PATTERN.findall(block)
+    seen: set[str] = set()
 
-    for label, target in LINK_PATTERN.findall(block):
-        if label in links:
+    for label, _ in parsed:
+        if label in seen:
             errors.append(f"{source}: duplicate navigation label {label!r}")
-        links[label] = target
+        seen.add(label)
 
-    return links
+    return parsed
 
 
 def resolve_target(source: Path, target: str) -> tuple[Path | None, str | None]:
@@ -128,8 +138,18 @@ def validate_routes(
     expected: dict[str, tuple[Path, str | None]],
     errors: list[str],
 ) -> None:
-    """Validate labels and their owning repository destinations."""
-    links = parse_links(block, source, errors)
+    """Validate ordered labels and their owning repository destinations."""
+    parsed_links = parse_links(block, source, errors)
+    actual_order = [label for label, _ in parsed_links]
+    expected_order = list(expected)
+
+    if actual_order != expected_order:
+        errors.append(
+            f"{source}: navigation order {actual_order!r}, "
+            f"expected {expected_order!r}"
+        )
+
+    links = dict(parsed_links)
     actual_labels = set(links)
     expected_labels = set(expected)
 
@@ -138,25 +158,36 @@ def validate_routes(
     for label in sorted(actual_labels - expected_labels):
         errors.append(f"{source}: unexpected navigation label {label!r}")
 
-    for label in sorted(actual_labels & expected_labels):
+    for label in expected_order:
+        if label not in links:
+            continue
+
         actual_path, actual_fragment = resolve_target(source, links[label])
         expected_path, expected_fragment = expected[label]
+
         if actual_path != expected_path or actual_fragment != expected_fragment:
             errors.append(
                 f"{source}: {label!r} resolves to "
                 f"{actual_path}#{actual_fragment or ''}, expected "
                 f"{expected_path}#{expected_fragment or ''}"
             )
+            continue
+
+        if actual_path is not None and not repository_file(actual_path).is_file():
+            errors.append(
+                f"{source}: {label!r} targets missing file {actual_path}"
+            )
 
 
 def validate_framework_entry_pages(errors: list[str]) -> None:
     """Validate complete navigation blocks on declared framework entry pages."""
     for path in sorted(FRAMEWORK_ENTRY_PAGES):
-        if not path.is_file():
+        absolute_path = repository_file(path)
+        if not absolute_path.is_file():
             errors.append(f"Missing framework entry page: {path}")
             continue
 
-        text = path.read_text(encoding="utf-8")
+        text = absolute_path.read_text(encoding="utf-8")
         navigation_blocks = [
             block for block in blockquotes(text) if NAVIGATION_MARKER in block
         ]
@@ -169,16 +200,28 @@ def validate_framework_entry_pages(errors: list[str]) -> None:
             continue
 
         block = navigation_blocks[0]
-        if "**Lifecycle:**" not in block:
+        marker_position = block.find(NAVIGATION_MARKER)
+        lifecycle_position = block.find("**Lifecycle:**")
+        explore_position = block.find("**Explore:**")
+
+        if lifecycle_position < 0:
             errors.append(f"{path}: navigation block lacks Lifecycle section")
-        if "**Explore:**" not in block:
+        if explore_position < 0:
             errors.append(f"{path}: navigation block lacks Explore section")
+        if not (
+            marker_position >= 0
+            and lifecycle_position > marker_position
+            and explore_position > lifecycle_position
+        ):
+            errors.append(
+                f"{path}: expected marker, Lifecycle, and Explore in that order"
+            )
 
         validate_routes(path, block, EXPECTED_NAVIGATION_ROUTES, errors)
 
     actual_navigation_pages = {
-        path
-        for path in Path(".").rglob("*.md")
+        path.relative_to(ROOT)
+        for path in ROOT.rglob("*.md")
         if NAVIGATION_MARKER in path.read_text(encoding="utf-8")
     }
 
@@ -191,11 +234,12 @@ def validate_framework_entry_pages(errors: list[str]) -> None:
 def validate_compact_breadcrumbs(errors: list[str]) -> None:
     """Validate compact owner/back navigation on selected leaf documents."""
     for path, expected_routes in COMPACT_BREADCRUMBS.items():
-        if not path.is_file():
+        absolute_path = repository_file(path)
+        if not absolute_path.is_file():
             errors.append(f"Missing breadcrumb document: {path}")
             continue
 
-        text = path.read_text(encoding="utf-8")
+        text = absolute_path.read_text(encoding="utf-8")
         expected_labels = set(expected_routes)
         candidates = []
 
@@ -215,7 +259,7 @@ def validate_compact_breadcrumbs(errors: list[str]) -> None:
 
 
 def main() -> int:
-    """Run all navigation integrity checks."""
+    """Run all navigation integrity checks from any working directory."""
     errors: list[str] = []
     validate_framework_entry_pages(errors)
     validate_compact_breadcrumbs(errors)
@@ -227,7 +271,7 @@ def main() -> int:
         return 1
 
     print(
-        "Navigation coverage and routing valid: "
+        "Navigation coverage, order, and routing valid: "
         f"{len(FRAMEWORK_ENTRY_PAGES)} framework entry pages and "
         f"{len(COMPACT_BREADCRUMBS)} compact breadcrumb documents."
     )
