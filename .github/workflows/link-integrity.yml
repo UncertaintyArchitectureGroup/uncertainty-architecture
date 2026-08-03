@@ -36,7 +36,7 @@ jobs:
         with:
           args: >-
             --offline
-            --include-fragments=anchor-only
+            --include-fragments
             --index-files README.md,index.md
             --root-dir "${{ github.workspace }}"
             --no-progress
