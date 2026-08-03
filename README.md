@@ -196,4 +196,61 @@ For contribution guidance:
 - [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md)
 - [`content/research/review-process.md`](content/research/review-process.md)
 
-Documentation is licensed under CC BY 4.0. Code, where present, is licensed under Apache 2.0.
+## Authors and Maintainers
+
+### Vitalii Oborskyi — Creator and Lead Architect
+
+Focus: operational framing, governance, delivery systems, adoption scaffolding, and system-level control.
+
+- [LinkedIn](https://www.linkedin.com/in/vitaliioborskyi/)
+- [GitHub](https://github.com/oborskyivitalii)
+
+### Sam “stunspot” Walker — Technical Co-Author
+
+Focus: AI–code boundary placement, containment patterns, prompt-as-medium realism, and real-world failure modes.
+
+### Contributors and reviewers
+
+Additional contributors and reviewers are credited through [Git history and the contributors graph](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/graphs/contributors), merged pull requests, and attributed research or history records. Contribution guidance is maintained in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Advisors
+
+### Markus Kopko — Strategic Advisor on Governance and Alignment
+
+Focus: project-management standards, organizational alignment, and the operationalization of AI governance.
+
+- [LinkedIn](https://www.linkedin.com/in/markuskleinpmp/)
+
+### Otman Basir, Ph.D. — Academic Advisor
+
+Professor of Intelligent Systems at the University of Waterloo and author of the Social Responsibility Stack. His role supports the connection between control-theoretic research and practical engineering governance.
+
+- [LinkedIn](https://www.linkedin.com/in/otman-basir-ba1258178)
+
+Advisory relationships are part of the project's operating context. They do not imply institutional endorsement, certification, or formal adoption of UA. Supporting public evidence and precise claim boundaries are recorded in [`content/history/external-recognition.md`](content/history/external-recognition.md).
+
+## How to Cite
+
+GitHub can generate APA and BibTeX citations from the repository's machine-readable [`CITATION.cff`](CITATION.cff). The following BibTeX entry is the human-readable repository citation:
+
+```bibtex
+@misc{oborskyi_walker2025uncertainty,
+  author = {Oborskyi, Vitalii and Walker, Sam},
+  title = {Uncertainty Architecture},
+  year = {2025},
+  publisher = {GitHub},
+  url = {https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture},
+  note = {Open engineering specification for Thinking Systems}
+}
+```
+
+Individual articles and publications should be cited using their own publication metadata rather than this repository-level entry.
+
+## Licensing
+
+This repository uses a dual-license model:
+
+- documentation, specifications, architectural doctrine, diagrams, and operating-model material: CC BY 4.0;
+- code, scripts, reference implementations, and executable artifacts: Apache 2.0.
+
+See [`LICENSING.md`](LICENSING.md) for details.
