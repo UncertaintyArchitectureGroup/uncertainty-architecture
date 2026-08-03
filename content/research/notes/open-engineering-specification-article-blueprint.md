@@ -200,28 +200,32 @@ The reader should leave able to explain:
 
 **Figure 1 — Controlled-object shift**
 
-Use a two-panel composition.
+Use a two-panel comparison of **responsibility structure**, not one mandatory execution path.
 
 ```text
-Panel A — Primarily explicit runtime behavior
+Panel A — Primarily explicitly encoded runtime behavior
 external, requirement, delivery, and operational uncertainty
-→ explicitly encoded runtime responsibilities
+→ explicitly encoded decision and action responsibilities
+→ observed outputs, actions, and outcomes
 
-Panel B — Thinking System
+Panel B — Thinking System boundary
 external, requirement, delivery, and operational uncertainty
-→ deterministic ingress and responsibilities
-→ bounded Model Judgment
-→ deterministic output/action mediation
+→ deterministic responsibilities before, between, and after Judgment Nodes
+↔ one or more bounded Judgment Nodes
+   placed as Input Interpretation, Decision Logic,
+   Output Mediation, or a combination
 → observed outputs, actions, and downstream outcomes
 ```
 
-Around the Model Judgment region, show approved Constraints and realizations, Sensors and evidence, Controller authority, and Actuator paths.
+Show approved Constraints and their realizations, Sensors and evidence, Controller authority, and Actuator paths across the relevant system boundary and around material Judgment Nodes. The visual should emphasize that probabilistic judgment has entered the controlled object while deterministic responsibilities remain before, between, and after model-mediated decisions.
 
 The figure must not imply that:
 
 - traditional software has no uncertainty;
 - a Thinking System is wholly probabilistic;
-- every realization acts before the model;
+- every system has one Judgment Node;
+- Judgment placement follows one fixed order;
+- every realization acts before a model call;
 - the capability families form a vertical execution sequence.
 
 **Repository anchors:**
@@ -624,7 +628,7 @@ Label the figure as an illustrative editorial synthesis, not application evidenc
 
 Use exactly three primary figures:
 
-1. **Controlled-object shift** — two-panel explicit-behavior versus bounded Model Judgment view.
+1. **Controlled-object shift** — two-panel comparison of responsibility structure, showing one or more possible Judgment Node placements without prescribing a pipeline.
 2. **Two orthogonal UA models** — decision levels with downward inheritance and upward reassessment beside capability families applying at every level.
 3. **K-SEND-01 Constraint trace** — illustrative source-to-runtime path with delivery reassessment, project reauthorization, and separate authority expansion.
 
