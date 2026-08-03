@@ -7,11 +7,12 @@ be run from any working directory.
 """
 
 import argparse
+import hashlib
 import json
 import re
 import sys
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Set, Tuple
+from typing import Dict, Iterable, List, Optional, Set
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONTRACT = DEFAULT_ROOT / ".github/policy/repository-contract.json"
@@ -33,6 +34,7 @@ def load_contract(path: Path) -> Dict[str, object]:
     for key in (
         "allowed_top_level",
         "required_paths",
+        "immutable_files",
         "critical_files",
         "protected_markers",
     ):
@@ -50,6 +52,13 @@ def repository_path(root: Path, relative: str) -> Optional[Path]:
     except ValueError:
         return None
     return candidate
+
+
+def git_blob_sha1(path: Path) -> str:
+    """Return the Git blob object ID for the exact file bytes."""
+    data = path.read_bytes()
+    header = "blob {}\0".format(len(data)).encode("ascii")
+    return hashlib.sha1(header + data).hexdigest()
 
 
 def markdown_link_targets(text: str) -> Set[str]:
@@ -99,6 +108,29 @@ def validate_required_paths(root: Path, contract: Dict[str, object], errors: Lis
             errors.append("Required directory is not a directory: {}".format(relative))
         elif expected_type not in ("file", "directory"):
             errors.append("Unsupported required path type {!r}: {}".format(expected_type, relative))
+
+
+def validate_immutable_files(root: Path, contract: Dict[str, object], errors: List[str]) -> None:
+    """Require exact bytes for legal artifacts that should not drift editorially."""
+    for rule in contract["immutable_files"]:
+        relative = rule["path"]
+        expected = rule["git_blob_sha1"]
+        path = repository_path(root, relative)
+
+        if path is None:
+            errors.append("Immutable path escapes repository: {}".format(relative))
+            continue
+        if not path.is_file():
+            errors.append("Missing immutable file: {}".format(relative))
+            continue
+
+        actual = git_blob_sha1(path)
+        if actual != expected:
+            errors.append(
+                "Immutable file fingerprint changed: {} (expected {}, got {})".format(
+                    relative, expected, actual
+                )
+            )
 
 
 def validate_critical_files(root: Path, contract: Dict[str, object], errors: List[str]) -> None:
@@ -167,6 +199,7 @@ def validate(root: Path, contract_path: Path) -> List[str]:
 
     validate_top_level(root, contract, errors)
     validate_required_paths(root, contract, errors)
+    validate_immutable_files(root, contract, errors)
     validate_critical_files(root, contract, errors)
     validate_protected_markers(root, contract, errors)
     return sorted(set(errors))
@@ -203,7 +236,9 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
             print("- {}".format(error))
         return 1
 
-    print("Repository contract valid: critical paths, sections, links, markers, and top-level namespace are intact.")
+    print(
+        "Repository contract valid: critical paths, immutable license artifacts, sections, links, markers, and top-level namespace are intact."
+    )
     return 0
 
 
