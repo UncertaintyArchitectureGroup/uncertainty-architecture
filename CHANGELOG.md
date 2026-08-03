@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added a machine-readable repository contract, dependency-free validator, mutation-based regression fixtures, focused GitHub Actions checks, structured pull-request template, and `CODEOWNERS` map to protect critical files, landing-page functions, compatibility paths, stable repository links, and the top-level namespace without freezing ordinary prose evolution.
 - Added a root [`CITATION.cff`](CITATION.cff) so GitHub and compatible citation tools can expose machine-readable repository citation metadata for Vitalii Oborskyi and Sam Walker, and extended CI to validate that metadata against CFF schema 1.2.0.
 - Added a GitHub Actions CI workflow that validates the declared navigation coverage and destinations and uses a SHA-pinned `lychee` action in offline mode to check repository-relative links, directory indexes, Markdown heading fragments, and explicit HTML compatibility anchors across maintained Markdown without making external-network availability part of repository integrity.
 - Added a non-normative drafting-ready editorial contract and Phase 1 completion-candidate record for the planned public synthesis article, *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*. The proposed structure uses one unnumbered abstract, eight numbered sections, three figures, and one illustrative continuous Constraint trace; article prose has not begun and maintainer freeze remains pending.
@@ -50,6 +51,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Changed
 
+- Updated `AGENTS.md`, `CONTRIBUTING.md`, and `ROADMAP.md` to document the repository-contract protocol, local validation commands, contract-change discipline, and the current tooling baseline; converted the two license-file references in `LICENSING.md` into repository-relative Markdown links.
 - Established a consistent navigation system across the root, specification, doctrine, patterns, AI Control Plane, reference-architecture, failure-mode, and research entry pages; linked the four decision levels and four capability families to their owning locations; added owner/back links to the two practical templates and the Judgment Placement references; aligned the runtime lifecycle heading to **Runtime operation and reassessment** while preserving the previous deep-link anchor; and corrected stale PDF/PPTX provenance and runtime terminology in research and raw-source indexes.
 - Recorded the merged four-family capability architecture as the current draft roadmap baseline while retaining worked-application, real-team, tooling, operational-evidence, and terminology validation as open maturity work.
 - Corrected the root README so the runtime decision level is described as operation and reassessment rather than runtime reauthorization.
@@ -65,7 +67,7 @@ Publications, talks, community discussions, and independent references belong un
 - Tightened the Hard Constraint definition: the complete realized path must deterministically prevent or reject violation within stated assumptions, subject, path, scope, and enforcement boundaries.
 - Clarified that hard or soft is a scoped claim about a Constraint and its complete realized path, not an intrinsic property of policy prose, a Requirement sentence, or an organizational source.
 - Required separate Constraint records when one source condition has different guarantee strengths across subjects, paths, or scopes.
-- Clarified that measured distribution, quality, cost, latency, and capacity tolerances remain part of the Requirement and Operating Envelope unless a separate realization deterministically enforces a specific boundary.
+- Clarified that measured distribution, quality, cost, latency, and capacity tolerances remain part of the Requirement and Operating Envelope unless a separate scoped realization deterministically enforces a specific boundary.
 - Updated the worked support-triage review so deterministic per-request execution and exposure limits remain Hard Constraints while aggregate cost and p95 latency remain measured Release Gate and reauthorization evidence.
 - Clarified that a prompt, natural-language policy, probabilistic evaluator, classifier, or model policy is not a Hard Constraint by itself.
 - Decomposed evaluation gates by function: evaluator and metrics are Sensors; block/canary/release selection is a Controller function; deployment, blocking, exposure change, and rollback are Actuator functions.
