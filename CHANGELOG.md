@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added a non-normative drafting-ready editorial contract and Phase 1 completion record for the planned public synthesis article, *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*. The accepted outline uses eight sections, three figures, and one continuous Constraint trace; article prose has not begun.
 - Added draft-normative [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md), distinguishing a closed feedback loop from a complete bounded UA control architecture.
 - Added the composite [`Constraint Capability Family`](02-ai-control-plane/01-constraints/) and an informative [`Constraint Realization Catalog`](02-ai-control-plane/01-constraints/constraint-realization-catalog.md).
 - Added canonical definitions for **Constraint**, **Hard Constraint**, **Soft Constraint**, and **Constraint Realization**.
