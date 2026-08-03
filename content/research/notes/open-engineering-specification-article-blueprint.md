@@ -30,7 +30,7 @@ draft: true
 
 **Proposed subtitle:** From project viability to delivery realization, runtime evidence, and reauthorization
 
-> **Status:** Proposed Phase 1 editorial contract. This is a non-normative research note, not article prose and not a specification source. Current UA definitions remain owned by the specification, glossary, doctrine, patterns, AI Control Plane, reference architectures, failure modes, and roadmap. Current external factual claims require current primary or authoritative evidence during Phase 2.
+> **Status:** Proposed Phase 1 editorial contract. This is a non-normative research note, not article prose and not a specification source. Final UA claims must follow repository authority: `SPECIFICATION.md` and explicit status, then the glossary and the owning doctrine, pattern, or capability document. Reference architectures, failure modes, roadmap, and research contribute examples, reusable failure mechanisms, project state, or evidence according to their declared status. Current external factual claims require current primary or authoritative evidence during Phase 2.
 
 ## 1. Editorial decision
 
@@ -157,7 +157,7 @@ The reader should leave able to explain:
 - Support factual claims about current industry practice with current primary or authoritative sources. When evidence is unavailable, label the point as practitioner observation rather than established market fact.
 - Do not claim that no governance, safety, systems, or control practice exists.
 
-**Canonical anchors:**
+**Repository anchors:**
 
 - [`SPECIFICATION.md`](../../../SPECIFICATION.md)
 - [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
@@ -224,7 +224,7 @@ The figure must not imply that:
 - every realization acts before the model;
 - the capability families form a vertical execution sequence.
 
-**Canonical anchors:**
+**Repository anchors:**
 
 - [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
 - [`Glossary`](../../../00-doctrine/glossary.md)
@@ -278,7 +278,7 @@ The figure must not imply that:
   - different guarantee strengths require separate Constraint records.
 - Use short anti-examples: telemetry without authority is observation; a Controller without an effective Actuator cannot correct; a declared policy without realization is not an operable boundary; nominal human review is not substantive Human Authority.
 
-**Canonical anchors:**
+**Repository anchors:**
 
 - [`Control-Loop Capability Anatomy`](../../../00-doctrine/control-loop-anatomy.md)
 - [`AI Control Plane`](../../../02-ai-control-plane/README.md)
@@ -374,7 +374,7 @@ authoritative source, decision right, or shared capability changed
 → organizational review
 ```
 
-**Canonical anchors:**
+**Repository anchors:**
 
 - [`Nested Control Lifecycle`](../../../00-doctrine/nested-control-lifecycle.md)
 - [`Project Control Architecture and Viability Review`](../../../01-patterns/project-control-architecture-and-viability-review.md)
@@ -420,7 +420,7 @@ existing organizational sources, shared capabilities, and decision rights
 - Two living reviews are the default proportional path, not a universal sufficiency claim.
 - One person may carry several responsibility bundles without collapsing the decisions.
 
-**Canonical anchors:**
+**Repository anchors:**
 
 - [`Nested Control Lifecycle`](../../../00-doctrine/nested-control-lifecycle.md)
 - [`Project Review Template`](../../../01-patterns/project-control-architecture-and-viability-review-template.md)
@@ -519,7 +519,7 @@ separate proposed authority expansion
 
 Label the figure as an illustrative editorial synthesis, not application evidence.
 
-**Canonical anchors:**
+**Repository anchors:**
 
 - [`Project Control Architecture and Viability Review`](../../../01-patterns/project-control-architecture-and-viability-review.md)
 - [`Thinking System Review`](../../../01-patterns/thinking-system-review.md)
@@ -551,7 +551,7 @@ Label the figure as an illustrative editorial synthesis, not application evidenc
 - Avoid the categorical claim that platforms “cannot solve governance.” State the narrower ownership and delegation boundary.
 - Verify named-platform claims against current first-party documentation. Prefer functional, vendor-neutral framing when a named comparison is unnecessary.
 
-**Canonical anchors:**
+**Repository anchors:**
 
 - [`Control-Loop Capability Anatomy`](../../../00-doctrine/control-loop-anatomy.md)
 - [`Nested Control Lifecycle`](../../../00-doctrine/nested-control-lifecycle.md)
@@ -606,7 +606,7 @@ Label the figure as an illustrative editorial synthesis, not application evidenc
 
 **Validation request:** ask for documented applications, anonymized reviews, contradictory cases, terminology issues, simplification proposals, platform mappings, control-cost evidence, Human Authority failures, and operational failure modes.
 
-**Canonical anchors:**
+**Repository anchors:**
 
 - [`README.md`](../../../README.md)
 - [`SPECIFICATION.md`](../../../SPECIFICATION.md)
@@ -649,9 +649,9 @@ Do not:
 - present the illustrative K-SEND-01 trace as independent application evidence;
 - use internal UA documents as evidence for current external standards, laws, products, or market practice.
 
-## 7. Source plan for Phase 2
+## 7. Repository source plan for Phase 2
 
-### Canonical UA sources
+### Authority-bearing framework sources
 
 1. [`SPECIFICATION.md`](../../../SPECIFICATION.md)
 2. [`Glossary`](../../../00-doctrine/glossary.md)
@@ -666,14 +666,19 @@ Do not:
 11. [`AI Control Plane`](../../../02-ai-control-plane/README.md)
 12. [`Actuator Capabilities`](../../../02-ai-control-plane/00-actuators/README.md)
 13. [`Constraint Capability Family`](../../../02-ai-control-plane/01-constraints/README.md)
-14. [`Constraint Realization Catalog`](../../../02-ai-control-plane/01-constraints/constraint-realization-catalog.md)
-15. [`Sensor and Evidence Capabilities`](../../../02-ai-control-plane/02-sensors/README.md)
-16. [`Controller and Decision Authority`](../../../02-ai-control-plane/03-controller/README.md)
-17. [`Worked Support-Triage Review`](../../../03-reference-architectures/worked-thinking-system-review-support-triage.md)
-18. [`Failure Modes and Anti-Patterns`](../../../04-failure-modes/README.md)
-19. [`ROADMAP.md`](../../../ROADMAP.md)
+14. [`Sensor and Evidence Capabilities`](../../../02-ai-control-plane/02-sensors/README.md)
+15. [`Controller and Decision Authority`](../../../02-ai-control-plane/03-controller/README.md)
 
-Historical articles, talks, and presentation material may provide provenance and explanatory language. They must not override current framework definitions.
+Status and ownership still apply within this set: the specification defines the boundary, the glossary owns terms it defines, and each doctrine, pattern, or capability document owns its stated responsibility.
+
+### Supporting repository sources
+
+- [`Constraint Realization Catalog`](../../../02-ai-control-plane/01-constraints/constraint-realization-catalog.md) — informative implementation examples.
+- [`Worked Support-Triage Review`](../../../03-reference-architectures/worked-thinking-system-review-support-triage.md) — illustrative delivery-level reference.
+- [`Failure Modes and Anti-Patterns`](../../../04-failure-modes/README.md) — reusable loss-of-control mechanisms according to document status.
+- [`ROADMAP.md`](../../../ROADMAP.md) — current project state and open validation work.
+
+Historical articles, talks, presentation material, and research may provide provenance and evidence. They must not override authority-bearing framework sources.
 
 ### External evidence
 
@@ -746,7 +751,7 @@ Then perform one integrated pass for terminology, duplication, source support, l
 - [x] Runtime evidence and proposed authority changes are not conflated.
 - [x] The platform boundary allows delegated Controller authority without automatic organizational or project authority.
 - [x] Three figures have distinct jobs and introduce no new doctrine.
-- [x] Source plan, external-evidence rule, repository paths, word allocation, and drafting sequence are explicit.
+- [x] Source authority, external-evidence rules, repository paths, word allocation, and drafting sequence are explicit.
 - [ ] The maintainer has reviewed and explicitly frozen the editorial contract.
 
 Phase 2 must begin in a separate branch and pull request after PR #31 is accepted and merged.
