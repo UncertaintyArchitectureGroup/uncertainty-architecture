@@ -13,7 +13,7 @@ tags:
   - ua/topic/provenance
 canonical_for:
   - raw-source-archive
-updated: 2026-07-31
+updated: 2026-08-03
 license: CC-BY-4.0
 ---
 
@@ -29,9 +29,9 @@ The canonical research namespace is [`content/research/`](../research/). Public 
 
 ## Preserved presentation sources
 
-- [`Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf`](Designing%20Non-Deterministic%20Systems%3A%20Maintaining%20Engineering%20Rigor%20in%20the%20AI%20Era.pdf) — preserved PDF export of the presentation deck used as a synthesis source.
+- [`Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf`](Designing%20Non-Deterministic%20Systems%3A%20Maintaining%20Engineering%20Rigor%20in%20the%20AI%20Era.pdf) — preserved maintainer-supplied PDF export used as the verified repository-review source.
 
-The maintainer-supplied original PPTX is the working source for slide-level review, but it is not currently stored in this repository. The PDF is an archival export and should not be treated as a substitute when editable content, slide order, speaker notes, or other presentation-specific detail matters.
+An editable PPTX is not currently stored in this repository and has not been independently verified. The PDF supports review of its preserved visual and textual content, but it should not be treated as evidence about unavailable editable objects, speaker notes, or other presentation-specific material not present in the export.
 
 The source relationship, slides 1–6 translation state, and interpretation decisions are tracked through [`content/research/notes/designing-nondeterministic-systems-source-intake.md`](../research/notes/designing-nondeterministic-systems-source-intake.md). Presentation claims remain research evidence until explicitly translated into an appropriate framework component.
 
