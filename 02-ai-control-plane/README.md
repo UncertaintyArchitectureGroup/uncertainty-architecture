@@ -39,10 +39,10 @@ The [`Nested Control Lifecycle`](../00-doctrine/nested-control-lifecycle.md) def
 
 ## Four capability families
 
-1. **Constraints and their realizations** — approved boundaries plus the mechanisms that implement, enforce, or influence them.
-2. **Sensors and evidence** — mechanisms observing behavior, outcomes, operating conditions, Constraint Realization state, Actuator execution, and control health.
-3. **Controllers and decision authority** — functions comparing or interpreting evidence against approved conditions and selecting or authorizing action.
-4. **Actuators and corrective action** — mechanisms executing authorized changes to operation.
+1. [`Constraints and their realizations`](01-constraints/) — approved boundaries plus the mechanisms that implement, enforce, or influence them.
+2. [`Sensors and evidence`](02-sensors/) — mechanisms observing behavior, outcomes, operating conditions, Constraint Realization state, Actuator execution, and control health.
+3. [`Controllers and decision authority`](03-controller/) — functions comparing or interpreting evidence against approved conditions and selecting or authorizing action.
+4. [`Actuators and corrective action`](00-actuators/) — mechanisms executing authorized changes to operation.
 
 The first family is intentionally composite. A Constraint is an authoritative decision object, while a Constraint Realization is its operational mechanism. Constraint Realization is not a fifth capability family.
 
@@ -178,6 +178,8 @@ flowchart TB
 
 ### Organizational level
 
+See [`Organizational control context`](../00-doctrine/nested-control-lifecycle.md#1-organizational-control-context).
+
 Supplies authoritative Constraint sources, shared capabilities, and decision rights.
 
 ### Project level
@@ -189,6 +191,8 @@ The [`Project Control Architecture and Viability Review`](../01-patterns/project
 The [`Thinking System Review`](../01-patterns/thinking-system-review.md) links the project baseline and records one concrete Constraint Realization Map for a bounded system, feature, or material change.
 
 ### Runtime level
+
+See [`Runtime operation and reassessment`](../00-doctrine/nested-control-lifecycle.md#4-runtime-operation-and-reassessment).
 
 Runtime exercises deployed realizations, records behavior and control health, routes evidence to authorized Controllers, invokes Actuators within delegated authority, and sends invalidating evidence to the appropriate decision level.
 
