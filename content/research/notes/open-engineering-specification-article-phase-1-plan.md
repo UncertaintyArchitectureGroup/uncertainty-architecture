@@ -8,8 +8,7 @@ topics:
   - thinking-systems
   - control-loop
   - constraints
-  - open-specification
-  - publishing
+  - sdlc
   - repository-architecture
 tags:
   - ua/module/research
@@ -18,7 +17,8 @@ tags:
   - ua/topic/thinking-systems
   - ua/topic/control-loop
   - ua/topic/constraints
-  - ua/topic/open-specification
+  - ua/topic/sdlc
+  - ua/topic/repository-architecture
 created: 2026-07-31
 updated: 2026-08-03
 language: en
@@ -28,7 +28,7 @@ draft: true
 
 # Phase 1 Completion Record: Editorial Architecture
 
-> **Current state:** The accepted architecture from PR #32 has been integrated into the branch. Architecture, logic, technical, and editorial review have produced a drafting-ready editorial contract. Phase 1 remains open only for explicit maintainer review and freeze; article prose has not begun.
+> **Current state:** The accepted architecture from PR #32 has been integrated into the branch. Architecture, logic, technical, metadata, and editorial review have produced a drafting-ready editorial contract. Phase 1 remains open only for explicit maintainer review and freeze; article prose has not begun.
 
 ## 1. Purpose of Phase 1
 
@@ -42,7 +42,7 @@ The output is not publishable prose and does not create specification authority.
 - the article's central thesis and claim boundary;
 - the final reader journey;
 - one unique job for every section;
-- the canonical source set;
+- the canonical and external source rules;
 - the three figures;
 - the continuous worked Constraint trace;
 - the maturity statement and external validation request;
@@ -50,7 +50,7 @@ The output is not publishable prose and does not create specification authority.
 
 ## 2. Baseline integrated
 
-The branch now includes the current `main` baseline containing:
+The branch includes the current `main` baseline containing:
 
 - the four-family Control-Loop Capability Anatomy;
 - Constraint and Constraint Realization as distinct concepts;
@@ -91,7 +91,7 @@ missing engineering connection
 
 - The four decision levels remain the conceptual center.
 - The four capability families explain how control becomes operational at every level and do not become a second lifecycle.
-- The control-theory material remains a distinct section because it must establish the difference between measurement, feedback closure, and bounded acceptable operation before the lifecycle is introduced.
+- The control-theory material remains a distinct section because it establishes the difference between measurement, feedback closure, and bounded acceptable operation before the lifecycle is introduced.
 - Inheritance and the two living artifacts are combined into one operating-path section.
 - Openness, maturity, limitations, and invitation are combined into one ending.
 - The worked narrative traces one Constraint rather than retelling the entire support-triage architecture.
@@ -122,7 +122,14 @@ Each section now contains:
 
 The earlier ten-section plan is reduced to eight sections so the final article reads as one argument rather than adjacent mini-essays.
 
-## 5. Technical review record
+The final review also separates:
+
+- runtime evidence that invalidates a delivery or project basis;
+- a proposed authority change that must enter project and organizational decision paths before implementation.
+
+An autonomous-send request is therefore not presented as runtime evidence.
+
+## 5. Technical and repository review record
 
 ### Canonical concepts aligned
 
@@ -156,6 +163,10 @@ The earlier ten-section plan is reduced to eight sections so the final article r
 - Evaluator, gate decision, and release execution are not collapsed.
 - A closed feedback loop is not represented as a complete bounded UA control architecture.
 
+### Constraint trace aligned
+
+`K-SEND-01` is one scoped **Human Authority** Constraint. Its complete realization uses deterministic authority controls, a separate human-operated send path, evidence, and authorized Actuators. The class is not recorded as a local hybrid taxonomy.
+
 ### Repository-state correction
 
 The old blueprint incorrectly listed a complete project-to-runtime worked application as already present. The revised blueprint states the actual boundary:
@@ -163,6 +174,23 @@ The old blueprint incorrectly listed a complete project-to-runtime worked applic
 - the repository contains one illustrative delivery-level support-triage review;
 - a complete two-level project-and-delivery worked application remains roadmap work;
 - the article's K-SEND-01 lifecycle narrative is an editorial synthesis, not evidence that the repository application already exists.
+
+### Metadata and provenance
+
+- frontmatter uses controlled topics and tags from `DOCUMENT-METADATA.md`;
+- the article notes remain `status: research`, `maturity: draft`, and `draft: true` for publishing visibility;
+- the research index uses the verified PDF boundary and does not claim an available or reviewed editable PPTX.
+
+### External evidence boundary
+
+Canonical repository sources define UA. They cannot, by themselves, prove factual claims about current standards, laws, platform capabilities, or market practice.
+
+Phase 2 must:
+
+- verify current external claims against primary or authoritative sources;
+- verify named product capabilities against first-party documentation;
+- date comparative claims where material;
+- distinguish source-supported facts from practitioner observations and UA proposals.
 
 ## 6. Editorial review record
 
@@ -174,10 +202,10 @@ The revised contract:
 - separates article structure from optional distribution framing;
 - uses exactly three primary figures;
 - keeps claim-safety rules in one section;
-- keeps the canonical source set in one section;
+- distinguishes canonical UA sources from external factual evidence;
 - defines one Phase 2 drafting sequence;
 - removes instructions that attempted to draft the same final passage in several places;
-- increases the target length to 4,300–5,200 words because the accepted capability anatomy and continuous Constraint trace require explicit treatment.
+- uses a target length of 4,300–5,200 words with section ranges totaling approximately 4,300–5,150 words.
 
 ## 7. Figure decision
 
@@ -202,14 +230,17 @@ organizational source
 → scoped Project Constraint
 → delivery Constraint Realization
 → runtime evidence
-→ delivery reassessment / project reauthorization / organizational review
+→ delivery reassessment or project reauthorization
+
+separate proposed authority expansion
+→ project reauthorization and organizational review
 ```
 
 The presentation's brain/nerves/skeleton/muscles stack is not used as the canonical article architecture diagram.
 
 ## 8. Worked narrative decision
 
-The article will trace one authority and Human Authority Constraint:
+The article will trace one Human Authority Constraint whose complete realization uses authority controls:
 
 > The model-mediated path may create a draft but must not send customer communication without Human Authority.
 
@@ -217,11 +248,11 @@ The trace includes:
 
 - organizational prohibition and decision rights;
 - Project Constraint `K-SEND-01` with source, subject, path, scope, class, strength, realization, assumptions, failure behavior, evidence, and change authority;
-- delivery realization through a no-send service identity, deterministic authorization gate, human-operated send path, audit trace, fail-closed behavior, and tests;
+- delivery realization through a no-send service identity, deterministic authorization gate, human-operated send path, auditable trace, fail-closed behavior, and tests;
 - distinct DoR, DoD, and Release Gate decisions;
 - local realization defect routed to delivery;
 - capacity and economics failure routed to project reauthorization;
-- autonomous-send request routed to project reauthorization and organizational review.
+- a separate autonomous-send request routed to project reauthorization and organizational review.
 
 This single trace replaces the earlier broad retelling of three Judgment Nodes and many controls.
 
@@ -236,16 +267,19 @@ This single trace replaces the earlier broad retelling of three Judgment Nodes a
 - [x] The four capability families are technically correct and orthogonal to the levels.
 - [x] Constraint and Constraint Realization remain distinct.
 - [x] Project authorization, DoR, DoD, Release Gate, runtime correction, and project reauthorization are not conflated.
+- [x] Runtime evidence and proposed authority changes are not conflated.
 - [x] Project Constraint Architecture and delivery Constraint Realization Map are the canonical Constraint artifacts.
 - [x] Inheritance down and evidence up are demonstrated concretely.
 - [x] The two living reviews are accurately scoped and not presented as universally sufficient.
 - [x] The worked example has one fixed Constraint narrative and source boundary.
 - [x] The platform boundary is precise and non-defensive.
 - [x] Canonical terminology is aligned with the current glossary and doctrine.
+- [x] Metadata uses controlled values.
 - [x] Maturity, openness, validation, and repository-state claims are restrained.
+- [x] Current external factual claims have an explicit Phase 2 verification rule.
 - [x] Three figure briefs are agreed and introduce no new doctrine.
-- [x] Word allocation and Phase 2 sequence are explicit.
-- [x] No unresolved architecture, logic, technical, or editorial blocker remains in the blueprint.
+- [x] Word allocation and Phase 2 sequence are explicit and arithmetically consistent.
+- [x] No unresolved architecture, logic, technical, metadata, or editorial blocker remains in the blueprint.
 - [ ] Maintainer review explicitly freezes the editorial contract for drafting.
 
 ## 10. Phase 2 boundary
@@ -259,4 +293,4 @@ Phase 2 will draft the article in four connected blocks:
 3. two reviews and the K-SEND-01 lifecycle trace;
 4. platform boundary, current state, limits, openness, and invitation.
 
-Each block must continue to defer to canonical repository sources. Article prose must not create new normative concepts by repetition, silently update repository maturity, or treat historical publications as current definitions.
+Each block must continue to defer to canonical repository sources. Article prose must not create new normative concepts by repetition, silently update repository maturity, treat historical publications as current definitions, or use internal UA material as evidence for current external facts.
