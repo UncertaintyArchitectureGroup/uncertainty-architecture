@@ -8,6 +8,7 @@ topics:
   - thinking-systems
   - uncertainty-boundary
   - control-loop
+  - constraints
   - conformance
 tags:
   - ua/module/repository
@@ -15,6 +16,8 @@ tags:
   - ua/status/draft-normative
   - ua/topic/thinking-systems
   - ua/topic/uncertainty-boundary
+  - ua/topic/control-loop
+  - ua/topic/constraints
   - ua/topic/conformance
 canonical_for:
   - specification-boundary
@@ -30,214 +33,219 @@ canonical_for:
 
 ## 1. Purpose
 
-This document defines the normative boundary and document structure of Uncertainty Architecture (UA).
+This document defines the normative boundary and document structure of Uncertainty Architecture.
 
-UA is an open specification for designing and governing **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic model judgment while consequential deterministic boundaries and control responsibilities remain explicit. Earlier UA publications used **Behavioral Software** and **Behavioral Applications** for this category.
+UA is an open specification for designing and governing **Thinking Systems**: software whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, approved Constraints, evidence, decision rights, and corrective mechanisms remain explicit.
 
-UA treats reliability as a system property produced by explicit boundaries, observable behavior, feedback, decision rights, viable control architecture, and controlled change rather than by model quality alone.
+UA treats reliability and governance as system properties produced by Requirements, approved Constraints and their realizations, observable behavior, decision authority, effective Actuators, viable control economics, and controlled change rather than by model quality alone.
 
-The specification addresses a controlled-object shift: uncertainty does not exist only in requirements, users, infrastructure, or delivery assumptions. A Thinking System may itself produce consequential runtime uncertainty through Model Judgment. UA connects organizational context, project authorization, delivery-level review, runtime control, and reauthorization around that changed object.
-
-This file is the canonical entry point for the specification. It does not duplicate the detailed content of the modules it indexes.
+This file indexes the specification. It does not duplicate the detailed content of the modules it references.
 
 ## 2. Scope
 
-The UA specification covers:
+The specification covers:
 
-- the distinction between deterministic control logic and probabilistic judgment;
-- the controlled-object shift created when consequential runtime behavior is produced through Model Judgment;
-- the relationship between product uncertainty, operational uncertainty, and runtime-judgment uncertainty;
-- organizational control context, project control architecture and viability, delivery-level review of a bounded system, feature, or material change, and runtime reauthorization as connected levels;
-- project-level material risk scenarios, intended Judgment and authority, required control capabilities, evidence feasibility, Human Authority, operating capacity, control economics, authorization, inheritance, and reauthorization;
-- functional placement of Model Judgment within a system or workflow;
-- architectural boundaries around model-mediated behavior;
-- control-loop capabilities for constraining, observing, evaluating, and recalibrating behavior;
-- reusable technical and socio-technical patterns;
-- lightweight review patterns and practical artifacts connecting project decisions, Requirements, Judgment Nodes, evidence, decision authority, release, and reassessment;
-- project-level architectural veto when a credible, operable, or economically viable control boundary cannot be established;
-- recurring failure modes and anti-patterns;
-- reference architectures that demonstrate possible compositions of the specification.
+- the controlled-object shift created by consequential runtime Model Judgment;
+- deterministic responsibilities, Model Judgment, and Uncertainty Boundaries;
+- organizational, project, delivery, and runtime decision levels;
+- Constraints and their realizations, Sensors, Controllers, and Actuators as four logical capability families;
+- the distinction between a closed feedback loop and complete bounded UA control architecture;
+- the distinction between Constraint and Constraint Realization;
+- scoped Hard and Soft Constraint claims;
+- project-level scenarios, Constraint architecture, capability feasibility, evidence, capacity, economics, authorization, inheritance, and reauthorization;
+- delivery-level Judgment Nodes, Requirement, Operating Envelope, one canonical Constraint Realization Map, DoR, DoD, Release Gate, and reassessment;
+- Human Authority, fallback, containment, compensation, rollback, escalation, and shutdown;
+- reusable patterns, failure modes, and non-prescriptive reference architectures;
+- Architectural Veto when credible and viable control cannot be established.
 
 The specification does not prescribe:
 
-- a particular model, vendor, framework, orchestration platform, or deployment topology;
-- a mandatory pipeline of Input Interpretation, Decision Logic, and Output Mediation;
-- replacement of Agile, Scrum, DevOps, QA, security, change management, or an organization's existing SDLC;
-- one mandatory project lifecycle or Project Launch Gate protocol;
+- one model, vendor, framework, policy engine, evaluator, orchestration platform, or topology;
+- four separate control-plane services or one tool per capability family;
+- a mandatory Model Judgment pipeline;
+- one universal Constraint catalogue, schema technology, fail-open/fail-closed rule, threshold, sample size, risk score, or control-cost formula;
+- replacement of Agile, Scrum, DevOps, QA, security, change management, or an organization's SDLC;
 - a mandatory governance department, committee, or organizational structure;
-- a separate registry or decision record for every Judgment Node, readiness review, completion review, release decision, or project authorization;
-- universal numerical thresholds for quality, risk, latency, cost, sample size, confidence, or autonomy;
-- one universal risk score or control-cost formula;
-- mandatory job titles or a single organizational structure;
-- identical controls for every AI system;
-- duplication of project risk, economics, or organizational constraints inside every delivery review;
+- separate Constraint Registers, Judgment Node registries, or decision records when the two living reviews and linked evidence are sufficient;
+- mandatory job titles;
 - any reference implementation as the standard itself.
 
-Controls, evidence, review depth, and records should be proportional to consequences, uncertainty, autonomy, reversibility, exposure, feedback latency, organizational capacity, and operating context.
+Review depth and controls should be proportional to consequences, uncertainty, autonomy, authority, reversibility, exposure, feedback latency, realization difficulty, organizational capacity, and operating context.
 
 ## 3. Normative language
 
-The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL**, when written in uppercase, indicate the strength of a requirement.
+The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL**, when uppercase, indicate requirement strength.
 
-Examples, explanations, templates, and rationale are informative unless explicitly stated otherwise.
+Examples, explanations, templates, technology catalogues, and rationale are informative unless explicitly stated otherwise.
 
 ## 4. Document status model
 
-Every specification document SHOULD declare one of the following statuses:
+Specification documents SHOULD declare one of these statuses:
 
-- **Normative** — accepted specification content defining requirements, concepts, interfaces, responsibilities, or conformance expectations.
-- **Draft normative** — proposed specification content under active development. It may change and MUST NOT be represented as stable.
-- **Informative** — explanation, rationale, guidance, template, or example that supports the specification without creating requirements.
-- **Reference** — a concrete architecture or implementation demonstrating one possible application of UA. It is not the standard itself.
-- **Research** — source material, analysis, or synthesis that may inform future specification changes but is not automatically normative.
-- **Historical** — superseded or archival material retained for traceability.
+- **Normative** — accepted specification content.
+- **Draft normative** — proposed specification content under active review; it MUST NOT be represented as stable.
+- **Informative** — explanation, guidance, template, or example without independent requirements.
+- **Reference** — one concrete, non-mandatory application.
+- **Research** — source material, analysis, or synthesis that may inform later decisions.
+- **Historical** — archival or superseded material retained for traceability.
 
-A directory name does not by itself determine status. The explicit status in the document or its module index takes precedence.
-
-The metadata field `maturity` may describe lifecycle state within a status class, such as `draft`, `active`, `stable`, or `superseded`. It does not replace document status. See [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md).
+Explicit status takes precedence over directory name. `maturity` describes lifecycle within a status class and does not replace status.
 
 ## 5. Specification structure
 
 ### 5.1 Core doctrine
 
-[`00-doctrine/`](00-doctrine/README.md) defines the foundational concepts and distinctions on which the rest of UA depends, including the controlled-object shift, the nested control lifecycle, mixed-system Requirements, and the functional placement taxonomy for Model Judgment.
+[`00-doctrine/`](00-doctrine/README.md) owns foundational meaning.
 
-[`00-doctrine/uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md) is the current draft-normative owner of the rationale for UA and the distinction between project authorization, delivery-level release, runtime evidence, and reauthorization.
-
-[`00-doctrine/glossary.md`](00-doctrine/glossary.md) is the canonical vocabulary source for terms it currently defines. The glossary remains draft normative and may be refined through framework review.
-
-Stable doctrine is expected to become normative; unfinished doctrine remains draft normative.
+- [`uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md) — controlled-object rationale.
+- [`control-loop-anatomy.md`](00-doctrine/control-loop-anatomy.md) — feedback closure, bounded operation, Constraints, Constraint Realizations, Sensors, Controllers, and Actuators.
+- [`nested-control-lifecycle.md`](00-doctrine/nested-control-lifecycle.md) — decision ownership, inheritance, runtime evidence, and reassessment.
+- [`requirements-correctness-and-bugs.md`](00-doctrine/requirements-correctness-and-bugs.md) — Requirement and diagnosis model.
+- [`model-judgment-placement.md`](00-doctrine/model-judgment-placement.md) — functional placement of Model Judgment.
+- [`glossary.md`](00-doctrine/glossary.md) — canonical vocabulary where entries exist.
 
 ### 5.2 Patterns
 
-[`01-patterns/`](01-patterns/README.md) contains reusable solutions for recurring technical and socio-technical control problems, including project viability and authorization, explicit boundaries around consequential Judgment Nodes, and delivery-level review for SMB teams.
+[`01-patterns/`](01-patterns/README.md) owns reusable socio-technical responses.
 
-A pattern may arrange technical mechanisms, artifacts, responsibility bundles, evidence, economics, and decision processes when those elements jointly address a recurring control problem. This does not create a separate top-level Operating Model module by implication.
+The [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md) owns project-level scenarios, one canonical Project Constraint Architecture, capability feasibility, evidence, Human Authority, capacity, economics, authorization, inheritance, and reauthorization.
 
-Patterns may be normative or draft normative. Examples, compact records, and working templates attached to a pattern are informative unless stated otherwise.
+Its [`template`](01-patterns/project-control-architecture-and-viability-review-template.md) is informative.
 
-The [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md) is the canonical owner of the project-level material risk and consequence model, intended Judgment and authority landscape, required control capabilities, evidence feasibility, Human Authority and operating capacity, control economics, project authorization, delivery inheritance package, and project reauthorization triggers.
+The [`Judgment Node Boundary`](01-patterns/judgment-node-boundary.md) owns the reusable boundary around consequential Model Judgment.
 
-The [`Project Control Architecture and Viability Review Template`](01-patterns/project-control-architecture-and-viability-review-template.md) is its informative working representation. It keeps the project decision in one living artifact and does not create a separate Project Launch Gate protocol.
+The [`Thinking System Review`](01-patterns/thinking-system-review.md) owns delivery-level Judgment Nodes, Requirement, one canonical Constraint Realization Map, DoR, DoD, Release Gate, and local reassessment.
 
-The [`Thinking System Review`](01-patterns/thinking-system-review.md) is the canonical owner of the model-mediated Definition of Ready, Definition of Done, distinct Release Gate, responsibility bundles, and local reassessment flow for a bounded system, feature, or material change.
+Its [`template`](01-patterns/thinking-system-review-template.md) is informative.
 
-The [`Thinking System Review Template`](01-patterns/thinking-system-review-template.md) is its informative working representation. It links the applicable project decision and inherited baseline without creating an additional conformance path or independent protocol.
-
-The project review and delivery review are connected but do not share canonical ownership. Project-level constraints flow downward by reference. Delivery and runtime evidence flows upward when it invalidates a project-level risk, authority, capacity, evidence, or economic assumption.
+Project authorization and delivery release remain separate. Higher-level decisions flow downward by reference; invalidating evidence flows upward.
 
 ### 5.3 AI Control Plane
 
-[`02-ai-control-plane/`](02-ai-control-plane/README.md) defines the capabilities required to constrain, observe, evaluate, and adjust model-mediated behavior.
+[`02-ai-control-plane/`](02-ai-control-plane/README.md) develops four logical capability families:
 
-The control plane is an architectural capability model, not necessarily a standalone product or infrastructure layer. Implementations MAY distribute its responsibilities across application code, platform services, human workflows, and governance processes.
+- [`00-actuators/`](02-ai-control-plane/00-actuators/) — execution of authorized change;
+- [`01-constraints/`](02-ai-control-plane/01-constraints/) — approved Constraints and their realizations;
+- [`02-sensors/`](02-ai-control-plane/02-sensors/) — evidence about behavior, outcomes, realization state, Actuator execution, and control health;
+- [`03-controller/`](02-ai-control-plane/03-controller/) — comparison, interpretation, decision authority, and authorization of action.
+
+The Constraints family is intentionally composite: the Constraint is the authoritative boundary object, while the Constraint Realization provides the operational mechanism.
+
+The directory numbers are navigation only and do not prescribe a stack or execution order.
+
+The informative [`Constraint Realization Catalog`](02-ai-control-plane/01-constraints/constraint-realization-catalog.md) names possible implementation mechanisms. Named products and libraries do not become requirements.
 
 ### 5.4 Reference architectures
 
-[`03-reference-architectures/`](03-reference-architectures/README.md) contains concrete compositions showing how UA concepts and patterns may be applied.
+[`03-reference-architectures/`](03-reference-architectures/README.md) shows non-prescriptive compositions.
 
-[`03-reference-architectures/judgment-placement-examples.md`](03-reference-architectures/judgment-placement-examples.md) shows Input Interpretation only, Decision Logic only, Output Mediation only, and one composite Thinking System. These examples identify deterministic responsibilities, authority boundaries, evidence, fallback, risks, and relevant review focus without duplicating the canonical DoR or DoD.
+References SHOULD identify approved Constraints, realizations, Sensors, Controllers, Actuators, Human Authority, failure behavior, and decision levels by function.
 
-[`03-reference-architectures/worked-thinking-system-review-support-triage.md`](03-reference-architectures/worked-thinking-system-review-support-triage.md) applies the delivery-level review to one illustrative support scenario. Its synthesized evidence is not production validation or a UA-wide threshold set.
-
-Reference architectures MUST NOT be treated as mandatory implementation topologies unless a separate normative document explicitly adopts a requirement they illustrate. Copying a reference architecture does not establish conformance.
+Reference architectures MUST NOT be treated as mandatory topology or proof of conformance.
 
 ### 5.5 Failure modes
 
-[`04-failure-modes/`](04-failure-modes/README.md) records recurring mechanisms by which AI-integrated systems lose structural, semantic, operational, economic, or organizational control.
+[`04-failure-modes/`](04-failure-modes/README.md) records reusable mechanisms by which control is lost or becomes ineffective, including:
 
-A taxonomy may be normative; individual examples and post-mortems are normally informative.
+- missing or invalid Constraints;
+- Constraint–realization collapse;
+- Soft Constraint represented as hard;
+- missing, bypassed, stale, conflicting, unavailable, or ineffective realizations;
+- Sensor and evidence failure;
+- Controller and authority failure;
+- Actuator and corrective-path failure;
+- open-loop operation;
+- closed-loop but unbounded operation;
+- capacity and economic non-viability.
 
 ## 6. Supporting material outside the specification
 
-The project uses one canonical namespace for each supporting-material type:
+- [`content/research/`](content/research/index.md) — research, analysis, synthesis, and traceability.
+- [`content/history/`](content/history/README.md) — chronology and preserved public context.
+- [`content/raw/`](content/raw/README.md) — source snapshots.
+- [`ROADMAP.md`](ROADMAP.md) — development direction.
+- [`CHANGELOG.md`](CHANGELOG.md) — notable repository changes.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution workflow.
+- [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) — metadata conventions.
+- [`AGENTS.md`](AGENTS.md) — informative operational protocol for AI-assisted contributors.
 
-- [`content/research/`](content/research/index.md) — research publications, notes, analyses, synthesis, and research-to-framework traceability;
-- [`content/history/`](content/history/README.md) — project history, public evidence, and superseded process or decision records retained for traceability;
-- [`content/raw/`](content/raw/README.md) — preserved source snapshots used to create normalized research editions;
-- [`content/index.md`](content/index.md) — an informative publishing portal, not a specification or governance source;
-- [`ROADMAP.md`](ROADMAP.md) — planned evolution of the project;
-- [`CHANGELOG.md`](CHANGELOG.md) — repository-level record of material changes;
-- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution workflow, review expectations, and current maintainer authority;
-- [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) — informative document metadata and controlled tag conventions;
-- [`AGENTS.md`](AGENTS.md) — informative repository orientation and editing guidance for language models and automated agents.
-
-The `quartz/` source tree and related Node configuration are publishing infrastructure. They do not define UA concepts, requirements, governance, or conformance.
-
-There is no active root-level research namespace or mandatory RFC namespace. Working research belongs under `content/research/`. Substantial framework proposals use a branch and pull request under [`CONTRIBUTING.md`](CONTRIBUTING.md); a formal RFC namespace may be introduced later only through an explicit project decision.
-
-Content enters the normative specification only through an explicit framework decision and a corresponding status change.
-
-Metadata, tags, publishing placement, recency, external attention, or agent-generated summaries do not change normative authority.
+Research, talks, implementations, tags, recency, or summaries do not modify normative authority by implication.
 
 ## 7. Conformance
 
-UA conformance is currently defined at the level of explicit architectural and operational reasoning rather than product certification or use of one required template.
+UA conformance is currently architectural and operational reasoning, not product certification.
 
-A system or design claiming alignment with UA SHOULD be able to identify:
+A system or design claiming UA alignment SHOULD be able to identify:
 
-1. where materially consequential Model Judgment occurs;
-2. whether each identified Judgment Node performs Input Interpretation, Decision Logic, Output Mediation, or a combination;
-3. which inputs and approved context each node receives;
-4. which outputs, decisions, paths, or actions each node can change;
-5. which authority each node possesses;
-6. which deterministic boundaries and invariants constrain it;
-7. how relevant behavior and outcomes are observed and evaluated against Requirement-derived expectations;
-8. who or what may authorize corrective action and how escalation, containment, fallback, rollback, or shutdown occurs;
-9. how decisions, assumptions, dependencies, and changes remain traceable.
+1. where consequential Model Judgment occurs;
+2. the placement and authority of each material Judgment Node;
+3. applicable organizational, project, and delivery Constraints;
+4. the source, subject, path, scope, claimed strength, and assumptions of each material Constraint;
+5. the concrete Constraint Realization, active version, and enforcement or influence point;
+6. failure, bypass, conflict, degraded, and unavailable behavior;
+7. which deterministic responsibilities and Invariants remain outside Model Judgment;
+8. how behavior, outcomes, realization state, Actuator execution, and control health are observed;
+9. which Controller receives the reference conditions and evidence and which decisions it owns;
+10. which Actuators execute authorized changes;
+11. how fallback, containment, compensation, escalation, rollback, or shutdown occurs;
+12. how project and delivery decisions, versions, assumptions, dependencies, and changes remain traceable;
+13. which evidence triggers delivery reassessment, project reauthorization, or organizational review.
+
+A system MUST NOT claim a Hard Constraint when its complete realized path does not deterministically prevent or reject violation within explicitly stated assumptions, subject, path, scope, and enforcement boundaries.
+
+A probabilistic detector, evaluator, prompt, model policy, or natural-language instruction is not a Hard Constraint by itself.
+
+One source condition MUST NOT be represented as one mixed hard/soft Constraint record when different subjects, paths, or scopes have different guarantee strength. The claims SHOULD be separated so each is reviewable and traceable.
 
 ### 7.1 Project-level alignment
 
-For a consequential proposed Thinking System project, the organization or team SHOULD be able to show an equivalent of:
+For a consequential proposed project, a team SHOULD be able to show an equivalent of:
 
-- the intended business outcome, non-AI alternative, and reason Model Judgment is needed;
-- a defined project boundary and intended Judgment, autonomy, and authority landscape;
-- material risk scenarios connected to affected obligations, consequence, detectability, feedback latency, reversibility, propagation, required controls, and residual risk;
-- deterministic invariants and prohibited authority;
-- required shared and project-specific constraints, sensors, controllers, Human Authority, actuators, fallback, containment, rollback, and shutdown capabilities;
-- evidence feasibility and material blind spots;
-- substantive Human Authority and sufficient operational capacity where human intervention is part of the control design;
-- one-time and recurring control costs, remaining exposure, and the effect of controls on the business case;
+- intended outcome, AI necessity, and non-AI alternatives;
+- defined project boundary and intended Judgment authority;
+- material scenarios connected to consequence, detectability, latency, reversibility, propagation, Constraint IDs, capability requirements, and residual decision effect;
+- one canonical Project Constraint Architecture;
+- required Constraint Realizations, Sensors, Controllers, Actuators, Human Authority, fallback, containment, compensation, rollback, and shutdown;
+- evidence feasibility and blind spots;
+- substantive Human Authority and sufficient capacity;
+- control economics and viability;
 - a project authorization outcome distinct from delivery release;
-- a versioned inheritance package for delivery reviews;
-- project reauthorization triggers after material change or runtime evidence.
+- a versioned inheritance package;
+- reauthorization triggers.
 
-The project outcome MAY authorize delivery, authorize with conditions, authorize only bounded research, require redesign, escalate, defer, or reject the AI path.
+Possible outcomes MAY include authorization, authorization with conditions, bounded research, redesign, escalation, deferral, or No-Go.
 
 ### 7.2 Delivery-level alignment
 
-For consequential model-mediated delivery work, the system or team SHOULD also be able to show an equivalent of:
+For consequential delivery work, a team SHOULD be able to show an equivalent of:
 
-- a link to the applicable project decision and inherited baseline, or an explicit reason no project baseline yet exists;
-- an approved Requirement and context-derived Operating Envelope;
-- a readiness decision distinguishing implementation from bounded experimentation;
-- completion evidence covering applicable deterministic, behavioral, boundary, resource, operational, and failure-handling responsibilities;
-- a release decision distinct from completion, with deployment scope, residual risk, conditions, and decision authority;
-- runtime ownership and reassessment triggers after material change, drift, or incident;
-- evidence that the delivery scope does not silently expand project authority or invalidate project assumptions without reauthorization.
+- a linked project decision and inherited Constraint baseline, or an explicit reason no project baseline exists;
+- an approved Requirement and Operating Envelope;
+- explicit Judgment Node boundaries;
+- one canonical Constraint Realization Map;
+- accurate and separately scoped Hard and Soft Constraint claims;
+- tested failure, bypass, conflict, degraded, unavailable, and override behavior where material;
+- evidence of activation, violations, false blocks, Actuator execution, and control health;
+- a DoR decision distinguishing implementation from bounded experimentation;
+- a DoD decision covering implementation and evidence completeness;
+- a Release Gate distinct from DoD, with deployment scope, active realization versions, residual risk, conditions, and decision authority;
+- runtime ownership, Controller authority, available Actuators, and reassessment triggers;
+- evidence that delivery does not expand project authority or weaken an inherited Hard Constraint.
 
-UA does not require the provided project or delivery templates. Equivalent records and processes MAY be integrated into existing product, business-case, architecture, engineering, security, quality, financial, change-management, risk, or incident systems, provided the relevant distinctions, decision rights, inheritance, and reauthorization paths remain explicit and traceable.
+The provided templates are not mandatory. Equivalent records MAY be integrated into existing systems if the distinctions, authority, inheritance, and reassessment paths remain explicit and traceable.
 
-The placement classes are a functional taxonomy, not a mandatory pipeline. A node may combine functions, and a workflow may omit or repeat any class. Reference architectures may help a team reason about these distinctions but do not add conformance requirements.
+The placement classes are not a mandatory pipeline. The four capability families are not mandatory physical services. Reference architectures do not add conformance requirements.
 
-A claim of UA alignment MUST NOT imply certification, endorsement, or complete conformance unless the project later establishes a formal conformance program.
+A claim of UA alignment MUST NOT imply certification, endorsement, or complete conformance unless a formal program is later established.
 
 ## 8. Change control
 
-Normative and draft normative changes SHOULD be:
+Normative and draft-normative changes SHOULD be:
 
 - scoped to one coherent architectural decision;
 - reviewable through a visible change set;
-- linked to relevant research, operational evidence, or design rationale;
-- explicit about compatibility, supersession, and unresolved uncertainty;
-- reflected in the appropriate module index and changelog when material.
+- linked to relevant research, evidence, or rationale;
+- explicit about compatibility, path migration, supersession, and uncertainty;
+- checked against glossary, doctrine, project and delivery patterns, AI Control Plane, references, failure modes, navigation, roadmap, changelog, and research traceability.
 
-Research findings, talks, articles, implementations, and external frameworks do not modify the specification by implication. Adoption requires an explicit normative decision following the current contribution and review workflow.
-
-## 9. Current maturity
-
-UA is in active development. The repository contains a conceptual spine, normalized module entry points, a canonical draft glossary, doctrine for the changed controlled object and nested control levels, a project-level Control Architecture and Viability Review pattern and template, a Model Judgment placement taxonomy, a Judgment Node Boundary pattern, an SMB-facing delivery-level Thinking System Review pattern and template with project inheritance, placement-focused reference architectures, one completed illustrative delivery review, a control-plane model, research traceability, and failure-mode work.
-
-A two-level worked application, real-team application, deeper risk and tolerance derivation, detailed control-economics methods, and additional failure-mode and incident-loop work remain incomplete.
-
-Readers SHOULD follow the explicit status declared by each module or document. Reference architectures and clearly identified examples or templates remain **reference** or **informative**, not mandatory implementation requirements.
+Source material becomes specification only through explicit framework review and a corresponding status-bearing change.

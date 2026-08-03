@@ -10,6 +10,7 @@ topics:
   - deterministic-core
   - uncertainty-boundary
   - ai-control-plane
+  - constraints
   - evidence
   - fallback
 tags:
@@ -20,11 +21,14 @@ tags:
   - ua/topic/model-judgment
   - ua/topic/uncertainty-boundary
   - ua/topic/ai-control-plane
+  - ua/topic/constraints
 related:
+  - ../00-doctrine/control-loop-anatomy.md
   - ../00-doctrine/model-judgment-placement.md
   - ../01-patterns/judgment-node-boundary.md
   - ../01-patterns/thinking-system-review.md
   - ../02-ai-control-plane/README.md
+  - ../02-ai-control-plane/01-constraints/README.md
 source_basis:
   - ../content/research/notes/designing-nondeterministic-systems-source-intake.md
 ---
@@ -33,286 +37,299 @@ source_basis:
 
 ## Status
 
-This document is **reference** material. It shows four minimal, non-prescriptive compositions of the [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) taxonomy, the [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) pattern, the [`AI Control Plane`](../02-ai-control-plane/), and the [`Thinking System Review`](../01-patterns/thinking-system-review.md).
+This document is **reference** material. It shows four non-prescriptive compositions of Model Judgment placement, Judgment Node boundaries, and AI Control Plane capabilities.
 
-The examples help small and medium-sized engineering teams recognize where Model Judgment occurs and what must remain deterministic around it. Copying an example does not establish UA alignment, and no diagram is a mandatory topology.
+The examples classify functions, not products. They do not establish conformance or a mandatory topology.
 
-## 1. How to read the examples
+In every example:
 
-The first three examples deliberately isolate one placement class. The fourth shows one possible composite Thinking System.
+- a **Constraint** is the approved boundary;
+- a **Constraint Realization** is the mechanism implementing, enforcing, or influencing that boundary;
+- a **Sensor** produces evidence;
+- a **Controller** selects or authorizes action;
+- an **Actuator** executes the action.
 
-| Example | Illustrative context | Model Judgment authority |
+## 1. Reading the examples
+
+| Example | Context | Model Judgment authority |
 |---|---|---|
-| Input Interpretation only | Route an ambiguous support request | Propose structured intent, category, and routing context |
-| Decision Logic only | Select a response from an approved incident playbook | Recommend or select a bounded action under an authority gate |
-| Output Mediation only | Explain verified account or operational data | Transform presentation without changing source facts or decisions |
-| Composite Thinking System | Interpret, decide, execute, and explain a service request | Different authority at each node, constrained by deterministic boundaries |
+| Input Interpretation | Route an ambiguous support request | Propose structured intent and routing context |
+| Decision Logic | Select from an approved incident playbook | Recommend or select a bounded action |
+| Output Mediation | Explain verified account or operational data | Transform presentation without changing source facts or decisions |
+| Composite | Interpret, choose, execute, and explain a service request | Different authority at each bounded node |
 
-For each example, the architecture identifies the system boundary, Judgment Node, deterministic responsibilities, authority, evidence, fallback, major risks, and the Thinking System Review areas that deserve attention.
+The examples identify:
 
-The complete Definition of Ready and Definition of Done remain canonically owned by [`thinking-system-review.md`](../01-patterns/thinking-system-review.md). They are not repeated here.
+- Judgment Node and system boundaries;
+- approved Constraints and concrete realizations;
+- deterministic responsibilities and Invariants;
+- Sensors and evidence;
+- Controller and decision authority;
+- Actuators and corrective paths;
+- fallback and reassessment.
 
-## 2. Input Interpretation only
+DoR, DoD, Release Gate, and the canonical delivery Constraint Realization Map remain owned by the [`Thinking System Review`](../01-patterns/thinking-system-review.md).
+
+## 2. Input Interpretation
 
 ### Context
 
-A support intake service receives a natural-language request and maps it to a structured intent, category, and routing context. The downstream workflow is deterministic.
+A support intake service converts a natural-language request into structured intent, category, and routing context. Downstream routing remains deterministic.
 
 ```mermaid
 flowchart LR
+    R[Requirement and approved taxonomy]
+    K[Constraints<br/>tenant · sources · structure · authority]
+    KR[Realizations<br/>identity check · source allowlist<br/>schema · category enum]
     U[User request]
-    AUTH[Deterministic identity<br/>and channel checks]
     J[Input Interpretation<br/>Judgment Node]
-    CTX[Approved taxonomy,<br/>policy, and context]
     V{Deterministic validation}
-    R[Deterministic workflow router]
-    Q[Selected queue or workflow]
-    H[Human triage]
-    E[Interpretation evidence]
-    O[Operational owner or controller]
+    Q[Deterministic router]
+    F[Manual or deterministic intake]
+    S[Sensors<br/>corrections · invalid output<br/>routing outcomes · realization health]
+    C[Operational Controller]
+    A[Actuators<br/>change configuration · narrow scope<br/>rollback · disable model path]
 
-    U --> AUTH --> J
-    CTX --> J
-    J --> V
-    V -->|Valid and bounded| R --> Q
-    V -->|Ambiguous, invalid, or out of scope| H
-    J --> E
-    V --> E
-    E --> O
-    O -->|Approved taxonomy or policy change| CTX
+    R --> C
+    R --> K --> KR
+    U --> J --> V
+    KR -. restricts accepted context<br/>and output contract .-> J
+    KR --> V
+    V -->|Accepted| Q
+    V -->|Rejected or uncertain| F
+    J --> S
+    V --> S
+    Q --> S
+    F --> S
+    KR -->|state and violations| S
+    A -->|execution state| S
+    S --> C
+    C -->|authorized action| A
+    A --> J
+    A --> Q
+    A --> F
+    A -->|authorized realization change| KR
 ```
 
 | Element | Reference choice |
 |---|---|
-| **System boundary** | Identity and channel checks, approved context, the Judgment Node, validation, deterministic routing, evidence, and human triage. |
-| **Judgment Node** | Converts ambiguous input into intent, category, extracted entities, or routing context. |
-| **Deterministic responsibilities** | Authentication, allowed schemas and categories, permissions, exact routing rules, data mutation, audit logging, and rejection of unsupported interpretations. |
-| **Authority boundary** | The node may propose structured interpretation. It may not grant permissions, authorize business actions, invent workflows, or bypass policy. |
-| **Key sensor or evidence** | Human corrections, rerouting, unsupported category generation, identity or authorization confusion, and drift after model, prompt, taxonomy, or context changes. |
-| **Fallback** | Human triage or a deterministic intake form. |
+| Constraint | Current-tenant data only; approved taxonomy and sources; no business-action authority; unsupported cases fall back. |
+| Realization | Identity and tenant checks, source allowlist, typed schema, category enumeration, validation, and routing permission boundary. |
+| Sensor | Corrections, rerouting, invalid structure, unsupported categories, fallback rate, realization health, and drift after version changes. |
+| Controller | Operational authority interprets evidence and authorizes changes within the project boundary. |
+| Actuator | Deploy taxonomy or source changes, roll back prompt/model, narrow population, force manual intake, or disable the model path. |
+| Fallback | Human triage or deterministic intake form. |
 
-**Major risks**
+Primary risks include ambiguous intent, prompt injection, contaminated context, valid structure with incorrect meaning, and taxonomy changes that expand scope.
 
-- ambiguous intent;
-- prompt injection or instruction confusion inside user text;
-- contaminated context;
-- unsupported assumptions;
-- identity or authorization confusion;
-- deterministic routing built on an incorrect interpretation.
-
-**Thinking System Review focus**
-
-Prioritize Judgment Node identification, placement, authority, evidence strategy, boundary testing, operational controls, and reassessment after taxonomy, context, prompt, or model changes. See the complete [`Thinking System Review`](../01-patterns/thinking-system-review.md).
-
-## 3. Decision Logic only
+## 3. Decision Logic
 
 ### Context
 
-An incident-response service receives structured and verified incident facts. A Judgment Node recommends or selects a response from an approved action catalogue. Deterministic gates decide whether execution is allowed, requires Human Authority, or must be blocked.
+An incident-response service receives verified incident facts. A Judgment Node selects or recommends an action from an approved catalogue. Deterministic gates enforce authority and state conditions.
 
 ```mermaid
 flowchart LR
-    IN[Structured and verified<br/>incident facts]
-    CAT[Approved action catalogue<br/>and operating policy]
+    R[Requirement and approved action policy]
+    K[Constraints<br/>authority · state · tools<br/>resources · Human Authority]
+    KR[Realizations<br/>tool allowlist · permissions<br/>state guards · approval gate · limits]
+    I[Verified incident facts]
     J[Decision Logic<br/>Judgment Node]
-    G{Deterministic authority gate}
+    G{Deterministic authority<br/>and state gate}
     H[Human Authority]
     X[Deterministic executor]
     B[Blocked and escalated]
-    R[Recorded action result]
-    E[Decision trace and outcome evidence]
-    O[Operational owner or controller]
+    S[Sensors<br/>selection · approvals · blocks<br/>execution · outcomes · realization health]
+    C[Incident Controller]
+    A[Actuators<br/>change realization · narrow autonomy<br/>rollback · isolate · disable]
 
-    IN --> J
-    CAT --> J
-    J --> G
-    G -->|Allowed bounded action| X --> R
+    R --> C
+    R --> K --> KR
+    I --> J --> G
+    KR -. restricts available<br/>action proposals .-> J
+    KR --> G
+    G -->|Allowed| X
     G -->|Approval required| H --> X
-    G -->|Outside authority or constraints| B
-    J --> E
-    G --> E
-    R --> E
-    E --> O
-    O -->|Approved policy or catalogue change| CAT
+    G -->|Rejected| B
+    J --> S
+    G --> S
+    H --> S
+    X --> S
+    B --> S
+    KR -->|state and violations| S
+    A -->|execution state| S
+    S --> C
+    C -->|authorized action| A
+    A --> J
+    A --> X
+    A --> B
+    A -->|authorized realization change| KR
 ```
 
 | Element | Reference choice |
 |---|---|
-| **System boundary** | Trusted incident facts, approved action catalogue, the Judgment Node, authority gate, Human Authority, deterministic execution, evidence, and escalation. |
-| **Judgment Node** | Ranks, recommends, plans, or selects only within an approved action space. |
-| **Deterministic responsibilities** | Trusted input facts, permissions, limits, transaction boundaries, approval requirements, tool execution, side-effect recording, and blocking. |
-| **Authority boundary** | The node may recommend or select bounded actions. It may not create permissions or tools, override policy, expand its authority, or bypass required approval. |
-| **Key sensor or evidence** | Selected action versus policy, approvals and overrides, blocked attempts, execution results, downstream outcomes, and plan divergence. |
-| **Fallback** | Deterministic playbook, no-action safe state, or escalation to a human operator. |
+| Constraint | Approved action space, scoped credentials, deterministic preconditions, approval for consequential action, bounded rate and duration, no self-expansion. |
+| Realization | Tool allowlist, typed contracts, permission scopes, state-machine guards, approval gate, workflow-depth and transaction limits. |
+| Sensor | Selection, approval, blocked attempts, execution state, downstream outcome, resource use, and realization health. |
+| Controller | Incident authority authorizes continuation, narrowing, catalogue changes, rollback, isolation, or stop. |
+| Actuator | Deploy catalogue or permission changes, require approval, switch to deterministic playbook, isolate environment, roll back, or disable execution. |
+| Fallback | Deterministic playbook, no-action safe state, or human escalation. |
 
-**Major risks**
+Primary risks include excessive authority, incorrect tool selection, bypass, ineffective Human Authority, stale permissions, and unauthorized relaxation of a Hard Constraint.
 
-- excessive authority;
-- unsafe routing or prioritization;
-- incorrect tool or action selection;
-- unauthorized execution;
-- plan drift and compounding error;
-- substitution of model preference for approved policy;
-- ineffective Human Authority.
-
-**Thinking System Review focus**
-
-Prioritize authority, Operating Envelope, control strategy, ownership, bounded-experiment limits, authority testing, failure handling, Release Gate scope, supervision, rollback, and containment. See the complete [`Thinking System Review`](../01-patterns/thinking-system-review.md).
-
-## 4. Output Mediation only
+## 4. Output Mediation
 
 ### Context
 
-A deterministic core has already produced verified data, an approved decision, or a completed operational result. A Judgment Node turns those facts into an explanation for a customer or downstream system.
+A deterministic core has produced verified data or an approved decision. A Judgment Node creates an explanation for a customer or downstream system.
 
 ```mermaid
 flowchart LR
-    CORE[Deterministic core]
-    DATA[Verified facts and decision]
-    POL[Disclosure and output policy]
+    R[Requirement and disclosure policy]
+    K[Constraints<br/>sources · disclosure · privacy<br/>structure · no action authority]
+    KR[Realizations<br/>source identifiers · allowlist<br/>schema · permission gate · block]
+    D[Verified facts and decision]
     J[Output Mediation<br/>Judgment Node]
-    V{Deterministic structure<br/>and policy checks}
-    U[Human or downstream consumer]
+    V{Deterministic source,<br/>structure, and policy checks}
+    DEL[Deterministic delivery<br/>and exposure boundary]
+    U[Consumer]
     F[Safe template or human review]
-    E[Source, output, and correction evidence]
-    O[Operational owner or controller]
+    S[Sensors<br/>claim support · omissions · corrections<br/>privacy events · realization health]
+    C[Release or operational Controller]
+    A[Actuators<br/>change configuration · rollback<br/>narrow audience · disable]
 
-    CORE --> DATA --> J
-    POL --> J
-    J --> V
-    V -->|Accepted| U
-    V -->|Invalid, unsupported, or unsafe| F
-    J --> E
-    V --> E
-    E --> O
-    O -->|Approved policy or template change| POL
+    R --> C
+    R --> K --> KR
+    D --> J --> V
+    KR -. restricts approved sources<br/>and output contract .-> J
+    KR --> V
+    V -->|Accepted| DEL --> U
+    V -->|Rejected or uncertain| F
+    J --> S
+    V --> S
+    DEL --> S
+    U --> S
+    F --> S
+    KR -->|state and violations| S
+    A -->|execution state| S
+    S --> C
+    C -->|authorized action| A
+    A --> J
+    A --> DEL
+    A --> F
+    A -->|authorized realization change| KR
 ```
 
 | Element | Reference choice |
 |---|---|
-| **System boundary** | Deterministic source of truth, verified data, output policy, the Judgment Node, enforceable checks, source evidence, and safe fallback. |
-| **Judgment Node** | Explains, summarizes, translates, filters, or adapts verified information. |
-| **Deterministic responsibilities** | Source facts, transaction state, approved decision, mandatory disclosures, data exposure rules, schema contracts, source identifiers, and blocking. |
-| **Authority boundary** | The node may transform presentation. It may not alter facts or decisions, invent claims, hide mandatory limitations, or initiate a business action. |
-| **Key sensor or evidence** | Claim-to-source support, omitted facts, disclosure coverage, human corrections, parser failures, and misleading confidence. |
-| **Fallback** | Deterministic template, direct verified facts, safe refusal, or human review. |
+| Constraint | Approved sources, mandatory disclosure, privacy and tenant boundaries, output contract, no fact or decision alteration, no autonomous action. |
+| Realization | Source IDs, retrieval allowlist, disclosure rules, schema validation, permission boundary, deterministic block, and Human Authority where semantic enforcement is incomplete. |
+| Sensor | Claim support, omission, disclosure coverage, corrections, privacy events, parser failures, delivery/exposure state, and source or policy drift. |
+| Controller | Release or operational authority authorizes source, policy, audience, model, prompt, fallback, or deployment changes. |
+| Actuator | Deploy approved-source or disclosure changes, roll back, narrow audience, switch template, hide delivery, or disable the path. |
+| Fallback | Deterministic template, verified facts, refusal, or human review. |
 
-**Major risks**
-
-- semantic inaccuracy;
-- unsupported claims;
-- misleading confidence;
-- unsafe transformation or omission;
-- disclosure failure;
-- downstream parser mismatch;
-- wording that changes user action despite unchanged source data.
-
-**Thinking System Review focus**
-
-Prioritize the Requirement and Operating Envelope, evidence strategy, disclosure and output controls, behavioral evaluation, evidence quality, deterministic interfaces, fallback, audience scope, and reassessment after source, policy, model, prompt, or downstream-interface changes. See the complete [`Thinking System Review`](../01-patterns/thinking-system-review.md).
+Primary risks include unsupported claims, misleading confidence, omission, privacy failure, and wording that changes user behavior despite unchanged source facts.
 
 ## 5. Composite Thinking System
 
 ### Context
 
-A service workflow accepts a natural-language request, interprets it, chooses a bounded action, executes that action through deterministic tooling, and explains the verified result.
-
-This composition contains all three placement classes, but it is only one possible arrangement. A real system may omit, repeat, combine, or reorder them.
+A service workflow interprets a request, selects a bounded action, executes through deterministic tooling, and explains the verified result.
 
 ```mermaid
 flowchart LR
-    IN[External request]
-    AUTH[Deterministic identity<br/>and channel checks]
+    R[Requirement and project baseline]
+    K[Constraints<br/>context · authority · state<br/>tools · privacy · output]
+    KR[Distributed Constraint Realizations]
+    I[External request]
     J1[Input Interpretation]
-    CTX[Approved context and policy]
-    P[Deterministic policy<br/>and context assembly]
     J2[Decision Logic]
-    CAT[Approved action catalogue]
-    G{Deterministic authority gate}
+    G{Authority and state gate}
     H[Human Authority]
-    X[Deterministic tool execution]
-    R[Verified result]
+    X[Deterministic execution]
     J3[Output Mediation]
-    OP[Disclosure and output policy]
-    V{Output validation}
-    OUT[Human or downstream system]
-    F[Fallback, containment,<br/>or escalation]
-    E[System evidence and telemetry]
-    C[Controller or operational owner]
+    V{Output checks}
+    O[Consumer]
+    F[Fallback / containment / escalation]
+    S[System Sensors and evidence]
+    C[Controller and decision authority]
+    A[Actuators<br/>change · narrow · rollback<br/>contain · compensate · stop]
 
-    IN --> AUTH --> J1 --> P --> J2 --> G
-    CTX --> J1
-    CAT --> J2
-    G -->|Allowed| X --> R --> J3 --> V
+    R --> C
+    R --> K --> KR
+    I --> J1 --> J2 --> G
+    KR -. enforces or influences .-> J1
+    KR -. enforces or influences .-> J2
+    KR --> G
+    G -->|Allowed| X --> J3 --> V
     G -->|Approval required| H --> X
-    G -->|Blocked| F
-    OP --> J3
-    V -->|Accepted| OUT
+    G -->|Rejected| F
+    KR -. enforces or influences .-> J3
+    KR --> V
+    V -->|Accepted| O
     V -->|Rejected| F
-    J1 --> E
-    J2 --> E
-    G --> E
-    X --> E
-    J3 --> E
-    V --> E
-    E --> C
-    C -->|Approved corrective change| CTX
+    J1 --> S
+    J2 --> S
+    G --> S
+    H --> S
+    X --> S
+    J3 --> S
+    V --> S
+    O --> S
+    F --> S
+    KR -->|state and violations| S
+    A -->|execution state and effects| S
+    S --> C
+    C -->|authorized action| A
+    A --> J1
+    A --> J2
+    A --> X
+    A --> J3
+    A --> F
+    A -->|authorized realization change| KR
 ```
 
-| Element | Reference choice |
-|---|---|
-| **System boundary** | All Judgment Nodes plus identity, context, policy, authority, execution, verified-result, output, evidence, decision, fallback, containment, and escalation responsibilities. |
-| **Judgment Nodes** | J1 interprets the request; J2 selects a bounded action; J3 explains the verified result. |
-| **Deterministic responsibilities** | Identity, authorization, invariants, trusted context, action catalogue, approval, transaction integrity, verified result capture, disclosures, auditability, rollback, and shutdown. |
-| **Authority boundary** | J1 shapes interpretation but gains no action authority. J2 remains behind the authority gate. J3 cannot alter the transaction or facts. |
-| **Key sensor or evidence** | Interpretation corrections, decision traces, approvals, blocked actions, execution outcomes, claim support, end-to-end outcomes, resource use, and versioned dependencies. |
-| **Fallback** | Manual intake, deterministic playbook, Human Authority, blocked execution, rollback or containment, deterministic output template, or human review. |
+This composition requires system-level evidence. Strong local evaluations do not prove that error propagation, authority, transactions, disclosures, and user outcomes remain acceptable end to end.
 
-**Major risks**
+The distributed realization arrows may represent deterministic enforcement, probabilistic influence, or a composite path. The delivery Constraint Realization Map must state the actual guarantee for each subject, path, and scope.
 
-- error propagation across Judgment Nodes;
-- context contamination or policy loss between stages;
-- authority expansion through orchestration;
-- compounding planning and execution errors;
-- syntactically valid but semantically unacceptable output;
-- partial failure with inconsistent transaction and user-visible state;
-- strong local metrics but missing end-to-end evidence;
-- model, prompt, policy, tool, data, or provider drift.
+Primary risks include cross-node error propagation, lost or conflicting Constraints, orchestration-based authority expansion, partial execution, inconsistent state, and local metrics disconnected from business outcomes.
 
-**Thinking System Review focus**
+## 6. Evaluation gate decomposition
 
-Apply the complete review. Pay particular attention to separate Judgment Node cards, authority between nodes, cross-node scenarios, end-to-end evidence, degraded modes, rollback, containment, Release Gate conditions, and reassessment after any material dependency or authority change. See the [`Thinking System Review`](../01-patterns/thinking-system-review.md) and its [`template`](../01-patterns/thinking-system-review-template.md).
+An implementation may call one package an `Eval Gate`, but the capability functions remain:
 
-## 6. Cross-example lessons
+```text
+Golden Scenarios, evaluator, and metrics
+→ Sensor and evidence
 
-1. **Placement is functional, not physical.** It describes what Model Judgment does, not where a service must be deployed.
-2. **Placement does not determine risk.** Authority, consequence, exposure, reversibility, evidence, and corrective paths determine control depth.
-3. **Deterministic code around a model is not automatically a sufficient boundary.** Context, authority, evidence, fallback, ownership, and change control also matter.
-4. **Sensors differ by placement.** Interpretation correction, decision outcome, and claim support are different evidence problems.
-5. **A local pass is not an end-to-end release decision.** Composite systems require evidence about propagation and system outcomes.
-6. **Fallback must change the operating path.** Repeating the same uncertain call is not automatically a fallback.
-7. **No universal threshold follows from these examples.** Tolerances and review effort come from the approved Requirement and deployment context.
-8. **The AI path may be rejected.** When adequate authority, evidence, containment, or fallback cannot be justified, the responsible design may remain deterministic or human-operated.
+Logic selecting block / canary / release
+→ Controller function
 
-## 7. Source interpretation and limits
+Deployment, exposure change, block, or rollback execution
+→ Actuator function
+```
 
-The original presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* was used as source evidence for the slide 1-6 framework-transfer sequence. The repository source-intake record distinguishes the maintainer-supplied original PPTX used for slide-level review from the PDF export preserved under `content/raw/`.
+This distinction preserves decision rights, failure behavior, and execution traceability.
 
-Current UA narrows presentation shorthand as follows:
+## 7. Review use
 
-- non-zero variance does not make every undesirable tail event a Bug;
-- the Operating Envelope is part of the complete Requirement, not its synonym;
-- evidence may be deterministic, statistical, human, model-assisted, or combined;
-- sample size, confidence methods, tolerances, and thresholds are context-derived;
-- Input Interpretation, Decision Logic, and Output Mediation form a taxonomy, not a required pipeline;
-- responsibility bundles and decision authority do not imply mandatory job titles;
-- reference architectures do not create conformance by copying topology.
+When adapting an example:
 
-## 8. Related material
+1. link the project authorization and relevant Constraint IDs;
+2. record concrete realizations in the delivery Constraint Realization Map;
+3. identify reference conditions and Sensor evidence;
+4. identify Controller decision rights;
+5. identify real Actuator paths and execution evidence;
+6. distinguish local correction from project reauthorization;
+7. derive thresholds and controls from the actual Requirement and consequence context.
 
-- [`Model Judgment Placement`](../00-doctrine/model-judgment-placement.md) — canonical functional taxonomy.
-- [`Requirements, Correctness, and Bugs`](../00-doctrine/requirements-correctness-and-bugs.md) — Requirement, Operating Envelope, Correctness, and diagnostic model.
-- [`Judgment Node Boundary`](../01-patterns/judgment-node-boundary.md) — reusable node-boundary pattern.
-- [`Thinking System Review`](../01-patterns/thinking-system-review.md) — canonical review flow and full DoR, DoD, and Release Gate extensions.
-- [`Thinking System Review Template`](../01-patterns/thinking-system-review-template.md) — one living SMB working artifact.
-- [`AI Control Plane`](../02-ai-control-plane/) — distributed capabilities for sensing, decision, and corrective action.
+## Relationships
+
+- [`../00-doctrine/control-loop-anatomy.md`](../00-doctrine/control-loop-anatomy.md) defines capability relationships.
+- [`../00-doctrine/model-judgment-placement.md`](../00-doctrine/model-judgment-placement.md) defines placement functions.
+- [`../01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) defines node boundaries.
+- [`../01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) owns delivery realization and release.
+- [`../02-ai-control-plane/`](../02-ai-control-plane/) develops the control capabilities.
+- [`../04-failure-modes/`](../04-failure-modes/) records recurring failures.
