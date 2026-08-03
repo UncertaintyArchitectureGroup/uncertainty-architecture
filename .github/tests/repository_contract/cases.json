@@ -2,132 +2,103 @@
   "cases": [
     {
       "name": "valid synthetic repository passes",
-      "mutation": {
-        "type": "none"
-      },
+      "mutation": {"type": "none"},
       "expected_valid": true
     },
     {
       "name": "critical file deletion is rejected",
-      "mutation": {
-        "type": "delete_path",
-        "path": "README.md"
-      },
+      "mutation": {"type": "delete_path", "path": "README.md"},
       "expected_error": "Missing critical file: README.md"
     },
     {
       "name": "critical README section deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": "README.md",
-        "text": "## How to Cite"
-      },
+      "mutation": {"type": "remove_text", "path": "README.md", "text": "## How to Cite"},
       "expected_error": "README.md: missing required heading '## How to Cite'"
     },
     {
       "name": "protected attribution text deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": "README.md",
-        "text": "Sam “stunspot” Walker — Technical Co-Author"
-      },
+      "mutation": {"type": "remove_text", "path": "README.md", "text": "Sam “stunspot” Walker — Technical Co-Author"},
       "expected_error": "README.md: missing protected text 'Sam “stunspot” Walker — Technical Co-Author'"
     },
     {
       "name": "required canonical link deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": "README.md",
-        "text": "[fixture](CITATION.cff)"
-      },
+      "mutation": {"type": "remove_text", "path": "README.md", "text": "[fixture](CITATION.cff)"},
       "expected_error": "README.md: missing required Markdown link to CITATION.cff"
     },
     {
       "name": "unexpected top-level directory is rejected",
-      "mutation": {
-        "type": "add_directory",
-        "path": "05-governance"
-      },
+      "mutation": {"type": "add_directory", "path": "05-governance"},
       "expected_error": "Unexpected top-level directory: 05-governance"
     },
     {
       "name": "unexpected top-level file is rejected",
-      "mutation": {
-        "type": "add_file",
-        "path": "NAVIGATION.md"
-      },
+      "mutation": {"type": "add_file", "path": "NAVIGATION.md"},
       "expected_error": "Unexpected top-level file: NAVIGATION.md"
     },
     {
       "name": "legacy runtime anchor deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": "00-doctrine/nested-control-lifecycle.md",
-        "text": "<a id=\"4-runtime-control-and-reassessment\"></a>"
-      },
+      "mutation": {"type": "remove_text", "path": "00-doctrine/nested-control-lifecycle.md", "text": "<a id=\"4-runtime-control-and-reassessment\"></a>"},
       "expected_error": "00-doctrine/nested-control-lifecycle.md: missing protected marker"
     },
     {
       "name": "compatibility path deletion is rejected",
-      "mutation": {
-        "type": "delete_path",
-        "path": "02-ai-control-plane/01-sensors/README.md"
-      },
+      "mutation": {"type": "delete_path", "path": "02-ai-control-plane/01-sensors/README.md"},
       "expected_error": "Missing required file: 02-ai-control-plane/01-sensors/README.md"
     },
     {
       "name": "immutable documentation license modification is rejected",
-      "mutation": {
-        "type": "append_text",
-        "path": "LICENSE-DOCS.md",
-        "text": "\nmodified\n"
-      },
+      "mutation": {"type": "append_text", "path": "LICENSE-DOCS.md", "text": "\nmodified\n"},
       "expected_error": "Immutable file fingerprint changed: LICENSE-DOCS.md"
     },
     {
       "name": "CODEOWNERS default ownership deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": ".github/CODEOWNERS",
-        "text": "* @oborskyivitalii"
-      },
+      "mutation": {"type": "remove_text", "path": ".github/CODEOWNERS", "text": "* @oborskyivitalii"},
       "expected_error": ".github/CODEOWNERS: missing protected text"
     },
     {
       "name": "PR contract marker deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": ".github/pull_request_template.md",
-        "text": "<!-- ua-change-contract"
-      },
+      "mutation": {"type": "remove_text", "path": ".github/pull_request_template.md", "text": "<!-- ua-change-contract"},
       "expected_error": ".github/pull_request_template.md: missing protected text"
     },
     {
       "name": "CITATION author deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": "CITATION.cff",
-        "text": "    given-names: \"Sam\""
-      },
+      "mutation": {"type": "remove_text", "path": "CITATION.cff", "text": "    given-names: \"Sam\""},
       "expected_error": "CITATION.cff: missing protected text"
     },
     {
       "name": "link-integrity citation step deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": ".github/workflows/link-integrity.yml",
-        "text": "- name: Validate CITATION.cff"
-      },
+      "mutation": {"type": "remove_text", "path": ".github/workflows/link-integrity.yml", "text": "- name: Validate CITATION.cff"},
       "expected_error": ".github/workflows/link-integrity.yml: missing protected text"
     },
     {
       "name": "navigation routing declaration deletion is rejected",
-      "mutation": {
-        "type": "remove_text",
-        "path": ".github/scripts/validate_navigation.py",
-        "text": "EXPECTED_NAVIGATION_ROUTES"
-      },
+      "mutation": {"type": "remove_text", "path": ".github/scripts/validate_navigation.py", "text": "EXPECTED_NAVIGATION_ROUTES"},
       "expected_error": ".github/scripts/validate_navigation.py: missing protected text"
+    },
+    {
+      "name": "self-test manifest deletion is rejected",
+      "mutation": {"type": "remove_text", "path": ".github/tests/repository_contract/test_repository_contract.py", "text": "REQUIRED_CASE_NAMES"},
+      "expected_error": ".github/tests/repository_contract/test_repository_contract.py: missing protected text"
+    },
+    {
+      "name": "preferred citation author deletion is rejected",
+      "mutation": {"type": "remove_text", "path": "CITATION.cff", "text": "      given-names: \"Sam\""},
+      "expected_error": "CITATION.cff: missing protected text"
+    },
+    {
+      "name": "README evidence boundary deletion is rejected",
+      "mutation": {"type": "remove_text", "path": "README.md", "text": "Visibility, recommendations, advisory relationships, invited talks, and synthesized examples are not treated as certification, institutional endorsement, formal adoption, or production evidence."},
+      "expected_error": "README.md: missing protected text"
+    },
+    {
+      "name": "README BibTeX author deletion is rejected",
+      "mutation": {"type": "remove_text", "path": "README.md", "text": "  author = {Oborskyi, Vitalii and Walker, Sam},"},
+      "expected_error": "README.md: missing protected text"
+    },
+    {
+      "name": "README advisor attribution deletion is rejected",
+      "mutation": {"type": "remove_text", "path": "README.md", "text": "### Markus Kopko — Strategic Advisor on Governance and Alignment"},
+      "expected_error": "README.md: missing required heading"
     }
   ]
 }
