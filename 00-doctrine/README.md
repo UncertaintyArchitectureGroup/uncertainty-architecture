@@ -28,6 +28,14 @@ canonical_for:
 
 # Core Doctrine
 
+> **UA navigation**
+>
+> [UA Home](../README.md) · [Specification](../SPECIFICATION.md)
+>
+> **Lifecycle:** [Organization / boundaries](nested-control-lifecycle.md#1-organizational-control-context) · [Project / architecture](../01-patterns/project-control-architecture-and-viability-review.md) · [Delivery / release](../01-patterns/thinking-system-review.md) · [Runtime / reassessment](nested-control-lifecycle.md#4-runtime-operation-and-reassessment)
+>
+> **Explore:** [Doctrine](README.md) · [Patterns](../01-patterns/) · [Control capabilities](../02-ai-control-plane/) · [Reference architectures](../03-reference-architectures/) · [Failure modes](../04-failure-modes/) · [Research](../content/research/index.md)
+
 **Status:** Draft normative  
 **Role:** Foundational vocabulary and architectural distinctions
 
