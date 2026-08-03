@@ -1,0 +1,76 @@
+name: Metadata integrity
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: metadata-integrity-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontmatter:
+    name: Metadata / frontmatter and controlled values
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Validate frontmatter and controlled values
+        working-directory: 01-patterns
+        run: python3 ../.github/scripts/validate_metadata.py --mode metadata
+
+  canonical-ownership:
+    name: Metadata / canonical ownership
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Validate canonical ownership
+        working-directory: 02-ai-control-plane
+        run: python3 ../.github/scripts/validate_metadata.py --mode canonical
+
+  glossary-terminology:
+    name: Content / glossary and terminology
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Validate protected glossary entries and report terminology warnings
+        working-directory: 00-doctrine
+        run: python3 ../.github/scripts/validate_metadata.py --mode terminology
+
+  self-tests:
+    name: Policy / metadata self-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Run metadata regression fixtures
+        working-directory: 03-reference-architectures
+        run: python3 ../.github/tests/metadata_contract/test_metadata.py
