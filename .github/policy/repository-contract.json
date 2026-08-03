@@ -37,51 +37,55 @@
   },
   "required_paths": [
     {"path": ".github/CODEOWNERS", "type": "file"},
-    {"path": ".github/pull_request_template.md", "type": "file"},
     {"path": ".github/policy/repository-contract.json", "type": "file"},
+    {"path": ".github/pull_request_template.md", "type": "file"},
+    {"path": ".github/scripts/validate_navigation.py", "type": "file"},
     {"path": ".github/scripts/validate_repository_contract.py", "type": "file"},
     {"path": ".github/tests/repository_contract/cases.json", "type": "file"},
     {"path": ".github/tests/repository_contract/test_repository_contract.py", "type": "file"},
+    {"path": ".github/workflows/link-integrity.yml", "type": "file"},
     {"path": ".github/workflows/repository-contract.yml", "type": "file"},
     {"path": "00-doctrine", "type": "directory"},
-    {"path": "01-patterns", "type": "directory"},
-    {"path": "02-ai-control-plane", "type": "directory"},
-    {"path": "03-reference-architectures", "type": "directory"},
-    {"path": "04-failure-modes", "type": "directory"},
-    {"path": "assets", "type": "directory"},
-    {"path": "content/research", "type": "directory"},
-    {"path": "content/history", "type": "directory"},
-    {"path": "content/raw", "type": "directory"},
-    {"path": "quartz", "type": "directory"},
     {"path": "00-doctrine/README.md", "type": "file"},
-    {"path": "00-doctrine/glossary.md", "type": "file"},
-    {"path": "00-doctrine/uncertainty-in-the-controlled-object.md", "type": "file"},
     {"path": "00-doctrine/control-loop-anatomy.md", "type": "file"},
+    {"path": "00-doctrine/glossary.md", "type": "file"},
+    {"path": "00-doctrine/model-judgment-placement.md", "type": "file"},
     {"path": "00-doctrine/nested-control-lifecycle.md", "type": "file"},
     {"path": "00-doctrine/requirements-correctness-and-bugs.md", "type": "file"},
-    {"path": "00-doctrine/model-judgment-placement.md", "type": "file"},
+    {"path": "00-doctrine/uncertainty-in-the-controlled-object.md", "type": "file"},
+    {"path": "01-patterns", "type": "directory"},
     {"path": "01-patterns/README.md", "type": "file"},
-    {"path": "01-patterns/project-control-architecture-and-viability-review.md", "type": "file"},
-    {"path": "01-patterns/project-control-architecture-and-viability-review-template.md", "type": "file"},
     {"path": "01-patterns/judgment-node-boundary.md", "type": "file"},
-    {"path": "01-patterns/thinking-system-review.md", "type": "file"},
+    {"path": "01-patterns/project-control-architecture-and-viability-review-template.md", "type": "file"},
+    {"path": "01-patterns/project-control-architecture-and-viability-review.md", "type": "file"},
     {"path": "01-patterns/thinking-system-review-template.md", "type": "file"},
-    {"path": "02-ai-control-plane/README.md", "type": "file"},
+    {"path": "01-patterns/thinking-system-review.md", "type": "file"},
+    {"path": "02-ai-control-plane", "type": "directory"},
     {"path": "02-ai-control-plane/00-actuators/README.md", "type": "file"},
     {"path": "02-ai-control-plane/01-constraints/README.md", "type": "file"},
     {"path": "02-ai-control-plane/01-constraints/constraint-realization-catalog.md", "type": "file"},
+    {"path": "02-ai-control-plane/01-sensors/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/02-controller/README.md", "type": "file"},
     {"path": "02-ai-control-plane/02-sensors/README.md", "type": "file"},
     {"path": "02-ai-control-plane/03-controller/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/README.md", "type": "file"},
+    {"path": "03-reference-architectures", "type": "directory"},
     {"path": "03-reference-architectures/README.md", "type": "file"},
+    {"path": "04-failure-modes", "type": "directory"},
     {"path": "04-failure-modes/README.md", "type": "file"},
-    {"path": "content/research/index.md", "type": "file"},
-    {"path": "content/research/review-process.md", "type": "file"},
-    {"path": "content/research/framework-traceability.md", "type": "file"},
+    {"path": "CITATION.cff", "type": "file"},
+    {"path": "CODE_OF_CONDUCT.md", "type": "file"},
+    {"path": "assets", "type": "directory"},
+    {"path": "content/history", "type": "directory"},
     {"path": "content/history/README.md", "type": "file"},
     {"path": "content/history/external-recognition.md", "type": "file"},
+    {"path": "content/raw", "type": "directory"},
     {"path": "content/raw/README.md", "type": "file"},
-    {"path": "02-ai-control-plane/01-sensors/README.md", "type": "file"},
-    {"path": "02-ai-control-plane/02-controller/README.md", "type": "file"}
+    {"path": "content/research", "type": "directory"},
+    {"path": "content/research/framework-traceability.md", "type": "file"},
+    {"path": "content/research/index.md", "type": "file"},
+    {"path": "content/research/review-process.md", "type": "file"},
+    {"path": "quartz", "type": "directory"}
   ],
   "immutable_files": [
     {
@@ -96,6 +100,84 @@
     }
   ],
   "critical_files": [
+    {
+      "path": ".github/CODEOWNERS",
+      "required_text": [
+        "* @oborskyivitalii",
+        "/.github/ @oborskyivitalii",
+        "/README.md @oborskyivitalii",
+        "/CITATION.cff @oborskyivitalii",
+        "/LICENSE-CODE.md @oborskyivitalii",
+        "/LICENSE-DOCS.md @oborskyivitalii",
+        "/content/raw/ @oborskyivitalii"
+      ]
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "required_headings": [
+        "## Summary",
+        "## Repository placement",
+        "## Companion updates",
+        "## Validation",
+        "## Uncertainty and remaining review"
+      ],
+      "required_text": [
+        "<!-- ua-change-contract",
+        "\"change_class\": \"select-one\"",
+        "\"owning_paths\": []",
+        "\"changelog\": \"select-one\"",
+        "\"traceability\": \"select-one\""
+      ]
+    },
+    {
+      "path": ".github/scripts/validate_navigation.py",
+      "required_text": [
+        "FRAMEWORK_ENTRY_PAGES",
+        "EXPECTED_NAVIGATION_ROUTES",
+        "COMPACT_BREADCRUMBS",
+        "validate_framework_entry_pages",
+        "validate_compact_breadcrumbs"
+      ]
+    },
+    {
+      "path": ".github/workflows/link-integrity.yml",
+      "required_text": [
+        "name: Link integrity",
+        "pull_request:",
+        "contents: read",
+        "persist-credentials: false",
+        "- name: Validate navigation coverage, order, and routing",
+        "- name: Validate CITATION.cff",
+        "- name: Validate maintained Markdown links and anchors",
+        "--offline",
+        "--include-fragments"
+      ]
+    },
+    {
+      "path": ".github/workflows/repository-contract.yml",
+      "required_text": [
+        "name: Repository contract",
+        "pull_request:",
+        "workflow_dispatch:",
+        "contents: read",
+        "name: Contract / critical structure",
+        "name: Policy / contract self-tests",
+        "persist-credentials: false",
+        "runs-on: ubuntu-24.04",
+        "timeout-minutes: 5"
+      ]
+    },
+    {
+      "path": "CITATION.cff",
+      "required_text": [
+        "cff-version: 1.2.0",
+        "title: \"Uncertainty Architecture\"",
+        "authors:\n  - family-names: \"Oborskyi\"\n    given-names: \"Vitalii\"\n  - family-names: \"Walker\"\n    given-names: \"Sam\"",
+        "repository-code: \"https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\"",
+        "preferred-citation:",
+        "type: generic"
+      ]
+    },
     {
       "path": "README.md",
       "required_headings": [
