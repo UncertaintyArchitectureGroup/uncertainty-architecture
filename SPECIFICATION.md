@@ -47,13 +47,13 @@ The specification covers:
 
 - the controlled-object shift created by consequential runtime Model Judgment;
 - deterministic responsibilities, Model Judgment, and Uncertainty Boundaries;
-- organizational, project, delivery, and runtime decision levels;
-- Constraints and their realizations, Sensors, Controllers, and Actuators as four logical capability families;
-- the distinction between a closed feedback loop and complete bounded UA control architecture;
+- the [`organizational, project, delivery, and runtime decision levels`](00-doctrine/nested-control-lifecycle.md);
+- [`Constraints and their realizations, Sensors, Controllers, and Actuators as four logical capability families`](00-doctrine/control-loop-anatomy.md);
+- the [`distinction between a closed feedback loop and complete bounded UA control architecture`](00-doctrine/control-loop-anatomy.md);
 - the distinction between Constraint and Constraint Realization;
 - scoped Hard and Soft Constraint claims;
-- project-level scenarios, Constraint architecture, capability feasibility, evidence, capacity, economics, authorization, inheritance, and reauthorization;
-- delivery-level Judgment Nodes, Requirement, Operating Envelope, one canonical Constraint Realization Map, DoR, DoD, Release Gate, and reassessment;
+- [`project-level scenarios, Constraint architecture, capability feasibility, evidence, capacity, economics, authorization, inheritance, and reauthorization`](01-patterns/project-control-architecture-and-viability-review.md);
+- [`delivery-level Judgment Nodes, Requirement, Operating Envelope, one canonical Constraint Realization Map, DoR, DoD, Release Gate, and reassessment`](01-patterns/thinking-system-review.md);
 - Human Authority, fallback, containment, compensation, rollback, escalation, and shutdown;
 - reusable patterns, failure modes, and non-prescriptive reference architectures;
 - Architectural Veto when credible and viable control cannot be established.
