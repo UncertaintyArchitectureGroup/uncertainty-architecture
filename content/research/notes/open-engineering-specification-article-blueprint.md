@@ -30,11 +30,11 @@ draft: true
 
 **Proposed subtitle:** From project viability to delivery realization, runtime evidence, and reauthorization
 
-> **Blueprint status:** This document is a drafting-ready editorial contract proposed for Phase 1 acceptance. It is a non-normative research note, not article prose and not a specification source. Every final UA claim must defer to the current repository specification, glossary, doctrine, patterns, AI Control Plane, reference architectures, failure modes, and explicit maturity state. Current external factual claims require current primary or authoritative evidence during Phase 2.
+> **Status:** Proposed Phase 1 editorial contract. This is a non-normative research note, not article prose and not a specification source. Current UA definitions remain owned by the specification, glossary, doctrine, patterns, AI Control Plane, reference architectures, failure modes, and roadmap. Current external factual claims require current primary or authoritative evidence during Phase 2.
 
 ## 1. Editorial decision
 
-The article will present one connected argument:
+The article will make one connected argument:
 
 ```text
 Thinking Systems change the controlled object
@@ -44,34 +44,39 @@ Thinking Systems change the controlled object
 → authoritative Constraints flow downward by reference while realization becomes concrete
 → runtime evidence returns to the decision level whose basis it invalidates
 → one project review and one delivery review provide the default SMB operating surface
-→ one illustrative Constraint trace makes the complete path concrete
+→ one illustrative Constraint trace makes the lifecycle concrete
 → platforms may implement capabilities without acquiring organizational or project authority by default
 → the open specification is coherent enough to test but not mature enough to declare complete
 ```
 
-The four decision levels are the article's conceptual center. The four capability families explain how decisions at every level become operational. The two models remain orthogonal and must not be presented as competing lifecycles, a one-to-one matrix, or a mandatory physical stack.
+The article uses one unnumbered abstract and eight numbered sections.
 
-The article will use one unnumbered abstract and eight numbered sections. Earlier proposals for ten sections are consolidated to remove repeated explanations of control theory, inheritance, artifacts, openness, maturity, and the platform boundary.
+Two models remain orthogonal throughout:
 
-## 2. Central thesis and claim boundary
+- **decision levels** identify where a decision is owned;
+- **capability families** identify how boundaries, evidence, decisions, and actions become operational.
+
+The article must not map the four levels one-to-one onto the four families, present either model as a mandatory physical stack, or turn the lifecycle into a one-way waterfall.
+
+## 2. Stable thesis and claim boundary
 
 ### Stable thesis paragraph
 
 Thinking Systems change the object being engineered because consequential runtime behavior may be produced through probabilistic Model Judgment rather than fully enumerated deterministic logic. Evaluation, observability, policies, human approval, and agent orchestration are useful but remain incomplete when they are not connected to approved Constraints, concrete Constraint Realizations, decision authority, corrective action, and reassessment. Uncertainty Architecture provides an open, tool-neutral specification for connecting those responsibilities across organizational, project, delivery, and runtime decision levels while preserving a lightweight default operating path for small and medium-sized teams.
 
-### Defensible claim
+### Defensible public claim
 
 UA provides a coherent draft specification spine for reasoning about and operating model-mediated systems from project authorization through delivery release and runtime reassessment.
 
 ### Claims the article must not make
 
-The article must not claim that UA is:
+The article must not describe UA as:
 
 - an accepted industry standard;
 - a complete scientific theory;
 - independently validated across multiple teams or domains;
 - a universal governance or compliance framework;
-- a replacement for Agile, DevOps, QA, security, incident response, legal review, or organizational policy;
+- a replacement for Agile, DevOps, QA, security, change management, incident response, legal review, or organizational policy;
 - a mandatory four-service AI Control Plane;
 - a universal risk score, maturity ladder, threshold method, or role model;
 - a finished product or SDK;
@@ -90,14 +95,14 @@ The article must not claim that UA is:
 ### Tone
 
 - architectural rather than promotional;
-- direct and skeptical of hype without attacking adjacent disciplines or products;
-- precise about authority, evidence, failure, and maturity;
+- direct and skeptical of hype without dismissing adjacent disciplines or products;
+- precise about evidence, authority, failure, and maturity;
 - practical for SMB teams without assuming enterprise governance structure;
 - open to contradiction and revision.
 
 ### Reader promise
 
-By the end, the reader should understand:
+The reader should leave able to explain:
 
 1. why consequential Model Judgment changes the controlled object;
 2. the difference between measurement, a closed feedback loop, and a complete bounded UA control architecture;
@@ -105,18 +110,17 @@ By the end, the reader should understand:
 4. the four decision levels and the question owned by each;
 5. how Project Constraint Architecture, delivery Constraint Realization Map, runtime evidence, and reassessment connect;
 6. why project authorization, DoR, DoD, Release Gate, runtime correction, and project reauthorization are different decisions;
-7. how a small team can operate the model without creating parallel governance bureaucracy;
+7. how a small team can use the model without creating parallel governance bureaucracy;
 8. what platforms may implement and what authority they do not acquire automatically;
 9. what exists in the repository and what remains unvalidated.
 
-## 4. Article contract
+## 4. Article structure
 
 ### Unnumbered abstract
 
-**Purpose**  
-State the complete argument and maturity boundary without trying to teach the framework before the article begins.
+**Purpose:** State the complete argument and maturity boundary without teaching the framework in miniature.
 
-**Required points**
+**Required content:**
 
 - Thinking Systems place consequential probabilistic Model Judgment inside the controlled object.
 - Model quality, evaluation, observability, policy, and human approval remain incomplete when disconnected from approved boundaries, decision authority, corrective action, and reassessment.
@@ -124,13 +128,7 @@ State the complete argument and maturity boundary without trying to teach the fr
 - The default SMB operating surface uses one project review and one delivery review rather than a new governance bureaucracy.
 - The specification is coherent enough for external application and criticism but lacks sufficient independent evidence for a maturity claim.
 
-**Do not include**
-
-- the full four-level explanation;
-- the complete capability taxonomy;
-- the K-SEND-01 scenario;
-- market statistics or named-product claims;
-- a promotional call to action.
+**Exclude:** the complete taxonomy, the K-SEND-01 scenario, market statistics, named products, and promotional calls to action.
 
 **Word budget:** 200–250
 
@@ -138,42 +136,36 @@ State the complete argument and maturity boundary without trying to teach the fr
 
 ### 4.1 The Missing Engineering Connection
 
-**Purpose**  
-Establish the practical gap before introducing UA terminology.
+**Purpose:** Establish the practical gap before introducing UA terminology.
 
-**Core claim**  
-The ecosystem offers many relevant components, but policies, evaluations, traces, approval steps, and orchestration tools do not become a governable system unless they are connected to authorization, bounded authority, decision ownership, corrective action, and reassessment.
+**Core claim:** The ecosystem offers many relevant components, but policies, evaluations, traces, approval steps, and orchestration tools do not become a governable system unless they are connected to authorization, bounded authority, decision ownership, corrective action, and reassessment.
 
-**Required points**
+**Required content:**
 
 - Open with a credible team that has a model, retrieval or tools, traces, evaluations, policy, human approval, and a pilot.
-- Show the connected questions the team still cannot answer:
+- Ask the connected questions the components alone do not answer:
   - Was Model Judgment necessary?
   - What authority was delegated?
   - Which consequences are prohibited or unacceptable?
   - Which Constraints are authoritative?
-  - How are those Constraints realized?
+  - How are they realized?
   - Which evidence informs which decision?
   - Who may narrow, roll back, disable, redesign, or stop operation?
   - When does runtime evidence invalidate project authorization?
   - Does the business case survive the complete control cost?
-- State the market claim narrowly: practices may remain fragmented by product boundary, decision level, or organizational function.
-- Support factual claims about current industry practice with current primary or authoritative sources during Phase 2. When evidence is unavailable, frame the point explicitly as a practitioner observation rather than an established market fact.
+- State the market observation narrowly: practices may remain fragmented by product boundary, decision level, or organizational function.
+- Support factual claims about current industry practice with current primary or authoritative sources. When evidence is unavailable, label the point as practitioner observation rather than established market fact.
 - Do not claim that no governance, safety, systems, or control practice exists.
 
-**Canonical source anchors**
+**Canonical anchors:**
 
 - [`SPECIFICATION.md`](../../../SPECIFICATION.md)
-- [`00-doctrine/uncertainty-in-the-controlled-object.md`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
-- [`04-failure-modes/README.md`](../../../04-failure-modes/README.md)
+- [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
+- [`Failure Modes and Anti-Patterns`](../../../04-failure-modes/README.md)
 
-**Must not repeat elsewhere**  
-The full inventory of disconnected point solutions and the general industry-gap argument.
+**Transition:** The connection is missing because AI is still often treated as an additional component inside an otherwise unchanged engineering object.
 
-**Transition**  
-The gap exists because teams are still treating AI as an additional component inside an unchanged engineering object.
-
-**Intended closing claim**
+**Closing claim:**
 
 > The missing layer is not another AI component. It is the engineering connection between delegated judgment, authorized boundaries, evidence, decision authority, and corrective action.
 
@@ -183,21 +175,19 @@ The gap exists because teams are still treating AI as an additional component in
 
 ### 4.2 The Controlled Object Has Changed
 
-**Purpose**  
-Explain the doctrinal reason UA exists.
+**Purpose:** Explain the doctrinal reason UA exists.
 
-**Core claim**  
-A Thinking System produces part of its consequential uncertainty inside the engineered object because runtime behavior depends partly on probabilistic Model Judgment.
+**Core claim:** A Thinking System produces part of its consequential uncertainty inside the engineered object because runtime behavior depends partly on probabilistic Model Judgment.
 
-**Required points**
+**Required content:**
 
-- Use deterministic software as a design-contract distinction, not a claim of perfect repeatability:
+- Use determinism as a design-contract distinction, not a claim of perfect repeatability:
 
   ```text
   y = f(x)
   ```
 
-- Introduce model-mediated responsibility as behavior selected from plausible outcomes under input, context, model, configuration, state, and operating conditions:
+- Describe model-mediated responsibility as selection from plausible outcomes under input, context, model, configuration, state, and operating conditions:
 
   ```text
   y ~ P(y | x, context, model configuration, system state)
@@ -206,50 +196,43 @@ A Thinking System produces part of its consequential uncertainty inside the engi
 - Explain Model Judgment through interpretation, classification, ranking, planning, generation, routing, or action selection.
 - State that useful variance is the reason the model is present; the objective is containment rather than elimination of all variance.
 - Distinguish product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty.
-- State that UA complements product discovery, Agile, DevOps, QA, security, change management, resilience, and incident response.
-- Avoid claiming that identical model calls must always produce different outputs.
-
-**Canonical source anchors**
-
-- [`00-doctrine/uncertainty-in-the-controlled-object.md`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
-- [`00-doctrine/glossary.md`](../../../00-doctrine/glossary.md)
-- [`00-doctrine/model-judgment-placement.md`](../../../00-doctrine/model-judgment-placement.md)
+- State that UA complements existing engineering disciplines.
 
 **Figure 1 — Controlled-object shift**
 
-Use a two-panel composition rather than a one-way control pipeline.
-
-**Panel A — Primarily explicit behavior**
+Use a two-panel composition.
 
 ```text
-External, requirement, delivery, and operational uncertainty
-        ↓
-Explicitly encoded runtime responsibilities
+Panel A — Primarily explicit runtime behavior
+external, requirement, delivery, and operational uncertainty
+→ explicitly encoded runtime responsibilities
+
+Panel B — Thinking System
+external, requirement, delivery, and operational uncertainty
+→ deterministic ingress and responsibilities
+→ bounded Model Judgment
+→ deterministic output/action mediation
+→ observed outputs, actions, and downstream outcomes
 ```
 
-**Panel B — Thinking System**
+Around the Model Judgment region, show approved Constraints and realizations, Sensors and evidence, Controller authority, and Actuator paths.
 
-```text
-External, requirement, delivery, and operational uncertainty
-        ↓
-Deterministic ingress and responsibilities
-        ↓
-Bounded Model Judgment inside the runtime path
-        ↓
-Deterministic output/action mediation
-        ↓
-Observed outputs, actions, and downstream outcomes
-```
+The figure must not imply that:
 
-Around the Model Judgment region, show approved Constraints and realizations, Sensors and evidence, Controller authority, and Actuator paths. The figure must not imply that every realization acts before the model, that traditional software has no uncertainty, that the Thinking System is wholly probabilistic, or that the four capability families form a vertical execution sequence.
+- traditional software has no uncertainty;
+- a Thinking System is wholly probabilistic;
+- every realization acts before the model;
+- the capability families form a vertical execution sequence.
 
-**Must not repeat elsewhere**  
-The full deterministic-versus-model-mediated explanation.
+**Canonical anchors:**
 
-**Transition**  
-Once the system itself produces consequential uncertainty, quality measurement is necessary but no longer the complete engineering contract.
+- [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
+- [`Glossary`](../../../00-doctrine/glossary.md)
+- [`Model Judgment Placement`](../../../00-doctrine/model-judgment-placement.md)
 
-**Intended closing claim**
+**Transition:** Once consequential uncertainty is produced inside the runtime path, quality measurement is necessary but no longer the complete engineering contract.
+
+**Closing claim:**
 
 > The problem is not merely that AI is harder to test. Part of the controlled object's behavior is now produced through runtime judgment.
 
@@ -259,15 +242,13 @@ Once the system itself produces consequential uncertainty, quality measurement i
 
 ### 4.3 From Model Quality to Bounded Control
 
-**Purpose**  
-Introduce the accepted Control-Loop Capability Anatomy and distinguish feedback closure from bounded acceptable operation.
+**Purpose:** Introduce the accepted Control-Loop Capability Anatomy and distinguish feedback closure from bounded acceptable operation.
 
-**Core claim**  
-A measured system is not necessarily controlled, and a closed feedback loop is not necessarily operating inside an approved boundary.
+**Core claim:** A measured system is not necessarily controlled, and a closed feedback loop is not necessarily operating inside an approved boundary.
 
-**Required points**
+**Required content:**
 
-- Use the canonical closed-feedback path:
+- Use the canonical feedback path:
 
   ```text
   Thinking System
@@ -277,15 +258,15 @@ A measured system is not necessarily controlled, and a closed feedback loop is n
   → changed Thinking System operation
   ```
 
-- Explain why the feedback loop may remain closed while unsafe, over-authorized, or economically unacceptable.
+- Explain why the loop may remain closed while unsafe, over-authorized, or economically unacceptable.
 - Introduce the four logical capability families:
   1. **Constraints and their realizations** define and operationalize approved boundaries.
-  2. **Sensors and evidence** observe behavior, outcomes, operating conditions, realization state, Actuator execution, and control health.
+  2. **Sensors and evidence** observe behavior, outcomes, conditions, realization state, Actuator execution, and control health.
   3. **Controllers and decision authority** compare or interpret evidence relative to approved Requirements, Constraints, and assumptions, then select or authorize action.
   4. **Actuators and corrective action** execute authorized changes to operation or a Constraint Realization.
-- Preserve these distinctions:
-  - Constraint is an authoritative decision object.
-  - Constraint Realization is the technical or socio-technical mechanism implementing, enforcing, or influencing it.
+- Preserve the functional distinctions:
+  - Constraint is the authoritative boundary object.
+  - Constraint Realization implements, enforces, or influences it.
   - Constraint Realization is not a fifth family.
   - Controller decides or authorizes; Actuator executes.
   - evaluator and metrics normally perform Sensor functions;
@@ -295,27 +276,21 @@ A measured system is not necessarily controlled, and a closed feedback loop is n
   - a Hard Constraint's complete realized path deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries;
   - prompts, natural-language policies, probabilistic evaluators, and model preferences are not hard by themselves;
   - different guarantee strengths require separate Constraint records.
-- Use short anti-examples:
-  - telemetry without a Controller is observation;
-  - a Controller without an effective Actuator cannot correct;
-  - policy without credible realization is not an operable boundary;
-  - a nominal human approval step is not substantive Human Authority;
-  - a kill-switch endpoint without authority, evidence, and operability is not a complete control system.
+- Use short anti-examples: telemetry without authority is observation; a Controller without an effective Actuator cannot correct; a declared policy without realization is not an operable boundary; nominal human review is not substantive Human Authority.
 
-**Canonical source anchors**
+**Canonical anchors:**
 
-- [`00-doctrine/control-loop-anatomy.md`](../../../00-doctrine/control-loop-anatomy.md)
-- [`02-ai-control-plane/README.md`](../../../02-ai-control-plane/README.md)
-- [`02-ai-control-plane/01-constraints/README.md`](../../../02-ai-control-plane/01-constraints/README.md)
-- [`02-ai-control-plane/01-constraints/constraint-realization-catalog.md`](../../../02-ai-control-plane/01-constraints/constraint-realization-catalog.md)
+- [`Control-Loop Capability Anatomy`](../../../00-doctrine/control-loop-anatomy.md)
+- [`AI Control Plane`](../../../02-ai-control-plane/README.md)
+- [`Constraint Capability Family`](../../../02-ai-control-plane/01-constraints/README.md)
+- [`Constraint Realization Catalog`](../../../02-ai-control-plane/01-constraints/constraint-realization-catalog.md)
+- [`Actuator Capabilities`](../../../02-ai-control-plane/00-actuators/README.md)
+- [`Sensor and Evidence Capabilities`](../../../02-ai-control-plane/02-sensors/README.md)
+- [`Controller and Decision Authority`](../../../02-ai-control-plane/03-controller/README.md)
 
-**Must not repeat elsewhere**  
-Detailed capability definitions and the closed-loop-versus-bounded-operation distinction.
+**Transition:** The capability anatomy explains how control works, but not where project, release, runtime, and organizational decisions are owned.
 
-**Transition**  
-The capability anatomy explains how control works, but not where project, release, runtime, and organizational decisions are owned.
-
-**Intended closing claim**
+**Closing claim:**
 
 > A closed loop can still be unacceptable. UA asks whether that loop operates inside an approved, credibly realized, observable, and correctable boundary.
 
@@ -325,39 +300,30 @@ The capability anatomy explains how control works, but not where project, releas
 
 ### 4.4 Four Decision Levels of Uncertainty Architecture
 
-**Purpose**  
-Present the Nested Control Lifecycle as the article's conceptual center.
+**Purpose:** Present the Nested Control Lifecycle as the conceptual center.
 
-**Core claim**  
-Different control decisions require different evidence, authority, time horizons, and corrective actions; they must remain connected without collapsing into one gate or governance process.
+**Core claim:** Different control decisions require different evidence, authority, time horizons, and corrective actions; they must remain connected without collapsing into one gate or governance process.
 
 **Figure 2 — Two orthogonal UA models**
 
-The figure must show two adjacent, explicitly orthogonal views.
-
-**Decision ownership view:**
+Show two adjacent views.
 
 ```text
-Organizational control context
-        ↓ authoritative sources, shared capabilities, decision rights
-Project control architecture and viability
-        ↓ versioned Project Constraint Architecture and authorization
-Delivery-level Thinking System Review
-        ↓ concrete Constraint Realization Map and deployment-specific release decision
-Runtime operation and reassessment
-        ↑ local evidence / project invalidation / organizational invalidation
-```
+Decision ownership
+Organization
+→ Project / architecture
+→ Delivery team
+→ Runtime operation and reassessment
+↖ evidence returns to the decision basis it invalidates
 
-**Capability view, applying at every level:**
-
-```text
-Constraints and their realizations
+Capability functions at every level
+Constraints and realizations
 Sensors and evidence
 Controllers and decision authority
 Actuators and corrective action
 ```
 
-The figure must not imply a one-to-one mapping between four levels and four families, four mandatory services, or a one-way waterfall. It must make visible that every decision level may need all four capability functions.
+The figure must show downward inheritance and upward reassessment and must not imply one-to-one mapping, four mandatory services, or a one-way waterfall.
 
 #### Organizational control context
 
@@ -365,47 +331,25 @@ The figure must not imply a one-to-one mapping between four levels and four fami
 
 - Link existing legal, contractual, security, privacy, safety, procurement, vendor, geography, prohibited-use, incident, and decision-right sources.
 - Do not create a mandatory UA organizational artifact or governance department.
-- Shared capabilities may include identity, authorization, audit, evaluation, incident response, Human Authority, rollback, containment, compensation, and shutdown.
-- Organizational sources do not become Hard Constraints merely because they are authoritative; the realized path and scoped guarantee still matter.
+- Organizational sources do not become Hard Constraints merely because they are authoritative; realization and scoped guarantee still matter.
 
 #### Project control architecture and viability
 
 **Question owned:** Does a credible, operable, and economically viable control architecture exist for this proposed Thinking System within a defined boundary?
 
-The [`Project Control Architecture and Viability Review`](../../../01-patterns/project-control-architecture-and-viability-review.md) owns:
-
-- outcome and AI necessity;
-- project boundary and intended Judgment landscape;
-- material scenarios and consequences;
-- organizational Constraint interpretation and project-specific Constraints;
-- one canonical **Project Constraint Architecture**;
-- required realization capabilities and assumptions;
-- required Sensors, Controllers, Actuators, Human Authority, fallback, containment, compensation, rollback, and shutdown;
-- evidence feasibility and latency;
-- operating capacity and control economics;
-- authorization, conditions, bounded research, redesign, deferral, escalation, or No-Go;
-- delivery inheritance and project reauthorization triggers.
+The project review owns outcome and AI necessity, project boundary, material scenarios, Project Constraint Architecture, required capabilities and assumptions, evidence feasibility, Human Authority, capacity, control economics, authorization, inheritance, and project reauthorization.
 
 A successful prototype is not project authorization. Architectural Veto is a valid engineering outcome.
 
 #### Delivery-level Thinking System Review
 
-**Question owned:** Is a bounded system, feature, or material change ready, complete, and acceptable for a specific deployment context under the project authorization?
+**Question owned:** Is a bounded system, feature, or material change ready, complete, and acceptable for a specific deployment context under project authorization?
 
-The [`Thinking System Review`](../../../01-patterns/thinking-system-review.md) owns:
-
-- implementation-level Judgment Nodes;
-- the delivery Requirement and Operating Envelope;
-- one canonical **Constraint Realization Map** linked to the project baseline;
-- Definition of Ready;
-- bounded experiment or implementation;
-- Definition of Done;
-- deployment-specific Release Gate;
-- local runtime reassessment.
+The delivery review owns implementation-level Judgment Nodes, the delivery Requirement and Operating Envelope, one Constraint Realization Map, DoR, implementation or bounded experiment, DoD, Release Gate, and local reassessment.
 
 Distinguish:
 
-- DoR establishes readiness and the authority basis for beginning bounded work;
+- DoR establishes readiness and the authority basis for bounded work;
 - DoD establishes implementation and evidence completeness;
 - Release Gate accepts, limits, conditions, escalates, or rejects a deployment.
 
@@ -415,35 +359,30 @@ Delivery may narrow but must not expand project authority or weaken an inherited
 
 **Question owned:** Does active operation remain within the approved Requirement, Constraint baseline, authority, capacity, and economics, with required realizations active and healthy, and what action follows when it does not?
 
-- Runtime exercises deployed realizations and produces evidence about behavior, downstream outcomes, realization state, violations, bypass, conflict, degradation, unavailability, false blocks, friction, Actuator execution, Human Authority, fallback capacity, and project or organizational assumptions.
-- Evidence reaches an authorized Controller; Actuators execute correction, narrowing, fallback, containment, compensation, rollback, suspension, or shutdown.
-- Runtime operation does not require a mandatory third governance register.
-- Route evidence by the decision basis invalidated:
+Runtime exercises deployed realizations and produces evidence about behavior, outcomes, realization state, violations, bypass, degradation, Actuator execution, Human Authority, fallback capacity, and project or organizational assumptions.
 
-  ```text
-  local implementation, realization, configuration, or evidence issue
-  → delivery reassessment
+Evidence routes by the decision basis invalidated:
 
-  project risk, authority, feasibility, evidence, capacity, or economics changed
-  → project reauthorization
+```text
+local implementation, realization, configuration, or evidence issue
+→ delivery reassessment
 
-  authoritative source, decision right, or shared capability changed
-  → organizational review
-  ```
+project risk, authority, feasibility, evidence, capacity, or economics changed
+→ project reauthorization
 
-**Canonical source anchors**
+authoritative source, decision right, or shared capability changed
+→ organizational review
+```
 
-- [`00-doctrine/nested-control-lifecycle.md`](../../../00-doctrine/nested-control-lifecycle.md)
-- [`01-patterns/project-control-architecture-and-viability-review.md`](../../../01-patterns/project-control-architecture-and-viability-review.md)
-- [`01-patterns/thinking-system-review.md`](../../../01-patterns/thinking-system-review.md)
+**Canonical anchors:**
 
-**Must not repeat elsewhere**  
-Full ownership definitions for the four levels.
+- [`Nested Control Lifecycle`](../../../00-doctrine/nested-control-lifecycle.md)
+- [`Project Control Architecture and Viability Review`](../../../01-patterns/project-control-architecture-and-viability-review.md)
+- [`Thinking System Review`](../../../01-patterns/thinking-system-review.md)
 
-**Transition**  
-The lifecycle becomes practical only when authoritative decisions are inherited rather than recopied and when concrete runtime evidence can be traced back to the decision it challenges.
+**Transition:** The lifecycle becomes practical only when authoritative decisions are inherited rather than recopied and when runtime evidence can be traced back to the decision it challenges.
 
-**Intended closing claim**
+**Closing claim:**
 
 > Lower levels may refine and narrow a higher-level decision. They may not silently expand its authority or normalize evidence that invalidates it.
 
@@ -453,16 +392,14 @@ The lifecycle becomes practical only when authoritative decisions are inherited 
 
 ### 4.5 From Authority to Operation: Two Living Reviews
 
-**Purpose**  
-Explain inheritance, realization, evidence routing, and the default SMB operating surface without reproducing templates.
+**Purpose:** Explain inheritance, realization, evidence routing, and the default SMB operating surface without reproducing the templates.
 
-**Core claim**  
-UA reduces duplication by preserving one project Constraint artifact and one delivery realization artifact, linked to existing organizational sources and runtime evidence.
+**Core claim:** UA reduces duplication by preserving one project Constraint artifact and one delivery realization artifact, linked to existing organizational sources and runtime evidence.
 
-**Canonical path**
+**Canonical path:**
 
 ```text
-Existing organizational sources, shared capabilities, and decision rights
+existing organizational sources, shared capabilities, and decision rights
 → one living Project Control Architecture and Viability Review
 → one versioned Project Constraint Architecture and authorization
 → one living Thinking System Review per bounded delivery scope
@@ -472,32 +409,27 @@ Existing organizational sources, shared capabilities, and decision rights
 → delivery reassessment, project reauthorization, or organizational review
 ```
 
-**Required points**
+**Required content:**
 
 - Constraint authority flows downward by reference; policy prose is not copied as if it were a complete technical control.
-- At project level, Constraints are interpreted or derived, scoped, assigned required realization and assumptions, connected to evidence, authority, economics, inheritance, and reauthorization.
-- At delivery level, realization becomes concrete through active mechanisms, configuration, verification, failure behavior, evidence, change authority, and release scope.
-- At runtime, active source, project, delivery, realization, model, prompt, policy, tool, and deployment versions remain traceable where material.
-- Judgment Node cards reference delivery Constraint IDs instead of redefining Constraints locally.
-- DoR, DoD, Release Gate, and runtime sections reference the same Constraint Realization Map rather than creating parallel records.
-- Additional risk registers, Constraint Registers, RACIs, gate files, financial models, or responsibility matrices are optional when independent ownership, lifecycle, access, retention, regulation, or audit needs justify them.
-- Two living reviews are the default proportional path, not a claim that they are sufficient for every organization or consequence level.
-- One person may hold several responsibility bundles without collapsing the decisions.
+- Project-level Constraints are interpreted or derived, scoped, connected to required realization, assumptions, evidence, authority, economics, inheritance, and reauthorization.
+- Delivery makes realization concrete through active mechanisms, configuration, verification, failure behavior, evidence, change authority, and release scope.
+- Runtime preserves material source, project, delivery, realization, model, prompt, policy, tool, and deployment versions.
+- Judgment Nodes, DoR, DoD, Release Gate, and runtime sections reference the same Constraint Realization Map rather than creating parallel records.
+- Additional registers, RACIs, gate files, financial models, or committees remain optional when independent ownership, lifecycle, access, retention, regulation, or audit needs justify them.
+- Two living reviews are the default proportional path, not a universal sufficiency claim.
+- One person may carry several responsibility bundles without collapsing the decisions.
 
-**Canonical source anchors**
+**Canonical anchors:**
 
-- [`00-doctrine/nested-control-lifecycle.md`](../../../00-doctrine/nested-control-lifecycle.md)
-- [`01-patterns/project-control-architecture-and-viability-review-template.md`](../../../01-patterns/project-control-architecture-and-viability-review-template.md)
-- [`01-patterns/thinking-system-review-template.md`](../../../01-patterns/thinking-system-review-template.md)
-- [`01-patterns/judgment-node-boundary.md`](../../../01-patterns/judgment-node-boundary.md)
+- [`Nested Control Lifecycle`](../../../00-doctrine/nested-control-lifecycle.md)
+- [`Project Review Template`](../../../01-patterns/project-control-architecture-and-viability-review-template.md)
+- [`Thinking System Review Template`](../../../01-patterns/thinking-system-review-template.md)
+- [`Judgment Node Boundary`](../../../01-patterns/judgment-node-boundary.md)
 
-**Must not repeat elsewhere**  
-The complete inheritance and two-artifact explanation.
+**Transition:** An illustrative Constraint trace can make the consequences concrete without pretending that the repository already contains evidence for a complete two-level application.
 
-**Transition**  
-An illustrative Constraint trace can make the decision consequences concrete without pretending that the repository already contains application evidence for the complete lifecycle.
-
-**Intended closing claim**
+**Closing claim:**
 
 > The goal is not to document everything repeatedly. It is to preserve the chain from authoritative source to scoped Constraint, concrete realization, runtime evidence, and corrective decision.
 
@@ -507,115 +439,96 @@ An illustrative Constraint trace can make the decision consequences concrete wit
 
 ### 4.6 One Constraint Across the Full Lifecycle
 
-**Purpose**  
-Illustrate one continuous project-to-runtime decision path without claiming that the repository already contains a completed two-level worked application.
+**Purpose:** Illustrate one continuous project-to-runtime decision path without claiming that the repository already contains a completed two-level worked application.
 
-**Source boundary**  
-The narrative is an editorial synthesis using the project pattern, Constraint capability, and the existing illustrative delivery review for support triage. The final article must state that the repository currently contains a delivery-level worked example, while a complete two-level worked application remains roadmap work. The narrative illustrates specification behavior; it is not independent application evidence.
+**Evidence boundary:** The narrative is an editorial synthesis using the project pattern, Constraint capability, and the illustrative delivery review for support triage. It illustrates specification behavior; it is not independent application evidence.
 
-**Scenario**  
-A company wants a Thinking System to interpret English-language Product A support tickets, recommend routing, and draft grounded replies for trained support agents.
+**Scenario:** A company wants a Thinking System to interpret English-language Product A support tickets, recommend routing, and draft grounded replies for trained support agents.
 
-**Constraint selected for the trace**
+**Constraint statement:**
 
-> The model-mediated path may create a draft but must not send customer communication without Human Authority.
+> The model-mediated support path may create a draft but must not invoke or execute outbound customer communication. Sending remains reserved to an authorized human-operated path after review.
 
 #### Organizational source
 
 - Autonomous customer communication is prohibited for the initial use case.
-- Human Authority is required before outbound communication.
+- Outbound communication remains reserved to Human Authority.
 - Existing identity, authorization, audit, incident, and shutdown capabilities are authoritative dependencies.
-- An organizational exception would be required to permit autonomous sending.
+- An organizational exception would be required before autonomous sending could be considered.
 
 #### Project Constraint Architecture
 
-Use one illustrative record:
-
 ```text
 Constraint ID: K-SEND-01
-Intent: prevent model-mediated autonomous customer communication
+Intent: preserve human authority over outbound customer communication
 Source/rationale: organizational prohibited-use and customer-commitment boundary
-Subject: outbound send action
-Path: every model-mediated tool, API, workflow, and alternate execution path
+Subject: outbound customer-communication send authority
+Path: every model-mediated tool, API, workflow, and alternate path that could reach a send action
 Scope: English-language Product A support within the authorized initial population
 Class: Human Authority
 Claimed strength: Hard, within stated assumptions
-Required realization: model-path identity has no send permission; only a human-operated approved path may send after review
-Assumptions: credentials remain isolated; no alternate endpoint bypasses the gate; active permission state is verified
-Failure behavior: fail closed; preserve draft; route to manual handling; disable feature when authorization state is unknown
-Evidence: negative permission tests, denied-send events, active permission/configuration versions, approved human-send attribution, bypass tests
+Required realization: model-path identity has no send permission; only an authorized human-operated path may send after review
+Assumptions: credentials remain isolated; all reachable send paths are known; no alternate endpoint bypasses the boundary; active permission state is verified
+Failure behavior: fail closed; preserve draft; route to manual handling; disable the feature when authorization state is unknown
+Evidence: negative permission tests, denied-send events, active permission/configuration versions, approved human-send attribution, alternate-path and bypass tests
 Change authority: delivery may repair or roll back inside the baseline; autonomous sending requires project reauthorization and organizational review
 ```
 
-The project may authorize bounded delivery only if the complete realization, evidence, Human Authority capacity, fallback, and control economics are credible.
+The project may authorize bounded delivery only when the complete realization, evidence, Human Authority capacity, fallback, and control economics are credible.
 
 #### Delivery Constraint Realization Map
 
-The delivery review maps `K-SEND-01` to:
+Map `K-SEND-01` to:
 
 - a service identity with no outbound-send permission;
-- a deterministic authorization gate covering every reachable send path in the reviewed scope;
+- a deterministic authorization boundary covering every reachable send path in scope;
 - a draft queue visible to trained support agents;
-- a human-operated send action separated from Model Judgment;
+- an authorized human-operated send path separated from Model Judgment;
 - auditable linkage among draft, reviewer decision, and send event;
 - fail-closed behavior when permission or approval state is unavailable;
 - negative-authority, alternate-path, bypass, and configuration-drift tests;
-- runtime evidence and local rollback/disable Actuators.
+- runtime evidence and rollback/disable Actuators.
 
-Each Judgment Node references `K-SEND-01`. The node cards do not rewrite the Constraint.
+Every Judgment Node references `K-SEND-01`; node cards do not redefine it.
 
 #### DoR, DoD, and Release Gate
 
 - **DoR:** inherited Constraint and scope, Judgment Nodes, complete realization design, assumptions, evidence, Human Authority, fallback, and bounded experiment are explicit.
-- **DoD:** the realization is implemented; every reachable send path in the reviewed scope is covered; no alternate path bypasses the realization; unavailable behavior and bypass are tested; evidence and Actuators are operational.
-- **Release Gate:** active realization versions, reviewer capacity, deployment population, residual risk, and rollback/disable readiness are acceptable for the limited release.
+- **DoD:** every reachable send path in the reviewed scope is covered; no alternate path bypasses the realization; unavailable behavior and bypass are tested; evidence and Actuators are operational.
+- **Release Gate:** active realization versions, reviewer capacity, deployment population, residual risk, and rollback/disable readiness are acceptable for limited release.
 
 #### Runtime evidence and change routing
 
-Use two runtime evidence outcomes and one separate authority-change request:
+1. **Local realization defect** — a configuration mismatch is detected before an unauthorized send path becomes reachable. Delivery fails closed, repairs the realization, verifies the complete path, and passes a new Release Gate.
+2. **Project assumption invalidated** — review volume and latency make the control perimeter economically non-viable at planned scale. `K-SEND-01` remains valid, but project capacity and economics do not. Project reauthorization narrows, redesigns, defers, or rejects the path.
+3. **Separate authority-change request** — the business requests autonomous sending. This is not runtime evidence or delivery tuning. It requires project reauthorization and organizational review before any new realization is designed.
 
-1. **Local realization defect**  
-   A configuration mismatch is detected before any unauthorized send path becomes reachable. Delivery fails closed, corrects the configuration, verifies the complete path, and passes a new Release Gate.
-
-2. **Project assumption invalidated**  
-   Human review volume and latency make the control perimeter economically non-viable at planned scale. `K-SEND-01` remains valid, but project capacity and economics no longer do. The result is project reauthorization: narrow eligible cases, population, or volume; redesign the workflow; or reject the AI path.
-
-3. **Authority expansion requested**  
-   The business requests autonomous sending. This is not runtime evidence or a delivery tuning change. It changes project authority and conflicts with the organizational source. It requires project reauthorization and organizational review before any new realization may be designed.
-
-**Figure 3 — Constraint trace**
+**Figure 3 — K-SEND-01 Constraint trace**
 
 ```text
-Organizational prohibition and Human Authority requirement
-        ↓
-Project K-SEND-01
-subject + path + scope + Hard claim + assumptions
-        ↓
-Delivery Constraint Realization Map
-no-send identity + deterministic gate + human send path + evidence
-        ↓
-Runtime operation and evidence
-        ├─ local defect → delivery reassessment
-        └─ capacity/economics invalidated → project reauthorization
+organizational prohibition and reserved Human Authority
+→ Project Constraint K-SEND-01
+→ delivery Constraint Realization Map
+→ runtime evidence
+   ├─ local defect → delivery reassessment
+   └─ capacity/economics invalidated → project reauthorization
 
-Separate proposed authority expansion
-        └─ autonomous sending → project reauthorization + organizational review
+separate proposed authority expansion
+→ project reauthorization + organizational review
 ```
 
-**Canonical source anchors**
+Label the figure as an illustrative editorial synthesis, not application evidence.
 
-- [`01-patterns/project-control-architecture-and-viability-review.md`](../../../01-patterns/project-control-architecture-and-viability-review.md)
-- [`01-patterns/thinking-system-review.md`](../../../01-patterns/thinking-system-review.md)
-- [`03-reference-architectures/worked-thinking-system-review-support-triage.md`](../../../03-reference-architectures/worked-thinking-system-review-support-triage.md)
-- [`02-ai-control-plane/01-constraints/constraint-realization-catalog.md`](../../../02-ai-control-plane/01-constraints/constraint-realization-catalog.md)
+**Canonical anchors:**
 
-**Must not repeat elsewhere**  
-Detailed support-triage scenario content and the full K-SEND-01 trace.
+- [`Project Control Architecture and Viability Review`](../../../01-patterns/project-control-architecture-and-viability-review.md)
+- [`Thinking System Review`](../../../01-patterns/thinking-system-review.md)
+- [`Worked Support-Triage Review`](../../../03-reference-architectures/worked-thinking-system-review-support-triage.md)
+- [`Constraint Realization Catalog`](../../../02-ai-control-plane/01-constraints/constraint-realization-catalog.md)
 
-**Transition**  
-The example separates the decision architecture from the tools that may implement it, which makes the platform boundary precise.
+**Transition:** The example separates the decision architecture from the tools that may implement it, making the platform boundary precise.
 
-**Intended closing claim**
+**Closing claim:**
 
 > Evidence and proposed authority changes must route according to the decision basis they invalidate or seek to change, not merely according to where they first appear.
 
@@ -625,46 +538,29 @@ The example separates the decision architecture from the tools that may implemen
 
 ### 4.7 What Platforms Can Implement — and What Authority They Do Not Acquire by Default
 
-**Purpose**  
-Address productization without dismissing agent, governance, observability, or AI-native delivery platforms.
+**Purpose:** Address productization without dismissing agent, governance, observability, or AI-native delivery platforms.
 
-**Core claim**  
-A platform may implement several UA capabilities and records and may exercise explicitly delegated Controller authority, but it does not acquire organizational or project decision authority merely by hosting them.
+**Core claim:** A platform may implement several UA capabilities and records and may exercise explicitly delegated Controller authority, but it does not acquire organizational or project decision authority merely by hosting them.
 
-**Required points**
+**Required content:**
 
 - Classify platform functions by what they do in the specific system, not by market category.
-- Platforms may host or implement:
-  - Constraint Realizations such as permissions, schemas, state gates, policy engines, data boundaries, budgets, approval paths, and deployment limits;
-  - Sensors and evidence such as traces, evaluations, incidents, realization state, and Actuator-effect evidence;
-  - bounded automated Controller logic and human decision interfaces;
-  - Actuators such as block, route, narrow exposure, change configuration, fall back, roll back, disable, compensate, or stop;
-  - version and decision records.
-- A platform does not independently determine:
-  - whether Model Judgment is necessary;
-  - which organizational source is authoritative;
-  - what consequences and authority are acceptable;
-  - who may accept residual risk;
-  - whether Human Authority is substantive and sufficiently staffed;
-  - whether the control perimeter preserves project viability;
-  - when project or organizational authorization must change.
+- A platform may host or implement Constraint Realizations, Sensors and evidence, bounded automated Controller logic, human decision interfaces, Actuators, version records, and decision records.
+- A platform does not independently determine whether Model Judgment is necessary, which source is authoritative, what consequences or authority are acceptable, who may accept residual risk, whether Human Authority is substantive, whether the control perimeter preserves viability, or when project or organizational authorization must change.
 - A platform may execute delegated authority. It does not create that authority.
-- Avoid categorical claims that platforms “cannot solve governance.” State the narrower ownership boundary.
-- Verify claims about any named platform against current first-party documentation during Phase 2. When the article does not need a named product, keep the argument functional and vendor-neutral.
+- Avoid the categorical claim that platforms “cannot solve governance.” State the narrower ownership and delegation boundary.
+- Verify named-platform claims against current first-party documentation. Prefer functional, vendor-neutral framing when a named comparison is unnecessary.
 
-**Canonical source anchors**
+**Canonical anchors:**
 
-- [`02-ai-control-plane/README.md`](../../../02-ai-control-plane/README.md)
-- [`AGENTS.md`](../../../AGENTS.md)
-- [`SPECIFICATION.md`](../../../SPECIFICATION.md)
+- [`Control-Loop Capability Anatomy`](../../../00-doctrine/control-loop-anatomy.md)
+- [`Nested Control Lifecycle`](../../../00-doctrine/nested-control-lifecycle.md)
+- [`AI Control Plane`](../../../02-ai-control-plane/README.md)
+- [`Specification`](../../../SPECIFICATION.md)
 
-**Must not repeat elsewhere**  
-The platform-implementation-versus-authority boundary.
+**Transition:** This separation is why UA is developed as an open specification rather than one privileged implementation.
 
-**Transition**  
-This separation is why UA is developed as an open specification rather than as one privileged implementation.
-
-**Intended closing claim**
+**Closing claim:**
 
 > A platform can make control capabilities easier to implement and may exercise delegated decision logic. It does not, by default, authorize the project or define the organizational boundary in which that implementation is legitimate.
 
@@ -674,185 +570,124 @@ This separation is why UA is developed as an open specification rather than as o
 
 ### 4.8 Open Specification: Current State, Limits, and Invitation
 
-**Purpose**  
-End with an accurate repository state and a serious request for validation rather than a product-style CTA.
+**Purpose:** End with an accurate repository state and a serious request for validation rather than a product-style call to action.
 
-**Core claim**  
-UA has a coherent, inspectable draft specification spine, but independent application evidence remains insufficient for a maturity claim.
+**Core claim:** UA has a coherent, inspectable draft specification spine, but independent application evidence remains insufficient for a maturity claim.
 
-**What exists in the repository**
+**What exists:**
 
 - controlled-object doctrine and canonical glossary;
-- Control-Loop Capability Anatomy;
-- Nested Control Lifecycle;
+- Control-Loop Capability Anatomy and Nested Control Lifecycle;
 - Requirement, Correctness, Bug, and Model Judgment Placement doctrine;
 - Judgment Node Boundary;
-- Project Control Architecture and Viability Review with an informative template;
-- Thinking System Review with an informative template;
-- Constraint capability and informative realization catalog;
-- Sensors, Controllers, and Actuators capability guidance;
+- project and delivery reviews with informative templates;
+- Constraint capability and realization catalog;
+- Sensors, Controllers, and Actuators guidance;
 - placement-focused reference architectures;
 - one illustrative delivery-level support-triage review;
 - failure-mode taxonomy;
 - research provenance and framework traceability.
 
-**What does not yet exist or remains unproven**
+**What does not yet exist or remains unproven:**
 
-- a completed repository-level two-level project-and-delivery worked application;
+- a complete repository-level two-level project-and-delivery worked application;
 - independent real-team use across multiple organizations;
 - evidence that two living reviews are sufficient in every context;
-- validated time-to-complete, usability, and decision-quality evidence;
+- validated usability, time-to-complete, and decision-quality evidence;
 - mature control-cost and Human Authority capacity methods;
 - validated incident and drift patterns across domains;
 - universal threshold derivation;
 - proof that teams can apply UA correctly without author involvement;
 - evidence that current terminology and boundaries will survive sustained external use unchanged.
 
-**Why open**
+**Why open:** enable independent critique and contradictory evidence, compare application across domains, prevent vendor or author capture of the control language, preserve visible evolution, and support many implementations.
 
-- enable independent critique and contradictory evidence;
-- compare application across domains and implementations;
-- prevent a vendor, consultancy, platform, or author from owning the complete language of control;
-- preserve visible evolution of decisions and terminology;
-- allow many products and organizations to implement the specification.
+**Licensing:** documentation and specification material use CC BY 4.0; code and reference implementations use Apache 2.0 where present.
 
-**Licensing**
+**Validation request:** ask for documented applications, anonymized reviews, contradictory cases, terminology issues, simplification proposals, platform mappings, control-cost evidence, Human Authority failures, and operational failure modes.
 
-- documentation and specification material: CC BY 4.0;
-- code and future reference implementations: Apache 2.0.
-
-**Validation request**
-
-Ask readers for:
-
-- documented worked applications;
-- anonymized project and delivery reviews;
-- contradictory cases;
-- issue reports against unclear terminology or ownership;
-- proposals that simplify the review surface;
-- examples of platform mappings;
-- evidence of realization, Human Authority, capacity, cost, or reassessment failures;
-- operational failure modes discovered in real systems.
-
-Ask concrete questions:
-
-- Which decision level remains ambiguous?
-- Where do Constraint source, subject, path, scope, strength, realization, or authority remain unclear?
-- Which evidence cannot be routed honestly through the proposed model?
-- When are two living reviews insufficient?
-- Does the default path reduce duplication in practice?
-- Which system classes break the lifecycle or capability anatomy?
-- Which controls make the project non-viable?
-- Can a team apply the specification without the author in the room?
-
-**Canonical source anchors**
+**Canonical anchors:**
 
 - [`README.md`](../../../README.md)
 - [`SPECIFICATION.md`](../../../SPECIFICATION.md)
 - [`ROADMAP.md`](../../../ROADMAP.md)
 - [`CONTRIBUTING.md`](../../../CONTRIBUTING.md)
-- [`content/research/index.md`](../index.md)
+- [`Research Track`](../index.md)
 
-**Must not repeat elsewhere**  
-The complete repository inventory, licensing summary, maturity boundary, and external validation request.
-
-**Intended closing claim**
+**Closing claim:**
 
 > Uncertainty Architecture is coherent enough to be tested, not mature enough to be protected from criticism. The next step is external application, contradictory evidence, and revision.
 
 **Word budget:** 400–500
 
-## 5. Figure plan
+## 5. Figure contract
 
-Use exactly three primary figures.
+Use exactly three primary figures:
 
-### Figure 1 — Controlled-object shift
+1. **Controlled-object shift** — two-panel explicit-behavior versus bounded Model Judgment view.
+2. **Two orthogonal UA models** — decision levels with downward inheritance and upward reassessment beside capability families applying at every level.
+3. **K-SEND-01 Constraint trace** — illustrative source-to-runtime path with delivery reassessment, project reauthorization, and separate authority expansion.
 
-Use a two-panel view showing primarily explicit runtime behavior versus a Thinking System with bounded Model Judgment inside the controlled object. Show deterministic ingress and output/action responsibilities, Constraints and realizations around the Judgment region, observed outputs and outcomes, decision authority, and corrective paths without turning the figure into a mandatory pipeline.
-
-### Figure 2 — Two orthogonal UA models
-
-Show:
-
-- four decision levels with downward inheritance and upward reassessment;
-- four capability families applying at every level;
-- explicit non-equivalence between levels and families;
-- no mandatory physical stack or one-way waterfall.
-
-This is the article's central figure.
-
-### Figure 3 — K-SEND-01 Constraint trace
-
-Show one authoritative source becoming a scoped Project Constraint, a concrete delivery realization, runtime evidence, and correctly separated reassessment and authority-change routes. Label it as an illustrative editorial synthesis, not application evidence.
-
-Do not use the earlier presentation brain/nerves/skeleton/muscles stack as the canonical article figure. It may be mentioned as source history only when useful.
+Do not use the presentation's brain/nerves/skeleton/muscles stack as the canonical article architecture diagram. It may be mentioned as source history only.
 
 ## 6. Terminology and claim-safety rules
 
-### Required current terms
+Use current terms: Thinking System, Model Judgment, Judgment Node, Constraint, Constraint Realization, Hard Constraint, Soft Constraint, Sensor, Controller, Actuator, Human Authority, Project Constraint Architecture, Constraint Realization Map, Nested Control Lifecycle, Project Authorization, Project Reauthorization, DoR, DoD, and Release Gate.
 
-- Thinking System;
-- Model Judgment;
-- Judgment Node;
-- Constraint;
-- Constraint Realization;
-- Hard Constraint and Soft Constraint as scoped realized-path claims;
-- Sensor;
-- Controller;
-- Actuator;
-- Human Authority;
-- Project Constraint Architecture;
-- Constraint Realization Map;
-- Nested Control Lifecycle;
-- Project Authorization and Project Reauthorization;
-- Definition of Ready, Definition of Done, and Release Gate.
+Treat Behavioral Software, Behavioral Applications, fixed specialist role titles, universal maturity ladders, universal thresholds, and the old three-part Actuator/Sensor/Controller model as historical or contextual only.
 
-### Historical or contextual terms only
+Do not:
 
-- Behavioral Software;
-- Behavioral Applications;
-- mandatory Prompt Steward, Eval Owner, AI Reliability Engineer, or other fixed role titles;
-- universal maturity ladders, sample sizes, thresholds, or review cadences;
-- Operating Model as one monolithic Controller;
-- three-part Actuator/Sensor/Controller taxonomy where Constraints were unresolved.
+- call a prompt, natural-language policy, probabilistic evaluator, classifier, or model preference a Hard Constraint by itself;
+- call a schema or permission check a Constraint without distinguishing the authoritative Constraint from its realization;
+- describe Actuators as defining policy or authorizing their own changes;
+- collapse evaluator, gate decision, and release execution;
+- equate closed feedback with acceptable bounded operation;
+- imply runtime reauthorizes a project automatically;
+- classify every deviation as a Bug;
+- describe aggregate quality, cost, latency, or capacity tolerances as Hard Constraints without deterministic enforcement;
+- present the illustrative K-SEND-01 trace as independent application evidence;
+- use internal UA documents as evidence for current external standards, laws, products, or market practice.
 
-### Technical and evidence safety rules
+## 7. Source plan for Phase 2
 
-- Do not call a prompt, natural-language policy, probabilistic evaluator, classifier, or model preference a Hard Constraint by itself.
-- Do not call a schema or permission check a Constraint without distinguishing the authoritative Constraint from its realization.
-- Do not describe Actuators as defining policy or authorizing their own changes.
-- Do not collapse evaluator, gate decision, and release execution into one function.
-- Do not equate a closed feedback loop with acceptable bounded operation.
-- Do not imply that every realization acts before the model call or that the four families form a vertical pipeline.
-- Do not imply that runtime reauthorizes a project automatically; runtime evidence triggers the owning decision process.
-- Do not classify every deviation as a Bug; diagnosis depends on the approved Requirement.
-- Do not describe aggregate quality, cost, latency, or capacity tolerances as Hard Constraints unless a separate scoped realization deterministically enforces the boundary.
-- Do not present an illustrative editorial trace as independent application evidence.
-- Do not use internal UA documents as evidence for claims about current external standards, products, laws, or market practice. Verify those claims against current primary or authoritative external sources during Phase 2.
+### Canonical UA sources
 
-## 7. Publication framing
+1. [`SPECIFICATION.md`](../../../SPECIFICATION.md)
+2. [`Glossary`](../../../00-doctrine/glossary.md)
+3. [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
+4. [`Control-Loop Capability Anatomy`](../../../00-doctrine/control-loop-anatomy.md)
+5. [`Nested Control Lifecycle`](../../../00-doctrine/nested-control-lifecycle.md)
+6. [`Requirements, Correctness, and Bugs`](../../../00-doctrine/requirements-correctness-and-bugs.md)
+7. [`Model Judgment Placement`](../../../00-doctrine/model-judgment-placement.md)
+8. [`Project Control Architecture and Viability Review`](../../../01-patterns/project-control-architecture-and-viability-review.md)
+9. [`Thinking System Review`](../../../01-patterns/thinking-system-review.md)
+10. [`Judgment Node Boundary`](../../../01-patterns/judgment-node-boundary.md)
+11. [`AI Control Plane`](../../../02-ai-control-plane/README.md)
+12. [`Actuator Capabilities`](../../../02-ai-control-plane/00-actuators/README.md)
+13. [`Constraint Capability Family`](../../../02-ai-control-plane/01-constraints/README.md)
+14. [`Constraint Realization Catalog`](../../../02-ai-control-plane/01-constraints/constraint-realization-catalog.md)
+15. [`Sensor and Evidence Capabilities`](../../../02-ai-control-plane/02-sensors/README.md)
+16. [`Controller and Decision Authority`](../../../02-ai-control-plane/03-controller/README.md)
+17. [`Worked Support-Triage Review`](../../../03-reference-architectures/worked-thinking-system-review-support-triage.md)
+18. [`Failure Modes and Anti-Patterns`](../../../04-failure-modes/README.md)
+19. [`ROADMAP.md`](../../../ROADMAP.md)
 
-### Primary title
+Historical articles, talks, and presentation material may provide provenance and explanatory language. They must not override current framework definitions.
 
-**Uncertainty Architecture: An Open Engineering Specification for Thinking Systems**
+### External evidence
 
-### Subtitle
+Current factual claims about standards, laws, platform capabilities, market practice, or the state of AI governance must be checked against current primary or authoritative sources. Named platform capabilities must be checked against first-party documentation. Comparative claims should be narrow, dated, and should not imply exhaustive market coverage.
 
-**From project viability to delivery realization, runtime evidence, and reauthorization**
+## 8. Publication framing and repository path
 
-### Optional distribution headline
+### Title and length
 
-**We Have Been Governing AI at the Model Level**
+- **Primary title:** *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*
+- **Subtitle:** *From project viability to delivery realization, runtime evidence, and reauthorization*
+- **Target:** 4,300–5,200 English words
 
-The distribution headline refers to over-focus on model/component quality rather than to one of the four lifecycle levels. It belongs in LinkedIn, Medium, or another distribution wrapper, not in the canonical repository article title. Treat it as a hypothesis requiring careful support rather than an established universal market fact.
-
-### Target length
-
-**4,300–5,200 English words.**
-
-Approximate allocation:
-
-| Section | Words |
+| Part | Words |
 |---|---:|
 | Abstract | 200–250 |
 | Missing Engineering Connection | 400–500 |
@@ -864,126 +699,54 @@ Approximate allocation:
 | Platform Boundary | 350–400 |
 | State, Limits, Invitation | 400–500 |
 
-The ranges total 4,300–5,150 words. The lifecycle is the conceptual center. The Constraint trace is the concrete center. Platform positioning and licensing remain concise.
+The ranges total 4,300–5,150 words.
 
-## 8. Source plan for Phase 2
+### Phase 2 draft
 
-### Canonical UA sources
-
-Phase 2 drafting must use current canonical repository files rather than historical articles as definitions:
-
-1. [`SPECIFICATION.md`](../../../SPECIFICATION.md)
-2. [`00-doctrine/glossary.md`](../../../00-doctrine/glossary.md)
-3. [`00-doctrine/uncertainty-in-the-controlled-object.md`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
-4. [`00-doctrine/control-loop-anatomy.md`](../../../00-doctrine/control-loop-anatomy.md)
-5. [`00-doctrine/nested-control-lifecycle.md`](../../../00-doctrine/nested-control-lifecycle.md)
-6. [`00-doctrine/requirements-correctness-and-bugs.md`](../../../00-doctrine/requirements-correctness-and-bugs.md)
-7. [`00-doctrine/model-judgment-placement.md`](../../../00-doctrine/model-judgment-placement.md)
-8. [`01-patterns/project-control-architecture-and-viability-review.md`](../../../01-patterns/project-control-architecture-and-viability-review.md)
-9. [`01-patterns/thinking-system-review.md`](../../../01-patterns/thinking-system-review.md)
-10. [`01-patterns/judgment-node-boundary.md`](../../../01-patterns/judgment-node-boundary.md)
-11. [`02-ai-control-plane/README.md`](../../../02-ai-control-plane/README.md)
-12. [`02-ai-control-plane/01-constraints/README.md`](../../../02-ai-control-plane/01-constraints/README.md)
-13. [`03-reference-architectures/worked-thinking-system-review-support-triage.md`](../../../03-reference-architectures/worked-thinking-system-review-support-triage.md)
-14. [`04-failure-modes/README.md`](../../../04-failure-modes/README.md)
-15. [`ROADMAP.md`](../../../ROADMAP.md)
-
-Historical articles, talks, and the presentation may provide provenance and explanatory language. They must not override the current framework.
-
-### External evidence
-
-Current factual claims about standards, laws, platform capabilities, market practice, or the state of AI governance must be checked during Phase 2 against current primary or authoritative sources. External sources support public factual claims; they do not become canonical definitions of UA.
-
-Named platform capabilities should be verified against first-party documentation. Comparative claims should be narrow, dated, and avoid implying exhaustive market coverage.
-
-## 9. Phase 2 drafting and repository path
-
-Phase 2 must use a separate branch and pull request after Phase 1 is accepted and PR #31 is merged.
-
-### Draft location
-
-Draft article prose should begin as a non-normative research draft under:
+Create article prose in a separate branch and pull request at:
 
 ```text
 content/research/notes/open-engineering-specification-article-draft.md
 ```
 
-Use `status: research`, `maturity: draft`, and `draft: true`. Do not place article prose in the root README, doctrine, patterns, or another specification-owning file.
+Use `status: research`, `maturity: draft`, and `draft: true`.
 
-### Publication location
+### Published repository edition
 
-After editorial acceptance and public release, create or move the normalized canonical repository edition to:
+After editorial acceptance and public release, create or move the normalized repository edition to:
 
 ```text
 content/research/publications/uncertainty-architecture-open-engineering-specification.md
 ```
 
-Update the research publications index and relevant history record. Medium and LinkedIn editions are distribution copies and should link back to the repository edition rather than becoming the canonical source.
+Update the research publications index and the relevant history record. Medium and LinkedIn editions are distribution copies and should link back to the repository edition.
 
-### Drafting sequence
+## 9. Phase 2 drafting sequence
 
-Draft in four connected blocks.
+Draft four connected blocks:
 
-#### Block A — Problem and doctrine
+1. abstract, problem, and controlled-object doctrine;
+2. bounded control and decision levels;
+3. two reviews and the K-SEND-01 trace;
+4. platform boundary, current state, limits, openness, and invitation.
 
-- abstract;
-- Missing Engineering Connection;
-- Controlled Object Has Changed.
-
-#### Block B — Control architecture
-
-- From Model Quality to Bounded Control;
-- Four Decision Levels.
-
-#### Block C — Operating path and application
-
-- Two Living Reviews;
-- K-SEND-01 Constraint trace.
-
-#### Block D — Positioning and validation
-
-- platform implementation and authority boundary;
-- current state, limits, openness, and invitation.
-
-After all blocks exist, perform one integrated pass for:
-
-- duplicated claims;
-- terminology against the glossary;
-- separation of decision levels and capability families;
-- Constraint versus Constraint Realization;
-- Controller versus Actuator;
-- accurate Hard and Soft claims;
-- project authorization versus delivery release;
-- runtime correction versus project reauthorization;
-- runtime evidence versus proposed authority changes;
-- illustrative synthesis versus application evidence;
-- unsupported maturity, external-fact, or repository-state claims;
-- exact links and figure placement;
-- narrative momentum and final word count.
+Then perform one integrated pass for terminology, duplication, source support, links, figure placement, decision-level ownership, capability boundaries, Hard/Soft claims, project-versus-delivery authority, evidence-versus-authority changes, illustrative-versus-application evidence, maturity claims, and final word count.
 
 ## 10. Phase 1 acceptance criteria
 
-This blueprint is ready for maintainer acceptance when:
+- [x] One stable thesis paragraph exists.
+- [x] The abstract and eight numbered sections have distinct functions.
+- [x] Every non-final section creates the need for the next.
+- [x] Decision levels and capability families remain orthogonal.
+- [x] Constraint and Constraint Realization remain distinct.
+- [x] Project authorization, DoR, DoD, Release Gate, runtime correction, and project reauthorization remain separate.
+- [x] Project Constraint Architecture and Constraint Realization Map remain the two canonical Constraint artifacts.
+- [x] The SMB two-review model is proportional and non-universal.
+- [x] K-SEND-01 is explicitly illustrative and has a scoped complete-path Hard claim.
+- [x] Runtime evidence and proposed authority changes are not conflated.
+- [x] The platform boundary allows delegated Controller authority without automatic organizational or project authority.
+- [x] Three figures have distinct jobs and introduce no new doctrine.
+- [x] Source plan, external-evidence rule, repository paths, word allocation, and drafting sequence are explicit.
+- [ ] The maintainer has reviewed and explicitly frozen the editorial contract.
 
-- [x] one stable thesis paragraph exists;
-- [x] the unnumbered abstract and eight-section sequence are fixed;
-- [x] every numbered section has one unique logical function;
-- [x] every non-final numbered section has a necessary transition;
-- [x] the capability anatomy reflects the accepted four-family model;
-- [x] Constraints remain distinct from Constraint Realizations;
-- [x] the four decision levels remain the article's conceptual center;
-- [x] project authorization, delivery DoR, DoD, Release Gate, runtime correction, and project reauthorization remain separate;
-- [x] Project Constraint Architecture and delivery Constraint Realization Map are the two canonical Constraint artifacts;
-- [x] inheritance down and evidence up are illustrated concretely;
-- [x] the SMB two-review model is accurately scoped and non-universal;
-- [x] the worked narrative uses one continuous illustrative Constraint trace;
-- [x] runtime evidence and proposed authority changes are not conflated;
-- [x] the article does not claim that a complete two-level worked application already exists;
-- [x] the platform boundary allows delegated Controller authority without transferring organizational or project authority by default;
-- [x] maturity and validation claims match the roadmap;
-- [x] external factual claims have an explicit Phase 2 verification rule;
-- [x] exactly three figures have distinct jobs;
-- [x] Phase 2 source set, repository path, and drafting sequence are explicit;
-- [ ] the maintainer has reviewed and explicitly frozen the editorial contract for drafting.
-
-Phase 2 article prose must be created in a separate branch and pull request after this blueprint is accepted and PR #31 is merged.
+Phase 2 must begin in a separate branch and pull request after PR #31 is accepted and merged.
