@@ -83,6 +83,18 @@
     {"path": "02-ai-control-plane/01-sensors/README.md", "type": "file"},
     {"path": "02-ai-control-plane/02-controller/README.md", "type": "file"}
   ],
+  "immutable_files": [
+    {
+      "path": "LICENSE-DOCS.md",
+      "git_blob_sha1": "4ea99c213c5c0c005ae4e80df8e52169d06896ec",
+      "purpose": "Protect the exact CC BY 4.0 legal text."
+    },
+    {
+      "path": "LICENSE-CODE.md",
+      "git_blob_sha1": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835",
+      "purpose": "Protect the exact Apache License 2.0 legal text."
+    }
+  ],
   "critical_files": [
     {
       "path": "README.md",
@@ -153,18 +165,21 @@
         "## 5. Repository placement map",
         "## 6. Terminology and Constraint protocol",
         "## 9. Editing workflow",
-        "## 10. End-of-session integrity protocol"
+        "## 10. End-of-session integrity protocol",
+        "## 11. Repository contract checks"
       ],
       "required_text": [
         "Do not use it as a second glossary, a second specification, or a source of new governance requirements.",
         "Use **Thinking Systems** in current framework material. Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, raw sources, and provenance records.",
-        "Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md)."
+        "Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).",
+        "Do not weaken or bypass the contract merely to make a failing check green."
       ],
       "required_links": [
         "SPECIFICATION.md",
         "00-doctrine/glossary.md",
         "DOCUMENT-METADATA.md",
-        "CHANGELOG.md"
+        "CHANGELOG.md",
+        ".github/policy/repository-contract.json"
       ]
     },
     {
@@ -173,6 +188,7 @@
         "# Contributing to Uncertainty Architecture",
         "## 2. Canonical repository locations",
         "## 3. Document metadata and navigation",
+        "### Local repository contract validation",
         "## 4. Repository ownership and attribution",
         "## 5. Lightweight maintainer workflow",
         "## 6. Changes requiring deliberate review",
@@ -183,13 +199,15 @@
       "required_text": [
         "Publishing infrastructure is not part of the normative specification.",
         "Vitalii Oborskyi is the project creator and primary maintainer.",
-        "Attributed work by named contributors must not be materially changed, reassigned, or presented as consensus without involving the relevant contributor where reasonably possible."
+        "Attributed work by named contributors must not be materially changed, reassigned, or presented as consensus without involving the relevant contributor where reasonably possible.",
+        "A legitimate contract change must update the owning document, the contract, and an appropriate regression fixture in the same pull request."
       ],
       "required_links": [
         "AGENTS.md",
         "DOCUMENT-METADATA.md",
         "LICENSING.md",
-        "content/research/review-process.md"
+        "content/research/review-process.md",
+        ".github/policy/repository-contract.json"
       ]
     },
     {
@@ -213,10 +231,12 @@
         "## Phase 2 — Framework spine",
         "## Phase 4 — Operating model and practical artifacts",
         "## Phase 5 — Optional tooling and reference implementations",
+        "### Current repository-integrity foundation",
         "## Current priority"
       ],
       "required_text": [
-        "The repository integration is complete. The relevant framework documents remain draft-normative and still require worked application, real-team use, operational evidence, and further terminology validation before a broader maturity claim."
+        "The repository integration is complete. The relevant framework documents remain draft-normative and still require worked application, real-team use, operational evidence, and further terminology validation before a broader maturity claim.",
+        "Establish a machine-readable repository contract protecting critical files, landing-page functions, compatibility paths, and the top-level namespace, with independent regression fixtures."
       ]
     },
     {
@@ -224,6 +244,9 @@
       "required_headings": [
         "# Changelog",
         "## [Unreleased]"
+      ],
+      "required_text": [
+        "Added a machine-readable repository contract"
       ]
     },
     {
