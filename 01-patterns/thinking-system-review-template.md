@@ -36,6 +36,8 @@ source_basis:
 
 # Thinking System Review Template
 
+> [← Owning pattern](thinking-system-review.md) · [↑ Patterns index](README.md) · [UA Home](../README.md)
+
 ## How to use
 
 Use one living review for one bounded system, feature, or material change. Keep it through framing, implementation or bounded experiment, completion, release, and operation.
