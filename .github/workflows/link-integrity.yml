@@ -27,7 +27,7 @@ jobs:
 
       - name: Validate navigation coverage, order, and routing
         working-directory: 00-doctrine
-        run: python ../.github/scripts/validate_navigation.py
+        run: python3 ../.github/scripts/validate_navigation.py
 
       - name: Validate maintained Markdown links and anchors
         uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
