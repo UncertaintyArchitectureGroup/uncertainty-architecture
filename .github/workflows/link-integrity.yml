@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   internal-links:
-    name: Repository navigation, links, and anchors
+    name: Repository navigation, links, citations, and anchors
     runs-on: ubuntu-latest
 
     steps:
@@ -28,6 +28,9 @@ jobs:
       - name: Validate navigation coverage, order, and routing
         working-directory: 00-doctrine
         run: python3 ../.github/scripts/validate_navigation.py
+
+      - name: Validate CITATION.cff
+        run: docker run --rm -v "${{ github.workspace }}:/app" citationcff/cffconvert:2.0.0 --validate
 
       - name: Validate maintained Markdown links and anchors
         uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
