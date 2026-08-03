@@ -1,0 +1,277 @@
+{
+  "contract_version": 1,
+  "description": "Deterministic repository-structure contract for Uncertainty Architecture. This contract protects entry points, canonical paths, stable landing-page functions, compatibility paths, and the current top-level namespace without freezing ordinary prose evolution.",
+  "allowed_top_level": {
+    "directories": [
+      ".github",
+      "00-doctrine",
+      "01-patterns",
+      "02-ai-control-plane",
+      "03-reference-architectures",
+      "04-failure-modes",
+      "assets",
+      "content",
+      "quartz"
+    ],
+    "files": [
+      ".gitignore",
+      "AGENTS.md",
+      "CHANGELOG.md",
+      "CITATION.cff",
+      "CODE_OF_CONDUCT.md",
+      "CONTRIBUTING.md",
+      "DOCUMENT-METADATA.md",
+      "LICENSE-CODE.md",
+      "LICENSE-DOCS.md",
+      "LICENSING.md",
+      "README.md",
+      "ROADMAP.md",
+      "SPECIFICATION.md",
+      "package-lock.json",
+      "package.json",
+      "quartz.config.ts",
+      "quartz.layout.ts",
+      "tsconfig.json",
+      "vercel.json"
+    ]
+  },
+  "required_paths": [
+    {"path": ".github/CODEOWNERS", "type": "file"},
+    {"path": ".github/pull_request_template.md", "type": "file"},
+    {"path": ".github/policy/repository-contract.json", "type": "file"},
+    {"path": ".github/scripts/validate_repository_contract.py", "type": "file"},
+    {"path": ".github/tests/repository_contract/cases.json", "type": "file"},
+    {"path": ".github/tests/repository_contract/test_repository_contract.py", "type": "file"},
+    {"path": ".github/workflows/repository-contract.yml", "type": "file"},
+    {"path": "00-doctrine", "type": "directory"},
+    {"path": "01-patterns", "type": "directory"},
+    {"path": "02-ai-control-plane", "type": "directory"},
+    {"path": "03-reference-architectures", "type": "directory"},
+    {"path": "04-failure-modes", "type": "directory"},
+    {"path": "assets", "type": "directory"},
+    {"path": "content/research", "type": "directory"},
+    {"path": "content/history", "type": "directory"},
+    {"path": "content/raw", "type": "directory"},
+    {"path": "quartz", "type": "directory"},
+    {"path": "00-doctrine/README.md", "type": "file"},
+    {"path": "00-doctrine/glossary.md", "type": "file"},
+    {"path": "00-doctrine/uncertainty-in-the-controlled-object.md", "type": "file"},
+    {"path": "00-doctrine/control-loop-anatomy.md", "type": "file"},
+    {"path": "00-doctrine/nested-control-lifecycle.md", "type": "file"},
+    {"path": "00-doctrine/requirements-correctness-and-bugs.md", "type": "file"},
+    {"path": "00-doctrine/model-judgment-placement.md", "type": "file"},
+    {"path": "01-patterns/README.md", "type": "file"},
+    {"path": "01-patterns/project-control-architecture-and-viability-review.md", "type": "file"},
+    {"path": "01-patterns/project-control-architecture-and-viability-review-template.md", "type": "file"},
+    {"path": "01-patterns/judgment-node-boundary.md", "type": "file"},
+    {"path": "01-patterns/thinking-system-review.md", "type": "file"},
+    {"path": "01-patterns/thinking-system-review-template.md", "type": "file"},
+    {"path": "02-ai-control-plane/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/00-actuators/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/01-constraints/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/01-constraints/constraint-realization-catalog.md", "type": "file"},
+    {"path": "02-ai-control-plane/02-sensors/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/03-controller/README.md", "type": "file"},
+    {"path": "03-reference-architectures/README.md", "type": "file"},
+    {"path": "04-failure-modes/README.md", "type": "file"},
+    {"path": "content/research/index.md", "type": "file"},
+    {"path": "content/research/review-process.md", "type": "file"},
+    {"path": "content/research/framework-traceability.md", "type": "file"},
+    {"path": "content/history/README.md", "type": "file"},
+    {"path": "content/history/external-recognition.md", "type": "file"},
+    {"path": "content/raw/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/01-sensors/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/02-controller/README.md", "type": "file"}
+  ],
+  "critical_files": [
+    {
+      "path": "README.md",
+      "required_headings": [
+        "# Uncertainty Architecture (UA)",
+        "## Why UA Exists",
+        "## Two Orthogonal Models",
+        "## Practical SMB Path",
+        "## What UA Is — and Is Not",
+        "## Status, Evidence, and Contributions",
+        "## Authors and Maintainers",
+        "## Advisors",
+        "## How to Cite",
+        "## Licensing"
+      ],
+      "required_text": [
+        "Vitalii Oborskyi — Creator, Lead Architect, and Maintainer",
+        "Sam “stunspot” Walker — Technical Co-Author",
+        "Advisory relationships are part of the project's operating context. They do not imply institutional endorsement, certification, or formal adoption of UA.",
+        "A successful demo is not project authorization. DoD is not release authorization.",
+        "UA is not an SDK"
+      ],
+      "required_links": [
+        "SPECIFICATION.md",
+        "ROADMAP.md",
+        "AGENTS.md",
+        "CONTRIBUTING.md",
+        "DOCUMENT-METADATA.md",
+        "CITATION.cff",
+        "LICENSING.md",
+        "content/history/external-recognition.md"
+      ]
+    },
+    {
+      "path": "SPECIFICATION.md",
+      "required_headings": [
+        "# Uncertainty Architecture Specification",
+        "## 1. Purpose",
+        "## 2. Scope",
+        "## 3. Normative language",
+        "## 4. Document status model",
+        "## 5. Specification structure",
+        "## 6. Supporting material outside the specification",
+        "## 7. Conformance",
+        "## 8. Change control"
+      ],
+      "required_text": [
+        "Project authorization and delivery release remain separate.",
+        "Research, talks, implementations, tags, recency, or summaries do not modify normative authority by implication.",
+        "A claim of UA alignment MUST NOT imply certification, endorsement, or complete conformance unless a formal program is later established."
+      ],
+      "required_links": [
+        "00-doctrine/README.md",
+        "01-patterns/README.md",
+        "02-ai-control-plane/README.md",
+        "03-reference-architectures/README.md",
+        "04-failure-modes/README.md",
+        "00-doctrine/glossary.md",
+        "CHANGELOG.md"
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "required_headings": [
+        "# Operational Protocol for AI Contributors",
+        "## 1. Purpose and authority",
+        "## 4. Canonical ownership and invariants",
+        "## 5. Repository placement map",
+        "## 6. Terminology and Constraint protocol",
+        "## 9. Editing workflow",
+        "## 10. End-of-session integrity protocol"
+      ],
+      "required_text": [
+        "Do not use it as a second glossary, a second specification, or a source of new governance requirements.",
+        "Use **Thinking Systems** in current framework material. Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, raw sources, and provenance records.",
+        "Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md)."
+      ],
+      "required_links": [
+        "SPECIFICATION.md",
+        "00-doctrine/glossary.md",
+        "DOCUMENT-METADATA.md",
+        "CHANGELOG.md"
+      ]
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "required_headings": [
+        "# Contributing to Uncertainty Architecture",
+        "## 2. Canonical repository locations",
+        "## 3. Document metadata and navigation",
+        "## 4. Repository ownership and attribution",
+        "## 5. Lightweight maintainer workflow",
+        "## 6. Changes requiring deliberate review",
+        "## 7. External contribution process",
+        "## 9. Agent-assisted changes",
+        "## 10. Licensing"
+      ],
+      "required_text": [
+        "Publishing infrastructure is not part of the normative specification.",
+        "Vitalii Oborskyi is the project creator and primary maintainer.",
+        "Attributed work by named contributors must not be materially changed, reassigned, or presented as consensus without involving the relevant contributor where reasonably possible."
+      ],
+      "required_links": [
+        "AGENTS.md",
+        "DOCUMENT-METADATA.md",
+        "LICENSING.md",
+        "content/research/review-process.md"
+      ]
+    },
+    {
+      "path": "DOCUMENT-METADATA.md",
+      "required_headings": [
+        "# UA Document Metadata and Tagging Convention",
+        "## Required fields",
+        "## Optional relationship fields",
+        "## Migration policy"
+      ],
+      "required_text": [
+        "Metadata helps readers find and classify a document. It does **not** make a document normative.",
+        "Only one active document should normally claim the same `canonical_for` value."
+      ],
+      "required_links": ["SPECIFICATION.md"]
+    },
+    {
+      "path": "ROADMAP.md",
+      "required_headings": [
+        "# Uncertainty Architecture Roadmap",
+        "## Phase 2 — Framework spine",
+        "## Phase 4 — Operating model and practical artifacts",
+        "## Phase 5 — Optional tooling and reference implementations",
+        "## Current priority"
+      ],
+      "required_text": [
+        "The repository integration is complete. The relevant framework documents remain draft-normative and still require worked application, real-team use, operational evidence, and further terminology validation before a broader maturity claim."
+      ]
+    },
+    {
+      "path": "CHANGELOG.md",
+      "required_headings": [
+        "# Changelog",
+        "## [Unreleased]"
+      ]
+    },
+    {
+      "path": "content/research/review-process.md",
+      "required_headings": [
+        "# UA Research Review Process",
+        "## Research-to-framework transition",
+        "## Research-state reconciliation"
+      ],
+      "required_text": [
+        "Research is not automatically normative",
+        "Automated agents may prepare and validate changes, but they must not merge, force-push, delete branches, rewrite history, or make unscoped normative decisions without explicit human instruction.",
+        "Do not move directly from source wording into normative specification."
+      ],
+      "required_links": [
+        "../../AGENTS.md",
+        "framework-traceability.md",
+        "../../CHANGELOG.md"
+      ]
+    },
+    {
+      "path": "LICENSING.md",
+      "required_text": [
+        "This repository uses a dual-license model.",
+        "Creative Commons Attribution 4.0 International License (CC BY 4.0).",
+        "Apache License, Version 2.0."
+      ],
+      "required_links": [
+        "LICENSE-DOCS.md",
+        "LICENSE-CODE.md"
+      ]
+    }
+  ],
+  "protected_markers": [
+    {
+      "path": "00-doctrine/nested-control-lifecycle.md",
+      "text": "<a id=\"4-runtime-control-and-reassessment\"></a>",
+      "purpose": "Preserve the published legacy runtime deep-link anchor."
+    },
+    {
+      "path": "02-ai-control-plane/01-sensors/README.md",
+      "text": "02-sensors",
+      "purpose": "Preserve the compatibility notice for the previous Sensor path."
+    },
+    {
+      "path": "02-ai-control-plane/02-controller/README.md",
+      "text": "03-controller",
+      "purpose": "Preserve the compatibility notice for the previous Controller path."
+    }
+  ]
+}
