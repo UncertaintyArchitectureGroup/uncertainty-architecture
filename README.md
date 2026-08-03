@@ -185,15 +185,84 @@ UA is a shared architectural language, a project-to-runtime control lifecycle, a
 
 UA is not an SDK, universal agent framework, prompt collection, single guardrail product, mandatory four-service topology, replacement SDLC, governance department, compliance certification, or claim that uncertainty can be eliminated.
 
-## Status and contribution
+## Status, Evidence, and Contributions
 
-The repository is an evolving open specification. Documents declare their own status and maturity. See [`SPECIFICATION.md`](SPECIFICATION.md).
+**Active specification development.** The current draft baseline connects the controlled-object doctrine, four capability families, project authorization, delivery realization and release, and runtime reassessment. A complete two-level worked application, real-team use, operational evidence, and further terminology validation remain open before a broader maturity claim. See [`ROADMAP.md`](ROADMAP.md).
 
-For contribution guidance:
+UA keeps different kinds of evidence separate:
+
+- [**Research**](content/research/) records sources, analysis, synthesis, and framework traceability.
+- [**Public discussions and stress tests**](content/history/community-discussions.md) record critique, alternatives, and unresolved questions.
+- [**Independent references and recognition**](content/history/external-recognition.md) record how third parties cited, interpreted, recommended, or used UA.
+- [**Talks and presentations**](content/history/talks.md) record practitioner exposure without treating invitations as technical validation.
+- The [**changelog**](CHANGELOG.md) records changes to repository and specification artifacts.
+
+Visibility, recommendations, advisory relationships, invited talks, and synthesized examples are not treated as certification, institutional endorsement, formal adoption, or production evidence. The evidence policy and complete historical index are maintained in [`content/history/`](content/history/).
+
+GitHub is the canonical home for doctrine and specification changes. Useful contributions include operational failure reports, worked applications, pattern proposals, critiques of terminology or control assumptions, evidence about Human Authority and control cost, and provenance corrections.
+
+For contribution and review guidance:
 
 - [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - [`AGENTS.md`](AGENTS.md)
 - [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md)
 - [`content/research/review-process.md`](content/research/review-process.md)
 
-Documentation is licensed under CC BY 4.0. Code, where present, is licensed under Apache 2.0.
+## Authors and Maintainers
+
+### Vitalii Oborskyi — Creator, Lead Architect, and Maintainer
+
+Focus: operational framing, governance, delivery systems, adoption scaffolding, and system-level control.
+
+- [LinkedIn](https://www.linkedin.com/in/vitaliioborskyi/)
+- [GitHub](https://github.com/oborskyivitalii)
+
+### Sam “stunspot” Walker — Technical Co-Author
+
+Focus: AI–code boundary placement, containment patterns, prompt-as-medium realism, and real-world failure modes.
+
+### Contributors and reviewers
+
+Additional contributors and reviewers are credited through [Git history and the contributors graph](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/graphs/contributors), merged pull requests, and attributed research or history records. Contribution guidance is maintained in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Advisors
+
+### Markus Kopko — Strategic Advisor on Governance and Alignment
+
+Focus: project-management standards, organizational alignment, and the operationalization of AI governance.
+
+- [LinkedIn](https://www.linkedin.com/in/markuskleinpmp/)
+
+### Otman Basir, Ph.D. — Academic Advisor
+
+Professor in the Department of Electrical and Computer Engineering at the University of Waterloo and author of the Social Responsibility Stack. His role supports the connection between control-theoretic research and practical engineering governance.
+
+- [LinkedIn](https://www.linkedin.com/in/otman-basir-ba1258178)
+
+Advisory relationships are part of the project's operating context. They do not imply institutional endorsement, certification, or formal adoption of UA. Supporting public evidence and precise claim boundaries are recorded in [`content/history/external-recognition.md`](content/history/external-recognition.md).
+
+## How to Cite
+
+GitHub can generate APA and BibTeX citations from the repository's machine-readable [`CITATION.cff`](CITATION.cff). The following BibTeX entry is the human-readable repository citation:
+
+```bibtex
+@misc{oborskyi_walker2025uncertainty,
+  author = {Oborskyi, Vitalii and Walker, Sam},
+  title = {Uncertainty Architecture},
+  year = {2025},
+  publisher = {GitHub},
+  url = {https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture},
+  note = {Open engineering specification for Thinking Systems}
+}
+```
+
+Individual articles and publications should be cited using their own publication metadata rather than this repository-level entry.
+
+## Licensing
+
+This repository uses a dual-license model:
+
+- documentation, specifications, architectural doctrine, diagrams, and operating-model material: CC BY 4.0;
+- code, scripts, reference implementations, and executable artifacts: Apache 2.0.
+
+See [`LICENSING.md`](LICENSING.md) for details.

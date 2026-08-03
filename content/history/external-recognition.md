@@ -37,15 +37,17 @@ Michael Risch published a detailed interpretation of Uncertainty Architecture as
 
 ## Markus Kopko
 
-### Public recommendation and CPMAI mapping
+### Public recommendation, CPMAI mapping, and advisory context
 
 Markus Kopko, CPMAI Lead Coach and participant in PMI AI standards work, publicly recommended Vitalii Oborskyi’s contribution and described the Model Control Plane as a practical bridge between strategy and engineering reality.
 
 In May 2026, Kopko also published a detailed mapping between the UA control-theory framing and the CPMAI lifecycle, connecting constraints, sensors, named roles, and go/no-go gates to AI project governance.
 
-**What this establishes:** independent recognition from an AI project-governance practitioner and a concrete conceptual mapping between UA and CPMAI practices.
+UA records Kopko as a strategic advisor on governance and alignment. This project role is distinct from the public recommendation and CPMAI mapping documented here and does not imply PMI endorsement, certification, institutional adoption, or a formal relationship between PMI and UA.
 
-**What it does not establish:** formal PMI endorsement of UA.
+**What this establishes:** independent recognition from an AI project-governance practitioner, a concrete conceptual mapping between UA and CPMAI practices, and the project’s recorded advisory relationship.
+
+**What it does not establish:** formal PMI endorsement of UA or institutional participation in the project.
 
 - [Source: Markus Kopko — CPMAI mapping of UA](https://www.linkedin.com/posts/markuskleinpmp_uncertainty-architecture-why-ai-governance-activity-7462053122773827584-mKwf)
 - [Supporting source: Vitalii Oborskyi profile recommendation](https://www.linkedin.com/in/vitaliioborskyi/)
