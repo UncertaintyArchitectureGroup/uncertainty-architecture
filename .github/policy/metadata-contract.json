@@ -1,0 +1,272 @@
+{
+  "contract_version": 1,
+  "description": "Controlled frontmatter, canonical ownership, glossary protection, and terminology-warning policy for maintained Uncertainty Architecture documents.",
+  "required_fields": [
+    "title",
+    "artifact_type",
+    "status",
+    "module",
+    "topics",
+    "tags"
+  ],
+  "optional_fields": [
+    "maturity",
+    "canonical_for",
+    "related",
+    "supersedes",
+    "superseded_by",
+    "updated",
+    "created",
+    "license",
+    "draft",
+    "aliases"
+  ],
+  "list_fields": [
+    "topics",
+    "tags",
+    "canonical_for",
+    "related",
+    "supersedes",
+    "superseded_by",
+    "aliases"
+  ],
+  "controlled_values": {
+    "artifact_type": [
+      "repository-index",
+      "repository-guide",
+      "repository-process",
+      "specification-index",
+      "doctrine",
+      "glossary",
+      "pattern-index",
+      "pattern",
+      "control-plane-index",
+      "control-capability",
+      "reference-index",
+      "reference-architecture",
+      "failure-mode-index",
+      "failure-mode",
+      "research-index",
+      "research-publication",
+      "research-note",
+      "research-process",
+      "research-template",
+      "research-traceability",
+      "source-archive-index",
+      "history-index",
+      "history-record",
+      "historical-artifact",
+      "publishing-index",
+      "roadmap",
+      "changelog"
+    ],
+    "status": [
+      "normative",
+      "draft-normative",
+      "informative",
+      "reference",
+      "research",
+      "historical"
+    ],
+    "maturity": [
+      "draft",
+      "active",
+      "stable",
+      "superseded"
+    ],
+    "module": [
+      "repository",
+      "doctrine",
+      "patterns",
+      "control-plane",
+      "reference-architectures",
+      "failure-modes",
+      "research",
+      "history",
+      "publishing"
+    ],
+    "topics": [
+      "thinking-systems",
+      "linear-software",
+      "deterministic-core",
+      "model-judgment",
+      "uncertainty-boundary",
+      "control-loop",
+      "ai-control-plane",
+      "actuators",
+      "constraints",
+      "sensors",
+      "controller",
+      "evaluation",
+      "evidence",
+      "drift",
+      "containment",
+      "fallback",
+      "rollback",
+      "escalation",
+      "human-authority",
+      "conformance",
+      "provenance",
+      "control-economics",
+      "sdlc",
+      "repository-architecture",
+      "navigation"
+    ]
+  },
+  "required_frontmatter_paths": [
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "DOCUMENT-METADATA.md",
+    "ROADMAP.md",
+    "SPECIFICATION.md",
+    "00-doctrine/README.md",
+    "00-doctrine/glossary.md",
+    "00-doctrine/uncertainty-in-the-controlled-object.md",
+    "00-doctrine/control-loop-anatomy.md",
+    "00-doctrine/nested-control-lifecycle.md",
+    "00-doctrine/requirements-correctness-and-bugs.md",
+    "00-doctrine/model-judgment-placement.md",
+    "01-patterns/README.md",
+    "01-patterns/project-control-architecture-and-viability-review.md",
+    "01-patterns/project-control-architecture-and-viability-review-template.md",
+    "01-patterns/judgment-node-boundary.md",
+    "01-patterns/thinking-system-review.md",
+    "01-patterns/thinking-system-review-template.md",
+    "02-ai-control-plane/README.md",
+    "02-ai-control-plane/00-actuators/README.md",
+    "02-ai-control-plane/01-constraints/README.md",
+    "02-ai-control-plane/01-constraints/constraint-realization-catalog.md",
+    "02-ai-control-plane/02-sensors/README.md",
+    "02-ai-control-plane/03-controller/README.md",
+    "03-reference-architectures/README.md",
+    "03-reference-architectures/judgment-placement-examples.md",
+    "04-failure-modes/README.md",
+    "content/index.md",
+    "content/research/index.md",
+    "content/research/review-process.md",
+    "content/research/framework-traceability.md",
+    "content/history/README.md",
+    "content/history/external-recognition.md",
+    "content/raw/README.md"
+  ],
+  "frontmatter_scan_roots": [
+    "00-doctrine",
+    "01-patterns",
+    "02-ai-control-plane",
+    "03-reference-architectures",
+    "04-failure-modes",
+    "content/research",
+    "content/history"
+  ],
+  "frontmatter_scan_files": [
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "DOCUMENT-METADATA.md",
+    "ROADMAP.md",
+    "SPECIFICATION.md",
+    "content/index.md",
+    "content/raw/README.md"
+  ],
+  "tag_projection": {
+    "required_exact": [
+      "ua/module/{module}",
+      "ua/type/{artifact_type}",
+      "ua/status/{status}"
+    ],
+    "topic_prefix": "ua/topic/",
+    "minimum_tags": 3,
+    "maximum_tags": 8,
+    "topic_projection_mode": "subset"
+  },
+  "canonical_ownership": {
+    "inactive_maturities": [
+      "superseded"
+    ],
+    "allow_duplicate_values": []
+  },
+  "glossary": {
+    "path": "00-doctrine/glossary.md",
+    "protected_entries": [
+      "Thinking System",
+      "Linear Software",
+      "Deterministic Core",
+      "Model Judgment",
+      "Judgment Node",
+      "Uncertainty Boundary",
+      "Constraint",
+      "Hard Constraint",
+      "Soft Constraint",
+      "Constraint Realization",
+      "Nested Control Lifecycle",
+      "Control-Loop Capability Anatomy",
+      "AI Control Plane",
+      "Actuator",
+      "Sensor",
+      "Controller",
+      "Operating Envelope",
+      "Evidence",
+      "Release Gate",
+      "Human Authority",
+      "Requirement"
+    ]
+  },
+  "terminology_warnings": [
+    {
+      "id": "historical-system-category",
+      "patterns": [
+        "Behavioral Software",
+        "Behavioral Applications"
+      ],
+      "scan_paths": [
+        "SPECIFICATION.md",
+        "00-doctrine",
+        "01-patterns",
+        "02-ai-control-plane",
+        "03-reference-architectures",
+        "04-failure-modes"
+      ],
+      "allow_paths": [
+        "00-doctrine/glossary.md"
+      ],
+      "message": "Use Thinking Systems in current framework material; preserve earlier category names only in explicit historical or provenance context."
+    },
+    {
+      "id": "runtime-reauthorization-label",
+      "patterns": [
+        "Runtime reauthorization",
+        "runtime reauthorization"
+      ],
+      "scan_paths": [
+        "README.md",
+        "SPECIFICATION.md",
+        "00-doctrine",
+        "01-patterns",
+        "02-ai-control-plane",
+        "03-reference-architectures",
+        "04-failure-modes"
+      ],
+      "allow_paths": [],
+      "message": "The fourth decision level is Runtime operation and reassessment; project reauthorization is a possible routed decision, not the level name."
+    },
+    {
+      "id": "three-capability-family-model",
+      "patterns": [
+        "three capability families",
+        "three control-plane capabilities"
+      ],
+      "scan_paths": [
+        "README.md",
+        "SPECIFICATION.md",
+        "00-doctrine",
+        "01-patterns",
+        "02-ai-control-plane",
+        "03-reference-architectures",
+        "04-failure-modes"
+      ],
+      "allow_paths": [],
+      "message": "The current draft baseline has four capability families, with Constraints and their realizations first-class."
+    }
+  ]
+}
