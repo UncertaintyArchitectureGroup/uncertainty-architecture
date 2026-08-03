@@ -30,6 +30,11 @@ REQUIRED_CASE_NAMES: Set[str] = {
     "CITATION author deletion is rejected",
     "link-integrity citation step deletion is rejected",
     "navigation routing declaration deletion is rejected",
+    "self-test manifest deletion is rejected",
+    "preferred citation author deletion is rejected",
+    "README evidence boundary deletion is rejected",
+    "README BibTeX author deletion is rejected",
+    "README advisor attribution deletion is rejected",
 }
 
 
