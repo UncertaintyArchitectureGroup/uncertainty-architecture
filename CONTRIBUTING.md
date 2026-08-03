@@ -90,7 +90,7 @@ python .github/scripts/validate_navigation.py
 
 The validator has no third-party Python dependencies. It verifies the declared entry pages, navigation order, owning destinations, lifecycle fragments, and selected leaf breadcrumbs. It resolves the repository root from the script location, so the same validator may also be invoked through an appropriate relative or absolute script path from another working directory.
 
-GitHub Actions additionally runs the validator and an offline `lychee` scan on every pull request and every push to `main`. The CI scan validates maintained repository-relative links, directory indexes, Markdown heading fragments, and explicit HTML compatibility anchors. External-network availability is intentionally outside the blocking repository-integrity check.
+GitHub Actions additionally runs the validator and an offline `lychee` scan on every pull request and every push to `main`. The CI scan validates maintained repository-relative links, directory indexes, Markdown heading fragments, and explicit HTML compatibility anchors. External-network availability is intentionally outside the deterministic repository-integrity check.
 
 ## 4. Repository ownership and attribution
 
