@@ -2,12 +2,17 @@
   "cases": [
     {
       "name": "valid synthetic repository passes",
-      "mutation": {"type": "none"},
+      "mutation": {
+        "type": "none"
+      },
       "expected_valid": true
     },
     {
       "name": "critical file deletion is rejected",
-      "mutation": {"type": "delete_path", "path": "README.md"},
+      "mutation": {
+        "type": "delete_path",
+        "path": "README.md"
+      },
       "expected_error": "Missing critical file: README.md"
     },
     {
@@ -39,12 +44,18 @@
     },
     {
       "name": "unexpected top-level directory is rejected",
-      "mutation": {"type": "add_directory", "path": "05-governance"},
+      "mutation": {
+        "type": "add_directory",
+        "path": "05-governance"
+      },
       "expected_error": "Unexpected top-level directory: 05-governance"
     },
     {
       "name": "unexpected top-level file is rejected",
-      "mutation": {"type": "add_file", "path": "NAVIGATION.md"},
+      "mutation": {
+        "type": "add_file",
+        "path": "NAVIGATION.md"
+      },
       "expected_error": "Unexpected top-level file: NAVIGATION.md"
     },
     {
@@ -72,6 +83,51 @@
         "text": "\nmodified\n"
       },
       "expected_error": "Immutable file fingerprint changed: LICENSE-DOCS.md"
+    },
+    {
+      "name": "CODEOWNERS default ownership deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/CODEOWNERS",
+        "text": "* @oborskyivitalii"
+      },
+      "expected_error": ".github/CODEOWNERS: missing protected text"
+    },
+    {
+      "name": "PR contract marker deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/pull_request_template.md",
+        "text": "<!-- ua-change-contract"
+      },
+      "expected_error": ".github/pull_request_template.md: missing protected text"
+    },
+    {
+      "name": "CITATION author deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "CITATION.cff",
+        "text": "    given-names: \"Sam\""
+      },
+      "expected_error": "CITATION.cff: missing protected text"
+    },
+    {
+      "name": "link-integrity citation step deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/link-integrity.yml",
+        "text": "- name: Validate CITATION.cff"
+      },
+      "expected_error": ".github/workflows/link-integrity.yml: missing protected text"
+    },
+    {
+      "name": "navigation routing declaration deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/scripts/validate_navigation.py",
+        "text": "EXPECTED_NAVIGATION_ROUTES"
+      },
+      "expected_error": ".github/scripts/validate_navigation.py: missing protected text"
     }
   ]
 }
