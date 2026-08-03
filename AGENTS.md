@@ -12,6 +12,7 @@ topics:
   - contribution-workflow
   - thinking-systems
   - control-loop
+  - constraints
   - sdlc
   - human-authority
 tags:
@@ -23,786 +24,407 @@ tags:
   - ua/topic/terminology
   - ua/topic/thinking-systems
   - ua/topic/control-loop
+  - ua/topic/constraints
 canonical_for:
   - ai-agent-repository-guide
 ---
 
 # Operational Protocol for AI Contributors
 
-## 1. Purpose and scope
+## 1. Purpose and authority
 
-This file defines how language models, coding agents, automated reviewers, and other AI-assisted contributors should work inside the Uncertainty Architecture (UA) repository.
+This file defines how language models, coding agents, automated reviewers, and other AI-assisted contributors should work inside the Uncertainty Architecture repository.
 
-It is operational guidance, not part of the normative UA specification. It must not override [`SPECIFICATION.md`](SPECIFICATION.md), explicit document status, a module boundary, or a canonical definition in [`00-doctrine/glossary.md`](00-doctrine/glossary.md).
+It is **operational guidance**, not normative UA specification content. It must not override:
 
-Use this file to determine:
+1. [`SPECIFICATION.md`](SPECIFICATION.md);
+2. explicit document status and normative language;
+3. the relevant module boundary;
+4. canonical definitions in [`00-doctrine/glossary.md`](00-doctrine/glossary.md);
+5. the owning doctrine or pattern.
 
-- what to read before editing;
-- where a contribution belongs;
-- which source has authority;
-- which control level owns a decision;
-- what information is inherited between project, delivery, and runtime work;
-- how to preserve terminology, provenance, history, and research state;
-- how to finish a session without conceptual, structural, or documentation drift.
+Use this file to determine what to read, where a change belongs, how much process is justified, how to preserve ownership and provenance, and how to finish a repository-changing session.
 
-## 2. Repository mission
+Do not use it as a second glossary, a second specification, or a source of new governance requirements.
 
-UA is an open doctrine and pattern language for building and operating software in which part of the system's behavior is delegated to non-deterministic Model Judgment while the surrounding system remains deterministic, inspectable, and governable.
+When documents conflict, prefer, in order:
 
-The repository exists to evolve an open engineering specification for **Thinking Systems** at the AI-code boundary.
+1. `SPECIFICATION.md` for scope, status, conformance, and change control;
+2. explicit status and normative language;
+3. the relevant module README;
+4. the glossary for terms it defines;
+5. current doctrine for architectural meaning;
+6. the owning project or delivery pattern;
+7. the relevant AI Control Plane capability document;
+8. `DOCUMENT-METADATA.md` for metadata and controlled tags;
+9. research, history, talks, implementations, templates, and examples for evidence and context;
+10. this file for repository workflow only.
 
-UA begins from a controlled-object shift: uncertainty does not exist only in product assumptions, requirements, users, infrastructure, or deployment environments. A Thinking System may produce consequential uncertainty inside the operating system through runtime Model Judgment.
+Report genuine contradictions instead of silently choosing one side.
 
-UA is:
+## 2. Repository mission and SMB default
 
-- a shared architectural language;
-- a doctrine for deterministic boundaries and probabilistic judgment;
-- a pattern system for project authorization, delivery review, containment, evaluation, escalation, fallback, rollback, correction, and reauthorization;
-- a control-oriented approach to model-mediated software across organizational, project, delivery, and runtime levels;
-- a tool-neutral specification that evolves through research and implementation evidence.
+UA is an open doctrine and pattern language for engineering and operating **Thinking Systems**: software in which part of runtime behavior depends on probabilistic Model Judgment while consequential deterministic responsibilities remain explicit and governable.
 
-UA is not:
+UA is not an SDK, universal agent framework, vendor architecture, prompt collection, evaluation method, compliance certification, or replacement for product discovery, Agile, DevOps, QA, security, change management, or incident response.
 
-- an SDK or universal agent framework;
-- a prompt-template collection;
-- a vendor-specific architecture;
-- a single evaluation method;
-- a replacement for product discovery, Agile, DevOps, QA, security, change management, or incident response;
-- a compliance certification;
-- a claim that uncertainty can be eliminated.
+Unless a document explicitly requires otherwise, contributors MUST assume a small or medium-sized organization with limited specialist capacity.
 
-## 3. Four-level UA control context
-
-Before analyzing or changing framework material, identify the control level of the question.
-
-### 3.1 Organizational control context
-
-This level owns constraints and shared capabilities that apply across projects, such as:
-
-- prohibited uses and risk appetite;
-- legal, privacy, security, safety, contractual, and financial constraints;
-- approved vendors, deployment models, geographies, and data classes;
-- shared identity, audit, evaluation, observability, incident, and shutdown capabilities;
-- available Human Authority and decision rights.
-
-UA does not require one policy, committee, or governance department to own all of this context. Existing organizational sources remain authoritative and should be linked rather than duplicated.
-
-### 3.2 Project control architecture and viability
-
-This level decides whether a proposed Thinking System has a credible, operable, and economically viable control architecture.
-
-The canonical pattern is the [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md). Its informative working representation is the [`project review template`](01-patterns/project-control-architecture-and-viability-review-template.md).
-
-The project review owns:
-
-- the intended business outcome and AI necessity;
-- material risk and consequence scenarios;
-- the intended Judgment, autonomy, and authority landscape;
-- deterministic invariants and prohibited authority;
-- required controls and shared capability dependencies;
-- evidence feasibility and feedback latency;
-- Human Authority and operational capacity;
-- control build and run cost;
-- project authorization, limitation, bounded research, redesign, escalation, deferral, or No-Go;
-- the baseline inherited by delivery reviews;
-- project reauthorization triggers.
-
-### 3.3 Delivery-level review
-
-This level decides whether a bounded whole system, feature, or material change is ready, complete, and acceptable for a stated deployment context.
-
-The canonical pattern is the [`Thinking System Review`](01-patterns/thinking-system-review.md). Its informative working representation is the [`delivery review template`](01-patterns/thinking-system-review-template.md).
-
-The delivery review owns:
-
-- implementation-level Judgment Nodes;
-- the applicable Requirement and Operating Envelope;
-- the model-mediated Definition of Ready;
-- bounded experimentation or implementation;
-- the model-mediated Definition of Done;
-- the deployment-specific Release Gate;
-- local runtime reassessment.
-
-“Delivery level” describes the decision layer, not the size of the work item. A delivery review may cover a bounded whole system, feature, or material change.
-
-### 3.4 Runtime control and reauthorization
-
-This level produces and interprets operational evidence, executes corrective action, and determines whether the evidence remains local or invalidates a higher-level decision.
-
-Runtime evidence may require:
-
-- local delivery correction, containment, rollback, or a new Release Gate;
-- project reauthorization because risk, authority, capacity, evidence, or economics changed;
-- organizational review because a shared constraint or capability changed.
-
-Do not force every runtime issue upward. Do not keep project-invalidating evidence trapped inside one feature review.
-
-### 3.5 Canonical ownership and inheritance rule
-
-Use this ownership model:
+The default SMB path is:
 
 ```text
-Organizational sources
-→ Project Control Architecture and Viability Review
-→ Thinking System Review
-→ Runtime evidence and corrective action
+Existing organizational sources
+→ one living project-level review
+→ one living delivery-level review per bounded scope
+→ linked runtime evidence, decisions, and actions
 ```
 
-Information should flow downward by reference:
+Default rules:
 
-- organizational constraints and shared capabilities constrain the project;
-- the project review creates a versioned authorization and inheritance package;
-- delivery reviews link the project version and refine local details;
-- runtime records link the delivery and project decisions they operate under.
+- link existing organizational sources instead of copying them;
+- keep one canonical Project Constraint Architecture at project level;
+- keep one canonical Constraint Realization Map at delivery level;
+- use existing architecture records, issue trackers, CI, evaluation stores, observability, and incident systems where they already have an owner and lifecycle;
+- allow one person to carry several responsibility bundles while keeping decision authority explicit;
+- add roles, files, registers, services, committees, or gates only when an independent owner, lifecycle, authority, access boundary, retention need, or audit requirement makes them necessary.
 
-Evidence should flow upward when it invalidates an assumption:
+A founder may hold organizational and project authority. A technical lead may carry architecture and delivery responsibilities. An on-call engineer may perform a runtime Controller function.
 
-- local implementation or evidence issue → delivery reassessment;
-- project risk, authority, capacity, or economic assumption changed → project reauthorization;
-- shared policy or capability changed → organizational review.
+Combining responsibilities does not collapse decisions. Organizational boundaries, project authorization, delivery release, and runtime action remain distinguishable even when one person participates in all four.
 
-Do not duplicate the complete project risk map, control economics, or organizational policy in every delivery record. Do not allow a delivery review to silently expand project authority, autonomy, population, data, domain, geography, tool access, or consequence level.
+Do not import enterprise-governance structure by default. UA does not require a governance department, mandatory specialist titles, a standing committee, a separate Constraint Register, a separate risk register, a RACI, one file per gate, or one service per capability family.
 
-## 4. Mental model for AI contributors
+Increase depth only when consequence, authority, exposure, irreversibility, uncertainty, feedback latency, realization difficulty, Human Authority load, operating capacity, or control economics justify it.
 
-Think like a systems architect working on an evolving engineering specification, not like a framework developer optimizing one implementation.
+## 3. The two-axis architecture
 
-Prefer:
+Every material framework change must be located on two independent axes:
 
-- control level and decision ownership before document creation;
-- system boundaries over isolated components;
-- responsibilities over job titles;
-- invariants over implementation preferences;
-- scenario-to-control reasoning over aggregate risk scores;
-- reusable distinctions over project-specific vocabulary;
-- evidence over confident generalization;
-- inheritance and cross-references over duplicated records;
-- refinement over unnecessary expansion;
-- complete control loops over locally impressive tools.
+1. **decision level** — where the decision is owned;
+2. **capability family and function** — how the decision is made operational.
 
-When reviewing a proposed control structure, identify:
+The four decision levels are not capability layers. The four capability families are not organizational levels, mandatory products, or a fixed execution sequence.
 
-1. which of the four control levels owns the question;
-2. where Model Judgment occurs or is expected to occur;
-3. which decisions, actions, outputs, resources, or parties it can affect;
-4. which deterministic boundaries and invariants constrain it;
-5. what evidence makes behavior and outcomes observable;
-6. who or what interprets that evidence;
-7. who or what has authority to change system behavior;
-8. which corrective actions are available;
-9. how fallback, escalation, containment, rollback, compensation, or shutdown works;
-10. which assumptions and decisions are inherited from a higher level;
-11. which evidence would require reassessment at a higher level;
-12. whether the complete control system is operationally and economically viable.
+### 3.1 Four decision levels in practical SMB terms
 
-## 5. Authority and conflict resolution
+| Practical level | UA decision level | Decision owned | Typical SMB responsibility | Canonical record |
+|---|---|---|---|---|
+| **Organization** | Organizational control context | Authoritative boundaries, shared capabilities, approved vendors or deployment modes, decision rights, exception authority | Founder, owner, product authority, or existing legal/security/operations responsibility; not necessarily a department | Existing authoritative sources linked by reference; no new UA organization file required by default |
+| **Architecture / project** | Project control architecture and viability | Whether the proposed Thinking System has a credible, operable, and economically viable control architecture; authorization, conditions, redesign, deferral, or No-Go | Architect, technical lead, project owner, or another person carrying the architectural decision responsibility | [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md) |
+| **Delivery team** | Delivery-level Thinking System Review | How inherited Constraints are realized, tested, completed, released, and locally reassessed for a bounded scope | The delivery team using existing product, engineering, QA, security, and operational responsibilities | [`Thinking System Review`](01-patterns/thinking-system-review.md) |
+| **Runtime** | Runtime operation and reassessment | Whether active operation remains inside the approved boundary and what must be corrected, contained, rolled back, disabled, or escalated | Automated logic, on-call or operational responsibility, Human Authority, or a combination | Runtime evidence and actions linked to active project and delivery versions; no separate runtime register required by default |
 
-When documents appear to conflict, do not resolve the conflict by recency, popularity, file location, external visibility, or confidence of wording.
+“Architect” describes a decision responsibility, not a mandatory job title. The responsible person must be able to make or obtain the project-level architecture and viability decision.
 
-Use this order:
+A lower level may refine or narrow a higher-level authorization. It must not silently expand authority, weaken an inherited Hard Constraint, or treat technical configurability as decision authority.
 
-1. [`SPECIFICATION.md`](SPECIFICATION.md) for specification scope, status vocabulary, conformance, and change control.
-2. Explicit document status and normative language.
-3. The relevant module README for module purpose and boundaries.
-4. [`00-doctrine/glossary.md`](00-doctrine/glossary.md) for current meanings of terms it defines.
-5. Current doctrine and other specification content for architectural meaning.
-6. The owning pattern for its decision surface: project review or delivery review.
-7. [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) for metadata and tags.
-8. Research, history, talks, external references, templates, and examples for evidence and context, not automatic requirements.
-9. This file for agent behavior and repository workflow only.
+Higher-level decisions and Constraint authority flow downward by reference. Evidence flows upward when it invalidates the basis of a delivery, project, or organizational decision.
 
-Additional rules:
+### 3.2 Four capability families
 
-- Explicit status takes precedence over directory name.
-- `Normative` content takes precedence over conflicting lower-status material.
-- `Draft normative` content must not be presented as stable.
-- Maturity does not replace status.
-- Templates mirror patterns and do not create independent protocols.
-- Research, talks, implementations, citations, or benchmarks do not become doctrine by implication.
-- Report genuine contradictions instead of silently choosing one side.
+Use [`00-doctrine/control-loop-anatomy.md`](00-doctrine/control-loop-anatomy.md) as the canonical architectural source.
 
-## 6. Repository invariants
+| Capability family | Function | Critical distinction |
+|---|---|---|
+| **Constraints and their realizations** | Define the approved operating boundary and make it operational | A Constraint is the authoritative boundary object; a Constraint Realization is the technical or socio-technical mechanism implementing, enforcing, or influencing it |
+| **Sensors and evidence** | Observe behavior, outcomes, conditions, realization state, control health, and Actuator execution | Evidence is not a decision and telemetry alone is not control |
+| **Controllers and decision authority** | Compare or interpret evidence relative to references and select or authorize action | A Controller decides or authorizes; it does not become an Actuator merely because one component performs both functions |
+| **Actuators and corrective action** | Execute authorized changes to operation or a Constraint Realization | Technical ability to change something does not authorize the change |
 
-1. Every canonical concept should have one authoritative definition.
-2. The glossary is the terminology source for terms it defines.
-3. Doctrine defines foundational distinctions; lower-level modules must not silently redefine them.
-4. Patterns describe reusable responses; they do not create local doctrine.
-5. The project review owns project viability, authorization, inheritance, and reauthorization; the delivery review owns DoR, DoD, release, and local reassessment.
-6. AI Control Plane documents define capabilities, not one mandatory product topology.
-7. Reference architectures compose concepts and patterns; they do not become mandatory by example.
-8. Failure modes describe reusable mechanisms of loss of control, not unrelated product defects.
-9. Research provides evidence and framework candidates; it is not automatically specification.
-10. Historical material preserves what was said and when.
-11. Raw snapshots remain source evidence and must not be normalized in place.
-12. One material type should have one canonical namespace.
-13. Navigation and publishing infrastructure must not become a second specification.
-14. Metadata, tags, recency, and search ranking do not create authority.
-15. Repository growth should occur through coherent refinement, not fragmentation.
-16. Higher-level decisions should be inherited by reference rather than copied into every lower-level artifact.
-17. Lower-level evidence must trigger higher-level reassessment when it invalidates a higher-level assumption.
-18. Every material repository change must remain visible in [`CHANGELOG.md`](CHANGELOG.md).
+One component or person may perform several functions. One function may be distributed. Evidence, authority, and failure responsibilities must still remain distinguishable.
 
-## 7. Canonical repository map and placement rules
+### 3.3 Four-by-four review matrix
 
-### 7.1 Public entry points
+The four capability families may appear at every decision level. Use this matrix as a reasoning check, not as a requirement to create sixteen components or sixteen documents.
 
-- [`README.md`](README.md) — public landing page and reader navigation.
-- [`SPECIFICATION.md`](SPECIFICATION.md) — specification boundary, status model, conformance, and change control.
-- [`ROADMAP.md`](ROADMAP.md) — development sequence and planned artifacts.
-- [`CHANGELOG.md`](CHANGELOG.md) — canonical record of notable repository and specification-artifact changes.
-- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution and review workflow.
+| Decision level | Constraints and realizations | Sensors and evidence | Controllers and authority | Actuators and action |
+|---|---|---|---|---|
+| **Organization** | Legal, contractual, security, privacy, procurement, prohibited-use, vendor, geography, and shared-capability boundaries | Cross-project incidents, audits, regulatory or vendor change, portfolio evidence, capability health | Authorized organizational owner or existing decision process selects or authorizes organizational change | Publish or change an authoritative source, approved vendor, shared capability, funding state, exception, or project permission |
+| **Architecture / project** | One Project Constraint Architecture derived from organizational sources and project risk | Scenario evidence, feasibility, feedback latency, capacity, control economics, and residual exposure | Project architecture and authorization authority decides to authorize, narrow, condition, research, redesign, defer, escalate, or reject | Issue or update the project baseline; change scope or architecture; allocate capability; start research or redesign; pause or stop project work |
+| **Delivery team** | One Constraint Realization Map for the bounded delivery scope | Deterministic tests, evaluations, behavioral evidence, realization health, false blocks, and operational readiness | Delivery and release authority decides within the project baseline | Implement, configure, deploy, block, narrow exposure, fall back, roll back, or request project reauthorization |
+| **Runtime** | Active Constraint sources, realization versions, Operating Envelope, permissions, limits, and deployment boundary | Telemetry, outcomes, incidents, violations, bypass, drift, capacity, Human Authority, and Actuator-effect evidence | Runtime software, operational owner, Human Authority, incident process, or a combination selects or authorizes response | Reject, contain, compensate, route to fallback, change configuration within authority, roll back, disable, stop, or escalate |
+
+Ask both questions for every material change:
+
+1. **Who owns this decision and at which level?**
+2. **Which capability function defines the boundary, produces evidence, decides, and executes?**
+
+A framework change is incomplete when it answers only one.
+
+## 4. Canonical ownership and invariants
+
+1. One canonical concept should have one authoritative definition.
+2. One decision surface should have one owning pattern.
+3. Doctrine defines foundational distinctions; lower modules apply rather than redefine them.
+4. The glossary owns canonical terminology where an entry exists.
+5. The Project Control Architecture and Viability Review owns project viability, Project Constraint Architecture, authorization, inheritance, and reauthorization.
+6. The Thinking System Review owns delivery realization, DoR, DoD, Release Gate, and local reassessment.
+7. Runtime operation is not a mandatory third governance artifact; runtime evidence and actions should link to active project and delivery versions unless an independent lifecycle requires another record.
+8. AI Control Plane documents define logical capability families, not one product topology.
+9. Constraint, Constraint Realization, Sensor, Controller, and Actuator must remain distinguishable.
+10. A Controller selects or authorizes; an Actuator executes.
+11. Hard or soft is a scoped claim about a Constraint and its complete realized path, not an intrinsic property of policy prose.
+12. Different guarantee strengths across subjects, paths, or scopes require separate Constraint claims rather than one mixed hard/soft record.
+13. A lower-level decision may narrow but must not silently weaken or expand a higher-level authorization or Hard Constraint.
+14. Higher-level decisions flow downward by reference; invalidating evidence flows upward.
+15. Reference architectures illustrate compositions and do not become mandatory.
+16. Failure modes describe reusable mechanisms of loss of control, not isolated undesirable outputs.
+17. Research provides evidence and candidates; it is not automatically specification.
+18. Historical and raw material preserves original wording and provenance.
+19. Navigation, metadata, tags, recency, and publishing infrastructure do not create authority.
+20. Repository growth should occur through coherent refinement rather than namespace proliferation.
+21. Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).
+
+## 5. Repository placement map
+
+### Public entry points
+
+- [`README.md`](README.md) — public landing page and navigation.
+- [`SPECIFICATION.md`](SPECIFICATION.md) — specification boundary and status model.
+- [`ROADMAP.md`](ROADMAP.md) — development direction.
+- [`CHANGELOG.md`](CHANGELOG.md) — notable repository changes.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution workflow.
 - [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) — metadata and controlled tags.
 - [`AGENTS.md`](AGENTS.md) — this operational protocol.
 
-### 7.2 `00-doctrine/`
+### `00-doctrine/`
 
-Purpose: foundational concepts, distinctions, boundaries, and canonical vocabulary.
+Owns foundational concepts, distinctions, relationships, and terminology, including Thinking Systems, the controlled-object shift, Nested Control Lifecycle, Control-Loop Capability Anatomy, Constraints, Requirements, Operating Envelopes, Correctness, Bugs, and Human Authority.
 
-Place material here when it defines or materially refines:
+Do not place checklists, vendor recipes, isolated examples, raw notes, or one-off project procedures here.
 
-- Thinking Systems;
-- the controlled-object shift;
-- the distinction between organizational, project, delivery, and runtime control levels;
-- Deterministic Core;
-- Model Judgment;
-- Uncertainty Boundary;
-- invariants and responsibility boundaries;
-- control-oriented first principles;
-- core terminology and conceptual definitions such as Requirement, Bug, or Human Authority.
+### `01-patterns/`
 
-Do not place here:
+Owns reusable socio-technical responses:
 
-- detailed project or delivery review checklists;
-- vendor recipes;
-- isolated implementation examples;
-- raw research notes;
-- historical records;
-- patterns that only apply existing doctrine.
+- [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md);
+- [`Judgment Node Boundary`](01-patterns/judgment-node-boundary.md);
+- [`Thinking System Review`](01-patterns/thinking-system-review.md).
 
-A doctrine change must be checked against the glossary, project and delivery patterns, AI Control Plane, reference architectures, failure modes, module indexes, research traceability, roadmap, and changelog.
+### `02-ai-control-plane/`
 
-### 7.3 `01-patterns/`
+Owns capability-specific guidance:
 
-Purpose: reusable technical and socio-technical responses to recurring control problems.
+- [`00-actuators/`](02-ai-control-plane/00-actuators/);
+- [`01-constraints/`](02-ai-control-plane/01-constraints/);
+- [`02-sensors/`](02-ai-control-plane/02-sensors/);
+- [`03-controller/`](02-ai-control-plane/03-controller/).
 
-The module currently owns two connected review surfaces:
+The Constraints directory owns the composite Constraint and Constraint Realization family. Directory numbers are navigation only. Named tools remain examples.
 
-- [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md) — project risk, control architecture, capacity, economics, authorization, inheritance, and reauthorization;
-- [`Thinking System Review`](01-patterns/thinking-system-review.md) — delivery-level DoR, bounded experiment, DoD, Release Gate, and local reassessment.
+### `03-reference-architectures/`
 
-A pattern should make visible:
+Owns non-prescriptive worked compositions. References must distinguish requirements from illustrative choices and must not introduce local doctrine.
 
-- context;
-- problem;
-- forces and trade-offs;
-- proposed structure or control response;
-- artifacts, responsibilities, economics, and decision rights where relevant;
-- consequences and limitations;
-- relationship to doctrine and failure modes.
+### `04-failure-modes/`
 
-Do not promote a one-off implementation into a pattern without a reusable problem and response.
+Owns recurring mechanisms by which structural, semantic, operational, economic, or organizational control is lost.
 
-Do not duplicate project-level and delivery-level ownership merely because both patterns discuss risk, evidence, authority, controls, or reassessment.
+### `content/research/`
 
-### 7.4 `02-ai-control-plane/`
+Owns research, notes, synthesis, critique, provenance, and research-to-framework traceability. Research informs explicit decisions; it does not update doctrine by implication.
 
-Purpose: capabilities required to constrain, observe, evaluate, and correct model-mediated behavior.
+### `content/history/` and `content/raw/`
 
-Relevant material includes:
+Preserve chronology, external context, original claims, and source snapshots. Do not normalize raw or historical wording in place.
 
-- actuators;
-- sensors and evidence;
-- controllers and decision authority;
-- constraints and policy enforcement;
-- project, release, and runtime gates;
-- escalation and Human Authority;
-- containment, fallback, rollback, compensation, and shutdown;
-- control latency, traceability, and corrective-action paths;
-- operating controls distributed across software and human processes.
-
-Telemetry without decision authority and corrective action is observation, not control.
-
-### 7.5 `03-reference-architectures/`
-
-Purpose: concrete, non-prescriptive compositions showing how UA concepts and patterns may be applied.
-
-Reference architectures may combine:
-
-- doctrine;
-- project and delivery patterns;
-- control capabilities;
-- technical artifacts;
-- technologies;
-- roles, responsibilities, economics, and processes.
-
-A two-level worked application should show project baseline inheritance and runtime reauthorization without creating duplicate canonical records.
-
-Reference architectures must separate specification requirements from illustrative choices and must not introduce local doctrine.
-
-### 7.6 `04-failure-modes/`
-
-Purpose: recurring mechanisms by which Thinking Systems lose structural, semantic, operational, economic, or organizational control.
-
-A failure mode should describe:
-
-- triggering conditions;
-- mechanism of failure;
-- observable signals;
-- consequences;
-- affected boundaries or control capabilities;
-- affected control level;
-- containment, mitigation, recovery, or reauthorization options.
-
-An isolated undesirable output is not automatically a reusable failure mode.
-
-### 7.7 `content/research/`
-
-Purpose: research publications, notes, analysis, synthesis, critique, provenance, and research-to-framework traceability.
-
-Research informs explicit framework decisions. It does not update doctrine or patterns by implication.
-
-### 7.8 `content/history/`
-
-Purpose: project chronology, public discussions, talks, external references, recognition, and superseded records.
-
-Preserve historical wording and distinguish citation, recommendation, implementation, adoption, certification, and endorsement.
-
-### 7.9 `content/raw/`
-
-Purpose: preserved source snapshots.
-
-Do not paraphrase, modernize, normalize, or overwrite them in place.
-
-### 7.10 Publishing and infrastructure
-
-- `content/index.md` is a publishing portal, not a second specification entry point.
-- `quartz/`, Node configuration, and `vercel.json` are publishing infrastructure.
-- `assets/` contains diagrams and visual references.
-
-Infrastructure behavior is not a UA requirement unless a specification document says so.
-
-## 8. Canonical terminology
-
-The canonical vocabulary is maintained in [`00-doctrine/glossary.md`](00-doctrine/glossary.md).
+## 6. Terminology and Constraint protocol
 
 Before introducing, redefining, replacing, deprecating, or narrowing a UA term:
 
-1. read the glossary;
-2. search for existing uses and near-synonyms;
-3. identify the owning module and control level;
+1. read the complete glossary;
+2. search current framework material and near-synonyms;
+3. identify the owning module, decision level, and capability function;
 4. determine whether the distinction is necessary and stable;
-5. update the glossary in the same change when canonical meaning changes.
+5. update the glossary in the same change when canonical meaning changes;
+6. update research traceability when a research question is resolved or reopened.
 
 Do not:
 
 - create a second glossary;
-- define canonical terms locally inside patterns, templates, or reference architectures;
+- define canonical terms locally in a template or reference architecture;
+- use Constraint, Constraint Realization, Invariant, Requirement, policy, guardrail, boundary, and Actuator interchangeably;
+- treat an organizational source as a Hard Constraint without a scoped realized path;
+- combine deterministic and probabilistic guarantees in one mixed-strength Constraint record;
 - invent synonyms for style;
-- add vendor vocabulary, temporary labels, section headings, or one-off phrases;
-- treat memorable phrases or pattern names as glossary terms without a durable architectural distinction.
+- turn a memorable phrase, slide label, role title, or product category into a canonical term without a durable distinction.
 
-### 8.1 Terminology migration
+Use **Thinking Systems** in current framework material. Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, raw sources, and provenance records.
 
-Use **Thinking Systems** in current framework material.
+For every material Constraint, answer:
 
-Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, preserved source bodies, raw snapshots, and provenance records.
+1. What is the authoritative source or project-risk rationale?
+2. What subject, path, and scope does it bound?
+3. Is the claimed guarantee hard or soft for that subject, path, and scope?
+4. What complete Constraint Realization implements, enforces, or influences it?
+5. Under which assumptions does the claimed guarantee hold?
+6. What happens on violation, bypass, conflict, degradation, uncertainty, or unavailability?
+7. What evidence shows activation, coverage, violations, false blocks, friction, and health?
+8. Which Controller may select or authorize a change?
+9. Which Actuator executes that change?
+10. Which changes remain local, require delivery reassessment, require project reauthorization, or require organizational review?
 
-When current documentation first connects old and new language, it may use:
+A Hard Constraint must deterministically prevent or reject violation through its complete realized path within stated assumptions, subject, path, scope, and enforcement boundaries.
 
-> **Thinking Systems** (previously described as **Behavioral Software** or **Behavioral Applications**)
+A prompt, natural-language policy, probabilistic evaluator, classifier, or model preference is not hard by itself.
 
-Agentic systems are a higher-autonomy subset of Thinking Systems, not a synonym for the whole category.
+When one source condition contains different guarantee strengths, split it into separate reviewable Constraint claims.
 
-## 9. Editing rules
+If these questions cannot be answered, preserve the item as a research candidate, unresolved dependency, or Soft Constraint rather than presenting it as an operable guarantee.
 
-### 9.1 Preserve concept and decision ownership
+## 7. Capability classification and diagrams
 
-- One concept, one canonical definition, one owning module.
-- One decision surface, one owning pattern.
-- Prefer links and inherited versions over duplicated explanations and records.
-- Refine the owning document instead of creating a competing source.
-- Do not reconcile inconsistency by adding another overlapping document.
+Classify by function in the specific system, not by tool name, team name, role title, or market category.
 
-### 9.2 Preserve review-level boundaries
+For evaluation systems, distinguish:
 
-Project review and delivery review intentionally overlap in vocabulary but not in decision ownership.
+```text
+Evaluator and metrics → Sensor
+Decision logic selecting block/canary/release → Controller
+Deployment, blocking, exposure change, or rollback → Actuator
+```
 
-Project-level material may include high-level Judgment landscape, risk scenarios, required controls, evidence feasibility, capacity, economics, and project authorization.
+One product may package several functions.
 
-Delivery-level material may include detailed Judgment Nodes, Requirement and Operating Envelope, DoR, implementation or experiment evidence, DoD, release scope, residual risk, and local reassessment.
+For Mermaid and other architecture diagrams:
 
-When a delivery review needs project context, link the project version and identify inherited fields. Do not copy the complete project review.
+- show reference conditions or approved intent reaching the relevant Controller;
+- show actual outputs, actions, and downstream outcomes reaching Sensors where material;
+- show evidence reaching decision authority;
+- show authorized action reaching an Actuator;
+- show the Actuator changing operation or a Constraint Realization;
+- show realization state and Actuator effects returning as evidence where material;
+- use `enforces or influences` and `may gate` in generic diagrams;
+- use deterministic language such as `bounds`, `blocks`, or `gates` only when a scoped Hard Constraint and complete realized path justify it;
+- do not draw the four capability families as a mandatory vertical execution sequence;
+- do not draw the four decision levels as a one-way delivery waterfall without upward reassessment paths.
 
-When delivery or runtime evidence invalidates the project baseline, update or reauthorize the project review. Do not hide the contradiction in a local exception.
+A closed feedback loop is not automatically a bounded acceptable UA control architecture.
 
-### 9.3 Separate specification from evidence and examples
+## 8. Task-specific reading paths
 
-- Research is evidence and analysis; doctrine is explicit synthesis.
-- Reference architectures demonstrate compositions; they do not establish mandatory topology.
-- Templates implement patterns; they do not create independent conformance paths.
-- Example thresholds are not universal requirements.
-- Role names are not automatically mandatory job titles.
-- Talks, articles, benchmarks, citations, and implementations do not update the specification by implication.
+### Understanding UA
 
-### 9.4 Classify socio-technical framework content explicitly
+1. `README.md`
+2. `SPECIFICATION.md`
+3. `00-doctrine/uncertainty-in-the-controlled-object.md`
+4. `00-doctrine/control-loop-anatomy.md`
+5. `00-doctrine/nested-control-lifecycle.md`
+6. `00-doctrine/glossary.md`
+7. project and delivery patterns
+8. relevant Control Plane, reference architecture, failure mode, or research source
 
-When extracting material from talks, research, examples, or source publications, classify each candidate before placing it in the specification.
+### Editing doctrine or terminology
 
-Use these classes:
+Read `SPECIFICATION.md`, the complete glossary, relevant doctrine, both review patterns, affected Control Plane capability areas, failure modes, research traceability, roadmap, and changelog.
 
-- **Concept or definition** — a foundational distinction or canonical meaning; normally belongs in `00-doctrine/` and may require a glossary entry.
-- **Artifact** — a maintained object used to express intent, evidence, policy, state, or control, such as a project review, Prompt Registry, Golden Scenario set, release manifest, risk map, escalation matrix, or decision record.
-- **Role or responsibility bundle** — decision rights, ownership, competence, and authority required to operate part of the control loop. Prefer responsibilities over mandatory job titles.
-- **Process or ritual** — a repeatable sequence through which evidence is reviewed and corrective action is authorized, such as project authorization, drift review, release review, incident learning, or escalation.
-- **Technical reference artifact** — an illustrative schema, interface, manifest, data model, evaluator contract, repository layout, or implementation example.
-- **Pattern** — a reusable arrangement of artifacts, responsibilities, processes, economics, and technical mechanisms that addresses a recurring control problem.
-- **Failure mode** — a reusable mechanism by which control is lost or becomes ineffective.
-- **Reference architecture** — a context-specific composition of several of the above.
+### Editing project architecture material
 
-Do not create a new top-level repository namespace for these classes merely because the classification exists. Place each item in the module that owns its architectural meaning, and use indexes or cross-references to expose the complete socio-technical stack.
+Read the controlled-object doctrine, capability anatomy, lifecycle, project pattern and template, delivery pattern, Constraint capability, relevant failure modes, and traceability.
 
-### 9.5 Avoid false precision
+Confirm that the change concerns project viability, Project Constraint Architecture, authorization, inheritance, or reauthorization and remains proportional for SMB use.
 
-Do not introduce universal numerical thresholds for quality, hallucination, drift, latency, cost, autonomy, confidence, Golden Scenario count, review frequency, risk, or expected value without a context- and consequence-derived basis.
+### Editing delivery-team material
 
-Do not allow one aggregate risk score or expected-value number to override a hard prohibition, unacceptable consequence, missing control, or non-substantive Human Authority.
+Read the project pattern and inheritance rules, delivery pattern and template, Judgment Node Boundary, Constraint capability, glossary, and relevant failure modes.
 
-### 9.6 Preserve uncertainty
+Confirm that one canonical Constraint Realization Map remains the delivery source, each row has one reviewable guarantee strength, and DoR, DoD, Release Gate, and runtime sections reference rather than duplicate it.
 
-When evidence conflicts or a concept remains incomplete:
+### Editing runtime material
 
-- state the uncertainty;
-- preserve relevant alternatives;
-- identify the unresolved decision and owning control level;
-- avoid language stronger than the evidence supports.
+Read the active project and delivery ownership rules, capability anatomy, Controller and Actuator guidance, relevant realization, Sensor, incident, fallback, and failure-mode material.
 
-### 9.7 Keep links, metadata, inheritance, and change records coherent
+Confirm that runtime logic remains inside delegated authority and routes invalidating evidence to delivery, project, or organizational reassessment.
 
-- Use repository-relative links.
-- Link to canonical module indexes and owning patterns rather than duplicating document lists.
-- Planned artifacts belong in `ROADMAP.md` until created.
-- Follow `DOCUMENT-METADATA.md`.
-- Preserve provenance when moving or superseding content.
-- Preserve project and delivery decision versions when runtime evidence changes the current state.
-- Update `CHANGELOG.md` in the same branch and pull request for every notable repository or specification-artifact change.
-- Do not postpone a changelog entry to a later cleanup session.
+### Editing the AI Control Plane
 
-## 10. Task-specific reading paths
+Read the capability anatomy, glossary, all affected capability areas, both review patterns, reference architectures, failure modes, source intake, and traceability.
 
-### 10.1 Understanding UA
+### Working with research
 
-Read in this order:
+Start with [`content/research/index.md`](content/research/index.md), [`content/research/review-process.md`](content/research/review-process.md), and [`content/research/framework-traceability.md`](content/research/framework-traceability.md).
 
-1. `README.md`;
-2. `SPECIFICATION.md`;
-3. `00-doctrine/uncertainty-in-the-controlled-object.md`;
-4. `00-doctrine/README.md`;
-5. the complete glossary;
-6. `01-patterns/project-control-architecture-and-viability-review.md`;
-7. `01-patterns/thinking-system-review.md`;
-8. the relevant Control Plane, reference architecture, failure mode, or research source.
+Record explicit accept, narrow, reject, supersede, or reopen decisions. Research does not update doctrine by implication.
 
-### 10.2 Editing doctrine or terminology
-
-1. Read `SPECIFICATION.md`.
-2. Read relevant doctrine and its module index.
-3. Read the complete glossary.
-4. Search all uses and near-synonyms.
-5. Identify downstream impact across all four control levels.
-6. Update glossary, indexes, links, research traceability, roadmap, and changelog when affected.
-7. State compatibility, supersession, and unresolved uncertainty.
-
-### 10.3 Proposing or changing the project review
-
-Read:
-
-- `00-doctrine/uncertainty-in-the-controlled-object.md`;
-- `01-patterns/project-control-architecture-and-viability-review.md`;
-- its template;
-- `01-patterns/thinking-system-review.md`;
-- `02-ai-control-plane/README.md`;
-- relevant research traceability and failure modes.
-
-Check that the change:
-
-- concerns project viability, authorization, inheritance, or reauthorization;
-- does not duplicate full DoR, DoD, or the delivery Release Gate;
-- connects risk scenarios to control capabilities, evidence, authority, corrective action, capacity, and economics;
-- preserves No-Go and non-AI alternatives;
-- remains proportional for SMB use.
-
-### 10.4 Proposing or changing a delivery pattern
-
-Read relevant doctrine, the project review and inheritance rules, glossary terms, overlapping patterns, and failure modes. Identify which project constraints are inherited and which implementation details the delivery pattern owns.
-
-### 10.5 Editing the AI Control Plane
-
-Identify actuator, sensor, controller, authority, evidence, feedback path, affected control level, and the behavior that can actually be changed, contained, compensated, or stopped.
-
-### 10.6 Editing a reference architecture
-
-Read relevant doctrine, project and delivery patterns, and Control Plane documents. State context, assumptions, risk, autonomy, reversibility, operating constraints, project baseline, delivery scope, and reauthorization path. Separate required content from illustrative design choices.
-
-### 10.7 Editing a failure mode
-
-Identify the reusable mechanism, not only the symptom. Distinguish deterministic defects, expected distribution tails, missing controls, inadequate sensors, controller failures, invalid assumptions, control-capacity failure, economic non-viability, and the control level where the failure becomes material.
-
-### 10.8 Working with research or source extraction
-
-Start with [`content/research/index.md`](content/research/index.md). Use [`content/research/review-process.md`](content/research/review-process.md) for the detailed proportional workflow and [`content/research/framework-traceability.md`](content/research/framework-traceability.md) as the single canonical record for material source-to-framework decisions.
-
-Distinguish source, normalized edition, analysis, synthesis, framework candidate, and worked-application evidence. Preserve evidence quality, scope, limitations, contradictions, and control-level implications.
-
-For each extracted entity:
-
-1. state the source and original claim;
-2. classify it as concept, artifact, role/responsibility, process, technical reference artifact, pattern, failure mode, or reference architecture;
-3. identify the owning module and control level;
-4. decide whether it is normative, draft normative, informative, reference, research, or historical;
-5. check glossary impact;
-6. identify dependencies, inheritance, reauthorization, and cross-references;
-7. update the changelog when the repository changes.
-
-#### Research reconciliation trigger
-
-After a source-derived framework change, worked application, incident, or operational observation, check whether the work:
-
-- registers or materially reinterprets a source;
-- resolves, narrows, rejects, supersedes, or reopens a research question;
-- promotes a candidate into doctrine, a pattern, a control capability, a failure mode, an artifact, or a reference architecture;
-- changes the relationship between existing research and the current framework;
-- changes which control level owns a decision or how information is inherited between levels.
-
-When any trigger applies, review the owning research note or source-intake record, `framework-traceability.md`, affected open questions or maturity, and the research index when direction or navigation changed. Update only records whose state actually changed. Do not create a second ledger or use research as a session log.
-
-### 10.9 Working with history
-
-Start with `content/history/README.md`. Preserve source meaning and distinguish visibility from validation, adoption, certification, or endorsement.
-
-## 11. Contribution workflow for AI-assisted changes
+## 9. Editing workflow
 
 For repository-changing work:
 
-1. **Understand** — identify the architectural purpose and document class.
-2. **Identify the control level** — organizational, project, delivery, runtime, or a deliberate connection between them.
-3. **Locate ownership** — identify the module, owning doctrine or pattern, and existing authoritative record.
-4. **Read dependencies** — follow the relevant reading path.
-5. **Search before creating** — check terms, patterns, documents, review surfaces, and overlapping claims.
-6. **Classify the entity** — concept, artifact, responsibility, process, technical reference artifact, pattern, failure mode, or reference architecture.
-7. **Assess authority** — verify status, maturity, module boundaries, normative language, and decision rights.
-8. **Check inheritance** — identify what is linked from a higher level and what evidence may require upward reassessment.
-9. **Make the smallest coherent change** — prefer one reviewable decision.
-10. **Cross-reference** — connect doctrine, project and delivery patterns, control capabilities, evidence, failure modes, and history.
-11. **Check terminology** — compare UA-specific wording with the glossary.
-12. **Update the changelog** — record every notable repository or specification-artifact change under `[Unreleased]` in the same branch and pull request.
-13. **Reconcile research state when triggered** — update only the affected intake, note, analysis, traceability, or research navigation.
-14. **Check repository integrity** — verify metadata, navigation, provenance, status boundaries, ownership, and inheritance.
-15. **Report uncertainty** — disclose contradictions, assumptions, evidence gaps, and unresolved decisions.
-16. **Finish the session protocol** — complete the checks below.
-
-Substantial framework changes should use a branch and pull request under [`CONTRIBUTING.md`](CONTRIBUTING.md).
-
-## 12. End-of-session repository integrity protocol
-
-Before completing any session that changes repository content, perform all checks.
-
-### 12.1 Placement and control-level review
-
-- Is each file in the correct module or namespace?
-- Is the owning control level explicit?
-- Does the change have one clear architectural purpose?
-- Could an existing canonical document have been refined?
-- Was a new namespace introduced without a repository decision?
-
-### 12.2 Authority and status review
-
-- Does status match the document's actual role and language?
-- Is draft material clearly marked?
-- Did lower-status material accidentally create a normative claim?
-- Does the change conflict with `SPECIFICATION.md`, doctrine, a module boundary, or an owning pattern?
-- Did a template accidentally become a second protocol?
-
-### 12.3 Review ownership and inheritance review
-
-- Is project viability or authorization owned by the project review?
-- Are DoR, DoD, release, and local reassessment owned by the delivery review?
-- Are organizational sources linked rather than copied?
-- Does the delivery artifact identify the inherited project version?
-- Did a lower-level change silently expand higher-level authority or scope?
-- Are upward reassessment triggers explicit when evidence invalidates a higher-level assumption?
-
-### 12.4 Terminology and glossary review
-
-Review the glossary before finishing.
-
-Update it in the same change when the session:
-
-- introduces a canonical UA concept;
-- changes a term's meaning, scope, or ownership;
-- deprecates, replaces, or renames a term;
-- creates an alias or historical relationship;
-- exposes a missing distinction necessary to apply the specification.
-
-Do not update the glossary merely because a phrase, pattern name, or section heading is new.
-
-When unchanged, report:
-
-> Glossary reviewed — no canonical terminology change required.
-
-### 12.5 Changelog review
-
-Review [`CHANGELOG.md`](CHANGELOG.md) before finishing.
-
-- Every notable repository or specification-artifact change must be recorded under `[Unreleased]` in the same branch and pull request.
-- Use `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, or `Security` as appropriate.
-- Describe the repository-level effect, not a low-level file-edit narrative.
-- Do not duplicate talks, publications, community discussions, or external recognition that belong in `content/history/`.
-- Do not postpone the entry to a later session.
-
-When no changelog entry is appropriate because the change is purely mechanical or non-notable, explicitly report:
-
-> Changelog reviewed — no notable repository or specification-artifact change required.
-
-### 12.6 Cross-reference and navigation review
-
-- Do related modules need links or updates?
-- Do module indexes need to include or supersede the artifact?
-- Does the root README expose new primary reader paths?
-- Do internal links resolve?
-- Was provenance preserved after moving content?
-- Was a duplicate canonical route introduced?
-
-### 12.7 Provenance and historical review
-
-- Were titles, quotations, dates, attribution, and source bodies preserved?
-- Were historical terms left intact where required?
-- Were research conclusions separated from source evidence?
-- Were recognition and visibility kept separate from validation and adoption?
-
-### 12.8 Research-state review
-
-When the research reconciliation trigger applies:
-
-- Was the owning source-intake, analysis, synthesis, or working note reviewed?
-- Were resolved, narrowed, rejected, superseded, reopened, and remaining questions stated accurately?
-- Was `framework-traceability.md` updated when an auditable source-to-framework decision changed?
-- Was research navigation updated only when direction or state materially changed?
-- Was duplicate logging avoided?
-
-When no research state changed, do not add a research record merely to document that the session happened.
-
-### 12.9 Change-control review
-
-- Is the change one coherent architectural decision?
-- Are compatibility, supersession, and unresolved uncertainty explicit?
-- Was `CHANGELOG.md` updated when the change was notable?
-- Does `ROADMAP.md` need an update because sequence or scope changed?
-- Are changed files and rationale summarized clearly?
-
-## 13. Quality checklist
-
-- [ ] Correct status and maturity.
-- [ ] Correct module, placement, and control level.
-- [ ] Extracted entities were explicitly classified.
-- [ ] Current terminology outside historical material.
-- [ ] Glossary reviewed and updated when required.
-- [ ] Changelog reviewed and updated when required.
-- [ ] Research state reconciled when triggered.
-- [ ] No canonical concept redefined locally.
-- [ ] Project and delivery decision ownership remain separate.
-- [ ] Higher-level context is inherited by reference rather than copied.
-- [ ] Upward reassessment is explicit when lower-level evidence invalidates a higher-level assumption.
-- [ ] Examples and templates are not universal requirements.
-- [ ] Responsibilities are not confused with mandatory titles.
-- [ ] Research, history, and reference material remain within their authority boundaries.
-- [ ] Controls include a real intervention path, not telemetry alone.
-- [ ] Human Authority is substantive where claimed.
-- [ ] Risk scores and expected value do not override hard prohibitions or missing controls.
-- [ ] Metadata and tags agree with the content.
-- [ ] Internal links resolve.
-- [ ] Root and module navigation expose new primary artifacts.
-- [ ] No duplicate canonical entry point or namespace.
-- [ ] Moved or superseded material remains traceable.
-- [ ] Module indexes and cross-references reviewed.
-- [ ] Roadmap impact reviewed.
-- [ ] Unresolved assumptions and evidence gaps disclosed.
-
-## 14. Repository anti-patterns
-
-### Control-level collapse
-
-Treating organizational constraints, project authorization, delivery release, and runtime response as one generic governance decision.
-
-Preferred response: identify the owning level, inherit higher-level constraints, and escalate evidence only when it invalidates a higher-level assumption.
-
-### Duplicate doctrine
-
-Creating a second explanation of a canonical concept. Refine the owning document and link to it.
-
-### Duplicate project and delivery records
-
-Copying the project risk map, control economics, or organizational policy into every delivery review, or embedding full DoR and DoD checklists in the project review.
-
-Preferred response: preserve separate ownership and pass a versioned inheritance package by reference.
-
-### Silent scope expansion
-
-Allowing one feature, tool integration, or release to expand project authority, autonomy, population, data, domain, geography, or consequence without project reauthorization.
-
-Preferred response: record the reauthorization trigger and return the decision to the project review.
-
-### Local terminology
-
-Inventing a new name inside a pattern or reference architecture for an existing concept. Use the glossary or propose an explicit glossary change.
-
-### Accidental promotion
-
-Writing research, templates, or examples as if they were normative. Preserve status and make promotion explicit.
-
-### Architecture by accumulation
-
-Adding files to reconcile inconsistency. Resolve ownership, status, terminology, and inheritance instead.
-
-### Tool-as-control fallacy
-
-Treating a schema, evaluator, dashboard, guardrail, model, or workflow engine as a complete control system without authority and corrective action.
-
-### Ceremonial Human Authority
-
-Claiming Human-in-the-Loop or Human-on-the-Loop control when people lack time, context, competence, independence, capacity, or real intervention power.
-
-### Universal thresholds and scores
-
-Copying illustrative numbers into requirements or compressing risk into one score without consequence- and context-derived justification.
-
-### Expected-value override
-
-Using a positive ROI estimate to average away a hard prohibition, unacceptable consequence, unavailable control, or unmanageable feedback latency.
-
-### Historical normalization
-
-Rewriting old publications to match current terminology. Preserve the original and annotate separately.
-
-### Namespace proliferation
-
-Creating `new`, `v2`, `final`, `latest`, or parallel canonical paths without an explicit decision.
-
-### Changelog omission
-
-Making a notable repository or specification-artifact change without updating `CHANGELOG.md` in the same branch and pull request.
-
-Preferred response: add a concise entry under `[Unreleased]` that describes the repository-level effect.
-
-### Research log duplication
-
-Recording routine sessions or pull-request history as research without a change in evidence, question state, interpretation, or framework destination.
-
-Preferred response: update only the owning research record when a meaningful state transition occurs.
-
-## 15. Scope of this file
-
-`AGENTS.md` is the tool-neutral operational protocol for AI-assisted contributors.
-
-Tool-specific adapters such as `CLAUDE.md` or `.cursorrules` should point here and contain only the minimal tool-specific delta.
-
-This file should evolve when repository structure, authority rules, terminology workflow, control-level ownership, inheritance, change-record policy, research reconciliation, or contribution practice changes. It must not become a parallel specification of UA itself.
+1. **Understand** the architectural purpose and document class.
+2. **Locate** the change on both axes: decision level and capability family/function.
+3. **Identify** the owning doctrine, pattern, or module.
+4. **Read** required dependencies.
+5. **Search** terms, paths, near-synonyms, overlapping records, and old terminology.
+6. **Classify** the entity and evidence source.
+7. **Assess** status, authority, inheritance, scope, guarantee strength, and SMB proportionality.
+8. **Make** the smallest coherent change on a branch.
+9. **Cross-reference** affected doctrine, patterns, capabilities, failure modes, and research.
+10. **Update** glossary, roadmap, changelog, or traceability where genuinely required.
+11. **Audit** terminology, links, diagrams, metadata, compatibility, mixed-strength records, and duplicate artifacts.
+12. **Report** uncertainty, assumptions, unresolved decisions, and unavailable automated checks.
+13. **Complete** the end-of-session protocol.
+
+Additional rules:
+
+- refine the owning document instead of creating a competing source;
+- use repository-relative links;
+- preserve explicit status and maturity;
+- separate specification requirements from examples and vendor choices;
+- avoid universal thresholds, sample sizes, risk scores, role titles, or cadences without context-derived evidence;
+- preserve unresolved alternatives where evidence is incomplete;
+- treat path renames as compatibility decisions, not cosmetic cleanup;
+- use a Draft pull request for substantial framework changes until review criteria are satisfied.
+
+## 10. End-of-session integrity protocol
+
+### Architecture and ownership
+
+- Every material change is located on both axes.
+- Organization, architecture/project, delivery-team, and runtime decisions remain distinct.
+- One canonical owner remains for each concept and decision surface.
+- Project authorization and delivery release remain distinct.
+- Runtime action remains inside delegated authority.
+- No unnecessary namespace, role, service, register, committee, gate, or duplicate protocol was introduced.
+
+### Terminology and capability logic
+
+- Glossary terms are used consistently.
+- Constraint and Constraint Realization are not collapsed.
+- The Constraints family does not imply that a Constraint object is itself an execution mechanism.
+- Controller and Actuator responsibilities are not collapsed.
+- Hard and Soft claims are scoped to complete realized paths.
+- Mixed-strength Constraint records are split.
+- Controlled-process outputs, actions, and downstream outcomes reach Sensors where material.
+- Closed-loop feedback is not confused with bounded acceptable operation.
+- Generic diagrams do not imply deterministic enforcement for every Soft Constraint Realization.
+
+### SMB proportionality
+
+- Existing organizational records are linked rather than copied.
+- One canonical Project Constraint Architecture remains at project level.
+- One canonical Constraint Realization Map remains at delivery level.
+- Other sections reference rather than restate those records.
+- The same person may hold several responsibilities without erasing decision boundaries.
+- Added process is justified by a real owner, lifecycle, consequence, authority, evidence, access, retention, or audit need.
+
+### Repository integrity
+
+- Relative links resolve or unavailable automated validation is stated.
+- Renamed paths have an explicit compatibility decision.
+- Mermaid diagrams are syntactically and semantically reviewed or unavailable automated rendering is stated.
+- Metadata and status are coherent.
+- Research provenance does not claim unavailable source formats or unverified review actions.
+- `CHANGELOG.md` is updated for notable changes.
+- PR description matches the actual diff and remaining review state.
+
+### Session report
+
+Summarize:
+
+- what changed;
+- which architectural decision was made;
+- which decision levels and capability families were affected;
+- which files own the resulting meaning;
+- which checks were performed;
+- what remains unresolved;
+- whether the PR is still Draft or ready for review.

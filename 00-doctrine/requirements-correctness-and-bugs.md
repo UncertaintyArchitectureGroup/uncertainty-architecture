@@ -11,16 +11,22 @@ topics:
   - correctness
   - defects
   - model-judgment
+  - constraints
 tags:
   - ua/module/doctrine
   - ua/type/doctrine
   - ua/status/draft-normative
   - ua/topic/thinking-systems
   - ua/topic/model-judgment
+  - ua/topic/constraints
 canonical_for:
   - requirement-model
   - correctness-model
   - bug-model
+related:
+  - control-loop-anatomy.md
+  - glossary.md
+  - ../01-patterns/thinking-system-review.md
 source_basis:
   - ../content/research/notes/designing-nondeterministic-systems-source-intake.md
 ---
@@ -31,7 +37,7 @@ source_basis:
 
 This document is **draft normative**. It defines the canonical relationship between Requirements, Operating Envelopes, Correctness, and Bugs when probabilistic Model Judgment performs part of the behavior of a Thinking System.
 
-The presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* is a synthesis source for this formulation. The linked source-intake note records the maintainer-supplied original PPTX, the preserved PDF export, and the explicit framework-transfer state. This document is the framework decision that translates the relevant ideas into current UA terminology.
+The presentation *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era* is a synthesis source for this formulation. Repository review is grounded in the maintainer-supplied PDF export preserved under `content/raw/`; an editable PPTX is not preserved or independently verified. The linked source-intake note records the explicit framework-transfer decisions.
 
 ## 1. Mixed-system framing
 
@@ -39,9 +45,9 @@ Thinking Systems are mixed systems composed of:
 
 - **deterministic responsibilities** that must remain explicit, inspectable, and testable;
 - **model-mediated responsibilities** in which probabilistic Model Judgment interprets, selects, generates, ranks, plans, or otherwise influences behavior;
-- **boundary and control responsibilities** that constrain authority, provide context, observe behavior, and define fallback, escalation, containment, rollback, or shutdown.
+- **boundary and control responsibilities** that define Constraints and their realizations, produce evidence, preserve decision authority, and provide fallback, escalation, containment, compensation, rollback, or shutdown.
 
-UA extends rather than replaces classical software-engineering contracts. Deterministic rules, schemas, interfaces, permissions, state transitions, and invariants still require conventional specification and testing. Model-mediated behavior adds obligations that cannot always be represented as one exact output for one input.
+UA extends rather than replaces classical software-engineering contracts. Deterministic rules, schemas, interfaces, permissions, state transitions, and Invariants still require conventional specification and testing. Model-mediated behavior adds obligations that cannot always be represented as one exact output for one input.
 
 ## 2. Requirement
 
@@ -52,16 +58,16 @@ Depending on the system and consequence level, a Requirement may include:
 - the intended outcome;
 - deterministic obligations;
 - model-mediated obligations;
-- invariants;
+- Invariants and Constraints;
 - authority boundaries;
 - acceptable operating conditions;
-- resource constraints;
+- resource boundaries;
 - evidence expectations;
 - required failure handling.
 
 An **Operating Envelope** is part of a Requirement, not a synonym for the complete Requirement. It describes the approved region within which relevant conditions, authority, resource use, behavior, and outcomes remain acceptable. It does not by itself replace the intended outcome, deterministic obligations, evidence expectations, or failure-handling duties that may also form the operating contract.
 
-A Requirement MUST distinguish hard obligations from probabilistic expectations where that distinction is material. Example thresholds, sample sizes, scores, confidence levels, cost limits, or review cadences do not become universal requirements merely because they appear in a source or reference architecture.
+A Requirement MUST distinguish hard obligations from probabilistic expectations where that distinction is material. A Hard Constraint claim requires a scoped complete realized path that deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries. Example thresholds, sample sizes, scores, confidence levels, cost limits, or review cadences do not become universal requirements merely because they appear in a source or reference architecture.
 
 ### Mixed Requirement
 
@@ -69,14 +75,16 @@ A Requirement MUST distinguish hard obligations from probabilistic expectations 
 flowchart TB
     R[Approved Requirement]
 
-    D[Deterministic obligations<br/>Rules, schemas, invariants, exact constraints]
-    M[Model-mediated obligations<br/>Acceptable variation, tolerances, outcome expectations]
-    C[Boundary and control obligations<br/>Authority, sensing, fallback, containment]
+    D[Deterministic obligations<br/>Rules · schemas · Invariants · exact interfaces]
+    M[Model-mediated obligations<br/>Acceptable variation · tolerances · outcome expectations]
+    C[Boundary and control obligations<br/>Constraints and realizations · evidence<br/>decision authority · corrective action]
 
     R --> D
     R --> M
     R --> C
 ```
+
+This diagram decomposes Requirement content. It is not a control-loop topology and does not replace the [`Control-Loop Capability Anatomy`](control-loop-anatomy.md).
 
 ## 3. Correctness
 
@@ -84,20 +92,20 @@ flowchart TB
 
 Correctness remains a system property. It is not equivalent to model quality, one successful output, or a green deterministic test suite.
 
-For deterministic obligations, compliance can often be evaluated directly against an explicit rule, result, schema, transition, or invariant. For model-mediated obligations, establishing compliance may require evidence across relevant scenarios, behavioral variation, operating conditions, and control performance.
+For deterministic obligations, compliance can often be evaluated directly against an explicit rule, result, schema, transition, Invariant, or Hard Constraint realization. For model-mediated obligations, establishing compliance may require evidence across relevant scenarios, behavioral variation, operating conditions, and control performance.
 
 The required evidence depends on the Requirement and decision context. No universal metric, sample size, benchmark, evaluator, or confidence interval proves correctness for every Thinking System.
 
 ## 4. Evidence and diagnosis
 
-Observed behavior does not diagnose itself. Evidence must be interpreted against the approved Requirement.
+Observed behavior does not diagnose itself. Evidence must be interpreted against the approved Requirement by a decision function with appropriate authority.
 
 ```mermaid
 flowchart LR
     R[Approved Requirement]
-    B[Observed System Behavior]
+    B[Observed system behavior]
     E[Evidence]
-    D{Diagnosis}
+    D{Authorized diagnosis}
 
     R --> D
     B --> E --> D
@@ -108,6 +116,8 @@ flowchart LR
     D --> IR[Invalid or incomplete Requirement]
     D --> T[Accepted residual behavior<br/>handled as designed]
 ```
+
+This is a diagnosis view rather than a complete runtime control loop. Corrective execution remains the responsibility of an Actuator connected to the relevant Controller or Human Authority.
 
 A diagnosis SHOULD distinguish at least the following outcomes:
 
@@ -121,15 +131,15 @@ An undesirable output, evaluation result, incident, or Deviation Signal is evide
 
 ## 5. Bug
 
-> **A Bug is a violation of an approved Requirement caused or permitted by the implemented system.**
+> **A Bug is a system-level violation of an approved Requirement caused or permitted by the implemented system.**
 
-The Bug is the system-level Requirement violation. Its source may be located in deterministic implementation, Model Judgment, or the boundaries and controls around them.
+Its source may be located in deterministic implementation, Model Judgment, data or context, a Constraint or its realization, evidence, decision authority, an Actuator, an external dependency, or interaction among them.
 
 ### 5.1 Deterministic defect
 
-A **Deterministic Defect** is a reproducible violation of an explicit rule, invariant, state transition, schema, interface, permission, or deterministic output contract.
+A **Deterministic Defect** is a defect in explicitly encoded logic, configuration, interface, state handling, permission enforcement, Constraint Realization, or another deterministic responsibility.
 
-Examples include an incorrect calculation, an invalid state transition, a broken authorization check, or failure to enforce a required invariant.
+Examples include an incorrect calculation, invalid state transition, broken authorization check, stale schema, bypassable policy gate, or failure to preserve an Invariant.
 
 ### 5.2 Model-mediated violation
 
@@ -139,9 +149,9 @@ Variation by itself is not a violation. The relevant question is whether the imp
 
 ### 5.3 Boundary or control failure
 
-A **Boundary or Control Failure** occurs when a Requirement violation is caused or permitted by an incorrect or missing context, authority boundary, constraint, sensor, controller, validation gate, fallback, escalation, containment, rollback, or shutdown responsibility.
+A **Boundary or Control Failure** occurs when a Requirement violation is caused or permitted by an incorrect or missing context, authority boundary, Constraint, Constraint Realization, Sensor, Controller, Actuator, Human Authority, fallback, escalation, containment, compensation, rollback, or shutdown responsibility.
 
-A model output may be locally plausible while the system still contains a Bug because the surrounding system supplied invalid context, granted excessive authority, failed to detect a material deviation, or failed to execute the required corrective response.
+A model output may be locally plausible while the system still contains a Bug because the surrounding system supplied invalid context, granted excessive authority, failed to realize an approved boundary, failed to detect a material deviation, or failed to execute the required response.
 
 ### Defect source versus system outcome
 
@@ -158,22 +168,23 @@ flowchart LR
     V --> B[System-level Bug]
 ```
 
-These are diagnostic categories for locating the source of a Requirement violation. They are not three separate definitions of a Bug, and more than one category may contribute to the same system-level Bug.
+This is a diagnostic classification, not a control topology. More than one source may contribute to the same Bug.
 
 ## 6. Relationship to readiness, completion, and release
 
-Requirement, Correctness, and Bug diagnosis inform three distinct engineering decisions:
+Requirement, Correctness, and Bug diagnosis inform three distinct delivery decisions:
 
 - **Definition of Ready (DoR)** asks whether the work is sufficiently framed to begin implementation or bounded experimentation.
 - **Definition of Done (DoD)** asks whether the implementation and required evidence are sufficiently complete.
-- **Release Gate** asks whether the available evidence and residual risk are acceptable for a specific deployment context.
+- **Release Gate** asks whether realized Constraints, available evidence, residual risk, operational capacity, and the proposed deployment are acceptable under the project authorization.
 
-DoR, DoD, and Release Gate remain distinct. Detailed checklists, decision outcomes, delivery flow, responsibility allocation, evidence-package structure, and practical records belong in reusable patterns and artifacts rather than in this doctrine document.
+DoR, DoD, and Release Gate remain distinct. Their practical records belong in the [`Thinking System Review`](../01-patterns/thinking-system-review.md), not in this doctrine document.
 
-## 7. Relationship to other UA concepts
+## Relationships
 
-- [`glossary.md`](glossary.md) contains the canonical concise definitions used by this document.
-- [`../01-patterns/`](../01-patterns/) contains reusable technical and socio-technical responses that apply this doctrine.
-- [`../02-ai-control-plane/`](../02-ai-control-plane/) defines capabilities used to constrain, observe, evaluate, and correct model-mediated behavior.
+- [`glossary.md`](glossary.md) owns canonical concise definitions.
+- [`control-loop-anatomy.md`](control-loop-anatomy.md) defines Constraints and realizations, Sensors, Controllers, and Actuators.
+- [`../01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) owns delivery readiness, completion, release, and local reassessment.
+- [`../02-ai-control-plane/`](../02-ai-control-plane/) develops capability-specific guidance.
 - [`../04-failure-modes/`](../04-failure-modes/) distinguishes recurring mechanisms of control loss from individual Bug instances.
-- [`../content/research/notes/designing-nondeterministic-systems-source-intake.md`](../content/research/notes/designing-nondeterministic-systems-source-intake.md) records the presentation source relationship and slides 1–6 translation state.
+- [`../content/research/notes/designing-nondeterministic-systems-source-intake.md`](../content/research/notes/designing-nondeterministic-systems-source-intake.md) records the presentation source relationship and framework-transfer decisions.
