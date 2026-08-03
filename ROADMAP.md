@@ -62,10 +62,13 @@ The objective is to consolidate research into a coherent, bounded specification.
 - Organizational, project, delivery, and runtime decision levels are distinguished.
 - Project authorization, delivery release, runtime reassessment, and Architectural Veto remain separate decisions.
 - The default SMB path uses one living project review and one living delivery review.
+- Four logical capability families are established as the current draft baseline: Constraints and their realizations, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
+- A closed feedback loop is distinguished from a complete bounded UA control architecture.
+- One canonical Project Constraint Architecture and one canonical delivery Constraint Realization Map are established as the default proportional Constraint records.
 
-### Active four-family capability consolidation
+### Four-family capability baseline
 
-The active proposal:
+The accepted current draft baseline:
 
 - establishes a composite Constraints family containing the authoritative Constraint and its operational Constraint Realization;
 - places that family alongside Sensors and evidence, Controllers and decision authority, and Actuators and corrective action;
@@ -78,14 +81,15 @@ The active proposal:
 - introduces one canonical Project Constraint Architecture and one canonical delivery Constraint Realization Map;
 - preserves legacy Sensor and Controller deep links through informative compatibility notices;
 - records the PDF presentation source and rejects unverified PPTX-only provenance claims;
-- updates doctrine, patterns, Control Plane, references, failure modes, conformance, navigation, and research traceability as one coherent architectural decision.
+- aligns doctrine, patterns, Control Plane, references, failure modes, conformance, navigation, and research traceability around one model.
 
-This consolidation remains draft until repository integrity review is complete and the corresponding pull request is accepted.
+The repository integration is complete. The relevant framework documents remain draft-normative and still require worked application, real-team use, operational evidence, and further terminology validation before a broader maturity claim.
 
 ### Exit work for this phase
 
 - [x] Complete architectural and logical consistency review of the capability-family model.
 - [x] Confirm one Project Constraint Architecture and one delivery Constraint Realization Map as the default proportional record structure.
+- [x] Integrate the four-family capability model across current repository doctrine, patterns, Control Plane, references, failure modes, conformance, navigation, and traceability.
 - [ ] Complete automated Mermaid rendering and internal-link validation when repository tooling exists.
 - [ ] Build a two-level worked application tracing Constraints from organizational source through project architecture, delivery realization, runtime evidence, and reauthorization.
 - [ ] Apply both reviews to a real team or documented real system boundary.

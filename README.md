@@ -35,7 +35,7 @@ The [`Nested Control Lifecycle`](00-doctrine/nested-control-lifecycle.md) distin
 1. organizational control context;
 2. project control architecture and viability;
 3. delivery-level Thinking System Review;
-4. runtime control and reauthorization.
+4. runtime operation and reassessment.
 
 ### Which capability families make control operational?
 
