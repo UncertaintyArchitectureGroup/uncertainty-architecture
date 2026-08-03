@@ -210,7 +210,7 @@ For contribution and review guidance:
 
 ## Authors and Maintainers
 
-### Vitalii Oborskyi — Creator and Lead Architect
+### Vitalii Oborskyi — Creator, Lead Architect, and Maintainer
 
 Focus: operational framing, governance, delivery systems, adoption scaffolding, and system-level control.
 
