@@ -45,6 +45,12 @@ def materialize_valid_repository(root: Path, contract: Dict[str, object]) -> Non
         else:
             write_text(path)
 
+    for immutable in contract["immutable_files"]:
+        source = REPOSITORY_ROOT / immutable["path"]
+        destination = root / immutable["path"]
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(str(source), str(destination))
+
     for rule in contract["critical_files"]:
         parts: List[str] = []
         parts.extend(rule.get("required_headings", []))
@@ -73,6 +79,10 @@ def apply_mutation(root: Path, mutation: Dict[str, str]) -> None:
     if mutation_type == "remove_text":
         text = path.read_text(encoding="utf-8")
         path.write_text(text.replace(mutation["text"], "", 1), encoding="utf-8")
+        return
+    if mutation_type == "append_text":
+        with path.open("a", encoding="utf-8") as handle:
+            handle.write(mutation["text"])
         return
     if mutation_type == "add_directory":
         path.mkdir(parents=True, exist_ok=True)
