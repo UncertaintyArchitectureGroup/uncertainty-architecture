@@ -31,7 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
-- Added a root [`CITATION.cff`](CITATION.cff) so GitHub and compatible citation tools can expose machine-readable repository citation metadata for Vitalii Oborskyi and Sam Walker.
+- Added a root [`CITATION.cff`](CITATION.cff) so GitHub and compatible citation tools can expose machine-readable repository citation metadata for Vitalii Oborskyi and Sam Walker, and extended CI to validate that metadata against CFF schema 1.2.0.
 - Added a GitHub Actions CI workflow that validates the declared navigation coverage and destinations and uses a SHA-pinned `lychee` action in offline mode to check repository-relative links, directory indexes, Markdown heading fragments, and explicit HTML compatibility anchors across maintained Markdown without making external-network availability part of repository integrity.
 - Added a non-normative drafting-ready editorial contract and Phase 1 completion-candidate record for the planned public synthesis article, *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*. The proposed structure uses one unnumbered abstract, eight numbered sections, three figures, and one illustrative continuous Constraint trace; article prose has not begun and maintainer freeze remains pending.
 - Added draft-normative [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md), distinguishing a closed feedback loop from a complete bounded UA control architecture.
@@ -92,7 +92,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Fixed
 
-- Restored the root README sections for authors, maintainers, contributors, advisors, repository citation, and full dual-license guidance that were unintentionally dropped during landing-page simplification.
+- Restored the root README attribution, contributor, advisor, maturity, evidence, contribution, repository-citation, and full dual-license guidance that was unintentionally dropped during landing-page simplification.
 
 ### Moved and compatibility
 
