@@ -1,0 +1,68 @@
+{
+  "cases": [
+    {
+      "name": "valid synthetic repository passes",
+      "mutation": {"type": "none"},
+      "expected_valid": true
+    },
+    {
+      "name": "critical file deletion is rejected",
+      "mutation": {"type": "delete_path", "path": "README.md"},
+      "expected_error": "Missing critical file: README.md"
+    },
+    {
+      "name": "critical README section deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "## How to Cite"
+      },
+      "expected_error": "README.md: missing required heading '## How to Cite'"
+    },
+    {
+      "name": "protected attribution text deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "Sam “stunspot” Walker — Technical Co-Author"
+      },
+      "expected_error": "README.md: missing protected text 'Sam “stunspot” Walker — Technical Co-Author'"
+    },
+    {
+      "name": "required canonical link deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "[fixture](CITATION.cff)"
+      },
+      "expected_error": "README.md: missing required Markdown link to CITATION.cff"
+    },
+    {
+      "name": "unexpected top-level directory is rejected",
+      "mutation": {"type": "add_directory", "path": "05-governance"},
+      "expected_error": "Unexpected top-level directory: 05-governance"
+    },
+    {
+      "name": "unexpected top-level file is rejected",
+      "mutation": {"type": "add_file", "path": "NAVIGATION.md"},
+      "expected_error": "Unexpected top-level file: NAVIGATION.md"
+    },
+    {
+      "name": "legacy runtime anchor deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "00-doctrine/nested-control-lifecycle.md",
+        "text": "<a id=\"4-runtime-control-and-reassessment\"></a>"
+      },
+      "expected_error": "00-doctrine/nested-control-lifecycle.md: missing protected marker"
+    },
+    {
+      "name": "compatibility path deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "02-ai-control-plane/01-sensors/README.md"
+      },
+      "expected_error": "Missing required file: 02-ai-control-plane/01-sensors/README.md"
+    }
+  ]
+}
