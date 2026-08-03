@@ -1,5 +1,13 @@
 # Uncertainty Architecture (UA)
 
+> **UA navigation**
+>
+> [UA Home](README.md) · [Specification](SPECIFICATION.md)
+>
+> **Lifecycle:** [Organization / boundaries](00-doctrine/nested-control-lifecycle.md#1-organizational-control-context) · [Project / architecture](01-patterns/project-control-architecture-and-viability-review.md) · [Delivery / release](01-patterns/thinking-system-review.md) · [Runtime / reassessment](00-doctrine/nested-control-lifecycle.md#4-runtime-operation-and-reassessment)
+>
+> **Explore:** [Doctrine](00-doctrine/) · [Patterns](01-patterns/) · [Control capabilities](02-ai-control-plane/) · [Reference architectures](03-reference-architectures/) · [Failure modes](04-failure-modes/) · [Research](content/research/index.md)
+
 ## Engineering at the AI–Code Boundary
 
 **Uncertainty Architecture** is an open doctrine and pattern language for building and operating software in which part of runtime behavior is delegated to **non-deterministic Model Judgment**, while consequential deterministic responsibilities, approved Constraints, evidence, decision rights, and corrective mechanisms remain explicit.
@@ -32,19 +40,19 @@ Read [`Uncertainty in the Controlled Object`](00-doctrine/uncertainty-in-the-con
 
 The [`Nested Control Lifecycle`](00-doctrine/nested-control-lifecycle.md) distinguishes:
 
-1. organizational control context;
-2. project control architecture and viability;
-3. delivery-level Thinking System Review;
-4. runtime operation and reassessment.
+1. [`Organizational control context`](00-doctrine/nested-control-lifecycle.md#1-organizational-control-context) — existing authoritative sources, shared capabilities, and decision rights; UA does not require a separate organizational governance file by default;
+2. [`Project control architecture and viability`](01-patterns/project-control-architecture-and-viability-review.md) — project boundary, Project Constraint Architecture, viability, authorization, and reauthorization;
+3. [`Delivery-level Thinking System Review`](01-patterns/thinking-system-review.md) — concrete realization, DoR, DoD, deployment-specific Release Gate, and local reassessment;
+4. [`Runtime operation and reassessment`](00-doctrine/nested-control-lifecycle.md#4-runtime-operation-and-reassessment) — active realization, evidence, corrective action, and escalation to the decision level whose basis is invalidated.
 
 ### Which capability families make control operational?
 
 The [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md) distinguishes:
 
-1. **Constraints and their realizations** — approved boundaries plus the mechanisms that implement, enforce, or influence them;
-2. **Sensors and evidence** — observation of behavior, outcomes, realization state, and control health;
-3. **Controllers and decision authority** — comparison, interpretation, and authorization;
-4. **Actuators and corrective action** — execution of authorized change.
+1. [`Constraints and their realizations`](02-ai-control-plane/01-constraints/) — approved boundaries plus the mechanisms that implement, enforce, or influence them;
+2. [`Sensors and evidence`](02-ai-control-plane/02-sensors/) — observation of behavior, outcomes, realization state, and control health;
+3. [`Controllers and decision authority`](02-ai-control-plane/03-controller/) — comparison, interpretation, and authorization;
+4. [`Actuators and corrective action`](02-ai-control-plane/00-actuators/) — execution of authorized change.
 
 A Constraint is an authoritative decision object, while a Constraint Realization is its operational mechanism. The decision levels are not capability layers. The capability families are not mandatory services.
 
@@ -143,16 +151,16 @@ Named technologies are examples, not requirements.
 
 ## Start Here
 
-1. [`SPECIFICATION.md`](SPECIFICATION.md)
-2. [`00-doctrine/uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md)
-3. [`00-doctrine/control-loop-anatomy.md`](00-doctrine/control-loop-anatomy.md)
-4. [`00-doctrine/nested-control-lifecycle.md`](00-doctrine/nested-control-lifecycle.md)
-5. [`00-doctrine/glossary.md`](00-doctrine/glossary.md)
-6. [`01-patterns/project-control-architecture-and-viability-review.md`](01-patterns/project-control-architecture-and-viability-review.md)
-7. [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md)
-8. [`02-ai-control-plane/`](02-ai-control-plane/)
-9. [`03-reference-architectures/`](03-reference-architectures/)
-10. [`04-failure-modes/`](04-failure-modes/)
+1. [`Specification boundary and conformance`](SPECIFICATION.md)
+2. [`Uncertainty in the Controlled Object`](00-doctrine/uncertainty-in-the-controlled-object.md)
+3. [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md)
+4. [`Nested Control Lifecycle`](00-doctrine/nested-control-lifecycle.md)
+5. [`Canonical Glossary`](00-doctrine/glossary.md)
+6. [`Project Control Architecture and Viability Review`](01-patterns/project-control-architecture-and-viability-review.md)
+7. [`Thinking System Review`](01-patterns/thinking-system-review.md)
+8. [`AI Control Plane`](02-ai-control-plane/)
+9. [`Reference Architectures`](03-reference-architectures/)
+10. [`Failure Modes and Anti-Patterns`](04-failure-modes/)
 
 ## Repository Structure
 

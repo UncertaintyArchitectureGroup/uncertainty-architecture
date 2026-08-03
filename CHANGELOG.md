@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added a GitHub Actions CI workflow that validates the declared navigation coverage and destinations and uses a SHA-pinned `lychee` action in offline mode to check repository-relative links, directory indexes, Markdown heading fragments, and explicit HTML compatibility anchors across maintained Markdown without making external-network availability part of repository integrity.
 - Added a non-normative drafting-ready editorial contract and Phase 1 completion-candidate record for the planned public synthesis article, *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*. The proposed structure uses one unnumbered abstract, eight numbered sections, three figures, and one illustrative continuous Constraint trace; article prose has not begun and maintainer freeze remains pending.
 - Added draft-normative [`Control-Loop Capability Anatomy`](00-doctrine/control-loop-anatomy.md), distinguishing a closed feedback loop from a complete bounded UA control architecture.
 - Added the composite [`Constraint Capability Family`](02-ai-control-plane/01-constraints/) and an informative [`Constraint Realization Catalog`](02-ai-control-plane/01-constraints/constraint-realization-catalog.md).
@@ -48,6 +49,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Changed
 
+- Established a consistent navigation system across the root, specification, doctrine, patterns, AI Control Plane, reference-architecture, failure-mode, and research entry pages; linked the four decision levels and four capability families to their owning locations; added owner/back links to the two practical templates and the Judgment Placement references; aligned the runtime lifecycle heading to **Runtime operation and reassessment** while preserving the previous deep-link anchor; and corrected stale PDF/PPTX provenance and runtime terminology in research and raw-source indexes.
 - Recorded the merged four-family capability architecture as the current draft roadmap baseline while retaining worked-application, real-team, tooling, operational-evidence, and terminology validation as open maturity work.
 - Corrected the root README so the runtime decision level is described as operation and reassessment rather than runtime reauthorization.
 - Established four logical capability families orthogonal to the four organizational-to-runtime decision levels: **Constraints and their realizations**, **Sensors and evidence**, **Controllers and decision authority**, and **Actuators and corrective action**.

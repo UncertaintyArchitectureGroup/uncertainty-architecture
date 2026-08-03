@@ -1,0 +1,55 @@
+name: Link integrity
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: link-integrity-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  internal-links:
+    name: Repository navigation, links, and anchors
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Validate navigation coverage, order, and routing
+        working-directory: 00-doctrine
+        run: python3 ../.github/scripts/validate_navigation.py
+
+      - name: Validate maintained Markdown links and anchors
+        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
+        with:
+          lycheeVersion: v0.23.0
+          args: >-
+            --offline
+            --include-fragments
+            --index-files README.md,index.md
+            --root-dir "${{ github.workspace }}"
+            --no-progress
+            --verbose
+            './*.md'
+            './00-doctrine/**/*.md'
+            './01-patterns/**/*.md'
+            './02-ai-control-plane/**/*.md'
+            './03-reference-architectures/**/*.md'
+            './04-failure-modes/**/*.md'
+            './content/index.md'
+            './content/research/**/*.md'
+            './content/history/**/*.md'
+            './content/raw/README.md'
+          fail: true
+          failIfEmpty: true
+          jobSummary: true

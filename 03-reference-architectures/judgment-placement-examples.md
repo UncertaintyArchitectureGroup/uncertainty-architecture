@@ -35,6 +35,8 @@ source_basis:
 
 # Judgment Placement Reference Architectures
 
+> [← Reference Architectures](README.md) · [Judgment Node Boundary](../01-patterns/judgment-node-boundary.md) · [UA Home](../README.md)
+
 ## Status
 
 This document is **reference** material. It shows four non-prescriptive compositions of Model Judgment placement, Judgment Node boundaries, and AI Control Plane capabilities.

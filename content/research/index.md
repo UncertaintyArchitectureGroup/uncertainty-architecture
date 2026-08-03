@@ -17,11 +17,19 @@ tags:
 canonical_for:
   - research-track
 created: 2026-07-24
-updated: 2026-07-31
+updated: 2026-08-03
 license: CC-BY-4.0
 ---
 
 # Uncertainty Architecture Research Track
+
+> **UA navigation**
+>
+> [UA Home](../../README.md) · [Specification](../../SPECIFICATION.md)
+>
+> **Lifecycle:** [Organization / boundaries](../../00-doctrine/nested-control-lifecycle.md#1-organizational-control-context) · [Project / architecture](../../01-patterns/project-control-architecture-and-viability-review.md) · [Delivery / release](../../01-patterns/thinking-system-review.md) · [Runtime / reassessment](../../00-doctrine/nested-control-lifecycle.md#4-runtime-operation-and-reassessment)
+>
+> **Explore:** [Doctrine](../../00-doctrine/) · [Patterns](../../01-patterns/) · [Control capabilities](../../02-ai-control-plane/) · [Reference architectures](../../03-reference-architectures/) · [Failure modes](../../04-failure-modes/) · [Research](index.md)
 
 ## Purpose
 
@@ -124,7 +132,7 @@ Five normalized publication editions are preserved under [`publications/`](publi
 Two additional synthesis sources are tracked:
 
 - [*On-Device LLM or Cloud API?*](notes/on-device-cloud-source-intake.md) — full author-provided Markdown source available; raw preservation and normalization remain pending;
-- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the maintainer-supplied original PPTX is the slide-level working source, while a PDF export is preserved under [`content/raw/`](../raw/). Slides 1–6 and a later bounded extraction of the controlled-object, process-shift, feedback, project-viability, and architectural-veto material have been translated through explicit framework review.
+- [*Designing Non-Deterministic Systems*](notes/designing-nondeterministic-systems-source-intake.md) — the maintainer-supplied PDF export is the verified repository-review source and is preserved under [`content/raw/`](../raw/). An editable PPTX is not stored or independently verified. Slides 1–6 and a later bounded extraction of the controlled-object, process-shift, feedback, project-viability, and architectural-veto material have been translated through explicit framework review.
 
 The presentation and publication corpus have now produced explicit framework decisions for:
 
@@ -135,7 +143,7 @@ The presentation and publication corpus have now produced explicit framework dec
 - placement-focused reference architectures;
 - the controlled-object shift from explicitly encoded behavior toward consequential runtime Model Judgment;
 - UA as a control lifecycle that complements rather than replaces Agile, DevOps, QA, security, and incident response;
-- organizational context, project authorization, delivery-level review, and runtime reauthorization as connected control levels;
+- organizational context, project authorization, delivery-level review, and runtime operation and reassessment as connected decision levels;
 - architectural veto as a valid engineering outcome;
 - the project-level [`Project Control Architecture and Viability Review`](../../01-patterns/project-control-architecture-and-viability-review.md) and its single living [`template`](../../01-patterns/project-control-architecture-and-viability-review-template.md);
 - versioned project-baseline inheritance into the [`Thinking System Review`](../../01-patterns/thinking-system-review.md).
