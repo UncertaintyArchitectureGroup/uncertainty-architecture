@@ -63,6 +63,15 @@
         "path": "02-ai-control-plane/01-sensors/README.md"
       },
       "expected_error": "Missing required file: 02-ai-control-plane/01-sensors/README.md"
+    },
+    {
+      "name": "immutable documentation license modification is rejected",
+      "mutation": {
+        "type": "append_text",
+        "path": "LICENSE-DOCS.md",
+        "text": "\nmodified\n"
+      },
+      "expected_error": "Immutable file fingerprint changed: LICENSE-DOCS.md"
     }
   ]
 }
