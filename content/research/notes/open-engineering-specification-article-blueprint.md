@@ -467,7 +467,7 @@ Existing organizational sources, shared capabilities, and decision rights
 The complete inheritance and two-artifact explanation.
 
 **Transition**  
-+A single Constraint trace can demonstrate whether this structure changes real decisions rather than merely reorganizing terminology.
+A single Constraint trace can demonstrate whether this structure changes real decisions rather than merely reorganizing terminology.
 
 **Intended closing claim**
 
