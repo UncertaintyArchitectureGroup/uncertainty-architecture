@@ -140,6 +140,15 @@
       ]
     },
     {
+      "path": ".github/tests/repository_contract/test_repository_contract.py",
+      "required_text": [
+        "REQUIRED_CASE_NAMES",
+        "validate_case_manifest",
+        "errors = validator.validate",
+        "Repository contract self-tests passed"
+      ]
+    },
+    {
       "path": ".github/workflows/link-integrity.yml",
       "required_text": [
         "name: Link integrity",
@@ -174,8 +183,7 @@
         "title: \"Uncertainty Architecture\"",
         "authors:\n  - family-names: \"Oborskyi\"\n    given-names: \"Vitalii\"\n  - family-names: \"Walker\"\n    given-names: \"Sam\"",
         "repository-code: \"https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\"",
-        "preferred-citation:",
-        "type: generic"
+        "preferred-citation:\n  type: generic\n  authors:\n    - family-names: \"Oborskyi\"\n      given-names: \"Vitalii\"\n    - family-names: \"Walker\"\n      given-names: \"Sam\""
       ]
     },
     {
@@ -188,16 +196,25 @@
         "## What UA Is — and Is Not",
         "## Status, Evidence, and Contributions",
         "## Authors and Maintainers",
+        "### Contributors and reviewers",
         "## Advisors",
+        "### Markus Kopko — Strategic Advisor on Governance and Alignment",
+        "### Otman Basir, Ph.D. — Academic Advisor",
         "## How to Cite",
         "## Licensing"
       ],
       "required_text": [
+        "**Active specification development.**",
         "Vitalii Oborskyi — Creator, Lead Architect, and Maintainer",
         "Sam “stunspot” Walker — Technical Co-Author",
+        "Visibility, recommendations, advisory relationships, invited talks, and synthesized examples are not treated as certification, institutional endorsement, formal adoption, or production evidence.",
+        "GitHub is the canonical home for doctrine and specification changes. Useful contributions include operational failure reports, worked applications, pattern proposals, critiques of terminology or control assumptions, evidence about Human Authority and control cost, and provenance corrections.",
         "Advisory relationships are part of the project's operating context. They do not imply institutional endorsement, certification, or formal adoption of UA.",
         "A successful demo is not project authorization. DoD is not release authorization.",
-        "UA is not an SDK"
+        "UA is not an SDK",
+        "  author = {Oborskyi, Vitalii and Walker, Sam},",
+        "documentation, specifications, architectural doctrine, diagrams, and operating-model material: CC BY 4.0;",
+        "code, scripts, reference implementations, and executable artifacts: Apache 2.0."
       ],
       "required_links": [
         "SPECIFICATION.md",
