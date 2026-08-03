@@ -27,11 +27,13 @@ related:
   - ../00-doctrine/control-loop-anatomy.md
   - ../00-doctrine/nested-control-lifecycle.md
   - ../02-ai-control-plane/01-constraints/README.md
-updated: 2026-07-31
+updated: 2026-08-03
 license: CC-BY-4.0
 ---
 
 # Project Control Architecture and Viability Review Template
+
+> [← Owning pattern](project-control-architecture-and-viability-review.md) · [↑ Patterns index](README.md) · [UA Home](../README.md)
 
 ## How to use
 
