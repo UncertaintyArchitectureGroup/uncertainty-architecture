@@ -17,12 +17,15 @@
 - **Research traceability:** <!-- updated | unchanged | not-applicable -->
 - **Compatibility / migration:** <!-- preserved | changed: explain | not-applicable -->
 
+The machine-readable block below is validated against the actual git diff. Keep the human-readable fields and JSON declaration consistent. Use `not-required` only when the change is genuinely outside that companion document's scope. Maintainer exception labels are narrow, visible escapes and do not replace an explanation.
+
 ## Validation
 
 - [ ] I read the owning documents and required dependencies from `AGENTS.md`.
 - [ ] I checked terminology, links, metadata, compatibility, and duplicate ownership.
 - [ ] I ran the relevant local validators or stated which checks were unavailable.
 - [ ] I updated `CHANGELOG.md` for a notable change, or explained why no entry is required.
+- [ ] The machine-readable change contract matches the actual diff.
 - [ ] The PR description matches the actual diff and remaining review state.
 
 ## Uncertainty and remaining review
