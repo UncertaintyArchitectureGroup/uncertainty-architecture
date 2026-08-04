@@ -143,20 +143,20 @@
     {
       "name": "changelog exception label bypasses only changelog requirement",
       "files": {"00-doctrine/example.md": "changed\n"},
-      "labels": ["maintainer-exception/changelog"],
+      "labels": ["ua-exception/changelog"],
       "expected_valid": true
     },
     {
       "name": "wrong exception label does not bypass changelog requirement",
       "files": {"00-doctrine/example.md": "changed\n"},
-      "labels": ["maintainer-exception/traceability"],
+      "labels": ["ua-exception/companion-coupling"],
       "expected_message": "requires CHANGELOG.md"
     },
     {
       "name": "PR contract exception label bypasses missing block as warning",
       "body": "No contract here.",
       "files": {},
-      "labels": ["maintainer-exception/pr-contract"],
+      "labels": ["ua-exception/pr-contract"],
       "expected_valid": true
     }
   ]
