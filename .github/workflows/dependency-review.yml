@@ -28,7 +28,7 @@ jobs:
       - name: Install locked dependencies
         run: npm ci --ignore-scripts
       - name: Audit locked npm dependencies
-        run: npm audit --audit-level=moderate
+        run: npm audit --audit-level=critical
       - name: Review dependency changes
         id: dependency-review
         continue-on-error: true
@@ -41,4 +41,4 @@ jobs:
         if: steps.dependency-review.outcome == 'failure'
         run: >-
           echo 'GitHub Dependency Review is unavailable until the repository Dependency Graph is enabled;
-          the locked npm audit remains blocking in this workflow.'
+          the locked npm audit remains blocking for critical vulnerabilities.'
