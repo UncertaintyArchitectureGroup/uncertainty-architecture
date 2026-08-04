@@ -58,7 +58,7 @@
     },
     {
       "path": ".github/workflows/dependency-review.yml",
-      "required_text": ["name: Dependency review", "npm audit --audit-level=moderate", "actions/dependency-review-action@", "Dependency Graph is enabled"]
+      "required_text": ["name: Dependency review", "npm audit --audit-level=critical", "actions/dependency-review-action@", "Dependency Graph is enabled"]
     },
     {
       "path": ".github/dependabot.yml",
