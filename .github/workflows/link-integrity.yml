@@ -35,7 +35,7 @@ jobs:
         run: docker run --rm --network none -v "$WORKSPACE:/app:ro" citationcff/cffconvert:2.0.0@sha256:f8c5dc5fa8013e5c3635b1c2695bf54eac4d319719f8acdbb7b7ad7a778e46ea --validate
 
       - name: Validate maintained Markdown links and anchors
-        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           lycheeVersion: v0.23.0
           args: >-
