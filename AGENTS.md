@@ -360,9 +360,11 @@ For repository-changing work:
 8. **Make** the smallest coherent change on a branch.
 9. **Cross-reference** affected doctrine, patterns, capabilities, failure modes, and research.
 10. **Update** glossary, roadmap, changelog, or traceability where genuinely required.
-11. **Audit** terminology, links, diagrams, metadata, compatibility, mixed-strength records, and duplicate artifacts.
-12. **Report** uncertainty, assumptions, unresolved decisions, and unavailable automated checks.
-13. **Complete** the end-of-session protocol.
+11. **Declare** the change in the machine-readable `ua-change-contract` block and ensure its owning paths and companion-update fields match the actual diff.
+12. **Audit** terminology, links, diagrams, metadata, compatibility, mixed-strength records, duplicate artifacts, and deletion or rename consequences.
+13. **Run** the applicable repository, metadata, navigation, and change-coupling validators and regression suites.
+14. **Report** uncertainty, assumptions, unresolved decisions, exception use, and unavailable automated checks.
+15. **Complete** the end-of-session protocol.
 
 Additional rules:
 
@@ -372,8 +374,9 @@ Additional rules:
 - separate specification requirements from examples and vendor choices;
 - avoid universal thresholds, sample sizes, risk scores, role titles, or cadences without context-derived evidence;
 - preserve unresolved alternatives where evidence is incomplete;
-- treat path renames as compatibility decisions, not cosmetic cleanup;
-- use a Draft pull request for substantial framework changes until review criteria are satisfied.
+- treat path renames and deletions as compatibility decisions, not cosmetic cleanup;
+- use a Draft pull request for substantial framework changes until review criteria are satisfied;
+- do not use an exception label as a generic bypass: each exception is category-scoped, maintainer-controlled, visible in the PR, and must be explained.
 
 ## 10. End-of-session integrity protocol
 
@@ -410,13 +413,16 @@ Additional rules:
 ### Repository integrity
 
 - Relative links resolve or unavailable automated validation is stated.
-- Renamed paths have an explicit compatibility decision.
+- Renamed or deleted maintained paths have an explicit compatibility decision.
 - Mermaid diagrams are syntactically and semantically reviewed or unavailable automated rendering is stated.
 - Metadata and status are coherent.
 - Active `canonical_for` claims remain unique unless an explicit exception exists.
 - Protected glossary entries remain present and unique.
 - Research provenance does not claim unavailable source formats or unverified review actions.
 - `CHANGELOG.md` is updated for notable changes.
+- Glossary, roadmap, and research traceability declarations match the actual companion-file diff.
+- The `ua-change-contract` block is present exactly once, uses controlled values, and names an owning path that intersects the diff.
+- Any maintainer exception label is category-scoped and explained in the PR body.
 - PR description matches the actual diff and remaining review state.
 
 ### Session report
@@ -437,14 +443,24 @@ The machine-readable repository contract lives at [`.github/policy/repository-co
 
 The metadata and canonical-ownership policy lives at [`.github/policy/metadata-contract.json`](.github/policy/metadata-contract.json). Its owning human-readable convention is [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md).
 
-Before pushing a repository-policy change or any change that affects protected structure, metadata, canonical ownership, or terminology, run:
+The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json). It validates the pull request's machine-readable declaration against the actual git diff, including changelog, glossary, roadmap, research traceability, compatibility, deletion, and rename decisions.
+
+Before pushing a repository-policy change or any change that affects protected structure, metadata, canonical ownership, terminology, companion documents, or maintained paths, run:
 
 ```bash
 python3 .github/scripts/validate_repository_contract.py
 python3 .github/tests/repository_contract/test_repository_contract.py
 python3 .github/scripts/validate_metadata.py --mode all
 python3 .github/tests/metadata_contract/test_metadata.py
+python3 .github/scripts/validate_change_coupling.py --base <base-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>
+python3 .github/tests/change_coupling/test_change_coupling.py
 ```
+
+The change-coupling validator requires a real base/head diff and the pull-request declaration. GitHub Actions supplies the pull-request body, labels, and commit SHAs automatically.
+
+The `ua-change-contract` block must appear exactly once in the PR body. Required fields use controlled values from the policy. `owning_paths` must intersect the actual diff. A notable change requires `CHANGELOG.md`; terminology, roadmap, and research-state decisions must reconcile their owning companion files when applicable. Deleting or renaming maintained material requires an explicit compatibility decision and changelog treatment.
+
+Maintainer exception labels are not a universal override. Each label bypasses only its declared category, repository label permissions determine who may apply it, and the reason must remain visible in the PR body.
 
 The validators and self-tests use only the Python standard library and resolve the repository root from their own location.
 
@@ -452,13 +468,14 @@ Metadata errors are blocking. Advisory warnings identify title/H1 drift, unusual
 
 Do not mechanically normalize preserved publication bodies, raw sources, or legacy historical material. Their provenance and publishing metadata may follow a different schema.
 
-When a legitimate repository change adds, removes, renames, or deliberately changes a protected path, section, link, marker, metadata value, glossary entry, or canonical responsibility:
+When a legitimate repository change adds, removes, renames, or deliberately changes a protected path, section, link, marker, metadata value, glossary entry, canonical responsibility, or change-coupling rule:
 
 1. update the owning document first;
 2. update the relevant machine-readable contract in the same pull request;
 3. add or modify a regression fixture showing the old failure and the intended new baseline;
 4. when `canonical_for` responsibility moves, retire or remove the old active claim explicitly;
 5. explain the compatibility and ownership decision in the pull-request description;
-6. update `CHANGELOG.md`, and `ROADMAP.md` when the repository-tooling baseline changes.
+6. update `CHANGELOG.md`, and `ROADMAP.md` when the repository-tooling baseline changes;
+7. ensure the final `ua-change-contract` declaration matches the complete diff.
 
 Do not weaken or bypass a contract merely to make a failing check green. Determine whether the repository change is wrong, the contract is stale, or an explicit compatibility decision is required.
