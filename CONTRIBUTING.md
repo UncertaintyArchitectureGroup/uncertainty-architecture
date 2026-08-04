@@ -124,6 +124,31 @@ A responsibility transfer must not leave two active documents claiming the same 
 
 Publication bodies, raw sources, and legacy historical material may retain distinct publishing or provenance metadata. Do not normalize them mechanically to satisfy the current UA classification schema.
 
+### Local diff-aware change-coupling validation
+
+Before pushing a pull request that changes maintained framework material, repository policy, research-state decisions, or maintained paths, compare the branch with its intended base and validate the machine-readable PR declaration:
+
+```bash
+python3 .github/scripts/validate_change_coupling.py \
+  --base origin/main \
+  --head HEAD \
+  --pr-body-file /path/to/pr-body.md
+python3 .github/tests/change_coupling/test_change_coupling.py
+```
+
+The policy is maintained in [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json). It checks that the `ua-change-contract` block is valid and consistent with the actual diff, and that notable changes carry the companion updates they claim or require.
+
+The validator enforces:
+
+- changelog coupling for notable changes;
+- declaration/file consistency for glossary, roadmap, and research traceability;
+- traceability updates for explicit research-state decisions;
+- compatibility decisions and changelog updates for deletion or rename of maintained material;
+- intersection between declared `owning_paths` and the actual diff;
+- repository-policy baseline coupling to the roadmap.
+
+Exception labels are narrow, category-specific maintenance escapes. They are not ordinary contributor controls and must not be used to hide a stale contract or incomplete change. Applying an exception requires maintainer authority through repository permissions and a visible explanation in the pull-request body.
+
 ## 4. Repository ownership and attribution
 
 Vitalii Oborskyi is the project creator and primary maintainer. He retains final authority over repository scope and merges.
@@ -154,6 +179,15 @@ A branch and pull request are recommended for:
 
 Draft pull requests are optional. External review is encouraged where it adds value, but it is not required for ordinary maintainer-authored work.
 
+For a repository-changing pull request:
+
+1. identify the owning documents and actual change class;
+2. determine required changelog, glossary, roadmap, traceability, and compatibility updates from the change itself;
+3. make the smallest coherent diff and required companion updates;
+4. complete the machine-readable `ua-change-contract` block;
+5. run the applicable navigation, repository-contract, metadata, and change-coupling checks;
+6. reconcile the pull-request description with the final diff before requesting review or merge.
+
 ## 6. Changes requiring deliberate review
 
 Use a branch and pull request, and seek appropriate review where practical, for changes that:
@@ -177,8 +211,10 @@ The purpose of review is to improve the specification, not to create ceremony ar
 4. Add or update metadata, local navigation, and cross-links where needed.
 5. When the change resolves, narrows, rejects, supersedes, reopens, or promotes a research question, reconcile the affected source-intake note, working note, analysis, or [`framework-traceability.md`](content/research/framework-traceability.md) under the [`Research Review Process`](content/research/review-process.md).
 6. Confirm licensing and attribution requirements.
-7. Run the applicable local navigation, repository-contract, metadata, and policy self-test commands.
-8. Open a pull request for maintainer review and complete the repository-placement and companion-update fields in the pull-request template.
+7. Determine required changelog, glossary, roadmap, traceability, and compatibility updates from the actual diff.
+8. Complete the human-readable companion-update fields and machine-readable `ua-change-contract` block in the pull-request template.
+9. Run the applicable local navigation, repository-contract, metadata, change-coupling, and policy self-test commands.
+10. Open the pull request for maintainer review and keep its description synchronized with the final diff.
 
 One logical change per pull request is a useful default for substantial work, but tightly related updates may be grouped when that makes review clearer.
 

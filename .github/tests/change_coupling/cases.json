@@ -1,0 +1,165 @@
+{
+  "cases": [
+    {
+      "name": "valid repository policy change with companion updates passes",
+      "files": {
+        ".github/policy/example.json": "{}\n",
+        "CHANGELOG.md": "changed\n",
+        "ROADMAP.md": "changed\n"
+      },
+      "pr": {
+        "change_class": "repository-policy",
+        "owning_paths": [".github/policy/example.json"],
+        "decision_levels": ["none"],
+        "capability_families": ["none"],
+        "terminology_impact": "unchanged",
+        "research_state": "unchanged",
+        "compatibility": "preserved",
+        "changelog": "updated",
+        "glossary": "unchanged",
+        "roadmap": "updated",
+        "traceability": "unchanged"
+      },
+      "expected_valid": true
+    },
+    {
+      "name": "missing PR contract is rejected",
+      "body": "No contract here.",
+      "files": {},
+      "expected_message": "exactly one ua-change-contract"
+    },
+    {
+      "name": "duplicate PR contract is rejected",
+      "body_mode": "duplicate",
+      "files": {},
+      "expected_message": "exactly one ua-change-contract"
+    },
+    {
+      "name": "malformed PR contract JSON is rejected",
+      "body": "<!-- ua-change-contract\n{not-json}\n-->",
+      "files": {},
+      "expected_message": "JSON is invalid"
+    },
+    {
+      "name": "missing required PR field is rejected",
+      "files": {},
+      "remove_pr_field": "compatibility",
+      "expected_message": "missing field 'compatibility'"
+    },
+    {
+      "name": "unknown PR field is rejected",
+      "files": {},
+      "extra_pr_field": {"compatiblity": "preserved"},
+      "expected_message": "unknown field 'compatiblity'"
+    },
+    {
+      "name": "uncontrolled change class is rejected",
+      "files": {},
+      "set_pr_field": {"change_class": "magic"},
+      "expected_message": "change_class"
+    },
+    {
+      "name": "notable change without changelog is rejected",
+      "files": {"00-doctrine/example.md": "changed\n"},
+      "expected_message": "requires CHANGELOG.md"
+    },
+    {
+      "name": "changelog declaration without file change is rejected",
+      "files": {"README.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated"},
+      "expected_message": "declares changelog updated"
+    },
+    {
+      "name": "changed changelog without updated declaration is rejected",
+      "files": {"CHANGELOG.md": "changed\n"},
+      "expected_message": "CHANGELOG.md changed"
+    },
+    {
+      "name": "glossary declaration without glossary change is rejected",
+      "files": {"CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated", "terminology_impact": "updated"},
+      "expected_message": "declares glossary updated"
+    },
+    {
+      "name": "changed glossary without updated declaration is rejected",
+      "files": {"00-doctrine/glossary.md": "changed\n", "CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated"},
+      "expected_message": "glossary.md changed"
+    },
+    {
+      "name": "repository policy change without roadmap is rejected",
+      "files": {".github/policy/example.json": "{}\n", "CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated"},
+      "expected_message": "requires roadmap update"
+    },
+    {
+      "name": "roadmap declaration without roadmap change is rejected",
+      "files": {"CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated", "roadmap": "updated"},
+      "expected_message": "declares roadmap updated"
+    },
+    {
+      "name": "research state decision without traceability is rejected",
+      "files": {"content/research/notes/example.md": "changed\n", "CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated", "research_state": "accepted"},
+      "expected_message": "research-state decision requires"
+    },
+    {
+      "name": "traceability declaration without file change is rejected",
+      "files": {"CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated", "traceability": "updated"},
+      "expected_message": "declares traceability updated"
+    },
+    {
+      "name": "maintained deletion without compatibility decision is rejected",
+      "base_files": {"00-doctrine/obsolete.md": "old\n"},
+      "delete_files": ["00-doctrine/obsolete.md"],
+      "files": {"CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated", "compatibility": "not-applicable"},
+      "expected_message": "requires an explicit compatibility decision"
+    },
+    {
+      "name": "maintained deletion without changelog is rejected",
+      "base_files": {"00-doctrine/obsolete.md": "old\n"},
+      "delete_files": ["00-doctrine/obsolete.md"],
+      "files": {},
+      "set_pr_field": {"compatibility": "changed"},
+      "expected_message": "requires changelog update"
+    },
+    {
+      "name": "maintained rename without compatibility decision is rejected",
+      "base_files": {"01-patterns/old.md": "same\n"},
+      "rename_files": {"01-patterns/old.md": "01-patterns/new.md"},
+      "files": {"CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated", "compatibility": "not-applicable"},
+      "expected_message": "requires an explicit compatibility decision"
+    },
+    {
+      "name": "owning path outside diff is rejected",
+      "files": {"CHANGELOG.md": "changed\n"},
+      "set_pr_field": {"changelog": "updated", "owning_paths": ["00-doctrine/not-changed.md"]},
+      "expected_message": "none of the declared owning_paths intersects"
+    },
+    {
+      "name": "changelog exception label bypasses only changelog requirement",
+      "files": {"00-doctrine/example.md": "changed\n"},
+      "set_pr_field": {"owning_paths": ["00-doctrine/example.md"]},
+      "labels": ["ua-exception/changelog"],
+      "expected_valid": true
+    },
+    {
+      "name": "wrong exception label does not bypass changelog requirement",
+      "files": {"00-doctrine/example.md": "changed\n"},
+      "set_pr_field": {"owning_paths": ["00-doctrine/example.md"]},
+      "labels": ["ua-exception/companion-coupling"],
+      "expected_message": "requires CHANGELOG.md"
+    },
+    {
+      "name": "PR contract exception label bypasses missing block as warning",
+      "body": "No contract here.",
+      "files": {},
+      "labels": ["ua-exception/pr-contract"],
+      "expected_valid": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "contract_version": 1,
+  "description": "Diff-aware coupling policy for notable repository changes, companion updates, path compatibility, and pull-request declarations.",
+  "pr_contract_marker": "ua-change-contract",
+  "required_pr_fields": [
+    "change_class",
+    "owning_paths",
+    "decision_levels",
+    "capability_families",
+    "terminology_impact",
+    "research_state",
+    "compatibility",
+    "changelog",
+    "glossary",
+    "roadmap",
+    "traceability"
+  ],
+  "controlled_values": {
+    "change_class": ["maintenance", "repository-policy", "research", "draft-normative", "normative", "reference", "history", "publishing"],
+    "decision_levels": ["organization", "project", "delivery", "runtime", "none"],
+    "capability_families": ["constraints", "sensors", "controllers", "actuators", "none"],
+    "terminology_impact": ["updated", "unchanged", "not-applicable"],
+    "research_state": ["accepted", "narrowed", "rejected", "superseded", "reopened", "unchanged", "not-applicable"],
+    "compatibility": ["preserved", "changed", "not-applicable"],
+    "changelog": ["updated", "not-required"],
+    "glossary": ["updated", "unchanged", "not-applicable"],
+    "roadmap": ["updated", "unchanged", "not-applicable"],
+    "traceability": ["updated", "unchanged", "not-applicable"]
+  },
+  "notable_change_prefixes": [
+    "00-doctrine/",
+    "01-patterns/",
+    "02-ai-control-plane/",
+    "03-reference-architectures/",
+    "04-failure-modes/",
+    ".github/policy/",
+    ".github/scripts/",
+    ".github/workflows/",
+    "README.md",
+    "SPECIFICATION.md",
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "DOCUMENT-METADATA.md",
+    "ROADMAP.md"
+  ],
+  "terminology_owner": "00-doctrine/glossary.md",
+  "roadmap_owner": "ROADMAP.md",
+  "traceability_owner": "content/research/framework-traceability.md",
+  "changelog_owner": "CHANGELOG.md",
+  "deletion_rename_prefixes": [
+    "00-doctrine/",
+    "01-patterns/",
+    "02-ai-control-plane/",
+    "03-reference-architectures/",
+    "04-failure-modes/",
+    "content/research/",
+    "content/history/",
+    "README.md",
+    "SPECIFICATION.md",
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "DOCUMENT-METADATA.md",
+    "ROADMAP.md",
+    "CHANGELOG.md"
+  ],
+  "repository_policy_prefixes": [".github/policy/", ".github/scripts/", ".github/tests/", ".github/workflows/"],
+  "exception_labels": {
+    "ua-exception/pr-contract": ["pr-contract"],
+    "ua-exception/changelog": ["changelog"],
+    "ua-exception/companion-coupling": ["glossary", "roadmap", "traceability"],
+    "ua-exception/compatibility": ["deletion-rename"]
+  }
+}
