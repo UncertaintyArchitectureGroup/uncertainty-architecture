@@ -27,10 +27,18 @@ def workflow_files(root: Path) -> Iterable[Path]:
     yield from sorted((root / ".github/workflows").glob("*.y*ml"))
 
 
+def validate_container_reference(relative: str, line_number: int, image: str, require_digest: bool) -> List[str]:
+    normalized = image[len("docker://"):] if image.startswith("docker://") else image
+    if require_digest and not DIGEST_RE.search(normalized):
+        return [f"{relative}:{line_number}: container image must be pinned by sha256 digest: {normalized}"]
+    return []
+
+
 def validate(root: Path, contract_path: Path) -> List[str]:
     contract = load_contract(contract_path)
     action_policy = contract["github_action_reference"]
     container_policy = contract["container_reference"]
+    require_digest = bool(container_policy.get("require_digest"))
     errors: List[str] = []
 
     for path in workflow_files(root):
@@ -40,6 +48,9 @@ def validate(root: Path, contract_path: Path) -> List[str]:
             if use_match:
                 reference, comment = use_match.groups()
                 if reference.startswith("./"):
+                    continue
+                if reference.startswith("docker://"):
+                    errors.extend(validate_container_reference(relative, line_number, reference, require_digest))
                     continue
                 if "@" not in reference:
                     errors.append(f"{relative}:{line_number}: external action lacks @ reference")
@@ -52,11 +63,14 @@ def validate(root: Path, contract_path: Path) -> List[str]:
 
             container_match = CONTAINER_RE.match(line)
             if container_match:
-                image = container_match.group(1)
-                if image.startswith("docker://"):
-                    image = image[len("docker://"):]
-                if container_policy.get("require_digest") and not DIGEST_RE.search(image):
-                    errors.append(f"{relative}:{line_number}: container image must be pinned by sha256 digest: {image}")
+                errors.extend(
+                    validate_container_reference(
+                        relative,
+                        line_number,
+                        container_match.group(1),
+                        require_digest,
+                    )
+                )
 
     return errors
 
