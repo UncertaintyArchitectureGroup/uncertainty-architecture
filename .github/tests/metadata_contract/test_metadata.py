@@ -17,6 +17,8 @@ CASES_PATH = Path(__file__).with_name("cases.json")
 REQUIRED_CASE_NAMES: Set[str] = {
     "valid synthetic metadata repository passes",
     "required frontmatter deletion is rejected",
+    "unknown frontmatter field is rejected",
+    "unsupported indented frontmatter syntax is rejected",
     "uncontrolled artifact type is rejected",
     "uncontrolled status is rejected",
     "uncontrolled maturity is rejected",
