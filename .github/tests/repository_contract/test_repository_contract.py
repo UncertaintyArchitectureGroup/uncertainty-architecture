@@ -29,6 +29,7 @@ REQUIRED_CASE_NAMES: Set[str] = {
     "PR contract marker deletion is rejected",
     "CITATION author deletion is rejected",
     "link-integrity citation step deletion is rejected",
+    "metadata workflow job deletion is rejected",
     "navigation routing declaration deletion is rejected",
     "self-test manifest deletion is rejected",
     "preferred citation author deletion is rejected",

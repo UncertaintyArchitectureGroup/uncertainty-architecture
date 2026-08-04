@@ -413,6 +413,8 @@ Additional rules:
 - Renamed paths have an explicit compatibility decision.
 - Mermaid diagrams are syntactically and semantically reviewed or unavailable automated rendering is stated.
 - Metadata and status are coherent.
+- Active `canonical_for` claims remain unique unless an explicit exception exists.
+- Protected glossary entries remain present and unique.
 - Research provenance does not claim unavailable source formats or unverified review actions.
 - `CHANGELOG.md` is updated for notable changes.
 - PR description matches the actual diff and remaining review state.
@@ -433,21 +435,30 @@ Summarize:
 
 The machine-readable repository contract lives at [`.github/policy/repository-contract.json`](.github/policy/repository-contract.json). It protects critical files and sections, the top-level namespace, stable repository links, and compatibility paths. It is a repository-integrity mechanism, not a source of UA architectural meaning.
 
-Before pushing a repository-policy change or any change that affects a protected path, run:
+The metadata and canonical-ownership policy lives at [`.github/policy/metadata-contract.json`](.github/policy/metadata-contract.json). Its owning human-readable convention is [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md).
+
+Before pushing a repository-policy change or any change that affects protected structure, metadata, canonical ownership, or terminology, run:
 
 ```bash
 python3 .github/scripts/validate_repository_contract.py
 python3 .github/tests/repository_contract/test_repository_contract.py
+python3 .github/scripts/validate_metadata.py --mode all
+python3 .github/tests/metadata_contract/test_metadata.py
 ```
 
-The validator and self-tests use only the Python standard library and resolve the repository root from their own location.
+The validators and self-tests use only the Python standard library and resolve the repository root from their own location.
 
-When a legitimate repository change adds, removes, renames, or deliberately changes a protected path, section, link, or marker:
+Metadata errors are blocking. Advisory warnings identify title/H1 drift, unusually large tag sets, or selected superseded terminology and do not fail CI by default. Do not suppress a genuine warning by broadening an exception; determine whether the text is current terminology, an explicit historical reference, or a real defect.
+
+Do not mechanically normalize preserved publication bodies, raw sources, or legacy historical material. Their provenance and publishing metadata may follow a different schema.
+
+When a legitimate repository change adds, removes, renames, or deliberately changes a protected path, section, link, marker, metadata value, glossary entry, or canonical responsibility:
 
 1. update the owning document first;
-2. update the contract in the same pull request;
+2. update the relevant machine-readable contract in the same pull request;
 3. add or modify a regression fixture showing the old failure and the intended new baseline;
-4. explain the compatibility and ownership decision in the pull-request description;
-5. update `CHANGELOG.md`, and `ROADMAP.md` when the repository-tooling baseline changes.
+4. when `canonical_for` responsibility moves, retire or remove the old active claim explicitly;
+5. explain the compatibility and ownership decision in the pull-request description;
+6. update `CHANGELOG.md`, and `ROADMAP.md` when the repository-tooling baseline changes.
 
-Do not weaken or bypass the contract merely to make a failing check green. Determine whether the repository change is wrong, the contract is stale, or an explicit compatibility decision is required.
+Do not weaken or bypass a contract merely to make a failing check green. Determine whether the repository change is wrong, the contract is stale, or an explicit compatibility decision is required.

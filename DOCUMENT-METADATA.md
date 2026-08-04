@@ -50,6 +50,8 @@ It does not need to be retrofitted mechanically to:
 
 Historical and research files may adopt the convention when they are actively edited, but provenance must not be changed merely to make metadata uniform.
 
+Publication records, source-intake notes, and preserved history may retain additional fields such as authors, publication dates, source paths, canonical URLs, formats, languages, or migration markers. Those extension fields provide provenance or publishing context and do not replace the controlled UA classification fields.
+
 ## Required fields
 
 Maintained conceptual documents should use the following YAML frontmatter:
@@ -165,7 +167,7 @@ A document has one primary module even when it relates to several areas.
 
 A short list of concepts materially addressed by the document. Topics are structured retrieval metadata and should not become an uncontrolled keyword dump.
 
-Initial controlled topics:
+Controlled topics:
 
 - `thinking-systems`
 - `linear-software`
@@ -192,6 +194,15 @@ Initial controlled topics:
 - `sdlc`
 - `repository-architecture`
 - `navigation`
+- `terminology`
+- `contribution-workflow`
+- `project-authorization`
+- `delivery-review`
+- `runtime-control`
+- `requirements`
+- `operating-envelope`
+- `correctness`
+- `defects`
 
 Add a topic only when it is likely to recur across documents and materially improves retrieval.
 
@@ -206,7 +217,11 @@ Use hierarchical, lowercase, kebab-case tags:
 - `ua/status/<status>`
 - `ua/topic/<topic>`
 
-A document should normally have three to eight tags. Do not tag every noun that appears in the text.
+Every classified document must contain exactly one module tag, one artifact-type tag, and one status tag matching the corresponding structured fields.
+
+Topic tags are a deliberate projection of the most useful declared topics. They may be a subset of `topics`, but every `ua/topic/...` tag must have a matching topic value.
+
+A document should normally have three to eight tags. More than eight is an advisory warning rather than a hard failure because some entry pages legitimately project several high-value topics. Do not tag every noun that appears in the text.
 
 Structured fields are authoritative. Tags must not contradict `module`, `artifact_type`, `status`, or `topics`.
 
@@ -244,7 +259,9 @@ Names a repository responsibility for which the document is the canonical source
 - `ai-agent-repository-guide`
 - `supporting-material-publishing-portal`
 
-Only one active document should normally claim the same `canonical_for` value.
+Only one active document may claim the same `canonical_for` value unless the metadata contract records an explicit exception. A document with `maturity: superseded` does not remain an active owner.
+
+When responsibility moves, update or remove the old claim and use `supersedes` or `superseded_by` where the relationship matters. Do not leave two active owners and rely on directory order or recency to choose between them.
 
 ### `related`
 
@@ -299,13 +316,39 @@ A language model or agent should interpret metadata in this order:
 
 Metadata narrows where to read; it does not replace reading the relevant document or checking its evidence and status boundaries.
 
+## Automated validation
+
+The machine-readable policy is maintained in [`.github/policy/metadata-contract.json`](.github/policy/metadata-contract.json).
+
+Run the complete local validation with:
+
+```bash
+python3 .github/scripts/validate_metadata.py --mode all
+python3 .github/tests/metadata_contract/test_metadata.py
+```
+
+Focused modes are available for frontmatter and controlled values, canonical ownership, and glossary or terminology checks.
+
+Blocking checks cover:
+
+- required frontmatter on the declared maintained-document baseline;
+- required fields and controlled values;
+- module, artifact-type, status, and topic tag consistency;
+- active `canonical_for` uniqueness;
+- protected glossary-entry presence and uniqueness;
+- malformed or duplicate frontmatter fields.
+
+Advisory warnings cover title/H1 drift, unusually large tag sets, and selected superseded terminology. Warnings are visible in GitHub Actions but do not fail the workflow by default.
+
+Preserved publication bodies and legacy RFC material are outside strict UA classification validation. Their original publishing or historical metadata must not be rewritten merely to satisfy the current convention.
+
 ## Migration policy
 
 The repository adopts this convention incrementally:
 
-- canonical indexes and actively maintained framework documents should be tagged first;
+- canonical indexes and actively maintained framework documents are the validated baseline;
 - new documents should use the convention from creation;
 - existing research and history records may be updated when touched;
 - raw and preserved source bodies should not be rewritten solely for metadata uniformity.
 
-A future validation utility may check controlled values and tag-field consistency, but the metadata convention does not require new tooling to remain useful.
+The current validator does not inspect the PR diff to require frontmatter on every newly added Markdown file. That diff-aware enforcement belongs to the repository change-coupling layer rather than this baseline validator.

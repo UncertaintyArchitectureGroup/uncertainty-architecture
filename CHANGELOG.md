@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added a machine-readable metadata contract, dependency-free frontmatter and canonical-ownership validator, protected-glossary and terminology checks, focused GitHub Actions jobs, and mutation-based regression fixtures for controlled metadata, tag projection, active `canonical_for` uniqueness, and selected terminology drift.
 - Added a machine-readable repository contract, dependency-free validator, mutation-based regression fixtures, focused GitHub Actions checks, structured pull-request template, and `CODEOWNERS` map to protect critical files, landing-page functions, compatibility paths, stable repository links, and the top-level namespace without freezing ordinary prose evolution.
 - Added a root [`CITATION.cff`](CITATION.cff) so GitHub and compatible citation tools can expose machine-readable repository citation metadata for Vitalii Oborskyi and Sam Walker, and extended CI to validate that metadata against CFF schema 1.2.0.
 - Added a GitHub Actions CI workflow that validates the declared navigation coverage and destinations and uses a SHA-pinned `lychee` action in offline mode to check repository-relative links, directory indexes, Markdown heading fragments, and explicit HTML compatibility anchors across maintained Markdown without making external-network availability part of repository integrity.
@@ -51,6 +52,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Changed
 
+- Aligned `DOCUMENT-METADATA.md`, `AGENTS.md`, `CONTRIBUTING.md`, and `ROADMAP.md` with automated metadata validation; classified the external-recognition evidence ledger with controlled frontmatter; and corrected two project-pattern references that mislabeled runtime reassessment as runtime reauthorization.
 - Updated `AGENTS.md`, `CONTRIBUTING.md`, and `ROADMAP.md` to document the repository-contract protocol, local validation commands, contract-change discipline, and the current tooling baseline; converted the two license-file references in `LICENSING.md` into repository-relative Markdown links.
 - Established a consistent navigation system across the root, specification, doctrine, patterns, AI Control Plane, reference-architecture, failure-mode, and research entry pages; linked the four decision levels and four capability families to their owning locations; added owner/back links to the two practical templates and the Judgment Placement references; aligned the runtime lifecycle heading to **Runtime operation and reassessment** while preserving the previous deep-link anchor; and corrected stale PDF/PPTX provenance and runtime terminology in research and raw-source indexes.
 - Recorded the merged four-family capability architecture as the current draft roadmap baseline while retaining worked-application, real-team, tooling, operational-evidence, and terminology validation as open maturity work.

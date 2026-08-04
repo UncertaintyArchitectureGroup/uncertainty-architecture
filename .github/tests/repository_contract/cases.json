@@ -71,6 +71,11 @@
       "expected_error": ".github/workflows/link-integrity.yml: missing protected text"
     },
     {
+      "name": "metadata workflow job deletion is rejected",
+      "mutation": {"type": "remove_text", "path": ".github/workflows/metadata-integrity.yml", "text": "name: Metadata / canonical ownership"},
+      "expected_error": ".github/workflows/metadata-integrity.yml: missing protected text"
+    },
+    {
       "name": "navigation routing declaration deletion is rejected",
       "mutation": {"type": "remove_text", "path": ".github/scripts/validate_navigation.py", "text": "EXPECTED_NAVIGATION_ROUTES"},
       "expected_error": ".github/scripts/validate_navigation.py: missing protected text"

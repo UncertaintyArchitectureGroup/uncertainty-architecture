@@ -107,6 +107,23 @@ A legitimate contract change must update the owning document, the contract, and 
 
 GitHub Actions runs the real-repository contract validation and the independent mutation fixtures as separate checks on every pull request and every push to `main`.
 
+### Local metadata and canonical-ownership validation
+
+Before pushing a maintained-document, metadata-policy, glossary, or canonical-ownership change, run:
+
+```bash
+python3 .github/scripts/validate_metadata.py --mode all
+python3 .github/tests/metadata_contract/test_metadata.py
+```
+
+The machine-readable metadata policy is maintained in [`.github/policy/metadata-contract.json`](.github/policy/metadata-contract.json). It checks required frontmatter on the declared baseline, controlled values, structural and topic tag projection, active `canonical_for` uniqueness, protected glossary entries, and selected terminology warnings.
+
+Metadata errors fail CI. Warnings identify review candidates such as title/H1 drift, unusually large tag sets, or selected superseded terminology and do not fail by default.
+
+A responsibility transfer must not leave two active documents claiming the same `canonical_for` value. Mark the prior owner superseded, remove its claim, or make another explicit ownership decision in the same pull request.
+
+Publication bodies, raw sources, and legacy historical material may retain distinct publishing or provenance metadata. Do not normalize them mechanically to satisfy the current UA classification schema.
+
 ## 4. Repository ownership and attribution
 
 Vitalii Oborskyi is the project creator and primary maintainer. He retains final authority over repository scope and merges.
@@ -160,7 +177,7 @@ The purpose of review is to improve the specification, not to create ceremony ar
 4. Add or update metadata, local navigation, and cross-links where needed.
 5. When the change resolves, narrows, rejects, supersedes, reopens, or promotes a research question, reconcile the affected source-intake note, working note, analysis, or [`framework-traceability.md`](content/research/framework-traceability.md) under the [`Research Review Process`](content/research/review-process.md).
 6. Confirm licensing and attribution requirements.
-7. Run the applicable local navigation and repository-contract validators.
+7. Run the applicable local navigation, repository-contract, metadata, and policy self-test commands.
 8. Open a pull request for maintainer review and complete the repository-placement and companion-update fields in the pull-request template.
 
 One logical change per pull request is a useful default for substantial work, but tightly related updates may be grouped when that makes review clearer.

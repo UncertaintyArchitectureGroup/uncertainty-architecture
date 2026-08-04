@@ -66,6 +66,7 @@ The objective is to consolidate research into a coherent, bounded specification.
 - A closed feedback loop is distinguished from a complete bounded UA control architecture.
 - One canonical Project Constraint Architecture and one canonical delivery Constraint Realization Map are established as the default proportional Constraint records.
 - Repository-relative links, navigation routes, citation metadata, critical repository structure, compatibility markers, and the top-level namespace have deterministic validation foundations.
+- Controlled frontmatter, tag projection, active canonical ownership, and protected glossary entries have deterministic validation foundations; selected terminology drift remains advisory.
 
 ### Four-family capability baseline
 
@@ -93,6 +94,7 @@ The repository integration is complete. The relevant framework documents remain 
 - [x] Integrate the four-family capability model across current repository doctrine, patterns, Control Plane, references, failure modes, conformance, navigation, and traceability.
 - [x] Complete automated internal-link, navigation-route, anchor, and citation validation.
 - [x] Establish a machine-readable repository contract protecting critical files, landing-page functions, compatibility paths, and the top-level namespace, with independent regression fixtures.
+- [x] Establish controlled frontmatter, tag-projection, active canonical-ownership, protected-glossary, and terminology-warning validation.
 - [ ] Complete automated Mermaid rendering.
 - [ ] Build a two-level worked application tracing Constraints from organizational source through project architecture, delivery realization, runtime evidence, and reauthorization.
 - [ ] Apply both reviews to a real team or documented real system boundary.
@@ -158,15 +160,18 @@ A new top-level Operating Model module is not planned at this stage.
 - offline repository-relative link and anchor validation;
 - machine-readable citation validation;
 - a machine-readable repository contract for critical paths, sections, links, compatibility markers, and the top-level namespace;
-- independent mutation fixtures proving that protected deletions and namespace proliferation fail predictably;
+- controlled frontmatter and tag-projection validation for the declared maintained-document baseline;
+- active `canonical_for` uniqueness with superseded claims excluded;
+- protected glossary-entry presence and uniqueness checks;
+- non-blocking warnings for selected terminology drift, title/H1 drift, and unusually large tag sets;
+- independent mutation fixtures proving that protected structural and metadata regressions fail predictably;
 - explicit repository ownership through `CODEOWNERS` and structured pull-request input through the default template.
 
 ### Later tooling
 
-- controlled metadata and canonical-ownership validation;
-- diff-aware changelog, glossary, roadmap, traceability, deletion, and compatibility coupling;
+- diff-aware changelog, glossary, roadmap, traceability, new-file metadata, deletion, and compatibility coupling;
 - Mermaid rendering checks;
-- checks for stale or duplicate canonical paths;
+- checks for stale canonical paths and relationships;
 - publishing build and dependency checks scoped to relevant changes;
 - example Constraint, realization, prompt, policy, evaluation, and release manifests;
 - executable realization examples;

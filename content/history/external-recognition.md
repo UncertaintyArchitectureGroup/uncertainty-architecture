@@ -1,3 +1,22 @@
+---
+title: Independent References and Recognition
+artifact_type: history-record
+status: informative
+maturity: active
+module: history
+topics:
+  - provenance
+  - evidence
+tags:
+  - ua/module/history
+  - ua/type/history-record
+  - ua/status/informative
+  - ua/topic/provenance
+  - ua/topic/evidence
+canonical_for:
+  - external-recognition-ledger
+---
+
 # Independent References and Recognition
 
 This document records public third-party references to Uncertainty Architecture (UA). It is an evidence ledger, not a claim of formal adoption, partnership, or universal validation.

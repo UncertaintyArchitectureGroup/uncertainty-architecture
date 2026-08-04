@@ -37,13 +37,19 @@
   },
   "required_paths": [
     {"path": ".github/CODEOWNERS", "type": "file"},
+    {"path": ".github/policy/metadata-contract.json", "type": "file"},
     {"path": ".github/policy/repository-contract.json", "type": "file"},
     {"path": ".github/pull_request_template.md", "type": "file"},
+    {"path": ".github/scripts/validate_metadata.py", "type": "file"},
     {"path": ".github/scripts/validate_navigation.py", "type": "file"},
     {"path": ".github/scripts/validate_repository_contract.py", "type": "file"},
+    {"path": ".github/tests/metadata_contract/README.md", "type": "file"},
+    {"path": ".github/tests/metadata_contract/cases.json", "type": "file"},
+    {"path": ".github/tests/metadata_contract/test_metadata.py", "type": "file"},
     {"path": ".github/tests/repository_contract/cases.json", "type": "file"},
     {"path": ".github/tests/repository_contract/test_repository_contract.py", "type": "file"},
     {"path": ".github/workflows/link-integrity.yml", "type": "file"},
+    {"path": ".github/workflows/metadata-integrity.yml", "type": "file"},
     {"path": ".github/workflows/repository-contract.yml", "type": "file"},
     {"path": "00-doctrine", "type": "directory"},
     {"path": "00-doctrine/README.md", "type": "file"},
@@ -113,6 +119,17 @@
       ]
     },
     {
+      "path": ".github/policy/metadata-contract.json",
+      "required_text": [
+        "\"required_frontmatter_paths\"",
+        "\"controlled_values\"",
+        "\"tag_projection\"",
+        "\"canonical_ownership\"",
+        "\"protected_entries\"",
+        "\"terminology_warnings\""
+      ]
+    },
+    {
       "path": ".github/pull_request_template.md",
       "required_headings": [
         "## Summary",
@@ -130,6 +147,17 @@
       ]
     },
     {
+      "path": ".github/scripts/validate_metadata.py",
+      "required_text": [
+        "validate_document_metadata",
+        "validate_canonical_ownership",
+        "validate_glossary",
+        "terminology_findings",
+        "choices=(\"all\", \"metadata\", \"canonical\", \"terminology\")",
+        "--warnings-as-errors"
+      ]
+    },
+    {
       "path": ".github/scripts/validate_navigation.py",
       "required_text": [
         "FRAMEWORK_ENTRY_PAGES",
@@ -137,6 +165,15 @@
         "COMPACT_BREADCRUMBS",
         "validate_framework_entry_pages",
         "validate_compact_breadcrumbs"
+      ]
+    },
+    {
+      "path": ".github/tests/metadata_contract/test_metadata.py",
+      "required_text": [
+        "REQUIRED_CASE_NAMES",
+        "validate_case_manifest",
+        "findings = validator.validate",
+        "Metadata contract self-tests passed"
       ]
     },
     {
@@ -160,6 +197,22 @@
         "- name: Validate maintained Markdown links and anchors",
         "--offline",
         "--include-fragments"
+      ]
+    },
+    {
+      "path": ".github/workflows/metadata-integrity.yml",
+      "required_text": [
+        "name: Metadata integrity",
+        "pull_request:",
+        "workflow_dispatch:",
+        "contents: read",
+        "name: Metadata / frontmatter and controlled values",
+        "name: Metadata / canonical ownership",
+        "name: Content / glossary and terminology",
+        "name: Policy / metadata self-tests",
+        "persist-credentials: false",
+        "runs-on: ubuntu-24.04",
+        "timeout-minutes: 5"
       ]
     },
     {
@@ -271,13 +324,15 @@
         "Do not use it as a second glossary, a second specification, or a source of new governance requirements.",
         "Use **Thinking Systems** in current framework material. Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, raw sources, and provenance records.",
         "Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).",
-        "Do not weaken or bypass the contract merely to make a failing check green."
+        "Metadata errors are blocking.",
+        "Do not weaken or bypass a contract merely to make a failing check green."
       ],
       "required_links": [
         "SPECIFICATION.md",
         "00-doctrine/glossary.md",
         "DOCUMENT-METADATA.md",
         "CHANGELOG.md",
+        ".github/policy/metadata-contract.json",
         ".github/policy/repository-contract.json"
       ]
     },
@@ -288,6 +343,7 @@
         "## 2. Canonical repository locations",
         "## 3. Document metadata and navigation",
         "### Local repository contract validation",
+        "### Local metadata and canonical-ownership validation",
         "## 4. Repository ownership and attribution",
         "## 5. Lightweight maintainer workflow",
         "## 6. Changes requiring deliberate review",
@@ -299,13 +355,15 @@
         "Publishing infrastructure is not part of the normative specification.",
         "Vitalii Oborskyi is the project creator and primary maintainer.",
         "Attributed work by named contributors must not be materially changed, reassigned, or presented as consensus without involving the relevant contributor where reasonably possible.",
-        "A legitimate contract change must update the owning document, the contract, and an appropriate regression fixture in the same pull request."
+        "A legitimate contract change must update the owning document, the contract, and an appropriate regression fixture in the same pull request.",
+        "A responsibility transfer must not leave two active documents claiming the same `canonical_for` value."
       ],
       "required_links": [
         "AGENTS.md",
         "DOCUMENT-METADATA.md",
         "LICENSING.md",
         "content/research/review-process.md",
+        ".github/policy/metadata-contract.json",
         ".github/policy/repository-contract.json"
       ]
     },
@@ -315,13 +373,19 @@
         "# UA Document Metadata and Tagging Convention",
         "## Required fields",
         "## Optional relationship fields",
+        "## Automated validation",
         "## Migration policy"
       ],
       "required_text": [
         "Metadata helps readers find and classify a document. It does **not** make a document normative.",
-        "Only one active document should normally claim the same `canonical_for` value."
+        "Only one active document may claim the same `canonical_for` value unless the metadata contract records an explicit exception.",
+        "Topic tags are a deliberate projection of the most useful declared topics.",
+        "Warnings are visible in GitHub Actions but do not fail the workflow by default."
       ],
-      "required_links": ["SPECIFICATION.md"]
+      "required_links": [
+        "SPECIFICATION.md",
+        ".github/policy/metadata-contract.json"
+      ]
     },
     {
       "path": "ROADMAP.md",
@@ -335,7 +399,8 @@
       ],
       "required_text": [
         "The repository integration is complete. The relevant framework documents remain draft-normative and still require worked application, real-team use, operational evidence, and further terminology validation before a broader maturity claim.",
-        "Establish a machine-readable repository contract protecting critical files, landing-page functions, compatibility paths, and the top-level namespace, with independent regression fixtures."
+        "Establish a machine-readable repository contract protecting critical files, landing-page functions, compatibility paths, and the top-level namespace, with independent regression fixtures.",
+        "Establish controlled frontmatter, tag-projection, active canonical-ownership, protected-glossary, and terminology-warning validation."
       ]
     },
     {
@@ -345,6 +410,7 @@
         "## [Unreleased]"
       ],
       "required_text": [
+        "Added a machine-readable metadata contract",
         "Added a machine-readable repository contract"
       ]
     },
