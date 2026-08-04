@@ -143,12 +143,14 @@
     {
       "name": "changelog exception label bypasses only changelog requirement",
       "files": {"00-doctrine/example.md": "changed\n"},
+      "set_pr_field": {"owning_paths": ["00-doctrine/example.md"]},
       "labels": ["ua-exception/changelog"],
       "expected_valid": true
     },
     {
       "name": "wrong exception label does not bypass changelog requirement",
       "files": {"00-doctrine/example.md": "changed\n"},
+      "set_pr_field": {"owning_paths": ["00-doctrine/example.md"]},
       "labels": ["ua-exception/companion-coupling"],
       "expected_message": "requires CHANGELOG.md"
     },
