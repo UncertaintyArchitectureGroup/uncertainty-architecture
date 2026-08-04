@@ -19,7 +19,30 @@
     "created",
     "license",
     "draft",
-    "aliases"
+    "aliases",
+    "source_basis",
+    "migrated_from",
+    "repository_migrated",
+    "source_path",
+    "preserved_file",
+    "preserved_format",
+    "source_format",
+    "source_title",
+    "canonical_url",
+    "source_date",
+    "source_file",
+    "language",
+    "subtitle",
+    "publication_date",
+    "repository_date",
+    "repository_edition",
+    "source_record",
+    "additional_publication_urls",
+    "authors",
+    "framework_contributions",
+    "research_tracks",
+    "source_languages",
+    "analysts"
   ],
   "list_fields": [
     "topics",
@@ -28,7 +51,14 @@
     "related",
     "supersedes",
     "superseded_by",
-    "aliases"
+    "aliases",
+    "source_basis",
+    "additional_publication_urls",
+    "authors",
+    "framework_contributions",
+    "research_tracks",
+    "source_languages",
+    "analysts"
   ],
   "controlled_values": {
     "artifact_type": [
