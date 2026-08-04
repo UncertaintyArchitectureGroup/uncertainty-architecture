@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added diff-aware pull-request validation that checks the machine-readable `ua-change-contract` against the actual git diff, enforces changelog and companion-document coupling, requires explicit compatibility decisions for maintained-file deletion or rename, and supports narrow maintainer exception labels with focused regression fixtures.
 - Added a machine-readable metadata contract, dependency-free frontmatter and canonical-ownership validator, protected-glossary and terminology checks, focused GitHub Actions jobs, and mutation-based regression fixtures for controlled metadata, tag projection, active `canonical_for` uniqueness, and selected terminology drift.
 - Added a machine-readable repository contract, dependency-free validator, mutation-based regression fixtures, focused GitHub Actions checks, structured pull-request template, and `CODEOWNERS` map to protect critical files, landing-page functions, compatibility paths, stable repository links, and the top-level namespace without freezing ordinary prose evolution.
 - Added a root [`CITATION.cff`](CITATION.cff) so GitHub and compatible citation tools can expose machine-readable repository citation metadata for Vitalii Oborskyi and Sam Walker, and extended CI to validate that metadata against CFF schema 1.2.0.
@@ -97,28 +98,3 @@ Publications, talks, community discussions, and independent references belong un
 ### Fixed
 
 - Restored the root README attribution, contributor, advisor, maturity, evidence, contribution, repository-citation, and full dual-license guidance that was unintentionally dropped during landing-page simplification.
-
-### Moved and compatibility
-
-- Organized the AI Control Plane under:
-  - [`00-actuators/`](02-ai-control-plane/00-actuators/)
-  - [`01-constraints/`](02-ai-control-plane/01-constraints/)
-  - [`02-sensors/`](02-ai-control-plane/02-sensors/)
-  - [`03-controller/`](02-ai-control-plane/03-controller/)
-- Retained informative compatibility notices at the previous Sensor and Controller paths rather than treating the renumbering as a silent breaking change.
-- Consolidated supporting material into `content/research/`, `content/history/`, and `content/raw/`.
-- Archived the superseded RFC-oriented governance material under history.
-
-### Removed
-
-- Removed duplicate or inactive supporting namespaces after preserving material in canonical research, history, or raw-source locations.
-- Removed empty scaffolds and stale references to nonexistent governance or publishing resources.
-- Removed universal or presentation-derived claims that lacked a context- and consequence-based foundation.
-
-## [0.1.0] - 2025-12-09
-
-### Added
-
-- Initial repository initialization.
-- Core documentation structure (`README.md`, `LICENSE`, `CONTRIBUTING.md`).
-- Initial Uncertainty Architecture concepts and Actuator/Sensor/Controller model.
