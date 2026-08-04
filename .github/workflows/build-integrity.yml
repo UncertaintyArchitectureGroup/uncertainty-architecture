@@ -66,9 +66,9 @@ jobs:
       - name: Install actionlint
         env:
           ACTIONLINT_VERSION: '1.7.12'
-        run: go install github.com/rhysd/actionlint/cmd/actionlint@v${ACTIONLINT_VERSION}
+        run: go install "github.com/rhysd/actionlint/cmd/actionlint@v${ACTIONLINT_VERSION}"
       - name: Run actionlint
-        run: "$(go env GOPATH)/bin/actionlint"
+        run: '"$(go env GOPATH)/bin/actionlint"'
       - name: Install zizmor
         run: pipx install zizmor==1.26.0
       - name: Run zizmor
