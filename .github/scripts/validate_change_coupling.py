@@ -167,8 +167,14 @@ def validate_coupling(
             findings.append(Finding("error", "deletion or rename of maintained material requires changelog update"))
 
     owning_paths = data.get("owning_paths") if isinstance(data.get("owning_paths"), list) else []
-    if owning_paths and not any(path in paths or any(path.startswith(item.rstrip("/") + "/") for item in owning_paths) for path in paths):
-        findings.append(Finding("error", "none of the declared owning_paths intersects the actual diff"))
+    if owning_paths:
+        intersects = any(
+            changed == owner or changed.startswith(owner.rstrip("/") + "/")
+            for owner in owning_paths
+            for changed in paths
+        )
+        if not intersects:
+            findings.append(Finding("error", "none of the declared owning_paths intersects the actual diff"))
 
     return findings
 
