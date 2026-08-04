@@ -12,6 +12,7 @@ from typing import Dict, List, Set
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_PATH = REPOSITORY_ROOT / ".github/scripts/validate_repository_contract.py"
 CONTRACT_PATH = REPOSITORY_ROOT / ".github/policy/repository-contract.json"
+EXTENSION_PATH = REPOSITORY_ROOT / ".github/policy/repository-contract-change-coupling.json"
 CASES_PATH = Path(__file__).with_name("cases.json")
 
 REQUIRED_CASE_NAMES: Set[str] = {
@@ -30,6 +31,7 @@ REQUIRED_CASE_NAMES: Set[str] = {
     "CITATION author deletion is rejected",
     "link-integrity citation step deletion is rejected",
     "metadata workflow job deletion is rejected",
+    "change coupling workflow deletion is rejected",
     "navigation routing declaration deletion is rejected",
     "self-test manifest deletion is rejected",
     "preferred citation author deletion is rejected",
@@ -53,34 +55,36 @@ def write_text(path: Path, text: str = "fixture\n") -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def materialize_valid_repository(root: Path, contract: Dict[str, object]) -> None:
-    """Build a minimal synthetic repository satisfying the current contract."""
-    allowed = contract["allowed_top_level"]
-
-    for directory in allowed["directories"]:
-        (root / directory).mkdir(parents=True, exist_ok=True)
-    for filename in allowed["files"]:
-        write_text(root / filename)
-
-    for required in contract["required_paths"]:
+def materialize_rules(root: Path, rules: Dict[str, object]) -> None:
+    for required in rules.get("required_paths", []):
         path = root / required["path"]
         if required["type"] == "directory":
             path.mkdir(parents=True, exist_ok=True)
         else:
             write_text(path)
+    for rule in rules.get("critical_files", []):
+        parts: List[str] = []
+        parts.extend(rule.get("required_headings", []))
+        parts.extend(rule.get("required_text", []))
+        parts.extend("[fixture]({})".format(target) for target in rule.get("required_links", []))
+        write_text(root / rule["path"], "\n\n".join(parts) + "\n")
+
+
+def materialize_valid_repository(root: Path, contract: Dict[str, object], extension: Dict[str, object]) -> None:
+    allowed = contract["allowed_top_level"]
+    for directory in allowed["directories"]:
+        (root / directory).mkdir(parents=True, exist_ok=True)
+    for filename in allowed["files"]:
+        write_text(root / filename)
+
+    materialize_rules(root, contract)
+    materialize_rules(root, extension)
 
     for immutable in contract["immutable_files"]:
         source = REPOSITORY_ROOT / immutable["path"]
         destination = root / immutable["path"]
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(str(source), str(destination))
-
-    for rule in contract["critical_files"]:
-        parts: List[str] = []
-        parts.extend(rule.get("required_headings", []))
-        parts.extend(rule.get("required_text", []))
-        parts.extend("[fixture]({})".format(target) for target in rule.get("required_links", []))
-        write_text(root / rule["path"], "\n\n".join(parts) + "\n")
 
     for marker in contract["protected_markers"]:
         path = root / marker["path"]
@@ -92,7 +96,6 @@ def apply_mutation(root: Path, mutation: Dict[str, str]) -> None:
     mutation_type = mutation["type"]
     if mutation_type == "none":
         return
-
     path = root / mutation["path"]
     if mutation_type == "delete_path":
         if path.is_dir():
@@ -114,42 +117,37 @@ def apply_mutation(root: Path, mutation: Dict[str, str]) -> None:
     if mutation_type == "add_file":
         write_text(path)
         return
-
     raise ValueError("Unsupported fixture mutation: {}".format(mutation_type))
 
 
 def validate_case_manifest(cases: List[Dict[str, object]]) -> List[str]:
-    """Ensure the regression suite itself cannot silently lose required cases."""
     names = [str(case.get("name", "")) for case in cases]
     errors: List[str] = []
-
     missing = sorted(REQUIRED_CASE_NAMES - set(names))
     if missing:
         errors.append("missing required cases: {}".format(", ".join(missing)))
-
     duplicates = sorted({name for name in names if names.count(name) > 1})
     if duplicates:
         errors.append("duplicate case names: {}".format(", ".join(duplicates)))
-
     unnamed = [str(index) for index, name in enumerate(names, start=1) if not name]
     if unnamed:
         errors.append("unnamed cases at positions: {}".format(", ".join(unnamed)))
-
     return errors
 
 
 def main() -> int:
     validator = load_validator()
     contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+    extension = json.loads(EXTENSION_PATH.read_text(encoding="utf-8"))
     cases = json.loads(CASES_PATH.read_text(encoding="utf-8"))["cases"]
     failures = validate_case_manifest(cases)
 
     for case in cases:
         with tempfile.TemporaryDirectory(prefix="ua-contract-") as temporary:
             root = Path(temporary)
-            materialize_valid_repository(root, contract)
+            materialize_valid_repository(root, contract, extension)
             apply_mutation(root, case["mutation"])
-            errors = validator.validate(root, CONTRACT_PATH)
+            errors = validator.validate(root, CONTRACT_PATH, (EXTENSION_PATH,))
 
         if case.get("expected_valid"):
             if errors:
@@ -157,14 +155,9 @@ def main() -> int:
             else:
                 print("PASS: {}".format(case["name"]))
             continue
-
         expected = case["expected_error"]
         if not any(expected in error for error in errors):
-            failures.append(
-                "{}: expected error containing {!r}, got {}".format(
-                    case["name"], expected, errors
-                )
-            )
+            failures.append("{}: expected error containing {!r}, got {}".format(case["name"], expected, errors))
         else:
             print("PASS: {}".format(case["name"]))
 
@@ -173,7 +166,6 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-
     print("Repository contract self-tests passed: {} regression fixtures.".format(len(cases)))
     return 0
 
