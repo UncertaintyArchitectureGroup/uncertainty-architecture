@@ -12,8 +12,8 @@
     "digest_algorithm": "sha256"
   },
   "tool_versions": {
-    "actionlint": "1.7.7",
-    "zizmor": "1.11.0",
+    "actionlint": "1.7.12",
+    "zizmor": "1.26.0",
     "mermaid_cli": "11.15.0",
     "node": "22"
   }
