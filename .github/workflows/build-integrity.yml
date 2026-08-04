@@ -63,6 +63,8 @@ jobs:
           persist-credentials: false
       - name: Validate immutable action and container references
         run: python3 .github/scripts/validate_workflow_supply_chain.py
+      - name: Run supply-chain regression fixtures
+        run: python3 .github/tests/supply_chain/test_supply_chain.py
       - name: Install actionlint
         env:
           ACTIONLINT_VERSION: '1.7.12'
