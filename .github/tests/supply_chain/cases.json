@@ -1,0 +1,44 @@
+{
+  "cases": [
+    {
+      "name": "full action SHA with version comment passes",
+      "workflow": "steps:\n  - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2\n",
+      "expected_valid": true
+    },
+    {
+      "name": "local action reference passes",
+      "workflow": "steps:\n  - uses: ./.github/actions/local\n",
+      "expected_valid": true
+    },
+    {
+      "name": "action tag is rejected",
+      "workflow": "steps:\n  - uses: actions/checkout@v6 # v6.0.2\n",
+      "expected_error": "action must be pinned to a full 40-character commit SHA"
+    },
+    {
+      "name": "short action SHA is rejected",
+      "workflow": "steps:\n  - uses: actions/checkout@de0fac2 # v6.0.2\n",
+      "expected_error": "action must be pinned to a full 40-character commit SHA"
+    },
+    {
+      "name": "missing action version comment is rejected",
+      "workflow": "steps:\n  - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd\n",
+      "expected_error": "pinned action requires a human-readable version comment"
+    },
+    {
+      "name": "container digest passes",
+      "workflow": "jobs:\n  test:\n    container: ghcr.io/example/tool@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n",
+      "expected_valid": true
+    },
+    {
+      "name": "container tag is rejected",
+      "workflow": "jobs:\n  test:\n    container: ghcr.io/example/tool:latest\n",
+      "expected_error": "container image must be pinned by sha256 digest"
+    },
+    {
+      "name": "docker action image tag is rejected",
+      "workflow": "steps:\n  - uses: docker://ghcr.io/example/tool:1.0\n",
+      "expected_error": "container image must be pinned by sha256 digest"
+    }
+  ]
+}

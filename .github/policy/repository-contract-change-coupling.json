@@ -1,13 +1,21 @@
 {
   "contract_version": 1,
-  "description": "Repository-contract extension protecting the diff-aware change-coupling control surfaces.",
+  "description": "Repository-contract extension protecting change-coupling, build-integrity, and supply-chain control surfaces.",
   "required_paths": [
     {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
     {"path": ".github/scripts/validate_change_coupling.py", "type": "file"},
     {"path": ".github/tests/change_coupling/README.md", "type": "file"},
     {"path": ".github/tests/change_coupling/cases.json", "type": "file"},
     {"path": ".github/tests/change_coupling/test_change_coupling.py", "type": "file"},
-    {"path": ".github/workflows/change-coupling.yml", "type": "file"}
+    {"path": ".github/workflows/change-coupling.yml", "type": "file"},
+    {"path": ".github/dependabot.yml", "type": "file"},
+    {"path": ".github/policy/supply-chain-contract.json", "type": "file"},
+    {"path": ".github/scripts/validate_mermaid.py", "type": "file"},
+    {"path": ".github/scripts/validate_workflow_supply_chain.py", "type": "file"},
+    {"path": ".github/tests/supply_chain/cases.json", "type": "file"},
+    {"path": ".github/tests/supply_chain/test_supply_chain.py", "type": "file"},
+    {"path": ".github/workflows/build-integrity.yml", "type": "file"},
+    {"path": ".github/workflows/dependency-review.yml", "type": "file"}
   ],
   "critical_files": [
     {
@@ -22,36 +30,39 @@
     },
     {
       "path": ".github/scripts/validate_change_coupling.py",
-      "required_text": [
-        "parse_pr_contract",
-        "validate_schema",
-        "validate_coupling",
-        "changed_entries",
-        "--pr-body-file",
-        "--labels"
-      ]
+      "required_text": ["parse_pr_contract", "validate_schema", "validate_coupling", "changed_entries", "--pr-body-file", "--labels"]
     },
     {
       "path": ".github/tests/change_coupling/test_change_coupling.py",
-      "required_text": [
-        "REQUIRED_CASE_NAMES",
-        "validate_case_manifest",
-        "Change coupling self-tests passed"
-      ]
+      "required_text": ["REQUIRED_CASE_NAMES", "validate_case_manifest", "Change coupling self-tests passed"]
     },
     {
       "path": ".github/workflows/change-coupling.yml",
-      "required_text": [
-        "name: Change coupling",
-        "pull_request:",
-        "contents: read",
-        "name: Contract / diff-aware companion updates",
-        "name: Policy / change coupling self-tests",
-        "fetch-depth: 0",
-        "persist-credentials: false",
-        "runs-on: ubuntu-24.04",
-        "timeout-minutes: 5"
-      ]
+      "required_text": ["name: Change coupling", "pull_request:", "contents: read", "name: Contract / diff-aware companion updates", "name: Policy / change coupling self-tests", "fetch-depth: 0", "persist-credentials: false", "runs-on: ubuntu-24.04", "timeout-minutes: 5"]
+    },
+    {
+      "path": ".github/policy/supply-chain-contract.json",
+      "required_text": ["\"require_full_commit_sha\": true", "\"require_version_comment\": true", "\"require_digest\": true", "\"digest_algorithm\": \"sha256\""]
+    },
+    {
+      "path": ".github/scripts/validate_workflow_supply_chain.py",
+      "required_text": ["FULL_SHA_RE", "DIGEST_RE", "validate_container_reference", "Workflow supply-chain validation passed"]
+    },
+    {
+      "path": ".github/tests/supply_chain/test_supply_chain.py",
+      "required_text": ["REQUIRED_CASE_NAMES", "validate_manifest", "Supply-chain self-tests passed"]
+    },
+    {
+      "path": ".github/workflows/build-integrity.yml",
+      "required_text": ["name: Build integrity", "Build / Quartz production site", "Content / render Mermaid diagrams", "Supply chain / workflows and pins", "Run supply-chain regression fixtures", "zizmor --pedantic"]
+    },
+    {
+      "path": ".github/workflows/dependency-review.yml",
+      "required_text": ["name: Dependency review", "npm audit --audit-level=critical", "actions/dependency-review-action@", "Dependency Graph is enabled"]
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "required_text": ["package-ecosystem: npm", "package-ecosystem: github-actions", "interval: weekly"]
     },
     {
       "path": "AGENTS.md",

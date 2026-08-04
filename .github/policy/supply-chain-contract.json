@@ -1,0 +1,20 @@
+{
+  "contract_version": 1,
+  "description": "Deterministic policy for GitHub Actions references, container digests, and CI tool versions.",
+  "github_action_reference": {
+    "require_full_commit_sha": true,
+    "sha_length": 40,
+    "allow_local_actions": true,
+    "require_version_comment": true
+  },
+  "container_reference": {
+    "require_digest": true,
+    "digest_algorithm": "sha256"
+  },
+  "tool_versions": {
+    "actionlint": "1.7.12",
+    "zizmor": "1.26.0",
+    "mermaid_cli": "11.15.0",
+    "node": "22"
+  }
+}
