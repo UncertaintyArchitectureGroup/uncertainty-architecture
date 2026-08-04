@@ -61,14 +61,17 @@ def materialize_rules(root: Path, rules: Dict[str, object]) -> None:
         path = root / required["path"]
         if required["type"] == "directory":
             path.mkdir(parents=True, exist_ok=True)
-        else:
+        elif not path.exists():
             write_text(path)
     for rule in rules.get("critical_files", []):
+        path = root / rule["path"]
+        existing = path.read_text(encoding="utf-8") if path.exists() else ""
         parts: List[str] = []
         parts.extend(rule.get("required_headings", []))
         parts.extend(rule.get("required_text", []))
         parts.extend("[fixture]({})".format(target) for target in rule.get("required_links", []))
-        write_text(root / rule["path"], "\n\n".join(parts) + "\n")
+        addition = "\n\n".join(parts) + "\n"
+        write_text(path, existing + addition)
 
 
 def materialize_valid_repository(root: Path, contract: Dict[str, object], extension: Dict[str, object]) -> None:
