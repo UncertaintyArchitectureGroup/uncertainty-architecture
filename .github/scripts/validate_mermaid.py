@@ -44,15 +44,37 @@ def render_blocks(root: Path, version: str, blocks: List[Tuple[str, int, str]]) 
     errors: List[str] = []
     if not blocks:
         return ["no maintained Mermaid blocks were found"]
+
     with tempfile.TemporaryDirectory(prefix="ua-mermaid-") as temporary:
         temp = Path(temporary)
+        puppeteer_config = temp / "puppeteer-config.json"
+        puppeteer_config.write_text(
+            json.dumps({"args": ["--no-sandbox", "--disable-setuid-sandbox"]}),
+            encoding="utf-8",
+        )
+
         for sequence, (relative, block_index, source) in enumerate(blocks, start=1):
             input_path = temp / f"diagram-{sequence}.mmd"
             output_path = temp / f"diagram-{sequence}.svg"
             input_path.write_text(source, encoding="utf-8")
             result = subprocess.run(
-                ["npx", "--yes", f"@mermaid-js/mermaid-cli@{version}", "-i", str(input_path), "-o", str(output_path), "--quiet"],
-                cwd=str(root), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+                [
+                    "npx",
+                    "--yes",
+                    f"@mermaid-js/mermaid-cli@{version}",
+                    "-p",
+                    str(puppeteer_config),
+                    "-i",
+                    str(input_path),
+                    "-o",
+                    str(output_path),
+                    "--quiet",
+                ],
+                cwd=str(root),
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
             )
             if result.returncode != 0 or not output_path.is_file():
                 detail = (result.stderr or result.stdout).strip().replace("\n", " ")
