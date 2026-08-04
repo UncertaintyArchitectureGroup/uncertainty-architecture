@@ -1,5 +1,5 @@
 ---
-title: Uncertainty Architecture Open Engineering Specification Article Blueprint
+title: "Article Blueprint — Uncertainty Architecture: An Open Engineering Specification for Thinking Systems"
 artifact_type: research-note
 status: research
 maturity: draft
@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-07-31
-updated: 2026-08-03
+updated: 2026-08-04
 language: en
 license: CC-BY-4.0
 draft: true
@@ -30,14 +30,15 @@ draft: true
 
 **Proposed subtitle:** From project viability to delivery realization, runtime evidence, and reauthorization
 
-> **Status:** Proposed Phase 1 editorial contract. This is a non-normative research note, not article prose and not a specification source. Final UA claims must follow repository authority: `SPECIFICATION.md` and explicit status, then the glossary and the owning doctrine, pattern, or capability document. Reference architectures, failure modes, roadmap, and research contribute examples, reusable failure mechanisms, project state, or evidence according to their declared status. Current external factual claims require current primary or authoritative evidence during Phase 2.
+> **Status:** Accepted Phase 1 editorial contract under active Phase 2 application. This is a non-normative research note, not article prose and not a specification source. Final UA claims must follow repository authority: `SPECIFICATION.md` and explicit status, then the glossary and the owning doctrine, pattern, or capability document. Reference architectures, failure modes, roadmap, and research contribute examples, reusable failure mechanisms, project state, or evidence according to their declared status. Current external factual claims require current primary or authoritative evidence during Phase 2.
 
 ## 1. Editorial decision
 
 The article will make one connected argument:
 
 ```text
-Thinking Systems change the controlled object
+engineering expands around consequential uncertainty it can no longer leave outside its operating model
+→ Thinking Systems change the controlled object
 → model quality and observability alone are insufficient for control
 → bounded operation requires four control-capability families
 → decisions are owned at four connected lifecycle levels
@@ -57,6 +58,8 @@ Two models remain orthogonal throughout:
 - **capability families** identify how boundaries, evidence, decisions, and actions become operational.
 
 The article must not map the four levels one-to-one onto the four families, present either model as a mandatory physical stack, or turn the lifecycle into a one-way waterfall.
+
+The opening may use the evolution from plan-driven engineering through iterative delivery and modern operations as a narrow explanatory lens. It must not claim that one methodology replaced another, reduce any movement to one purpose, or use the comparison as evidence of a universal historical law. Its role is to show how engineering expands when an important location of uncertainty can no longer remain outside the engineering model.
 
 ## 2. Stable thesis and claim boundary
 
@@ -134,15 +137,21 @@ The reader should leave able to explain:
 
 ---
 
-### 4.1 The Missing Engineering Connection
+### 4.1 Engineering Evolves Around Dominant Uncertainty
 
-**Purpose:** Establish the practical gap before introducing UA terminology.
+**Purpose:** Establish the practical missing connection before introducing the full UA anatomy, using the changing location of uncertainty as the explanatory path.
 
-**Core claim:** The ecosystem offers many relevant components, but policies, evaluations, traces, approval steps, and orchestration tools do not become a governable system unless they are connected to authorization, bounded authority, decision ownership, corrective action, and reassessment.
+**Core claim:** Planning, iterative delivery, and modern operations can be read as cumulative engineering responses to requirement, product-learning, and production-condition uncertainty. Thinking Systems add consequential runtime-judgment uncertainty inside the controlled object. Existing policies, evaluations, traces, approval steps, and orchestration tools do not become a governable system unless they are connected to authorization, bounded authority, decision ownership, corrective action, and reassessment.
 
 **Required content:**
 
-- Open with a credible team that has a model, retrieval or tools, traces, evaluations, policy, human approval, and a pilot.
+- Explain the methodology comparison narrowly and cumulatively rather than as replacement history.
+- Show how feedback moves closer to runtime as uncertainty becomes harder to contain before implementation.
+- Preserve the point that plan-driven engineering remains rational where uncertainty can be reduced sufficiently in advance and late change is expensive.
+- Preserve the point that iterative delivery does not abandon planning; it shortens the cycle between assumption, delivery, use, and revision.
+- Preserve the point that modern operations extends engineering into runtime because production combinations cannot be reproduced exhaustively before release.
+- State explicitly that Thinking Systems retain all earlier uncertainty classes while adding consequential uncertainty produced through runtime Model Judgment.
+- Open or transition into a credible team that has a model, retrieval or tools, traces, evaluations, policy, human approval, and a pilot.
 - Ask the connected questions the components alone do not answer:
   - Was Model Judgment necessary?
   - What authority was delegated?
@@ -153,31 +162,42 @@ The reader should leave able to explain:
   - Who may narrow, roll back, disable, redesign, or stop operation?
   - When does runtime evidence invalidate project authorization?
   - Does the business case survive the complete control cost?
-- State the market observation narrowly: practices may remain fragmented by product boundary, decision level, or organizational function.
+- State fragmentation as practitioner observation unless current authoritative evidence supports a broader market claim.
+- Explain that observability may describe behavior without authority to act; evaluation may estimate quality without defining an approved boundary; policy may express intent without realization; nominal human approval may lack information, time, power, or capacity; and orchestration may execute a workflow without authorizing it.
+- Preserve the anti-substitution argument: evaluation score is not release authorization; prompt is not policy; policy is not a realized control; a human-in-the-loop label is not substantive accountability; a rollback button is not evidence that recovery is credible.
 - Support factual claims about current industry practice with current primary or authoritative sources. When evidence is unavailable, label the point as practitioner observation rather than established market fact.
 - Do not claim that no governance, safety, systems, or control practice exists.
+
+**Supporting visual — Engineering responses around dominant uncertainty:**
+
+Show plan-driven engineering, iterative delivery, modern operations, and Thinking-System control as a cumulative conceptual progression. The caption must state that the comparison is not replacement history and does not reduce each movement to one purpose.
+
+**Supporting table — Location of uncertainty and feedback:**
+
+Preserve the comparison among uncertainty emphasized, primary mechanism, and where decisive feedback appears. The table must state that earlier uncertainty classes persist.
 
 **Repository anchors:**
 
 - [`SPECIFICATION.md`](../../../SPECIFICATION.md)
 - [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
 - [`Failure Modes and Anti-Patterns`](../../../04-failure-modes/README.md)
+- [`Designing Non-Deterministic Systems source intake`](designing-nondeterministic-systems-source-intake.md)
 
-**Transition:** The connection is missing because AI is still often treated as an additional component inside an otherwise unchanged engineering object.
+**Transition:** The connection is missing because AI is often implemented as an additional component while the implications of the changed engineering object remain distributed across separate decisions and practices.
 
 **Closing claim:**
 
-> The missing layer is not another AI component. It is the engineering connection between delegated judgment, authorized boundaries, evidence, decision authority, and corrective action.
+> The missing layer is not another AI component. It is the engineering connection between delegated judgment, authorized boundaries, evidence, decision authority, corrective action, and reassessment.
 
-**Word budget:** 400–500
+**Working word budget:** 700–900. The integrated pass may rebalance this section against Section 4.2 while preserving the total article target.
 
 ---
 
 ### 4.2 The Controlled Object Has Changed
 
-**Purpose:** Explain the doctrinal reason UA exists.
+**Purpose:** Explain the doctrinal reason UA exists and derive the connected decision horizons from the controlled-object shift.
 
-**Core claim:** A Thinking System produces part of its consequential uncertainty inside the engineered object because runtime behavior depends partly on probabilistic Model Judgment.
+**Core claim:** A Thinking System produces part of its consequential uncertainty inside the engineered object because runtime behavior depends partly on probabilistic Model Judgment. Once that happens, organizational, project, architectural, delivery, and runtime decisions become connected manifestations of one control problem.
 
 **Required content:**
 
@@ -194,11 +214,30 @@ The reader should leave able to explain:
   ```
 
 - Explain Model Judgment through interpretation, classification, ranking, planning, generation, routing, or action selection.
-- State that useful variance is the reason the model is present; the objective is containment rather than elimination of all variance.
+- State that useful variance is the reason the model is present; the objective is bounded operation rather than elimination of all variance.
 - Distinguish product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty.
+- Preserve the mixed-system claim: deterministic responsibilities remain before, between, and after Judgment Nodes.
+- Explain the functional placements Input Interpretation, Decision Logic, and Output Mediation without presenting them as a mandatory pipeline.
+- Explain why model quality alone cannot define prohibited states, allocate residual-risk authority, restrict reachable actions, execute correction, or determine project reauthorization.
+- Explain why the changed object creates connected control questions across organizational context, project viability, architecture, delivery realization and release, and runtime reassessment.
+- Preserve the distinction that levels use different evidence, participants, time horizons, and actions and are not interchangeable.
+- State that an operational Controller cannot rewrite an organizational prohibition; a Release Gate cannot expand project authority; project authorization cannot claim a Hard Constraint without a complete realized path; and organizational policy is not an operable boundary merely because it is authoritative.
+- Introduce the recurring control questions:
+
+  ```text
+  What outcome or condition is intended?
+  → What operating space is acceptable?
+  → What uncertainty or disturbance can move the object outside it?
+  → What evidence reveals behavior, outcome, conditions, and control state?
+  → Who or what may decide that action is required?
+  → Which mechanism can change operation?
+  → When does new evidence require reassessment at this or an earlier level?
+  ```
+
+- Explain that the transfer from control theory is structural, not a claim that organizations, projects, delivery teams, and runtime services are equivalent to one mathematical Controller or reducible to one scalar error signal.
 - State that UA complements existing engineering disciplines.
 
-**Figure 1 — Controlled-object shift**
+**Primary Figure 1 — Controlled-object shift**
 
 Use a two-panel comparison of **responsibility structure**, not one mandatory execution path.
 
@@ -228,19 +267,29 @@ The figure must not imply that:
 - every realization acts before a model call;
 - the capability families form a vertical execution sequence.
 
+**Supporting figures retained in the foundation:**
+
+- engineering responses as uncertainty moves toward runtime;
+- functional placement of Model Judgment;
+- connected locations of requirement, operational, and runtime-judgment uncertainty;
+- one controlled object viewed across four decision horizons.
+
+Supporting figures must strengthen the deduction, introduce no new doctrine, carry explicit non-prescriptive captions, and remain subordinate to the three primary architectural figures.
+
 **Repository anchors:**
 
 - [`Uncertainty in the Controlled Object`](../../../00-doctrine/uncertainty-in-the-controlled-object.md)
 - [`Glossary`](../../../00-doctrine/glossary.md)
 - [`Model Judgment Placement`](../../../00-doctrine/model-judgment-placement.md)
+- [`Nested Control Lifecycle`](../../../00-doctrine/nested-control-lifecycle.md)
 
 **Transition:** Once consequential uncertainty is produced inside the runtime path, quality measurement is necessary but no longer the complete engineering contract.
 
 **Closing claim:**
 
-> The problem is not merely that AI is harder to test. Part of the controlled object's behavior is now produced through runtime judgment.
+> The problem is not merely that AI is harder to test. Part of the controlled object's behavior is now produced through runtime judgment, and every decision that controls that object must account for the change.
 
-**Word budget:** 450–550
+**Working word budget:** 900–1,200. The integrated pass must reduce duplication with Sections 4.3 and 4.4 and preserve the overall target.
 
 ---
 
@@ -308,7 +357,7 @@ The figure must not imply that:
 
 **Core claim:** Different control decisions require different evidence, authority, time horizons, and corrective actions; they must remain connected without collapsing into one gate or governance process.
 
-**Figure 2 — Two orthogonal UA models**
+**Primary Figure 2 — Two orthogonal UA models**
 
 Show two adjacent views.
 
@@ -507,7 +556,7 @@ Every Judgment Node references `K-SEND-01`; node cards do not redefine it.
 2. **Project assumption invalidated** — review volume and latency make the control perimeter economically non-viable at planned scale. `K-SEND-01` remains valid, but project capacity and economics do not. Project reauthorization narrows, redesigns, defers, or rejects the path.
 3. **Separate authority-change request** — the business requests autonomous sending. This is not runtime evidence or delivery tuning. It requires project reauthorization and organizational review before any new realization is designed.
 
-**Figure 3 — K-SEND-01 Constraint trace**
+**Primary Figure 3 — K-SEND-01 Constraint trace**
 
 ```text
 organizational prohibition and reserved Human Authority
@@ -626,11 +675,21 @@ Label the figure as an illustrative editorial synthesis, not application evidenc
 
 ## 5. Figure contract
 
-Use exactly three primary figures:
+The article uses three **primary architectural figures**:
 
 1. **Controlled-object shift** — two-panel comparison of responsibility structure, showing one or more possible Judgment Node placements without prescribing a pipeline.
 2. **Two orthogonal UA models** — decision levels with downward inheritance and upward reassessment beside capability families applying at every level.
 3. **K-SEND-01 Constraint trace** — illustrative source-to-runtime path with delivery reassessment, project reauthorization, and separate authority expansion.
+
+Additional supporting figures, comparison diagrams, tables, and explanatory visualizations are permitted where they materially strengthen understanding. They must introduce no new doctrine, remain consistent with owning repository sources, carry explicit captions describing scope and non-prescriptive boundaries, avoid implying a mandatory topology or replacement history, and remain subordinate to the three primary figures.
+
+The accepted foundation currently retains four supporting visuals in addition to Primary Figure 1:
+
+- engineering responses as uncertainty moves toward runtime;
+- the uncertainty-location comparison table;
+- functional placement of Model Judgment;
+- connected uncertainty locations;
+- one controlled object across four decision horizons.
 
 Do not use the presentation's brain/nerves/skeleton/muscles stack as the canonical article architecture diagram. It may be mentioned as source history only.
 
@@ -694,25 +753,25 @@ Current factual claims about standards, laws, platform capabilities, market prac
 
 - **Primary title:** *Uncertainty Architecture: An Open Engineering Specification for Thinking Systems*
 - **Subtitle:** *From project viability to delivery realization, runtime evidence, and reauthorization*
-- **Target:** 4,300–5,200 English words
+- **Target:** approximately 4,300–5,500 English words, subject to one integrated reduction pass after all four drafting blocks.
 
-| Part | Words |
-|---|---:|
-| Abstract | 200–250 |
-| Missing Engineering Connection | 400–500 |
-| Controlled Object | 450–550 |
-| Bounded Control | 550–600 |
-| Four Decision Levels | 950–1,150 |
-| Two Living Reviews | 400–500 |
-| One Constraint Trace | 600–700 |
-| Platform Boundary | 350–400 |
-| State, Limits, Invitation | 400–500 |
+| Part | Initial words | Current working allowance |
+|---|---:|---:|
+| Abstract | 200–250 | 200–300 |
+| Engineering uncertainty and missing connection | 400–500 | 700–900 |
+| Controlled Object | 450–550 | 900–1,200 |
+| Bounded Control | 550–600 | 550–700 |
+| Four Decision Levels | 950–1,150 | 950–1,150 |
+| Two Living Reviews | 400–500 | 400–500 |
+| One Constraint Trace | 600–700 | 600–700 |
+| Platform Boundary | 350–400 | 350–400 |
+| State, Limits, Invitation | 400–500 | 400–500 |
 
-The ranges total 4,300–5,150 words.
+The expanded foundation is deliberate. The final integrated pass must remove duplication rather than deleting the argument design from this blueprint.
 
 ### Phase 2 draft
 
-Create article prose in a separate branch and pull request at:
+The Phase 2 draft lives at:
 
 ```text
 content/research/notes/open-engineering-specification-article-draft.md
@@ -722,7 +781,7 @@ Use `status: research`, `maturity: draft`, and `draft: true`.
 
 ### Published repository edition
 
-After editorial acceptance and public release, create or move the normalized repository edition to:
+After editorial acceptance and public release, the normalized repository edition will live at:
 
 ```text
 content/research/publications/uncertainty-architecture-open-engineering-specification.md
@@ -734,12 +793,14 @@ Update the research publications index and the relevant history record. Medium a
 
 Draft four connected blocks:
 
-1. abstract, problem, and controlled-object doctrine;
+1. abstract, engineering uncertainty, the missing connection, and controlled-object doctrine;
 2. bounded control and decision levels;
 3. two reviews and the K-SEND-01 trace;
 4. platform boundary, current state, limits, openness, and invitation.
 
 Then perform one integrated pass for terminology, duplication, source support, links, figure placement, decision-level ownership, capability boundaries, Hard/Soft claims, project-versus-delivery authority, evidence-versus-authority changes, illustrative-versus-application evidence, maturity claims, and final word count.
+
+For each block, update this blueprint with durable reasoning discovered during drafting. Do not replace detailed section contracts with short summaries merely because prose now exists in the draft. The blueprint remains the recoverable design record for later drafting, review, and revision.
 
 ## 10. Phase 1 acceptance criteria
 
@@ -754,8 +815,9 @@ Then perform one integrated pass for terminology, duplication, source support, l
 - [x] K-SEND-01 is explicitly illustrative and has a scoped complete-path Hard claim.
 - [x] Runtime evidence and proposed authority changes are not conflated.
 - [x] The platform boundary allows delegated Controller authority without automatic organizational or project authority.
-- [x] Three figures have distinct jobs and introduce no new doctrine.
+- [x] Three primary figures have distinct jobs and introduce no new doctrine.
+- [x] Supporting figures are permitted under explicit non-normative boundaries.
 - [x] Source authority, external-evidence rules, repository paths, word allocation, and drafting sequence are explicit.
-- [ ] The maintainer has reviewed and explicitly frozen the editorial contract.
+- [x] The maintainer has reviewed and explicitly frozen the editorial contract for Phase 2 drafting.
 
-Phase 2 must begin in a separate branch and pull request after PR #31 is accepted and merged.
+Phase 2 is proceeding in a separate branch and pull request after PR #31 was accepted and merged.
