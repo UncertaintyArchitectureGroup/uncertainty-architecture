@@ -38,7 +38,7 @@
     {
       "name": "docker action image tag is rejected",
       "workflow": "steps:\n  - uses: docker://ghcr.io/example/tool:1.0\n",
-      "expected_error": "action must be pinned to a full 40-character commit SHA"
+      "expected_error": "container image must be pinned by sha256 digest"
     }
   ]
 }
