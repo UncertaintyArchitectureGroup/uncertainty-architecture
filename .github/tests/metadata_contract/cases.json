@@ -16,6 +16,24 @@
       "expected_message": "required document has no YAML frontmatter"
     },
     {
+      "name": "unknown frontmatter field is rejected",
+      "mutations": [
+        {"type": "insert_frontmatter", "path": "00-doctrine/control-loop-anatomy.md", "text": "canonical_foor:\n  - doctrine-vocabulary\n"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "unknown frontmatter field 'canonical_foor'"
+    },
+    {
+      "name": "unsupported indented frontmatter syntax is rejected",
+      "mutations": [
+        {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "  - control-loop", "new": "    - control-loop"}
+      ],
+      "mode": "metadata",
+      "expected_severity": "error",
+      "expected_message": "unsupported indented frontmatter syntax"
+    },
+    {
       "name": "uncontrolled artifact type is rejected",
       "mutations": [
         {"type": "replace", "path": "00-doctrine/control-loop-anatomy.md", "old": "artifact_type: doctrine", "new": "artifact_type: generic-document"}
