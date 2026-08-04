@@ -150,6 +150,11 @@ def parse_frontmatter(lines: Sequence[str]) -> Tuple[Dict[str, MetadataValue], L
             continue
 
         if raw_line[:1].isspace():
+            errors.append(
+                "line {}: unsupported indented frontmatter syntax; use top-level scalars or two-space list items".format(
+                    number
+                )
+            )
             continue
 
         if ":" not in raw_line:
@@ -238,7 +243,12 @@ def validate_document_metadata(
     relative = relative_path(root, path)
     findings: List[Finding] = []
     required_fields = set(str(item) for item in contract["required_fields"])
+    optional_fields = set(str(item) for item in contract["optional_fields"])
+    allowed_fields = required_fields | optional_fields
     list_fields = set(str(item) for item in contract["list_fields"])
+
+    for field in sorted(set(metadata) - allowed_fields):
+        findings.append(Finding("error", relative, "unknown frontmatter field {!r}".format(field)))
 
     for field in sorted(required_fields - set(metadata)):
         findings.append(Finding("error", relative, "missing required field {!r}".format(field)))
