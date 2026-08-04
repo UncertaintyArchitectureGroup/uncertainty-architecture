@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added executable Quartz build validation, maintained Mermaid rendering, actionlint and zizmor workflow analysis, immutable GitHub Action and container-reference policy, supply-chain regression fixtures, Dependabot configuration, bounded npm audit enforcement, and GitHub Dependency Review integration with an explicit Dependency Graph prerequisite.
 - Added diff-aware pull-request validation that checks the machine-readable `ua-change-contract` against the actual git diff, enforces changelog and companion-document coupling, requires explicit compatibility decisions for maintained-file deletion or rename, and supports narrow maintainer exception labels with focused regression fixtures.
 - Added the diff-aware change-coupling protocol to `AGENTS.md`, including PR-contract completion, companion-update checks, deletion and rename decisions, exception-label boundaries, and local validation commands.
 - Added a machine-readable metadata contract, dependency-free frontmatter and canonical-ownership validator, protected-glossary and terminology checks, focused GitHub Actions jobs, and mutation-based regression fixtures for controlled metadata, tag projection, active `canonical_for` uniqueness, and selected terminology drift.
