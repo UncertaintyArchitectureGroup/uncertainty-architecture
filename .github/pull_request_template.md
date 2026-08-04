@@ -39,6 +39,7 @@
   "research_state": "select-one",
   "compatibility": "select-one",
   "changelog": "select-one",
+  "glossary": "select-one",
   "roadmap": "select-one",
   "traceability": "select-one"
 }
