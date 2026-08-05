@@ -152,6 +152,8 @@ Diagrams are part of the reasoning, not decoration. They must:
 
 The article has three primary architectural figures and may contain any number of supporting figures that materially strengthen the deduction.
 
+Visual emphasis may be used when it carries architectural meaning. In particular, a distinct red treatment may identify the consequential probabilistic Model Judgment added inside the controlled object, but it must not imply that the entire Thinking System is probabilistic or unsafe.
+
 ## 3. Stable thesis and claim boundary
 
 ### Stable thesis paragraph
@@ -287,6 +289,7 @@ The reader should leave able to explain:
 - Explain that observability may describe behavior without authority to act; evaluation may estimate quality without defining an approved boundary; policy may express intent without realization; nominal human approval may lack information, time, power, or capacity; and orchestration may execute a workflow without authorizing it.
 - Preserve the anti-substitution argument: evaluation score is not release authorization; prompt is not policy; policy is not a realized control; a human-in-the-loop label is not substantive Human Authority; a rollback button is not evidence that recovery is credible.
 - State explicitly that these gaps are not governance debt that can be closed after release: without the complete control architecture across the four decision levels, a consequential Thinking System is not ready for consequential production release.
+- Present this release-readiness consequence as a visually distinct publication-facing callout so the reader can identify it as a central engineering thesis without repeating the argument elsewhere.
 - State that governance becomes operational through the socio-technical stack that makes the system bounded, observable, correctable, and reauthorizable, rather than through a policy document or post-release review.
 - Support factual claims about current industry practice with current primary or authoritative sources. When evidence is unavailable, label the point as practitioner observation.
 - Do not claim that no governance, safety, systems, or control practice exists.
@@ -347,6 +350,9 @@ The reader should leave able to explain:
 - Preserve the mixed-system claim: deterministic responsibilities remain before, between, and after Judgment Nodes.
 - Explain why model quality alone cannot define prohibited states, allocate residual-risk authority, restrict reachable actions, execute correction, or determine Project Reauthorization.
 - Explain why the changed object creates connected control questions across organizational context, project viability, architecture, delivery realization and release, and runtime reassessment.
+- Replace the dense one-paragraph summary of those horizons with short publication-facing paragraphs using bold labels for **Organizational control context**, **Project control architecture and viability**, **Control-architecture design within the project level**, **Delivery realization and release**, and **Runtime operation and reassessment**.
+- State explicitly that control-architecture design is a responsibility within the project / architecture level and does not create a fifth decision level.
+- Use that labeled passage as a forward bridge to the later sections rather than as a complete treatment of the levels.
 - Preserve that levels use different evidence, participants, authority, time horizons, and actions and are not interchangeable.
 - State that an operational Controller cannot rewrite an organizational prohibition; a Release Gate cannot expand project authority; Project Authorization cannot claim a Hard Constraint without a complete realized path; and organizational policy is not an operable boundary merely because it is authoritative.
 - Introduce the recurring control questions:
@@ -366,15 +372,15 @@ The reader should leave able to explain:
 
 **Primary Figure 1 — Controlled-object shift**
 
-Use a two-panel comparison of responsibility structure, not one mandatory execution path.
+Use a horizontal, side-by-side comparison of responsibility structures, not stacked panels and not one mandatory execution path.
 
 ```text
-Panel A — Primarily explicitly encoded runtime behavior
+Left — Primarily explicitly encoded runtime behavior
 external, requirement, delivery, and operational uncertainty
 → explicitly encoded decision and action responsibilities
 → observed outputs, actions, and outcomes
 
-Panel B — Thinking System boundary
+Right — Thinking System boundary
 external, requirement, delivery, and operational uncertainty
 → deterministic responsibilities before, between, and after Judgment Nodes
 ↔ one or more bounded Judgment Nodes
@@ -383,7 +389,15 @@ external, requirement, delivery, and operational uncertainty
 → observed outputs, actions, and downstream outcomes
 ```
 
-Show approved Constraints and their realizations, Sensors and evidence, Controller authority, and Actuator paths across the relevant system boundary and around material Judgment Nodes.
+Add one visually distinct callout, preferably using a restrained red treatment, that states the structural addition:
+
+```text
+What Thinking Systems add:
+consequential probabilistic Model Judgment
+inside the controlled object
+```
+
+The callout and Judgment Nodes may share the red visual treatment. The rest of the Thinking System boundary should remain visually distinct but must not be rendered as wholly probabilistic or inherently unsafe.
 
 The figure must not imply that:
 
@@ -392,13 +406,16 @@ The figure must not imply that:
 - every system has one Judgment Node;
 - Judgment placement follows one fixed order;
 - every realization acts before a model call;
-- capability families form a vertical execution sequence.
+- capability families form a vertical execution sequence;
+- red denotes an error state rather than the structural addition being explained.
 
 **Supporting figures:**
 
-- functional placement of Model Judgment;
+- functional placement of Model Judgment, with **Model Judgment** above and **Input Interpretation**, **Decision Logic**, and **Output Mediation** aligned horizontally beneath it;
 - connected locations of requirement, operational, and runtime-judgment uncertainty;
 - one controlled object viewed across four decision horizons.
+
+The Model Judgment placement figure is a taxonomy, not a sequence. It must not connect the three placement categories laterally in a way that implies a mandatory pipeline.
 
 **Repository anchors:**
 
@@ -413,7 +430,7 @@ The figure must not imply that:
 
 > The problem is not merely that AI is harder to test. Part of the controlled object's behavior is now produced through runtime judgment, and every decision that controls that object must account for the change.
 
-**Working word budget:** 900–1,200
+**Working word budget:** 950–1,300
 
 ---
 
@@ -500,6 +517,7 @@ The figure must not imply that:
 - Explain that they are the decision-ownership horizons through which governance becomes operational.
 - State that consequential production release requires the relevant capability functions and decisions to be connected across all four levels.
 - Preserve the distinction that combining responsibilities in one person does not collapse the decisions.
+- Reuse the bold-labeled forward bridge from Section 5.2 as orientation, but do not repeat its full prose. The detailed treatment here must remain the canonical explanation of the four levels.
 
 **Primary Figure 2 — Two orthogonal models**
 
@@ -892,7 +910,7 @@ Label the figure as an illustrative editorial synthesis, not application evidenc
 
 The three primary architectural figures are:
 
-1. **Controlled-object shift** — two-panel comparison of responsibility structure, showing one or more possible Judgment Node placements without prescribing a pipeline.
+1. **Controlled-object shift** — horizontal side-by-side comparison of responsibility structures, with a restrained red callout and matching Judgment Node treatment identifying consequential probabilistic Model Judgment as the structural addition inside the controlled object.
 2. **Two orthogonal models** — decision levels with downward inheritance and upward reassessment beside capability families applying at every level.
 3. **K-SEND-01 Constraint trace** — illustrative source-to-runtime path with delivery reassessment, Project Reauthorization, and separate authority expansion.
 
@@ -900,7 +918,7 @@ Supporting figures currently expected:
 
 - engineering responses around dominant uncertainty, labeled Plan-driven engineering (Waterfall), Iterative delivery (Agile and related approaches), Modern operations (DevOps), and Thinking-System engineering;
 - Thinking Systems category boundary;
-- Model Judgment placement;
+- Model Judgment placement, with Model Judgment above and the three placement categories in one horizontal row beneath it;
 - connected uncertainty locations;
 - one controlled object across four decision horizons;
 - closed feedback loop;
@@ -937,6 +955,8 @@ Do not:
 - describe governance as a post-hoc review, policy document, compliance artifact, fifth capability family, or exact synonym for every element of the control architecture;
 - imply that governance can become operational without the relevant socio-technical control architecture;
 - imply that a consequential Thinking System can be ready for consequential production release while its required cross-level control architecture remains incomplete;
+- imply that control-architecture design creates a fifth decision level separate from project / architecture;
+- use red visual emphasis in Figure 3 to imply that the entire Thinking System is probabilistic, unsafe, or erroneous;
 - imply runtime reauthorizes a project automatically;
 - classify every deviation as a Bug;
 - describe aggregate quality, cost, latency, or capacity tolerances as Hard Constraints without deterministic enforcement;
@@ -1020,7 +1040,10 @@ Every article-writing PR must satisfy all of the following:
 - [ ] Plan-driven development, iterative delivery, and modern operations remain the primary categories, with Waterfall, Agile and related approaches, and DevOps named consistently as familiar examples in the opening prose, Figure 1, and the comparison table.
 - [ ] The abstract does not narrate the article's reveal sequence or contain internal editorial commentary.
 - [ ] Governance is framed as becoming operational through the active socio-technical control architecture rather than as a post-hoc review, document, or exact synonym for every control element.
-- [ ] The consequence of an incomplete cross-level control architecture is explicit and scoped to consequential production release of Thinking Systems.
+- [ ] The consequence of an incomplete cross-level control architecture is explicit, scoped to consequential production release of Thinking Systems, and visually emphasized once as a central engineering thesis without duplicating the argument.
+- [ ] Figure 3 is a horizontal side-by-side comparison and visually isolates consequential probabilistic Model Judgment as the structural addition without implying that the entire Thinking System is probabilistic.
+- [ ] Figure 4 places Model Judgment above Input Interpretation, Decision Logic, and Output Mediation, with the three placements aligned horizontally and no implied mandatory sequence.
+- [ ] The decision-horizon bridge uses short bold-labeled paragraphs and keeps control-architecture design inside the project / architecture level.
 - [ ] Every major new argument has an appropriate figure or an explicit reason why prose is clearer.
 - [ ] All figures were reviewed as one visual sequence and renumbered consistently.
 - [ ] The complete target article was reread after integration.
