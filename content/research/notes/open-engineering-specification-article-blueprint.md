@@ -372,7 +372,7 @@ The reader should leave able to explain:
 
 **Primary Figure 1 — Controlled-object shift**
 
-Use a horizontal, side-by-side comparison of responsibility structures, not stacked panels and not one mandatory execution path.
+Use two vertical top-to-bottom responsibility diagrams placed side by side. The comparison must read as two parallel columns, not as two horizontal execution pipelines and not as one mandatory topology.
 
 ```text
 Left — Primarily explicitly encoded runtime behavior
@@ -389,15 +389,9 @@ external, requirement, delivery, and operational uncertainty
 → observed outputs, actions, and downstream outcomes
 ```
 
-Add one visually distinct callout, preferably using a restrained red treatment, that states the structural addition:
+Carry the visual distinction inside the Thinking System column itself. Do not add a separate callout node that competes with the two-column comparison or changes the apparent topology.
 
-```text
-What Thinking Systems add:
-consequential probabilistic Model Judgment
-inside the controlled object
-```
-
-The callout and Judgment Nodes may share the red visual treatment. The rest of the Thinking System boundary should remain visually distinct but must not be rendered as wholly probabilistic or inherently unsafe.
+Use restrained red treatment on the blocks whose responsibility changes because Model Judgment is present: the deterministic responsibility before judgment, the Judgment Node itself, and deterministic validation, authority, and execution after judgment. The external-input and final-output blocks and the Thinking System boundary itself should remain neutral. Red must identify the structural change, not imply that the whole Thinking System is probabilistic, unsafe, or erroneous.
 
 The figure must not imply that:
 
@@ -413,7 +407,7 @@ The figure must not imply that:
 
 - functional placement of Model Judgment, with **Model Judgment** above and **Input Interpretation**, **Decision Logic**, and **Output Mediation** aligned horizontally beneath it;
 - connected locations of requirement, operational, and runtime-judgment uncertainty;
-- one controlled object viewed across four decision horizons.
+- one controlled object viewed across four decision horizons, rendered as one centered vertical column in the canonical order Organization → Project / Architecture → Delivery → Runtime.
 
 The Model Judgment placement figure is a taxonomy, not a sequence. It must not connect the three placement categories laterally in a way that implies a mandatory pipeline.
 
@@ -910,7 +904,7 @@ Label the figure as an illustrative editorial synthesis, not application evidenc
 
 The three primary architectural figures are:
 
-1. **Controlled-object shift** — horizontal side-by-side comparison of responsibility structures, with a restrained red callout and matching Judgment Node treatment identifying consequential probabilistic Model Judgment as the structural addition inside the controlled object.
+1. **Controlled-object shift** — two vertical top-to-bottom responsibility diagrams placed side by side, with restrained red treatment on the changed responsibility blocks in the Thinking System column.
 2. **Two orthogonal models** — decision levels with downward inheritance and upward reassessment beside capability families applying at every level.
 3. **K-SEND-01 Constraint trace** — illustrative source-to-runtime path with delivery reassessment, Project Reauthorization, and separate authority expansion.
 
@@ -920,7 +914,7 @@ Supporting figures currently expected:
 - Thinking Systems category boundary;
 - Model Judgment placement, with Model Judgment above and the three placement categories in one horizontal row beneath it;
 - connected uncertainty locations;
-- one controlled object across four decision horizons;
+- one controlled object across four decision horizons, with all four horizon blocks centered in one vertical line;
 - closed feedback loop;
 - complete bounded control architecture;
 - organizational influence architecture;
@@ -1041,8 +1035,9 @@ Every article-writing PR must satisfy all of the following:
 - [ ] The abstract does not narrate the article's reveal sequence or contain internal editorial commentary.
 - [ ] Governance is framed as becoming operational through the active socio-technical control architecture rather than as a post-hoc review, document, or exact synonym for every control element.
 - [ ] The consequence of an incomplete cross-level control architecture is explicit, scoped to consequential production release of Thinking Systems, and visually emphasized once as a central engineering thesis without duplicating the argument.
-- [ ] Figure 3 is a horizontal side-by-side comparison and visually isolates consequential probabilistic Model Judgment as the structural addition without implying that the entire Thinking System is probabilistic.
+- [ ] Figure 3 places two vertical top-to-bottom responsibility diagrams side by side and uses restrained red treatment on the changed Thinking System blocks without implying that the entire system is probabilistic.
 - [ ] Figure 4 places Model Judgment above Input Interpretation, Decision Logic, and Output Mediation, with the three placements aligned horizontally and no implied mandatory sequence.
+- [ ] Figure 6 centers Organization, Project / Architecture, Delivery, and Runtime in one vertical line and preserves their canonical order.
 - [ ] The decision-horizon bridge uses short bold-labeled paragraphs and keeps control-architecture design inside the project / architecture level.
 - [ ] Every major new argument has an appropriate figure or an explicit reason why prose is clearer.
 - [ ] All figures were reviewed as one visual sequence and renumbered consistently.

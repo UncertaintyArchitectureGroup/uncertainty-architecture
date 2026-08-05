@@ -157,7 +157,7 @@ The architectural difference can be shown without pretending that conventional s
 ```mermaid
 flowchart LR
     subgraph A["Primarily explicitly encoded runtime responsibility"]
-        direction LR
+        direction TB
         A1[External input and operating conditions]
         A2[Deterministic decision and action responsibilities]
         A3[Output, action, or downstream state]
@@ -165,28 +165,22 @@ flowchart LR
     end
 
     subgraph B["Thinking System boundary"]
-        direction LR
+        direction TB
         B1[External input and operating conditions]
-        B2[Deterministic responsibilities]
-        J1["Judgment Node<br/>probabilistic Model Judgment"]
+        B2[Deterministic responsibilities before Model Judgment]
+        J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
         B3[Deterministic validation, authority, and execution]
-        J2["Optional additional<br/>Judgment Node"]
         B4[Output, action, or downstream state]
-
         B1 --> B2 --> J1 --> B3 --> B4
-        B3 -. optional composition .-> J2 -.-> B4
     end
 
-    SHIFT["What Thinking Systems add<br/>consequential probabilistic Model Judgment<br/>inside the controlled object"]
-    SHIFT -.-> J1
-    SHIFT -.-> J2
-
-    classDef shift fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#7f0000;
-    class SHIFT,J1,J2 shift;
-    style B fill:#fffafa,stroke:#c62828,stroke-width:2px
+    classDef changed fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#7f0000;
+    classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
+    class B2,B3 changed;
+    class J1 judgment;
 ```
 
-**Figure 3 — The controlled-object shift.** The two responsibility structures are shown side by side. On the left, consequential runtime behavior is produced primarily through explicitly encoded deterministic responsibilities. On the right, a Thinking System remains a mixed system, but probabilistic Model Judgment enters the controlled object through one or more Judgment Nodes. The red-highlighted elements identify the structural addition; they do not imply that the rest of the Thinking System is probabilistic or that every system follows this topology.
+**Figure 3 — The controlled-object shift.** Two vertical responsibility structures are placed side by side for direct comparison. On the left, consequential runtime behavior is produced through an explicitly encoded deterministic chain. On the right, a Thinking System remains mixed, but the internal responsibility structure changes: deterministic responsibilities surround one or more bounded Judgment Nodes, and deterministic validation, authority, and execution remain explicit after them. The red-highlighted blocks identify the responsibilities introduced or structurally changed by the presence of Model Judgment; they do not imply that the whole Thinking System is probabilistic or unsafe.
 
 Model Judgment can affect a workflow through several functional placements.
 
@@ -261,18 +255,14 @@ Yet the levels are structurally connected because they control the same object.
 
 ```mermaid
 flowchart TB
-    O["Organizational control context<br/>What boundaries and decision rights apply?"]
-    P["Project control architecture and viability<br/>Can a credible and viable controlled system exist?"]
-    D["Delivery realization and release<br/>Is this bounded implementation ready and acceptable?"]
-    R["Runtime operation and reassessment<br/>Does active operation remain inside the authorized conditions?"]
+    O["Organization level<br/>authoritative boundaries, shared capabilities,<br/>prohibited uses, and decision rights"]
+    P["Project / architecture level<br/>technical credibility, operational supportability,<br/>economic viability, and control architecture"]
+    D["Delivery level<br/>bounded realization, evidence,<br/>release decision, and corrective readiness"]
+    R["Runtime level<br/>active behavior, operating conditions,<br/>correction, escalation, and reassessment"]
 
     O -->|authoritative sources, shared capabilities, delegated authority| P
     P -->|Project Constraint Architecture and authorized boundary| D
     D -->|realized controls, release scope, active versions| R
-
-    R -->|local defect or implementation evidence| D
-    R -->|risk, authority, capacity, evidence, or economics invalidated| P
-    R -->|source, decision right, or shared capability changed| O
 ```
 
 **Figure 6 — One controlled object across four decision horizons.** Authority and Constraints flow downward by reference and become more concrete in realization. Evidence flows upward when it invalidates the basis of an earlier decision.
