@@ -1,5 +1,5 @@
 ---
-title: "Uncertainty Architecture: An Open Engineering Specification for Thinking Systems"
+title: "Thinking Systems: Engineering Software That Produces Consequential Judgment"
 artifact_type: research-note
 status: research
 maturity: draft
@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-05
 language: en
 license: CC-BY-4.0
 draft: true
@@ -29,6 +29,7 @@ related:
   - open-engineering-specification-article-operational-extensions.md
 source_basis:
   - ../../../SPECIFICATION.md
+  - ../../../00-doctrine/glossary.md
   - ../../../00-doctrine/uncertainty-in-the-controlled-object.md
   - ../../../00-doctrine/model-judgment-placement.md
   - ../../../00-doctrine/control-loop-anatomy.md
@@ -40,29 +41,21 @@ source_basis:
   - designing-nondeterministic-systems-source-intake.md
 ---
 
-# Uncertainty Architecture: An Open Engineering Specification for Thinking Systems
-
-*From project viability to delivery realization, runtime evidence, and reauthorization*
-
-> **Draft status:** This article is being developed section by section from the repository's current draft specification. It is not itself a normative specification source.
->
-> **Cumulative drafting rule:** Every subsequent section must be developed from the accepted blueprint **and** all previously accepted article sections, claims, transitions, and figures. Later prose must continue the existing line of argument rather than treating the blueprint as an isolated checklist or re-deriving the framework from scratch.
+# Thinking Systems: Engineering Software That Produces Consequential Judgment
 
 ## Abstract
 
-Software engineering repeatedly expands when an important source of uncertainty can no longer be contained by the assumptions of the previous engineering model. Up-front planning attempts to reduce uncertainty before implementation. Iterative delivery accepts that product understanding changes through use and shortens the distance to feedback. Modern operations accepts that production conditions cannot be reproduced exhaustively before release and extends engineering into runtime through observability, progressive delivery, and recovery.
+Software engineering repeatedly expands when an important source of uncertainty can no longer remain outside the engineering model. Plan-driven development attempts to reduce requirement and design uncertainty before implementation. Iterative delivery accepts that product understanding changes through use and shortens the distance to feedback. Modern operations accepts that production conditions cannot be reproduced exhaustively before release and extends engineering into runtime through observability, progressive delivery, and recovery.
 
-Thinking Systems introduce a further shift. Consequential uncertainty no longer arises only from requirements, implementation, users, infrastructure, or the operating environment. Part of it is produced inside the controlled object through probabilistic Model Judgment. A system may interpret ambiguous input, rank alternatives, construct a plan, select a tool, or mediate what a person sees next without that behavior being fully enumerated in deterministic logic.
+This paper introduces **Thinking Systems** as a distinct engineering category: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit. The category is broader than agentic software. An application may use agents while remaining largely linear because their relevant paths and decisions are explicitly orchestrated. Conversely, a non-agentic feature may be a Thinking System when probabilistic judgment materially changes interpretation, routing, decisions, outputs, or downstream action.
 
-Once the controlled object changes, every decision concerned with controlling it must be reconsidered. Organizational boundaries, project viability, architecture, delivery readiness, release, runtime operation, and reauthorization become connected control problems operating at different scopes and time horizons. Evaluation, observability, policy, human approval, and orchestration remain useful, but none is sufficient when disconnected from approved Constraints, concrete Constraint Realizations, decision authority, corrective action, and reassessment.
-
-This paper develops the current architectural spine of Uncertainty Architecture: an open, tool-neutral draft specification for connecting those responsibilities. It distinguishes four control-capability families from four decision levels and provides a proportional default operating path of one project review and one delivery review for small and medium-sized teams. The framework is coherent enough to apply, criticize, and test. It is not yet mature enough to claim universal sufficiency, broad independent validation, or standard status.
+Thinking Systems move consequential uncertainty inside the controlled object. Once that happens, model quality and observability are no longer sufficient descriptions of the engineering problem. The system must be bounded across organizational authority, project viability, architecture, delivery, release, runtime operation, and reassessment. This paper derives the control capabilities and decision levels required by that shift, then shows how those elements can be expressed through a small number of living engineering artifacts. Only after the problem and its consequences have been established does the paper present Uncertainty Architecture as one open specification that organizes the resulting model.
 
 ## 1. Engineering Evolves Around Dominant Uncertainty
 
-Software-engineering methods are often discussed as competing schools: planning versus iteration, development versus operations, process versus autonomy. That framing hides a more useful pattern. Major engineering approaches tend to expand around forms of uncertainty that the previous operating model could not manage well enough.
+Software-engineering methods are often discussed as competing schools: planning versus iteration, development versus operations, process versus autonomy. That framing hides a more useful pattern. Engineering expands when a consequential source of uncertainty can no longer be managed adequately by the assumptions and feedback structures already in place.
 
-The pattern is not a clean historical sequence, and none of the approaches below is reducible to one idea. Waterfall, Agile, and DevOps each include diverse practices, interpretations, and institutional histories. The comparison here is narrower: each can be read as a characteristic response to a different location of uncertainty and feedback.
+The pattern is not a clean historical sequence, and none of the approaches below is reducible to one idea. Waterfall, Agile, and DevOps each contain diverse practices, interpretations, and institutional histories. The comparison here is narrower: each can be read as a characteristic response to a different location of uncertainty and feedback.
 
 Plan-driven development treats significant requirement and design uncertainty as something to reduce before implementation. The engineering response is analysis, decomposition, specification, approval, and planned execution. This remains rational where the problem can be understood sufficiently in advance, the cost of change is high, and late feedback is dangerous.
 
@@ -70,7 +63,7 @@ Iterative product development starts from a different limit: important requireme
 
 Modern operations exposes another limit. Even a well-understood feature cannot be exhaustively validated against every production combination of traffic, infrastructure, device, operating system, dependency, configuration, user behavior, and failure condition. Engineering therefore extends beyond release. Telemetry, progressive delivery, canary exposure, rollback, resilience, and incident response make production behavior part of the evidence used to operate and improve the system.
 
-Thinking Systems add a distinct source of uncertainty. The uncertainty is not only in what should be built or in the environment in which software runs. It also appears in the runtime selection of behavior inside the software boundary.
+Thinking Systems add a distinct source of uncertainty. The uncertainty is not only in what should be built or in the environment in which software runs. It also appears in the runtime selection or construction of behavior inside the software boundary.
 
 ```mermaid
 flowchart LR
@@ -91,11 +84,39 @@ flowchart LR
 | Modern operations | Production conditions and system behavior | Runtime telemetry, progressive exposure, and recovery | During operation |
 | Thinking-System control | Probabilistic runtime judgment and its consequences | Bounded authority, evidence, correction, and reassessment | Inside and around the active controlled object |
 
-The table does not imply that requirement uncertainty disappeared after Agile or that operational uncertainty began with DevOps. The point is cumulative. Each engineering expansion preserves earlier responsibilities while adding mechanisms for uncertainty that became too important to leave outside the engineering model.
+The table does not imply that requirement uncertainty disappeared after Agile or that operational uncertainty began with DevOps. The point is cumulative. Each expansion preserves earlier responsibilities while adding mechanisms for uncertainty that became too important to leave outside the engineering model.
 
-That cumulative view matters. A Thinking System still requires product discovery, deterministic software engineering, testing, security, deployment discipline, observability, and incident response. The new problem does not invalidate those practices. It changes what they are controlling.
+### Introducing Thinking Systems
 
-Yet a team can adopt all of those practices and still lack a governable system. It may have a production model, retrieval or tools, traces, evaluation suites, policies, human approval, and a pilot deployment. Each component can be competent. The dashboard may be green. The demo may be impressive. The complete system may still lack a defensible connection between what the organization permits, what the project authorizes, what the delivery team has realized, what runtime evidence means, and what action follows when assumptions fail.
+In this paper, a **Thinking System** is:
+
+> A software system whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
+
+**Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, or action selection performed through a probabilistic model under uncertainty. It is useful precisely because the required behavior cannot always be exhaustively encoded in advance.
+
+The term identifies a responsibility structure, not a product category or marketing label. A Thinking System remains a mixed system. Probabilistic judgment may appear at one bounded point or many, while identity, permissions, transactions, state transitions, audit, safety boundaries, and other consequential responsibilities remain deterministic.
+
+The category must not be collapsed into "agentic application." Agentic systems are a higher-autonomy subset of Thinking Systems, not the whole category. A support feature that interprets an ambiguous request and drafts a response may be a Thinking System without being agentic. An agentic workflow may remain largely linear when its relevant routes, decisions, and authority are explicitly encoded and the model does not perform consequential judgment. Autonomy and runtime judgment are related dimensions, not synonyms.
+
+```mermaid
+flowchart TB
+    SW[Software systems]
+    LIN["Linear Software<br/>relevant decision rules and execution paths<br/>are explicitly encoded"]
+    TS["Thinking Systems<br/>runtime behavior depends partly on<br/>probabilistic Model Judgment"]
+    AG["Agentic Thinking Systems<br/>higher-autonomy subset"]
+    LA["Agentic but largely linear orchestration<br/>explicit routes and bounded execution"]
+
+    SW --> LIN
+    SW --> TS
+    TS --> AG
+    LIN --> LA
+```
+
+**Figure 2 — Thinking Systems are defined by consequential probabilistic judgment, not by an agent label.** Agentic Thinking Systems are a subset of the category; agentic orchestration can also remain largely linear when the relevant decision rules are explicitly encoded.
+
+A Thinking System still requires product discovery, deterministic software engineering, testing, security, deployment discipline, observability, and incident response. The new category does not invalidate those practices. It changes the object they are controlling.
+
+A team can adopt all of those practices and still lack a governable system. It may have a production model, retrieval or tools, traces, evaluation suites, policies, human approval, and a pilot deployment. Each component can be competent. The dashboard may be green. The demo may be impressive. The complete system may still lack a defensible connection between what the organization permits, what the project authorizes, what the delivery team has realized, what runtime evidence means, and what action follows when assumptions fail.
 
 The components alone do not answer the connected questions. Was Model Judgment necessary for the intended outcome? What authority was delegated to the model-mediated path? Which consequences are prohibited rather than merely undesirable? Which Constraints are authoritative, and how are they realized? Which evidence informs which decision? Who may narrow exposure, roll back, disable, redesign, or stop operation? When does runtime evidence invalidate project authorization rather than only a local implementation? Does the business case survive once evaluation, Human Authority, fallback, observability, incident handling, and control capacity are included in the cost?
 
@@ -153,7 +174,7 @@ flowchart TB
     end
 ```
 
-**Figure 2 — The controlled-object shift.** A Thinking System remains a mixed system. Deterministic responsibilities remain before, between, and after Judgment Nodes. Judgment Nodes may be absent, repeated, or combined; the diagram is illustrative rather than a prescribed execution topology.
+**Figure 3 — The controlled-object shift.** A Thinking System remains a mixed system. Deterministic responsibilities remain before, between, and after Judgment Nodes. Judgment Nodes may be absent, repeated, or combined; the diagram is illustrative rather than a prescribed execution topology.
 
 Model Judgment can affect a workflow through several functional placements.
 
@@ -180,7 +201,7 @@ flowchart LR
     D -. may repeat or combine .-> O
 ```
 
-**Figure 3 — Functional placement of Model Judgment.** The classes identify what judgment changes in a workflow. They do not prescribe order, topology, consequence, authority, or risk.
+**Figure 4 — Functional placement of Model Judgment.** The classes identify what judgment changes in a workflow. They do not prescribe order, topology, consequence, authority, or risk.
 
 The useful variance created by these placements cannot be governed by treating every output difference as a defect. A Requirement for a Thinking System usually defines acceptable conditions, prohibited states, tolerances, authority boundaries, and expected outcomes rather than one exact output for every possible input.
 
@@ -207,7 +228,7 @@ flowchart LR
     J --> S
 ```
 
-**Figure 4 — Three connected uncertainty locations.** Product methods, software engineering, DevOps, resilience, and incident response remain necessary. Thinking-System control adds explicit treatment of runtime judgment uncertainty and connects it back to earlier decisions.
+**Figure 5 — Three connected uncertainty locations.** Product methods, software engineering, DevOps, resilience, and incident response remain necessary. Thinking-System engineering adds explicit treatment of runtime judgment uncertainty and connects it back to earlier decisions.
 
 Once probabilistic judgment enters the controlled object, the consequences do not remain inside a model call. Every decision that authorizes, shapes, releases, or operates that object must account for the changed behavior.
 
@@ -233,7 +254,7 @@ flowchart TB
     R -->|source, decision right, or shared capability changed| O
 ```
 
-**Figure 5 — One controlled object across four decision horizons.** Authority and Constraints flow downward by reference and become more concrete in realization. Evidence flows upward when it invalidates the basis of an earlier decision. This supporting figure anticipates the full orthogonal decision-level and capability-family model developed later in the paper.
+**Figure 6 — One controlled object across four decision horizons.** Authority and Constraints flow downward by reference and become more concrete in realization. Evidence flows upward when it invalidates the basis of an earlier decision.
 
 At each level, the concrete subject changes, but a recurring control structure appears:
 
@@ -253,14 +274,9 @@ The useful transfer is structural. Bounded control requires an intended conditio
 
 Applied to a socio-technical system whose controlled object contains probabilistic Model Judgment, that structure produces different but connected engineering forms: organizational boundaries and delegated authority; project-level viability and control architecture; architectural placement of Judgment Nodes, deterministic responsibilities, evidence, and action paths; delivery-level readiness, completeness, and release decisions; and runtime sensing, correction, containment, fallback, escalation, and reassessment.
 
-These are not independent governance practices assembled around AI. They are level-specific realizations of one control problem. This observation explains both the scope and the restraint of Uncertainty Architecture. UA does not replace product discovery, software architecture, Agile delivery, DevOps, QA, security, resilience, incident response, legal review, or organizational governance. It specifies the connections those disciplines need when probabilistic judgment becomes consequential inside the controlled object.
+These are not independent governance practices assembled around AI. They are level-specific realizations of one control problem. Existing disciplines remain necessary; what changes is the connection among them when probabilistic judgment becomes consequential inside the controlled object.
 
-The remainder of this paper develops that specification through two orthogonal models:
-
-1. **control-capability families**, which identify the functions needed to define boundaries, produce evidence, decide, and act;
-2. **decision levels**, which identify where authorization, realization, release, runtime correction, and reassessment are owned.
-
-The next section begins with the first model. A system may be measured without being controlled, and a feedback loop may be closed while the system remains unsafe, over-authorized, operationally fragile, or economically irrational. The relevant question is not only whether feedback exists, but whether operation is bounded by approved Constraints, credible realizations, fit-for-purpose evidence, legitimate decision authority, and effective corrective action.
+The next section develops the first half of that connection: the capabilities required to define boundaries, produce evidence, decide, and act.
 
 ## 3. From Model Quality to Bounded Control
 
@@ -278,7 +294,7 @@ flowchart LR
     P["Thinking System<br/>controlled process"]
     S["Sensors and evidence"]
     C["Controller and decision authority"]
-    A["Actuators"]
+    A[Actuators]
 
     R --> C
     P --> S --> C
@@ -286,11 +302,11 @@ flowchart LR
     A -->|changes operation| P
 ```
 
-**Figure 6 — A closed feedback loop.** Evidence reaches a decision function and an authorized action changes the controlled process. The figure does not yet show whether the loop operates inside an approved boundary.
+**Figure 7 — A closed feedback loop.** Evidence reaches a decision function and an authorized action changes the controlled process. The figure does not yet show whether the loop operates inside an approved boundary.
 
 Closing the loop solves only part of the problem. The loop may optimize the wrong objective. It may respond too slowly for the consequence. Its Controller may possess authority that was never legitimately delegated. Its Actuator may change a prompt but be unable to block an external action. Its Sensor may observe average quality while missing a low-frequency prohibited state. The loop may keep a metric inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse.
 
-A complete UA control architecture therefore asks a broader question:
+A complete bounded control architecture therefore asks a broader question:
 
 > Is the feedback loop operating inside an approved and credibly realized boundary, with bounded authority, fit-for-purpose evidence, effective corrective action, and a valid path for reassessment?
 
@@ -364,19 +380,19 @@ flowchart LR
     A -->|change within delegated authority| KR
 ```
 
-**Figure 7 — Complete bounded UA control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions.
+**Figure 8 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions.
 
-The distinction matters because a loop can be technically closed and still unacceptable. UA does not ask only whether the system learns from feedback. It asks whether operation remains inside an approved, credibly realized, observable, and correctable boundary—and whether evidence can force reconsideration when that boundary or its assumptions no longer hold.
+The distinction matters because a loop can be technically closed and still unacceptable. The relevant question is not only whether the system learns from feedback, but whether operation remains inside an approved, credibly realized, observable, and correctable boundary—and whether evidence can force reconsideration when that boundary or its assumptions no longer hold.
 
-The capability anatomy explains how bounded control functions. It does not yet say where organizational authority, project authorization, delivery release, runtime correction, and reassessment are owned. That is the role of the second orthogonal model.
+The capability anatomy explains how bounded control functions. It does not yet say where organizational authority, project authorization, delivery release, runtime correction, and reassessment are owned. That is the role of the second model.
 
-## 4. Four Decision Levels of Uncertainty Architecture
+## 4. Four Decision Levels for Thinking Systems
 
 The same capability functions appear at different decision horizons, but the decisions are not interchangeable.
 
 An organization may prohibit autonomous customer communication. A project may determine that a draft-only support workflow is viable under that boundary. A delivery team may implement permissions, tests, Human Authority, and fallback for one release. Runtime logic may reject an attempted send and disable the feature. These actions concern the same controlled object, but they operate with different authority, evidence, scope, and time horizon.
 
-UA separates four decision levels so that a lower-level response cannot silently rewrite the basis on which the system was authorized.
+Four connected decision levels prevent a lower-level response from silently rewriting the basis on which the system was authorized.
 
 ### Two orthogonal models
 
@@ -412,7 +428,7 @@ flowchart LR
     L -. "all four functions may appear at every level" .- F
 ```
 
-**Figure 8 — Two orthogonal UA models.** Decision ownership flows downward through inherited authority and upward through reassessment. Capability families apply at every level. The figure does not prescribe sixteen components, four services, or a one-way lifecycle.
+**Figure 9 — Two orthogonal models.** Decision ownership flows downward through inherited authority and upward through reassessment. Capability families apply at every level. The figure does not prescribe sixteen components, four services, or a one-way lifecycle.
 
 ### Organizational control context
 
@@ -424,7 +440,7 @@ The organizational question is not limited to identifying policy sources. The or
 
 This does not mean that every department participates in every decision. It means that material dependencies and decision rights are explicit before they are needed. Security may own an identity boundary, legal a contractual prohibition, finance the acceptance of control economics, operations a shutdown capability, and a domain function the Human Authority required to interpret ambiguous cases. A system becomes ungovernable when these functions influence it informally while their authority, evidence obligations, and response commitments remain undefined.
 
-UA does not require a new organizational governance artifact or department by default. Existing sources should be linked rather than copied into parallel policy prose. A small company may assign several responsibilities to the same people. The requirement is explicit authority and accountability, not organizational ceremony.
+The answer is not necessarily a new governance department. Existing sources should be linked rather than copied into parallel policy prose. A small company may assign several responsibilities to the same people. The requirement is explicit authority and accountability, not organizational ceremony.
 
 ```mermaid
 flowchart LR
@@ -447,7 +463,7 @@ flowchart LR
     TS -->|evidence and changed assumptions| RIGHTS
 ```
 
-**Figure 9 — Organizational influence architecture.** The organization identifies which existing functions legitimately shape the system and what each owns. The figure does not prescribe departments, committees, or one participant per function; several responsibilities may be combined in a small organization.
+**Figure 10 — Organizational influence architecture.** The organization identifies which existing functions legitimately shape the system and what each owns. The figure does not prescribe departments, committees, or one participant per function; several responsibilities may be combined in a small organization.
 
 Authority at this level does not automatically create an operable technical guarantee. An organizational prohibition becomes a project Constraint only after it is interpreted for a defined subject, path, and scope. It becomes hard only where a complete realized path deterministically prevents or rejects violation within stated assumptions.
 
@@ -485,7 +501,7 @@ flowchart TB
     DEC -. invalidating evidence requires reauthorization .-> RISK
 ```
 
-**Figure 10 — Project control architecture and viability.** Project authorization requires a credible model of the complete control perimeter and its cost before the production path is authorized. The figure permits bounded research when the loop is not yet sufficiently understood; research authorization is not production authorization.
+**Figure 11 — Project control architecture and viability.** Project authorization requires a credible model of the complete control perimeter and its cost before the production path is authorized. The figure permits bounded research when the loop is not yet sufficiently understood; research authorization is not production authorization.
 
 #### Designing the control architecture
 
@@ -497,7 +513,7 @@ Sensor design must reflect the property being controlled. Machine-checkable or s
 
 Human participation, where required, is part of the system architecture rather than an external safety decoration. The design must account for the information available to the person, the decision they own, the time available, expected volume, expertise, fatigue, escalation rights, and what happens when Human Authority is unavailable or overloaded.
 
-The resulting architecture is driven by the risks, authority, and consequences of the system. UA does not require every project to deploy every possible control component.
+The resulting architecture is driven by the risks, authority, and consequences of the system. It should not be assembled from a generic requirement to deploy every possible control component.
 
 Project outcomes may include authorization, narrowed scope, conditions, further research, redesign, deferral, escalation, or No-Go. **Architectural Veto** is a valid engineering result, not a failure of enthusiasm.
 
@@ -527,7 +543,7 @@ flowchart LR
     BEXP -->|reassess, narrow, redesign, or escalate| ENG
 ```
 
-**Figure 11 — Delivery translation loop.** The team converts business risks and authority into an operable control design, then converts technical evidence back into business exposure and decision consequences. The figure describes a responsibility of the delivery system, not a reporting handoff between two isolated groups.
+**Figure 12 — Delivery translation loop.** The team converts business risks and authority into an operable control design, then converts technical evidence back into business exposure and decision consequences. The figure describes a responsibility of the delivery system, not a reporting handoff between two isolated groups.
 
 Three decisions remain distinct.
 
@@ -565,7 +581,7 @@ flowchart LR
     CTRL -->|basis no longer valid| ESC
 ```
 
-**Figure 12 — Runtime control and reassessment.** Runtime observes the complete socio-technical system, not only model outputs. Local action may restore an authorized state; persistent invalidation routes upward rather than silently redesigning the project in production.
+**Figure 13 — Runtime control and reassessment.** Runtime observes the complete socio-technical system, not only model outputs. Local action may restore an authorized state; persistent invalidation routes upward rather than silently redesigning the project in production.
 
 Evidence must route according to the decision basis it invalidates:
 
@@ -584,13 +600,13 @@ flowchart TB
     PR -->|where organizational boundary must change| OR
 ```
 
-**Figure 13 — Evidence and change routing.** The destination is determined by the basis of the decision being challenged or changed, not merely by where the signal first appears. A proposed authority expansion is not normalized as runtime tuning.
+**Figure 14 — Evidence and change routing.** The destination is determined by the basis of the decision being challenged or changed, not merely by where the signal first appears. A proposed authority expansion is not normalized as runtime tuning.
 
 This routing prevents two opposite failures. The first is escalation theater, where every runtime defect becomes a governance meeting. The second is silent authority drift, where repeated local fixes gradually change the project without an explicit architecture decision.
 
 The levels form a nested lifecycle rather than a waterfall. Higher-level authority and Constraints flow downward by reference and become more concrete in delivery and runtime realization. Evidence flows upward when it invalidates an earlier basis. Lower levels may refine and narrow. They may not silently expand authority, weaken an inherited Hard Constraint, or normalize evidence that the project is no longer viable.
 
-The capability anatomy and decision levels now define the conceptual center of UA. The next practical question is how a small team can preserve these distinctions without maintaining four governance processes and a cemetery of synchronized documents.
+The capability anatomy and decision levels now define the conceptual center of the engineering problem. The next practical question is how a small team can preserve these distinctions without maintaining four governance processes and a cemetery of synchronized documents.
 
 ## 5. From Authority to Operation: Two Living Reviews
 
@@ -604,6 +620,6 @@ The capability anatomy and decision levels now define the conceptual center of U
 
 *Draft pending in the final article block.*
 
-## 8. Open Specification: Current State, Limits, and Invitation
+## 8. From Thinking Systems to Uncertainty Architecture
 
-*Draft pending in the final article block.*
+*Draft pending in the final article block. This section will introduce Uncertainty Architecture only after the engineering problem, capability anatomy, decision levels, operating artifacts, and worked lifecycle trace have been established. It will present the current repository state, limits, openness, and validation request without retroactively turning the preceding argument into product promotion.*
