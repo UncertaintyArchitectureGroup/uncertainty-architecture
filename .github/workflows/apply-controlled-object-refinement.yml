@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   apply:
-    if: github.actor != 'github-actions[bot]'
+    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -122,18 +122,17 @@ jobs:
 
           new_horizons = '''The consequences appear across four connected decision horizons that the following sections develop in detail:
 
-- **Organizational control context.** The organization determines which authoritative boundaries, shared capabilities, prohibited uses, and decision rights apply to the Thinking System.
-- **Project control architecture and viability.** The project decides whether the proposed use of Model Judgment can be made technically credible, operationally supportable, and economically viable. Within this decision horizon, architecture allocates Model Judgment, deterministic responsibilities, evidence, authority, Human Authority, fallback, and corrective mechanisms across the system boundary.
-- **Delivery realization and release.** Delivery realizes the authorized architecture for a bounded change and determines whether the implementation and its evidence are complete and acceptable for release.
-- **Runtime operation and reassessment.** Runtime operation determines whether active behavior remains within the conditions under which it was authorized and routes invalidating evidence back to the level that owns the affected decision.
+          - **Organizational control context.** The organization determines which authoritative boundaries, shared capabilities, prohibited uses, and decision rights apply to the Thinking System.
+          - **Project control architecture and viability.** The project decides whether the proposed use of Model Judgment can be made technically credible, operationally supportable, and economically viable. Within this decision horizon, architecture allocates Model Judgment, deterministic responsibilities, evidence, authority, Human Authority, fallback, and corrective mechanisms across the system boundary.
+          - **Delivery realization and release.** Delivery realizes the authorized architecture for a bounded change and determines whether the implementation and its evidence are complete and acceptable for release.
+          - **Runtime operation and reassessment.** Runtime operation determines whether active behavior remains within the conditions under which it was authorized and routes invalidating evidence back to the level that owns the affected decision.
 
-These are not independent management layers added above implementation. They are connected decision horizons controlling the same socio-technical object.'''
+          These are not independent management layers added above implementation. They are connected decision horizons controlling the same socio-technical object.'''
 
           if old_horizons not in draft:
               raise SystemExit('Decision-horizons paragraph not found')
           draft = draft.replace(old_horizons, new_horizons, 1)
 
-          # Blueprint: add durable visual and lead-in requirements without inventing a fifth decision level.
           old_primary_figure = '''**Primary Figure 1 — Controlled-object shift**
 
           Use a two-panel comparison of responsibility structure, not one mandatory execution path.'''
