@@ -71,3 +71,5 @@ jobs:
                   .github/workflows/emphasize-governance-thesis.yml
           git commit -m "Emphasize governance release-readiness thesis"
           git push origin HEAD:docs/refine-controlled-object-figures
+
+# retrigger
