@@ -1,5 +1,5 @@
 ---
-title: "Thinking Systems: Engineering Software That Produces Consequential Judgment"
+title: "Uncertainty Architecture: Engineering Thinking Systems That Produce Consequential Judgment"
 artifact_type: research-note
 status: research
 maturity: draft
@@ -41,7 +41,7 @@ source_basis:
   - designing-nondeterministic-systems-source-intake.md
 ---
 
-# Thinking Systems: Engineering Software That Produces Consequential Judgment
+# Uncertainty Architecture: Engineering Thinking Systems That Produce Consequential Judgment
 
 ## Abstract
 
