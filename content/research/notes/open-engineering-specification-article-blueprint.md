@@ -347,6 +347,7 @@ The reader should leave able to explain:
 - Preserve the mixed-system claim: deterministic responsibilities remain before, between, and after Judgment Nodes.
 - Explain why model quality alone cannot define prohibited states, allocate residual-risk authority, restrict reachable actions, execute correction, or determine Project Reauthorization.
 - Explain why the changed object creates connected control questions across organizational context, project viability, architecture, delivery realization and release, and runtime reassessment.
+- Before the detailed control-theory bridge, use a short forward-linking list with bold labels for the four canonical decision horizons: Organizational control context; Project control architecture and viability (including architectural design of the control loop); Delivery realization and release; Runtime operation and reassessment. Do not present architecture as a fifth decision level.
 - Preserve that levels use different evidence, participants, authority, time horizons, and actions and are not interchangeable.
 - State that an operational Controller cannot rewrite an organizational prohibition; a Release Gate cannot expand project authority; Project Authorization cannot claim a Hard Constraint without a complete realized path; and organizational policy is not an operable boundary merely because it is authoritative.
 - Introduce the recurring control questions:
@@ -366,7 +367,7 @@ The reader should leave able to explain:
 
 **Primary Figure 1 — Controlled-object shift**
 
-Use a two-panel comparison of responsibility structure, not one mandatory execution path.
+Use a horizontal, side-by-side two-panel comparison of responsibility structure so the structural change is visible at a glance, not one mandatory execution path. Visually emphasize the Thinking-System addition—the Judgment Node and, where useful, the enclosing Thinking-System boundary—with a distinct warning color or equivalent styling. The emphasis must communicate that the new engineering problem is consequential probabilistic judgment inside the controlled object, not merely “AI somewhere in the stack.”
 
 ```text
 Panel A — Primarily explicitly encoded runtime behavior
@@ -396,7 +397,7 @@ The figure must not imply that:
 
 **Supporting figures:**
 
-- functional placement of Model Judgment;
+- functional placement of Model Judgment, with Model Judgment shown as the parent concept above Input Interpretation, Decision Logic, and Output Mediation in one horizontal row; the composition must communicate a taxonomy rather than an execution sequence;
 - connected locations of requirement, operational, and runtime-judgment uncertainty;
 - one controlled object viewed across four decision horizons.
 
@@ -892,7 +893,7 @@ Label the figure as an illustrative editorial synthesis, not application evidenc
 
 The three primary architectural figures are:
 
-1. **Controlled-object shift** — two-panel comparison of responsibility structure, showing one or more possible Judgment Node placements without prescribing a pipeline.
+1. **Controlled-object shift** — horizontal, side-by-side comparison of responsibility structure, visually emphasizing the introduction of consequential probabilistic Model Judgment inside the controlled object while showing deterministic responsibilities around it; the figure must not prescribe a pipeline.
 2. **Two orthogonal models** — decision levels with downward inheritance and upward reassessment beside capability families applying at every level.
 3. **K-SEND-01 Constraint trace** — illustrative source-to-runtime path with delivery reassessment, Project Reauthorization, and separate authority expansion.
 

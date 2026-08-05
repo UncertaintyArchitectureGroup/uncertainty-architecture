@@ -155,8 +155,9 @@ For the same apparent request, plausible behavior may vary with context, model v
 The architectural difference can be shown without pretending that conventional software consists of one linear function or that every Thinking System follows one pipeline.
 
 ```mermaid
-flowchart TB
+flowchart LR
     subgraph A["Primarily explicitly encoded runtime responsibility"]
+        direction LR
         A1[External input and operating conditions]
         A2[Deterministic decision and action responsibilities]
         A3[Output, action, or downstream state]
@@ -164,19 +165,21 @@ flowchart TB
     end
 
     subgraph B["Thinking System boundary"]
+        direction LR
         B1[External input and operating conditions]
         B2[Deterministic responsibilities]
         J1["Judgment Node<br/>probabilistic Model Judgment"]
         B3[Deterministic validation, authority, and execution]
-        J2["Optional additional<br/>Judgment Node"]
         B4[Output, action, or downstream state]
-
         B1 --> B2 --> J1 --> B3 --> B4
-        B3 -. optional composition .-> J2 -.-> B4
     end
+
+    classDef judgmentShift fill:#ffe5e5,stroke:#b42318,stroke-width:3px,color:#7a0000;
+    class J1 judgmentShift;
+    style B fill:#fff7f7,stroke:#b42318,stroke-width:2px
 ```
 
-**Figure 3 — The controlled-object shift.** A Thinking System remains a mixed system. Deterministic responsibilities remain before, between, and after Judgment Nodes. Judgment Nodes may be absent, repeated, or combined; the diagram is illustrative rather than a prescribed execution topology.
+**Figure 3 — The controlled-object shift.** The side-by-side comparison emphasizes the difference between two responsibility structures. On the left, consequential runtime behavior is produced primarily through explicitly encoded deterministic responsibilities. On the right, a Thinking System remains mixed, but probabilistic Model Judgment enters the controlled object through a Judgment Node while deterministic responsibilities remain explicit around it. The red emphasis marks the structural addition, not a claim that the whole system becomes probabilistic or that every Thinking System follows this exact path.
 
 Model Judgment can affect a workflow through several functional placements.
 
@@ -189,21 +192,16 @@ Model Judgment can affect a workflow through several functional placements.
 These are placement functions, not a mandatory three-stage architecture.
 
 ```mermaid
-flowchart LR
-    MJ[Model Judgment]
+flowchart TB
+    MJ["Model Judgment"]
     I["Input Interpretation<br/>what does the input mean?"]
     D["Decision Logic<br/>which path, plan, tool, or action?"]
     O["Output Mediation<br/>what is communicated or transformed?"]
 
-    MJ --> I
-    MJ --> D
-    MJ --> O
-
-    I -. may repeat or combine .-> D
-    D -. may repeat or combine .-> O
+    MJ --> I & D & O
 ```
 
-**Figure 4 — Functional placement of Model Judgment.** The classes identify what judgment changes in a workflow. They do not prescribe order, topology, consequence, authority, or risk.
+**Figure 4 — Functional placement of Model Judgment.** Model Judgment can alter a system through three main placement functions: Input Interpretation, Decision Logic, and Output Mediation. These are functional categories rather than mandatory stages. A system may use one, several, or repeated instances of them, and each placement creates a different downstream control problem.
 
 The useful variance created by these placements cannot be governed by treating every output difference as a defect. A Requirement for a Thinking System usually defines acceptable conditions, prohibited states, tolerances, authority boundaries, and expected outcomes rather than one exact output for every possible input.
 
@@ -234,7 +232,14 @@ flowchart LR
 
 Once probabilistic judgment enters the controlled object, the consequences do not remain inside a model call. Every decision that authorizes, shapes, releases, or operates that object must account for the changed behavior.
 
-The organization determines which authoritative boundaries, shared capabilities, prohibited uses, and decision rights apply. A project decides whether a proposed use of Model Judgment can be made technically credible, operationally supportable, and economically viable. Architecture allocates judgment, deterministic responsibility, evidence, authority, and corrective mechanisms across the system boundary. Delivery realizes those decisions for a bounded change and decides whether the resulting system is ready to release. Runtime operation determines whether active behavior remains within the conditions under which it was authorized and routes invalidating evidence back to the level that owns the affected decision.
+The consequences appear across four connected decision horizons that the following sections develop in detail:
+
+- **Organizational control context.** The organization determines which authoritative boundaries, shared capabilities, prohibited uses, and decision rights apply to the Thinking System.
+- **Project control architecture and viability.** The project decides whether the proposed use of Model Judgment can be made technically credible, operationally supportable, and economically viable. Within this decision horizon, architecture allocates Model Judgment, deterministic responsibilities, evidence, authority, Human Authority, fallback, and corrective mechanisms across the system boundary.
+- **Delivery realization and release.** Delivery realizes the authorized architecture for a bounded change and determines whether the implementation and its evidence are complete and acceptable for release.
+- **Runtime operation and reassessment.** Runtime operation determines whether active behavior remains within the conditions under which it was authorized and routes invalidating evidence back to the level that owns the affected decision.
+
+These are not independent management layers added above implementation. They are connected decision horizons controlling the same socio-technical object.
 
 These activities use different evidence, participants, time horizons, and actions. They are not interchangeable. An operational Controller cannot silently rewrite an organizational prohibition. A Release Gate cannot expand project authority. A project decision cannot claim a Hard Constraint without a complete realized path. An organizational policy does not become an operable boundary merely because it is authoritative.
 
