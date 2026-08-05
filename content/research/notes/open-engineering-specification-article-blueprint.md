@@ -53,7 +53,9 @@ engineering expands around consequential uncertainty it can no longer leave outs
 → useful runtime variance changes the engineering contract rather than merely making testing harder
 → model quality and observability are necessary but insufficient
 → bounded operation requires four control-capability families
+→ governance becomes operational through the active socio-technical control architecture, not through a post-hoc review or document
 → different decisions are owned at four connected lifecycle levels
+→ an incomplete cross-level control architecture means the application is not ready for consequential production release
 → authoritative Constraints flow downward by reference while realization becomes concrete
 → runtime evidence returns to the decision level whose basis it invalidates
 → one project review and one delivery review provide a proportional SMB operating surface
@@ -72,7 +74,7 @@ Two models remain orthogonal throughout:
 
 The article must not map the four levels one-to-one onto the four families, present either model as a mandatory physical stack, or turn the lifecycle into a one-way waterfall.
 
-The opening may use the evolution from plan-driven engineering through iterative delivery and modern operations as a narrow explanatory lens. It must not claim that one methodology replaced another, reduce any movement to one purpose, or use the comparison as evidence of a universal historical law. Its role is to show how engineering expands when an important location of uncertainty can no longer remain outside the engineering model.
+The opening may use **plan-driven development**, **iterative delivery**, and **modern operations** as a narrow explanatory lens, with **Waterfall**, **Agile and related approaches**, and **DevOps** named as familiar but non-equivalent examples. The broader engineering categories must remain primary in the prose, Figure 1, and the comparison table. The comparison must not claim that one methodology replaced another, reduce any movement to one purpose, or use the comparison as evidence of a universal historical law. Its role is to show how engineering expands when an important location of uncertainty can no longer remain outside the engineering model.
 
 ## 2. Two-document drafting model
 
@@ -154,7 +156,7 @@ The article has three primary architectural figures and may contain any number o
 
 ### Stable thesis paragraph
 
-Thinking Systems are software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit. Because useful runtime judgment places consequential uncertainty inside the controlled object, evaluation, observability, policies, human approval, and agent orchestration remain incomplete when disconnected from approved boundaries, concrete realizations, decision authority, corrective action, and reassessment. The article derives the resulting engineering model first and introduces Uncertainty Architecture near the end as an open, tool-neutral specification connecting those responsibilities across organizational, project, delivery, and runtime decision levels.
+Thinking Systems are software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit. Because useful runtime judgment places consequential uncertainty inside the controlled object, evaluation, observability, policies, human approval, and agent orchestration remain incomplete when disconnected from approved boundaries, concrete realizations, decision authority, corrective action, and reassessment. For a consequential Thinking System, the complete socio-technical control architecture is part of the application rather than a governance layer added after implementation: governance becomes operational only through that architecture, and when it remains incomplete across organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment, the application is not ready for consequential production release. The article derives this engineering model first and introduces Uncertainty Architecture near the end as an open, tool-neutral specification connecting those responsibilities.
 
 ### Thinking Systems definition
 
@@ -215,49 +217,55 @@ The reader should leave able to explain:
 1. what a Thinking System is and why the category is not equivalent to agentic software;
 2. why consequential Model Judgment changes the controlled object;
 3. the difference between measurement, a closed feedback loop, and bounded acceptable operation;
-4. the four capability families and their boundaries;
-5. the four decision levels and the question owned by each;
-6. how organizational authority, Project Constraint Architecture, delivery Constraint Realization Map, runtime evidence, and reassessment connect;
-7. why Project Authorization, DoR, DoD, Release Gate, runtime correction, and Project Reauthorization are different decisions;
-8. how a small team can use the model without creating parallel governance bureaucracy;
-9. what platforms may implement and what authority they do not acquire automatically;
-10. what Uncertainty Architecture contributes, what exists in the repository, and what remains unvalidated.
+4. why governance for a Thinking System becomes operational through an active socio-technical control architecture rather than through a post-hoc review or document;
+5. why a consequential application without a complete cross-level control architecture is not ready for consequential production release;
+6. the four capability families and their boundaries;
+7. the four decision levels and the question owned by each;
+8. how organizational authority, Project Constraint Architecture, delivery Constraint Realization Map, runtime evidence, and reassessment connect;
+9. why Project Authorization, DoR, DoD, Release Gate, runtime correction, and Project Reauthorization are different decisions;
+10. how a small team can use the model without creating parallel governance bureaucracy;
+11. what platforms may implement and what authority they do not acquire automatically;
+12. what Uncertainty Architecture contributes, what exists in the repository, and what remains unvalidated.
 
 ## 5. Article structure
 
 ### Unnumbered abstract
 
-**Purpose:** Introduce Thinking Systems, establish the controlled-object shift, summarize the derived engineering problem, and signal that UA will be introduced only after the argument is built.
+**Purpose:** Introduce Thinking Systems, establish the controlled-object shift, and summarize the consequential-production-release condition without narrating the article's internal reveal sequence.
 
 **Required content:**
 
 - software engineering expands when important uncertainty can no longer remain outside its operating model;
+- use **plan-driven development**, **iterative delivery**, and **modern operations** as the primary categories, with **Waterfall**, **Agile and related approaches**, and **DevOps** named as familiar examples;
 - the canonical Thinking Systems definition;
 - explicit distinction from agentic software;
 - consequential probabilistic Model Judgment enters the controlled object;
 - model quality and observability are insufficient when disconnected from boundaries, authority, corrective action, and reassessment;
-- the paper derives control capabilities and decision levels before presenting UA;
-- UA appears as an open specification near the conclusion, not as the premise of the paper.
+- a consequential Thinking System with an incomplete control architecture is not ready for consequential production release even if model and code tests pass locally;
+- governance becomes operational through the socio-technical control architecture spanning organizational, project / architecture, delivery, and runtime decision levels, not through a post-hoc review, compliance document, or approval ceremony;
+- the paper derives capability families, decision levels, and a proportional operating surface.
 
-**Exclude:** internal draft status, drafting rules, repository workflow, the complete taxonomy, K-SEND-01 details, named products, market statistics, and promotional calls to action.
+**Exclude:** internal draft status, drafting rules, repository workflow, statements narrating when the paper will reveal UA such as “Only after the problem...”, the complete taxonomy, K-SEND-01 details, named products, market statistics, and promotional calls to action.
 
-**Word budget:** 220–300
+**Word budget:** 240–330
 
 ---
 
 ### 5.1 Engineering Evolves Around Dominant Uncertainty
 
-**Purpose:** Establish the path to Thinking Systems, define the category, distinguish it from agentic software, and expose the missing engineering connection.
+**Purpose:** Establish the path to Thinking Systems, define the category, distinguish it from agentic software, expose the missing engineering connection, and make the consequential-production-release condition explicit.
 
-**Core claim:** Planning, iterative delivery, and modern operations can be read as cumulative responses to requirement, product-learning, and production-condition uncertainty. Thinking Systems add consequential runtime-judgment uncertainty inside the controlled object. Existing policies, evaluations, traces, approval steps, and orchestration tools do not become a governable system unless connected to authorization, bounded authority, decision ownership, corrective action, and reassessment.
+**Core claim:** **Plan-driven development**, **iterative delivery**, and **modern operations** can be read as cumulative responses to requirement, product-learning, and production-condition uncertainty, with Waterfall, Agile and related approaches, and DevOps serving as familiar but non-equivalent examples. Thinking Systems add consequential runtime-judgment uncertainty inside the controlled object. Existing policies, evaluations, traces, approval steps, and orchestration tools do not become a governable or production-release-ready system unless connected to authorization, bounded authority, decision ownership, corrective action, and reassessment.
 
 **Required content:**
 
 - Explain the methodology comparison narrowly and cumulatively rather than as replacement history.
+- Keep the broader engineering responses primary and name Waterfall, Agile and related approaches, and DevOps in parentheses or explanatory prose as familiar examples.
+- Do not describe iterative approaches as derivatives of Agile or imply historical equivalence among Waterfall, Agile, and DevOps.
 - Show how feedback moves closer to runtime as uncertainty becomes harder to contain before implementation.
-- Preserve why plan-driven engineering remains rational where uncertainty can be reduced sufficiently in advance and late change is expensive.
-- Preserve why iterative delivery does not abandon planning; it shortens the cycle between assumption, delivery, use, and revision.
-- Preserve why modern operations extends engineering into runtime because production combinations cannot be reproduced exhaustively before release.
+- Preserve why plan-driven engineering, including Waterfall, remains rational where uncertainty can be reduced sufficiently in advance and late change is expensive.
+- Preserve why iterative delivery, including Agile and related approaches, does not abandon planning; it shortens the cycle between assumption, delivery, use, and revision.
+- Preserve why modern operations, commonly associated with DevOps, extends engineering into runtime because production combinations cannot be reproduced exhaustively before release.
 - State explicitly that Thinking Systems retain earlier uncertainty classes while adding consequential uncertainty produced through runtime Model Judgment.
 - Introduce the canonical Thinking Systems definition in publication-facing prose.
 - Define Model Judgment through interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection under uncertainty.
@@ -278,15 +286,17 @@ The reader should leave able to explain:
 - State fragmentation as practitioner observation unless current authoritative evidence supports a broader market claim.
 - Explain that observability may describe behavior without authority to act; evaluation may estimate quality without defining an approved boundary; policy may express intent without realization; nominal human approval may lack information, time, power, or capacity; and orchestration may execute a workflow without authorizing it.
 - Preserve the anti-substitution argument: evaluation score is not release authorization; prompt is not policy; policy is not a realized control; a human-in-the-loop label is not substantive Human Authority; a rollback button is not evidence that recovery is credible.
+- State explicitly that these gaps are not governance debt that can be closed after release: without the complete control architecture across the four decision levels, a consequential Thinking System is not ready for consequential production release.
+- State that governance becomes operational through the socio-technical stack that makes the system bounded, observable, correctable, and reauthorizable, rather than through a policy document or post-release review.
 - Support factual claims about current industry practice with current primary or authoritative sources. When evidence is unavailable, label the point as practitioner observation.
 - Do not claim that no governance, safety, systems, or control practice exists.
 
 **Supporting figures:**
 
-1. engineering responses around dominant uncertainty;
+1. engineering responses around dominant uncertainty, with nodes labeled **Plan-driven engineering (Waterfall)**, **Iterative delivery (Agile and related approaches)**, **Modern operations (DevOps)**, and **Thinking-System engineering**;
 2. category boundary distinguishing Linear Software, Thinking Systems, agentic Thinking Systems, and largely linear agentic orchestration.
 
-**Supporting table:** Location of uncertainty, primary engineering mechanism, and where decisive feedback appears. The table must state that earlier uncertainty classes persist.
+**Supporting table:** Location of uncertainty, primary engineering mechanism, and where decisive feedback appears. The first column must use the broader categories first: plan-driven development (including Waterfall), iterative delivery (including Agile and related approaches), modern operations (commonly associated with DevOps), and Thinking-System control. The table must state that earlier uncertainty classes persist.
 
 **Repository anchors:**
 
@@ -304,7 +314,9 @@ The reader should leave able to explain:
 
 > The missing layer is not another AI component. It is the engineering connection between delegated judgment, authorized boundaries, evidence, decision authority, corrective action, and reassessment.
 
-**Working word budget:** 1,000–1,300
+> A consequential Thinking System without that complete control architecture is not ready for consequential production release.
+
+**Working word budget:** 1,100–1,450
 
 ---
 
@@ -407,9 +419,9 @@ The figure must not imply that:
 
 ### 5.3 From Model Quality to Bounded Control
 
-**Purpose:** Introduce the accepted Control-Loop Capability Anatomy and distinguish measurement, feedback closure, and bounded acceptable operation.
+**Purpose:** Introduce the accepted Control-Loop Capability Anatomy, distinguish measurement, feedback closure, and bounded acceptable operation, and explain how governance becomes operational through the complete socio-technical control architecture.
 
-**Core claim:** A measured system is not necessarily controlled, and a closed feedback loop is not necessarily operating inside an approved boundary.
+**Core claim:** A measured system is not necessarily controlled, a closed feedback loop is not necessarily operating inside an approved boundary, and a consequential Thinking System without a complete cross-level control architecture is not ready for consequential production release.
 
 **Required content:**
 
@@ -442,6 +454,9 @@ The figure must not imply that:
   - prompts, natural-language policies, probabilistic evaluators, and model preferences are not hard by themselves;
   - different guarantee strengths require separate Constraint records.
 - Use short anti-examples: telemetry without authority is observation; a Controller without an effective Actuator cannot correct; a declared policy without realization is not an operable boundary; nominal human review is not substantive Human Authority.
+- State explicitly that AI governance is not a fifth capability family, a post-hoc checkpoint, or a document layered over the implementation.
+- Explain that governance becomes operational through the complete socio-technical control architecture formed by the capability families across organizational, project / architecture, delivery, and runtime decision levels.
+- State the release-readiness condition: until credible boundaries, evidence, authority, effective Actuators, Human Authority and fallback where needed, and reassessment paths exist, the application may be demonstrable or testable but is not ready for consequential production release.
 - Avoid UA-first formulations such as “UA asks” in this section; the capability anatomy must follow from the problem itself.
 
 **Figures:**
@@ -467,15 +482,24 @@ The figure must not imply that:
 
 > Capability without legitimate decision ownership is not a complete control architecture.
 
-**Working word budget:** 750–950
+> Governance becomes operational through the active socio-technical control architecture; without it, consequential production release readiness is incomplete.
+
+**Working word budget:** 850–1,050
 
 ---
 
 ### 5.4 Four Decision Levels for Thinking Systems
 
-**Purpose:** Present the connected organizational, project / architecture, delivery, and runtime horizons as the conceptual center of the paper.
+**Purpose:** Present the connected organizational, project / architecture, delivery, and runtime horizons as the conceptual center of the paper and as the decision-ownership structure through which governance becomes operational.
 
-**Core claim:** Different control decisions require different evidence, authority, time horizons, and corrective actions. They must remain connected without collapsing into one gate, platform, committee, or governance process.
+**Core claim:** Different control decisions require different evidence, authority, time horizons, and corrective actions. Together, the four levels describe where the socio-technical control architecture obtains authority, establishes viability, becomes concrete in delivery, and operates in production. They must remain connected without collapsing into one gate, platform, committee, document, or governance process.
+
+**Required framing before the level subsections:**
+
+- State that the four levels are not four governance documents or four approval meetings.
+- Explain that they are the decision-ownership horizons through which governance becomes operational.
+- State that consequential production release requires the relevant capability functions and decisions to be connected across all four levels.
+- Preserve the distinction that combining responsibilities in one person does not collapse the decisions.
 
 **Primary Figure 2 — Two orthogonal models**
 
@@ -617,7 +641,7 @@ The figure must show downward inheritance and upward reassessment and must not i
 
 > Lower levels may refine and narrow a higher-level decision. They may not silently expand its authority or normalize evidence that invalidates it.
 
-**Working word budget:** 1,700–2,200
+**Working word budget:** 1,800–2,300
 
 ---
 
@@ -874,7 +898,7 @@ The three primary architectural figures are:
 
 Supporting figures currently expected:
 
-- engineering responses around dominant uncertainty;
+- engineering responses around dominant uncertainty, labeled Plan-driven engineering (Waterfall), Iterative delivery (Agile and related approaches), Modern operations (DevOps), and Thinking-System engineering;
 - Thinking Systems category boundary;
 - Model Judgment placement;
 - connected uncertainty locations;
@@ -910,6 +934,9 @@ Do not:
 - describe Actuators as defining policy or authorizing their own changes;
 - collapse evaluator, gate decision, and release execution;
 - equate closed feedback with acceptable bounded operation;
+- describe governance as a post-hoc review, policy document, compliance artifact, fifth capability family, or exact synonym for every element of the control architecture;
+- imply that governance can become operational without the relevant socio-technical control architecture;
+- imply that a consequential Thinking System can be ready for consequential production release while its required cross-level control architecture remains incomplete;
 - imply runtime reauthorizes a project automatically;
 - classify every deviation as a Bug;
 - describe aggregate quality, cost, latency, or capacity tolerances as Hard Constraints without deterministic enforcement;
@@ -990,6 +1017,10 @@ Every article-writing PR must satisfy all of the following:
 - [ ] The complete target article was read before drafting.
 - [ ] New prose continues the existing argument and terminology.
 - [ ] Previously written sections were revised where the new block exposed repetition, contradiction, weak transitions, or premature framing.
+- [ ] Plan-driven development, iterative delivery, and modern operations remain the primary categories, with Waterfall, Agile and related approaches, and DevOps named consistently as familiar examples in the opening prose, Figure 1, and the comparison table.
+- [ ] The abstract does not narrate the article's reveal sequence or contain internal editorial commentary.
+- [ ] Governance is framed as becoming operational through the active socio-technical control architecture rather than as a post-hoc review, document, or exact synonym for every control element.
+- [ ] The consequence of an incomplete cross-level control architecture is explicit and scoped to consequential production release of Thinking Systems.
 - [ ] Every major new argument has an appropriate figure or an explicit reason why prose is clearer.
 - [ ] All figures were reviewed as one visual sequence and renumbered consistently.
 - [ ] The complete target article was reread after integration.
