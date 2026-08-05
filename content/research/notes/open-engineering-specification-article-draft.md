@@ -45,43 +45,43 @@ source_basis:
 
 ## Abstract
 
-Software engineering repeatedly expands when an important source of uncertainty can no longer remain outside the engineering model. **Waterfall and other plan-driven approaches** attempt to reduce requirement and design uncertainty before implementation. **Agile and its iterative derivatives** accept that product understanding changes through use and shorten the distance to feedback. **DevOps practices** accept that production conditions cannot be reproduced exhaustively before release and extend engineering into runtime through observability, progressive delivery, and recovery.
+Software engineering repeatedly expands when an important source of uncertainty can no longer remain outside the engineering model. **Plan-driven development (including Waterfall)** attempts to reduce requirement and design uncertainty before implementation. **Iterative delivery (including Agile and related approaches)** accepts that product understanding changes through use and shortens the distance to feedback. **Modern operations (commonly associated with DevOps)** accepts that production conditions cannot be reproduced exhaustively before release and extends engineering into runtime through observability, progressive delivery, and recovery.
 
 This paper introduces **Thinking Systems** as a distinct engineering category: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit. The category is broader than agentic software. An application may use agents while remaining largely linear because their relevant paths and decisions are explicitly orchestrated. Conversely, a non-agentic feature may be a Thinking System when probabilistic judgment materially changes interpretation, routing, decisions, outputs, or downstream action.
 
-Thinking Systems move consequential uncertainty inside the controlled object. Once that happens, model quality and observability are no longer sufficient descriptions of the engineering problem. For a consequential Thinking System, an incomplete control architecture means the application is not ready for release even when the model and code pass local tests. Governance here is not a post-hoc review, compliance document, or approval ceremony; it is the active socio-technical control architecture spanning organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment. This paper derives the capability families and decision levels required by that shift and shows how they can be expressed through a small number of living engineering artifacts.
+Thinking Systems move consequential uncertainty inside the controlled object. Once that happens, model quality and observability are no longer sufficient descriptions of the engineering problem. For a consequential Thinking System, an incomplete control architecture means the application is not ready for consequential production release even when the model and code pass local tests. Governance becomes operational only through the active socio-technical control architecture spanning organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment. This paper derives the capability families and decision levels required by that shift and shows how they can be expressed through a small number of living engineering artifacts.
 
 ## 1. Engineering Evolves Around Dominant Uncertainty
 
 Software-engineering methods are often discussed as competing schools: planning versus iteration, development versus operations, process versus autonomy. That framing hides a more useful pattern. Engineering expands when a consequential source of uncertainty can no longer be managed adequately by the assumptions and feedback structures already in place.
 
-The pattern is not a clean historical sequence, and none of the approaches below is reducible to one idea. Waterfall, Agile, and DevOps each contain diverse practices, interpretations, and institutional histories. The comparison here is narrower: each can be read as a characteristic response to a different location of uncertainty and feedback.
+The pattern is not a clean historical sequence, and none of the approaches below is reducible to one idea. Plan-driven development, iterative delivery, and modern operations are broader engineering responses; Waterfall, Agile, and DevOps are familiar but non-equivalent examples. The comparison here is narrower: each broader response can be read as characteristic of a different location of uncertainty and feedback.
 
-**Waterfall and other plan-driven development approaches** treat significant requirement and design uncertainty as something to reduce before implementation. The engineering response is analysis, decomposition, specification, approval, and planned execution. This remains rational where the problem can be understood sufficiently in advance, the cost of change is high, and late feedback is dangerous.
+**Plan-driven development (including Waterfall)** treats significant requirement and design uncertainty as something to reduce before implementation. The engineering response is analysis, decomposition, specification, approval, and planned execution. This remains rational where the problem can be understood sufficiently in advance, the cost of change is high, and late feedback is dangerous.
 
-**Agile and its iterative derivatives** start from a different limit: important requirements often cannot be stabilized through analysis alone because users, markets, and teams learn by interacting with working software. The response is not to abandon planning, but to shorten the cycle between assumption, delivery, use, and revision. Feedback moves closer to implementation and becomes part of the product-development mechanism.
+**Iterative delivery (including Agile and related approaches)** starts from a different limit: important requirements often cannot be stabilized through analysis alone because users, markets, and teams learn by interacting with working software. The response is not to abandon planning, but to shorten the cycle between assumption, delivery, use, and revision. Feedback moves closer to implementation and becomes part of the product-development mechanism.
 
-**DevOps and modern operations practices** expose another limit. Even a well-understood feature cannot be exhaustively validated against every production combination of traffic, infrastructure, device, operating system, dependency, configuration, user behavior, and failure condition. Engineering therefore extends beyond release. Telemetry, progressive delivery, canary exposure, rollback, resilience, and incident response make production behavior part of the evidence used to operate and improve the system.
+**Modern operations (commonly associated with DevOps)** exposes another limit. Even a well-understood feature cannot be exhaustively validated against every production combination of traffic, infrastructure, device, operating system, dependency, configuration, user behavior, and failure condition. Engineering therefore extends beyond release. Telemetry, progressive delivery, canary exposure, rollback, resilience, and incident response make production behavior part of the evidence used to operate and improve the system.
 
 Thinking Systems add a distinct source of uncertainty. The uncertainty is not only in what should be built or in the environment in which software runs. It also appears in the runtime selection or construction of behavior inside the software boundary.
 
 ```mermaid
 flowchart LR
-    W["Waterfall and plan-driven engineering<br/>dominant concern: requirement and design uncertainty<br/>response: reduce uncertainty before implementation"]
-    A["Agile and iterative derivatives<br/>dominant concern: product-learning uncertainty<br/>response: shorten delivery and feedback cycles"]
-    D["DevOps and modern operations<br/>dominant concern: production-condition uncertainty<br/>response: observe, expose progressively, recover"]
-    T["Thinking Systems<br/>new concern: runtime judgment uncertainty<br/>response required: bounded control of a changed object"]
+    W["Plan-driven engineering (Waterfall)<br/>dominant concern: requirement and design uncertainty<br/>response: reduce uncertainty before implementation"]
+    A["Iterative delivery (Agile and related approaches)<br/>dominant concern: product-learning uncertainty<br/>response: shorten delivery and feedback cycles"]
+    D["Modern operations (DevOps)<br/>dominant concern: production-condition uncertainty<br/>response: observe, expose progressively, recover"]
+    T["Thinking-System engineering<br/>new concern: runtime judgment uncertainty<br/>response required: bounded control of a changed object"]
 
     W --> A --> D --> T
 ```
 
-**Figure 1 — Waterfall and plan-driven engineering, Agile and its iterative derivatives, DevOps, and Thinking-System engineering can be read as cumulative responses as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** The diagram is a conceptual progression, not a claim that one methodology replaces another or that each approach has only one purpose.
+**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** Waterfall, Agile, and DevOps are shown as familiar examples of the broader plan-driven, iterative-delivery, and modern-operations responses. The progression is conceptual, not replacement history.
 
 | Characteristic engineering response | Uncertainty emphasized | Primary mechanism | Where decisive feedback appears |
 |---|---|---|---|
-| Waterfall and plan-driven development | Requirements, design, coordination | Analysis and planning | Primarily before and during implementation |
-| Agile and iterative derivatives | Product understanding and value | Short delivery and learning cycles | Between iterations and releases |
-| DevOps and modern operations | Production conditions and system behavior | Runtime telemetry, progressive exposure, and recovery | During operation |
+| Plan-driven development (including Waterfall) | Requirements, design, coordination | Analysis and planning | Primarily before and during implementation |
+| Iterative delivery (including Agile and related approaches) | Product understanding and value | Short delivery and learning cycles | Between iterations and releases |
+| Modern operations (commonly associated with DevOps) | Production conditions and system behavior | Runtime telemetry, progressive exposure, and recovery | During operation |
 | Thinking-System control | Probabilistic runtime judgment and its consequences | Bounded authority, evidence, correction, and reassessment | Inside and around the active controlled object |
 
 The table does not imply that requirement uncertainty disappeared after Agile or that operational uncertainty began with DevOps. The point is cumulative. Each expansion preserves earlier responsibilities while adding mechanisms for uncertainty that became too important to leave outside the engineering model.
@@ -124,7 +124,7 @@ This is a practitioner observation about fragmentation, not a claim that governa
 
 Without the connection, local confidence is easily substituted for system control. A good evaluation score becomes evidence that the product is ready. A prompt becomes a policy. A policy becomes a supposed control. A human-in-the-loop label becomes evidence of accountability. A rollback button becomes evidence that recovery is possible. Each substitution may be understandable, and each may be wrong.
 
-For a consequential Thinking System, these are not gaps that can be delegated to a post-release governance review. If the complete control architecture is absent across organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment, the application is not release-ready. Governance in this sense is not a document layered over the system; it is the socio-technical stack that makes the system bounded, observable, correctable, and reauthorizable.
+For a consequential Thinking System, these are not gaps that can be delegated to a post-release governance review. If the complete control architecture is absent across organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment, the application is not ready for consequential production release. Governance becomes operational through that socio-technical stack; it is not a document layered over the system. The stack makes the system bounded, observable, correctable, and reauthorizable.
 
 > **Previous engineering methods learned to manage uncertainty surrounding software. Thinking Systems require engineering to manage consequential uncertainty produced by the software itself.**
 
@@ -384,7 +384,7 @@ flowchart LR
 
 **Figure 8 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions.
 
-What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. It is the complete socio-technical control architecture formed by these capabilities across the decision levels developed next. Until that architecture has credible boundaries, evidence, authority, effective Actuators, Human Authority and fallback where needed, and a path for reassessment, the application may be demonstrable or testable, but it is not ready for consequential release.
+What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. It becomes operational through the complete socio-technical control architecture formed by these capabilities across the decision levels developed next. Until that architecture has credible boundaries, evidence, authority, effective Actuators, Human Authority and fallback where needed, and a path for reassessment, the application may be demonstrable or testable, but it is not ready for consequential production release.
 
 The distinction matters because a loop can be technically closed and still unacceptable. The relevant question is not only whether the system learns from feedback, but whether operation remains inside an approved, credibly realized, observable, and correctable boundary—and whether evidence can force reconsideration when that boundary or its assumptions no longer hold.
 
@@ -396,7 +396,7 @@ The same capability functions appear at different decision horizons, but the dec
 
 An organization may prohibit autonomous customer communication. A project may determine that a draft-only support workflow is viable under that boundary. A delivery team may implement permissions, tests, Human Authority, and fallback for one release. Runtime logic may reject an attempted send and disable the feature. These actions concern the same controlled object, but they operate with different authority, evidence, scope, and time horizon.
 
-Four connected decision levels prevent a lower-level response from silently rewriting the basis on which the system was authorized. They are the decision decomposition of governance for a Thinking System: not four documents or approval meetings, but the places where the socio-technical control stack obtains authority, establishes viability, becomes concrete in delivery, and operates in production. Release readiness depends on the relevant decisions and capability functions being connected across all four levels.
+Four connected decision levels prevent a lower-level response from silently rewriting the basis on which the system was authorized. They are not four documents or approval meetings. They are the decision-ownership horizons through which governance becomes operational: organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment. Consequential production release requires the relevant decisions and capability functions to be connected across all four levels.
 
 ### Two orthogonal models
 
