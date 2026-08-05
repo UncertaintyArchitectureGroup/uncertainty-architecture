@@ -289,6 +289,7 @@ The reader should leave able to explain:
 - Explain that observability may describe behavior without authority to act; evaluation may estimate quality without defining an approved boundary; policy may express intent without realization; nominal human approval may lack information, time, power, or capacity; and orchestration may execute a workflow without authorizing it.
 - Preserve the anti-substitution argument: evaluation score is not release authorization; prompt is not policy; policy is not a realized control; a human-in-the-loop label is not substantive Human Authority; a rollback button is not evidence that recovery is credible.
 - State explicitly that these gaps are not governance debt that can be closed after release: without the complete control architecture across the four decision levels, a consequential Thinking System is not ready for consequential production release.
+- Present this release-readiness consequence as a visually distinct publication-facing callout so the reader can identify it as a central engineering thesis without repeating the argument elsewhere.
 - State that governance becomes operational through the socio-technical stack that makes the system bounded, observable, correctable, and reauthorizable, rather than through a policy document or post-release review.
 - Support factual claims about current industry practice with current primary or authoritative sources. When evidence is unavailable, label the point as practitioner observation.
 - Do not claim that no governance, safety, systems, or control practice exists.
@@ -1039,7 +1040,7 @@ Every article-writing PR must satisfy all of the following:
 - [ ] Plan-driven development, iterative delivery, and modern operations remain the primary categories, with Waterfall, Agile and related approaches, and DevOps named consistently as familiar examples in the opening prose, Figure 1, and the comparison table.
 - [ ] The abstract does not narrate the article's reveal sequence or contain internal editorial commentary.
 - [ ] Governance is framed as becoming operational through the active socio-technical control architecture rather than as a post-hoc review, document, or exact synonym for every control element.
-- [ ] The consequence of an incomplete cross-level control architecture is explicit and scoped to consequential production release of Thinking Systems.
+- [ ] The consequence of an incomplete cross-level control architecture is explicit, scoped to consequential production release of Thinking Systems, and visually emphasized once as a central engineering thesis without duplicating the argument.
 - [ ] Figure 3 is a horizontal side-by-side comparison and visually isolates consequential probabilistic Model Judgment as the structural addition without implying that the entire Thinking System is probabilistic.
 - [ ] Figure 4 places Model Judgment above Input Interpretation, Decision Logic, and Output Mediation, with the three placements aligned horizontally and no implied mandatory sequence.
 - [ ] The decision-horizon bridge uses short bold-labeled paragraphs and keeps control-architecture design inside the project / architecture level.
