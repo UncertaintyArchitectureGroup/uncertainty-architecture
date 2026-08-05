@@ -6,7 +6,6 @@ maturity: active
 module: research
 topics:
   - repository-architecture
-  - research
   - contribution-workflow
   - provenance
   - thinking-systems
