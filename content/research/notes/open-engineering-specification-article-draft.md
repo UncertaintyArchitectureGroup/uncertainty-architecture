@@ -214,7 +214,7 @@ flowchart TB
     MJ --> O
 ```
 
-**Figure 4 — Functional placement of Model Judgment.** Model Judgment is the parent capability; Input Interpretation, Decision Logic, and Output Mediation are three functional placements beneath it. They are not mandatory stages or a prescribed execution order. A system may use one, several, or repeated instances of them, and each placement changes the controlled object in a different way.
+**Figure 4 — Functional placement of Model Judgment.** Model Judgment is shown as the parent concept; Input Interpretation, Decision Logic, and Output Mediation are three functional placements beneath it. They are not mandatory stages or a prescribed execution order. A system may use one, several, or repeated instances of them, and each placement changes the controlled object in a different way.
 
 The useful variance created by these placements cannot be governed by treating every output difference as a defect. A Requirement for a Thinking System usually defines acceptable conditions, prohibited states, tolerances, authority boundaries, and expected outcomes rather than one exact output for every possible input.
 
