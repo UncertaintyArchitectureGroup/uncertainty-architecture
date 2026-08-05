@@ -155,8 +155,9 @@ For the same apparent request, plausible behavior may vary with context, model v
 The architectural difference can be shown without pretending that conventional software consists of one linear function or that every Thinking System follows one pipeline.
 
 ```mermaid
-flowchart TB
+flowchart LR
     subgraph A["Primarily explicitly encoded runtime responsibility"]
+        direction LR
         A1[External input and operating conditions]
         A2[Deterministic decision and action responsibilities]
         A3[Output, action, or downstream state]
@@ -164,6 +165,7 @@ flowchart TB
     end
 
     subgraph B["Thinking System boundary"]
+        direction LR
         B1[External input and operating conditions]
         B2[Deterministic responsibilities]
         J1["Judgment Node<br/>probabilistic Model Judgment"]
@@ -174,9 +176,17 @@ flowchart TB
         B1 --> B2 --> J1 --> B3 --> B4
         B3 -. optional composition .-> J2 -.-> B4
     end
+
+    SHIFT["What Thinking Systems add<br/>consequential probabilistic Model Judgment<br/>inside the controlled object"]
+    SHIFT -.-> J1
+    SHIFT -.-> J2
+
+    classDef shift fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#7f0000;
+    class SHIFT,J1,J2 shift;
+    style B fill:#fffafa,stroke:#c62828,stroke-width:2px
 ```
 
-**Figure 3 — The controlled-object shift.** A Thinking System remains a mixed system. Deterministic responsibilities remain before, between, and after Judgment Nodes. Judgment Nodes may be absent, repeated, or combined; the diagram is illustrative rather than a prescribed execution topology.
+**Figure 3 — The controlled-object shift.** The two responsibility structures are shown side by side. On the left, consequential runtime behavior is produced primarily through explicitly encoded deterministic responsibilities. On the right, a Thinking System remains a mixed system, but probabilistic Model Judgment enters the controlled object through one or more Judgment Nodes. The red-highlighted elements identify the structural addition; they do not imply that the rest of the Thinking System is probabilistic or that every system follows this topology.
 
 Model Judgment can affect a workflow through several functional placements.
 
@@ -189,21 +199,22 @@ Model Judgment can affect a workflow through several functional placements.
 These are placement functions, not a mandatory three-stage architecture.
 
 ```mermaid
-flowchart LR
-    MJ[Model Judgment]
-    I["Input Interpretation<br/>what does the input mean?"]
-    D["Decision Logic<br/>which path, plan, tool, or action?"]
-    O["Output Mediation<br/>what is communicated or transformed?"]
+flowchart TB
+    MJ["Model Judgment"]
+
+    subgraph P["Functional placements"]
+        direction LR
+        I["Input Interpretation<br/>what does the input mean?"]
+        D["Decision Logic<br/>which path, plan, tool, or action?"]
+        O["Output Mediation<br/>what is communicated or transformed?"]
+    end
 
     MJ --> I
     MJ --> D
     MJ --> O
-
-    I -. may repeat or combine .-> D
-    D -. may repeat or combine .-> O
 ```
 
-**Figure 4 — Functional placement of Model Judgment.** The classes identify what judgment changes in a workflow. They do not prescribe order, topology, consequence, authority, or risk.
+**Figure 4 — Functional placement of Model Judgment.** Model Judgment is the parent capability; Input Interpretation, Decision Logic, and Output Mediation are three functional placements beneath it. They are not mandatory stages or a prescribed execution order. A system may use one, several, or repeated instances of them, and each placement changes the controlled object in a different way.
 
 The useful variance created by these placements cannot be governed by treating every output difference as a defect. A Requirement for a Thinking System usually defines acceptable conditions, prohibited states, tolerances, authority boundaries, and expected outcomes rather than one exact output for every possible input.
 
@@ -232,9 +243,17 @@ flowchart LR
 
 **Figure 5 — Three connected uncertainty locations.** Product methods, software engineering, DevOps, resilience, and incident response remain necessary. Thinking-System engineering adds explicit treatment of runtime judgment uncertainty and connects it back to earlier decisions.
 
-Once probabilistic judgment enters the controlled object, the consequences do not remain inside a model call. Every decision that authorizes, shapes, releases, or operates that object must account for the changed behavior.
+Once probabilistic judgment enters the controlled object, the consequences do not remain inside a model call. Every decision that authorizes, shapes, releases, or operates that object must account for the changed behavior. The next sections develop these connected engineering horizons explicitly.
 
-The organization determines which authoritative boundaries, shared capabilities, prohibited uses, and decision rights apply. A project decides whether a proposed use of Model Judgment can be made technically credible, operationally supportable, and economically viable. Architecture allocates judgment, deterministic responsibility, evidence, authority, and corrective mechanisms across the system boundary. Delivery realizes those decisions for a bounded change and decides whether the resulting system is ready to release. Runtime operation determines whether active behavior remains within the conditions under which it was authorized and routes invalidating evidence back to the level that owns the affected decision.
+**Organizational control context.** The organization determines which authoritative boundaries, shared capabilities, prohibited uses, and decision rights apply to the Thinking System.
+
+**Project control architecture and viability.** The project decides whether a proposed use of Model Judgment can be made technically credible, operationally supportable, and economically viable.
+
+**Control-architecture design within the project level.** Architecture allocates Model Judgment, deterministic responsibilities, evidence, authority, Human Authority, fallback, and corrective mechanisms across the system boundary. This is a responsibility inside the project / architecture level, not a fifth decision level.
+
+**Delivery realization and release.** Delivery realizes those decisions for a bounded change and determines whether the resulting system is complete and acceptable for release.
+
+**Runtime operation and reassessment.** Runtime operation determines whether active behavior remains within the conditions under which it was authorized and routes invalidating evidence back to the level that owns the affected decision.
 
 These activities use different evidence, participants, time horizons, and actions. They are not interchangeable. An operational Controller cannot silently rewrite an organizational prohibition. A Release Gate cannot expand project authority. A project decision cannot claim a Hard Constraint without a complete realized path. An organizational policy does not become an operable boundary merely because it is authoritative.
 
