@@ -10,7 +10,7 @@
 
 ## Engineering at the AI–Code Boundary
 
-**Uncertainty Architecture** is an open doctrine and pattern language for building and operating software in which part of runtime behavior is delegated to **non-deterministic Model Judgment**, while consequential deterministic responsibilities, approved Constraints, evidence, decision rights, and corrective mechanisms remain explicit.
+**Uncertainty Architecture** is an open doctrine and pattern language for building and operating software in which part of runtime behavior is delegated to **probabilistic Model Judgment**, while consequential deterministic responsibilities, approved Constraints, evidence, decision rights, and corrective mechanisms remain explicit.
 
 UA is designed primarily for small and medium-sized engineering organizations that need practical control without building a large governance bureaucracy.
 

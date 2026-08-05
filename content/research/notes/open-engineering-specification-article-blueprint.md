@@ -168,10 +168,13 @@ Use the canonical glossary definition:
 
 Preserve the following category boundary:
 
-- agentic systems are a higher-autonomy subset of Thinking Systems, not the entire category;
+- fixed, linear, iterative, adaptive, or dynamically selected orchestration does not determine whether software is Linear Software or a Thinking System;
+- a fixed or explicitly orchestrated sequence that otherwise meets the Thinking System definition remains a Thinking System when one or more consequential steps perform Model Judgment;
+- deterministic code before, between, or after Judgment Nodes does not make delegated Model Judgment deterministic;
+- autonomy and delegated authority are additional dimensions separate from both Model Judgment and orchestration topology;
+- systems described as agentic may use fixed or dynamic orchestration, while an agent label alone neither establishes nor excludes Thinking-System classification;
+- the precise boundary of agentic terminology remains an open research topic and must not be presented as settled doctrine;
 - a non-agentic feature may be a Thinking System when probabilistic judgment materially affects interpretation, routing, decisions, outputs, or downstream action;
-- an application may use agents while remaining largely linear where relevant routes, decisions, and authority are explicitly encoded;
-- autonomy and probabilistic Model Judgment are related dimensions, not synonyms;
 - a Thinking System remains a mixed deterministic and probabilistic system.
 
 ### Defensible public claim
@@ -272,7 +275,7 @@ The reader should leave able to explain:
 - Introduce the canonical Thinking Systems definition in publication-facing prose.
 - Define Model Judgment through interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection under uncertainty.
 - Explain that the category describes responsibility structure, not product marketing.
-- Distinguish Linear Software, Thinking Systems, agentic Thinking Systems, and agentic but largely linear orchestration.
+- Distinguish responsibility basis from orchestration topology through a two-by-two comparison: explicitly encoded versus Model-Judgment responsibility across fixed versus dynamic workflows. Label the Model-Judgment cells as workflows meeting the complete Thinking System definition rather than implying that Model Judgment alone is sufficient. Treat autonomy and delegated authority as additional dimensions not shown in the matrix.
 - State that autonomy and probabilistic judgment are separate dimensions.
 - Open or transition into a credible team that has a model, retrieval or tools, traces, evaluations, policy, Human Authority, and a pilot.
 - Ask the connected questions those components do not answer:
@@ -297,7 +300,7 @@ The reader should leave able to explain:
 **Supporting figures:**
 
 1. engineering responses around dominant uncertainty, with nodes labeled **Plan-driven engineering (Waterfall)**, **Iterative delivery (Agile and related approaches)**, **Modern operations (DevOps)**, and **Thinking-System engineering**;
-2. category boundary distinguishing Linear Software, Thinking Systems, agentic Thinking Systems, and largely linear agentic orchestration.
+2. two-by-two category boundary showing explicitly encoded versus Model-Judgment responsibility across fixed versus dynamic workflows; the Model-Judgment cells must remain conditioned on the complete Thinking System definition, with autonomy and delegated authority identified as additional dimensions outside the matrix.
 
 **Supporting table:** Location of uncertainty, primary engineering mechanism, and where decisive feedback appears. The first column must use the broader categories first: plan-driven development (including Waterfall), iterative delivery (including Agile and related approaches), modern operations (commonly associated with DevOps), and Thinking-System control. The table must state that earlier uncertainty classes persist.
 
@@ -350,8 +353,8 @@ The reader should leave able to explain:
 - Preserve the mixed-system claim: deterministic responsibilities remain before, between, and after Judgment Nodes.
 - Explain why model quality alone cannot define prohibited states, allocate residual-risk authority, restrict reachable actions, execute correction, or determine Project Reauthorization.
 - Explain why the changed object creates connected control questions across organizational context, project viability, architecture, delivery realization and release, and runtime reassessment.
-- Replace the dense one-paragraph summary of those horizons with short publication-facing paragraphs using bold labels for **Organizational control context**, **Project control architecture and viability**, **Control-architecture design within the project level**, **Delivery realization and release**, and **Runtime operation and reassessment**.
-- State explicitly that control-architecture design is a responsibility within the project / architecture level and does not create a fifth decision level.
+- Replace the dense one-paragraph summary of those horizons with four short publication-facing paragraphs using bold labels for **Organizational control context**, **Project / architecture control and viability**, **Delivery realization and release**, and **Runtime operation and reassessment**.
+- Keep project viability and control-architecture design in the same project / architecture paragraph because they belong to one decision horizon; do not create a fifth level or a separate architecture horizon.
 - Use that labeled passage as a forward bridge to the later sections rather than as a complete treatment of the levels.
 - Preserve that levels use different evidence, participants, authority, time horizons, and actions and are not interchangeable.
 - State that an operational Controller cannot rewrite an organizational prohibition; a Release Gate cannot expand project authority; Project Authorization cannot claim a Hard Constraint without a complete realized path; and organizational policy is not an operable boundary merely because it is authoritative.
@@ -372,7 +375,7 @@ The reader should leave able to explain:
 
 **Primary Figure 1 — Controlled-object shift**
 
-Use two vertical top-to-bottom responsibility diagrams placed side by side. The comparison must read as two parallel columns, not as two horizontal execution pipelines and not as one mandatory topology.
+Use two vertical top-to-bottom responsibility diagrams placed side by side. The comparison must read as two parallel columns, not as two horizontal execution pipelines and not as one mandatory topology. Because disconnected Mermaid subgraphs may otherwise stack vertically, use an invisible alignment link between the columns to force the side-by-side GitHub rendering.
 
 ```text
 Left — Primarily explicitly encoded runtime behavior
@@ -407,7 +410,7 @@ The figure must not imply that:
 
 - functional placement of Model Judgment, with **Model Judgment** above and **Input Interpretation**, **Decision Logic**, and **Output Mediation** aligned horizontally beneath it;
 - connected locations of requirement, operational, and runtime-judgment uncertainty;
-- one controlled object viewed across four decision horizons, rendered as one centered vertical column in the canonical order Organization → Project / Architecture → Delivery → Runtime.
+- one controlled object viewed across four decision horizons, rendered as one centered vertical decision-horizon spine in the canonical order Organization → Project / Architecture → Delivery → Runtime, with a separate upward reassessment lane preserving direct Runtime-to-Delivery, Runtime-to-Project / Architecture, and Runtime-to-Organization routes.
 
 The Model Judgment placement figure is a taxonomy, not a sequence. It must not connect the three placement categories laterally in a way that implies a mandatory pipeline.
 
@@ -938,8 +941,9 @@ Treat Behavioral Software, Behavioral Applications, fixed specialist role titles
 
 Do not:
 
-- equate Thinking Systems with all agentic applications;
-- imply that all agentic software is necessarily a Thinking System under the canonical definition;
+- equate Thinking Systems with agentic applications;
+- imply that fixed, sequential, or explicitly orchestrated workflows cannot be Thinking Systems when consequential steps perform Model Judgment;
+- use an agent label, dynamic control flow, or autonomy level as a substitute for the complete Thinking System definition;
 - imply that a non-agentic application cannot be a Thinking System;
 - call a prompt, natural-language policy, probabilistic evaluator, classifier, or model preference a Hard Constraint by itself;
 - call a schema, permission check, or other realization a Constraint without distinguishing the authoritative Constraint from its realization;
@@ -1037,7 +1041,7 @@ Every article-writing PR must satisfy all of the following:
 - [ ] The consequence of an incomplete cross-level control architecture is explicit, scoped to consequential production release of Thinking Systems, and visually emphasized once as a central engineering thesis without duplicating the argument.
 - [ ] Figure 3 places two vertical top-to-bottom responsibility diagrams side by side and uses restrained red treatment on the changed Thinking System blocks without implying that the entire system is probabilistic.
 - [ ] Figure 4 places Model Judgment above Input Interpretation, Decision Logic, and Output Mediation, with the three placements aligned horizontally and no implied mandatory sequence.
-- [ ] Figure 6 centers Organization, Project / Architecture, Delivery, and Runtime in one vertical line and preserves their canonical order.
+- [ ] Figure 6 keeps Organization, Project / Architecture, Delivery, and Runtime in one centered vertical spine, preserves the downward inheritance labels, and shows separate upward reassessment routes from Runtime to the level that owns the invalidated decision.
 - [ ] The decision-horizon bridge uses short bold-labeled paragraphs and keeps control-architecture design inside the project / architecture level.
 - [ ] Every major new argument has an appropriate figure or an explicit reason why prose is clearer.
 - [ ] All figures were reviewed as one visual sequence and renumbered consistently.
@@ -1045,7 +1049,7 @@ Every article-writing PR must satisfy all of the following:
 - [ ] This blueprint was updated after the target article review.
 - [ ] Section purposes, required content, transitions, claims, examples, and known risks remain detailed rather than compressed.
 - [ ] UA is not introduced as the premise of the early engineering argument.
-- [ ] Thinking Systems remain distinct from agentic software.
+- [ ] Workflow topology does not override the complete Thinking System definition; Figure 2 separates fixed/dynamic orchestration from explicitly encoded/Model-Judgment responsibility, conditions its Thinking System cells on the complete definition, and leaves autonomy and delegated authority as additional dimensions.
 - [ ] Decision levels and capability families remain orthogonal.
 - [ ] Constraint and Constraint Realization remain distinct.
 - [ ] Project Authorization, DoR, DoD, Release Gate, runtime correction, and Project Reauthorization remain separate.

@@ -47,7 +47,7 @@ source_basis:
 
 Software engineering repeatedly expands when an important source of uncertainty can no longer remain outside the engineering model. **Plan-driven development (including Waterfall)** attempts to reduce requirement and design uncertainty before implementation. **Iterative delivery (including Agile and related approaches)** accepts that product understanding changes through use and shortens the distance to feedback. **Modern operations (commonly associated with DevOps)** accepts that production conditions cannot be reproduced exhaustively before release and extends engineering into runtime through observability, progressive delivery, and recovery.
 
-This paper introduces **Thinking Systems** as a distinct engineering category: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit. The category is broader than agentic software. An application may use agents while remaining largely linear because their relevant paths and decisions are explicitly orchestrated. Conversely, a non-agentic feature may be a Thinking System when probabilistic judgment materially changes interpretation, routing, decisions, outputs, or downstream action.
+This paper introduces **Thinking Systems** as a distinct engineering category: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit. The category is not synonymous with agentic software and is independent of orchestration topology. A fixed or linear workflow that otherwise meets the Thinking System definition remains a Thinking System when one or more consequential steps delegate interpretation, planning, generation, routing, or action selection to Model Judgment; an agent label or dynamic control flow alone does not determine the category.
 
 Thinking Systems move consequential uncertainty inside the controlled object. Once that happens, model quality and observability are no longer sufficient descriptions of the engineering problem. For a consequential Thinking System, an incomplete control architecture means the application is not ready for consequential production release even when the model and code pass local tests. Governance becomes operational only through the active socio-technical control architecture spanning organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment. This paper derives the capability families and decision levels required by that shift and shows how they can be expressed through a small number of living engineering artifacts.
 
@@ -96,23 +96,30 @@ In this paper, a **Thinking System** is:
 
 The term identifies a responsibility structure, not a product category or marketing label. A Thinking System remains a mixed system. Probabilistic judgment may appear at one bounded point or many, while identity, permissions, transactions, state transitions, audit, safety boundaries, and other consequential responsibilities remain deterministic.
 
-The category must not be collapsed into "agentic application." Agentic systems are a higher-autonomy subset of Thinking Systems, not the whole category. A support feature that interprets an ambiguous request and drafts a response may be a Thinking System without being agentic. An agentic workflow may remain largely linear when its relevant routes, decisions, and authority are explicitly encoded and the model does not perform consequential judgment. Autonomy and runtime judgment are related dimensions, not synonyms.
+The category must not be collapsed into "agentic application," and linear orchestration is not an exclusion criterion. The distinction from Linear Software asks how consequential runtime responsibility is produced, not whether a workflow follows a fixed sequence or chooses its next step dynamically. A project planner can execute a predefined path—generate requirements, build a plan, identify risks, and draft work items—and still be a Thinking System when an LLM performs those responsibilities through Model Judgment and the rest of the Thinking System definition is satisfied. Deterministic orchestration before, between, or after those steps does not make the delegated judgment deterministic. Autonomy and delegated authority are additional dimensions separate from both Model Judgment and fixed-versus-dynamic orchestration. A system described as agentic may therefore use either topology; the exact boundary of agentic terminology remains an open research question rather than a test for Thinking-System classification. Only software whose relevant decisions and outputs remain explicitly encoded, with no consequential responsibility delegated to probabilistic Model Judgment, is Linear Software.
 
 ```mermaid
-flowchart TB
-    SW[Software systems]
-    LIN["Linear Software<br/>relevant decision rules and execution paths<br/>are explicitly encoded"]
-    TS["Thinking Systems<br/>runtime behavior depends partly on<br/>probabilistic Model Judgment"]
-    AG["Agentic Thinking Systems<br/>higher-autonomy subset"]
-    LA["Agentic but largely linear orchestration<br/>explicit routes and bounded execution"]
+flowchart LR
+    subgraph F["Fixed or explicitly orchestrated workflow"]
+        direction TB
+        FL["Explicitly encoded responsibility<br/>fixed path<br/>Linear Software"]
+        FT["Workflow meeting the Thinking System definition<br/>fixed path with consequential<br/>probabilistic Model Judgment"]
+    end
 
-    SW --> LIN
-    SW --> TS
-    TS --> AG
-    LIN --> LA
+    subgraph D["Dynamically selected or adaptive workflow"]
+        direction TB
+        DL["Explicitly encoded responsibility<br/>dynamic path selected by deterministic rules<br/>Linear Software"]
+        DT["Workflow meeting the Thinking System definition<br/>dynamic path with consequential<br/>probabilistic Model Judgment"]
+    end
+
+    FL ~~~ DL
+    FT ~~~ DT
+
+    classDef thinking fill:#eef6ff,stroke:#3367a8,stroke-width:2px;
+    class FT,DT thinking;
 ```
 
-**Figure 2 — Thinking Systems are defined by consequential probabilistic judgment, not by an agent label.** Agentic Thinking Systems are a subset of the category; agentic orchestration can also remain largely linear when the relevant decision rules are explicitly encoded.
+**Figure 2 — Orchestration topology and responsibility basis are independent dimensions.** Fixed and dynamically selected workflows can each be Linear Software or Thinking Systems. In the lower cells, Thinking System means that the complete definition is satisfied; the visible distinction is that consequential runtime responsibility includes probabilistic Model Judgment rather than remaining entirely explicitly encoded. Autonomy and delegated authority are additional dimensions not shown; systems described as agentic may use either fixed or dynamic orchestration.
 
 A Thinking System still requires product discovery, deterministic software engineering, testing, security, deployment discipline, observability, and incident response. The new category does not invalidate those practices. It changes the object they are controlling.
 
@@ -173,6 +180,8 @@ flowchart LR
         B4[Output, action, or downstream state]
         B1 --> B2 --> J1 --> B3 --> B4
     end
+
+    A2 ~~~ J1
 
     classDef changed fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#7f0000;
     classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
@@ -241,9 +250,7 @@ Once probabilistic judgment enters the controlled object, the consequences do no
 
 **Organizational control context.** The organization determines which authoritative boundaries, shared capabilities, prohibited uses, and decision rights apply to the Thinking System.
 
-**Project control architecture and viability.** The project decides whether a proposed use of Model Judgment can be made technically credible, operationally supportable, and economically viable.
-
-**Control-architecture design within the project level.** Architecture allocates Model Judgment, deterministic responsibilities, evidence, authority, Human Authority, fallback, and corrective mechanisms across the system boundary. This is a responsibility inside the project / architecture level, not a fifth decision level.
+**Project / architecture control and viability.** The project decides whether a proposed use of Model Judgment can be made technically credible, operationally supportable, and economically viable. Within that same decision horizon, architecture allocates Model Judgment, deterministic responsibilities, evidence, authority, Human Authority, fallback, and corrective mechanisms across the system boundary.
 
 **Delivery realization and release.** Delivery realizes those decisions for a bounded change and determines whether the resulting system is complete and acceptable for release.
 
@@ -254,18 +261,32 @@ These activities use different evidence, participants, time horizons, and action
 Yet the levels are structurally connected because they control the same object.
 
 ```mermaid
-flowchart TB
-    O["Organization level<br/>authoritative boundaries, shared capabilities,<br/>prohibited uses, and decision rights"]
-    P["Project / architecture level<br/>technical credibility, operational supportability,<br/>economic viability, and control architecture"]
-    D["Delivery level<br/>bounded realization, evidence,<br/>release decision, and corrective readiness"]
-    R["Runtime level<br/>active behavior, operating conditions,<br/>correction, escalation, and reassessment"]
+flowchart LR
+    subgraph H["Decision horizons"]
+        direction TB
+        O["Organization level<br/>authoritative boundaries, shared capabilities,<br/>prohibited uses, and decision rights"]
+        P["Project / architecture level<br/>technical credibility, operational supportability,<br/>economic viability, and control architecture"]
+        D["Delivery level<br/>bounded realization, evidence,<br/>release decision, and corrective readiness"]
+        R["Runtime level<br/>active behavior, operating conditions,<br/>correction, escalation, and reassessment"]
 
-    O -->|authoritative sources, shared capabilities, delegated authority| P
-    P -->|Project Constraint Architecture and authorized boundary| D
-    D -->|realized controls, release scope, active versions| R
+        O -->|authoritative sources, shared capabilities,<br/>delegated authority| P
+        P -->|Project Constraint Architecture<br/>and authorized boundary| D
+        D -->|realized controls, release scope,<br/>active versions| R
+    end
+
+    subgraph U["Upward reassessment routes"]
+        direction TB
+        UO["Source, decision right,<br/>or shared capability changed"]
+        UP["Risk, authority, capacity,<br/>evidence, or economics invalidated"]
+        UD["Local defect or<br/>implementation evidence"]
+    end
+
+    R -.-> UO -.-> O
+    R -.-> UP -.-> P
+    R -.-> UD -.-> D
 ```
 
-**Figure 6 — One controlled object across four decision horizons.** Authority and Constraints flow downward by reference and become more concrete in realization. Evidence flows upward when it invalidates the basis of an earlier decision.
+**Figure 6 — One controlled object across four decision horizons.** The four decision horizons remain aligned in one vertical spine. Authority and Constraints flow downward by reference and become more concrete in realization. The separate return lane preserves the upward routes by which runtime evidence is sent directly to Delivery, Project / Architecture, or Organization when it invalidates the basis of a decision owned at that level.
 
 At each level, the concrete subject changes, but a recurring control structure appears:
 

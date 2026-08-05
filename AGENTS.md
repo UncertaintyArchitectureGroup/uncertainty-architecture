@@ -64,7 +64,7 @@ Report genuine contradictions instead of silently choosing one side.
 
 ## 2. Repository mission and SMB default
 
-UA is an open doctrine and pattern language for engineering and operating **Thinking Systems**: software in which part of runtime behavior depends on probabilistic Model Judgment while consequential deterministic responsibilities remain explicit and governable.
+UA is an open doctrine and pattern language for engineering and operating **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
 
 UA is not an SDK, universal agent framework, vendor architecture, prompt collection, evaluation method, compliance certification, or replacement for product discovery, Agile, DevOps, QA, security, change management, or incident response.
 
