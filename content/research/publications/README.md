@@ -25,7 +25,7 @@ The documents are preserved as historical research evidence. Their original argu
 
 ## Terminology migration
 
-Current UA terminology uses **Thinking Systems** for software that delegates part of runtime interpretation, judgment, planning, or decision-making to probabilistic models while retaining explicit deterministic boundaries and control responsibilities.
+Current UA terminology uses **Thinking Systems** as defined in the [canonical glossary](../../../00-doctrine/glossary.md#thinking-system): software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
 
 Some historical publications in this directory use **Behavioral Software**, **Behavioral Applications**, or the lowercase phrase **behavioral systems** for the same emerging category. Those terms are historical predecessors of **Thinking Systems** and should not be used as the current UA category in new framework documents.
 

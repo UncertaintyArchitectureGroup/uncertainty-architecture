@@ -41,7 +41,7 @@ canonical_for:
 
 ## Purpose
 
-This module defines the conceptual foundation used throughout Uncertainty Architecture. It establishes how to reason about **Thinking Systems**: software whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, approved boundaries, evidence, decision rights, and corrective mechanisms remain explicit.
+This module defines the conceptual foundation used throughout Uncertainty Architecture. It establishes how to reason about **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
 
 The doctrine provides the shared mental model needed to discuss uncertainty without treating model behavior as ordinary deterministic code or uncontrollable magic.
 
@@ -83,7 +83,7 @@ Operational checklists, decision flows, practical records, and implementation ex
 
 ## Key concepts
 
-- **Thinking System** — software in which part of the runtime path or decision process is produced through Model Judgment while consequential deterministic responsibilities remain explicit.
+- **Thinking System** — a software system whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
 - **Deterministic Core** — rules, Invariants, permissions, data handling, and other responsibilities that must remain explicitly controlled.
 - **Model Judgment** — interpretation, synthesis, classification, generation, planning, or action selection under uncertainty.
 - **Controlled-object shift** — the change created when the engineered system itself produces consequential runtime uncertainty.

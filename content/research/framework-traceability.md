@@ -83,6 +83,7 @@ Lifecycle and operating-model concerns may be represented across these areas rat
 | Topic | Earlier or presentation formulation | Current UA formulation | Status | Resolution |
 |---|---|---|---|---|
 | Primary system category | Behavioral Software / Behavioral Applications | Thinking Systems | Active | Use Thinking Systems in current framework documents; preserve legacy wording in historical sources and provenance records. |
+| Agentic label and orchestration topology | Agentic systems described as a higher-autonomy subset while largely linear agentic orchestration could be read as Linear Software | Fixed or dynamic topology does not determine the Linear Software / Thinking System distinction; consequential Model Judgment may appear in either | Narrowed | A predefined project-planning or other workflow that otherwise meets the Thinking System definition remains in that category when consequential steps delegate Model Judgment. Autonomy, delegated authority, and the precise boundary of agentic terminology remain open. |
 | Bug under stochastic business logic | A bug is a statistical excursion beyond approved business tolerances | A Bug is a violation of an approved Requirement | Active | Event, evidence, diagnosis, accepted residual behavior, and responsibility remain separate. |
 | Requirement versus tolerance envelope | Requirement is the safe probabilistic operating area | Operating Envelope is part of a broader Requirement | Active | Preserve intended outcome, deterministic obligations, authority, Constraints, evidence, resources, and failure handling outside the envelope concept. |
 | Statistical quality contract | Large-sample runs and confidence intervals prove readiness or completion | Evidence method and adequacy follow the Requirement and decision context | Active | No universal sample size, metric, confidence method, or threshold is adopted. Measured tolerances do not automatically become Hard Constraints. |
@@ -102,7 +103,7 @@ Lifecycle and operating-model concerns may be represented across these areas rat
 
 ## Remaining topics for synthesis and validation
 
-- Thinking Systems versus agentic systems at different autonomy levels;
+- autonomy, delegated authority, and agentic terminology across fixed and dynamic Thinking-System workflows;
 - Model Control Plane terminology versus Model Context Protocol acronym conflict;
 - AI Control Plane capability-family model versus platform implementations;
 - automated Controller logic versus socio-technical Controller;

@@ -186,11 +186,11 @@ The intended synthesis corpus includes:
 
 ## Terminology decision
 
-Current UA terminology uses **Thinking Systems** for software that delegates part of runtime interpretation, judgment, planning, or decision-making to probabilistic models while retaining explicit deterministic boundaries and control responsibilities.
+Current UA terminology uses **Thinking Systems** as defined in the [canonical glossary](../../00-doctrine/glossary.md#thinking-system): software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
 
 Historical publications used **Behavioral Software** and **Behavioral Applications**. Current framework documents may identify the migration on first use, but should use **Thinking Systems** thereafter.
 
-Agentic systems are treated as a higher-autonomy subset of Thinking Systems rather than as a synonym for the whole category.
+Fixed or dynamic orchestration does not determine whether software is Linear Software or a Thinking System; consequential Model Judgment may appear in either topology. Agentic terminology raises additional questions about autonomy and delegated authority and remains an open research topic rather than a synonym for Thinking Systems.
 
 Historical publications and raw sources retain their original language for provenance.
 

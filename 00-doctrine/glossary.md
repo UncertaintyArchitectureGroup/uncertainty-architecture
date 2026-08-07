@@ -40,11 +40,15 @@ A software system whose runtime behavior depends partly on probabilistic Model J
 
 **Thinking Systems** is the current UA category. Earlier UA publications used **Behavioral Software** and **Behavioral Applications**; those names remain historical predecessors.
 
-Agentic systems are a higher-autonomy subset of Thinking Systems rather than the whole category.
+Whether orchestration is fixed, linear, iterative, or dynamically selected does not determine the system category. A fixed or explicitly orchestrated workflow that otherwise meets the Thinking System definition remains a Thinking System when one or more consequential steps delegate interpretation, synthesis, generation, planning, ranking, routing, or action selection to Model Judgment.
+
+Agentic terminology concerns additional questions, including autonomy and delegated authority. It is not a synonym for Thinking System, and an agent label does not establish or exclude the category. The precise boundary of agentic terminology remains an open research topic.
 
 ### Linear Software
 
 Software whose relevant execution paths and decision rules are explicitly encoded and intended to produce predictable behavior under defined conditions.
+
+Linear Software is not a synonym for a sequential, fixed, or explicitly orchestrated workflow. A predefined sequence that otherwise meets the Thinking System definition remains a Thinking System when it contains one or more consequential Judgment Nodes, even when deterministic orchestration surrounds every node.
 
 Linear Software may still contain operational uncertainty, concurrency, external dependencies, statistical components, and defects. The term distinguishes explicitly encoded control paths from runtime judgment delegated to probabilistic models.
 
