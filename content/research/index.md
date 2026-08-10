@@ -17,7 +17,7 @@ tags:
 canonical_for:
   - research-track
 created: 2026-07-24
-updated: 2026-08-03
+updated: 2026-08-10
 license: CC-BY-4.0
 ---
 
@@ -141,7 +141,7 @@ The presentation and publication corpus have now produced explicit framework dec
 - Judgment Node boundaries;
 - the delivery-level SMB Thinking System Review and template;
 - placement-focused reference architectures;
-- the controlled-object shift from explicitly encoded behavior toward consequential runtime Model Judgment;
+- the controlled-object shift created when Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment;
 - UA as a control lifecycle that complements rather than replaces Agile, DevOps, QA, security, and incident response;
 - organizational context, project authorization, delivery-level review, and runtime operation and reassessment as connected decision levels;
 - architectural veto as a valid engineering outcome;
@@ -175,6 +175,23 @@ The next major corpus task also remains a cross-publication synthesis that ident
 
 Project-level validation and corpus synthesis should proceed as a feedback loop rather than sequential phases.
 
+## Research positioning, antecedents, and intellectual context
+
+UA is a synthesis and specification effort, not a claim that its underlying engineering primitives were invented here. UA also does not claim coinage of the phrase **Thinking Systems**; it defines a specific engineering category under that name. Current research should distinguish established foundations from UA-specific composition and should prefer primary sources when describing those foundations. Relevant antecedents and adjacent traditions include:
+
+- Nancy Leveson's [STAMP/STPA systems-theoretic safety work](https://mitpress.mit.edu/9780262016629/engineering-a-safer-world/), which applies systems thinking and systems theory to complex socio-technical safety problems;
+- the Software Engineering Institute's [Simplex architecture](https://www.sei.cmu.edu/library/an-architectural-description-of-the-simplex-architecture/) for dependable and evolvable process-control systems;
+- production-ML systems engineering such as Google's [Hidden Technical Debt in Machine Learning Systems](https://research.google/pubs/hidden-technical-debt-in-machine-learning-systems/), which treats production ML concerns as system-level engineering concerns rather than model behavior alone;
+- the [NIST AI Risk Management Framework](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), which is intended to help organizations operationalize risk management across the AI lifecycle.
+
+These sources are **antecedents and comparison points, not endorsements, proofs, or exact equivalents of UA**. UA does not claim novelty for generic feedback loops, Constraints, Sensors, Controllers, Actuators, fallback, socio-technical control, or AI risk management as isolated ideas. The candidate contribution under validation is their recomposition around the Thinking System category and a connected engineering path from organizational authority through project / architecture viability and delivery release to runtime evidence, correction, and reassessment.
+
+Additional software-engineering context should be kept visible rather than replaced by a stronger novelty claim. ISO/IEC TR 29119-11:2020 uses the category **AI-based system** for a system containing at least one AI component. Microsoft's ICSE 2019 case study documents process changes observed in teams building AI-based applications, and Martínez-Fernández et al.'s 2022 systematic mapping study synthesizes 248 studies on software engineering for AI-based systems. These sources support the existence of a substantial pre-UA engineering problem space; they do not provide the narrower Thinking-System responsibility boundary proposed here.
+
+### Evidence maturity
+
+UA is currently an **early-stage draft specification and systems-engineering hypothesis under validation**. Repository consistency, traceability, and external discussion are useful research controls, but they must not be presented as empirical validation of the framework. The next research priority is evidence: worked reference implementations, real project applications, recorded authorization/release/reassessment decisions, failure-and-correction traces, cross-project comparison, and explicit specification revisions when evidence contradicts current doctrine. New repository process or governance artifacts should be added only when they directly improve that evidence program or prevent a demonstrated consistency failure.
+
 The intended synthesis corpus includes:
 
 1. *Architecting Uncertainty: A Modern Guide to LLM-Based Software*;
@@ -186,11 +203,11 @@ The intended synthesis corpus includes:
 
 ## Terminology decision
 
-Current UA terminology uses **Thinking Systems** as defined in the [canonical glossary](../../00-doctrine/glossary.md#thinking-system): software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
+Current UA terminology uses **Thinking Systems** as defined in the [canonical glossary](../../00-doctrine/glossary.md#thinking-system): software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. Category membership does not imply adequate control or production readiness.
 
 Historical publications used **Behavioral Software** and **Behavioral Applications**. Current framework documents may identify the migration on first use, but should use **Thinking Systems** thereafter.
 
-Fixed or dynamic orchestration does not determine whether software is Linear Software or a Thinking System; consequential Model Judgment may appear in either topology. Agentic terminology raises additional questions about autonomy and delegated authority and remains an open research topic rather than a synonym for Thinking Systems.
+Fixed or dynamic orchestration does not determine whether software is Linear Software or a Thinking System; Model Judgment may appear in either topology, while Thinking-System classification depends on whether at least one Consequential Runtime Responsibility depends partly on probabilistic Model Judgment. Agentic terminology raises additional questions about autonomy and delegated authority and remains an open research topic rather than a synonym for Thinking Systems.
 
 Historical publications and raw sources retain their original language for provenance.
 

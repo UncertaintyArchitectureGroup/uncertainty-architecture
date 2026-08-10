@@ -36,23 +36,39 @@ It is **draft normative**. Historical publications retain their original wording
 
 ### Thinking System
 
-A software system whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
+A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.
 
-**Thinking Systems** is the current UA category. Earlier UA publications used **Behavioral Software** and **Behavioral Applications**; those names remain historical predecessors.
+In this definition, [**Consequential Runtime Responsibility**](#consequential-runtime-responsibility) uses the canonical threshold defined below. **Consequential** identifies the material causal relevance of a runtime responsibility to system behavior or effects; it does not identify the implementation mechanism. Thinking-System classification then asks whether at least one such responsibility depends partly on probabilistic Model Judgment.
 
-Whether orchestration is fixed, linear, iterative, or dynamically selected does not determine the system category. A fixed or explicitly orchestrated workflow that otherwise meets the Thinking System definition remains a Thinking System when one or more consequential steps delegate interpretation, synthesis, generation, planning, ranking, routing, or action selection to Model Judgment.
+**Thinking Systems** is the current UA category. Earlier UA publications used **Behavioral Software** and **Behavioral Applications**; those names remain historical predecessors. **Thinking System** is a more specific, responsibility-based UA engineering category, not a proposed replacement for broader labels such as **AI system** or **AI-based system**.
+
+**Thinking** is used functionally, not anthropomorphically. The term makes no claim about consciousness or human-like cognition; it identifies an engineering condition in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment. UA does not claim authorship of the phrase **Thinking Systems** itself; this glossary assigns it a specific engineering meaning within UA.
+
+The term names a changed engineering object, not a maturity level, architecture style, or claim of adequate control. The category begins when one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment. Those responsibilities may involve interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection. A simple first model-enabled iteration can therefore be a Thinking System.
+
+Whether orchestration is fixed, linear, iterative, adaptive, or dynamically selected does not determine the system category. A fixed or explicitly orchestrated workflow is still a Thinking System when one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment. Later use of tools, memory, dynamic routing, multiple models, or greater autonomy may increase complexity and control demand, but it does not create the category.
+
+A Thinking System may be well controlled, poorly controlled, or not ready for production. UA does not use the presence of Constraints, evidence, decision rights, or corrective mechanisms as the category test. Those are engineering responsibilities required to make Model-Judgment-dependent Consequential Runtime Responsibilities bounded, observable, correctable, and governable.
 
 Agentic terminology concerns additional questions, including autonomy and delegated authority. It is not a synonym for Thinking System, and an agent label does not establish or exclude the category. The precise boundary of agentic terminology remains an open research topic.
 
 ### Linear Software
 
-Software whose relevant execution paths and decision rules are explicitly encoded and intended to produce predictable behavior under defined conditions.
+Software in which no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment. Its **Consequential Runtime Responsibilities**, if any, are fulfilled entirely through explicitly encoded logic.
 
-Linear Software is not a synonym for a sequential, fixed, or explicitly orchestrated workflow. A predefined sequence that otherwise meets the Thinking System definition remains a Thinking System when it contains one or more consequential Judgment Nodes, even when deterministic orchestration surrounds every node.
+Linear Software is not a synonym for a sequential, fixed, or explicitly orchestrated workflow. Its orchestration may be fixed or dynamic; the category distinction is that no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
 
-Linear Software may still contain operational uncertainty, concurrency, external dependencies, statistical components, and defects. The term distinguishes explicitly encoded control paths from runtime judgment delegated to probabilistic models.
+Linear Software may still contain operational uncertainty, concurrency, external dependencies, statistical components, and defects. The term distinguishes systems where consequential runtime responsibility remains explicitly encoded from systems where a **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
 
 ## Boundary and responsibility
+
+### Consequential Runtime Responsibility
+
+A runtime responsibility is a **Consequential Runtime Responsibility** when its output, decision, path, action, or downstream state can materially affect an intended outcome, satisfaction of an applicable Requirement or Constraint, the exercise of delegated authority, resource use, or a person or system downstream.
+
+**Consequential describes material causal relevance, not implementation mechanism or risk severity.** A Consequential Runtime Responsibility may be fulfilled entirely through explicitly encoded logic or may depend partly on probabilistic Model Judgment. It does not by itself mean that an effect is harmful, high-risk, autonomous, regulated, or production-ready. Severity, likelihood, reversibility, residual exposure, and required control strength are evaluated separately through the relevant Requirements, Constraints, evidence, authorization, release, and reassessment decisions.
+
+A model invocation with no material influence on any Consequential Runtime Responsibility does not establish Thinking-System classification by itself.
 
 ### Deterministic Core
 
@@ -62,15 +78,15 @@ The Deterministic Core is a responsibility boundary, not necessarily one physica
 
 ### Model Judgment
 
-Interpretation, synthesis, classification, generation, planning, ranking, or action selection performed through a probabilistic model under uncertainty.
+Interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty.
 
 Model Judgment may provide useful adaptation and semantic reasoning. It must not be treated as equivalent to a guaranteed business rule.
 
 ### Judgment Node
 
-A bounded location in a system or workflow where Model Judgment influences an output, decision, path, or action.
+A bounded location in a system or workflow where Model Judgment influences an output, decision, path, action, or downstream state.
 
-A Judgment Node may perform Input Interpretation, Decision Logic, Output Mediation, or a combination. Its purpose, inputs, authority, applicable Constraints, evidence, failure handling, and ownership should be visible enough to review and operate.
+A Judgment Node is **consequential** for Thinking-System classification when it performs or materially influences a [Consequential Runtime Responsibility](#consequential-runtime-responsibility). A Judgment Node may perform Input Interpretation, Decision Logic, Output Mediation, or a combination. Its purpose, inputs, authority, applicable Constraints, evidence, failure handling, and ownership should be visible enough to review and operate.
 
 ### Input Interpretation
 

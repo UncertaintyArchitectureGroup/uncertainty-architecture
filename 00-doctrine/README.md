@@ -41,7 +41,7 @@ canonical_for:
 
 ## Purpose
 
-This module defines the conceptual foundation used throughout Uncertainty Architecture. It establishes how to reason about **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
+This module defines the conceptual foundation used throughout Uncertainty Architecture. It establishes how to reason about **Thinking Systems**: software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. Category membership identifies the changed engineering object; control adequacy and production readiness are separate questions.
 
 The doctrine provides the shared mental model needed to discuss uncertainty without treating model behavior as ordinary deterministic code or uncontrollable magic.
 
@@ -52,7 +52,7 @@ This module defines or develops:
 - Thinking Systems;
 - deterministic responsibilities and Model Judgment;
 - the Uncertainty Boundary;
-- the controlled-object shift created when consequential runtime behavior is produced through Model Judgment;
+- the controlled-object shift created when a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment;
 - product, operational, and runtime-judgment uncertainty as related but distinct problems;
 - UA as a control lifecycle complementing product discovery, iterative delivery, DevOps, QA, security, and incident response;
 - organizational, project, delivery, and runtime decision levels;
@@ -83,9 +83,10 @@ Operational checklists, decision flows, practical records, and implementation ex
 
 ## Key concepts
 
-- **Thinking System** — a software system whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
+- **Thinking System** — a software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.
+- **Consequential Runtime Responsibility** — a runtime responsibility whose output, decision, path, action, or downstream state has material causal relevance to an outcome, boundary, authority exercise, resource use, or downstream person/system; the responsibility may be deterministic or model-mediated, and the term **consequential** does not define a risk tier.
 - **Deterministic Core** — rules, Invariants, permissions, data handling, and other responsibilities that must remain explicitly controlled.
-- **Model Judgment** — interpretation, synthesis, classification, generation, planning, or action selection under uncertainty.
+- **Model Judgment** — interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty.
 - **Controlled-object shift** — the change created when the engineered system itself produces consequential runtime uncertainty.
 - **Nested Control Lifecycle** — the organizational, project, delivery, and runtime decision structure through which authoritative Constraints and capabilities flow downward and invalidating evidence flows upward.
 - **Control-Loop Capability Anatomy** — four capability families: Constraints and their realizations, Sensors and evidence, Controllers and decision authority, and Actuators and corrective action.
@@ -114,7 +115,7 @@ Canonical wording belongs to the [`glossary`](glossary.md). Undefined or unresol
 
 - [`01-patterns/project-control-architecture-and-viability-review.md`](../01-patterns/project-control-architecture-and-viability-review.md) operationalizes project risk, Constraint architecture, capability feasibility, economics, authorization, and reauthorization.
 - [`01-patterns/thinking-system-review.md`](../01-patterns/thinking-system-review.md) operationalizes delivery realization, DoR, DoD, Release Gate, and reassessment.
-- [`01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) makes consequential Model Judgment explicit and bounded.
+- [`01-patterns/judgment-node-boundary.md`](../01-patterns/judgment-node-boundary.md) makes Judgment Nodes that perform or materially influence Consequential Runtime Responsibilities explicit and bounded.
 - [`02-ai-control-plane/`](../02-ai-control-plane/) develops Constraints and their realizations, Sensors, Controllers, Actuators, and implementation-oriented guidance.
 - [`03-reference-architectures/`](../03-reference-architectures/) demonstrates possible compositions.
 - [`04-failure-modes/`](../04-failure-modes/) records recurring loss-of-control mechanisms.
