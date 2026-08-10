@@ -10,9 +10,11 @@
 
 ## Engineering at the AI–Code Boundary
 
-**Uncertainty Architecture** is an open doctrine and pattern language for building and operating software in which part of runtime behavior is delegated to **probabilistic Model Judgment**, while consequential deterministic responsibilities, approved Constraints, evidence, decision rights, and corrective mechanisms remain explicit.
+**Uncertainty Architecture** is an open doctrine and pattern language for building and operating **Thinking Systems**: software in which one or more [**Consequential Runtime Responsibilities**](00-doctrine/glossary.md#consequential-runtime-responsibility) depend partly on **probabilistic Model Judgment** rather than being fully specified through explicitly encoded logic in advance. UA provides the engineering structure for keeping consequential deterministic responsibilities, approved Constraints, evidence, decision rights, and corrective mechanisms explicit and connected around that judgment.
 
 UA is designed primarily for small and medium-sized engineering organizations that need practical control without building a large governance bureaucracy.
+
+In UA, **consequential** describes whether a runtime responsibility has material causal relevance to what the system does or affects, regardless of whether that responsibility is implemented deterministically or through Model Judgment. Thinking-System classification changes only when at least one such responsibility depends partly on probabilistic Model Judgment. The term **consequential** is not a synonym for high risk, harm, autonomy, regulation, or production readiness.
 
 ## Why UA Exists
 
@@ -28,7 +30,7 @@ A Thinking System delegates part of runtime interpretation, synthesis, planning,
 y ~ P(y | x, context, model configuration)
 ```
 
-Some consequential behavior is therefore generated during operation rather than fully enumerated in advance. This changes the controlled object itself.
+Some consequential behavior is therefore generated during operation rather than fully enumerated in advance. This changes the controlled object itself. The category begins when at least one Consequential Runtime Responsibility depends partly on probabilistic Model Judgment; it does not require agents, dynamic orchestration, or advanced autonomy.
 
 UA complements product discovery, Agile, DevOps, QA, security, change management, and incident response with a project-to-runtime control lifecycle for model-mediated behavior.
 

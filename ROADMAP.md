@@ -55,7 +55,7 @@ The objective is to consolidate research into a coherent, bounded specification.
 
 - Research, history, and raw-source namespaces are separated.
 - Specification boundary, status model, metadata, glossary, roadmap, changelog, and AI-contributor guidance exist.
-- **Thinking Systems** is the current system-category term.
+- **Thinking Systems** is the current system-category term; category membership is based on whether at least one **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment and is distinct from control completeness or production readiness.
 - Requirements, Operating Envelopes, Correctness, Bugs, and diagnostic sources are defined.
 - Model Judgment Placement distinguishes Input Interpretation, Decision Logic, and Output Mediation without prescribing a pipeline.
 - The Judgment Node Boundary, project review, and delivery review are established.

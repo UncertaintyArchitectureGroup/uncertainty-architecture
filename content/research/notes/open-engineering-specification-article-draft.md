@@ -1,5 +1,5 @@
 ---
-title: "Uncertainty Architecture: Engineering Thinking Systems That Produce Consequential Judgment"
+title: "Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities"
 artifact_type: research-note
 status: research
 maturity: draft
@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-08-04
-updated: 2026-08-05
+updated: 2026-08-10
 language: en
 license: CC-BY-4.0
 draft: true
@@ -41,15 +41,15 @@ source_basis:
   - designing-nondeterministic-systems-source-intake.md
 ---
 
-# Uncertainty Architecture: Engineering Thinking Systems That Produce Consequential Judgment
+# Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities
 
 ## Abstract
 
 Software engineering repeatedly expands when an important source of uncertainty can no longer remain outside the engineering model. **Plan-driven development (including Waterfall)** attempts to reduce requirement and design uncertainty before implementation. **Iterative delivery (including Agile and related approaches)** accepts that product understanding changes through use and shortens the distance to feedback. **Modern operations (commonly associated with DevOps)** accepts that production conditions cannot be reproduced exhaustively before release and extends engineering into runtime through observability, progressive delivery, and recovery.
 
-This paper introduces **Thinking Systems** as a distinct engineering category: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit. The category is not synonymous with agentic software and is independent of orchestration topology. A fixed or linear workflow that otherwise meets the Thinking System definition remains a Thinking System when one or more consequential steps delegate interpretation, planning, generation, routing, or action selection to Model Judgment; an agent label or dynamic control flow alone does not determine the category.
+This paper introduces **Thinking Systems** as a distinct engineering category: software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. The term names the changed engineering object, not a maturity level or architecture style. Fixed or dynamic orchestration, agent labels, autonomy, and delegated authority are separate dimensions; a simple predefined workflow can already be a Thinking System when at least one **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
 
-Thinking Systems move consequential uncertainty inside the controlled object. Once that happens, model quality and observability are no longer sufficient descriptions of the engineering problem. For a consequential Thinking System, an incomplete control architecture means the application is not ready for consequential production release even when the model and code pass local tests. Governance becomes operational only through the active socio-technical control architecture spanning organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment. This paper derives the capability families and decision levels required by that shift and shows how they can be expressed through a small number of living engineering artifacts.
+Thinking Systems move consequential uncertainty inside the controlled object. Once that happens, model quality and observability are no longer sufficient descriptions of the engineering problem. For production use of a Thinking System, an incomplete control architecture means the application is not ready for production release at the intended scope even when the model and code pass local tests. Governance becomes operational only through the active socio-technical control architecture spanning organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment. This paper derives the capability families and decision levels required by that shift and shows how they can be expressed through a small number of living engineering artifacts.
 
 ## 1. Engineering Evolves Around Dominant Uncertainty
 
@@ -63,26 +63,26 @@ The pattern is not a clean historical sequence, and none of the approaches below
 
 **Modern operations (commonly associated with DevOps)** exposes another limit. Even a well-understood feature cannot be exhaustively validated against every production combination of traffic, infrastructure, device, operating system, dependency, configuration, user behavior, and failure condition. Engineering therefore extends beyond release. Telemetry, progressive delivery, canary exposure, rollback, resilience, and incident response make production behavior part of the evidence used to operate and improve the system.
 
-Thinking Systems add a distinct source of uncertainty. The uncertainty is not only in what should be built or in the environment in which software runs. It also appears in the runtime selection or construction of behavior inside the software boundary.
+Thinking Systems add a distinct source of uncertainty. The uncertainty is not only in what should be built or in the environment in which software runs. It also appears in the runtime selection or construction of behavior inside the software boundary. **This is the engineering problem Uncertainty Architecture is designed to address: how to build and operate systems that use probabilistic Model Judgment without surrendering explicit boundaries, evidence, decision authority, and corrective control.**
 
 ```mermaid
 flowchart LR
     W["Plan-driven engineering (Waterfall)<br/>dominant concern: requirement and design uncertainty<br/>response: reduce uncertainty before implementation"]
     A["Iterative delivery (Agile and related approaches)<br/>dominant concern: product-learning uncertainty<br/>response: shorten delivery and feedback cycles"]
     D["Modern operations (DevOps)<br/>dominant concern: production-condition uncertainty<br/>response: observe, expose progressively, recover"]
-    T["Thinking-System engineering<br/>new concern: runtime judgment uncertainty<br/>response required: bounded control of a changed object"]
+    T["Thinking-System engineering<br/>new concern: runtime judgment inside the object<br/>response: bounded control of the changed object"]
 
     W --> A --> D --> T
 ```
 
-**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** Waterfall, Agile, and DevOps are shown as familiar examples of the broader plan-driven, iterative-delivery, and modern-operations responses. The progression is conceptual, not replacement history.
+**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** The final transition is the problem space addressed by Uncertainty Architecture: engineering and operating systems in which consequential behavior is partly produced through probabilistic Model Judgment inside the software boundary. Waterfall, Agile, and DevOps are shown as familiar examples of the broader plan-driven, iterative-delivery, and modern-operations responses. The progression is conceptual, not replacement history.
 
 | Characteristic engineering response | Uncertainty emphasized | Primary mechanism | Where decisive feedback appears |
 |---|---|---|---|
 | Plan-driven development (including Waterfall) | Requirements, design, coordination | Analysis and planning | Primarily before and during implementation |
 | Iterative delivery (including Agile and related approaches) | Product understanding and value | Short delivery and learning cycles | Between iterations and releases |
 | Modern operations (commonly associated with DevOps) | Production conditions and system behavior | Runtime telemetry, progressive exposure, and recovery | During operation |
-| Thinking-System control | Probabilistic runtime judgment and its consequences | Bounded authority, evidence, correction, and reassessment | Inside and around the active controlled object |
+| Thinking-System engineering — problem space addressed by Uncertainty Architecture | Model-Judgment-dependent Consequential Runtime Responsibilities and their effects | Bounded control architecture: explicit Constraints, evidence, decision authority, correction, and reassessment | Inside and around the active controlled object |
 
 The table does not imply that requirement uncertainty disappeared after Agile or that operational uncertainty began with DevOps. The point is cumulative. Each expansion preserves earlier responsibilities while adding mechanisms for uncertainty that became too important to leave outside the engineering model.
 
@@ -90,38 +90,44 @@ The table does not imply that requirement uncertainty disappeared after Agile or
 
 In this paper, a **Thinking System** is:
 
-> A software system whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
+> A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.
 
-**Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, or action selection performed through a probabilistic model under uncertainty. It is useful precisely because the required behavior cannot always be exhaustively encoded in advance.
+This paper calls a runtime responsibility a **Consequential Runtime Responsibility** when its output, decision, path, action, or downstream state can materially affect an intended outcome, satisfaction of an applicable Requirement or Constraint, the exercise of delegated authority, resource use, or a person or system downstream. **Consequential describes material causal relevance, not implementation mechanism or risk severity.** A Consequential Runtime Responsibility may be fulfilled entirely through explicitly encoded logic or may depend partly on probabilistic Model Judgment; Thinking-System classification changes only in the latter case. Harm, severity, likelihood, autonomy, regulation, control adequacy, and production readiness are separate questions. A model invocation with no material influence on any Consequential Runtime Responsibility does not establish the category by itself.
 
-The term identifies a responsibility structure, not a product category or marketing label. A Thinking System remains a mixed system. Probabilistic judgment may appear at one bounded point or many, while identity, permissions, transactions, state transitions, audit, safety boundaries, and other consequential responsibilities remain deterministic.
+The definition identifies the changed engineering object; it does not certify control adequacy. A Thinking System can be well controlled, poorly controlled, or not ready for production. Constraints, evidence, decision rights, and corrective mechanisms are part of the engineering response UA expects around Model-Judgment-dependent Consequential Runtime Responsibilities, not the condition that makes the category exist.
 
-The category must not be collapsed into "agentic application," and linear orchestration is not an exclusion criterion. The distinction from Linear Software asks how consequential runtime responsibility is produced, not whether a workflow follows a fixed sequence or chooses its next step dynamically. A project planner can execute a predefined path—generate requirements, build a plan, identify risks, and draft work items—and still be a Thinking System when an LLM performs those responsibilities through Model Judgment and the rest of the Thinking System definition is satisfied. Deterministic orchestration before, between, or after those steps does not make the delegated judgment deterministic. Autonomy and delegated authority are additional dimensions separate from both Model Judgment and fixed-versus-dynamic orchestration. A system described as agentic may therefore use either topology; the exact boundary of agentic terminology remains an open research question rather than a test for Thinking-System classification. Only software whose relevant decisions and outputs remain explicitly encoded, with no consequential responsibility delegated to probabilistic Model Judgment, is Linear Software.
+The word **Thinking** is functional rather than anthropomorphic. It does not claim consciousness or human-like cognition; it gives engineering a stable name for software in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment.
+
+**Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. It is useful precisely because the required behavior cannot always be exhaustively encoded in advance.
+
+The category must not be collapsed into "agentic application." The classification question is narrower: does any **Consequential Runtime Responsibility** depend partly on probabilistic Model Judgment? If not, the relevant **Consequential Runtime Responsibility** remains explicitly encoded and the software remains Linear Software even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Deterministic code before, between, or after that judgment does not make the delegated judgment deterministic. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. The precise boundary of agentic terminology remains an open research question.
 
 ```mermaid
-flowchart LR
-    subgraph F["Fixed or explicitly orchestrated workflow"]
-        direction TB
-        FL["Explicitly encoded responsibility<br/>fixed path<br/>Linear Software"]
-        FT["Workflow meeting the Thinking System definition<br/>fixed path with consequential<br/>probabilistic Model Judgment"]
+flowchart TB
+    subgraph I["Independent dimensions — they affect architecture and risk, not category membership"]
+        direction LR
+        O["Orchestration topology<br/>fixed ↔ dynamic"]
+        A["Autonomy<br/>low ↔ high"]
+        D["Delegated authority<br/>narrow ↔ broad"]
     end
 
-    subgraph D["Dynamically selected or adaptive workflow"]
-        direction TB
-        DL["Explicitly encoded responsibility<br/>dynamic path selected by deterministic rules<br/>Linear Software"]
-        DT["Workflow meeting the Thinking System definition<br/>dynamic path with consequential<br/>probabilistic Model Judgment"]
-    end
+    Q{"Classification question:<br/>Does any Consequential Runtime Responsibility<br/>depend partly on probabilistic Model Judgment?"}
+    L["No → Linear Software<br/>relevant Consequential Runtime Responsibility<br/>remains explicitly encoded"]
+    T["Yes → Thinking System<br/>part of consequential behavior<br/>is formed through runtime Model Judgment"]
 
-    FL ~~~ DL
-    FT ~~~ DT
+    O -. does not decide category .-> Q
+    A -. does not decide category .-> Q
+    D -. does not decide category .-> Q
+    Q -->|No| L
+    Q -->|Yes| T
 
     classDef thinking fill:#eef6ff,stroke:#3367a8,stroke-width:2px;
-    class FT,DT thinking;
+    class T thinking;
 ```
 
-**Figure 2 — Orchestration topology and responsibility basis are independent dimensions.** Fixed and dynamically selected workflows can each be Linear Software or Thinking Systems. In the lower cells, Thinking System means that the complete definition is satisfied; the visible distinction is that consequential runtime responsibility includes probabilistic Model Judgment rather than remaining entirely explicitly encoded. Autonomy and delegated authority are additional dimensions not shown; systems described as agentic may use either fixed or dynamic orchestration.
+**Figure 2 — Thinking-System classification turns on whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment, not workflow topology or autonomy.** Fixed and dynamic workflows can fall on either side of the category boundary. The category changes when a **Consequential Runtime Responsibility** is no longer fully specified through explicitly encoded logic and instead depends partly on probabilistic Model Judgment. Autonomy and delegated authority remain additional dimensions that affect risk and control design rather than classification.
 
-A Thinking System still requires product discovery, deterministic software engineering, testing, security, deployment discipline, observability, and incident response. The new category does not invalidate those practices. It changes the object they are controlling.
+Thinking-System engineering still requires product discovery, deterministic software engineering, testing, security, deployment discipline, observability, and incident response. The new category does not invalidate those practices. It changes the object they are controlling.
 
 A team can adopt all of those practices and still lack a governable system. It may have a production model, retrieval or tools, traces, evaluation suites, policies, human approval, and a pilot deployment. Each component can be competent. The dashboard may be green. The demo may be impressive. The complete system may still lack a defensible connection between what the organization permits, what the project authorizes, what the delivery team has realized, what runtime evidence means, and what action follows when assumptions fail.
 
@@ -131,7 +137,7 @@ This is a practitioner observation about fragmentation, not a claim that governa
 
 Without the connection, local confidence is easily substituted for system control. A good evaluation score becomes evidence that the product is ready. A prompt becomes a policy. A policy becomes a supposed control. A human-in-the-loop label becomes evidence of accountability. A rollback button becomes evidence that recovery is possible. Each substitution may be understandable, and each may be wrong.
 
-> **Release-readiness consequence.** For a consequential Thinking System, these are not gaps that can be delegated to a post-release governance review. If the complete control architecture is absent across organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment, the application is not ready for consequential production release. Governance becomes operational through that socio-technical stack; it is not a document layered over the system. The stack makes the system bounded, observable, correctable, and reauthorizable.
+> **Release-readiness consequence.** For production use of a Thinking System, these are not gaps that can be delegated to a post-release governance review. If the complete control architecture is absent across organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment, the application is not ready for production release at the intended scope. Governance becomes operational through that socio-technical stack; it is not a document layered over the system. The stack makes the system bounded, observable, correctable, and reauthorizable.
 
 > **Previous engineering methods learned to manage uncertainty surrounding software. Thinking Systems require engineering to manage consequential uncertainty produced by the software itself.**
 
@@ -141,7 +147,30 @@ The missing layer is not another AI component. It is the engineering connection 
 
 A controlled object is the thing whose behavior engineering seeks to keep within acceptable conditions. In software, that object is never only source code. It includes deployed components, data, configuration, dependencies, users, infrastructure, operational processes, and the effects the system can create.
 
-Thinking Systems change this object by placing consequential Model Judgment inside it.
+Thinking Systems change this object by making one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment.
+
+The term **Thinking System** is introduced to name this changed engineering object, not a future maturity stage of AI software. The boundary can be crossed in the first model-enabled iteration. A project-planning workflow, for example, may still follow a predefined sequence—interpret a brief, generate requirements, construct a plan, identify risks, and draft work items. If at least one of those responsibilities is a **Consequential Runtime Responsibility** and depends partly on probabilistic Model Judgment, the application already contains the changed object that UA is concerned with. Later versions may add tools, memory, dynamic routing, multiple models, cooperating agents, or greater autonomy. Those changes can increase complexity and control demand, but they do not create the category; the category began when a **Consequential Runtime Responsibility** first depended partly on probabilistic Model Judgment.
+
+The distinction matters because engineering needs a stable name for the thing being designed, released, operated, and controlled. In Linear Software, relevant **Consequential Runtime Responsibilities** are fully specified before runtime through inspectable code, rules, or state transitions. In a Thinking System, part of the mapping from situation to consequential behavior is completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively specifies the behavior that matters.
+
+Uncertainty Architecture therefore treats the **whole Thinking System—not the model call—as the controlled object**. The engineering problem is to preserve useful judgment while making the surrounding deterministic responsibilities, Constraints, evidence, decision authority, and corrective mechanisms explicit enough to keep that object within acceptable conditions.
+
+### Why not simply call these AI systems?
+
+Because the broader labels answer different engineering questions. [ISO/IEC TR 29119-11:2020](https://www.iso.org/standard/79016.html) defines an **AI-based system** as a system that includes at least one AI component. [NIST AI RMF 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) uses a broader **AI system** concept centered on machine-generated outputs that influence real or virtual environments. Both scopes are useful, but neither uses the narrower responsibility boundary required here: whether **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
+
+A conventional application can therefore qualify under a broad AI-system label while no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment. Conversely, a simple fixed workflow can cross the Thinking-System boundary as soon as requirement generation, planning, risk identification, output mediation, or another **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
+
+| Neighboring label | What it primarily signals in this comparison | Why it does not provide the UA boundary |
+|---|---|---|
+| **AI-based system (ISO/IEC TR 29119-11)** | Presence of at least one AI component | Component presence alone does not say whether any **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment |
+| **AI system (NIST AI RMF)** | An engineered or machine-based system that, for a given set of objectives, generates outputs influencing real or virtual environments | Broader system scope; it does not classify by whether any **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment |
+| **LLM application** | Use of a particular model technology | Implementation-specific; it does not say what consequential responsibility the model carries |
+| **Agentic system** | Agency-oriented behavior or orchestration | Agentic terminology raises autonomy and authority questions that are separate from the Thinking-System category test |
+| **Autonomous system** | Degree of independent operation | Autonomy changes risk and control demand but does not establish whether any **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment |
+| **Thinking System (UA usage)** | Consequential runtime responsibility depends partly on probabilistic Model Judgment | Directly identifies the changed engineering object that UA seeks to control |
+
+This table is an analytical comparison, not a claim that every field uses each neighboring label identically. **Thinking System** is not proposed as a replacement for *AI system*. It is a UA engineering category with a more specific responsibility boundary for identifying when the controlled object changes in the specific way addressed by the rest of this paper.
 
 A responsibility implemented through explicitly encoded deterministic logic is designed to behave as:
 
@@ -166,12 +195,12 @@ flowchart LR
     subgraph A["Primarily explicitly encoded runtime responsibility"]
         direction TB
         A1[External input and operating conditions]
-        A2[Deterministic decision and action responsibilities]
+        A2[Deterministic consequential responsibilities]
         A3[Output, action, or downstream state]
         A1 --> A2 --> A3
     end
 
-    subgraph B["Thinking System boundary"]
+    subgraph B["Controlled Thinking System — UA target structure"]
         direction TB
         B1[External input and operating conditions]
         B2[Deterministic responsibilities before Model Judgment]
@@ -189,7 +218,7 @@ flowchart LR
     class J1 judgment;
 ```
 
-**Figure 3 — The controlled-object shift.** Two vertical responsibility structures are placed side by side for direct comparison. On the left, consequential runtime behavior is produced through an explicitly encoded deterministic chain. On the right, a Thinking System remains mixed, but the internal responsibility structure changes: deterministic responsibilities surround one or more bounded Judgment Nodes, and deterministic validation, authority, and execution remain explicit after them. The red-highlighted blocks identify the responsibilities introduced or structurally changed by the presence of Model Judgment; they do not imply that the whole Thinking System is probabilistic or unsafe.
+**Figure 3 — The controlled-object shift.** Two vertical responsibility structures are placed side by side for direct comparison. On the left, consequential runtime behavior is produced through an explicitly encoded deterministic chain. On the right, the article shows the control structure UA seeks to make explicit around a Thinking System: deterministic responsibilities surround one or more bounded Judgment Nodes, with validation, authority, and execution kept explicit after them. The red-highlighted blocks identify responsibilities whose control boundary changes because Model Judgment is present; they do not imply that the whole Thinking System is probabilistic or unsafe. The right-hand structure is an engineering target for controlled production use, not a condition for category membership.
 
 Model Judgment can affect a workflow through several functional placements.
 
@@ -237,7 +266,7 @@ flowchart LR
     R["Requirements and product assumptions<br/>uncertainty about what should be built"]
     O["Environment and operation<br/>uncertainty about where and how it runs"]
     J["Runtime Model Judgment<br/>uncertainty produced inside execution"]
-    S["Thinking System<br/>mixed deterministic and probabilistic responsibilities"]
+    S["Thinking System<br/>consequential behavior partly formed<br/>through probabilistic Model Judgment"]
 
     R --> S
     O --> S
@@ -414,7 +443,7 @@ flowchart LR
 
 **Figure 8 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions.
 
-What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. It becomes operational through the complete socio-technical control architecture formed by these capabilities across the decision levels developed next. Until that architecture has credible boundaries, evidence, authority, effective Actuators, Human Authority and fallback where needed, and a path for reassessment, the application may be demonstrable or testable, but it is not ready for consequential production release.
+What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. It becomes operational through the complete socio-technical control architecture formed by these capabilities across the decision levels developed next. Until that architecture has credible boundaries, evidence, authority, effective Actuators, Human Authority and fallback where needed, and a path for reassessment, the application may be demonstrable or testable, but it is not ready for production release at the intended scope.
 
 The distinction matters because a loop can be technically closed and still unacceptable. The relevant question is not only whether the system learns from feedback, but whether operation remains inside an approved, credibly realized, observable, and correctable boundary—and whether evidence can force reconsideration when that boundary or its assumptions no longer hold.
 
@@ -641,19 +670,3 @@ This routing prevents two opposite failures. The first is escalation theater, wh
 The levels form a nested lifecycle rather than a waterfall. Higher-level authority and Constraints flow downward by reference and become more concrete in delivery and runtime realization. Evidence flows upward when it invalidates an earlier basis. Lower levels may refine and narrow. They may not silently expand authority, weaken an inherited Hard Constraint, or normalize evidence that the project is no longer viable.
 
 The capability anatomy and decision levels now define the conceptual center of the engineering problem. The next practical question is how a small team can preserve these distinctions without maintaining four governance processes and a cemetery of synchronized documents.
-
-## 5. From Authority to Operation: Two Living Reviews
-
-*Draft pending in a later article block.*
-
-## 6. One Constraint Across the Full Lifecycle
-
-*Draft pending in a later article block.*
-
-## 7. What Platforms Can Implement — and What Authority They Do Not Acquire by Default
-
-*Draft pending in the final article block.*
-
-## 8. From Thinking Systems to Uncertainty Architecture
-
-*Draft pending in the final article block. This section will introduce Uncertainty Architecture only after the engineering problem, capability anatomy, decision levels, operating artifacts, and worked lifecycle trace have been established. It will present the current repository state, limits, openness, and validation request without retroactively turning the preceding argument into product promotion.*

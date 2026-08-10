@@ -43,9 +43,9 @@ canonical_for:
 
 This document defines the normative boundary and document structure of Uncertainty Architecture.
 
-UA is an open specification for designing and governing **Thinking Systems**: software whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, approved Constraints, evidence, decision rights, and corrective mechanisms remain explicit.
+UA is an open specification for designing and governing **Thinking Systems**: software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.
 
-UA treats reliability and governance as system properties produced by Requirements, approved Constraints and their realizations, observable behavior, decision authority, effective Actuators, viable control economics, and controlled change rather than by model quality alone.
+The category identifies the changed controlled object; it does not imply that the object is adequately controlled or ready for production. UA treats reliability and governance as system properties produced by Requirements, approved Constraints and their realizations, observable behavior, decision authority, effective Actuators, viable control economics, and controlled change rather than by model quality alone.
 
 This file indexes the specification. It does not duplicate the detailed content of the modules it references.
 
@@ -53,7 +53,7 @@ This file indexes the specification. It does not duplicate the detailed content 
 
 The specification covers:
 
-- the controlled-object shift created by consequential runtime Model Judgment;
+- the controlled-object shift created when a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment;
 - deterministic responsibilities, Model Judgment, and Uncertainty Boundaries;
 - the [`organizational, project, delivery, and runtime decision levels`](00-doctrine/nested-control-lifecycle.md);
 - [`Constraints and their realizations, Sensors, Controllers, and Actuators as four logical capability families`](00-doctrine/control-loop-anatomy.md);
@@ -120,7 +120,7 @@ The [`Project Control Architecture and Viability Review`](01-patterns/project-co
 
 Its [`template`](01-patterns/project-control-architecture-and-viability-review-template.md) is informative.
 
-The [`Judgment Node Boundary`](01-patterns/judgment-node-boundary.md) owns the reusable boundary around consequential Model Judgment.
+The [`Judgment Node Boundary`](01-patterns/judgment-node-boundary.md) owns the reusable boundary around Judgment Nodes that perform or materially influence Consequential Runtime Responsibilities.
 
 The [`Thinking System Review`](01-patterns/thinking-system-review.md) owns delivery-level Judgment Nodes, Requirement, one canonical Constraint Realization Map, DoR, DoD, Release Gate, and local reassessment.
 
@@ -185,7 +185,7 @@ UA conformance is currently architectural and operational reasoning, not product
 
 A system or design claiming UA alignment SHOULD be able to identify:
 
-1. where consequential Model Judgment occurs;
+1. where probabilistic Model Judgment performs or materially influences a Consequential Runtime Responsibility;
 2. the placement and authority of each material Judgment Node;
 3. applicable organizational, project, and delivery Constraints;
 4. the source, subject, path, scope, claimed strength, and assumptions of each material Constraint;
@@ -207,7 +207,7 @@ One source condition MUST NOT be represented as one mixed hard/soft Constraint r
 
 ### 7.1 Project-level alignment
 
-For a consequential proposed project, a team SHOULD be able to show an equivalent of:
+For a project proposing production use of a Thinking System, a team SHOULD be able to show an equivalent of:
 
 - intended outcome, AI necessity, and non-AI alternatives;
 - defined project boundary and intended Judgment authority;
@@ -225,7 +225,7 @@ Possible outcomes MAY include authorization, authorization with conditions, boun
 
 ### 7.2 Delivery-level alignment
 
-For consequential delivery work, a team SHOULD be able to show an equivalent of:
+For a bounded delivery scope that introduces, changes, or materially affects a Thinking System's Model-Judgment-dependent Consequential Runtime Responsibilities or their control path, a team SHOULD be able to show an equivalent of:
 
 - a linked project decision and inherited Constraint baseline, or an explicit reason no project baseline exists;
 - an approved Requirement and Operating Envelope;

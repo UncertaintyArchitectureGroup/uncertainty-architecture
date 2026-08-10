@@ -140,8 +140,8 @@ This is an illustrative placement composition only. Any Judgment Node may be abs
 3. One Judgment Node may perform more than one placement function.
 4. One business decision may span several Judgment Nodes and deterministic components.
 5. Deterministic code around a node does not make the node's judgment deterministic.
-6. A fixed, sequential, or explicitly orchestrated workflow that otherwise meets the Thinking System definition remains a Thinking System when one or more consequential steps are Judgment Nodes; orchestration topology does not make delegated Model Judgment deterministic.
-7. A model invocation is not automatically a consequential Judgment Node. The relevant question is whether its judgment can materially change an output, decision, path, or action.
+6. A fixed, sequential, or explicitly orchestrated workflow is a Thinking System when at least one **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment at a Judgment Node; orchestration topology does not make Model Judgment deterministic.
+7. A model invocation is not automatically a consequential Judgment Node. The relevant question is whether Model Judgment at that node performs or materially influences a [Consequential Runtime Responsibility](glossary.md#consequential-runtime-responsibility).
 8. Placement does not determine risk, consequence, authority, or guarantee strength.
 9. Placement classes are orthogonal to both the four decision levels and the four capability families.
 

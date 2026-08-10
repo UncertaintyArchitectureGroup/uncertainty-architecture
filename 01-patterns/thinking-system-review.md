@@ -42,7 +42,7 @@ source_basis:
 
 ## Status
 
-This document is **draft normative**. It defines a lightweight delivery-level pattern for framing, implementing, evaluating, releasing, and reassessing consequential model-mediated work through one living review artifact.
+This document is **draft normative**. It defines a lightweight delivery-level pattern for framing, implementing, evaluating, releasing, and reassessing model-mediated work involving Consequential Runtime Responsibilities through one living review artifact.
 
 The pattern is designed for small and medium-sized engineering teams. It does not require a governance department, a separate Constraint Register, a separate Judgment Node registry, or a separate record for every phase decision.
 
@@ -50,7 +50,7 @@ The pattern is designed for small and medium-sized engineering teams. It does no
 
 ## 1. Context
 
-A Thinking System combines deterministic responsibilities, Model Judgment, Constraints and their realizations, evidence, decision authority, and corrective mechanisms.
+A Thinking System is identified when one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment; the category itself does not certify control adequacy. This pattern makes the surrounding deterministic responsibilities, Constraints and their realizations, evidence, decision authority, and corrective mechanisms explicit and reviewable for a bounded delivery scope.
 
 Conventional engineering practices remain necessary, but they do not automatically make explicit:
 

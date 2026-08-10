@@ -62,7 +62,9 @@ y ~ P(y | x, c, m)
 
 where `c` is relevant context and `m` is the model and behavior-affecting configuration.
 
-A Thinking System remains a mixed system. It contains deterministic obligations, Model Judgment, Constraints and their realizations, evidence, decision authority, and corrective mechanisms. The change is that some consequential runtime behavior is produced through probabilistic judgment inside the engineered object.
+A Thinking System is the changed controlled object created when one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment. The category can therefore appear in a first, simple model-enabled iteration; it does not require agentic autonomy, dynamic orchestration, multiple models, or a mature control architecture.
+
+The change is not that all behavior becomes probabilistic. It is that part of the mapping from situation to consequential behavior is completed at runtime through Model Judgment rather than exhausted by explicitly authored logic. UA engineering then makes the surrounding deterministic obligations, Constraints and their realizations, evidence, decision authority, and corrective mechanisms explicit enough to control that object.
 
 > **Uncertainty is no longer only outside the software. Part of it is produced by the controlled object during operation.**
 
@@ -115,7 +117,7 @@ UA complements rather than replaces existing engineering disciplines.
 
 A successful demonstration does not establish a deployable project architecture.
 
-Before committing to a consequential Thinking System, a project needs a credible account of:
+Before committing a Thinking System to production use, a project needs a credible account of:
 
 - intended outcome and AI necessity;
 - project boundary and material scenarios;

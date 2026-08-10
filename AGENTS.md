@@ -64,7 +64,9 @@ Report genuine contradictions instead of silently choosing one side.
 
 ## 2. Repository mission and SMB default
 
-UA is an open doctrine and pattern language for engineering and operating **Thinking Systems**: software systems whose runtime behavior depends partly on probabilistic Model Judgment while consequential deterministic responsibilities, Constraints, decision rights, evidence, and corrective mechanisms remain explicit.
+UA is an open doctrine and pattern language for engineering and operating **Thinking Systems**: software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. Contributors MUST keep category identification separate from control adequacy: missing Constraints, evidence, decision rights, or corrective mechanisms make a Thinking System inadequately controlled; they do not make it cease to be a Thinking System.
+
+**Consequential Runtime Responsibility** is a classification concept based on the material causal relevance of the responsibility itself, independent of whether it is implemented deterministically or through Model Judgment. Thinking-System classification asks whether at least one such responsibility depends partly on probabilistic Model Judgment. Contributors MUST NOT use **consequential** as a synonym for high-risk, harmful, autonomous, regulated, or production-ready behavior; severity, likelihood, residual exposure, control strength, and release decisions are evaluated separately.
 
 UA is not an SDK, universal agent framework, vendor architecture, prompt collection, evaluation method, compliance certification, or replacement for product discovery, Agile, DevOps, QA, security, change management, or incident response.
 

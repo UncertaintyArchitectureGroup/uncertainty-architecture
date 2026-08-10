@@ -35,11 +35,11 @@ related:
 
 ## Status
 
-This document is **draft normative**. It defines a reusable pattern for making consequential Model Judgment explicit, bounded, observable, and operable without requiring a separate registry or governance system.
+This document is **draft normative**. It defines a reusable pattern for making Judgment Nodes that perform or materially influence Consequential Runtime Responsibilities explicit, bounded, observable, and operable without requiring a separate registry or governance system.
 
 ## 1. Context
 
-A Thinking System may contain one or more locations where Model Judgment influences an output, decision, path, or action. UA calls each bounded location a **Judgment Node**.
+A Thinking System may contain one or more locations where Model Judgment influences an output, decision, path, action, or downstream state. UA calls each bounded location a **Judgment Node**.
 
 The model call is rarely the complete boundary. Effective behavior also depends on:
 
