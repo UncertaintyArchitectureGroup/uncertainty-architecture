@@ -240,9 +240,6 @@ flowchart TB
     MJ --> I
     MJ --> D
     MJ --> O
-
-    I ~~~ D
-    D ~~~ O
 ```
 
 **Figure 4 — Functional placement of Model Judgment.** Model Judgment is shown as the parent concept; Input Interpretation, Decision Logic, and Output Mediation are three functional placements beneath it. They are not mandatory stages or a prescribed execution order. A system may use one, several, or repeated instances of them, and each placement changes the controlled object in a different way.
