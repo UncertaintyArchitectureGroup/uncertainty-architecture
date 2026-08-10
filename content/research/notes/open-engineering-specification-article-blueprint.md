@@ -424,9 +424,11 @@ The figure must not imply that:
 
 - functional placement of Model Judgment, with **Model Judgment** above and **Input Interpretation**, **Decision Logic**, and **Output Mediation** aligned horizontally beneath it;
 - connected locations of requirement, operational, and runtime-judgment uncertainty;
-- one controlled object viewed across four decision horizons, rendered as one centered vertical decision-horizon spine in the canonical order Organization → Project / Architecture → Delivery → Runtime, with a separate upward reassessment lane preserving direct Runtime-to-Delivery, Runtime-to-Project / Architecture, and Runtime-to-Organization routes.
+- one controlled object viewed across four decision horizons, rendered as one centered vertical decision-horizon spine in the canonical order Organization → Project / Architecture → Delivery → Runtime. A single Runtime evidence node sits beneath Runtime. Direct dotted return routes lead from that evidence to Delivery, Project / Architecture, or Organization, with the invalidated decision basis written on the route itself. Reassessment criteria are routing conditions, not standalone architectural components or a separate subsystem.
 
 The Model Judgment placement figure is a taxonomy, not a sequence. It must not connect the three placement categories laterally in a way that implies a mandatory pipeline.
+
+For the four-horizon figure, keep each horizon block focused on the decision it owns rather than listing every responsibility. Downward edges should show authority and Constraints becoming more concrete. The caption must state that the figure shows decision ownership and reassessment routing, not a four-stage delivery workflow.
 
 **Repository anchors:**
 
@@ -949,7 +951,7 @@ Supporting figures currently expected:
 - Thinking Systems category boundary;
 - Model Judgment placement, with Model Judgment above and the three placement categories in one horizontal row beneath it;
 - connected uncertainty locations;
-- one controlled object across four decision horizons, with all four horizon blocks centered in one vertical line;
+- one controlled object across four decision horizons, with all four horizon blocks centered in one vertical line, one Runtime evidence node beneath them, and direct return routes to the level whose decision basis is invalidated; reassessment criteria belong on those routes rather than in a separate lane of component-like boxes;
 - closed feedback loop;
 - complete bounded control architecture;
 - organizational influence architecture;
@@ -1091,7 +1093,7 @@ Every article-writing PR must satisfy all of the following:
 - [ ] The consequence of an incomplete cross-level control architecture is explicit, scoped to readiness for production release at the intended scope, and visually emphasized once as a central engineering thesis without duplicating the argument.
 - [ ] Figure 3 places two vertical top-to-bottom responsibility diagrams side by side and uses restrained red treatment on the changed Thinking System blocks without implying that the entire system is probabilistic.
 - [ ] Figure 4 places Model Judgment above Input Interpretation, Decision Logic, and Output Mediation, with the three placements aligned horizontally and no implied mandatory sequence.
-- [ ] Figure 6 keeps Organization, Project / Architecture, Delivery, and Runtime in one centered vertical spine, preserves the downward inheritance labels, and shows separate upward reassessment routes from Runtime to the level that owns the invalidated decision.
+- [ ] Figure 6 keeps Organization, Project / Architecture, Delivery, and Runtime in one centered vertical spine, preserves concise downward inheritance labels, places one Runtime evidence node beneath Runtime, and routes invalidating evidence directly back to the owning decision level with the invalidated basis on the return edge rather than in a separate reassessment subsystem.
 - [ ] The decision-horizon bridge uses short bold-labeled paragraphs and keeps control-architecture design inside the project / architecture level.
 - [ ] Every major new argument has an appropriate figure or an explicit reason why prose is clearer.
 - [ ] All figures were reviewed as one visual sequence and renumbered consistently.
