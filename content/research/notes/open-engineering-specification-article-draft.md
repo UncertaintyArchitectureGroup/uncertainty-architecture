@@ -233,17 +233,16 @@ These are placement functions, not a mandatory three-stage architecture.
 ```mermaid
 flowchart TB
     MJ["Model Judgment"]
-
-    subgraph P["Functional placements"]
-        direction LR
-        I["Input Interpretation<br/>what does the input mean?"]
-        D["Decision Logic<br/>which path, plan, tool, or action?"]
-        O["Output Mediation<br/>what is communicated or transformed?"]
-    end
+    I["Input Interpretation<br/>what does the input mean?"]
+    D["Decision Logic<br/>which path, plan, tool, or action?"]
+    O["Output Mediation<br/>what is communicated or transformed?"]
 
     MJ --> I
     MJ --> D
     MJ --> O
+
+    I ~~~ D
+    D ~~~ O
 ```
 
 **Figure 4 — Functional placement of Model Judgment.** Model Judgment is shown as the parent concept; Input Interpretation, Decision Logic, and Output Mediation are three functional placements beneath it. They are not mandatory stages or a prescribed execution order. A system may use one, several, or repeated instances of them, and each placement changes the controlled object in a different way.
