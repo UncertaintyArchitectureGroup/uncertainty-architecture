@@ -1,0 +1,103 @@
+name: Temporary blueprint semantic fix
+
+on:
+  push:
+    branches:
+      - research/map-adjacent-landscape
+
+permissions:
+  contents: write
+
+jobs:
+  patch-blueprint:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/map-adjacent-landscape
+          fetch-depth: 0
+
+      - name: Apply reviewed semantic fixes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          text = path.read_text(encoding='utf-8')
+
+          replacements = [
+              (
+                  'The paper proposes a coherent engineering model for reasoning about and operating Thinking Systems from organizational authority and project viability through delivery release and runtime reassessment, tests that model against the adjacent tool/framework landscape, and identifies Uncertainty Architecture as the open draft specification in which that model is being developed.',
+                  'The paper proposes a coherent engineering model for reasoning about and operating Thinking Systems from organizational authority and project viability through delivery release and runtime reassessment, examines that model through a structured mapping and substitution analysis against the adjacent tool/framework landscape, and identifies Uncertainty Architecture as the open draft specification in which that model is being developed.'
+              ),
+              (
+                  '**Purpose:** Introduce UA only after the engineering model has been derived **and tested against the adjacent landscape**, explain what the repository currently contains, and state the conceptual contribution without making one template, tool, vendor comparison, or worked example the identity of the framework.',
+                  '**Purpose:** Introduce UA only after the engineering model has been derived **and examined through structured comparison with the adjacent landscape**, explain what the repository currently contains, and state the conceptual contribution without making one template, tool, vendor comparison, or worked example the identity of the framework.'
+              ),
+              (
+                  '### 5.6 The Existing Landscape: What Current Approaches Solve — and What Remains Unowned',
+                  '### 5.6 The Existing Landscape: What Current Approaches Solve — and What Still Must Be Connected'
+              ),
+              (
+                  'Existing approaches cover substantial parts of the Thinking-System control problem, sometimes very well. Their blind spots arise primarily at the boundaries between **capability, authority, lifecycle decision ownership, guarantee strength, evidence routing, and economics**. UA is intended to provide a common map across those boundaries rather than replace the tools, standards, research, or organizational processes that already implement pieces of them.',
+                  'Existing approaches cover substantial parts of the Thinking-System control problem, sometimes very well. The remaining integration burden arises primarily at the boundaries between **capability, authority, lifecycle decision ownership, guarantee strength, evidence routing, and economics**. UA is intended to provide a common map across those boundaries rather than replace the tools, standards, research, or organizational processes that already implement pieces of them.'
+              ),
+              (
+                  '> **Adjacent approaches mapped onto the UA operating map. Coverage indicates where an approach can contribute capabilities, obligations, evidence, or decision support; it does not imply inferiority, exclusivity, or that UA itself implements those functions. Blind spots identify responsibilities that normally remain outside the approach\'s scope and must be supplied elsewhere in the system.**',
+                  '> **Adjacent approaches mapped onto the UA operating map. Coverage indicates where an approach can contribute capabilities, obligations, evidence, or decision support; it does not imply inferiority, exclusivity, or that UA itself implements those functions. Outside-scope areas identify responsibilities that must be supplied elsewhere in the system when they are material to the controlled object.**'
+              ),
+              (
+                  '- a bounded low-value refund or credit may be delegated to the system, while higher-value transactions remain reserved;',
+                  '- organizational policy may permit a project to delegate bounded low-value refund or credit authority, while higher-value transactions remain reserved to Human Authority;'
+              ),
+              (
+                  '**Illustrative Soft claim:**\n\n> The system should avoid inappropriate refunds or misleading customer communication.\n\nA prompt, policy instruction, classifier, or LLM-as-judge may influence or estimate this property, but does not make an inappropriate semantic outcome unreachable.',
+                  '**Illustrative Soft claim:**\n\n> Approved boundary: customer communication and refund recommendations must remain consistent with the applicable support policy. The current semantic realization can provide only a Soft guarantee for that semantic property.\n\nThe business intent may be categorical while the realized guarantee remains Soft. A prompt, policy instruction, classifier, or LLM-as-judge may influence or estimate compliance with the boundary, but does not make an inappropriate semantic outcome unreachable.'
+              ),
+              (
+                  '- Explain why UA remains a distinct proposed entity without claiming exhaustive absence across the literature or market: **within the cited comparison set**, the paper has not identified one source that by itself provides the same combination of Thinking-System category, cross-level authority, delivery realization/release, runtime correction/reassessment, Hard/Soft realized-path semantics, proportionality, and explicit Project control economics. This is a bounded literature/landscape claim, not proof of uniqueness.',
+                  '- Explain the proposed contribution without using a `one source by itself` novelty test. UA\'s claim is that it makes this combination explicit in one reference model. Whether another framework, organizational method, or composition of standards + engineering practice + tooling already carries the same material relationships with equal or lower conceptual overhead remains an explicit validation question, not a hurdle defined to preserve UA distinctness. Within the cited comparison set, describe observed differences only as bounded evidence, not proof of uniqueness.'
+              ),
+          ]
+
+          for old, new in replacements:
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'Expected exactly one match, found {count}: {old[:120]!r}')
+              text = text.replace(old, new)
+
+          old_authority = '''**UA relationship:**\n\n```text\nlaw / standard / organizational policy / contractual source\n→ Organization horizon authoritative basis\n→ scoped Project Constraint / Requirement / assumption\n→ required realization and evidence\n→ Controller / decision authority\n→ Actuator / corrective or exception path\n→ reassessment when evidence invalidates the basis\n```'''
+          new_authority = '''A standard or voluntary framework does **not** become an authoritative Constraint source merely by existing. For a specific organization or system, its authority may arise through explicit organizational adoption, contractual incorporation, certification commitments, procurement requirements, policy, or another legitimate authority decision. Applicable law and binding contractual obligations may create authoritative requirements directly within their scope.\n\n**UA relationship:**\n\n```text\napplicable law / binding contract / adopted organizational policy\n→ Organization horizon authoritative basis\n\nstandard / voluntary framework\n→ organizational adoption, contractual incorporation, certification commitment, procurement requirement, or another explicit authority decision\n→ Organization horizon authoritative basis where applicable\n\nauthoritative basis\n→ scoped Project Constraint / Requirement / assumption\n→ required realization and evidence\n→ Controller / decision authority\n→ Actuator / corrective or exception path\n→ reassessment when evidence invalidates the basis\n```'''
+          count = text.count(old_authority)
+          if count != 1:
+              raise SystemExit(f'Authority block match count: {count}')
+          text = text.replace(old_authority, new_authority)
+
+          old_matrix = '''| Standards/regulation | organization / regulated AI system / management system | strong source/obligation | requirements/obligations | obligations | monitoring/corrective obligations | Constraints/Requirements, evidence and authority expectations | application-specific realization and economics still require engineering decisions |\n| UA | Thinking System as controlled object | map | map | map | map | defines capability/decision relationships; does not itself implement them | explicit authority, reassessment, Hard/Soft path semantics, proportionality, control economics |'''
+          new_matrix = '''| Risk / management frameworks and standards | organization / AI management system / risk process | source/obligation when adopted or otherwise made authoritative | requirements / risk-management guidance | process and evidence expectations | monitoring / continual-improvement expectations where applicable | Requirements/Constraints, evidence, management and authority expectations | application-specific authority, realization, Actuation, and economics depend on adoption and implementation |\n| Law / regulation / binding contractual obligations | regulated or contract-bound organization and system | authoritative where applicable | mandatory Requirements / Constraints | delivery, documentation, assurance, or process obligations | monitoring / oversight / corrective obligations where applicable | authoritative Requirements, evidence, oversight, and corrective obligations | application-specific realization and control economics still require engineering decisions |'''
+          count = text.count(old_matrix)
+          if count != 1:
+              raise SystemExit(f'Matrix block match count: {count}')
+          text = text.replace(old_matrix, new_matrix)
+
+          old_disclaimer = '> **The UA row does not mean UA provides more software capabilities. UA is the mapping/reference model in this comparison. The other rows may implement capabilities far more concretely. “Outside scope” is not an inferiority score; it identifies where another mechanism or decision owner must complete the system.**'
+          new_disclaimer = '> **UA is the reference frame for this matrix, not a scored comparison row. The approaches above may implement capabilities far more concretely than UA itself. “Outside scope” is not an inferiority score; it identifies where another mechanism or decision owner must complete the system when that responsibility is material.**'
+          count = text.count(old_disclaimer)
+          if count != 1:
+              raise SystemExit(f'Disclaimer match count: {count}')
+          text = text.replace(old_disclaimer, new_disclaimer)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit blueprint and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/temporary-blueprint-semantic-fix.yml
+          git add content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m "docs(research): tighten landscape authority and comparison semantics"
+          git push origin HEAD:research/map-adjacent-landscape
