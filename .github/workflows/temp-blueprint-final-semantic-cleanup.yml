@@ -1,0 +1,57 @@
+name: Temporary blueprint final semantic cleanup
+
+on:
+  push:
+    branches:
+      - research/map-adjacent-landscape
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: research/map-adjacent-landscape
+      - name: Apply cleanup
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          t = p.read_text()
+          def one(old, new):
+              global t
+              n = t.count(old)
+              if n != 1:
+                  raise SystemExit(f'expected one match, got {n}: {old[:100]!r}')
+              t = t.replace(old, new)
+
+          one(
+              '**Why this category matters:** it is the strongest technology-substitution challenge to a framework that sounds like an “AI Control Plane.” A mature platform may implement a large fraction of all four capability families, especially at Delivery and Runtime.',
+              '**Why this category matters:** it is a particularly important technology-substitution challenge to a framework that sounds like an “AI Control Plane.” A mature platform may implement a large fraction of all four capability families, especially at Delivery and Runtime.'
+          )
+          one(
+              '**UA mapping:** strong Organization coverage, partial-to-strong Project support depending on implementation, substantial Sensors/evidence, Controller workflow/decision records, and connections to lower-level control mechanisms where integrated.',
+              '**UA mapping:** often substantial Organization coverage, with Project support varying materially by product and implementation; substantial Sensors/evidence and Controller workflow/decision records may be present, together with connections to lower-level control mechanisms where integrated.'
+          )
+          one(
+              '- **Publication length:** do not turn the section into twenty mini product reviews. Prefer 6–8 approach families, one representative example where useful, one matrix, and the substitution test.',
+              '- **Publication length:** do not turn the section into twenty mini product reviews. Prefer a compact approach-family treatment, one representative example where useful, one matrix, the substitution test, and enough systems/safety comparison to challenge the UA framing without becoming a general literature survey.'
+          )
+          p.write_text(t)
+          PY
+      - name: Remove temporary workflow and commit
+        shell: bash
+        run: |
+          rm .github/workflows/temp-blueprint-final-semantic-cleanup.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/research/notes/open-engineering-specification-article-blueprint.md .github/workflows/temp-blueprint-final-semantic-cleanup.yml
+          git diff --cached --check
+          git commit -m 'docs(research): align landscape comparison qualifiers'
+          git push origin HEAD:research/map-adjacent-landscape
