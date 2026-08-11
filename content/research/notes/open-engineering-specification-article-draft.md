@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-08-04
-updated: 2026-08-10
+updated: 2026-08-11
 language: en
 license: CC-BY-4.0
 draft: true
@@ -67,10 +67,10 @@ Thinking Systems add a distinct source of uncertainty. The uncertainty is not on
 
 ```mermaid
 flowchart LR
-    W["Plan-driven engineering (Waterfall)<br/>dominant concern: requirement and design uncertainty<br/>response: reduce uncertainty before implementation"]
-    A["Iterative delivery (Agile and related approaches)<br/>dominant concern: product-learning uncertainty<br/>response: shorten delivery and feedback cycles"]
-    D["Modern operations (DevOps)<br/>dominant concern: production-condition uncertainty<br/>response: observe, expose progressively, recover"]
-    T["Thinking-System engineering<br/>new concern: runtime judgment inside the object<br/>response: bounded control of the changed object"]
+    W["Plan-driven engineering (Waterfall)<br/> dominant concern: requirement and design uncertainty<br/> response: reduce uncertainty before implementation"]
+    A["Iterative delivery (Agile and related approaches)<br/> dominant concern: product-learning uncertainty<br/> response: shorten delivery and feedback cycles"]
+    D["Modern operations (DevOps)<br/> dominant concern: production-condition uncertainty<br/> response: observe, expose progressively, recover"]
+    T["Thinking-System engineering<br/> new concern: runtime judgment inside the object<br/> response: bounded control of the changed object"]
 
     W --> A --> D --> T
 ```
@@ -106,14 +106,14 @@ The category must not be collapsed into "agentic application." The classificatio
 flowchart TB
     subgraph I["Independent dimensions — they affect architecture and risk, not category membership"]
         direction LR
-        O["Orchestration topology<br/>fixed ↔ dynamic"]
-        A["Autonomy<br/>low ↔ high"]
-        D["Delegated authority<br/>narrow ↔ broad"]
+        O["Orchestration topology<br/> fixed ↔ dynamic"]
+        A["Autonomy<br/> low ↔ high"]
+        D["Delegated authority<br/> narrow ↔ broad"]
     end
 
-    Q{"Classification question:<br/>Does any Consequential Runtime Responsibility<br/>depend partly on probabilistic Model Judgment?"}
-    L["No → Linear Software<br/>relevant Consequential Runtime Responsibility<br/>remains explicitly encoded"]
-    T["Yes → Thinking System<br/>part of consequential behavior<br/>is formed through runtime Model Judgment"]
+    Q{"Classification question:<br/> Does any Consequential Runtime Responsibility<br/> depend partly on probabilistic Model Judgment?"}
+    L["No → Linear Software<br/> relevant Consequential Runtime Responsibility<br/> remains explicitly encoded"]
+    T["Yes → Thinking System<br/> part of consequential behavior<br/> is formed through runtime Model Judgment"]
 
     O -. does not decide category .-> Q
     A -. does not decide category .-> Q
@@ -204,7 +204,7 @@ flowchart LR
         direction TB
         B1[External input and operating conditions]
         B2[Deterministic responsibilities before Model Judgment]
-        J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
+        J1["One or more Judgment Nodes<br/> probabilistic Model Judgment"]
         B3[Deterministic validation, authority, and execution]
         B4[Output, action, or downstream state]
         B1 --> B2 --> J1 --> B3 --> B4
@@ -233,9 +233,9 @@ These are placement functions, not a mandatory three-stage architecture.
 ```mermaid
 flowchart TB
     MJ["Model Judgment"]
-    I["Input Interpretation<br/>what does the input mean?"]
-    D["Decision Logic<br/>which path, plan, tool, or action?"]
-    O["Output Mediation<br/>what is communicated or transformed?"]
+    I["Input Interpretation<br/> what does the input mean?"]
+    D["Decision Logic<br/> which path, plan, tool, or action?"]
+    O["Output Mediation<br/> what is communicated or transformed?"]
 
     MJ --> I
     MJ --> D
@@ -259,10 +259,10 @@ The uncertainty has moved, but it has not replaced earlier uncertainty.
 
 ```mermaid
 flowchart LR
-    R["Requirements and product assumptions<br/>uncertainty about what should be built"]
-    O["Environment and operation<br/>uncertainty about where and how it runs"]
-    J["Runtime Model Judgment<br/>uncertainty produced inside execution"]
-    S["Thinking System<br/>consequential behavior partly formed<br/>through probabilistic Model Judgment"]
+    R["Requirements and product assumptions<br/> uncertainty about what should be built"]
+    O["Environment and operation<br/> uncertainty about where and how it runs"]
+    J["Runtime Model Judgment<br/> uncertainty produced inside execution"]
+    S["Thinking System<br/> consequential behavior partly formed<br/> through probabilistic Model Judgment"]
 
     R --> S
     O --> S
@@ -287,20 +287,25 @@ Yet the levels are structurally connected because they control the same object.
 
 ```mermaid
 flowchart TB
-    O["Organization<br/>What may be authorized?"]
-    P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]
-    D["Delivery<br/>Is this bounded realization complete and releasable?"]
-    R["Runtime<br/>Does active operation remain inside the authorized boundary?"]
-    E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]
+    subgraph SPINE[" "]
+        direction TB
+        O["Organization<br/> What may be authorized?"]
+        P["Project / Architecture<br/> Is the controlled system viable and authorizable?"]
+        D["Delivery<br/> Is this bounded realization complete and releasable?"]
+        R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
+        E["Runtime evidence<br/> behavior · outcomes · control state · changed assumptions"]
 
-    O -->|authoritative sources + delegated authority| P
-    P -->|Project Constraint Architecture + authorization| D
-    D -->|realized boundary + release scope| R
-    R --> E
+        O -->|authoritative sources + delegated authority| P
+        P -->|Project Constraint Architecture + authorization| D
+        D -->|realized boundary + release scope| R
+        R --> E
+    end
 
     E -.->|implementation / realization / evidence issue| D
     E -.->|risk / authority / feasibility / capacity / economics invalidated| P
     E -.->|authoritative source / decision right / shared capability changed| O
+
+    style SPINE fill:none,stroke:none
 ```
 
 **Figure 6 — One controlled object across four decision horizons.** The same Thinking System is viewed through four decision horizons. Authority and Constraints become more concrete as they move downward from Organization to Project / Architecture, Delivery, and Runtime. Runtime evidence returns directly to the horizon whose authorization basis it invalidates. The figure shows decision ownership and reassessment routing, not a four-stage delivery workflow.
@@ -339,8 +344,8 @@ Control begins when evidence about a process reaches a decision function and an 
 
 ```mermaid
 flowchart LR
-    R["Reference<br/>Requirement and intended conditions"]
-    P["Thinking System<br/>controlled process"]
+    R["Reference<br/> Requirement and intended conditions"]
+    P["Thinking System<br/> controlled process"]
     S["Sensors and evidence"]
     C["Controller and decision authority"]
     A[Actuators]
@@ -359,7 +364,15 @@ A complete bounded control architecture therefore asks a broader question:
 
 > Is the feedback loop operating inside an approved and credibly realized boundary, with bounded authority, fit-for-purpose evidence, effective corrective action, and a valid path for reassessment?
 
-Four logical capability families answer different parts of that question.
+Four logical capability families answer different parts of that question. The order below is a pedagogical traversal of a closed control loop, not a mandatory execution sequence: begin with the mechanism that can change operation, then make explicit the approved boundary governing that change, the evidence needed to observe the resulting state, and the decision authority that interprets that evidence and authorizes what happens next.
+
+### Actuators and corrective action
+
+An **Actuator** executes an authorized change in operation or in a Constraint Realization. It may block an action, narrow exposure, change routing, require Human Authority, switch to fallback, roll back a model or configuration, isolate a feature, compensate downstream state, or stop the system.
+
+A Controller decides or authorizes. An Actuator executes. One component may perform both functions, but collapsing the concepts hides decision rights, execution rights, failure behavior, and evidence about whether the selected action actually occurred.
+
+A Controller without an effective Actuator can diagnose but cannot correct. A kill-switch endpoint that nobody may legitimately invoke is not an operable response path. A feature flag that changes exposure is an Actuator only when it connects an authorized decision to a real operational change.
 
 ### Constraints and their realizations
 
@@ -393,25 +406,19 @@ The Controller may be deterministic software, bounded automated decision logic, 
 
 Logic selecting `block`, `canary`, or `release` performs a Controller function. A dashboard does not become a Controller merely because a human views it. A human approval step is not substantive Human Authority unless the person has sufficient information, time, capacity, and power to change the outcome.
 
-### Actuators and corrective action
-
-An **Actuator** executes an authorized change in operation or in a Constraint Realization. It may block an action, narrow exposure, change routing, require Human Authority, switch to fallback, roll back a model or configuration, isolate a feature, compensate downstream state, or stop the system.
-
-A Controller decides or authorizes. An Actuator executes. One component may perform both functions, but collapsing the concepts hides decision rights, execution rights, failure behavior, and evidence about whether the selected action actually occurred.
-
-A Controller without an effective Actuator can diagnose but cannot correct. A kill-switch endpoint that nobody may legitimately invoke is not an operable response path. A feature flag that changes exposure is an Actuator only when it connects an authorized decision to a real operational change.
+Read as a loop, the Controller authorizes an Actuator; the Actuator changes operation or a Constraint Realization; Constraints bound what may legitimately change and how; Sensors expose the resulting behavior, state, and effects; and that evidence returns to a Controller. The families therefore depend on one another without becoming four mandatory services or one universal runtime pipeline.
 
 The complete relationship is wider than a vertical stack or one synchronous pipeline:
 
 ```mermaid
 flowchart LR
-    R["Authorized intent,<br/>Requirement, and assumptions"]
-    K["Constraints<br/>approved operating boundaries"]
-    KR["Constraint Realizations<br/>enforce or influence the boundary"]
-    P["Thinking System<br/>controlled process"]
-    S["Sensors and evidence<br/>behavior · outcomes · conditions<br/>realization and execution state"]
-    C["Controller and decision authority<br/>compare · interpret · authorize"]
-    A["Actuators<br/>execute authorized change"]
+    R["Authorized intent,<br/> Requirement, and assumptions"]
+    K["Constraints<br/> approved operating boundaries"]
+    KR["Constraint Realizations<br/> enforce or influence the boundary"]
+    P["Thinking System<br/> controlled process"]
+    S["Sensors and evidence<br/> behavior · outcomes · conditions<br/> realization and execution state"]
+    C["Controller and decision authority<br/> compare · interpret · authorize"]
+    A["Actuators<br/> execute authorized change"]
 
     R --> C
     R --> K
@@ -452,34 +459,67 @@ The **decision levels** identify where a decision is owned. The **capability fam
 ```mermaid
 flowchart LR
     subgraph L["Decision ownership: where the decision belongs"]
-        O["Organization<br/>authoritative boundaries and decision rights"]
-        P["Project / architecture<br/>control architecture, viability, authorization"]
-        D["Delivery team<br/>realization, completeness, release"]
-        R["Runtime operation<br/>active control and reassessment"]
+        direction TB
+        subgraph SPINE9[" "]
+            direction TB
+            O["Organization<br/> What may be authorized?"]
+            P["Project / Architecture<br/> Is the controlled system viable and authorizable?"]
+            D["Delivery<br/> Is this bounded realization complete and releasable?"]
+            R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
+            E["Runtime evidence<br/> behavior · outcomes · control state · changed assumptions"]
 
-        O -->|inherit sources and delegated authority| P
-        P -->|inherit project authorization and Constraints| D
-        D -->|deploy realized boundary and active versions| R
-        R -->|invalidating evidence| D
-        R -->|invalidating evidence| P
-        R -->|invalidating evidence| O
+            O -->|authoritative sources + delegated authority| P
+            P -->|Project Constraint Architecture + authorization| D
+            D -->|realized boundary + release scope| R
+            R --> E
+        end
+
+        E -.->|implementation / realization / evidence issue| D
+        E -.->|risk / authority / feasibility / capacity / economics invalidated| P
+        E -.->|authoritative source / decision right / shared capability changed| O
+
+        style SPINE9 fill:none,stroke:none
     end
 
     subgraph F["Capability functions: how control becomes operational"]
-        K["Constraints and realizations<br/>define and operationalize boundaries"]
-        S["Sensors and evidence<br/>observe behavior, conditions, and control state"]
-        C["Controllers and authority<br/>interpret evidence and authorize action"]
-        A["Actuators and action<br/>execute authorized change"]
+        direction TB
 
-        K --- S
-        S --- C
-        C --- A
+        subgraph F1[" "]
+            direction LR
+            J1(( )) --- A["Actuators and corrective action<br/> execute authorized change"]
+        end
+        subgraph F2[" "]
+            direction LR
+            J2(( )) --- K["Constraints and realizations<br/> define and operationalize boundaries"]
+        end
+        subgraph F3[" "]
+            direction LR
+            J3(( )) --- S["Sensors and evidence<br/> observe behavior, conditions, and control state"]
+        end
+        subgraph F4[" "]
+            direction LR
+            J4(( )) --- C["Controllers and decision authority<br/> interpret evidence and authorize action"]
+        end
+
+        J1 --- J2
+        J2 --- J3
+        J3 --- J4
+
+        style F1 fill:none,stroke:none
+        style F2 fill:none,stroke:none
+        style F3 fill:none,stroke:none
+        style F4 fill:none,stroke:none
     end
 
-    L -. "all four functions may appear at every level" .- F
+    L -. "all four capability families may appear at every decision horizon" .- F
+
+    classDef capability fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
+    classDef railpoint fill:transparent,stroke:transparent,color:transparent;
+    class A,K,S,C capability;
+    class J1,J2,J3,J4 railpoint;
 ```
 
-**Figure 9 — Two orthogonal models.** Decision ownership flows downward through inherited authority and upward through reassessment. Capability families apply at every level. The figure does not prescribe sixteen components, four services, or a one-way lifecycle.
+**Figure 9 — Two orthogonal models.** The decision-horizon side repeats Figure 6 verbatim: the same four questions, downward authority and Constraint inheritance, Runtime evidence, and the same three decision-basis reassessment routes. The green capability-family side adds the orthogonal control dimension—Actuators, Constraints and realizations, Sensors and evidence, and Controllers and decision authority. The shared undirected rail groups the four capability families as one control-capability model without implying causal or execution order. All four capability families may appear at every decision horizon; the green vertical ordering is a reading aid, not an execution pipeline or a one-to-one mapping to the four horizons.
 
 ### Organizational control context
 
@@ -496,13 +536,13 @@ The answer is not necessarily a new governance department. Existing sources shou
 ```mermaid
 flowchart LR
     TS["Thinking System proposal and operation"]
-    PROD["Product and business authority<br/>outcome · value · acceptable exposure"]
-    ENG["Engineering and architecture<br/>system boundary · feasibility · realization"]
-    OPS["Operations<br/>runtime capability · incident response · shutdown"]
-    SEC["Security, privacy, legal, compliance<br/>authoritative restrictions · evidence · exceptions"]
-    FIN["Finance and procurement<br/>vendor, capacity, and control economics"]
-    DOM["Domain function / Human Authority<br/>contextual judgment · escalation · review capacity"]
-    RIGHTS["Explicit decision rights,<br/>dependencies, and escalation paths"]
+    PROD["Product and business authority<br/> outcome · value · acceptable exposure"]
+    ENG["Engineering and architecture<br/> system boundary · feasibility · realization"]
+    OPS["Operations<br/> runtime capability · incident response · shutdown"]
+    SEC["Security, privacy, legal, compliance<br/> authoritative restrictions · evidence · exceptions"]
+    FIN["Finance and procurement<br/> vendor, capacity, and control economics"]
+    DOM["Domain function / Human Authority<br/> contextual judgment · escalation · review capacity"]
+    RIGHTS["Explicit decision rights,<br/> dependencies, and escalation paths"]
 
     PROD --> RIGHTS
     ENG --> RIGHTS
@@ -537,12 +577,12 @@ The question is not simply whether the model can perform the task. It is whether
 ```mermaid
 flowchart TB
     OUT["Intended outcome and need for Model Judgment"]
-    RISK["Material scenarios<br/>reachable authority · consequences · uncertainty"]
-    K["Project Constraint Architecture<br/>approved boundaries and assumptions"]
-    LOOP["Credible complete control loop<br/>realizations · Sensors · Controllers · Actuators"]
-    HUMAN["Human Authority, fallback,<br/>containment, and recovery"]
-    ECON["Control economics<br/>latency · capacity · operating friction · vendor cost"]
-    DEC["Project decision<br/>authorize · narrow · research · redesign · defer · No-Go"]
+    RISK["Material scenarios<br/> reachable authority · consequences · uncertainty"]
+    K["Project Constraint Architecture<br/> approved boundaries and assumptions"]
+    LOOP["Credible complete control loop<br/> realizations · Sensors · Controllers · Actuators"]
+    HUMAN["Human Authority, fallback,<br/> containment, and recovery"]
+    ECON["Control economics<br/> latency · capacity · operating friction · vendor cost"]
+    DEC["Project decision<br/> authorize · narrow · research · redesign · defer · No-Go"]
 
     OUT --> RISK --> K --> LOOP
     LOOP --> HUMAN
@@ -584,11 +624,11 @@ The team must also translate in both directions. Technical signals such as evalu
 
 ```mermaid
 flowchart LR
-    BR["Business intent, risk, and authority<br/>value · prohibited consequences · acceptable exposure"]
-    ENG["Engineering translation<br/>scenarios · Constraints · realizations · evidence · response paths"]
-    IMP["Delivery implementation<br/>Judgment Nodes · tests · evaluators · telemetry · Actuators"]
-    TECH["Technical evidence<br/>drift · regressions · overrides · latency · capacity · incidents"]
-    BEXP["Business interpretation<br/>changed exposure · viability · authority · customer impact"]
+    BR["Business intent, risk, and authority<br/> value · prohibited consequences · acceptable exposure"]
+    ENG["Engineering translation<br/> scenarios · Constraints · realizations · evidence · response paths"]
+    IMP["Delivery implementation<br/> Judgment Nodes · tests · evaluators · telemetry · Actuators"]
+    TECH["Technical evidence<br/> drift · regressions · overrides · latency · capacity · incidents"]
+    BEXP["Business interpretation<br/> changed exposure · viability · authority · customer impact"]
 
     BR --> ENG --> IMP --> TECH --> BEXP
     BEXP -->|reassess, narrow, redesign, or escalate| ENG
@@ -620,12 +660,12 @@ Runtime control must distinguish restoration from redesign. Rolling back, narrow
 
 ```mermaid
 flowchart LR
-    SYS["Active Thinking System<br/>models · prompts · context · tools · people · realizations"]
-    OBS["Runtime evidence<br/>behavior · outcomes · drift · control health · capacity · cost"]
-    CTRL["Runtime Controller<br/>interpret within delegated authority"]
-    ACT["Runtime Actuator<br/>reject · contain · fallback · narrow · roll back · stop"]
+    SYS["Active Thinking System<br/> models · prompts · context · tools · people · realizations"]
+    OBS["Runtime evidence<br/> behavior · outcomes · drift · control health · capacity · cost"]
+    CTRL["Runtime Controller<br/> interpret within delegated authority"]
+    ACT["Runtime Actuator<br/> reject · contain · fallback · narrow · roll back · stop"]
     REST["Restored authorized state"]
-    ESC["Invalidated basis<br/>delivery reassessment or project reauthorization"]
+    ESC["Invalidated basis<br/> delivery reassessment or project reauthorization"]
 
     SYS --> OBS --> CTRL
     CTRL -->|local authorized correction| ACT --> REST --> SYS
@@ -639,9 +679,9 @@ Evidence must route according to the decision basis it invalidates:
 ```mermaid
 flowchart TB
     E["Runtime evidence or requested change"]
-    L["Local implementation, realization,<br/>configuration, or evidence issue"]
-    P["Project risk, authority, feasibility,<br/>capacity, evidence, or economics changed"]
-    O["Authoritative source, decision right,<br/>or shared capability changed"]
+    L["Local implementation, realization,<br/> configuration, or evidence issue"]
+    P["Project risk, authority, feasibility,<br/> capacity, evidence, or economics changed"]
+    O["Authoritative source, decision right,<br/> or shared capability changed"]
     X["Proposed expansion of authority"]
 
     E --> L --> D[Delivery reassessment]

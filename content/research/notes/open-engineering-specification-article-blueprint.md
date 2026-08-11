@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-07-31
-updated: 2026-08-10
+updated: 2026-08-11
 language: en
 license: CC-BY-4.0
 draft: true
@@ -466,11 +466,12 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
   ```
 
 - Explain why a loop may remain closed while unsafe, over-authorized, too slow, operationally fragile, or economically unacceptable.
-- Introduce the four logical capability families without presenting UA as the premise:
-  1. **Constraints and their realizations** define and operationalize approved boundaries.
-  2. **Sensors and evidence** observe behavior, outcomes, conditions, realization state, Actuator execution, and control health.
-  3. **Controllers and decision authority** compare or interpret evidence relative to approved Requirements, Constraints, and assumptions, then select or authorize action.
-  4. **Actuators and corrective action** execute authorized changes to operation or a Constraint Realization.
+- Introduce the four logical capability families in the publication-facing pedagogical order **Actuators → Constraints and realizations → Sensors → Controllers**. State explicitly that this is a reading traversal of the closed control loop, not a mandatory execution order or physical stack:
+  1. **Actuators and corrective action** execute authorized changes to operation or a Constraint Realization.
+  2. **Constraints and their realizations** define and operationalize approved boundaries around those changes and the operating space.
+  3. **Sensors and evidence** observe behavior, outcomes, conditions, realization state, Actuator execution, and control health.
+  4. **Controllers and decision authority** compare or interpret evidence relative to approved Requirements, Constraints, and assumptions, then select or authorize the next action.
+- Close the four-family explanation by making the loop explicit: Controller authorizes Actuator; Actuator changes operation or realization; Constraints bound legitimate change; Sensors expose resulting state and effects; evidence returns to Controller.
 - Preserve the functional distinctions:
   - Constraint is the authoritative boundary object.
   - Constraint Realization implements, enforces, or influences it.
@@ -492,7 +493,7 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 **Figures:**
 
 - supporting figure — closed feedback loop;
-- supporting figure — complete bounded control architecture showing the four capability families as logical functions, not services, layers, or one execution order.
+- supporting figure — complete bounded control architecture showing the four capability families as logical functions, not services, layers, or one execution order. The figure may show the true relationship topology even though the prose introduces the families in Actuator-first pedagogical order.
 
 **Repository anchors:**
 
@@ -534,24 +535,28 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 
 **Primary Figure 2 — Two orthogonal models**
 
-Show two adjacent views:
+Show two adjacent views. The **decision-ownership side must reproduce the four-horizon supporting figure from Section 5.2 verbatim**, not paraphrase it: use the same four horizon questions, the same Runtime evidence node, the same downward labels, and the same three direct reassessment routes with the same invalidated-decision-basis wording. This makes the earlier four-horizon figure a literal submodel of the orthogonal-model figure rather than a second competing representation.
 
 ```text
-Decision ownership
-Organization
-→ Project / architecture
-→ Delivery team
-→ Runtime operation and reassessment
-↖ evidence returns to the decision basis it invalidates
+Decision ownership — verbatim reuse of the four-horizon model
+Organization — What may be authorized?
+→ Project / Architecture — Is the controlled system viable and authorizable?
+→ Delivery — Is this bounded realization complete and releasable?
+→ Runtime — Does active operation remain inside the authorized boundary?
+→ Runtime evidence — behavior · outcomes · control state · changed assumptions
 
-Capability functions at every level
+Runtime evidence → Delivery: implementation / realization / evidence issue
+Runtime evidence → Project / Architecture: risk / authority / feasibility / capacity / economics invalidated
+Runtime evidence → Organization: authoritative source / decision right / shared capability changed
+
+Capability functions at every level — visually distinct control dimension
+Actuators and corrective action
 Constraints and realizations
 Sensors and evidence
 Controllers and decision authority
-Actuators and corrective action
 ```
 
-The figure must show downward inheritance and upward reassessment and must not imply one-to-one mapping, four mandatory services, or a one-way waterfall.
+Use one restrained green semantic class for the capability-family side so the additional control-theory dimension is immediately distinguishable from the reused decision-horizon model. The green treatment identifies the orthogonal capability model, not a maturity state, safety claim, or execution sequence. The capability-family ordering is a reading aid consistent with Section 5.3; it must not be rendered as a directional pipeline. The figure must show that all four capability families may appear at every decision horizon and must not imply one-to-one mapping, four mandatory services, or a one-way waterfall.
 
 #### Organizational control context
 
@@ -942,7 +947,7 @@ Label the figure as an illustrative editorial synthesis, not application evidenc
 The three primary architectural figures are:
 
 1. **Controlled-object shift** — two vertical top-to-bottom responsibility diagrams placed side by side, with restrained red treatment on the changed responsibility blocks in the Thinking System column.
-2. **Two orthogonal models** — decision levels with downward inheritance and upward reassessment beside capability families applying at every level.
+2. **Two orthogonal models** — the decision side reproduces the four-horizon decision model verbatim, including Runtime evidence and the same reassessment routes, while a visually distinct green capability-family side shows Actuators, Constraints and realizations, Sensors and evidence, and Controllers and decision authority as functions that may appear at every horizon. The green ordering is a reading aid, not an execution pipeline or one-to-one mapping.
 3. **K-SEND-01 Constraint trace** — illustrative source-to-runtime path with delivery reassessment, Project Reauthorization, and separate authority expansion.
 
 Supporting figures currently expected:
@@ -1094,6 +1099,8 @@ Every article-writing PR must satisfy all of the following:
 - [ ] Figure 3 places two vertical top-to-bottom responsibility diagrams side by side and uses restrained red treatment on the changed Thinking System blocks without implying that the entire system is probabilistic.
 - [ ] Figure 4 places Model Judgment above Input Interpretation, Decision Logic, and Output Mediation, with the three placements aligned horizontally and no implied mandatory sequence.
 - [ ] Figure 6 keeps Organization, Project / Architecture, Delivery, and Runtime in one centered vertical spine, preserves concise downward inheritance labels, places one Runtime evidence node beneath Runtime, and routes invalidating evidence directly back to the owning decision level with the invalidated basis on the return edge rather than in a separate reassessment subsystem.
+- [ ] Figure 9 reproduces Figure 6's decision-horizon model verbatim—including horizon questions, Runtime evidence, downward inheritance labels, and reassessment-route wording—and adds the orthogonal capability-family dimension as a visually distinct green group without implying a one-to-one mapping or execution pipeline.
+- [ ] Section 3 introduces the capability families in Actuator → Constraint/Realization → Sensor → Controller pedagogical order and explicitly distinguishes that reading sequence from execution order.
 - [ ] The decision-horizon bridge uses short bold-labeled paragraphs and keeps control-architecture design inside the project / architecture level.
 - [ ] Every major new argument has an appropriate figure or an explicit reason why prose is clearer.
 - [ ] All figures were reviewed as one visual sequence and renumbered consistently.
