@@ -604,7 +604,7 @@ The reader should leave able to explain:
 2. why making a Consequential Runtime Responsibility depend partly on probabilistic Model Judgment changes the controlled object;
 3. the difference between measurement, a closed feedback loop, and bounded acceptable operation;
 4. why governance for a Thinking System becomes operational through an active socio-technical control architecture rather than through a post-hoc review or document;
-5. why a Thinking System intended for production use without a complete cross-level control architecture is not ready for production release at the intended scope;
+5. why a Thinking System intended for production use is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path;
 6. the four capability families and their boundaries;
 7. the four decision levels and the question owned by each;
 8. what activates each decision level, what arrives there, what it decides, what it sends downward, what evidence returns upward, and when reassessment is required;
@@ -634,7 +634,7 @@ The reader should leave able to explain:
 - explicit distinction from agentic software;
 - a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment inside the controlled object;
 - model quality and observability are insufficient when disconnected from boundaries, authority, corrective action, and reassessment;
-- for production use of a Thinking System, an incomplete control architecture means the application is not ready for production release at the intended scope even if model and code tests pass locally;
+- for production use of a Thinking System, the application is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path, even if model and code tests pass locally;
 - governance becomes operational through the socio-technical control architecture spanning organizational, project / architecture, delivery, and runtime decision levels, not through a post-hoc review, compliance document, or approval ceremony;
 - the paper derives capability families and decision levels, explains proportional application, maps the adjacent ecosystem against the resulting structure, and ends with an explicit validation agenda.
 
@@ -680,7 +680,7 @@ The reader should leave able to explain:
 - State fragmentation as practitioner observation unless current authoritative evidence supports a broader market claim.
 - Explain that observability may describe behavior without authority to act; evaluation may estimate quality without defining an approved boundary; policy may express intent without realization; nominal human approval may lack information, time, power, or capacity; and orchestration may execute a workflow without authorizing it.
 - Preserve the anti-substitution argument: evaluation score is not release authorization; prompt is not policy; policy is not a realized control; a human-in-the-loop label is not substantive Human Authority; a rollback button is not evidence that recovery is credible.
-- State explicitly that these gaps are not governance debt that can be closed after release: for production use of a Thinking System, the application is not ready for production release at the intended scope without the complete control architecture across the four decision levels.
+- State explicitly that these gaps are not governance debt that can be closed after release: for production use of a Thinking System, the application is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path. Define **complete control architecture** here as materially complete for the authorized scope, not maximal implementation of every cell in the four-horizon × four-capability map.
 - Present this release-readiness consequence as a visually distinct publication-facing callout so the reader can identify it as a central engineering thesis without repeating the argument elsewhere.
 - State that governance becomes operational through the socio-technical stack that makes the system bounded, observable, correctable, and reauthorizable, rather than through a policy document or post-release review.
 - Support factual claims about current industry practice with current primary or authoritative sources. When evidence is unavailable, label the point as practitioner observation.
@@ -709,7 +709,7 @@ The reader should leave able to explain:
 
 > The missing layer is not another AI component. It is the engineering connection between delegated judgment, authorized boundaries, evidence, decision authority, corrective action, and reassessment.
 
-> A Thinking System intended for production use is not ready for production release at the intended scope without that complete control architecture.
+> A Thinking System intended for production use is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path.
 
 **Working word budget:** 1,100–1,450
 
@@ -836,7 +836,7 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 
 **Purpose:** Introduce the accepted Control-Loop Capability Anatomy, distinguish measurement, feedback closure, and bounded acceptable operation, and explain how governance becomes operational through the complete socio-technical control architecture.
 
-**Core claim:** A measured system is not necessarily controlled, a closed feedback loop is not necessarily operating inside an approved boundary, and a Thinking System intended for production use is not ready for production release at the intended scope without a complete cross-level control architecture.
+**Core claim:** A measured system is not necessarily controlled, a closed feedback loop is not necessarily operating inside an approved boundary, and a Thinking System intended for production use is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path. In this paper, **complete control architecture** means materially complete for the authorized scope, not maximal implementation of every cell in the four-horizon × four-capability map.
 
 **Required content:**
 
@@ -1713,7 +1713,7 @@ If these answers already live clearly in existing engineering and organizational
 
 Use this publication-facing thesis or a close equivalent:
 
-> **The ecosystem does not lack controls. It contains many strong controls and established engineering methods. The question this section tests is whether a material remaining problem lies in knowing which controls are required for this controlled object, under whose authority, for which decision horizon, with what guarantee strength, evidence, corrective path, reassessment semantics, and lifecycle cost—and what the UA map itself fails to capture from existing approaches.**
+> **The ecosystem does not lack controls. It contains many strong controls and established engineering methods. The question this section examines is whether a material remaining problem lies in knowing which controls are required for this controlled object, under whose authority, for which decision horizon, with what guarantee strength, evidence, corrective path, reassessment semantics, and lifecycle cost—and what the UA map itself fails to capture from existing approaches.**
 
 A second useful sentence to preserve:
 
@@ -2055,6 +2055,8 @@ What authority expansion requires a new decision rather than a configuration cha
 What does the complete control perimeter cost across the lifecycle?
 What does this existing approach or composition make explicit that UA currently does not?
 ```
+
+**Application rule:** When applying this checklist to an adjacent method, translate the questions into that method's native concepts before judging coverage. Do not require one-to-one terminology, one-to-one lifecycle stages, or reproduction of the UA partition.
 
 If existing mechanisms answer these questions credibly and keep them connected through operation, **they already implement the required control architecture; UA should not add bureaucracy merely to rename it**.
 
@@ -2437,7 +2439,7 @@ Do not:
 - equate closed feedback with acceptable bounded operation;
 - describe governance as a post-hoc review, policy document, compliance artifact, fifth capability family, or exact synonym for every element of the control architecture;
 - imply that governance can become operational without the relevant socio-technical control architecture;
-- imply that a Thinking System can be ready for production release at the intended scope while its required cross-level control architecture remains incomplete;
+- imply that a Thinking System can be ready for production at the intended scope while a material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path; do not interpret “complete control architecture” as maximal instantiation of every map cell;
 - imply that control-architecture design creates a fifth decision level separate from project / architecture;
 - use red visual emphasis in the controlled-object figure to imply that the entire Thinking System is probabilistic, unsafe, or erroneous;
 - imply runtime reauthorizes a project automatically;
