@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-08-04
-updated: 2026-08-10
+updated: 2026-08-11
 language: en
 license: CC-BY-4.0
 draft: true
@@ -364,7 +364,15 @@ A complete bounded control architecture therefore asks a broader question:
 
 > Is the feedback loop operating inside an approved and credibly realized boundary, with bounded authority, fit-for-purpose evidence, effective corrective action, and a valid path for reassessment?
 
-Four logical capability families answer different parts of that question.
+Four logical capability families answer different parts of that question. The order below is a pedagogical traversal of a closed control loop, not a mandatory execution sequence: begin with the mechanism that can change operation, then make explicit the approved boundary governing that change, the evidence needed to observe the resulting state, and the decision authority that interprets that evidence and authorizes what happens next.
+
+### Actuators and corrective action
+
+An **Actuator** executes an authorized change in operation or in a Constraint Realization. It may block an action, narrow exposure, change routing, require Human Authority, switch to fallback, roll back a model or configuration, isolate a feature, compensate downstream state, or stop the system.
+
+A Controller decides or authorizes. An Actuator executes. One component may perform both functions, but collapsing the concepts hides decision rights, execution rights, failure behavior, and evidence about whether the selected action actually occurred.
+
+A Controller without an effective Actuator can diagnose but cannot correct. A kill-switch endpoint that nobody may legitimately invoke is not an operable response path. A feature flag that changes exposure is an Actuator only when it connects an authorized decision to a real operational change.
 
 ### Constraints and their realizations
 
@@ -398,13 +406,7 @@ The Controller may be deterministic software, bounded automated decision logic, 
 
 Logic selecting `block`, `canary`, or `release` performs a Controller function. A dashboard does not become a Controller merely because a human views it. A human approval step is not substantive Human Authority unless the person has sufficient information, time, capacity, and power to change the outcome.
 
-### Actuators and corrective action
-
-An **Actuator** executes an authorized change in operation or in a Constraint Realization. It may block an action, narrow exposure, change routing, require Human Authority, switch to fallback, roll back a model or configuration, isolate a feature, compensate downstream state, or stop the system.
-
-A Controller decides or authorizes. An Actuator executes. One component may perform both functions, but collapsing the concepts hides decision rights, execution rights, failure behavior, and evidence about whether the selected action actually occurred.
-
-A Controller without an effective Actuator can diagnose but cannot correct. A kill-switch endpoint that nobody may legitimately invoke is not an operable response path. A feature flag that changes exposure is an Actuator only when it connects an authorized decision to a real operational change.
+Read as a loop, the Controller authorizes an Actuator; the Actuator changes operation or a Constraint Realization; Constraints bound what may legitimately change and how; Sensors expose the resulting behavior, state, and effects; and that evidence returns to a Controller. The families therefore depend on one another without becoming four mandatory services or one universal runtime pipeline.
 
 The complete relationship is wider than a vertical stack or one synchronous pipeline:
 
@@ -457,34 +459,47 @@ The **decision levels** identify where a decision is owned. The **capability fam
 ```mermaid
 flowchart LR
     subgraph L["Decision ownership: where the decision belongs"]
-        O["Organization<br/> authoritative boundaries and decision rights"]
-        P["Project / architecture<br/> control architecture, viability, authorization"]
-        D["Delivery team<br/> realization, completeness, release"]
-        R["Runtime operation<br/> active control and reassessment"]
+        direction TB
+        subgraph SPINE9[" "]
+            direction TB
+            O["Organization<br/> What may be authorized?"]
+            P["Project / Architecture<br/> Is the controlled system viable and authorizable?"]
+            D["Delivery<br/> Is this bounded realization complete and releasable?"]
+            R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
+            E["Runtime evidence<br/> behavior · outcomes · control state · changed assumptions"]
 
-        O -->|inherit sources and delegated authority| P
-        P -->|inherit project authorization and Constraints| D
-        D -->|deploy realized boundary and active versions| R
-        R -->|invalidating evidence| D
-        R -->|invalidating evidence| P
-        R -->|invalidating evidence| O
+            O -->|authoritative sources + delegated authority| P
+            P -->|Project Constraint Architecture + authorization| D
+            D -->|realized boundary + release scope| R
+            R --> E
+        end
+
+        E -.->|implementation / realization / evidence issue| D
+        E -.->|risk / authority / feasibility / capacity / economics invalidated| P
+        E -.->|authoritative source / decision right / shared capability changed| O
+
+        style SPINE9 fill:none,stroke:none
     end
 
     subgraph F["Capability functions: how control becomes operational"]
+        direction TB
+        A["Actuators and corrective action<br/> execute authorized change"]
         K["Constraints and realizations<br/> define and operationalize boundaries"]
         S["Sensors and evidence<br/> observe behavior, conditions, and control state"]
-        C["Controllers and authority<br/> interpret evidence and authorize action"]
-        A["Actuators and action<br/> execute authorized change"]
+        C["Controllers and decision authority<br/> interpret evidence and authorize action"]
 
-        K --- S
-        S --- C
-        C --- A
+        A ~~~ K
+        K ~~~ S
+        S ~~~ C
     end
 
-    L -. "all four functions may appear at every level" .- F
+    L -. "all four capability families may appear at every decision horizon" .- F
+
+    classDef capability fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
+    class A,K,S,C capability;
 ```
 
-**Figure 9 — Two orthogonal models.** Decision ownership flows downward through inherited authority and upward through reassessment. Capability families apply at every level. The figure does not prescribe sixteen components, four services, or a one-way lifecycle.
+**Figure 9 — Two orthogonal models.** The decision-horizon side repeats Figure 6 verbatim: the same four questions, downward authority and Constraint inheritance, Runtime evidence, and the same three decision-basis reassessment routes. The green capability-family side adds the orthogonal control dimension—Actuators, Constraints and realizations, Sensors and evidence, and Controllers and decision authority. All four capability families may appear at every decision horizon; the green vertical ordering is a reading aid, not an execution pipeline or a one-to-one mapping to the four horizons.
 
 ### Organizational control context
 
