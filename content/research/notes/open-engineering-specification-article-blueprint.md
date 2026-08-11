@@ -2268,7 +2268,7 @@ The figure should visually preserve the orthogonality of capability families and
 **Landscape falsification questions to preserve in prose or callout:**
 
 - What named capability or authority relationship does the landscape section currently understate?
-- Which “blind spot” is actually solved by a current tool when configured as intended?
+- Which responsibility described as outside an approach's normal scope is actually solved by a current tool or composition when configured as intended?
 - Which current UA distinction adds no practical value when an organization already operates an integrated platform/governance stack?
 - Which part of UA remains useful only because common tooling is fragmented today and should disappear if platforms converge?
 - Is the substitution test fair to standards whose purpose is to specify outcomes/obligations rather than implementation?
@@ -2423,7 +2423,7 @@ Do not:
 - treat law, standards, platforms, research papers, and open-source runtimes as if they were competing products with one common maturity score;
 - label an entire product Hard or Soft; Hard/Soft is a scoped claim about a Constraint and complete realized path;
 - infer market-wide absence from a small representative comparison set;
-- use a vendor matrix as marketing evidence that UA “covers more”; UA is the conceptual map row, not an implementation-capability winner;
+- use a vendor matrix as marketing evidence that UA “covers more”; UA is the conceptual reference frame, not a scored implementation-capability competitor;
 - repeat the Section 5.2 NIST/ISO category-boundary argument in Section 5.6; change the analytical lens to functional coverage and substitution;
 - use internal or remembered product capabilities without checking current first-party sources immediately before publication.
 
@@ -2651,10 +2651,10 @@ Every article-writing PR must satisfy all of the following:
 - [ ] Section 6 treats “outside scope” as a scope boundary rather than an inferiority score and avoids vendor-maturity scoring.
 - [ ] Section 6 acknowledges real current capabilities of orchestration runtimes, guardrails, observability/evaluation tools, managed AI platforms, and governance suites rather than using stale strawman descriptions.
 - [ ] Section 6 distinguishes current tool/platform implementation from the source of organizational/project authority without claiming that platforms or governance suites “cannot solve governance.”
-- [ ] Section 6 maps standards/regulation as authoritative sources, management-system/risk obligations, evidence expectations, and lifecycle requirements rather than dismissing them as non-engineering paperwork.
+- [ ] Section 6 distinguishes applicable law/binding obligations from voluntary standards/frameworks: law, binding contracts, and adopted organizational policy may be authoritative within scope, while a voluntary standard/framework becomes authoritative only through adoption, contractual incorporation, certification/procurement commitment, policy, or another legitimate authority decision.
 - [ ] Section 6 explicitly distinguishes compliance from operational control in both directions: compliance is not sufficient for control, and local control is not sufficient for compliance.
 - [ ] Section 6 includes the substitution test and states that an existing stack satisfying the material control relationships should be reused without adding UA-specific bureaucracy.
-- [ ] Section 6 landscape matrix/figure is approach-family based, not a product-logo scorecard; the UA row is labeled as a conceptual map rather than implementation completeness.
+- [ ] Section 6 landscape matrix/figure is approach-family based, not a product-logo scorecard; UA is the reference frame for the comparison rather than a scored row, and standards/frameworks remain distinct from law/regulation/binding obligations.
 - [ ] Named landscape claims use current first-party/primary sources and are rechecked immediately before publication.
 - [ ] The landscape section does not claim UA is first/only/unique or that no other framework spans the problem without systematic evidence.
 - [ ] The landscape section does not repeat Section 2's NIST/ISO category-boundary argument; NIST/ISO are revisited under a different functional/authority lens.
