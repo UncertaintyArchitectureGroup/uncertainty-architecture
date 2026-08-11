@@ -39,7 +39,7 @@ The article first:
 1. defines Thinking Systems;
 2. distinguishes them from agentic applications;
 3. explains why making a Consequential Runtime Responsibility depend partly on probabilistic Model Judgment changes the controlled object;
-4. derives the required control capabilities and decision levels;
+4. derives the control capabilities and lifecycle decision responsibilities that the paper argues must be made explicit, then organizes them using the current UA four-family × four-horizon model;
 5. develops the four decision levels as an operating model with explicit triggers, inputs, decisions, capability obligations, outputs, evidence routes, escalation, and learning;
 6. explains how to use the complete map proportionally without prescribing one mandatory artifact surface or implementation topology;
 7. maps the existing systems/safety/runtime-assurance methods, control-theoretic research, orchestration, guardrail, observability, managed-platform, governance, standards, and regulatory landscape onto that map so the reader can see what current approaches already solve, what they can implement, what UA may lose when translating them into its own vocabulary, and which authority or lifecycle decisions remain outside their normal scope;
@@ -57,7 +57,7 @@ engineering expands around consequential uncertainty it can no longer leave outs
 → governance becomes operational through the active socio-technical control architecture, not through a post-hoc review or document
 → UA models lifecycle decision ownership through four connected decision horizons
 → each level must have explicit triggers, inputs, decision rights, evidence needs, downward outputs, and reassessment routes
-→ an incomplete cross-level control architecture means the application is not ready for production release at the intended scope
+→ if a material control responsibility remains unowned, unrealized, unevidenced, or without a credible corrective or reassessment path, the application is not ready for production at that intended scope
 → authoritative Constraints flow downward by reference while realization becomes concrete
 → runtime and delivery evidence returns to the decision level whose basis it invalidates
 → negative cases can feed structured learning back into Sensors, Constraints and realizations, Controllers, Actuators, assumptions, and authorization
@@ -2037,7 +2037,7 @@ If a matrix becomes too dense in publication form, use a supporting figure with 
 
 Answer this directly and non-defensively: **yes, if X plus the organization's existing engineering and governance stack already preserves the material control decisions and relationships.** UA does not require teams to install UA software, create UA-specific documents, or replace existing standards and tools.
 
-A team may use, for example, an agent runtime, a managed cloud platform, NIST/ISO-based governance, existing ADRs/architecture records, IAM, CI/evaluation tooling, observability, incident management, and existing decision workflows. The substitution test is whether the combined system can answer and operate the following questions:
+A team may use, for example, an agent runtime, a managed cloud platform, NIST/ISO-based governance, existing ADRs/architecture records, IAM, CI/evaluation tooling, observability, incident management, and existing decision workflows. **The substitution test is semantic, not terminological.** An existing method or composition need not use UA vocabulary or reproduce the UA partition if it preserves equivalent or stronger decision, authority, evidence, assurance, corrective-action, and lifecycle semantics. The substitution test is whether the combined system can answer and operate the following questions:
 
 ```text
 What is the controlled object?
