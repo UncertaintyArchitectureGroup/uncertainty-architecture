@@ -902,7 +902,7 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 
 > Capability without legitimate decision ownership is not a complete control architecture.
 
-> Governance becomes operational through the active socio-technical control architecture; without it, readiness for production release at the intended scope is incomplete.
+> Governance becomes operational through the active socio-technical control architecture; a Thinking System is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path.
 
 **Working word budget:** 950–1,150
 
