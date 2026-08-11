@@ -42,7 +42,7 @@ The article first:
 4. derives the required control capabilities and decision levels;
 5. develops the four decision levels as an operating model with explicit triggers, inputs, decisions, capability obligations, outputs, evidence routes, escalation, and learning;
 6. explains how to use the complete map proportionally without prescribing one mandatory artifact surface or implementation topology;
-7. maps the existing research, orchestration, guardrail, observability, managed-platform, governance, standards, and regulatory landscape onto that map so the reader can see what current approaches already solve, what they can implement, and which authority or lifecycle decisions remain outside their normal scope;
+7. maps the existing systems/safety/runtime-assurance methods, control-theoretic research, orchestration, guardrail, observability, managed-platform, governance, standards, and regulatory landscape onto that map so the reader can see what current approaches already solve, what they can implement, what UA may lose when translating them into its own vocabulary, and which authority or lifecycle decisions remain outside their normal scope;
 8. introduces **Uncertainty Architecture** as the open specification that organizes the derived map and closes with a concrete validation agenda for community review.
 
 The connected argument is:
@@ -63,8 +63,8 @@ engineering expands around consequential uncertainty it can no longer leave outs
 → negative cases can feed structured learning back into Sensors, Constraints and realizations, Controllers, Actuators, assumptions, and authorization
 → the complete map is inspected before implementation depth is reduced proportionally
 → implementation may use existing organizational, architecture, delivery, CI/CD, observability, incident, and decision records rather than one mandatory UA artifact set
-→ the ecosystem already contains many strong pieces of this control problem: orchestration runtimes, guardrails, evaluation and observability, managed AI platforms, governance suites, standards, regulation, and control-theoretic research
-→ those approaches must be mapped by controlled object, capability coverage, decision horizon, authority semantics, guarantee strength, evidence routing, reassessment, Human Authority, and economics rather than dismissed by product category
+→ the ecosystem already contains many strong pieces and alternative framings of this control problem: systems/safety/runtime-assurance methods, orchestration runtimes, guardrails, evaluation and observability, managed AI platforms, governance suites, standards, regulation, and control-theoretic research
+→ those approaches must be mapped by controlled object, capability coverage, decision horizon, authority semantics, guarantee strength, evidence routing, reassessment, Human Authority, and economics—and reverse-mapped to identify what UA itself loses or distorts—rather than dismissed by product category
 → the substitution question becomes concrete: if an existing stack already preserves all material decisions and control relationships, UA need not add another software layer or document package
 → Uncertainty Architecture is introduced as the open specification that connects the resulting model and provides the diagnostic map against which existing approaches can be composed or challenged
 → the paper ends with the questions that practical application and competing approaches must now test, simplify, contradict, or refine
@@ -290,9 +290,9 @@ The business intent may be categorical while the realized guarantee remains Soft
 
 **Illustrative Hard claim for one action path:**
 
-> An automated refund transaction above an illustrative threshold (for example, €50) must not reach the payment API without a valid Human Authority approval token.
+> An automated refund transaction above an illustrative threshold (for example, €50) must not reach the payment API unless a deterministic gateway verifies an approval credential issued through the designated approval path for an authenticated authorized human identity and the matching transaction scope.
 
-A credible Hard realization might require a deterministic transaction gateway that checks amount, authenticated execution identity, approval token, scope, and relevant bypass paths before the payment action is reachable.
+A credible Hard realization might therefore require a deterministic transaction gateway that checks amount, authenticated execution identity, approval credential, transaction scope, and relevant bypass paths before the payment action is reachable. **This Hard claim establishes deterministic transaction gating; it does not by itself prove that the Human Authority process is substantively effective.** Information quality, competence, capacity, latency, fallback, and real power to change the outcome remain separate Project / Runtime obligations.
 
 The **€50 value is purely illustrative**. It is not a UA recommendation, universal risk threshold, or proposed business policy. The article may change the number or describe it as `T` if that avoids accidental normative interpretation.
 
@@ -431,7 +431,7 @@ Illustrative mapping questions:
 - an evaluation/observability system may provide traces, online/offline evaluators, alerts, version comparison, and evidence;
 - a managed AI platform may implement identity, deployment, tool permissions, guardrails, tracing, evaluation, and delegated workflow mechanics;
 - an enterprise governance platform may carry use-case records, authoritative references, approvals, evidence, risk/control mappings, and lifecycle state;
-- NIST/ISO/regulatory sources may create or structure organizational Requirements, Constraints, evidence expectations, and management obligations.
+- applicable regulation or binding obligations may create authoritative Requirements; NIST/ISO and other voluntary frameworks may structure risk-management or evidence obligations and become authoritative only through explicit adoption, contractual incorporation, certification/procurement commitment, policy, or another legitimate authority decision.
 
 Then ask what remains: who authorizes the refund boundary, whether Model Judgment is justified, whether the `Hard` claim is actually deterministic across the complete path, which evidence invalidates which decision, whether Human Authority capacity is viable, and whether the resulting control perimeter makes economic sense.
 
@@ -518,7 +518,7 @@ Every manuscript iteration that touches Sections 5.1–5.8 should verify:
 - [ ] The example is explicitly fictional/editorial and not presented as validation evidence.
 - [ ] Consequential Runtime Responsibilities and Judgment Nodes remain consistent with the Thinking-System definition.
 - [ ] Organization does not absorb the Project-owned AI-necessity/viability decision.
-- [ ] The illustrative Hard refund boundary remains a **scoped complete-path claim**, not a semantic guarantee about all model behavior.
+- [ ] The illustrative Hard refund boundary remains a **scoped complete-path transaction-gating claim**, not a semantic guarantee about all model behavior and not proof that the Human Authority process is substantively effective.
 - [ ] The illustrative threshold is clearly non-normative.
 - [ ] Human Authority includes authority, information, capacity, latency, fallback, and power to change the outcome.
 - [ ] Delivery realizations remain examples rather than a mandatory stack.
@@ -615,8 +615,8 @@ The reader should leave able to explain:
 13. why a Controller is a decision function that may combine legitimate human authority with automation rather than being synonymous with either a team or an algorithm;
 14. why the complete map is a diagnostic reference rather than a requirement to instantiate every element for every system, and how proportionality is applied without hiding real complexity;
 15. how to traverse the map and choose a proportionate implementation without assuming one mandatory UA document set;
-16. how control-theoretic research, orchestration runtimes, guardrails, evaluation/observability tools, managed AI platforms, governance suites, standards, and regulation map onto the same decision-and-capability structure;
-17. what those approaches genuinely provide, what they can replace or implement inside a UA-shaped architecture, and which decisions or authority relationships usually remain external to them;
+16. how systems/safety/runtime-assurance methods, control-theoretic research, orchestration runtimes, guardrails, evaluation/observability tools, managed AI platforms, governance suites, standards, and regulation map onto the same decision-and-capability structure;
+17. what those approaches genuinely provide, what they can replace or implement inside a UA-shaped architecture, which decisions or authority relationships usually remain external to them, and what UA itself loses or distorts when the mapping is reversed;
 18. how to perform the substitution test: when an existing stack already carries the necessary boundaries, evidence, authority, corrective action, reassessment, and economics, UA does not require an additional product or document layer;
 19. what Uncertainty Architecture contributes, which parts of the map are already represented in the repository or external ecosystem, what remains unvalidated, and which questions the community should now test.
 
@@ -1709,7 +1709,7 @@ If these answers already live clearly in existing engineering and organizational
 
 **Purpose:** Answer the reader's strongest substitution question after the operating map has been derived: *Why is another architecture model needed when the ecosystem already contains orchestration runtimes, guardrails, evaluation and observability, managed agent platforms, AI-governance suites, standards, regulation, and control-theoretic research?* The section must show that UA is not proposed because those approaches are absent or weak. Many already solve substantial parts of the problem. The engineering question is how their different controlled objects, abstraction levels, capability coverage, authority boundaries, lifecycle semantics, and economics fit together around one Thinking System.
 
-**Core claim:** Existing approaches cover substantial parts of the Thinking-System control problem, sometimes very well. The remaining integration burden arises primarily at the boundaries between **capability, authority, lifecycle decision ownership, guarantee strength, evidence routing, and economics**. UA is intended to provide a common map across those boundaries rather than replace the tools, standards, research, or organizational processes that already implement pieces of them.
+**Core hypothesis to examine:** Existing approaches cover substantial parts of the Thinking-System control problem, sometimes very well. This paper examines the hypothesis that, once those controls and implementation capabilities are acknowledged, a material part of the remaining engineering burden lies in the connections among **capability, authority, lifecycle decision ownership, guarantee strength, evidence routing, corrective action, and economics**. UA is proposed as one common map across those boundaries rather than as a replacement for the tools, standards, research, or organizational processes that already implement pieces of them. Section 5.8 must treat this integration-gap claim as falsifiable rather than established market fact.
 
 Use this publication-facing thesis or a close equivalent:
 
@@ -1738,8 +1738,9 @@ Every approach family or named example must be evaluated through the same lens. 
 11. **Implementation versus authority** — can it implement or automate a control decision without being the legitimate source of that decision?
 12. **What it can replace inside a UA-shaped architecture** — which UA capability or record need not be separately implemented because the existing approach already carries it credibly?
 13. **What remains outside its normal scope** — which material decision, authority relationship, evidence path, or economic question must still be supplied elsewhere?
+14. **Reverse mapping / UA lossiness** — what concepts, relationships, guarantees, lifecycle semantics, or control distinctions in this approach are lost, distorted, or forced into an unnatural category when translated into UA? What does the approach make explicit that UA currently does not?
 
-The section must state that **coverage is not a maturity score**. A research paper may be intentionally narrow and rigorous. A runtime framework may be excellent precisely because it does not attempt organizational governance. A standard may intentionally define obligations rather than runtime implementation. “Outside scope” does not mean “defect.”
+The section must state that **coverage is not a maturity score**. The comparison is bidirectional: UA is allowed to expose missing connections in adjacent approaches, and adjacent approaches are allowed to expose missing or poorly partitioned concepts in UA. A research paper may be intentionally narrow and rigorous. A runtime framework may be excellent precisely because it does not attempt organizational governance. A standard may intentionally define obligations rather than runtime implementation. “Outside scope” does not mean “defect.”
 
 #### 5.6.2 Control-theoretic research around LLMs and AI systems
 
@@ -1766,7 +1767,32 @@ Treat at least two different research directions separately enough to avoid a st
 - Do not imply mathematical control research is “less rigorous” because it does not cover SDLC.
 - State positively that UA's proposed contribution is **not applying control theory to LLMs as such**, but using control-loop distinctions as one part of a broader software/systems-engineering operating map for Thinking Systems.
 
-#### 5.6.3 Agent and orchestration runtimes
+#### 5.6.3 Systems, safety, and runtime-assurance engineering methods
+
+This category is a **required conceptual-substitution challenge**, not merely historical provenance. Use a small representative set such as STAMP/STPA, Simplex/runtime-assurance architecture, and broader systems/safety-engineering practice where current primary sources support the comparison. The purpose is not to survey all systems engineering; it is to test whether an established engineering method or composition already carries the cross-level control relationships UA claims to make explicit.
+
+**What these approaches genuinely contribute:**
+
+- socio-technical control structures, safety constraints, control actions, feedback, and unsafe-control-action reasoning in STAMP/STPA;
+- trusted safety/assurance paths, fallback, decision modules, and bounded runtime assurance around complex or untrusted components in Simplex-family architectures;
+- established hazard analysis, assurance cases, requirements allocation, verification/validation, change control, operational monitoring, and lifecycle responsibility in broader systems/safety engineering practice.
+
+**UA mapping:** potentially broad. Unlike a runtime tool, these methods can span organizational assumptions, architecture, implementation constraints, assurance evidence, runtime monitoring, fallback, and lifecycle change. Do not force them into a Delivery/Runtime-only box merely because some implementations contain runtime monitors or safety controllers.
+
+**Substitution question:** Could STPA/Simpex/runtime-assurance practice plus ordinary architecture, delivery, operations, and business-governance records already preserve the material decisions UA asks teams to make? Which UA distinctions add operational value beyond that composition, and which are merely renamed or repackaged established systems-engineering concepts?
+
+**Reverse-mapping obligation:** Explicitly identify concepts that do not translate cleanly into UA. Examples to examine rather than pre-answer include hierarchical control structures, unsafe control actions, process models, hazards/losses, assurance separation, trusted fallback architecture, formal safety invariants, and responsibility allocation. If UA's four horizons or four capability families lose useful structure from these methods, record that as evidence against the current UA partition rather than treating it as a defect in the antecedent.
+
+**Boundary relative to this paper:** Do not say systems/safety engineering “does not cover AI” or “lacks governance.” The narrower question is whether these methods, as normally applied, provide the specific Thinking-System category boundary, Model-Judgment placement language, complete realized-path Hard/Soft semantics, four decision-horizon routing, and explicit control-perimeter economics proposed here—or whether an existing composition already does so with equal or lower conceptual overhead.
+
+**Mandatory claim-safety:**
+
+- Do not demote STAMP/STPA or Simplex to historical inspiration while treating implementation tools as the only current competitors.
+- Do not claim UA is more complete merely because UA uses broader editorial categories.
+- Use Section 5.7 for intellectual continuity/provenance; use this subsection for the functional substitution test.
+- A finding that established systems/safety methods already carry most of the map is a valid result that should narrow UA's contribution claim.
+
+#### 5.6.5 Agent and orchestration runtimes
 
 Use a small representative set rather than a catalog. Candidate examples include LangGraph, Microsoft AutoGen, Semantic Kernel, CrewAI, and OpenAI Agents SDK. Verify every named capability against current first-party documentation at drafting time.
 
@@ -1839,7 +1865,7 @@ block/reject/rewrite/reroute may perform an Actuator function
 
 Do not say guardrails are “just filters.” Some current products reach into tool execution and multiple workflow intervention points.
 
-#### 5.6.5 Evaluation and observability
+#### 5.6.6 Evaluation and observability
 
 Candidate examples include LangSmith, Arize Phoenix, TruLens, OpenTelemetry-based AI observability, and integrated evaluation platforms. Use representative examples, not a market survey.
 
@@ -1872,7 +1898,7 @@ An online evaluator can detect a regression, but the system still needs answers 
 
 State positively that UA does **not** replace LangSmith, Phoenix, TruLens, or equivalent Sensors. It provides a map for why a Sensor exists, which decision it feeds, and what action/reassessment path follows.
 
-#### 5.6.6 Managed AI and agent platforms
+#### 5.6.7 Managed AI and agent platforms
 
 This category is required because modern managed platforms increasingly combine capabilities that older “framework versus governance” comparisons treat separately. Representative examples may include Microsoft Foundry, Amazon Bedrock, Google Cloud AI/agent services, and OpenAI's agent/application stack. Verify exact current capabilities before publication.
 
@@ -1910,7 +1936,7 @@ Preserve this sentence or close equivalent:
 
 Do not claim managed platforms “cannot solve governance.” They may implement governance and delegated decision workflows extensively. The paper's narrower boundary is that platform functionality does not create the organizational/business authority under which those functions are configured and exercised.
 
-#### 5.6.7 Enterprise AI governance and assurance platforms
+#### 5.6.8 Enterprise AI governance and assurance platforms
 
 Include this category so the landscape does not pretend governance products are merely dashboards or PDF workflows. IBM watsonx.governance is a useful representative example because current first-party material describes AI-use-case governance, risk/compliance workflows, factsheets/documentation, evaluation, monitoring, thresholds, regulatory mapping, and enterprise governance integration. Other examples may be used if current primary documentation supports the same level of analysis.
 
@@ -1932,7 +1958,7 @@ Include this category so the landscape does not pretend governance products are 
 
 A governance suite can therefore be a **major UA implementation surface**, not a competitor that must be rejected. If it credibly carries organizational sources, decisions, evidence, lifecycle state, and connections to lower-level controls, the UA map should reuse that surface rather than duplicate it.
 
-#### 5.6.8 Standards, management systems, and regulation
+#### 5.6.9 Standards, management systems, and regulation
 
 Separate these from tooling. They are potential **sources of authority, obligations, evidence expectations, management-system controls, and lifecycle requirements**, not software components competing for the same product slot.
 
@@ -1971,22 +1997,25 @@ The article must preserve both directions:
 
 Do not claim NIST, ISO, or EU regulation is “detached from engineering.” The stronger and more defensible claim is that such sources normally do not, by themselves, instantiate the application-specific complete control architecture. They may define authority, requirements, risk-management outcomes, evidence expectations, and continual-management obligations that the system architecture must realize.
 
-#### 5.6.9 Landscape coverage matrix
+#### 5.6.10 Landscape coverage matrix
 
 Include one compact table or figure that maps **approach families**, not product logos, to the UA map. It is a reasoning aid, not a scorecard.
 
-A publication-facing table may use qualitative terms such as `primary`, `substantial`, `partial`, `implementation`, `obligation/source`, or `usually outside scope`. Avoid green/red maturity scoring.
+A publication-facing table may use qualitative terms such as `commonly substantial`, `partial`, `implementation`, `obligation/source`, `product-dependent`, `varies by method`, or `usually outside scope`. Avoid green/red maturity scoring and avoid presenting one category-level adjective as a guaranteed property of every implementation.
+
+**Matrix epistemic rule:** Cells describe common tendencies observed in the cited representative set, not universal properties of every member of an approach family. Product/platform coverage is configuration-dependent; systems/safety-method coverage depends on the method and how it is integrated into lifecycle practice.
 
 Suggested columns:
 
 | Approach family | Typical controlled object | Organization | Project / Architecture | Delivery | Runtime | Capability emphasis | Authority / reassessment / economics boundary |
 |---|---|---|---|---|---|---|---|
-| Control-theoretic research | model/state/physical process | usually outside | partial/specific | limited | strong in scoped problem | Sensors / Controllers / Actuators; formal constraints where modeled | socio-technical authorization/economics usually outside research question |
-| Agent/orchestration runtimes | workflow/agent run | usually outside | partial | strong | strong | Controller implementation / Actuators / realization hooks / Sensor hooks | legitimate authority and viability remain application/organization decisions |
-| Guardrail/enforcement tools | input/output/tool path | usually outside | partial | strong | strong | Constraint Realizations / Sensors / local Controllers / Actuators | source authority, Hard claim semantics, cross-level reassessment outside local mechanism |
-| Evaluation/observability | traces/evidence/application behavior | usually outside | partial | strong | strong | Sensors; some Controller/Actuator automation | evidence consumer, authority, escalation, and full economics supplied elsewhere |
-| Managed AI/agent platforms | application/platform estate | partial | partial | strong | strong | potentially all four implementation families | platform implements delegated control; organizational/project authority not created by platform |
-| Enterprise governance platforms | AI use case / model / organizational estate | strong | moderate-to-strong | moderate | evidence/monitoring oriented | authoritative records, Sensors, Controller workflows, some control integrations | technical realization/Actuation depth depends on integration and architecture |
+| Control-theoretic research | model/state/physical process | usually outside the scoped research question | partial/specific | limited or outside | substantial in the scoped problem | Sensors / Controllers / Actuators; formal constraints where modeled | socio-technical authorization/economics often outside the research question |
+| Systems / safety / runtime-assurance methods | socio-technical system / hazards / controlled process / assured runtime architecture | potentially substantial, method-dependent | potentially substantial | substantial where assurance/verification is integrated | substantial in runtime-assurance variants | Constraints, control structure, evidence, Controllers/Actuators, fallback; exact mapping method-dependent | may already carry broad lifecycle authority/assurance semantics; explicit UA category/economics/horizon mapping must be tested rather than presumed absent |
+| Agent/orchestration runtimes | workflow/agent run | usually outside intrinsic product scope | partial/application-defined | commonly substantial | commonly substantial | Controller implementation / Actuators / realization hooks / Sensor hooks | legitimate authority and viability remain application/organization decisions |
+| Guardrail/enforcement tools | input/output/tool path | usually outside intrinsic product scope | partial/application-defined | commonly substantial | commonly substantial | Constraint Realizations / Sensors / local Controllers / Actuators | source authority, complete Hard-claim semantics, and cross-level reassessment usually supplied elsewhere |
+| Evaluation/observability | traces/evidence/application behavior | usually outside intrinsic product scope | partial/application-defined | commonly substantial | commonly substantial | Sensors; some Controller/Actuator automation | evidence consumer, authority, escalation, and full economics usually supplied elsewhere |
+| Managed AI/agent platforms | application/platform estate | product/configuration dependent | product/configuration dependent | commonly substantial | commonly substantial | potentially all four implementation families | platform implements delegated control; organizational/project authority is not created merely by platform functionality |
+| Enterprise governance platforms | AI use case / model / organizational estate | commonly substantial but product-dependent | moderate-to-substantial depending on implementation | integration-dependent | evidence/monitoring and integration dependent | authoritative records, Sensors, Controller workflows, some control integrations | technical realization/Actuation depth depends on integration and architecture |
 | Risk / management frameworks and standards | organization / AI management system / risk process | source/obligation when adopted or otherwise made authoritative | requirements / risk-management guidance | process and evidence expectations | monitoring / continual-improvement expectations where applicable | Requirements/Constraints, evidence, management and authority expectations | application-specific authority, realization, Actuation, and economics depend on adoption and implementation |
 | Law / regulation / binding contractual obligations | regulated or contract-bound organization and system | authoritative where applicable | mandatory Requirements / Constraints | delivery, documentation, assurance, or process obligations | monitoring / oversight / corrective obligations where applicable | authoritative Requirements, evidence, oversight, and corrective obligations | application-specific realization and control economics still require engineering decisions |
 
@@ -1996,7 +2025,7 @@ Suggested columns:
 
 If a matrix becomes too dense in publication form, use a supporting figure with **coverage bands** across the four horizons × four capability families. Do not use vendor logos, leader quadrants, checkmark marketing, or numerical scores.
 
-#### 5.6.10 The substitution test — “Can we just use X instead of UA?”
+#### 5.6.11 The substitution test — “Can we just use X instead of UA?”
 
 Answer this directly and non-defensively: **yes, if X plus the organization's existing engineering and governance stack already preserves the material control decisions and relationships.** UA does not require teams to install UA software, create UA-specific documents, or replace existing standards and tools.
 
@@ -2016,6 +2045,7 @@ What remains reserved to Human Authority, and is that authority operationally vi
 What failure or changed assumption triggers Delivery reassessment, Project Reauthorization, or Organizational review?
 What authority expansion requires a new decision rather than a configuration change?
 What does the complete control perimeter cost across the lifecycle?
+What does this existing approach or composition make explicit that UA currently does not?
 ```
 
 If existing mechanisms answer these questions credibly and keep them connected through operation, **they already implement the required control architecture; UA should not add bureaucracy merely to rename it**.
@@ -2026,7 +2056,7 @@ Preserve this strong boundary:
 
 This substitution test protects the article from becoming self-sealing. A simpler coherent method that covers the same decisions with less conceptual overhead is evidence against unnecessary UA complexity and should inform revision.
 
-#### 5.6.11 What UA is actually competing with
+#### 5.6.12 What UA is actually competing with
 
 Do not use “competitors” as the publication heading unless the distribution context explicitly calls for a market-comparison framing. The blueprint should nevertheless remember three different substitution classes:
 
@@ -2040,14 +2070,15 @@ The real conceptual competitor is not LangGraph or LangSmith individually. It is
 
 If such a method or composition exists, the paper should acknowledge it. External evidence of a better or simpler approach is a validation result, not a branding threat.
 
-#### 5.6.12 Known risks, rejected formulations, and unresolved decisions for the landscape section
+#### 5.6.13 Known risks, rejected formulations, and unresolved decisions for the landscape section
 
 Preserve these for drafting and external review:
 
 - **Fast-moving tools:** product capabilities change quickly. Every named-platform claim must be rechecked against current first-party documentation immediately before publication. Prefer approach-family conclusions over brittle feature inventories.
 - **Category overlap:** managed platforms increasingly include orchestration, guardrails, evaluation, identity, governance, and observability. Do not force one product into exactly one landscape category; classify concrete functions by role.
 - **Vendor selection bias:** a small representative set cannot establish exhaustive market absence. Do not infer “no platform does X” from the selected examples.
-- **Framework comparison asymmetry:** standards, laws, research papers, open-source runtimes, and commercial governance suites have different purposes. “Coverage” is not a common maturity score.
+- **Framework comparison asymmetry:** standards, laws, systems/safety methods, research papers, open-source runtimes, and commercial governance suites have different purposes. “Coverage” is not a common maturity score.
+- **UA-frame asymmetry:** mapping every approach into UA categories can hide useful concepts that UA does not represent well. Every substantive comparison must include reverse mapping: what UA loses, distorts, or fails to name when translating the adjacent approach.
 - **Authority implementation nuance:** some enterprise governance products do encode decision rights, approval workflows, policy mappings, and technical integrations. Do not claim they lack authority semantics categorically; ask what authority they record versus what source legitimizes it and how it connects to runtime action.
 - **Economics nuance:** platforms may expose usage/cost/latency metrics and governance suites may support ROI or risk workflows. UA's specific proposal is to make **complete control-perimeter economics part of Project viability**, not to claim other tools never expose cost.
 - **Hard/Soft translation:** some products offer deterministic IAM/network/schema/transaction enforcement as well as probabilistic classification. Map the complete realized path instead of labeling the product itself Hard or Soft.
@@ -2064,12 +2095,14 @@ Show approach families on one side and the previously established UA map in the 
 
 ```text
 Control-theoretic research
+Systems / safety / runtime-assurance methods
 Agent/orchestration runtimes
 Guardrails / runtime enforcement
 Evaluation / observability
 Managed AI / agent platforms
 Enterprise governance platforms
-Standards / management systems / regulation
+Risk / management frameworks and voluntary standards
+Law / regulation / binding contractual obligations
             ↓ coverage bands / mappings, not execution arrows
 
 UA operating map
@@ -2100,9 +2133,9 @@ Use **coverage bands, brackets, or shaded regions**, not arrows that imply causa
 
 **Closing claims:**
 
-> Existing approaches solve many parts of the control problem. The unresolved engineering problem is often the connection among their scopes, not the absence of components.
+> Existing approaches solve many parts of the control problem. The comparison asks whether the unresolved engineering problem is often the connection among their scopes rather than the absence of controls themselves.
 
-> A platform may implement control. A standard may create obligations. A governance process may authorize. An evaluator may observe. None of those labels alone tells us whether the complete Thinking System is bounded, viable, correctable, and reauthorizable.
+> A platform may implement control. Applicable law or another binding source may create Requirements. An adopted standard or voluntary framework may structure obligations and become authoritative through a legitimate adoption path. A governance process may authorize. An evaluator may observe. None of those labels alone tells us whether the complete Thinking System is bounded, viable, correctable, and reauthorizable.
 
 > If an existing stack already preserves those relationships, UA should map and reuse it rather than compete with it.
 
@@ -2264,6 +2297,7 @@ The figure should visually preserve the orthogonality of capability families and
 18. **Capability granularity:** Are the four capability families too coarse or too artificial to map modern integrated platforms without distortion?
 19. **Conceptual redundancy:** Where does UA merely rename an established systems-engineering or safety concept without improving decision quality or usability?
 20. **Simpler composition:** Can a simpler combination of standards + existing engineering records + tooling produce the same control outcome with less conceptual overhead?
+21. **Reverse mapping / conceptual loss:** Which concepts from systems engineering, safety engineering, runtime assurance, governance, or integrated platforms become less precise when translated into UA, and should UA change rather than forcing them into its current four-horizon × four-capability partition?
 
 **Landscape falsification questions to preserve in prose or callout:**
 
@@ -2272,6 +2306,8 @@ The figure should visually preserve the orthogonality of capability families and
 - Which current UA distinction adds no practical value when an organization already operates an integrated platform/governance stack?
 - Which part of UA remains useful only because common tooling is fragmented today and should disappear if platforms converge?
 - Is the substitution test fair to standards whose purpose is to specify outcomes/obligations rather than implementation?
+- What does each serious conceptual substitute make explicit that UA currently does not, and where does the UA mapping lose useful structure?
+- Would an established systems/safety/runtime-assurance method plus normal architecture and operations practice satisfy the substitution test with less conceptual overhead?
 
 **Evidence requested:**
 
@@ -2359,7 +2395,7 @@ Supporting figures currently expected:
 - evidence and change routing;
 - **cross-level learning and stabilization loop** — clearly labeled as proposed under validation: negative case/evidence → owning level → diagnose Sensor/Constraint/Realization/Controller/Actuator/Human Authority/automation/assumption weakness → local change or reauthorization → improved control → runtime verification;
 - **full map to proportionate implementation** — complete map → complexity/proportionality assessment → multiple possible existing records, tools, and lightweight UA patterns, with no mandatory artifact package;
-- **adjacent approaches mapped onto the UA operating map** — approach-family coverage bands across decision horizons and capability families, with “outside scope” explicitly not treated as inferiority and no product-logo scorecard;
+- **adjacent approaches mapped onto the UA operating map** — approach-family coverage bands across decision horizons and capability families, including systems/safety/runtime-assurance methods, with voluntary frameworks/standards visually distinct from law/regulation/binding obligations, “outside scope” explicitly not treated as inferiority, and no product-logo scorecard;
 - optional platform-specific capability/authority boundary only if it adds information beyond the landscape figure;
 - optional final validation loop if it adds information beyond the prose.
 
@@ -2423,6 +2459,8 @@ Do not:
 - treat law, standards, platforms, research papers, and open-source runtimes as if they were competing products with one common maturity score;
 - label an entire product Hard or Soft; Hard/Soft is a scoped claim about a Constraint and complete realized path;
 - infer market-wide absence from a small representative comparison set;
+- force systems/safety/runtime-assurance concepts into UA categories without recording where the translation is lossy or where UA may need revision;
+- present the proposed landscape integration gap as established fact rather than a bounded hypothesis to be challenged by substitution and reverse mapping;
 - use a vendor matrix as marketing evidence that UA “covers more”; UA is the conceptual reference frame, not a scored implementation-capability competitor;
 - repeat the Section 5.2 NIST/ISO category-boundary argument in Section 5.6; change the analytical lens to functional coverage and substitution;
 - use internal or remembered product capabilities without checking current first-party sources immediately before publication.
@@ -2431,7 +2469,7 @@ Preferred landscape language:
 
 - “these approaches cover substantial parts of the problem”;
 - “this function is normally inside/outside the approach's scope”;
-- “the remaining gap is cross-boundary integration/authority/reassessment/economics”;
+- “this paper examines whether a material remaining gap lies in cross-boundary integration/authority/reassessment/economics”;
 - “UA proposes a common map for composing these pieces”;
 - “within the cited comparison set, we have not identified…”;
 - “this mapping should be corrected by maintainers and practitioners where it understates current capability”;
@@ -2503,6 +2541,13 @@ Use **approach families first** and only enough named examples to prove that the
 
 - Bhargava et al., *What's the Magic Word? A Control Theory of LLM Prompting*: primary paper/arXiv source.
 - Add one or two additional current peer-reviewed/preprint control/LLM or LLM-as-controller papers only if they materially demonstrate a distinct research direction; do not use them to claim exhaustive coverage of the field.
+
+**Systems / safety / runtime-assurance engineering methods**
+
+- Nancy G. Leveson, *Engineering a Safer World* / STAMP and current STPA primary material — use for hierarchical socio-technical control, safety constraints, unsafe control actions, feedback, and process-model concepts.
+- Software Engineering Institute, *An Architectural Description of the Simplex Architecture* and other primary runtime-assurance material where needed — use for trusted safety paths, decision modules, fallback, and assured runtime boundaries.
+- Add one current systems/safety-engineering source only if it materially demonstrates lifecycle assurance or responsibility semantics not already covered by STAMP/STPA or Simplex; do not create a generic systems-engineering literature survey.
+- Apply the same reverse-mapping rule: record what these methods contain that UA does not represent cleanly, rather than treating every mismatch as missing coverage in the antecedent.
 
 **Agent/orchestration runtimes**
 
@@ -2647,8 +2692,11 @@ Every article-writing PR must satisfy all of the following:
 - [ ] Section 5 teaches how to apply the full map proportionally and does not make the two-living-review pattern, `K-SEND-01`, or any one template the paper's required practical artifact.
 - [ ] Section 5 distinguishes durable decision obligations from optional implementation records and explicitly allows existing organizational/engineering systems to carry the map where ownership and lifecycle are credible.
 - [ ] The repository's two-review pattern and illustrative Constraint traces are described, if mentioned, as optional implementation/reference material rather than independent validation or the definition of UA.
-- [ ] Section 6 uses one stable comparison lens across all approach families: controlled object, primary function, capability coverage, decision horizons, authority, guarantee semantics, evidence routing, reassessment, Human Authority, economics, substitution, and outside-scope responsibilities.
-- [ ] Section 6 treats “outside scope” as a scope boundary rather than an inferiority score and avoids vendor-maturity scoring.
+- [ ] Section 6 uses one stable bidirectional comparison lens across all approach families: controlled object, primary function, capability coverage, decision horizons, authority, guarantee semantics, evidence routing, reassessment, Human Authority, economics, substitution, outside-scope responsibilities, and reverse mapping of what UA loses or distorts.
+- [ ] Section 6 treats “outside scope” as a scope boundary rather than an inferiority score, avoids vendor-maturity scoring, and allows adjacent methods to expose missing or poorly partitioned concepts in UA itself.
+- [ ] Section 6 includes systems/safety/runtime-assurance methods as a real conceptual substitution class rather than mentioning STAMP/STPA and Simplex only as historical antecedents.
+- [ ] Section 6 frames the proposed cross-boundary integration gap as a hypothesis under comparison/falsification rather than an established market-wide fact.
+- [ ] Section 6 matrix cells are explicitly representative tendencies, not guaranteed category properties; product/platform coverage is configuration-dependent and method coverage is application-dependent.
 - [ ] Section 6 acknowledges real current capabilities of orchestration runtimes, guardrails, observability/evaluation tools, managed AI platforms, and governance suites rather than using stale strawman descriptions.
 - [ ] Section 6 distinguishes current tool/platform implementation from the source of organizational/project authority without claiming that platforms or governance suites “cannot solve governance.”
 - [ ] Section 6 distinguishes applicable law/binding obligations from voluntary standards/frameworks: law, binding contracts, and adopted organizational policy may be authoritative within scope, while a voluntary standard/framework becomes authoritative only through adoption, contractual incorporation, certification/procurement commitment, policy, or another legitimate authority decision.
