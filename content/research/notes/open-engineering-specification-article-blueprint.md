@@ -53,9 +53,9 @@ engineering expands around consequential uncertainty it can no longer leave outs
 → Thinking Systems are not synonymous with agentic applications
 → useful runtime variance changes the engineering contract rather than merely making testing harder
 → model quality and observability are necessary but insufficient
-→ bounded operation requires four control-capability families
+→ the paper derives the current UA partition into four control-capability families
 → governance becomes operational through the active socio-technical control architecture, not through a post-hoc review or document
-→ different decisions are owned at four connected lifecycle levels
+→ UA models lifecycle decision ownership through four connected decision horizons
 → each level must have explicit triggers, inputs, decision rights, evidence needs, downward outputs, and reassessment routes
 → an incomplete cross-level control architecture means the application is not ready for production release at the intended scope
 → authoritative Constraints flow downward by reference while realization becomes concrete
@@ -414,7 +414,7 @@ These three cases should remain mutually distinguishable throughout the manuscri
 
 Use the same business context to show why implementation depth is based on authority/consequence rather than feature size.
 
-**Lower-authority variant:** the model only drafts a suggested response for a human support agent; it cannot execute refunds, change account state, or communicate directly without human review. The full map is still inspected, but many explicit runtime Actuators, hard transaction boundaries, and organizational evidence obligations may be lighter.
+**Lower-authority variant:** the model only drafts a suggested response for a human support agent; it cannot execute refunds, change account state, or communicate directly without human review. The full map is still inspected, but many explicit runtime Actuators, hard transaction boundaries, and organizational evidence obligations may be lighter **only where the human path genuinely reduces reachable authority, consequence, irreversibility, or automation dependence**. Human mediation does not automatically remove the system from the Thinking-System category or make the control problem lightweight. If the human merely rubber-stamps model output, lacks sufficient information or time, or the consequential decision still materially depends on Model Judgment, substantive Human Authority and the associated control obligations remain.
 
 **Higher-authority variant:** the system can communicate directly with customers and execute bounded refunds/credits. The same visible UI may now require stronger identity/transaction realizations, richer Sensors, substantive Human Authority, fallback, incident paths, more explicit decision rights, and a larger control perimeter.
 
@@ -1769,28 +1769,35 @@ Treat at least two different research directions separately enough to avoid a st
 
 #### 5.6.3 Systems, safety, and runtime-assurance engineering methods
 
-This category is a **required conceptual-substitution challenge**, not merely historical provenance. Use a small representative set such as STAMP/STPA, Simplex/runtime-assurance architecture, and broader systems/safety-engineering practice where current primary sources support the comparison. The purpose is not to survey all systems engineering; it is to test whether an established engineering method or composition already carries the cross-level control relationships UA claims to make explicit.
+This category is a **required conceptual-substitution challenge**, not merely historical provenance. Do not collapse distinct engineering traditions into one synthetic competitor. Compare at least two subfamilies separately, then ask whether either one—or a composition with ordinary architecture, delivery, operations, and governance practice—already carries the material cross-level control relationships UA claims to make explicit.
 
-**What these approaches genuinely contribute:**
+**A. Systems/safety control methods — STAMP/STPA.**
 
-- socio-technical control structures, safety constraints, control actions, feedback, and unsafe-control-action reasoning in STAMP/STPA;
-- trusted safety/assurance paths, fallback, decision modules, and bounded runtime assurance around complex or untrusted components in Simplex-family architectures;
-- established hazard analysis, assurance cases, requirements allocation, verification/validation, change control, operational monitoring, and lifecycle responsibility in broader systems/safety engineering practice.
+Treat STAMP/STPA as a socio-technical control and hazard-analysis method with concepts such as hierarchical control structures, safety constraints, unsafe control actions, feedback, process models, hazards/losses, and responsibility across organizational and technical boundaries. Its potential coverage can extend broadly across Organization, Project / Architecture, Delivery, and operation depending on how the method is applied. Do not reduce it to a runtime safety monitor or a historical influence.
 
-**UA mapping:** potentially broad. Unlike a runtime tool, these methods can span organizational assumptions, architecture, implementation constraints, assurance evidence, runtime monitoring, fallback, and lifecycle change. Do not force them into a Delivery/Runtime-only box merely because some implementations contain runtime monitors or safety controllers.
+**B. Runtime-assurance architectures — Simplex and related patterns.**
 
-**Substitution question:** Could STPA/Simplex/runtime-assurance practice plus ordinary architecture, delivery, operations, and business-governance records already preserve the material decisions UA asks teams to make? Which UA distinctions add operational value beyond that composition, and which are merely renamed or repackaged established systems-engineering concepts?
+Treat Simplex-family/runtime-assurance work as an architectural pattern centered on bounded runtime assurance around a complex or untrusted component, including trusted safety/assurance paths, decision modules, fallback/recovery behavior, switching conditions, and formal or otherwise strongly justified safety boundaries where applicable. Its strongest natural coverage is architectural, delivery, and runtime assurance; do not attribute STAMP's organizational-control semantics to Simplex merely because both are safety-related.
 
-**Reverse-mapping obligation:** Explicitly identify concepts that do not translate cleanly into UA. Examples to examine rather than pre-answer include hierarchical control structures, unsafe control actions, process models, hazards/losses, assurance separation, trusted fallback architecture, formal safety invariants, and responsibility allocation. If UA's four horizons or four capability families lose useful structure from these methods, record that as evidence against the current UA partition rather than treating it as a defect in the antecedent.
+**Broader systems/safety-engineering practice** may be used as contextual evidence for hazard analysis, assurance cases, requirements allocation, verification/validation, change control, operational monitoring, and lifecycle responsibility. Do not turn this subsection into a generic systems-engineering literature survey.
 
-**Boundary relative to this paper:** Do not say systems/safety engineering “does not cover AI” or “lacks governance.” The narrower question is whether these methods, as normally applied, provide the specific Thinking-System category boundary, Model-Judgment placement language, complete realized-path Hard/Soft semantics, four decision-horizon routing, and explicit control-perimeter economics proposed here—or whether an existing composition already does so with equal or lower conceptual overhead.
+**Substitution questions:**
+
+- Could STPA plus ordinary architecture, delivery, operations, and business-governance records already preserve the material decisions UA asks teams to make?
+- Could a Simplex/runtime-assurance architecture plus ordinary lifecycle governance already provide the required bounded runtime control for the relevant class of Thinking System?
+- Which UA distinctions add operational value beyond those compositions, and which are merely renamed or repackaged established concepts?
+
+**Reverse-mapping obligation:** Explicitly identify concepts that do not translate cleanly into UA. For STAMP/STPA, examine hierarchical control structures, unsafe control actions, process models, hazards/losses, and responsibility allocation. For Simplex/runtime assurance, examine assurance separation, trusted fallback, switching logic, formal safety invariants, and assumptions about the assured controller/path. If UA's four horizons or four capability families lose useful structure from either subfamily, record that as evidence against the current UA partition rather than treating it as a defect in the antecedent.
+
+**Boundary relative to this paper:** Do not say systems/safety engineering “does not cover AI” or “lacks governance.” The narrower question is whether these methods, as normally applied or sensibly composed, provide the specific Thinking-System category boundary, Model-Judgment placement language, complete realized-path Hard/Soft semantics, decision-horizon routing, and explicit control-perimeter economics proposed here—or whether an existing composition already does so with equal or lower conceptual overhead.
 
 **Mandatory claim-safety:**
 
 - Do not demote STAMP/STPA or Simplex to historical inspiration while treating implementation tools as the only current competitors.
+- Do not imply that STAMP/STPA and Simplex have the same controlled object, lifecycle scope, or authority semantics merely because both belong to safety/runtime-assurance engineering.
 - Do not claim UA is more complete merely because UA uses broader editorial categories.
 - Use Section 5.7 for intellectual continuity/provenance; use this subsection for the functional substitution test.
-- A finding that established systems/safety methods already carry most of the map is a valid result that should narrow UA's contribution claim.
+- A finding that established systems/safety/runtime-assurance methods already carry most of the map is a valid result that should narrow UA's contribution claim.
 
 #### 5.6.4 Agent and orchestration runtimes
 
@@ -1849,7 +1856,7 @@ Candidate examples include NVIDIA NeMo Guardrails, Guardrails AI, Amazon Bedrock
 This is an important example of why UA classifies by function rather than tool name:
 
 ```text
-a configured policy/check may express or implement part of a Constraint Realization
+a configured policy/check may implement part of a Constraint Realization for a separately authorized Constraint
 a classifier/evaluator may perform a Sensor function
 threshold/tripwire logic may perform a Controller function
 block/reject/rewrite/reroute may perform an Actuator function
@@ -2010,7 +2017,8 @@ Suggested columns:
 | Approach family | Typical controlled object | Organization | Project / Architecture | Delivery | Runtime | Capability emphasis | Authority / reassessment / economics boundary |
 |---|---|---|---|---|---|---|---|
 | Control-theoretic research | model/state/physical process | usually outside the scoped research question | partial/specific | limited or outside | substantial in the scoped problem | Sensors / Controllers / Actuators; formal constraints where modeled | socio-technical authorization/economics often outside the research question |
-| Systems / safety / runtime-assurance methods | socio-technical system / hazards / controlled process / assured runtime architecture | potentially substantial, method-dependent | potentially substantial | substantial where assurance/verification is integrated | substantial in runtime-assurance variants | Constraints, control structure, evidence, Controllers/Actuators, fallback; exact mapping method-dependent | may already carry broad lifecycle authority/assurance semantics; explicit UA category/economics/horizon mapping must be tested rather than presumed absent |
+| Systems/safety control methods (e.g. STAMP/STPA) | socio-technical control structure / hazards / losses | potentially substantial, application-dependent | potentially substantial | substantial where assurance/verification is integrated | operational feedback/control where modeled | safety constraints, control structure, feedback, unsafe control actions, process models | may already carry broad lifecycle and authority semantics; UA mapping must preserve hierarchical/control-structure concepts rather than flatten them |
+| Runtime-assurance architectures (e.g. Simplex family) | assured runtime architecture / complex component plus trusted safety path | usually outside intrinsic method scope or supplied by surrounding governance | substantial for architecture/assurance boundary | substantial | substantial | trusted safety path, decision/switching logic, fallback, runtime evidence/Actuation | organizational authority and project economics usually come from surrounding lifecycle governance; do not infer STAMP-like organizational semantics from runtime assurance alone |
 | Agent/orchestration runtimes | workflow/agent run | usually outside intrinsic product scope | partial/application-defined | commonly substantial | commonly substantial | Controller implementation / Actuators / realization hooks / Sensor hooks | legitimate authority and viability remain application/organization decisions |
 | Guardrail/enforcement tools | input/output/tool path | usually outside intrinsic product scope | partial/application-defined | commonly substantial | commonly substantial | Constraint Realizations / Sensors / local Controllers / Actuators | source authority, complete Hard-claim semantics, and cross-level reassessment usually supplied elsewhere |
 | Evaluation/observability | traces/evidence/application behavior | usually outside intrinsic product scope | partial/application-defined | commonly substantial | commonly substantial | Sensors; some Controller/Actuator automation | evidence consumer, authority, escalation, and full economics usually supplied elsewhere |
