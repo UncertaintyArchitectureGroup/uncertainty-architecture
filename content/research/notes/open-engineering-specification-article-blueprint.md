@@ -2564,11 +2564,15 @@ The publication should explicitly invite review not only of whether the full map
 
 The publication should not frame current repository templates as the paper's principal deliverable. The public deliverable is the **engineering map, operating questions, and landscape/substitution lens**; templates and reference implementations are follow-on surfaces that can evolve independently as evidence accumulates.
 
-### Target length
+### Length rule and soft planning ranges
 
-The working manuscript may exceed the earlier 4,300–5,200-word target while the argument is still being constructed. Preserve the argument during section drafting; perform one integrated reduction pass only after all eight sections exist.
+**No hard word-count ceiling applies to the canonical manuscript during drafting or as a repository-publication acceptance criterion.** Section word budgets and overall word-count ranges in this blueprint are editorial planning heuristics only. Completeness, conceptual precision, continuity of the argument, and removal of unnecessary repetition take precedence over hitting a numerical target.
 
-Expected working range after the expanded operating-model and landscape sections: **9,000–11,500 English words** before final editorial compression. Aim for a publication edition closer to **7,000–9,000 words** if the final reduction can preserve the operating logic, landscape comparison lens, substitution test, figure sequence, and running-example continuity. Prefer cutting repetitive product detail or repeated explanation of the example before cutting decision semantics.
+Do not shorten a section merely because it exceeds its working budget while the argument is still being constructed. Perform integrated compression only after all eight sections exist and have been reread as one paper. During that pass, cut duplicated explanation, redundant vendor/product detail, repeated restatement of the running example, and prose that no longer advances the argument before removing decision semantics, authority boundaries, reassessment logic, claim-safety qualifications, or evidence obligations.
+
+The earlier 4,300–5,200-word target is obsolete as a constraint. The current **9,000–11,500 English-word working range** and a possible **7,000–9,000-word publication range** remain useful orientation for editorial planning only; exceeding either is acceptable when the complete argument requires it. Conversely, a manuscript inside either range is not acceptable merely because it meets the number if it is repetitive or conceptually incomplete.
+
+The canonical repository paper is the full reference publication. Medium and LinkedIn editions may be shortened independently for distribution and should link back to the canonical repository edition rather than forcing the canonical argument to fit a platform-specific length preference.
 
 ### Target and publication paths
 
@@ -2594,6 +2598,7 @@ Every article-writing PR must satisfy all of the following:
 - [ ] The complete target article was read before drafting.
 - [ ] New prose continues the existing argument and terminology.
 - [ ] Previously written sections were revised where the new block exposed repetition, contradiction, weak transitions, or premature framing.
+- [ ] Word-count ranges and per-section budgets were treated as soft editorial guidance rather than gates; no argument, decision semantic, authority boundary, claim-safety qualification, or evidence obligation was removed solely to satisfy a numerical target.
 - [ ] The running support-resolution example remains consistent with Section 2.6, is used as a narrative aid rather than validation evidence, and does not introduce example-specific doctrine.
 - [ ] When the running example is used, its controlled object, Consequential Runtime Responsibilities, illustrative Hard/Soft distinction, Human Authority semantics, proportionality variants, and three reassessment cases remain internally consistent.
 - [ ] Plan-driven development, iterative delivery, and modern operations remain the primary categories, with Waterfall, Agile and related approaches, and DevOps named consistently as familiar examples in the opening prose, Figure 1, and the comparison table.
