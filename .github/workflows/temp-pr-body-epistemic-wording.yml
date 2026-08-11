@@ -1,0 +1,33 @@
+name: Temporary PR body epistemic wording
+
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-pr-body-epistemic-wording.yml'
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Update PR body wording
+        shell: python
+        run: |
+          import json, os, subprocess, tempfile
+          repo = os.environ['GITHUB_REPOSITORY']
+          body = subprocess.check_output(['gh','pr','view','67','--repo',repo,'--json','body','--jq','.body'], text=True)
+          old = 'landscape mapping is analytical comparison and hypothesis testing, not empirical validation of UA;'
+          new = 'landscape mapping is analytical comparison and falsifiable hypothesis examination, not empirical validation of UA;'
+          count = body.count(old)
+          if count != 1:
+              raise SystemExit(f'Expected exactly one match, found {count}')
+          body = body.replace(old, new)
+          with tempfile.NamedTemporaryFile('w', delete=False) as f:
+              f.write(body)
+              path = f.name
+          subprocess.check_call(['gh','pr','edit','67','--repo',repo,'--body-file',path])
