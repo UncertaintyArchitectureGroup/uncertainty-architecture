@@ -240,9 +240,6 @@ flowchart TB
     MJ --> I
     MJ --> D
     MJ --> O
-
-    I ~~~ D
-    D ~~~ O
 ```
 
 **Figure 4 — Functional placement of Model Judgment.** Model Judgment is shown as the parent concept; Input Interpretation, Decision Logic, and Output Mediation are three functional placements beneath it. They are not mandatory stages or a prescribed execution order. A system may use one, several, or repeated instances of them, and each placement changes the controlled object in a different way.
@@ -289,32 +286,24 @@ These activities use different evidence, participants, time horizons, and action
 Yet the levels are structurally connected because they control the same object.
 
 ```mermaid
-flowchart LR
-    subgraph H["Decision horizons"]
-        direction TB
-        O["Organization level<br/>authoritative boundaries, shared capabilities,<br/>prohibited uses, and decision rights"]
-        P["Project / architecture level<br/>technical credibility, operational supportability,<br/>economic viability, and control architecture"]
-        D["Delivery level<br/>bounded realization, evidence,<br/>release decision, and corrective readiness"]
-        R["Runtime level<br/>active behavior, operating conditions,<br/>correction, escalation, and reassessment"]
+flowchart TB
+    O["Organization<br/>What may be authorized?"]
+    P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]
+    D["Delivery<br/>Is this bounded realization complete and releasable?"]
+    R["Runtime<br/>Does active operation remain inside the authorized boundary?"]
+    E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]
 
-        O -->|authoritative sources, shared capabilities,<br/>delegated authority| P
-        P -->|Project Constraint Architecture<br/>and authorized boundary| D
-        D -->|realized controls, release scope,<br/>active versions| R
-    end
+    O -->|authoritative sources + delegated authority| P
+    P -->|Project Constraint Architecture + authorization| D
+    D -->|realized boundary + release scope| R
+    R --> E
 
-    subgraph U["Upward reassessment routes"]
-        direction TB
-        UO["Source, decision right,<br/>or shared capability changed"]
-        UP["Risk, authority, capacity,<br/>evidence, or economics invalidated"]
-        UD["Local defect or<br/>implementation evidence"]
-    end
-
-    R -.-> UO -.-> O
-    R -.-> UP -.-> P
-    R -.-> UD -.-> D
+    E -.->|implementation / realization / evidence issue| D
+    E -.->|risk / authority / feasibility / capacity / economics invalidated| P
+    E -.->|authoritative source / decision right / shared capability changed| O
 ```
 
-**Figure 6 — One controlled object across four decision horizons.** The four decision horizons remain aligned in one vertical spine. Authority and Constraints flow downward by reference and become more concrete in realization. The separate return lane preserves the upward routes by which runtime evidence is sent directly to Delivery, Project / Architecture, or Organization when it invalidates the basis of a decision owned at that level.
+**Figure 6 — One controlled object across four decision horizons.** The same Thinking System is viewed through four decision horizons. Authority and Constraints become more concrete as they move downward from Organization to Project / Architecture, Delivery, and Runtime. Runtime evidence returns directly to the horizon whose authorization basis it invalidates. The figure shows decision ownership and reassessment routing, not a four-stage delivery workflow.
 
 At each level, the concrete subject changes, but a recurring control structure appears:
 
