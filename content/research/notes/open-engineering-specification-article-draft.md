@@ -483,23 +483,43 @@ flowchart LR
 
     subgraph F["Capability functions: how control becomes operational"]
         direction TB
-        A["Actuators and corrective action<br/> execute authorized change"]
-        K["Constraints and realizations<br/> define and operationalize boundaries"]
-        S["Sensors and evidence<br/> observe behavior, conditions, and control state"]
-        C["Controllers and decision authority<br/> interpret evidence and authorize action"]
 
-        A ~~~ K
-        K ~~~ S
-        S ~~~ C
+        subgraph F1[" "]
+            direction LR
+            J1(( )) --- A["Actuators and corrective action<br/> execute authorized change"]
+        end
+        subgraph F2[" "]
+            direction LR
+            J2(( )) --- K["Constraints and realizations<br/> define and operationalize boundaries"]
+        end
+        subgraph F3[" "]
+            direction LR
+            J3(( )) --- S["Sensors and evidence<br/> observe behavior, conditions, and control state"]
+        end
+        subgraph F4[" "]
+            direction LR
+            J4(( )) --- C["Controllers and decision authority<br/> interpret evidence and authorize action"]
+        end
+
+        J1 --- J2
+        J2 --- J3
+        J3 --- J4
+
+        style F1 fill:none,stroke:none
+        style F2 fill:none,stroke:none
+        style F3 fill:none,stroke:none
+        style F4 fill:none,stroke:none
     end
 
     L -. "all four capability families may appear at every decision horizon" .- F
 
     classDef capability fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
+    classDef railpoint fill:transparent,stroke:transparent,color:transparent;
     class A,K,S,C capability;
+    class J1,J2,J3,J4 railpoint;
 ```
 
-**Figure 9 — Two orthogonal models.** The decision-horizon side repeats Figure 6 verbatim: the same four questions, downward authority and Constraint inheritance, Runtime evidence, and the same three decision-basis reassessment routes. The green capability-family side adds the orthogonal control dimension—Actuators, Constraints and realizations, Sensors and evidence, and Controllers and decision authority. All four capability families may appear at every decision horizon; the green vertical ordering is a reading aid, not an execution pipeline or a one-to-one mapping to the four horizons.
+**Figure 9 — Two orthogonal models.** The decision-horizon side repeats Figure 6 verbatim: the same four questions, downward authority and Constraint inheritance, Runtime evidence, and the same three decision-basis reassessment routes. The green capability-family side adds the orthogonal control dimension—Actuators, Constraints and realizations, Sensors and evidence, and Controllers and decision authority. The shared undirected rail groups the four capability families as one control-capability model without implying causal or execution order. All four capability families may appear at every decision horizon; the green vertical ordering is a reading aid, not an execution pipeline or a one-to-one mapping to the four horizons.
 
 ### Organizational control context
 
