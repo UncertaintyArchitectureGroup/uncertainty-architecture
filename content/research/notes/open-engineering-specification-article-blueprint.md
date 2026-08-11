@@ -225,7 +225,7 @@ Possible organizational boundaries:
 
 - customer/account data may be accessed only through approved identity, data, and deployment paths;
 - some customer or contractual case classes must always remain under Human Authority;
-- a bounded low-value refund or credit may be delegated to the system, while higher-value transactions remain reserved;
+- organizational policy may permit a project to delegate bounded low-value refund or credit authority, while higher-value transactions remain reserved to Human Authority;
 - billing-plan changes, account closure, or other higher-authority operations remain outside the automated support scope;
 - consequential customer communication and transaction decisions must remain traceable enough for the owning decision process;
 - material privacy/security boundary violations, abnormal financial behavior, repeated complaints, and shared-capability degradation must produce evidence usable by the relevant organizational owners.
@@ -284,9 +284,9 @@ Use a deliberately concrete pair because this example should make the realized-p
 
 **Illustrative Soft claim:**
 
-> The system should avoid inappropriate refunds or misleading customer communication.
+> Approved boundary: customer communication and refund recommendations must remain consistent with the applicable support policy. The current semantic realization can provide only a Soft guarantee for that semantic property.
 
-A prompt, policy instruction, classifier, or LLM-as-judge may influence or estimate this property, but does not make an inappropriate semantic outcome unreachable.
+The business intent may be categorical while the realized guarantee remains Soft. A prompt, policy instruction, classifier, or LLM-as-judge may influence or estimate compliance with the boundary, but does not make an inappropriate semantic outcome unreachable.
 
 **Illustrative Hard claim for one action path:**
 
@@ -560,7 +560,7 @@ Preserve the following category boundary:
 
 ### Defensible public claim
 
-The paper proposes a coherent engineering model for reasoning about and operating Thinking Systems from organizational authority and project viability through delivery release and runtime reassessment, tests that model against the adjacent tool/framework landscape, and identifies Uncertainty Architecture as the open draft specification in which that model is being developed.
+The paper proposes a coherent engineering model for reasoning about and operating Thinking Systems from organizational authority and project viability through delivery release and runtime reassessment, examines that model through a structured mapping and substitution analysis against the adjacent tool/framework landscape, and identifies Uncertainty Architecture as the open draft specification in which that model is being developed.
 
 ### Claims the article must not make
 
@@ -1705,11 +1705,11 @@ If these answers already live clearly in existing engineering and organizational
 
 ---
 
-### 5.6 The Existing Landscape: What Current Approaches Solve — and What Remains Unowned
+### 5.6 The Existing Landscape: What Current Approaches Solve — and What Still Must Be Connected
 
 **Purpose:** Answer the reader's strongest substitution question after the operating map has been derived: *Why is another architecture model needed when the ecosystem already contains orchestration runtimes, guardrails, evaluation and observability, managed agent platforms, AI-governance suites, standards, regulation, and control-theoretic research?* The section must show that UA is not proposed because those approaches are absent or weak. Many already solve substantial parts of the problem. The engineering question is how their different controlled objects, abstraction levels, capability coverage, authority boundaries, lifecycle semantics, and economics fit together around one Thinking System.
 
-**Core claim:** Existing approaches cover substantial parts of the Thinking-System control problem, sometimes very well. Their blind spots arise primarily at the boundaries between **capability, authority, lifecycle decision ownership, guarantee strength, evidence routing, and economics**. UA is intended to provide a common map across those boundaries rather than replace the tools, standards, research, or organizational processes that already implement pieces of them.
+**Core claim:** Existing approaches cover substantial parts of the Thinking-System control problem, sometimes very well. The remaining integration burden arises primarily at the boundaries between **capability, authority, lifecycle decision ownership, guarantee strength, evidence routing, and economics**. UA is intended to provide a common map across those boundaries rather than replace the tools, standards, research, or organizational processes that already implement pieces of them.
 
 Use this publication-facing thesis or a close equivalent:
 
@@ -1944,11 +1944,19 @@ At minimum distinguish:
 
 **EU AI Act** — law, not an engineering framework. For applicable/high-risk systems it can create authoritative requirements around risk management, logging/traceability, documentation, human oversight, monitoring, incident response/corrective action, and other obligations. Do not treat legal requirements as optional engineering advice, and do not present current applicability dates or obligations without checking current official EU sources because the implementation timeline and guidance can change.
 
+A standard or voluntary framework does **not** become an authoritative Constraint source merely by existing. For a specific organization or system, its authority may arise through explicit organizational adoption, contractual incorporation, certification commitments, procurement requirements, policy, or another legitimate authority decision. Applicable law and binding contractual obligations may create authoritative requirements directly within their scope.
+
 **UA relationship:**
 
 ```text
-law / standard / organizational policy / contractual source
+applicable law / binding contract / adopted organizational policy
 → Organization horizon authoritative basis
+
+standard / voluntary framework
+→ organizational adoption, contractual incorporation, certification commitment, procurement requirement, or another explicit authority decision
+→ Organization horizon authoritative basis where applicable
+
+authoritative basis
 → scoped Project Constraint / Requirement / assumption
 → required realization and evidence
 → Controller / decision authority
@@ -1979,12 +1987,12 @@ Suggested columns:
 | Evaluation/observability | traces/evidence/application behavior | usually outside | partial | strong | strong | Sensors; some Controller/Actuator automation | evidence consumer, authority, escalation, and full economics supplied elsewhere |
 | Managed AI/agent platforms | application/platform estate | partial | partial | strong | strong | potentially all four implementation families | platform implements delegated control; organizational/project authority not created by platform |
 | Enterprise governance platforms | AI use case / model / organizational estate | strong | moderate-to-strong | moderate | evidence/monitoring oriented | authoritative records, Sensors, Controller workflows, some control integrations | technical realization/Actuation depth depends on integration and architecture |
-| Standards/regulation | organization / regulated AI system / management system | strong source/obligation | requirements/obligations | obligations | monitoring/corrective obligations | Constraints/Requirements, evidence and authority expectations | application-specific realization and economics still require engineering decisions |
-| UA | Thinking System as controlled object | map | map | map | map | defines capability/decision relationships; does not itself implement them | explicit authority, reassessment, Hard/Soft path semantics, proportionality, control economics |
+| Risk / management frameworks and standards | organization / AI management system / risk process | source/obligation when adopted or otherwise made authoritative | requirements / risk-management guidance | process and evidence expectations | monitoring / continual-improvement expectations where applicable | Requirements/Constraints, evidence, management and authority expectations | application-specific authority, realization, Actuation, and economics depend on adoption and implementation |
+| Law / regulation / binding contractual obligations | regulated or contract-bound organization and system | authoritative where applicable | mandatory Requirements / Constraints | delivery, documentation, assurance, or process obligations | monitoring / oversight / corrective obligations where applicable | authoritative Requirements, evidence, oversight, and corrective obligations | application-specific realization and control economics still require engineering decisions |
 
 **Mandatory disclaimer under the matrix:**
 
-> **The UA row does not mean UA provides more software capabilities. UA is the mapping/reference model in this comparison. The other rows may implement capabilities far more concretely. “Outside scope” is not an inferiority score; it identifies where another mechanism or decision owner must complete the system.**
+> **UA is the reference frame for this matrix, not a scored comparison row. The approaches above may implement capabilities far more concretely than UA itself. “Outside scope” is not an inferiority score; it identifies where another mechanism or decision owner must complete the system when that responsibility is material.**
 
 If a matrix becomes too dense in publication form, use a supporting figure with **coverage bands** across the four horizons × four capability families. Do not use vendor logos, leader quadrants, checkmark marketing, or numerical scores.
 
@@ -2078,7 +2086,7 @@ Actuators
 
 Use **coverage bands, brackets, or shaded regions**, not arrows that imply causal execution and not product-logo comparison. Caption requirement:
 
-> **Adjacent approaches mapped onto the UA operating map. Coverage indicates where an approach can contribute capabilities, obligations, evidence, or decision support; it does not imply inferiority, exclusivity, or that UA itself implements those functions. Blind spots identify responsibilities that normally remain outside the approach's scope and must be supplied elsewhere in the system.**
+> **Adjacent approaches mapped onto the UA operating map. Coverage indicates where an approach can contribute capabilities, obligations, evidence, or decision support; it does not imply inferiority, exclusivity, or that UA itself implements those functions. Outside-scope areas identify responsibilities that must be supplied elsewhere in the system when they are material to the controlled object.**
 
 **Repository anchors:**
 
@@ -2104,7 +2112,7 @@ Use **coverage bands, brackets, or shaded regions**, not arrows that imply causa
 
 ### 5.7 From Thinking Systems to Uncertainty Architecture — the open engineering map
 
-**Purpose:** Introduce UA only after the engineering model has been derived **and tested against the adjacent landscape**, explain what the repository currently contains, and state the conceptual contribution without making one template, tool, vendor comparison, or worked example the identity of the framework.
+**Purpose:** Introduce UA only after the engineering model has been derived **and examined through structured comparison with the adjacent landscape**, explain what the repository currently contains, and state the conceptual contribution without making one template, tool, vendor comparison, or worked example the identity of the framework.
 
 **Core claim:** Uncertainty Architecture is the open draft specification that organizes the controlled-object shift, bounded-control capability anatomy, four connected decision horizons, evidence/authority routing, proportional application logic, and cross-boundary integration questions for Thinking Systems. It is coherent enough to inspect and test but lacks sufficient independent application evidence for a maturity claim.
 
@@ -2137,7 +2145,7 @@ Do **not** repeat the Section 5.6 current-tool landscape here. Section 5.7 has a
   - **Simplex** — runtime assurance, trusted safety paths, and fallback around complex behavior;
   - **production ML / software engineering for AI** — system-level technical debt, changed engineering practices, testing, maintenance, and lifecycle concerns;
   - **NIST AI RMF** — AI risk management spanning organizational governance and system-specific lifecycle activities; refer back to Section 5.6 for current functional landscape mapping rather than restating it.
-- Explain why UA remains a distinct proposed entity without claiming exhaustive absence across the literature or market: **within the cited comparison set**, the paper has not identified one source that by itself provides the same combination of Thinking-System category, cross-level authority, delivery realization/release, runtime correction/reassessment, Hard/Soft realized-path semantics, proportionality, and explicit Project control economics. This is a bounded literature/landscape claim, not proof of uniqueness.
+- Explain the proposed contribution without using a `one source by itself` novelty test. UA's claim is that it makes this combination explicit in one reference model. Whether another framework, organizational method, or composition of standards + engineering practice + tooling already carries the same material relationships with equal or lower conceptual overhead remains an explicit validation question, not a hurdle defined to preserve UA distinctness. Within the cited comparison set, describe observed differences only as bounded evidence, not proof of uniqueness.
 - State the integration claim positively: UA treats the whole Thinking System as the controlled object and connects organizational authorization, project / architecture viability, delivery realization and release, and runtime evidence, correction, and reassessment around that same object while allowing external tools/standards to implement or constrain parts of the map.
 - Describe the relationship as conceptual continuity, comparison, and recomposition—not equivalence, endorsement, proof that UA is correct, or a claim that UA was derived from any single prior framework.
 - Do not claim novelty for Constraints, Sensors, Controllers, Actuators, feedback loops, fallback, socio-technical control, AI risk management, agent orchestration, guardrails, observability, or the observation that AI changes software engineering.
