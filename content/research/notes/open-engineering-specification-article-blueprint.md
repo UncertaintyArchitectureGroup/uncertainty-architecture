@@ -1915,7 +1915,7 @@ This category is required because modern managed platforms increasingly combine 
 - policy/configuration surfaces;
 - human approval/workflow mechanisms.
 
-**Why this category matters:** it is the strongest technology-substitution challenge to a framework that sounds like an “AI Control Plane.” A mature platform may implement a large fraction of all four capability families, especially at Delivery and Runtime.
+**Why this category matters:** it is a particularly important technology-substitution challenge to a framework that sounds like an “AI Control Plane.” A mature platform may implement a large fraction of all four capability families, especially at Delivery and Runtime.
 
 **UA mapping:** potentially broad implementation coverage across Constraints/Realizations, Sensors, Controllers, and Actuators, with partial support for several decision horizons.
 
@@ -1952,7 +1952,7 @@ Include this category so the landscape does not pretend governance products are 
 - approval/accountability workflows;
 - enterprise-wide visibility across models/vendors/use cases.
 
-**UA mapping:** strong Organization coverage, partial-to-strong Project support depending on implementation, substantial Sensors/evidence, Controller workflow/decision records, and connections to lower-level control mechanisms where integrated.
+**UA mapping:** often substantial Organization coverage, with Project support varying materially by product and implementation; substantial Sensors/evidence and Controller workflow/decision records may be present, together with connections to lower-level control mechanisms where integrated.
 
 **Boundary relative to UA:** do not say “governance platforms are disconnected from runtime” as an absolute. Some explicitly connect monitoring, controls, and operational systems. The question is instead whether the governance objects are connected to the actual technical Constraint Realizations, Runtime Actuators, delegated authority, and the specific decision horizon whose basis can be invalidated.
 
@@ -2087,7 +2087,7 @@ Preserve these for drafting and external review:
 - **UA overreach risk:** if the landscape matrix makes UA appear to “cover everything” only because it is an abstract map while other approaches are concrete, state that asymmetry explicitly. UA's coverage is conceptual, not implementation completeness.
 - **Duplication with Section 5.2:** NIST/ISO appear earlier for category-scope comparison. Do not repeat that argument in Section 5.6; refer back and change analytical lens.
 - **Duplication with Section 5.7:** Section 5.6 owns the functional/current landscape. Section 5.7 owns synthesis, historical/intellectual antecedents, and the precise proposed contribution of UA. Do not turn Section 5.7 into a second vendor/standards survey.
-- **Publication length:** do not turn the section into twenty mini product reviews. Prefer 6–8 approach families, one representative example where useful, one matrix, and the substitution test.
+- **Publication length:** do not turn the section into twenty mini product reviews. Prefer a compact approach-family treatment, one representative example where useful, one matrix, the substitution test, and enough systems/safety comparison to challenge the UA framing without becoming a general literature survey.
 
 **Required supporting figure — Adjacent approaches mapped onto the UA operating map:**
 
