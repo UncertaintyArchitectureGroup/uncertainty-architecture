@@ -1695,7 +1695,7 @@ If these answers already live clearly in existing engineering and organizational
 - [`Constraint Realization Catalog`](../../../02-ai-control-plane/01-constraints/constraint-realization-catalog.md)
 - [`Worked Support-Triage Review`](../../../03-reference-architectures/worked-thinking-system-review-support-triage.md)
 
-**Transition:** Once the map is separated from any one implementation surface, the next question is whether current tools, standards, governance methods, and research already cover enough of it that another framework is unnecessary—or whether responsibilities still fall between their normal boundaries.
+**Transition:** Once the map is separated from any one implementation surface, the next question is whether current systems/safety methods, research, tools, standards, governance methods, and organizational practices already cover enough of it that another framework is unnecessary—or whether material responsibilities still fall between their normal boundaries.
 
 **Closing claim:**
 
@@ -1707,13 +1707,13 @@ If these answers already live clearly in existing engineering and organizational
 
 ### 5.6 The Existing Landscape: What Current Approaches Solve — and What Still Must Be Connected
 
-**Purpose:** Answer the reader's strongest substitution question after the operating map has been derived: *Why is another architecture model needed when the ecosystem already contains orchestration runtimes, guardrails, evaluation and observability, managed agent platforms, AI-governance suites, standards, regulation, and control-theoretic research?* The section must show that UA is not proposed because those approaches are absent or weak. Many already solve substantial parts of the problem. The engineering question is how their different controlled objects, abstraction levels, capability coverage, authority boundaries, lifecycle semantics, and economics fit together around one Thinking System.
+**Purpose:** Answer the reader's strongest substitution question after the operating map has been derived: *Why is another architecture model needed when the ecosystem already contains systems/safety/runtime-assurance methods, control-theoretic research, orchestration runtimes, guardrails, evaluation and observability, managed agent platforms, AI-governance suites, standards, and regulation?* The section must show that UA is not proposed because those approaches are absent or weak. Many already solve substantial parts of the problem. The engineering question is how their different controlled objects, abstraction levels, capability coverage, authority boundaries, lifecycle semantics, and economics fit together around one Thinking System.
 
 **Core hypothesis to examine:** Existing approaches cover substantial parts of the Thinking-System control problem, sometimes very well. This paper examines the hypothesis that, once those controls and implementation capabilities are acknowledged, a material part of the remaining engineering burden lies in the connections among **capability, authority, lifecycle decision ownership, guarantee strength, evidence routing, corrective action, and economics**. UA is proposed as one common map across those boundaries rather than as a replacement for the tools, standards, research, or organizational processes that already implement pieces of them. Section 5.8 must treat this integration-gap claim as falsifiable rather than established market fact.
 
 Use this publication-facing thesis or a close equivalent:
 
-> **The ecosystem does not lack controls. It contains many strong controls. The harder problem is knowing which ones are required for this controlled object, under whose authority, for which decision horizon, with what guarantee strength, evidence, corrective path, reassessment semantics, and lifecycle cost.**
+> **The ecosystem does not lack controls. It contains many strong controls and established engineering methods. The question this section tests is whether a material remaining problem lies in knowing which controls are required for this controlled object, under whose authority, for which decision horizon, with what guarantee strength, evidence, corrective path, reassessment semantics, and lifecycle cost—and what the UA map itself fails to capture from existing approaches.**
 
 A second useful sentence to preserve:
 
@@ -1779,7 +1779,7 @@ This category is a **required conceptual-substitution challenge**, not merely hi
 
 **UA mapping:** potentially broad. Unlike a runtime tool, these methods can span organizational assumptions, architecture, implementation constraints, assurance evidence, runtime monitoring, fallback, and lifecycle change. Do not force them into a Delivery/Runtime-only box merely because some implementations contain runtime monitors or safety controllers.
 
-**Substitution question:** Could STPA/Simpex/runtime-assurance practice plus ordinary architecture, delivery, operations, and business-governance records already preserve the material decisions UA asks teams to make? Which UA distinctions add operational value beyond that composition, and which are merely renamed or repackaged established systems-engineering concepts?
+**Substitution question:** Could STPA/Simplex/runtime-assurance practice plus ordinary architecture, delivery, operations, and business-governance records already preserve the material decisions UA asks teams to make? Which UA distinctions add operational value beyond that composition, and which are merely renamed or repackaged established systems-engineering concepts?
 
 **Reverse-mapping obligation:** Explicitly identify concepts that do not translate cleanly into UA. Examples to examine rather than pre-answer include hierarchical control structures, unsafe control actions, process models, hazards/losses, assurance separation, trusted fallback architecture, formal safety invariants, and responsibility allocation. If UA's four horizons or four capability families lose useful structure from these methods, record that as evidence against the current UA partition rather than treating it as a defect in the antecedent.
 
@@ -1792,7 +1792,7 @@ This category is a **required conceptual-substitution challenge**, not merely hi
 - Use Section 5.7 for intellectual continuity/provenance; use this subsection for the functional substitution test.
 - A finding that established systems/safety methods already carry most of the map is a valid result that should narrow UA's contribution claim.
 
-#### 5.6.5 Agent and orchestration runtimes
+#### 5.6.4 Agent and orchestration runtimes
 
 Use a small representative set rather than a catalog. Candidate examples include LangGraph, Microsoft AutoGen, Semantic Kernel, CrewAI, and OpenAI Agents SDK. Verify every named capability against current first-party documentation at drafting time.
 
@@ -1830,7 +1830,7 @@ Treat OpenAI Agents SDK or LangGraph HITL as examples of useful **Human Authorit
 
 **Do not say:** agent frameworks “ignore control,” “only orchestrate prompts,” or “cannot govern.” Modern runtimes increasingly include persistence, HITL, guardrails, tracing, retries, policy hooks, and durable execution. The narrower claim is that implementation mechanics do not, by themselves, establish organizational/project authority or the viability/reassessment model in which those mechanics are legitimate.
 
-#### 5.6.4 Guardrails and runtime enforcement
+#### 5.6.5 Guardrails and runtime enforcement
 
 Candidate examples include NVIDIA NeMo Guardrails, Guardrails AI, Amazon Bedrock Guardrails, Microsoft Foundry guardrail/safety mechanisms, Google Model Armor, and agent/tool guardrails. Use only a small representative set in publication prose and verify current first-party docs.
 
