@@ -1,0 +1,54 @@
+name: Temporary article polish — abstract and section 1
+
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-polish-abstract-section-1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/polish-abstract-section-1
+      - name: Apply blueprint-aligned manuscript polish
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('content/research/notes/open-engineering-specification-article-draft.md')
+          s = p.read_text()
+
+          replacements = {
+            'updated: 2026-08-11': 'updated: 2026-08-12',
+
+            'Thinking Systems move consequential uncertainty inside the controlled object. Once that happens, model quality and observability are no longer sufficient descriptions of the engineering problem. For production use of a Thinking System, an incomplete control architecture means the application is not ready for production release at the intended scope even when the model and code pass local tests. Governance becomes operational only through the active socio-technical control architecture spanning organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment. This paper derives the capability families and decision levels required by that shift and shows how they can be expressed through a small number of living engineering artifacts.':
+            'Thinking Systems move consequential uncertainty inside the controlled object. Once that happens, model quality and observability are no longer sufficient descriptions of the engineering problem. A Thinking System is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path—even when the model and code pass local tests. Governance becomes operational through the active socio-technical control architecture spanning organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment. This paper derives the control capabilities and decision horizons needed to reason about that architecture, explains how to apply the complete map proportionally, examines adjacent methods, tools, standards, and regulation through a substitution analysis, and introduces Uncertainty Architecture near the end as the open specification organizing the resulting model.',
+
+            'A team can adopt all of those practices and still lack a governable system. It may have a production model, retrieval or tools, traces, evaluation suites, policies, human approval, and a pilot deployment. Each component can be competent. The dashboard may be green. The demo may be impressive. The complete system may still lack a defensible connection between what the organization permits, what the project authorizes, what the delivery team has realized, what runtime evidence means, and what action follows when assumptions fail.':
+            'Consider a customer-support team trying to reduce resolution cost and latency. It has a capable model, authorized retrieval and tool access, traces, evaluation suites, policy guidance, a human-review path, and a pilot that interprets requests and proposes resolutions. Each local component can be competent. The dashboard may be green. The demo may be impressive. The complete system may still lack a defensible connection between what the organization permits, what the project authorizes, what the delivery team has realized, what runtime evidence means, and what action follows when assumptions fail. This support-resolution system will remain the running example through the paper; at this point, the important fact is only that consequential interpretation and resolution may depend partly on Model Judgment while the surrounding controls and decision rights are not yet connected.',
+
+            'The components alone do not answer the connected questions. Was Model Judgment necessary for the intended outcome? What authority was delegated to the model-mediated path? Which consequences are prohibited rather than merely undesirable? Which Constraints are authoritative, and how are they realized? Which evidence informs which decision? Who may narrow exposure, roll back, disable, redesign, or stop operation? When does runtime evidence invalidate project authorization rather than only a local implementation? Does the business case survive once evaluation, Human Authority, fallback, observability, incident handling, and control capacity are included in the cost?':
+            'The components alone do not answer the connected questions. Was Model Judgment actually necessary for the intended support outcome, or would a deterministic or narrower human-assisted design be enough? What authority was delegated to the model-mediated path? Which consequences are prohibited rather than merely undesirable? Which Constraints are authoritative, and how are they realized? Which evidence informs which decision? Who may narrow exposure, roll back, disable, redesign, or stop operation? When does runtime evidence invalidate project authorization rather than only a local implementation? Does the business case survive once evaluation, Human Authority, fallback, observability, incident handling, and control capacity are included in the cost?',
+
+            '> **Release-readiness consequence.** For production use of a Thinking System, these are not gaps that can be delegated to a post-release governance review. If the complete control architecture is absent across organizational authority, project and architecture viability, delivery realization and release, and runtime operation and reassessment, the application is not ready for production release at the intended scope. Governance becomes operational through that socio-technical stack; it is not a document layered over the system. The stack makes the system bounded, observable, correctable, and reauthorizable.':
+            '> **Release-readiness consequence.** For production use of a Thinking System, these are not gaps that can be delegated to a post-release governance review. The system is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path. “Complete control architecture” therefore means materially complete for the authorized scope, not maximal implementation of every decision-horizon × capability-family combination. Governance becomes operational through that socio-technical architecture; it is not a document layered over the system.'
+          }
+
+          for old, new in replacements.items():
+            count = s.count(old)
+            if count != 1:
+              raise SystemExit(f'Expected exactly one match, found {count}: {old[:120]!r}')
+            s = s.replace(old, new)
+
+          p.write_text(s)
+      - name: Commit manuscript update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m "docs(research): polish abstract and section 1"
+          git push origin HEAD:research/polish-abstract-section-1
