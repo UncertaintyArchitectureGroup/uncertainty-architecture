@@ -180,6 +180,357 @@ The article has three primary architectural figures and may contain any number o
 
 Visual emphasis may be used when it carries architectural meaning. In particular, a distinct red treatment may identify where a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment inside the controlled object, but it must not imply that the entire Thinking System is probabilistic or unsafe.
 
+### 2.6 Running-example contract — bounded customer-support resolution
+
+The manuscript should use one **running educational example** to make the abstract model concrete across Sections 5.1–5.8. The example is a bounded customer-support resolution system. It is a pedagogical device, not a repository reference architecture, not an empirical case study, and not validation evidence for UA.
+
+The example must remain stable enough that the reader can recognize the **same controlled object** as it moves from business proposal through organizational authorization, Project / Architecture viability, Delivery realization, Runtime operation, and reassessment. Do not replace it with unrelated examples at each level. Short counterexamples from other domains may be used to prevent overfitting, but they must remain secondary.
+
+#### Business context
+
+Use a fictional company that wants to reduce the cost and latency of customer-support resolution. The proposed system may:
+
+- interpret a customer's support request;
+- retrieve authorized account, order, product, and support-policy context;
+- classify the issue and select an applicable resolution path;
+- synthesize or draft consequential customer communication;
+- recommend a credit, refund, replacement, escalation, or another bounded remedy;
+- for explicitly authorized low-impact cases, invoke a tool/API that changes downstream business state;
+- route cases requiring reserved judgment or authority to Human Authority.
+
+The example should be realistic enough to contain meaningful authority, side effects, Human Authority, evidence, and economics, but deliberately avoid domain-specific complexity such as medical diagnosis, criminal justice, or regulated lending that would allow regulation to dominate the engineering argument.
+
+#### Controlled object and category test
+
+Treat the controlled object as the **whole support-resolution system**, not the model invocation:
+
+> A support-resolution system that interprets customer requests and determines or executes bounded remediation using authorized customer/account context, company policy, deterministic software, and probabilistic Model Judgment.
+
+Representative Consequential Runtime Responsibilities include:
+
+- interpreting the customer's actual support intent;
+- deciding which support policy or resolution path applies;
+- selecting or recommending a consequential remedy;
+- communicating information that materially affects the customer outcome;
+- deciding whether a transaction may be proposed or routed for execution;
+- in the more autonomous variant, initiating a bounded refund/credit or another downstream action.
+
+The example should demonstrate that a **fixed workflow can still be a Thinking System**. The workflow may be predefined and deterministic while one or more Consequential Runtime Responsibilities inside it depend partly on Model Judgment. Dynamic routing, multiple agents, memory, planning, or high autonomy are not required for the category.
+
+#### Initial organizational authority context
+
+Use a small set of plausible organizational sources and decision owners. They are illustrative responsibilities, not mandatory UA departments or roles.
+
+Possible organizational boundaries:
+
+- customer/account data may be accessed only through approved identity, data, and deployment paths;
+- some customer or contractual case classes must always remain under Human Authority;
+- a bounded low-value refund or credit may be delegated to the system, while higher-value transactions remain reserved;
+- billing-plan changes, account closure, or other higher-authority operations remain outside the automated support scope;
+- consequential customer communication and transaction decisions must remain traceable enough for the owning decision process;
+- material privacy/security boundary violations, abnormal financial behavior, repeated complaints, and shared-capability degradation must produce evidence usable by the relevant organizational owners.
+
+Use **Finance**, **Support/Product**, **Security/Privacy**, and equivalent functions only when they make decision ownership concrete. Do not imply that every company needs those exact departments. In an SMB, the same person may hold several responsibility bundles.
+
+A key organizational lesson to preserve is:
+
+```text
+legitimate organizational authority
+→ downstream Constraint / assumption
+→ realization requirement
+→ Sensor / evidence obligation
+→ Controller / decision owner
+→ available Actuator / escalation / reauthorization path
+```
+
+For example, if the organization reserves higher-value refunds to Human Authority, that decision must eventually become a realizable transaction boundary and an evidence path—not merely a RACI entry saying that Finance is consulted.
+
+#### Project / Architecture alternatives and AI-necessity test
+
+At Project / Architecture, compare at least three plausible designs before presuming that the broadest Thinking-System design is justified:
+
+```text
+A. deterministic rules / decision tree for supported case classes
+B. model-assisted interpretation or recommendation with human execution
+C. bounded Thinking System that can resolve and execute selected low-impact cases autonomously
+```
+
+The Project / Architecture discussion should ask:
+
+- where Model Judgment adds value that deterministic/manual alternatives do not;
+- which Consequential Runtime Responsibilities actually need Model Judgment;
+- what authority and downstream consequences become reachable in each variant;
+- what Human Authority remains necessary;
+- what control perimeter each variant creates;
+- whether the business case still works after model/platform cost **and** the complete control-perimeter cost are included.
+
+Do not predetermine that variant C wins. A legitimate project result may be variant A, variant B, narrower variant C, bounded research, redesign, defer, or No-Go.
+
+#### Representative Judgment Nodes
+
+Candidate Judgment Nodes may include:
+
+- interpreting ambiguous customer intent;
+- mapping a case to policy meaning when policy application is semantic rather than purely syntactic;
+- ranking candidate remedies;
+- deciding whether a case fits a low-impact autonomous-resolution class;
+- generating consequential customer communication.
+
+Do not require all of these Judgment Nodes. Use only those needed by the prose and keep deterministic responsibilities visible before, between, and after them.
+
+#### Representative Hard / Soft distinction
+
+Use a deliberately concrete pair because this example should make the realized-path distinction intuitive.
+
+**Illustrative Soft claim:**
+
+> The system should avoid inappropriate refunds or misleading customer communication.
+
+A prompt, policy instruction, classifier, or LLM-as-judge may influence or estimate this property, but does not make an inappropriate semantic outcome unreachable.
+
+**Illustrative Hard claim for one action path:**
+
+> An automated refund transaction above an illustrative threshold (for example, €50) must not reach the payment API without a valid Human Authority approval token.
+
+A credible Hard realization might require a deterministic transaction gateway that checks amount, authenticated execution identity, approval token, scope, and relevant bypass paths before the payment action is reachable.
+
+The **€50 value is purely illustrative**. It is not a UA recommendation, universal risk threshold, or proposed business policy. The article may change the number or describe it as `T` if that avoids accidental normative interpretation.
+
+Use this example to show that:
+
+- the authoritative business decision is the Constraint;
+- the transaction/identity/approval path is the Constraint Realization;
+- denied attempts, approvals, transaction outcomes, bypass/health evidence, and version/configuration state are Sensors/evidence;
+- deterministic or human decision logic can perform Controller functions within delegated authority;
+- execute, reject, route for approval, narrow, disable, compensate, or roll back can be Actuator functions;
+- a product marketed as a “guardrail” could implement several of these functions without becoming the authoritative source of the business boundary.
+
+Do not claim a Hard semantic guarantee such as “the system will never recommend an inappropriate refund” merely because the transaction amount is hard-limited.
+
+#### Human Authority in the example
+
+Human Authority must be substantive, not a decorative approval box. The example should expose:
+
+- who has the legitimate decision right for the reserved case;
+- what evidence/context the reviewer receives;
+- required expertise;
+- expected approval volume;
+- acceptable decision latency;
+- what happens when the reviewer is unavailable or overloaded;
+- whether the reviewer can actually change the outcome;
+- fallback behavior;
+- the lifecycle cost of maintaining that path.
+
+This is also the bridge to control economics: a technically safe design may still be economically non-viable if too much traffic is routed to expensive or slow Human Authority.
+
+#### Representative Delivery realizations
+
+Delivery may realize the authorized design through combinations of:
+
+- scoped IAM and service identities;
+- typed tool interfaces;
+- transaction guards and amount/authority checks;
+- model/prompt/context/retrieval configuration;
+- deterministic schema and state validation;
+- Human Authority approval workflow;
+- evaluator and telemetry pipelines;
+- denied-action logging;
+- trace/version records;
+- fallback and compensation paths;
+- rollback, disable, or exposure-narrowing mechanisms;
+- release-specific checks and evidence.
+
+Use these as examples of **realizations**, not as a mandatory product stack. The manuscript should be able to substitute equivalent existing platform capabilities without changing the conceptual map.
+
+#### Representative Runtime evidence
+
+Potential runtime evidence includes:
+
+- customer outcomes and complaints;
+- resolution categories and downstream transaction outcomes;
+- attempted and blocked high-value refunds;
+- Human Authority requests, approvals, rejects, queue size, overload, and latency;
+- fallback volume;
+- evaluator outputs and evaluator health;
+- authorization or identity failures;
+- realization bypass/degradation signals;
+- model/prompt/context/tool/version changes;
+- cost and latency by resolution path;
+- Actuator execution and post-action verification.
+
+The example should repeatedly reinforce that **evidence is useful only relative to a decision path**. A dashboard showing these metrics is not by itself a Controller.
+
+#### Three canonical reassessment cases
+
+Preserve at least three distinct runtime/change cases so the article can demonstrate routing by **invalidated decision basis** rather than routing everything to one governance layer.
+
+**Case A — Delivery reassessment: realization/configuration defect.**
+
+A legacy transaction endpoint or deployment configuration causes the refund-limit realization to be unavailable, degraded, or potentially bypassable for one path.
+
+```text
+Runtime Sensor evidence
+→ affected path narrowed/disabled inside delegated authority
+→ Delivery reassessment
+→ realization/configuration repaired
+→ complete path retested
+→ evidence verifies that the intended Hard boundary is restored
+→ bounded re-release
+```
+
+The point: the Project Authorization may remain valid if the architecture and assumptions are still sound and Delivery can restore the authorized realization.
+
+**Case B — Project Reauthorization: viability/economics assumption invalidated.**
+
+Suppose the project assumed that only a small percentage of cases would require Human Authority. Production evidence instead shows, for example, that 30–40% of cases require approval, approval latency is hours rather than minutes, fallback load rises, and cost per resolved case approaches or exceeds the human-only process.
+
+```text
+Runtime evidence
+→ Project Reauthorization
+→ reassess Model Judgment placement, autonomous scope, Human Authority capacity, fallback, latency, and control economics
+→ narrow / redesign / return to model-assisted mode / research / defer / No-Go
+```
+
+The point: the system may be respecting every Hard Constraint and still become non-viable. This is not automatically a Delivery bug and not something Runtime can solve by silently widening authority.
+
+**Case C — Organizational review: authoritative basis changes.**
+
+An external contractual, legal, customer, or organizational policy change requires a particular customer segment or case class to receive explicit Human Authority regardless of transaction amount.
+
+```text
+external / organizational evidence
+→ Organizational review
+→ authoritative boundary / reserved decision updated
+→ Project Reauthorization if the existing design is affected
+→ Delivery updates the realization and evidence path
+→ Runtime operates against the new authorized baseline
+```
+
+The point: this evidence did not originate as a model failure. Organization changes the authoritative context; lower levels make the new decision operable.
+
+These three cases should remain mutually distinguishable throughout the manuscript. Do not collapse them into one generic “incident escalation” story.
+
+#### Proportionality variant
+
+Use the same business context to show why implementation depth is based on authority/consequence rather than feature size.
+
+**Lower-authority variant:** the model only drafts a suggested response for a human support agent; it cannot execute refunds, change account state, or communicate directly without human review. The full map is still inspected, but many explicit runtime Actuators, hard transaction boundaries, and organizational evidence obligations may be lighter.
+
+**Higher-authority variant:** the system can communicate directly with customers and execute bounded refunds/credits. The same visible UI may now require stronger identity/transaction realizations, richer Sensors, substantive Human Authority, fallback, incident paths, more explicit decision rights, and a larger control perimeter.
+
+The lesson is not that the higher-authority version is “bad.” It is that **one model call or one feature is not a reliable proxy for control complexity**.
+
+#### Landscape use of the same example
+
+Section 5.6 should map adjacent approaches onto this **same support-resolution system** rather than presenting only abstract vendor categories.
+
+Illustrative mapping questions:
+
+- an orchestration runtime may carry state, tool calls, durable execution, routing, and Human Authority workflow;
+- a guardrail product may realize checks, Sensors, local Controller logic, or Actuators around input/output/tool boundaries;
+- an evaluation/observability system may provide traces, online/offline evaluators, alerts, version comparison, and evidence;
+- a managed AI platform may implement identity, deployment, tool permissions, guardrails, tracing, evaluation, and delegated workflow mechanics;
+- an enterprise governance platform may carry use-case records, authoritative references, approvals, evidence, risk/control mappings, and lifecycle state;
+- NIST/ISO/regulatory sources may create or structure organizational Requirements, Constraints, evidence expectations, and management obligations.
+
+Then ask what remains: who authorizes the refund boundary, whether Model Judgment is justified, whether the `Hard` claim is actually deterministic across the complete path, which evidence invalidates which decision, whether Human Authority capacity is viable, and whether the resulting control perimeter makes economic sense.
+
+Do not hard-code named products into the example's architecture. Product names belong to the landscape analysis and must be reverified against current first-party documentation at drafting/publication time.
+
+#### Chapter-by-chapter usage contract
+
+Use the running example differently in each section; do not retell the full scenario eight times.
+
+**Section 5.1 — Engineering Evolves Around Dominant Uncertainty**
+
+- Introduce only the business motivation and credible initial team state: model/tooling, traces/evaluations, policy, Human Authority, pilot.
+- Use the support-resolution proposal to ask the unanswered cross-boundary questions: why Model Judgment, what authority, what evidence, who can act, and whether control cost preserves the business case.
+- Do not introduce the full refund Constraint or four-horizon machinery yet.
+
+**Section 5.2 — The Controlled Object Has Changed**
+
+- Classify the support-resolution system as a Thinking System when consequential interpretation/resolution depends partly on Model Judgment, even if orchestration is fixed.
+- Show the whole mixed deterministic/probabilistic controlled object rather than reducing the example to the LLM call.
+- Use the example to separate category membership from autonomy and control adequacy.
+
+**Section 5.3 — From Model Quality to Bounded Control**
+
+- Introduce the illustrative refund boundary to distinguish authoritative Constraint from realization and Hard from Soft.
+- Map Sensor, Controller, and Actuator functions on the same case.
+- Use Human Authority to show why an approval UI alone is not a complete control path.
+
+**Section 5.4 — Four Decision Levels**
+
+- Make this the main narrative spine of the example.
+- Organization establishes admissibility, reserved authority, shared-capability/evidence obligations.
+- Project / Architecture compares deterministic/manual/model-assisted/autonomous alternatives, places Judgment, designs the complete control architecture, and tests economics.
+- Delivery realizes the bounded design and release evidence.
+- Runtime operates the loop and generates evidence.
+- Use Cases A, B, and C to demonstrate Delivery reassessment, Project Reauthorization, and Organizational review respectively.
+
+**Section 5.5 — Applying the Map Without Overbuilding**
+
+- Contrast the drafting-only lower-authority variant with the action-capable higher-authority variant.
+- Show that the full map is inspected for both, while implementation depth differs materially.
+- Do not turn the example into a recommendation that every support system needs the full illustrated control stack.
+
+**Section 5.6 — Existing Landscape**
+
+- Use the same controlled object as an anchoring example for what orchestration, guardrails, observability, managed platforms, governance suites, standards, and regulation can contribute.
+- Preserve the substitution test: if the organization's existing stack already carries the required relationships, do not add UA-specific duplication.
+- Do not distort current tools to make the example favor UA.
+
+**Section 5.7 — From Thinking Systems to Uncertainty Architecture**
+
+- Use the example only briefly to show how one controlled object can be seen through capability functions, decision horizons, external implementation surfaces, and proportionality.
+- Do not present the support example as proof that UA works; the contribution is the map and synthesis, not the anecdote.
+
+**Section 5.8 — Validation Agenda**
+
+- Explicitly state that the support-resolution case is editorially constructed and therefore cannot validate the framework.
+- Ask external reviewers to apply the map to other domains and to identify where the support example overfits the proposed distinctions.
+- Welcome examples where existing tools/processes make parts of the illustrated UA mapping unnecessary.
+
+#### Anti-overfitting and claim-safety rules
+
+The manuscript must not:
+
+- present the running example as empirical validation, a customer case study, or evidence that UA improves outcomes;
+- imply that customer support is the canonical domain for UA;
+- turn Finance, Support, Security, Privacy, or any illustrative participant into a mandatory UA role or department;
+- present the illustrative refund threshold as a recommended, safe, legal, or generally applicable amount;
+- make every Constraint financial, transactional, or tool-based merely because the example uses a refund path;
+- imply that all Hard Constraints are transaction limits or all Soft Constraints are model-output quality policies;
+- infer that successful blocking of one transaction path proves the whole system is controlled;
+- reuse `K-SEND-01` as if the running example were evidence from a validated repository implementation; the running example and repository reference artifacts have different purposes;
+- change UA definitions, capability-family boundaries, decision-horizon ownership, or Hard/Soft semantics merely to make the example narratively convenient;
+- assume that repeated negative cases always route upward; route according to the invalidated decision basis;
+- assume the system should maximize autonomous resolution. The correct Project decision may be narrower Model Judgment, model-assisted human work, deterministic redesign, or No-Go;
+- let product/vendor capabilities become permanent facts in the example; current platform claims belong to Section 5.6 source verification.
+
+When the example does not fit a general claim cleanly, **change or qualify the example rather than changing the doctrine to fit the story**.
+
+#### Running-example acceptance checks
+
+Every manuscript iteration that touches Sections 5.1–5.8 should verify:
+
+- [ ] The same controlled object and business context remain recognizable across the article.
+- [ ] The example is explicitly fictional/editorial and not presented as validation evidence.
+- [ ] Consequential Runtime Responsibilities and Judgment Nodes remain consistent with the Thinking-System definition.
+- [ ] Organization does not absorb the Project-owned AI-necessity/viability decision.
+- [ ] The illustrative Hard refund boundary remains a **scoped complete-path claim**, not a semantic guarantee about all model behavior.
+- [ ] The illustrative threshold is clearly non-normative.
+- [ ] Human Authority includes authority, information, capacity, latency, fallback, and power to change the outcome.
+- [ ] Delivery realizations remain examples rather than a mandatory stack.
+- [ ] Runtime evidence is tied to decision consumers rather than presented as telemetry for its own sake.
+- [ ] Case A routes to Delivery because realization/configuration is invalidated.
+- [ ] Case B routes to Project Reauthorization because capacity/economics/architecture assumptions are invalidated.
+- [ ] Case C routes to Organization because the authoritative basis changes.
+- [ ] Proportionality compares lower- and higher-authority variants without using superficial feature size as the deciding factor.
+- [ ] Landscape discussion uses the example to clarify substitution and residual responsibility, not to manufacture vendor weaknesses.
+- [ ] No example-specific role, threshold, artifact, or implementation mechanism is promoted into UA doctrine.
+- [ ] Counterexamples from other domains are used where necessary to demonstrate that a claim is general rather than support-specific.
+
 ## 3. Stable thesis and claim boundary
 
 ### Stable thesis paragraph
@@ -2114,6 +2465,8 @@ Historical articles, talks, presentation material, and research may provide prov
 
 Current factual claims about standards, laws, platform capabilities, market practice, or the state of AI governance must be checked against current primary or authoritative sources. Named platform capabilities must be checked against first-party documentation **at the time the manuscript section is drafted and again during the final publication pass**. Comparative claims should be narrow, dated where relevant, and should not imply exhaustive market coverage.
 
+The running support-resolution example in Section 2.6 is **fictional/editorial**. It does not require external evidence for the invented company, illustrative refund threshold, or hypothetical runtime rates because those values are not factual claims. If the manuscript replaces any fictional property with a real legal, contractual, regulatory, vendor, or market claim, that claim must follow the normal external-evidence rules.
+
 #### Early category-boundary sources for Section 5.2
 
 Use these only for the narrower neighboring-label comparison unless another section explicitly needs them:
@@ -2215,7 +2568,7 @@ The publication should not frame current repository templates as the paper's pri
 
 The working manuscript may exceed the earlier 4,300–5,200-word target while the argument is still being constructed. Preserve the argument during section drafting; perform one integrated reduction pass only after all eight sections exist.
 
-Expected working range after the expanded operating-model and landscape sections: **9,000–11,500 English words** before final editorial compression. Aim for a publication edition closer to **7,000–9,000 words** if the final reduction can preserve the operating logic, landscape comparison lens, substitution test, and figure sequence. Prefer cutting repetitive product detail before cutting decision semantics.
+Expected working range after the expanded operating-model and landscape sections: **9,000–11,500 English words** before final editorial compression. Aim for a publication edition closer to **7,000–9,000 words** if the final reduction can preserve the operating logic, landscape comparison lens, substitution test, figure sequence, and running-example continuity. Prefer cutting repetitive product detail or repeated explanation of the example before cutting decision semantics.
 
 ### Target and publication paths
 
@@ -2241,6 +2594,8 @@ Every article-writing PR must satisfy all of the following:
 - [ ] The complete target article was read before drafting.
 - [ ] New prose continues the existing argument and terminology.
 - [ ] Previously written sections were revised where the new block exposed repetition, contradiction, weak transitions, or premature framing.
+- [ ] The running support-resolution example remains consistent with Section 2.6, is used as a narrative aid rather than validation evidence, and does not introduce example-specific doctrine.
+- [ ] When the running example is used, its controlled object, Consequential Runtime Responsibilities, illustrative Hard/Soft distinction, Human Authority semantics, proportionality variants, and three reassessment cases remain internally consistent.
 - [ ] Plan-driven development, iterative delivery, and modern operations remain the primary categories, with Waterfall, Agile and related approaches, and DevOps named consistently as familiar examples in the opening prose, Figure 1, and the comparison table.
 - [ ] The abstract does not narrate the article's reveal sequence or contain internal editorial commentary.
 - [ ] Governance is framed as becoming operational through the active socio-technical control architecture rather than as a post-hoc review, document, or exact synonym for every control element.
