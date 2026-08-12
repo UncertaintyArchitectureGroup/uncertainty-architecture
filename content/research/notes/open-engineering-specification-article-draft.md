@@ -131,11 +131,11 @@ Thinking-System engineering still requires product discovery, deterministic soft
 
 ### Running Example — Bounded Customer-Support Resolution
 
-Throughout this paper, one fictional system will make the control model concrete: a company wants to reduce the cost and latency of customer-support resolution without surrendering the authority, evidence, and corrective paths required for consequential decisions.
+Throughout this paper, one fictional system will make the control model concrete: a company wants to reduce the cost and latency of customer-support resolution while preserving explicit authority over consequential decisions and downstream effects.
 
 The proposed system receives a customer request, retrieves authorized account, order, product, and support-policy context, interprets the issue, selects or recommends a resolution path, and drafts consequential customer communication. In explicitly authorized low-impact cases it may eventually be allowed to invoke a tool that changes downstream business state, such as issuing a bounded credit or refund; cases requiring reserved judgment or authority remain under Human Authority.
 
-The controlled object in this example is not the model or chatbot interface. It is the whole support-resolution system: deterministic identity, access, retrieval, policy, tool, and execution paths; one or more Model-Judgment-dependent responsibilities; Human Authority where required; and the evidence and corrective paths around them. The same controlled object will be carried through the rest of the paper—from category classification and AI-necessity questions through organizational authorization, Project / Architecture viability, Delivery realization, Runtime operation, and reassessment. Details will be introduced only when the corresponding concept requires them.
+The controlled object in this example is not the model or chatbot interface. It is the whole support-resolution system: deterministic identity, access, retrieval, policy, tool, and execution paths; one or more Model-Judgment-dependent responsibilities; Human Authority where required; and the downstream effects the system can create. The same controlled object will be carried through the rest of the paper—from category classification and AI-necessity questions through organizational authorization, Project / Architecture viability, Delivery realization, Runtime operation, and reassessment. The evidence, decision, and corrective paths required to control that object are deliberately left unresolved here; the following sections derive them rather than assuming them. Details will be introduced only when the corresponding concept requires them.
 
 At this point, assume only a credible pilot: a capable model, retrieval and tool access, traces, evaluation suites, policy guidance, and a human-review path. Each local component can be competent. The dashboard may be green. The demo may be impressive. The complete system may still lack a defensible connection between what the organization permits, what the project authorizes, what the delivery team has realized, what runtime evidence means, and what action follows when assumptions fail. For now, the important fact is only that consequential interpretation and resolution may depend partly on Model Judgment while the surrounding controls and decision rights are not yet connected.
 
@@ -159,7 +159,7 @@ Thinking Systems change this object by making one or more **Consequential Runtim
 
 Return to the running support-resolution example. Its workflow may be fixed end to end: receive the request, retrieve authorized context, interpret the issue, select or recommend a resolution, prepare customer communication, check authority, and either execute a bounded action or route the case to Human Authority. Nothing in that sequence requires dynamic orchestration. Yet if interpretation, resolution selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment.
 
-The distinction matters because engineering needs a stable name for the object being designed, released, operated, and controlled. In Linear Software, the intended mapping for relevant consequential behavior is specified before runtime through explicit code, rules, or state transitions. In a Thinking System, part of the mapping from situation to consequential behavior is completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively specifies the behavior that matters.
+The distinction matters because engineering needs a stable name for the object being designed, released, operated, and controlled. In Linear Software, consequential decision behavior is intended to be determined at runtime by explicitly authored mechanisms—code, rules, state transitions, and their composed execution—rather than by probabilistic Model Judgment. In a Thinking System, part of the mapping from situation to consequential behavior is instead completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively determines the behavior that matters.
 
 The controlled object is therefore the **whole Thinking System, not the model invocation**. The engineering problem is to preserve useful runtime judgment while keeping the surrounding deterministic responsibilities, boundaries, evidence, decision authority, and corrective mechanisms explicit enough to control the system as a whole. Whether those controls are adequate is a separate question from whether the object belongs to the Thinking-System category.
 
@@ -200,32 +200,30 @@ The architectural difference can be shown without pretending that conventional s
 
 ```mermaid
 flowchart LR
-    subgraph A["Primarily explicitly encoded runtime behavior"]
+    subgraph A["Primarily explicitly authored consequential behavior"]
         direction TB
-        A1["External, requirement, delivery,<br/>and operational uncertainty"]
-        A2["Explicitly encoded consequential<br/>decision and action responsibilities"]
-        A3["Observed outputs, actions,<br/>and downstream outcomes"]
+        A1["Situation and operating conditions"]
+        A2["Explicitly authored consequential<br/>decision mechanisms"]
+        A3["Consequential output, action,<br/>or downstream state"]
         A1 --> A2 --> A3
     end
 
-    subgraph B["Controlled Thinking System — target structure"]
+    subgraph B["Thinking System — changed responsibility structure"]
         direction TB
-        B1["External, requirement, delivery,<br/>and operational uncertainty"]
-        B2["Deterministic responsibilities<br/>made explicit around judgment"]
-        J1["One or more bounded Judgment Nodes<br/>probabilistic Model Judgment"]
-        B3["Deterministic validation, authority,<br/>and execution after judgment"]
-        B4["Observed outputs, actions,<br/>and downstream outcomes"]
-        B1 --> B2 --> J1 --> B3 --> B4
+        B1["Situation and operating conditions"]
+        B2["Explicitly authored responsibilities"]
+        J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
+        B3["Consequential output, action,<br/>or downstream state"]
+        B1 --> B2 --> J1 --> B3
     end
 
     A2 ~~~ J1
 
-    classDef changed fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#7f0000;
     classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
     class J1 judgment;
 ```
 
-**Figure 3 — The controlled-object shift.** Two vertical responsibility structures are placed side by side for comparison. On the left, the intended consequential runtime mapping is primarily authored through explicitly encoded responsibilities. On the right, deterministic responsibilities remain explicit before, between, and after one or more Judgment Nodes while part of consequential behavior is formed through probabilistic Model Judgment. Red identifies the Judgment Node where that structural responsibility shift occurs; it does not mean that the whole Thinking System is probabilistic, unsafe, or erroneous. The right-hand structure is an engineering target for controlled production use, not a category-membership test or mandatory topology.
+**Figure 3 — The controlled-object shift.** On the left, consequential behavior is determined through explicitly authored mechanisms. On the right, one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment, so part of the consequential mapping is completed at runtime. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous. The figure is descriptive of the category boundary, not a prescribed control architecture. The deterministic boundaries, evidence, authority, and corrective mechanisms required for controlled production use are derived in the sections that follow.
 
 Model Judgment can enter a system through several functional placements.
 
@@ -251,7 +249,7 @@ flowchart TB
 
 **Figure 4 — Functional placement of Model Judgment.** Model Judgment is the parent concept; Input Interpretation, Decision Logic, and Output Mediation are functional placements beneath it. They are not mandatory stages or a prescribed execution order. A system may use one, several, or repeated instances of them.
 
-Useful variance is the reason to place Model Judgment inside a consequential responsibility. The engineering objective is therefore not to eliminate all variance. It is to keep operation bounded while preserving the judgment the model was introduced to provide.
+The reason to introduce Model Judgment is its ability to resolve consequential situations whose relevant interpretation or decision space cannot be exhaustively specified in advance. Useful behavioral variance may be part of that capability, but variance is not itself the engineering objective. The objective is to preserve useful judgment while keeping the resulting operation bounded.
 
 That requires a mixed-system view. A model may interpret a support request while deterministic identity and permission checks constrain which customer data is reachable. It may recommend a resolution while deterministic tool permissions limit what can be executed. It may draft a customer response while outbound authority remains on a separate human or deterministic path. It may estimate semantic acceptability while the release decision and the mechanism executing that decision remain separate responsibilities.
 
