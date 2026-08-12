@@ -18,8 +18,9 @@ jobs:
           ref: research/polish-section-2
           fetch-depth: 0
       - name: Align blueprint with manuscript
-        shell: python
+        shell: bash
         run: |
+          python - <<'PY'
           from pathlib import Path
           p = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
           s = p.read_text()
@@ -28,16 +29,16 @@ jobs:
           new1 = "- Explain why the object needs a distinct name using the canonical category boundary: in Linear Software, Consequential Runtime Responsibilities are fulfilled entirely through explicitly encoded logic rather than depending partly on probabilistic Model Judgment; in a Thinking System, one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment, so part of the consequential mapping is completed at runtime."
 
           old2 = """Right — Thinking System — changed responsibility structure
-situation and operating conditions
-→ explicitly authored responsibilities
-→ one or more Judgment Nodes using probabilistic Model Judgment
-→ consequential output, action, or downstream state"""
+          situation and operating conditions
+          → explicitly authored responsibilities
+          → one or more Judgment Nodes using probabilistic Model Judgment
+          → consequential output, action, or downstream state"""
           new2 = """Right — Thinking System — changed responsibility structure
-situation and operating conditions
-├→ explicitly authored responsibilities before, between, and after Judgment Nodes ─┐
-└→ one or more Judgment Nodes using probabilistic Model Judgment ──────────────────┤
-                                                                                     ↓
-                                           consequential output, action, or downstream state"""
+          situation and operating conditions
+          ├→ explicitly authored responsibilities before, between, and after Judgment Nodes ─┐
+          └→ one or more Judgment Nodes using probabilistic Model Judgment ──────────────────┤
+                                                                                               ↓
+                                                     consequential output, action, or downstream state"""
 
           for old, new, label in [(old1, new1, 'Linear Software boundary'), (old2, new2, 'Figure 3 contract')]:
               count = s.count(old)
@@ -46,7 +47,9 @@ situation and operating conditions
               s = s.replace(old, new)
 
           p.write_text(s)
+          PY
       - name: Verify only intended blueprint changes and commit
+        shell: bash
         run: |
           git diff --check
           git diff -- content/research/notes/open-engineering-specification-article-blueprint.md
