@@ -1,0 +1,65 @@
+name: tmp-section4-review-fixes
+on:
+  push:
+    paths:
+      - '.github/workflows/tmp-section4-review-fixes.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/rewrite-section-4-operating-map
+      - name: Apply Section 4 review fixes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('content/research/notes/open-engineering-specification-article-draft.md')
+          s = p.read_text()
+          replacements = [
+            (
+              '## 4. Four Decision Levels for Thinking Systems\n\nThe capability anatomy explains **how** bounded control becomes operational. It still leaves a different problem unresolved: **where does each consequential decision legitimately belong?**',
+              '## 4. Four Decision Levels for Thinking Systems\n\nThe second model answers a different problem: **where does each consequential decision legitimately belong?**'
+            ),
+            (
+              '    WIDE["Need for wider organizational authority"]\n\n    ORG --> NEED\n    OUT --> NEED --> RISK --> K --> LOOP\n    LOOP --> HUMAN --> DEC\n    LOOP --> ECON --> DEC\n    RE -.-> RISK\n    DEC -. Project Reauthorization .-> RISK\n    WIDE -.-> ORG',
+              '    ORG --> NEED\n    OUT --> NEED --> RISK --> K --> LOOP\n    LOOP --> HUMAN --> DEC\n    LOOP --> ECON --> DEC\n    RE -.-> RISK\n    DEC -. Project Reauthorization .-> RISK\n    DEC -.->|wider organizational authority required| ORG'
+            ),
+            (
+              'Organization should be revisited when the **organizational basis** changes: an authoritative source, reserved decision right, exception authority, vendor/deployment permission, or shared capability changes or proves inadequate. A lower-level workaround cannot silently normalize an organizationally prohibited state.',
+              'Organization should be revisited when the **organizational basis** changes: an authoritative source, reserved decision right, exception authority, vendor/deployment permission, or shared capability changes or proves inadequate. A lower-level workaround cannot silently normalize an organizationally prohibited state. Repeated exceptions, cross-project incidents, or recurrent requests for the same workaround should also test whether the source is ambiguous, delegated authority is wrong, a shared capability is inadequate, or the organization is repeatedly admitting project classes whose control perimeter later proves unattractive.'
+            ),
+            (
+              '**Architectural Veto is a valid engineering result.** A system can be impressive as a prototype and still deserve deterministic redesign, narrower scope, further research, deferral, or No-Go.',
+              '**Architectural Veto is a valid engineering result.** A system can be impressive as a prototype and still deserve deterministic redesign, narrower scope, further research, deferral, or No-Go. Repeated Delivery or Runtime workarounds should be treated as evidence against the project model when they expose a missing scenario, non-credible Constraint, weak Sensor basis, ineffective Actuator, unrealistic Human Authority capacity, or invalid control economics rather than as an endless queue of local defects.'
+            ),
+            (
+              'Delivery may repair, reconfigure, roll back, narrow exposure, disable, or re-release within delegated authority. It may not silently expand project authority, weaken an inherited Hard Constraint, change an organizational prohibition, or normalize evidence that project viability has failed.',
+              'Delivery may repair, reconfigure, roll back, narrow exposure, disable, or re-release within delegated authority. It may not silently expand project authority, weaken an inherited Hard Constraint, change an organizational prohibition, or normalize evidence that project viability has failed. Material negative cases should improve the weakest delivery control element and its verification—Sensor coverage, Constraint clarity, realization integrity, Controller logic or latency, Actuator effectiveness, Human Authority, automation, deterministic validation, or version traceability—rather than defaulting to prompt tuning because the model produced the visible symptom.'
+            ),
+            (
+              '    T["Triage by decision basis<br/> Delivery · Project / Architecture · Organization"]',
+              '    T["Triage by decision basis<br/> Runtime · Delivery · Project / Architecture · Organization"]'
+            ),
+          ]
+          for old, new in replacements:
+              count = s.count(old)
+              if count != 1:
+                  raise SystemExit(f'expected one match, found {count}: {old[:100]}')
+              s = s.replace(old, new)
+          p.write_text(s)
+          PY
+          git diff --check
+          test "$(git diff --name-only | wc -l)" -eq 1
+          git diff --name-only | grep -qx 'content/research/notes/open-engineering-specification-article-draft.md'
+      - name: Commit fixes
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m 'docs(research): tighten Section 4 decision-horizon semantics'
+          git push origin HEAD:research/rewrite-section-4-operating-map
