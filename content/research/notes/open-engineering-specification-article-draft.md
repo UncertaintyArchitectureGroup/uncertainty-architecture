@@ -159,7 +159,7 @@ Thinking Systems change this object by making one or more **Consequential Runtim
 
 Return to the running support-resolution example. Its workflow may be fixed end to end: receive the request, retrieve authorized context, interpret the issue, select or recommend a resolution, prepare customer communication, check authority, and either execute a bounded action or route the case to Human Authority. Nothing in that sequence requires dynamic orchestration. Yet if interpretation, resolution selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment.
 
-The distinction matters because engineering needs a stable name for the object being designed, released, operated, and controlled. In Linear Software, consequential decision behavior is intended to be determined at runtime by explicitly authored mechanisms—code, rules, state transitions, and their composed execution—rather than by probabilistic Model Judgment. In a Thinking System, part of the mapping from situation to consequential behavior is instead completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively determines the behavior that matters.
+The distinction matters because engineering needs a stable name for the object being designed, released, operated, and controlled. In Linear Software, no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment; its **Consequential Runtime Responsibilities**, if any, are fulfilled entirely through explicitly encoded logic. In a Thinking System, part of the mapping from situation to consequential behavior is instead completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively specifies the consequential responsibility that depends on it.
 
 The controlled object is therefore the **whole Thinking System, not the model invocation**. The engineering problem is to preserve useful runtime judgment while keeping the surrounding deterministic responsibilities, boundaries, evidence, decision authority, and corrective mechanisms explicit enough to control the system as a whole. Whether those controls are adequate is a separate question from whether the object belongs to the Thinking-System category.
 
@@ -167,7 +167,7 @@ The controlled object is therefore the **whole Thinking System, not the model in
 
 Because the broader labels answer different questions. [ISO/IEC TR 29119-11:2020](https://www.iso.org/standard/79016.html) defines an **AI-based system** by the presence of at least one AI component. [NIST AI RMF 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) uses a broader **AI system** concept centered on machine-generated outputs that influence real or virtual environments. Those scopes are useful. The narrower question needed here is different: does any **Consequential Runtime Responsibility** depend partly on probabilistic Model Judgment?
 
-A conventional application can therefore fall within a broad AI-system category while no consequential runtime responsibility depends partly on Model Judgment. Conversely, a simple fixed workflow can cross the Thinking-System boundary as soon as a consequential responsibility such as interpretation, planning, routing, risk identification, or output mediation depends partly on probabilistic judgment.
+A conventional application can therefore fall within a broad AI-system category while no **Consequential Runtime Responsibility** depends partly on Model Judgment. Conversely, a simple fixed workflow can cross the Thinking-System boundary as soon as a **Consequential Runtime Responsibility** such as interpretation, planning, routing, risk identification, or output mediation depends partly on probabilistic Model Judgment.
 
 | Neighboring label | What it primarily signals in this comparison | Why it does not identify this controlled-object boundary |
 |---|---|---|
@@ -203,7 +203,7 @@ flowchart LR
     subgraph A["Primarily explicitly authored consequential behavior"]
         direction TB
         A1["Situation and operating conditions"]
-        A2["Explicitly authored consequential<br/>decision mechanisms"]
+        A2["Explicitly authored consequential<br/>responsibilities"]
         A3["Consequential output, action,<br/>or downstream state"]
         A1 --> A2 --> A3
     end
@@ -211,10 +211,11 @@ flowchart LR
     subgraph B["Thinking System — changed responsibility structure"]
         direction TB
         B1["Situation and operating conditions"]
-        B2["Explicitly authored responsibilities"]
+        B2["Explicitly authored responsibilities<br/>before, between, and after Judgment Nodes"]
         J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
         B3["Consequential output, action,<br/>or downstream state"]
-        B1 --> B2 --> J1 --> B3
+        B1 --> B2 --> B3
+        B1 --> J1 --> B3
     end
 
     A2 ~~~ J1
@@ -223,7 +224,7 @@ flowchart LR
     class J1 judgment;
 ```
 
-**Figure 3 — The controlled-object shift.** On the left, consequential behavior is determined through explicitly authored mechanisms. On the right, one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment, so part of the consequential mapping is completed at runtime. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous. The figure is descriptive of the category boundary, not a prescribed control architecture. The deterministic boundaries, evidence, authority, and corrective mechanisms required for controlled production use are derived in the sections that follow.
+**Figure 3 — The controlled-object shift.** On the left, Consequential Runtime Responsibilities are fulfilled through explicitly authored logic. On the right, explicitly authored responsibilities remain part of the system while one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment, so part of the consequential mapping is completed at runtime. The parallel paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous. The figure is descriptive of the category boundary, not a prescribed control architecture. The deterministic boundaries, evidence, authority, and corrective mechanisms required for controlled production use are derived in the sections that follow.
 
 Model Judgment can enter a system through several functional placements.
 
@@ -295,14 +296,14 @@ flowchart TB
         R["Runtime<br/>Does active operation remain inside the authorized boundary?"]
         E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]
 
-        O -->|authority + inherited Constraints| P
-        P -->|Project Authorization + project boundary| D
+        O -->|authoritative sources + delegated authority| P
+        P -->|Project Constraint Architecture + Project Authorization| D
         D -->|realized boundary + release scope| R
         R --> E
     end
 
-    E -.->|implementation / realization / evidence basis invalidated| D
-    E -.->|risk / authority / feasibility / capacity / economics basis invalidated| P
+    E -.->|implementation / realization / evidence issue| D
+    E -.->|risk / authority / feasibility / capacity / economics invalidated| P
     E -.->|authoritative source / decision right / shared capability changed| O
 
     style SPINE fill:none,stroke:none
@@ -467,7 +468,7 @@ flowchart LR
             E["Runtime evidence<br/> behavior · outcomes · control state · changed assumptions"]
 
             O -->|authoritative sources + delegated authority| P
-            P -->|Project Constraint Architecture + authorization| D
+            P -->|Project Constraint Architecture + Project Authorization| D
             D -->|realized boundary + release scope| R
             R --> E
         end
