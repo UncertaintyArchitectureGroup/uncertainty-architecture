@@ -1,0 +1,59 @@
+name: Temporary PR69 Figure 3 contract sync
+
+on:
+  push:
+    branches:
+      - research/polish-section-2
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/polish-section-2
+          fetch-depth: 0
+      - name: Align Figure 3 blueprint contract with manuscript
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          s = p.read_text()
+          old = """Right — Thinking System — changed responsibility structure
+situation and operating conditions
+→ explicitly authored responsibilities remain before, between, and after Judgment Nodes
+AND
+→ one or more Judgment Nodes using probabilistic Model Judgment
+→ consequential output, action, or downstream state"""
+          new = """Right — Thinking System — changed responsibility structure
+situation and operating conditions
+├→ explicitly authored responsibilities before, between, and after Judgment Nodes ─┐
+└→ one or more Judgment Nodes using probabilistic Model Judgment ──────────────────┤
+                                                                                     ↓
+                                           consequential output, action, or downstream state"""
+          count = s.count(old)
+          if count != 1:
+              raise SystemExit(f'Figure 3 contract: expected exactly 1 match, found {count}')
+          p.write_text(s.replace(old, new))
+          PY
+      - name: Verify, remove temporary workflow, and commit
+        shell: bash
+        run: |
+          git diff --check
+          git diff -- content/research/notes/open-engineering-specification-article-blueprint.md
+          git rm .github/workflows/tmp-pr69-figure3-contract-sync.yml
+          changed="$(git status --short)"
+          echo "$changed"
+          echo "$changed" | grep -q 'content/research/notes/open-engineering-specification-article-blueprint.md'
+          echo "$changed" | grep -q '.github/workflows/tmp-pr69-figure3-contract-sync.yml'
+          test "$(echo "$changed" | wc -l)" -eq 2
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m "docs(research): align Figure 3 blueprint contract"
+          git push origin HEAD:research/polish-section-2
