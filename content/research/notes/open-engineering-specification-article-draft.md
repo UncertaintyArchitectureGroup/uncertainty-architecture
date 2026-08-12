@@ -596,14 +596,15 @@ If Model Judgment remains justified, Project / Architecture owns the concrete co
 
 For every material scenario, the project should be able to describe **at least one credible complete control loop** before a production path is authorized. This does not mean final configuration exists before implementation. It means the architecture is more than “we will add guardrails later.” If the system cannot detect the relevant failure before the consequence, cannot realize an inherited boundary at the claimed strength, lacks an effective corrective path, or requires Human Authority capacity the organization cannot supply, then the control architecture is not yet credible.
 
-The business case must include the control perimeter from the beginning. The decision should consider four things together rather than collapse them into one pseudo-precise score:
+The business case must include the control perimeter from the beginning. The decision should consider five dimensions together rather than collapse them into one pseudo-precise score:
 
 ```text
 expected value attributable to Model Judgment
-+ solution lifecycle economics
-+ complete control-perimeter lifecycle economics
-+ residual exposure and uncertainty after control
-+ hard authorization constraints that cannot be traded away
+considered against:
+- solution lifecycle economics
+- complete control-perimeter lifecycle economics
+- residual exposure and uncertainty after control
+- hard authorization constraints that cannot be traded away
 → authorize / narrow / bounded research / redesign / defer / No-Go
 ```
 

@@ -1358,7 +1358,7 @@ Delivery makes the project control architecture concrete. It must implement, con
 
 **Controller composition at Delivery level:**
 
-Delivery Controllers combine explicit human release/engineering authority with automation. Automation may handle repeatable invariant checks, build/test/evaluation execution, evidence aggregation, traceability, drift/version detection, policy-as-code checks, blocked-action verification, release-condition checks, routing, and safe bounded actions **when those checks and actions are themselves sufficiently observable, reversible, and inside delegated authority**. Human decision owners retain decisions that require contextual acceptance, architecture judgment, residual-risk acceptance, or authority change.
+Delivery Controllers combine explicit human release/engineering authority with automation. Automation may handle repeatable invariant checks, build/test/evaluation execution, evidence aggregation, traceability, drift/version detection, policy-as-code checks, blocked-action verification, release-condition checks, routing, and safe bounded actions **when those checks and actions are themselves sufficiently observable, reversible, and inside delegated authority**. Human decision owners retain contextual release acceptance, bounded engineering judgment, and residual-risk acceptance within delegated release authority; changes to project architecture or authority must be escalated to Project / Architecture or Organization as appropriate.
 
 **Outputs and artifacts:**
 
@@ -1456,8 +1456,8 @@ Runtime must operate the complete feedback path:
 ```text
 active Thinking System / realizations
 → Sensors and evidence
-→ Runtime Controller within delegated authority
-→ Actuator / Human Authority / fallback
+→ Runtime Controller / Human Authority within delegated authority
+→ Actuator / fallback
 → changed operation
 → Sensor verification of the resulting state
 ```
