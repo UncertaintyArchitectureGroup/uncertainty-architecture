@@ -1,0 +1,21 @@
+name: Temporary run running example polish
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-run-running-example-polish.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/polish-section-2
+      - run: python .tmp-running-example-polish.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m "docs(research): establish running support example spine"
+          git push
