@@ -17,13 +17,13 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import textwrap
           src = Path('.github/workflows/tmp-section4-rewrite.yml').read_text()
           start = "python - <<'PY'\n"
           end = "\n          PY\n"
           assert src.count(start) == 1, src.count(start)
           block = src.split(start, 1)[1].split(end, 1)[0]
-          exec(compile(textwrap.dedent(block), 'section4_rewrite.py', 'exec'))
+          block = '\n'.join(line[10:] if line.startswith('          ') else line for line in block.splitlines())
+          exec(compile(block, 'section4_rewrite.py', 'exec'))
           PY
           git diff --check
           test "$(git diff --name-only | wc -l)" -eq 2
