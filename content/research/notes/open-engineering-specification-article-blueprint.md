@@ -796,9 +796,9 @@ situation and operating conditions
 
 Right — Thinking System — changed responsibility structure
 situation and operating conditions
-→ explicitly authored responsibilities remain before, between, and after Judgment Nodes
-AND
-→ one or more Judgment Nodes using probabilistic Model Judgment
+├→ explicitly authored responsibilities before, between, and after Judgment Nodes
+└→ one or more Judgment Nodes using probabilistic Model Judgment
+   both responsibility paths converge on
 → consequential output, action, or downstream state
 ```
 
