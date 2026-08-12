@@ -835,6 +835,15 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 
 > The problem is not merely that AI is harder to test. Part of the controlled object's behavior is now produced through runtime judgment, and every decision that controls that object must account for the change.
 
+**Accepted drafting decisions from the 2026-08-12 Section 2 iteration:**
+
+- Keep Section 2 framework-neutral while deriving the changed controlled object; use UA later as the specification that organizes the resulting model rather than as the premise that validates the category.
+- In the neighboring-label comparison, use `Thinking System (this paper)` and a controlled-object-boundary comparison rather than `UA boundary` language. Keep the ISO/NIST use narrow and non-competitive here.
+- Treat the deterministic and model-mediated equations as design-contract abstractions, not claims of perfect repeatability or complete probabilistic specification.
+- Use the customer-support running example to show the mixed deterministic / Model-Judgment structure, but defer refund thresholds, Hard/Soft realization details, and full control-loop mechanics to later sections.
+- Keep the four decision-horizon paragraphs concise and ownership-focused. Project viability and architecture remain one horizon; the passage is a bridge, not the full operating-model treatment.
+- Keep Figure 6 focused on decision ownership and invalidated decision-basis routing; use `Project Authorization` consistently and do not let the diagram read as a delivery workflow.
+
 **Working word budget:** 950–1,300
 
 ---
