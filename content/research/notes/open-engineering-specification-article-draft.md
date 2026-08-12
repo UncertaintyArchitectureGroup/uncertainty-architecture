@@ -437,7 +437,7 @@ The capability anatomy explains **how** bounded control becomes possible. It doe
 
 ## 4. Four Decision Levels for Thinking Systems
 
-The capability anatomy explains **how** bounded control becomes operational. It still leaves a different problem unresolved: **where does each consequential decision legitimately belong?** The same Thinking System may require an organizational permission decision, a project architecture and viability decision, a delivery release decision, and a runtime correction decision. Those decisions concern one controlled object, but they require different evidence, authority, time horizons, automation, and corrective actions.
+The second model answers a different problem: **where does each consequential decision legitimately belong?** The same Thinking System may require an organizational permission decision, a project architecture and viability decision, a delivery release decision, and a runtime correction decision. Those decisions concern one controlled object, but they require different evidence, authority, time horizons, automation, and corrective actions.
 
 The four levels below are therefore not four governance documents, four mandatory teams, or four approval meetings. They are **decision-ownership horizons** inside one socio-technical control system:
 
@@ -582,7 +582,7 @@ flowchart LR
 
 The running support system makes the boundary concrete. Organization might permit automated refunds only inside a delegated amount, require Human Authority above it, restrict which customer data can reach the model, and require use of approved identity and transaction capabilities. Project / Architecture must then decide whether a useful support system can actually be built and operated inside those limits.
 
-Organization should be revisited when the **organizational basis** changes: an authoritative source, reserved decision right, exception authority, vendor/deployment permission, or shared capability changes or proves inadequate. A lower-level workaround cannot silently normalize an organizationally prohibited state.
+Organization should be revisited when the **organizational basis** changes: an authoritative source, reserved decision right, exception authority, vendor/deployment permission, or shared capability changes or proves inadequate. A lower-level workaround cannot silently normalize an organizationally prohibited state. Repeated exceptions, cross-project incidents, or recurrent requests for the same workaround should also test whether the source is ambiguous, delegated authority is wrong, a shared capability is inadequate, or the organization is repeatedly admitting project classes whose control perimeter later proves unattractive.
 
 ### Project / Architecture — AI necessity, control architecture, and viability
 
@@ -623,15 +623,13 @@ flowchart TB
     ECON["Control economics and capacity<br/> latency · operating friction · dependencies"]
     DEC["Project decision<br/> authorize · narrow · research<br/> redesign · defer · No-Go"]
     RE["Delivery / Runtime invalidating evidence"]
-    WIDE["Need for wider organizational authority"]
-
     ORG --> NEED
     OUT --> NEED --> RISK --> K --> LOOP
     LOOP --> HUMAN --> DEC
     LOOP --> ECON --> DEC
     RE -.-> RISK
     DEC -. Project Reauthorization .-> RISK
-    WIDE -.-> ORG
+    DEC -.->|wider organizational authority required| ORG
 ```
 
 **Figure 11 — Project control architecture and viability.** Organizational admissibility becomes a concrete system decision only after AI necessity, material scenarios, complete control loops, Human Authority/fallback, capacity, and control economics are examined. Bounded research is a legitimate outcome; prototype success is not Project Authorization.
@@ -640,7 +638,7 @@ For the support system, this is where the refund boundary becomes a Project Cons
 
 The output is a **versioned Project Authorization and Project Constraint Architecture**. Delivery inherits it by reference and may refine or narrow the authorized scope. Delivery may not silently expand delegated authority or weaken an inherited Hard Constraint. Project Reauthorization is required when evidence changes the project basis—risk, authority, feasibility, evidence coverage, Human Authority, capacity, dependencies, or economics. If the required change exceeds organizational authority, Project escalates to Organization.
 
-**Architectural Veto is a valid engineering result.** A system can be impressive as a prototype and still deserve deterministic redesign, narrower scope, further research, deferral, or No-Go.
+**Architectural Veto is a valid engineering result.** A system can be impressive as a prototype and still deserve deterministic redesign, narrower scope, further research, deferral, or No-Go. Repeated Delivery or Runtime workarounds should be treated as evidence against the project model when they expose a missing scenario, non-credible Constraint, weak Sensor basis, ineffective Actuator, unrealistic Human Authority capacity, or invalid control economics rather than as an endless queue of local defects.
 
 #### Designing the control architecture
 
@@ -689,7 +687,7 @@ Automation can carry repeatable invariant checks, tests, evaluations, evidence a
 
 For the support system, Delivery implements the actual refund guard, authorization state, evaluator suite, approval routing, fallback, telemetry, and rollback/disable paths; verifies bypass behavior; records active versions; and tests whether the human queue can meet the latency assumed by Project. If implementation discovers that the claimed Hard path can be bypassed or that approval capacity destroys the assumed service target, that is not merely “QA feedback.” It may invalidate Project Authorization.
 
-Delivery may repair, reconfigure, roll back, narrow exposure, disable, or re-release within delegated authority. It may not silently expand project authority, weaken an inherited Hard Constraint, change an organizational prohibition, or normalize evidence that project viability has failed.
+Delivery may repair, reconfigure, roll back, narrow exposure, disable, or re-release within delegated authority. It may not silently expand project authority, weaken an inherited Hard Constraint, change an organizational prohibition, or normalize evidence that project viability has failed. Material negative cases should improve the weakest delivery control element and its verification—Sensor coverage, Constraint clarity, realization integrity, Controller logic or latency, Actuator effectiveness, Human Authority, automation, deterministic validation, or version traceability—rather than defaulting to prompt tuning because the model produced the visible symptom.
 
 ### Runtime — operation, correction, and reassessment
 
@@ -775,7 +773,7 @@ The stabilization objective is not zero variance from Model Judgment. It is prog
 ```mermaid
 flowchart LR
     N["Material negative case / evidence<br/> violation · near miss · failure · overload<br/> changed assumption · economic break"]
-    T["Triage by decision basis<br/> Delivery · Project / Architecture · Organization"]
+    T["Triage by decision basis<br/> Runtime · Delivery · Project / Architecture · Organization"]
     D["Diagnose weakest control element<br/> Sensor · Constraint · Realization · Controller<br/> Actuator · Human Authority · automation · assumption"]
     C["Change inside authority<br/> or reauthorize upward"]
     I["Improved control architecture<br/> boundary · evidence · authority · response"]
