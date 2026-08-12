@@ -159,7 +159,7 @@ Thinking Systems change this object by making one or more **Consequential Runtim
 
 Return to the running support-resolution example. Its workflow may be fixed end to end: receive the request, retrieve authorized context, interpret the issue, select or recommend a resolution, prepare customer communication, check authority, and either execute a bounded action or route the case to Human Authority. Nothing in that sequence requires dynamic orchestration. Yet if interpretation, resolution selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment.
 
-The distinction matters because engineering needs a stable name for the object being designed, released, operated, and controlled. In Linear Software, relevant consequential behavior is specified before runtime through explicit code, rules, or state transitions. In a Thinking System, part of the mapping from situation to consequential behavior is completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively specifies the behavior that matters.
+The distinction matters because engineering needs a stable name for the object being designed, released, operated, and controlled. In Linear Software, the intended mapping for relevant consequential behavior is specified before runtime through explicit code, rules, or state transitions. In a Thinking System, part of the mapping from situation to consequential behavior is completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively specifies the behavior that matters.
 
 The controlled object is therefore the **whole Thinking System, not the model invocation**. The engineering problem is to preserve useful runtime judgment while keeping the surrounding deterministic responsibilities, boundaries, evidence, decision authority, and corrective mechanisms explicit enough to control the system as a whole. Whether those controls are adequate is a separate question from whether the object belongs to the Thinking-System category.
 
@@ -222,11 +222,10 @@ flowchart LR
 
     classDef changed fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#7f0000;
     classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
-    class B2,B3 changed;
     class J1 judgment;
 ```
 
-**Figure 3 — The controlled-object shift.** Two vertical responsibility structures are placed side by side for comparison. On the left, consequential runtime behavior is primarily authored through explicitly encoded responsibilities. On the right, deterministic responsibilities remain explicit before, between, and after one or more Judgment Nodes while part of consequential behavior is formed through probabilistic Model Judgment. Red identifies the structural responsibility change created by runtime judgment; it does not mean that the whole Thinking System is probabilistic, unsafe, or erroneous. The right-hand structure is an engineering target for controlled production use, not a category-membership test or mandatory topology.
+**Figure 3 — The controlled-object shift.** Two vertical responsibility structures are placed side by side for comparison. On the left, the intended consequential runtime mapping is primarily authored through explicitly encoded responsibilities. On the right, deterministic responsibilities remain explicit before, between, and after one or more Judgment Nodes while part of consequential behavior is formed through probabilistic Model Judgment. Red identifies the Judgment Node where that structural responsibility shift occurs; it does not mean that the whole Thinking System is probabilistic, unsafe, or erroneous. The right-hand structure is an engineering target for controlled production use, not a category-membership test or mandatory topology.
 
 Model Judgment can enter a system through several functional placements.
 
@@ -276,7 +275,7 @@ flowchart LR
 
 **Figure 5 — Three connected uncertainty locations.** Product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty coexist. Product methods, deterministic software engineering, DevOps, resilience, security, and incident response remain necessary; Thinking-System engineering adds explicit treatment of uncertainty produced through runtime judgment inside the controlled object.
 
-Once probabilistic judgment enters the controlled object, its consequences do not remain inside a model call. Different decisions now govern the same object at different times and with different authority.
+Once probabilistic judgment enters the controlled object, its consequences do not remain inside a model call. Different decisions govern the same object through different decision contexts, timescales, and authority boundaries.
 
 **Organizational control context.** This horizon owns the authoritative conditions within which a project may operate: applicable organizational boundaries, shared capabilities, prohibited uses, decision rights, and exception authority. It does not decide a concrete project's architecture merely because it supplies the sources that constrain it.
 
