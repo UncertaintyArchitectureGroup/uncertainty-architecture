@@ -1,0 +1,55 @@
+name: Temporary PR68 final prose polish
+
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-polish-pr68-final.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/polish-abstract-section-1
+      - name: Apply final blueprint-aligned prose fixes
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('content/research/notes/open-engineering-specification-article-draft.md')
+          s = p.read_text()
+
+          replacements = {
+            'This paper derives the control capabilities and decision horizons needed to reason about that architecture, explains how to apply the complete map proportionally, examines adjacent methods, tools, standards, and regulation through a substitution analysis, and introduces Uncertainty Architecture near the end as the open specification organizing the resulting model.':
+            'This paper derives the control capabilities and decision horizons needed to reason about that architecture, explains how to apply the complete map proportionally, examines adjacent methods, tools, standards, and regulation through a substitution analysis, and identifies the resulting synthesis as **Uncertainty Architecture**—an open specification whose claims remain subject to practical validation, simplification, contradiction, and revision.',
+
+            '**This is the engineering problem Uncertainty Architecture is designed to address: how to build and operate systems that use probabilistic Model Judgment without surrendering explicit boundaries, evidence, decision authority, and corrective control.**':
+            '**The engineering problem is how to build and operate systems that use probabilistic Model Judgment without surrendering explicit boundaries, evidence, decision authority, and corrective control.**',
+
+            '**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** The final transition is the problem space addressed by Uncertainty Architecture: engineering and operating systems in which consequential behavior is partly produced through probabilistic Model Judgment inside the software boundary. Waterfall, Agile, and DevOps are shown as familiar examples of the broader plan-driven, iterative-delivery, and modern-operations responses. The progression is conceptual, not replacement history.':
+            '**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** The final transition introduces the problem of engineering and operating systems in which consequential behavior is partly produced through probabilistic Model Judgment inside the software boundary. Waterfall, Agile, and DevOps are shown as familiar examples of the broader plan-driven, iterative-delivery, and modern-operations responses. The progression is conceptual, not replacement history.',
+
+            '| Thinking-System engineering — problem space addressed by Uncertainty Architecture | Model-Judgment-dependent Consequential Runtime Responsibilities and their effects | Bounded control architecture: explicit Constraints, evidence, decision authority, correction, and reassessment | Inside and around the active controlled object |':
+            '| Thinking-System engineering | Model-Judgment-dependent Consequential Runtime Responsibilities and their effects | Bounded control architecture: explicit Constraints, evidence, decision authority, correction, and reassessment | Inside and around the active controlled object |',
+
+            '> **Release-readiness consequence.** For production use of a Thinking System, these are not gaps that can be delegated to a post-release governance review. The system is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path. “Complete control architecture” therefore means materially complete for the authorized scope, not maximal implementation of every decision-horizon × capability-family combination. Governance becomes operational through that socio-technical architecture; it is not a document layered over the system.':
+            '> **Release-readiness consequence.** For production use of a Thinking System, these are not gaps that can be delegated to a post-release governance review. The system is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path. “Complete control architecture” therefore means materially complete for the authorized scope, not maximal control implementation. Governance becomes operational through that socio-technical architecture; it is not a document layered over the system.'
+          }
+
+          for old, new in replacements.items():
+            count = s.count(old)
+            if count != 1:
+              raise SystemExit(f'Expected exactly one match, found {count}: {old[:140]!r}')
+            s = s.replace(old, new)
+
+          p.write_text(s)
+      - name: Commit manuscript update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m "docs(research): remove premature framework framing from section 1"
+          git push origin HEAD:research/polish-abstract-section-1
