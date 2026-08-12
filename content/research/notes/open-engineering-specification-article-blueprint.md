@@ -186,6 +186,8 @@ The manuscript should use one **running educational example** to make the abstra
 
 The example must remain stable enough that the reader can recognize the **same controlled object** as it moves from business proposal through organizational authorization, Project / Architecture viability, Delivery realization, Runtime operation, and reassessment. Do not replace it with unrelated examples at each level. Short counterexamples from other domains may be used to prevent overfitting, but they must remain secondary.
 
+**Progressive-disclosure rule.** Introduce the running example explicitly in Section 5.1 as a named pedagogical spine and define the business goal and whole controlled object there, but reveal implementation detail only when the corresponding concept is introduced. For each major conceptual section, prefer the sequence `generic model → application to the same running example → optional secondary counterexample or transfer check`. Do not let a new domain example silently replace the support-resolution system as the primary explanatory object.
+
 #### Business context
 
 Use a fictional company that wants to reduce the cost and latency of customer-support resolution. The proposed system may:
@@ -841,6 +843,7 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 - In the neighboring-label comparison, use `Thinking System (this paper)` and a controlled-object-boundary comparison rather than `UA boundary` language. Keep the ISO/NIST use narrow and non-competitive here.
 - Treat the deterministic and model-mediated equations as design-contract abstractions, not claims of perfect repeatability or complete probabilistic specification.
 - Use the customer-support running example to show the mixed deterministic / Model-Judgment structure, but defer refund thresholds, Hard/Soft realization details, and full control-loop mechanics to later sections.
+- Use the same support-resolution system, rather than a separate project-planning scenario, to demonstrate that a fixed predefined workflow can already cross the Thinking-System category boundary.
 - Keep the four decision-horizon paragraphs concise and ownership-focused. Project viability and architecture remain one horizon; the passage is a bridge, not the full operating-model treatment.
 - Keep Figure 6 focused on decision ownership and invalidated decision-basis routing; use `Project Authorization` consistently and do not let the diagram read as a delivery workflow.
 
