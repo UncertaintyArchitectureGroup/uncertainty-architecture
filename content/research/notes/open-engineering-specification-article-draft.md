@@ -333,21 +333,19 @@ The next section asks what capabilities are required to turn those connected dec
 
 ## 3. From Model Quality to Bounded Control
 
-A common response to probabilistic behavior is to improve measurement. Teams assemble test sets, run evaluators, inspect traces, monitor cost and latency, and compare model versions. This is necessary work. It can reveal regression, drift, weak grounding, unexpected tool use, or changes in business outcomes.
+The controlled-object shift changes what counts as sufficient engineering evidence. Once a **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment, teams naturally invest in measurement: test sets, evaluators, traces, model comparisons, cost and latency monitoring, incident data, and downstream outcome analysis. All of that is necessary. None of it, by itself, establishes control.
 
-Measurement, however, is not the same as control.
+Measurement answers questions such as *what happened, how often, under which conditions, and with what confidence?* Control adds different questions: *relative to which approved boundary, who or what may decide that action is required, which action can actually change operation, and what happens when the assumptions behind the boundary no longer hold?*
 
-A system can produce extensive evidence while nobody has authority to act on it. A review process can identify unacceptable behavior while no mechanism can prevent recurrence. An automated loop can detect degradation, select a response, and change the system while still permitting prohibited actions, exceeding delegated authority, or destroying the economics that justified the project.
-
-Control begins when evidence about a process reaches a decision function and an authorized action can affect the process again:
+A feedback loop becomes closed when evidence about the controlled process reaches a decision function and an authorized action can affect the process again:
 
 ```mermaid
 flowchart LR
-    R["Reference<br/> Requirement and intended conditions"]
-    P["Thinking System<br/> controlled process"]
+    R["Reference<br/>Requirement and intended conditions"]
+    P["Thinking System<br/>controlled process"]
     S["Sensors and evidence"]
     C["Controller and decision authority"]
-    A[Actuators]
+    A["Actuators"]
 
     R --> C
     P --> S --> C
@@ -355,69 +353,63 @@ flowchart LR
     A -->|changes operation| P
 ```
 
-**Figure 7 — A closed feedback loop.** Evidence reaches a decision function and an authorized action changes the controlled process. The figure does not yet show whether the loop operates inside an approved boundary.
+**Figure 7 — A closed feedback loop.** Evidence reaches a decision function and an authorized action changes the controlled process. The figure deliberately does not yet claim that the loop operates inside a legitimate or adequately realized boundary.
 
-Closing the loop solves only part of the problem. The loop may optimize the wrong objective. It may respond too slowly for the consequence. Its Controller may possess authority that was never legitimately delegated. Its Actuator may change a prompt but be unable to block an external action. Its Sensor may observe average quality while missing a low-frequency prohibited state. The loop may keep a metric inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse.
+A closed loop can still be unacceptable. It may optimize the wrong objective, react too slowly for the consequence, rely on evidence that misses the relevant failure, or possess authority that was never legitimately delegated. Its Actuator may be able to change a prompt but not prevent a transaction. It may keep an evaluator score inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse. Closing feedback is therefore weaker than bounding operation.
 
-A complete bounded control architecture therefore asks a broader question:
+The running support-resolution system makes the distinction concrete. Suppose the organization permits automated low-value credits but requires **Human Authority** before a refund above a delegated amount can execute. The important engineering object is not the sentence “large refunds require approval.” The control problem is whether that authoritative boundary survives the complete path from Model Judgment to downstream transaction.
 
-> Is the feedback loop operating inside an approved and credibly realized boundary, with bounded authority, fit-for-purpose evidence, effective corrective action, and a valid path for reassessment?
-
-Four logical capability families answer different parts of that question. The order below is a pedagogical traversal of a closed control loop, not a mandatory execution sequence: begin with the mechanism that can change operation, then make explicit the approved boundary governing that change, the evidence needed to observe the resulting state, and the decision authority that interprets that evidence and authorizes what happens next.
+The four capability families describe the logical functions needed to make such a boundary operational. The order below is a pedagogical traversal, not a mandatory execution pipeline or physical stack.
 
 ### Actuators and corrective action
 
-An **Actuator** executes an authorized change in operation or in a Constraint Realization. It may block an action, narrow exposure, change routing, require Human Authority, switch to fallback, roll back a model or configuration, isolate a feature, compensate downstream state, or stop the system.
+An **Actuator** executes an authorized change in operation or in a Constraint Realization. It is the part of the control path that can actually make the system behave differently.
 
-A Controller decides or authorizes. An Actuator executes. One component may perform both functions, but collapsing the concepts hides decision rights, execution rights, failure behavior, and evidence about whether the selected action actually occurred.
+In the support system, Actuators may block a transaction, route a case to Human Authority, narrow autonomous scope, switch to a manual path, disable refund execution, roll back a model or configuration, or compensate downstream state. A feature flag, API call, workflow step, deployment action, or human intervention is an Actuator only when it provides a real path from an authorized decision to changed operation.
 
-A Controller without an effective Actuator can diagnose but cannot correct. A kill-switch endpoint that nobody may legitimately invoke is not an operable response path. A feature flag that changes exposure is an Actuator only when it connects an authorized decision to a real operational change.
+The distinction from decision authority matters. A Controller decides or authorizes; an Actuator executes. One component may perform both, but treating them as the same concept hides who may decide, who may execute, what happens when execution fails, and what evidence proves that the requested change actually occurred. A Controller without an effective Actuator can diagnose but cannot correct.
 
 ### Constraints and their realizations
 
-A **Constraint** is an approved condition limiting the allowed operating space. It may restrict reachable actions, side effects, authority, autonomy, data, tools, resources, deployment population, geography, or the conditions under which Human Authority is required.
+A **Constraint** is an approved condition limiting the allowed operating space. A **Constraint Realization** is the technical or socio-technical mechanism through which that condition is implemented, enforced or influenced, evidenced, and operated for a defined scope. They belong to one capability family because either side alone is incomplete: policy without realization is intent; realization without an authoritative Constraint is mechanism without a defensible boundary.
 
-A Constraint is an authoritative decision object. It does not enforce itself.
+For the running example, an authoritative Constraint might state that refunds above the delegated amount must not execute without Human Authority. That statement is not yet a technical guarantee. A credible realization might combine transaction permissions, an amount precondition, an approval token or equivalent authorization state, and a transaction endpoint that rejects execution when the precondition is absent.
 
-A **Constraint Realization** is the technical or socio-technical mechanism through which the Constraint is implemented, configured, enforced or influenced, evidenced, and operated for a defined scope. Permissions, typed interfaces, transaction guards, approval paths, prompts, evaluators, tool restrictions, isolation boundaries, rate limits, and manual procedures may all participate in realization.
+This is also where **Hard** and **Soft** must be separated carefully. A Hard Constraint is a scoped claim that the complete realized path deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries. A prompt saying “never issue a refund above the threshold,” a natural-language policy, a model preference, or a probabilistic evaluator is not hard by itself. Those mechanisms may influence behavior, but they do not make the prohibited transaction unreachable.
 
-Constraint and Constraint Realization belong to one capability family because either one without the other is incomplete. A realization without an authoritative Constraint is a mechanism with no defensible boundary. A declared Constraint without realization is an intention with no operational effect. Constraint Realization is not a fifth capability family.
-
-Hard and Soft claims apply to a scoped Constraint together with its complete realized path. A **Hard Constraint** deterministically prevents or rejects violation within stated assumptions, subject, path, scope, and enforcement boundaries. A **Soft Constraint** influences probabilistic behavior but does not make the prohibited state unreachable.
-
-A prompt, natural-language policy, model preference, or probabilistic evaluator is not hard by itself. A permission boundary may support a Hard Constraint for one action path while the same business intent remains soft for generated wording. Those are different guarantees and should be recorded separately rather than hidden inside one ambiguous control claim.
+Where a prohibited consequential state can feasibly be made unreachable through deterministic enforcement, deterministic realization should carry that boundary. Where deterministic prevention is not feasible, the remaining uncertainty should stay explicit rather than being renamed “Hard” because the business intent is important. The same business rule may therefore require separate records for a hard transaction boundary and a soft semantic boundary around customer communication.
 
 ### Sensors and evidence
 
 **Sensors** produce evidence about behavior, outcomes, operating conditions, realization state, control health, Actuator execution, and the assumptions on which authorization depends.
 
-An evaluator usually performs a Sensor function. So do runtime telemetry, denied-action events, downstream outcomes, complaints, incidents, Human Authority response times, fallback load, and evidence that a realization is active or degraded.
+For the refund boundary, useful evidence includes attempted and blocked high-value refunds, approval requests and outcomes, realization health, bypass attempts, downstream transaction results, false blocks, Human Authority queue size and latency, fallback load, and the state produced after an Actuator fires. Evaluators may also estimate semantic properties such as whether the model applied policy appropriately or whether a customer explanation is grounded.
 
-A Sensor need not produce one objective truth value. Semantic quality, harmfulness, usefulness, or business acceptability may remain uncertain. The requirement is that evidence be fit enough for a bounded decision and expose its coverage, uncertainty, latency, and blind spots.
+A Sensor need not produce one objective truth value. Semantic acceptability may remain uncertain. Evidence must instead be fit for the decision it informs and expose coverage, uncertainty, latency, and blind spots. A detector that identifies a prohibited transaction only after settlement may be accurate and still be useless for prevention. An average-quality dashboard may be informative and still miss the low-frequency event that defines the relevant boundary.
 
-Telemetry without a decision path is observation. It may be valuable observation, but it is not control.
+Telemetry without a decision path is observation. Valuable observation is not yet control.
 
 ### Controllers and decision authority
 
-A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or authorizes action.
+A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or authorizes action. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is ownership of a defined decision together with legitimate authority over the available response.
 
-The Controller may be deterministic software, bounded automated decision logic, a human decision-maker, a review or incident process, or a distributed socio-technical responsibility. What makes it a Controller is not intelligence or automation. It is ownership of a defined decision and legitimate authority over the available response.
+In the running example, one Controller function may determine that a transaction cannot proceed automatically and must be routed to Human Authority. Another may decide, from repeated realization failures or abnormal financial behavior, that autonomous refund execution should be disabled or narrowed. The associated Actuator performs that change. A dashboard presenting the evidence is not itself the Controller.
 
-Logic selecting `block`, `canary`, or `release` performs a Controller function. A dashboard does not become a Controller merely because a human views it. A human approval step is not substantive Human Authority unless the person has sufficient information, time, capacity, and power to change the outcome.
+Controllers are often socio-technical. Human decision authority may be combined with automated evidence collection, invariant checks, routing, decision support, and bounded automated decisions where delegation permits them. **Human Authority** is substantive only when the person has enough information, time, competence, capacity, independence, and power to change the outcome. An approval button attached to an overloaded queue is not a complete control path.
 
-Read as a loop, the Controller authorizes an Actuator; the Actuator changes operation or a Constraint Realization; Constraints bound what may legitimately change and how; Sensors expose the resulting behavior, state, and effects; and that evidence returns to a Controller. The families therefore depend on one another without becoming four mandatory services or one universal runtime pipeline.
+Automation should remove repetitive sensing, checking, routing, evidence aggregation, and safe bounded response where evidence quality, failure behavior, reversibility, and delegated authority make the automated path credible. Maximum automation is not an independent objective. Automated Controller and Actuator behavior is itself part of the control architecture: its decisions, configuration, latency, failures, execution, and resulting state must remain observable and correctable.
 
-The complete relationship is wider than a vertical stack or one synchronous pipeline:
+Read together, the four families form a bounded control relationship: Controllers authorize Actuators; Actuators change operation or a Constraint Realization; Constraints define what changes and operating states are legitimate; Realizations enforce or influence those boundaries; Sensors expose behavior, outcomes, realization health, and action effects; evidence returns to Controllers.
 
 ```mermaid
 flowchart LR
-    R["Authorized intent,<br/> Requirement, and assumptions"]
-    K["Constraints<br/> approved operating boundaries"]
-    KR["Constraint Realizations<br/> enforce or influence the boundary"]
-    P["Thinking System<br/> controlled process"]
-    S["Sensors and evidence<br/> behavior · outcomes · conditions<br/> realization and execution state"]
-    C["Controller and decision authority<br/> compare · interpret · authorize"]
-    A["Actuators<br/> execute authorized change"]
+    R["Authorized intent,<br/>Requirement, and assumptions"]
+    K["Constraints<br/>approved operating boundaries"]
+    KR["Constraint Realizations<br/>enforce or influence the boundary"]
+    P["Thinking System<br/>controlled process"]
+    S["Sensors and evidence<br/>behavior · outcomes · conditions<br/>realization and execution state"]
+    C["Controller and decision authority<br/>compare · interpret · authorize"]
+    A["Actuators<br/>execute authorized change"]
 
     R --> C
     R --> K
@@ -437,11 +429,11 @@ flowchart LR
 
 **Figure 8 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions.
 
-What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. It becomes operational through the complete socio-technical control architecture formed by these capabilities across the decision levels developed next. Until that architecture has credible boundaries, evidence, authority, effective Actuators, Human Authority and fallback where needed, and a path for reassessment, the application may be demonstrable or testable, but it is not ready for production release at the intended scope.
+This is the difference between a measured system, a closed feedback loop, and a bounded controlled system. The last requires not merely feedback but an approved and credibly realized operating boundary, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and a path for reassessment when the basis of control changes.
 
-The distinction matters because a loop can be technically closed and still unacceptable. The relevant question is not only whether the system learns from feedback, but whether operation remains inside an approved, credibly realized, observable, and correctable boundary—and whether evidence can force reconsideration when that boundary or its assumptions no longer hold.
+What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. Governance becomes operational through this socio-technical control architecture. Until material boundaries are credibly realized, required evidence reaches legitimate decision authority, effective Actuators exist, Human Authority and fallback are viable where needed, and invalidated assumptions can trigger reassessment, the system may be demonstrable or testable but is not ready for production at the intended scope.
 
-The capability anatomy explains how bounded control functions. It does not yet say where organizational authority, project authorization, delivery release, runtime correction, and reassessment are owned. That is the role of the second model.
+The capability anatomy explains **how** bounded control becomes possible. It does not yet determine **where** organizational authorization, project viability, delivery release, runtime correction, and reauthorization decisions belong. That is the role of the second model.
 
 ## 4. Four Decision Levels for Thinking Systems
 
