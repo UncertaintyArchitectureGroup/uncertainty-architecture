@@ -1621,6 +1621,20 @@ Preserve these explicitly for future drafting and external review:
 
 > Systematic negative-case learning is a proposed way to improve the control architecture at the level that owns the failed decision basis; it remains to be validated through worked applications and external review.
 
+**Accepted drafting decisions from the 2026-08-12 Section 4 rewrite:**
+
+- Make proportionality explicit before the level subsections: inspect the full four-horizon × four-capability map first, then justify implementation depth from the actual controlled object rather than superficial feature size.
+- Preserve Figure 9 as the literal orthogonal-model bridge: decision horizons answer where decisions belong; capability families answer how control becomes operational; no one-to-one mapping is permitted.
+- Use one visible operating rhythm across all four horizons without mechanically repeating eight labels: activation, authoritative basis, owned decision, capability obligations, outputs, returned evidence, local action versus escalation, and learning.
+- Replace the department-centric Organization figure with a process-oriented organizational control relationship in which authoritative sources, external/organizational evidence, and lower-level evidence converge on legitimate decision owners.
+- Keep the Organization / Project boundary strict: Organization owns admissibility, reserved authority, shared capabilities, evidence obligations, and exceptions; Project / Architecture owns AI necessity, concrete control architecture, control economics, and Project Authorization.
+- Make the Project / Architecture horizon explicitly compare deterministic, manual, narrower model-assisted, and broader Thinking-System alternatives before authorizing Model Judgment for the intended outcome.
+- Include the complete control perimeter in project viability rather than treating evaluation, Human Authority, fallback, observability, and control friction as post-launch overhead.
+- Preserve DoR, DoD, and Release Gate as distinct Delivery decisions even when one lightweight workflow carries them.
+- Keep Runtime restoration distinct from redesign and route evidence according to the decision basis invalidated rather than the team that first observed the signal.
+- Add a cross-level negative-case learning and stabilization loop as a publication-facing operating hypothesis under validation, not a fifth horizon or already-established normative doctrine.
+- Define stabilization as reducing uncontrolled recurrence, not eliminating probabilistic variance; prefer deterministic prevention where prohibited states can feasibly be made unreachable.
+
 **Working word budget:** 3,400–4,600 before final compression. Do not optimize this section back to the previous 1,800–2,300-word target until the operating model is fully expressed and reviewed.
 
 ---
