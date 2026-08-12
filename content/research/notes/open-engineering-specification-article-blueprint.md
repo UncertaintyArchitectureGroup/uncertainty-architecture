@@ -1410,9 +1410,10 @@ The fix should improve the weakest control element and the evidence that verifie
 
 ```text
 Project Authorization + Constraints + evidence obligations
-→ delivery translation and realization
-→ implementation / evaluation / verification
-→ DoR / DoD / Release Gate decisions
+→ Definition of Ready
+→ delivery realization / implementation / evaluation / verification
+→ Definition of Done
+→ deployment-specific Release Gate
 → runtime deployment and evidence
 → local repair / rollback / narrow / re-release
    OR Project Reauthorization when the authorization basis is invalidated

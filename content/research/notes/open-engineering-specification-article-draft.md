@@ -596,18 +596,18 @@ If Model Judgment remains justified, Project / Architecture owns the concrete co
 
 For every material scenario, the project should be able to describe **at least one credible complete control loop** before a production path is authorized. This does not mean final configuration exists before implementation. It means the architecture is more than “we will add guardrails later.” If the system cannot detect the relevant failure before the consequence, cannot realize an inherited boundary at the claimed strength, lacks an effective corrective path, or requires Human Authority capacity the organization cannot supply, then the control architecture is not yet credible.
 
-The business case must include the control perimeter from the beginning:
+The business case must include the control perimeter from the beginning. The decision should consider four things together rather than collapse them into one pseudo-precise score:
 
 ```text
 expected value attributable to Model Judgment
-compared with
-solution lifecycle cost
-+ complete control-perimeter lifecycle cost
-+ residual exposure / uncertainty after control
++ solution lifecycle economics
++ complete control-perimeter lifecycle economics
++ residual exposure and uncertainty after control
++ hard authorization constraints that cannot be traded away
 → authorize / narrow / bounded research / redesign / defer / No-Go
 ```
 
-Solution lifecycle cost may include model, platform, data, integration, and ordinary operation. Control-perimeter cost may include Constraint design and realization, evaluations and evidence, Human Authority, fallback, observability, incident response, false blocks, control maintenance, reassessment, added latency, and control-specific operational friction. These are reasoning buckets, not a universal accounting standard.
+Solution lifecycle economics may include model, platform, data, integration, and ordinary operation. Control-perimeter economics may include Constraint design and realization, evaluations and evidence, Human Authority, fallback, observability, incident response, false blocks, control maintenance, reassessment, added latency, and control-specific operational friction. Residual exposure and uncertainty remain separate decision dimensions unless they are credibly translated into comparable expected-loss or range estimates. These are reasoning buckets, not a universal accounting standard.
 
 A hard prohibition or missing authority cannot be averaged away by expected ROI. Conversely, control cost that destroys the business case is not “governance overhead” to be hidden after launch. It is evidence that the proposed architecture may be non-viable.
 
@@ -661,14 +661,16 @@ The delivery team therefore needs to translate in both directions. Business stat
 ```mermaid
 flowchart LR
     P["Project Authorization + Constraints<br/> evidence obligations · delegated authority"]
-    ENG["Delivery translation and realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
+    R["Definition of Ready<br/> bounded work may begin"]
+    ENG["Delivery realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
     VER["Implementation / evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]
-    G["DoR · DoD · Release Gate<br/> distinct decisions"]
+    D["Definition of Done<br/> implementation + evidence complete"]
+    G["Release Gate<br/> accept · limit · condition · escalate · reject"]
     RUN["Runtime deployment and evidence"]
     LOCAL["Local response<br/> repair · rollback · narrow · re-release"]
     REAUTH["Project Reauthorization<br/> authorization basis invalidated"]
 
-    P --> ENG --> VER --> G --> RUN
+    P --> R --> ENG --> VER --> D --> G --> RUN
     RUN -->|local implementation / realization / evidence issue| LOCAL --> ENG
     RUN -->|risk / authority / feasibility / capacity / economics invalidated| REAUTH --> P
 ```
@@ -683,7 +685,7 @@ Three decisions must remain distinct even when one lightweight workflow carries 
 
 **Release Gate** asks whether this specific deployment should be accepted, limited, conditioned, escalated, or rejected for its population, environment, active versions, evidence, residual exposure, capacity, economics, and operational readiness. Passing DoD does not force a release decision.
 
-Automation can carry repeatable invariant checks, tests, evaluations, evidence aggregation, version comparison, routing, policy-as-code checks, blocked-action verification, release-condition checks, and safe bounded Actuation when those mechanisms are observable, reversible, and inside delegated authority. Human decision owners retain contextual acceptance, architecture judgment, residual-risk acceptance, and authority change.
+Automation can carry repeatable invariant checks, tests, evaluations, evidence aggregation, version comparison, routing, policy-as-code checks, blocked-action verification, release-condition checks, and safe bounded Actuation when those mechanisms are observable, reversible, and inside delegated authority. Human decision owners retain contextual release acceptance, bounded engineering judgment, and residual-risk acceptance within delegated release authority; changes to project architecture or authority must be escalated to Project / Architecture or Organization as appropriate.
 
 For the support system, Delivery implements the actual refund guard, authorization state, evaluator suite, approval routing, fallback, telemetry, and rollback/disable paths; verifies bypass behavior; records active versions; and tests whether the human queue can meet the latency assumed by Project. If implementation discovers that the claimed Hard path can be bypassed or that approval capacity destroys the assumed service target, that is not merely “QA feedback.” It may invalidate Project Authorization.
 
@@ -705,8 +707,8 @@ Runtime may automate control as far as evidence quality, consequence, failure be
 flowchart LR
     SYS["Active Thinking System<br/> models · prompts · context · tools<br/> people · realizations · versions"]
     OBS["Runtime evidence<br/> behavior · outcomes · drift · control health<br/> capacity · cost · Human Authority"]
-    CTRL["Runtime Controller<br/> interpret within delegated authority"]
-    ACT["Runtime Actuator / Human Authority<br/> reject · contain · fallback · narrow<br/> roll back · compensate · disable · stop"]
+    CTRL["Runtime Controller / Human Authority<br/> interpret · decide · authorize within delegated authority"]
+    ACT["Runtime Actuator<br/> reject · contain · fallback · narrow<br/> roll back · compensate · disable · stop"]
     VERIFY["Post-action evidence<br/> resulting state verified"]
     ESC["Authorization basis invalidated<br/> Delivery reassessment · Project Reauthorization<br/> or Organizational review"]
 
