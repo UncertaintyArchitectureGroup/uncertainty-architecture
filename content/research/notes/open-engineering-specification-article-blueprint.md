@@ -929,6 +929,17 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 
 > Governance becomes operational through the active socio-technical control architecture; a Thinking System is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path.
 
+**Accepted drafting decisions from the 2026-08-12 Section 3 rewrite:**
+
+- Preserve the deduction sequence `measurement → closed feedback → bounded control`; do not present evaluation or observability as control by themselves.
+- Reuse the bounded customer-support system as the primary explanatory object and introduce the refund-above-delegated-authority boundary here as the first concrete Constraint example.
+- Use that same boundary to distinguish authoritative Constraint from Constraint Realization, Hard from Soft guarantee strength, Sensor evidence from Controller decision authority, and Controller authorization from Actuator execution.
+- Prefer deterministic realization where a prohibited consequential state can feasibly be made unreachable; when prevention remains probabilistic, keep the residual uncertainty explicit rather than overstating the guarantee.
+- Treat Human Authority as an architectural capability with information, time, competence, capacity, independence, and power requirements rather than as an approval UI.
+- Make automation conditional on evidence quality, failure behavior, reversibility, and delegated authority; automated control remains part of the controlled architecture and must itself be observable and correctable.
+- Keep the four-family order Actuators → Constraints and realizations → Sensors → Controllers as a pedagogical traversal only; Figure 8 expresses the actual relationship topology without implying one execution sequence.
+- Close by separating the two models explicitly: capability anatomy explains how bounded control becomes operational; Section 5.4 explains where the relevant decisions are owned.
+
 **Working word budget:** 950–1,150
 
 ---
