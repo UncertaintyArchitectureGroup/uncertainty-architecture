@@ -742,7 +742,7 @@ The reader should leave able to explain:
 - State that the category can begin in the first simple model-enabled iteration when an LLM or other probabilistic model performs one or more **Consequential Runtime Responsibilities**, even inside a predefined workflow.
 - Use the same bounded customer-support-resolution system to demonstrate a fixed sequence such as receive request → retrieve authorized context → interpret issue → select or recommend resolution → prepare consequential communication → check authority → execute a bounded action or route to Human Authority. The point is that deterministic orchestration does not remove delegated Model Judgment.
 - Explain that later tools, memory, dynamic routing, multiple models, cooperating agents, or greater autonomy increase complexity and control demand but do not create the category.
-- Explain why the object needs a distinct name: in Linear Software, consequential decision behavior is intended to be determined by explicitly authored mechanisms—code, rules, state transitions, and their composed execution—rather than by probabilistic Model Judgment; in a Thinking System, part of the mapping from situation to consequential behavior is completed during runtime through Model Judgment.
+- Explain why the object needs a distinct name using the canonical category boundary: in Linear Software, no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment; its **Consequential Runtime Responsibilities**, if any, are fulfilled entirely through explicitly encoded logic. In a Thinking System, part of a consequential responsibility depends on runtime Model Judgment. Do not imply perfect physical repeatability or exhaustive specification of every system behavior.
 - State explicitly that the **whole Thinking System—not the model invocation—is the controlled object**. Keep this as a framework-neutral deduction; do not use UA as the premise that validates the boundary.
 - Keep category identity separate from control adequacy: Constraints, evidence, decision authority, corrective mechanisms, and cross-level control architecture determine governability and production readiness rather than whether the object belongs to the category.
 - Use determinism as a design-contract distinction, not a claim of perfect physical repeatability:
@@ -796,14 +796,15 @@ situation and operating conditions
 
 Right — Thinking System — changed responsibility structure
 situation and operating conditions
-→ explicitly authored responsibilities
+→ explicitly authored responsibilities remain before, between, and after Judgment Nodes
+AND
 → one or more Judgment Nodes using probabilistic Model Judgment
 → consequential output, action, or downstream state
 ```
 
-The figure is **descriptive of the category boundary**, not a target control architecture. It should show only the structural change needed for the deduction: part of a consequential mapping is completed through Model Judgment at runtime. Do not add deterministic validation, authority, evidence, correction, or post-judgment control blocks here merely because those mechanisms are required later for controlled production use; Sections 5.3 and 5.4 derive those responsibilities.
+The two right-hand paths are schematic responsibility relationships, not a prescribed execution topology. The figure is **descriptive of the category boundary**, not a target control architecture. Use restrained red treatment only on the Judgment Node or Judgment Nodes where probabilistic Model Judgment changes the responsibility structure. Keep explicitly authored responsibilities, external/input conditions, outputs, and the Thinking-System boundary neutral. Do not preload deterministic validation, authority, evidence, correction, Constraints, Sensors, Controllers, or Actuators into this figure merely because those mechanisms are required later for controlled production use; Sections 5.3 and 5.4 derive those responsibilities.
 
-Use restrained red treatment only on the Judgment Node or Judgment Nodes where probabilistic Model Judgment changes the responsibility structure. Keep explicitly authored responsibilities, external/input conditions, outputs, and the Thinking-System boundary neutral. Red must identify the structural addition, not imply that the whole Thinking System is probabilistic, unsafe, or erroneous.
+The caption must state that the figure is **descriptive of the controlled-object change, not a prescribed control architecture** and explicitly defer deterministic boundaries, evidence, authority, and corrective mechanisms for controlled production use to the sections that follow.
 
 The figure must not imply that:
 
@@ -844,6 +845,7 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 - Keep Section 2 framework-neutral while deriving the changed controlled object; use UA later as the specification that organizes the resulting model rather than as the premise that validates the category.
 - In the neighboring-label comparison, use `Thinking System (this paper)` and a controlled-object-boundary comparison rather than `UA boundary` language. Keep the ISO/NIST use narrow and non-competitive here.
 - Treat the deterministic and model-mediated equations as design-contract abstractions, not claims of perfect repeatability or complete probabilistic specification.
+- Define Linear Software using the canonical responsibility boundary: no Consequential Runtime Responsibility depends partly on probabilistic Model Judgment; consequential responsibilities, if any, are fulfilled entirely through explicitly encoded logic.
 - Use the customer-support running example to show the mixed deterministic / Model-Judgment structure, but defer refund thresholds, Hard/Soft realization details, and full control-loop mechanics to later sections.
 - Use the same support-resolution system, rather than a separate project-planning scenario, to demonstrate that a fixed predefined workflow can already cross the Thinking-System category boundary.
 - Keep Figure 3 descriptive of the category boundary rather than a UA target architecture: highlight the Judgment Node structural change only and defer validation, authority, evidence, and corrective mechanisms to the bounded-control deduction.
