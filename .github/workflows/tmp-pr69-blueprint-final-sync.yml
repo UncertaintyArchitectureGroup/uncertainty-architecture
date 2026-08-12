@@ -22,29 +22,27 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
+
           p = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
           s = p.read_text()
 
-          old1 = "- Explain why the object needs a distinct name: in Linear Software, consequential decision behavior is intended to be determined by explicitly authored mechanisms—code, rules, state transitions, and their composed execution—rather than by probabilistic Model Judgment; in a Thinking System, part of the mapping from situation to consequential behavior is completed during runtime through Model Judgment."
           new1 = "- Explain why the object needs a distinct name using the canonical category boundary: in Linear Software, Consequential Runtime Responsibilities are fulfilled entirely through explicitly encoded logic rather than depending partly on probabilistic Model Judgment; in a Thinking System, one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment, so part of the consequential mapping is completed at runtime."
+          pattern1 = r"^- Explain why the object needs a distinct name:.*$"
+          s, n1 = re.subn(pattern1, new1, s, count=1, flags=re.MULTILINE)
+          if n1 != 1:
+              raise SystemExit(f'Linear Software boundary: expected exactly 1 structural match, found {n1}')
 
-          old2 = """Right — Thinking System — changed responsibility structure
-          situation and operating conditions
-          → explicitly authored responsibilities
-          → one or more Judgment Nodes using probabilistic Model Judgment
-          → consequential output, action, or downstream state"""
           new2 = """Right — Thinking System — changed responsibility structure
           situation and operating conditions
           ├→ explicitly authored responsibilities before, between, and after Judgment Nodes ─┐
           └→ one or more Judgment Nodes using probabilistic Model Judgment ──────────────────┤
                                                                                                ↓
                                                      consequential output, action, or downstream state"""
-
-          for old, new, label in [(old1, new1, 'Linear Software boundary'), (old2, new2, 'Figure 3 contract')]:
-              count = s.count(old)
-              if count != 1:
-                  raise SystemExit(f'{label}: expected exactly 1 match, found {count}')
-              s = s.replace(old, new)
+          pattern2 = r"Right — Thinking System — changed responsibility structure\nsituation and operating conditions\n→ explicitly authored responsibilities\n→ one or more Judgment Nodes using probabilistic Model Judgment\n→ consequential output, action, or downstream state"
+          s, n2 = re.subn(pattern2, new2, s, count=1)
+          if n2 != 1:
+              raise SystemExit(f'Figure 3 contract: expected exactly 1 structural match, found {n2}')
 
           p.write_text(s)
           PY
