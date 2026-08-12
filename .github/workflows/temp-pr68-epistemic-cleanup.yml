@@ -1,0 +1,53 @@
+name: Temporary PR68 epistemic cleanup
+
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-pr68-epistemic-cleanup.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/polish-abstract-section-1
+      - name: Align abstract and blueprint epistemic wording
+        shell: python
+        run: |
+          from pathlib import Path
+
+          manuscript = Path('content/research/notes/open-engineering-specification-article-draft.md')
+          m = manuscript.read_text()
+          old = 'This paper derives the control capabilities and decision horizons needed to reason about that architecture, explains how to apply the complete map proportionally, examines adjacent methods, tools, standards, and regulation through a substitution analysis, and identifies the resulting synthesis as **Uncertainty Architecture**—an open specification whose claims remain subject to practical validation, simplification, contradiction, and revision.'
+          new = 'This paper derives a control-capability and decision-horizon model for reasoning about that architecture, explains how to apply the complete map proportionally, examines adjacent methods, tools, standards, and regulation through a substitution analysis, and identifies the resulting synthesis as **Uncertainty Architecture**—an open specification whose claims remain subject to practical validation, simplification, contradiction, and revision.'
+          if m.count(old) != 1:
+              raise SystemExit(f'manuscript match count={m.count(old)}')
+          m = m.replace(old, new)
+          manuscript.write_text(m)
+
+          blueprint = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          b = blueprint.read_text()
+          replacements = {
+            '- the paper derives capability families and decision levels, explains proportional application, maps the adjacent ecosystem against the resulting structure through substitution analysis, identifies the resulting synthesis as Uncertainty Architecture, and preserves an explicit validation agenda.':
+            '- the paper derives a control-capability and decision-horizon model for reasoning about the architecture, explains proportional application, maps the adjacent ecosystem against the resulting structure through substitution analysis, identifies the resulting synthesis as Uncertainty Architecture, and preserves an explicit validation agenda.',
+            'Because useful runtime judgment places consequential uncertainty inside that object, evaluation, observability, policies, human approval, and agent orchestration remain incomplete when disconnected from approved boundaries, concrete realizations, decision authority, corrective action, and reassessment.':
+            'Because useful runtime judgment places consequential uncertainty inside that object, evaluation, observability, policies, human approval, and agent orchestration remain insufficient as system control when disconnected from approved boundaries, concrete realizations, decision authority, corrective action, and reassessment.'
+          }
+          for old, new in replacements.items():
+              count = b.count(old)
+              if count != 1:
+                  raise SystemExit(f'blueprint match count={count}: {old[:100]}')
+              b = b.replace(old, new)
+          blueprint.write_text(b)
+
+      - name: Commit cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m "docs(research): tighten abstract epistemic claim"
+          git push origin HEAD:research/polish-abstract-section-1
