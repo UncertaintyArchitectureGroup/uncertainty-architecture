@@ -51,7 +51,7 @@ The connected argument is:
 engineering expands around consequential uncertainty it can no longer leave outside its operating model
 → Thinking Systems place probabilistic Model Judgment inside the controlled object
 → Thinking Systems are not synonymous with agentic applications
-→ useful runtime variance changes the engineering contract rather than merely making testing harder
+→ runtime Model Judgment resolves situations whose relevant interpretation or decision space cannot be exhaustively specified in advance; useful behavioral variance may be part of that capability but is not the objective itself
 → model quality and observability are necessary but insufficient
 → the paper derives the current UA partition into four control-capability families
 → governance becomes operational through the active socio-technical control architecture, not through a post-hoc review or document
@@ -185,6 +185,8 @@ Visual emphasis may be used when it carries architectural meaning. In particular
 The manuscript should use one **running educational example** to make the abstract model concrete across Sections 5.1–5.8. The example is a bounded customer-support resolution system. It is a pedagogical device, not a repository reference architecture, not an empirical case study, and not validation evidence for UA.
 
 The example must remain stable enough that the reader can recognize the **same controlled object** as it moves from business proposal through organizational authorization, Project / Architecture viability, Delivery realization, Runtime operation, and reassessment. Do not replace it with unrelated examples at each level. Short counterexamples from other domains may be used to prevent overfitting, but they must remain secondary.
+
+**Progressive-disclosure rule.** Introduce the running example explicitly in Section 5.1 as a named pedagogical spine and define the business goal and whole controlled object there, but reveal implementation detail only when the corresponding concept is introduced. For each major conceptual section, prefer the sequence `generic model → application to the same running example → optional secondary counterexample or transfer check`. Do not let a new domain example silently replace the support-resolution system as the primary explanatory object.
 
 #### Business context
 
@@ -444,6 +446,7 @@ Use the running example differently in each section; do not retell the full scen
 **Section 5.1 — Engineering Evolves Around Dominant Uncertainty**
 
 - Introduce only the business motivation and credible initial team state: model/tooling, traces/evaluations, policy, Human Authority, pilot.
+- Define the whole support-resolution system as the running controlled object, but deliberately leave the evidence, decision, and corrective paths unresolved so later sections derive them rather than assume them.
 - Use the support-resolution proposal to ask the unanswered cross-boundary questions: why Model Judgment, what authority, what evidence, who can act, and whether control cost preserves the business case.
 - Do not introduce the full refund Constraint or four-horizon machinery yet.
 
@@ -667,6 +670,7 @@ The reader should leave able to explain:
 - Show a simple classification boundary: ask whether any **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment. Route **No** to Linear Software and **Yes** to Thinking System. Show orchestration topology, autonomy, and delegated authority as independent dimensions that affect architecture, risk, and control demand but do not decide category membership.
 - State that autonomy and probabilistic judgment are separate dimensions.
 - Introduce the bounded customer-support-resolution running example at intentionally low detail: a team seeking lower resolution cost and latency has a capable model, retrieval and tool access, traces, evaluations, policy guidance, a human-review path, and a pilot that interprets requests and proposes resolutions. Make clear that the same controlled object will return as the argument develops, without presenting it as validation evidence or a reference architecture.
+- Define the whole support-resolution controlled object at this stage, but leave the required evidence, decision, authority, and corrective paths explicitly unresolved so Sections 5.2–5.4 derive them rather than smuggle the solution into the premise.
 - Ask the connected questions those components do not answer:
   - Was Model Judgment necessary?
   - What authority was delegated?
@@ -689,7 +693,8 @@ The reader should leave able to explain:
 **Accepted drafting decisions from the 2026-08-12 Abstract / Section 1 iteration:**
 
 - Keep Section 1 publication prose UA-neutral until the engineering problem and category have been derived; avoid formulations such as `UA expects` or `UA is designed to address` as premises.
-- Introduce the customer-support running example lightly in Section 1 and defer thresholds, Hard/Soft mechanics, explicit horizon routing, and implementation detail to later sections.
+- Introduce the customer-support running example explicitly as the article's named pedagogical spine, define the whole controlled object, and leave evidence/decision/corrective paths unresolved until the corresponding engineering argument derives them.
+- Defer thresholds, Hard/Soft mechanics, explicit horizon routing, and detailed control-loop implementation to later sections.
 - Use the material-control-responsibility release-readiness criterion here, but defer explicit `four horizons × four capability families` language until those models have been introduced.
 - In the Abstract, describe UA as the resulting open-specification synthesis and its falsifiable maturity boundary rather than narrating when the framework name appears in the paper.
 
@@ -731,14 +736,14 @@ The reader should leave able to explain:
 **Required content:**
 
 - Explain that **Thinking System** names the changed engineering object, not a maturity stage, architecture style, synonym for an agentic system, or replacement for the broader term **AI system**.
-- Explain why the broader category is insufficient for this paper: ISO/IEC TR 29119-11 defines an AI-based system by the presence of at least one AI component, while the UA boundary asks whether **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
+- Explain why the broader category is insufficient for this paper: ISO/IEC TR 29119-11 defines an AI-based system by the presence of at least one AI component, while this paper's narrower boundary asks whether a **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
 - Include a compact publication-facing comparison that keeps neighboring labels distinct rather than joining them as synonyms: at minimum separate ISO/IEC **AI-based system**, NIST **AI system**, **LLM application**, **agentic system**, and **autonomous system**. Present the table as an analytical comparison, not universal definitions of those neighboring labels.
 - State explicitly that this early ISO/NIST comparison has one narrow purpose: **category boundary**. It must not imply that NIST AI RMF, ISO standards, or broader AI-system concepts are technically shallow, operationally incomplete, or competitors that Section 5.2 is evaluating. Reserve capability/authority/lifecycle comparison of NIST, ISO/IEC 42001, regulation, governance platforms, and tooling for Section 5.6.
 - State that the category can begin in the first simple model-enabled iteration when an LLM or other probabilistic model performs one or more **Consequential Runtime Responsibilities**, even inside a predefined workflow.
-- Use a project-planning example with a fixed sequence such as brief interpretation, requirement generation, planning, risk identification, and work-item drafting to show that deterministic orchestration does not remove delegated Model Judgment.
+- Use the same bounded customer-support-resolution system to demonstrate a fixed sequence such as receive request → retrieve authorized context → interpret issue → select or recommend resolution → prepare consequential communication → check authority → execute a bounded action or route to Human Authority. The point is that deterministic orchestration does not remove delegated Model Judgment.
 - Explain that later tools, memory, dynamic routing, multiple models, cooperating agents, or greater autonomy increase complexity and control demand but do not create the category.
-- Explain why the object needs a distinct name: in Linear Software, relevant **Consequential Runtime Responsibility** is authored before runtime through explicit code, rules, or state transitions; in a Thinking System, part of the mapping from situation to consequential behavior is completed during runtime through Model Judgment.
-- State explicitly that UA treats the whole Thinking System—not the model invocation—as the controlled object.
+- Explain why the object needs a distinct name using the canonical category boundary: in Linear Software, no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment; its **Consequential Runtime Responsibilities**, if any, are fulfilled entirely through explicitly encoded logic. In a Thinking System, part of a consequential responsibility depends on runtime Model Judgment. Do not imply perfect physical repeatability or exhaustive specification of every system behavior.
+- State explicitly that the **whole Thinking System—not the model invocation—is the controlled object**. Keep this as a framework-neutral deduction; do not use UA as the premise that validates the boundary.
 - Keep category identity separate from control adequacy: Constraints, evidence, decision authority, corrective mechanisms, and cross-level control architecture determine governability and production readiness rather than whether the object belongs to the category.
 - Use determinism as a design-contract distinction, not a claim of perfect physical repeatability:
 
@@ -754,9 +759,9 @@ The reader should leave able to explain:
 
 - Explain Model Judgment through interpretation, classification, ranking, planning, generation, routing, or action selection.
 - Explain Input Interpretation, Decision Logic, and Output Mediation without presenting them as a mandatory pipeline.
-- State that useful variance is the reason the model is present; the objective is bounded operation rather than elimination of all variance.
+- State that the reason to introduce Model Judgment is its ability to resolve consequential situations whose relevant interpretation or decision space cannot be exhaustively specified in advance. Useful behavioral variance may be part of that capability, but variance is not itself the engineering objective; bounded useful judgment is.
 - Distinguish product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty.
-- Preserve the mixed-system claim: deterministic responsibilities remain before, between, and after Judgment Nodes.
+- Preserve the mixed-system claim: deterministic responsibilities may remain before, between, and after Judgment Nodes.
 - Explain why model quality alone cannot define prohibited states, allocate residual-risk authority, restrict reachable actions, execute correction, or determine Project Reauthorization.
 - Explain why the changed object creates connected control questions across organizational context, project viability, architecture, delivery realization and release, and runtime reassessment.
 - Replace the dense one-paragraph summary of those horizons with four short publication-facing paragraphs using bold labels for **Organizational control context**, **Project / architecture control and viability**, **Delivery realization and release**, and **Runtime operation and reassessment**.
@@ -784,23 +789,22 @@ The reader should leave able to explain:
 Use two vertical top-to-bottom responsibility diagrams placed side by side. The comparison must read as two parallel columns, not as two horizontal execution pipelines and not as one mandatory topology. Because disconnected Mermaid subgraphs may otherwise stack vertically, use an invisible alignment link between the columns to force the side-by-side GitHub rendering.
 
 ```text
-Left — Primarily explicitly encoded runtime behavior
-external, requirement, delivery, and operational uncertainty
-→ explicitly encoded decision and action responsibilities
-→ observed outputs, actions, and outcomes
+Left — Primarily explicitly authored consequential behavior
+situation and operating conditions
+→ explicitly authored consequential decision mechanisms
+→ consequential output, action, or downstream state
 
-Right — Controlled Thinking System — UA target structure
-external, requirement, delivery, and operational uncertainty
-→ deterministic responsibilities made explicit before, between, and after Judgment Nodes
-↔ one or more bounded Judgment Nodes
-   placed as Input Interpretation, Decision Logic,
-   Output Mediation, or a combination
-→ observed outputs, actions, and downstream outcomes
+Right — Thinking System — changed responsibility structure
+situation and operating conditions
+├→ explicitly authored responsibilities before, between, and after Judgment Nodes
+└→ one or more Judgment Nodes using probabilistic Model Judgment
+   both responsibility paths converge on
+→ consequential output, action, or downstream state
 ```
 
-Carry the visual distinction inside the Thinking System column itself. Do not add a separate callout node that competes with the two-column comparison or changes the apparent topology.
+The two right-hand paths are schematic responsibility relationships, not a prescribed execution topology. The figure is **descriptive of the category boundary**, not a target control architecture. Use restrained red treatment only on the Judgment Node or Judgment Nodes where probabilistic Model Judgment changes the responsibility structure. Keep explicitly authored responsibilities, external/input conditions, outputs, and the Thinking-System boundary neutral. Do not preload deterministic validation, authority, evidence, correction, Constraints, Sensors, Controllers, or Actuators into this figure merely because those mechanisms are required later for controlled production use; Sections 5.3 and 5.4 derive those responsibilities.
 
-Use restrained red treatment on the blocks whose responsibility changes because Model Judgment is present: the deterministic responsibility before judgment, the Judgment Node itself, and deterministic validation, authority, and execution after judgment. The external-input and final-output blocks and the Thinking System boundary itself should remain neutral. Red must identify the structural change, not imply that the whole Thinking System is probabilistic, unsafe, or erroneous. The right-hand control structure is an engineering target for controlled production use, not part of the category-membership test.
+The caption must state that the figure is **descriptive of the controlled-object change, not a prescribed control architecture** and explicitly defer deterministic boundaries, evidence, authority, and corrective mechanisms for controlled production use to the sections that follow.
 
 The figure must not imply that:
 
@@ -808,6 +812,7 @@ The figure must not imply that:
 - a Thinking System is wholly probabilistic;
 - every system has one Judgment Node;
 - Judgment placement follows one fixed order;
+- the right-hand structure is a prescribed production architecture;
 - every realization acts before a model call;
 - capability families form a vertical execution sequence;
 - red denotes an error state rather than the structural addition being explained.
@@ -834,6 +839,19 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 **Closing claim:**
 
 > The problem is not merely that AI is harder to test. Part of the controlled object's behavior is now produced through runtime judgment, and every decision that controls that object must account for the change.
+
+**Accepted drafting decisions from the 2026-08-12 Section 2 iteration:**
+
+- Keep Section 2 framework-neutral while deriving the changed controlled object; use UA later as the specification that organizes the resulting model rather than as the premise that validates the category.
+- In the neighboring-label comparison, use `Thinking System (this paper)` and a controlled-object-boundary comparison rather than `UA boundary` language. Keep the ISO/NIST use narrow and non-competitive here.
+- Treat the deterministic and model-mediated equations as design-contract abstractions, not claims of perfect repeatability or complete probabilistic specification.
+- Define Linear Software using the canonical responsibility boundary: no Consequential Runtime Responsibility depends partly on probabilistic Model Judgment; consequential responsibilities, if any, are fulfilled entirely through explicitly encoded logic.
+- Use the customer-support running example to show the mixed deterministic / Model-Judgment structure, but defer refund thresholds, Hard/Soft realization details, and full control-loop mechanics to later sections.
+- Use the same support-resolution system, rather than a separate project-planning scenario, to demonstrate that a fixed predefined workflow can already cross the Thinking-System category boundary.
+- Keep Figure 3 descriptive of the category boundary rather than a UA target architecture: highlight the Judgment Node structural change only and defer validation, authority, evidence, and corrective mechanisms to the bounded-control deduction.
+- Frame Model Judgment around situations whose relevant interpretation or decision space cannot be exhaustively specified in advance; useful variance may be part of that capability but is not the objective itself.
+- Keep the four decision-horizon paragraphs concise and ownership-focused. Project viability and architecture remain one horizon; the passage is a bridge, not the full operating-model treatment.
+- Keep Figure 6 focused on decision ownership and invalidated decision-basis routing; use `Project Authorization` consistently and do not let the diagram read as a delivery workflow.
 
 **Working word budget:** 950–1,300
 
@@ -2392,7 +2410,7 @@ If the final visual sequence is already dense, this may be a callout rather than
 
 The three primary architectural figures are:
 
-1. **Controlled-object shift** — two vertical top-to-bottom responsibility diagrams placed side by side, with restrained red treatment on the changed responsibility blocks in the Thinking System column.
+1. **Controlled-object shift** — two vertical top-to-bottom responsibility diagrams placed side by side; the Thinking-System column highlights only the Judgment Node(s) where probabilistic Model Judgment changes the responsibility structure. The figure is descriptive of category membership, not a target production control architecture.
 2. **Two orthogonal models** — the decision side reproduces the four-horizon decision model verbatim, including Runtime evidence and the same reassessment routes, while a visually distinct green capability-family side shows Actuators, Constraints and realizations, Sensors and evidence, and Controllers and decision authority as functions that may appear at every horizon. The green ordering is a reading aid, not an execution pipeline or one-to-one mapping. An undirected rail or equivalent structural grouping may connect the capability blocks to show one model without implying causal sequence.
 3. **Uncertainty Architecture operating map synthesis** — the controlled object, orthogonal capability and decision models, downward authority/concretization, upward evidence/reassessment, proportional implementation, external tools/standards as non-owned implementation/context surfaces, and UA open-specification boundary synthesized without introducing templates or platforms as mandatory nodes.
 
@@ -2448,7 +2466,7 @@ Do not:
 - imply that governance can become operational without the relevant socio-technical control architecture;
 - imply that a Thinking System can be ready for production at the intended scope while a material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path; do not interpret “complete control architecture” as maximal instantiation of every map cell;
 - imply that control-architecture design creates a fifth decision level separate from project / architecture;
-- use red visual emphasis in the controlled-object figure to imply that the entire Thinking System is probabilistic, unsafe, or erroneous;
+- use red visual emphasis in the controlled-object figure anywhere except the Judgment Node(s) in a way that could imply surrounding deterministic responsibilities are part of the category change or that the entire Thinking System is probabilistic, unsafe, or erroneous;
 - imply runtime reauthorizes a project automatically;
 - classify every negative case or deviation as a Bug;
 - describe aggregate quality, cost, latency, or capacity tolerances as Hard Constraints without deterministic enforcement;
@@ -2675,7 +2693,7 @@ Every article-writing PR must satisfy all of the following:
 - [ ] The abstract does not narrate the article's reveal sequence or contain internal editorial commentary.
 - [ ] Governance is framed as becoming operational through the active socio-technical control architecture rather than as a post-hoc review, document, or exact synonym for every control element.
 - [ ] The consequence of an incomplete cross-level control architecture is explicit, scoped to readiness for production release at the intended scope, and visually emphasized once as a central engineering thesis without duplicating the argument.
-- [ ] The controlled-object comparison places two vertical top-to-bottom responsibility diagrams side by side and uses restrained red treatment on the changed Thinking System blocks without implying that the entire system is probabilistic.
+- [ ] The controlled-object comparison places two vertical top-to-bottom responsibility diagrams side by side, highlights only the Judgment Node(s) where Model Judgment changes the responsibility structure, and remains descriptive of category membership rather than prescribing a target production control architecture.
 - [ ] The Model Judgment placement figure places Model Judgment above Input Interpretation, Decision Logic, and Output Mediation, with the three placements aligned horizontally and no implied mandatory sequence.
 - [ ] The four-horizon figure keeps Organization, Project / Architecture, Delivery, and Runtime in one centered vertical spine, preserves concise downward inheritance labels, places one Runtime evidence node beneath Runtime, and routes invalidating evidence directly back to the owning decision level with the invalidated basis on the return edge rather than in a separate reassessment subsystem.
 - [ ] The orthogonal-model figure reproduces the four-horizon decision model verbatim—including horizon questions, Runtime evidence, downward inheritance labels, and reassessment-route wording—and adds the capability-family dimension as a visually distinct green group with undirected structural grouping and no implied one-to-one mapping or execution pipeline.
