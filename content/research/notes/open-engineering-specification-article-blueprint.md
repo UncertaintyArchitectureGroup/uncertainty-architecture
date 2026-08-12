@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-07-31
-updated: 2026-08-11
+updated: 2026-08-12
 language: en
 license: CC-BY-4.0
 draft: true
@@ -695,7 +695,7 @@ The reader should leave able to explain:
 
 **Supporting figures:**
 
-1. engineering responses around dominant uncertainty, with nodes labeled **Plan-driven engineering (Waterfall)**, **Iterative delivery (Agile and related approaches)**, **Modern operations (DevOps)**, and **Thinking-System engineering**; the Figure 1 caption may identify the final transition as the problem space addressed by Uncertainty Architecture, but must not use UA as the premise from which the earlier engineering argument is derived;
+1. engineering responses around dominant uncertainty, with nodes labeled **Plan-driven engineering (Waterfall)**, **Iterative delivery (Agile and related approaches)**, **Modern operations (DevOps)**, and **Thinking-System engineering**; keep the Figure 1 caption framework-neutral and describe the final transition as the engineering problem created when consequential behavior is partly produced through probabilistic Model Judgment;
 2. classification boundary showing the single category question—whether any **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment—while orchestration topology, autonomy, and delegated authority remain visibly independent dimensions.
 
 **Supporting table:** Location of uncertainty, primary engineering mechanism, and where decisive feedback appears. The first column must use the broader categories first: plan-driven development (including Waterfall), iterative delivery (including Agile and related approaches), modern operations (commonly associated with DevOps), and **Thinking-System engineering — problem space addressed by Uncertainty Architecture**. The table must state that earlier uncertainty classes persist and describe UA response as bounded control architecture rather than as the category definition itself.
