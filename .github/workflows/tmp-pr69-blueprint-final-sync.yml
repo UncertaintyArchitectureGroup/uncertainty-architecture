@@ -1,0 +1,58 @@
+name: Temporary PR69 blueprint final sync
+
+on:
+  push:
+    branches:
+      - research/polish-section-2
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/polish-section-2
+          fetch-depth: 0
+      - name: Align blueprint with manuscript
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          s = p.read_text()
+
+          old1 = "- Explain why the object needs a distinct name: in Linear Software, consequential decision behavior is intended to be determined by explicitly authored mechanisms—code, rules, state transitions, and their composed execution—rather than by probabilistic Model Judgment; in a Thinking System, part of the mapping from situation to consequential behavior is completed during runtime through Model Judgment."
+          new1 = "- Explain why the object needs a distinct name using the canonical category boundary: in Linear Software, Consequential Runtime Responsibilities are fulfilled entirely through explicitly encoded logic rather than depending partly on probabilistic Model Judgment; in a Thinking System, one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment, so part of the consequential mapping is completed at runtime."
+
+          old2 = """Right — Thinking System — changed responsibility structure
+situation and operating conditions
+→ explicitly authored responsibilities
+→ one or more Judgment Nodes using probabilistic Model Judgment
+→ consequential output, action, or downstream state"""
+          new2 = """Right — Thinking System — changed responsibility structure
+situation and operating conditions
+├→ explicitly authored responsibilities before, between, and after Judgment Nodes ─┐
+└→ one or more Judgment Nodes using probabilistic Model Judgment ──────────────────┤
+                                                                                     ↓
+                                           consequential output, action, or downstream state"""
+
+          for old, new, label in [(old1, new1, 'Linear Software boundary'), (old2, new2, 'Figure 3 contract')]:
+              count = s.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly 1 match, found {count}')
+              s = s.replace(old, new)
+
+          p.write_text(s)
+      - name: Verify only intended blueprint changes and commit
+        run: |
+          git diff --check
+          git diff -- content/research/notes/open-engineering-specification-article-blueprint.md
+          test -z "$(git status --short | grep -v 'open-engineering-specification-article-blueprint.md' || true)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m "docs(research): align Section 2 blueprint wording"
+          git push origin HEAD:research/polish-section-2
