@@ -23,4 +23,4 @@ s=p.read_text()
 s=s.replace('Introduce those horizon names only as **foreshadowing of perimeter reach**: do not define their ownership model, detailed responsibilities, or reassessment semantics here, and do not present them as mandatory departments or stages. Reserve the canonical four-horizon operating model for Section 5.4.', 'Show the **reach of the perimeter without introducing the canonical horizon sequence**: it may cross technical, delivery, architectural, human-authority, and organizational decision boundaries. Do not define horizon ownership, detailed responsibilities, or reassessment semantics here. Reserve the canonical four-horizon model and its names as an operating structure for Section 5.4.')
 s=s.replace('Section 5.2 uses those names only to foreshadow how far the perimeter may reach; detailed ownership, downward inheritance, and reassessment routing belong to Section 5.4.', 'Section 5.2 shows only how far the perimeter may reach across decision boundaries; the canonical horizon sequence, detailed ownership, downward inheritance, and reassessment routing belong to Section 5.4.')
 p.write_text(s)
-# trigger
+# trigger after runner is registered
