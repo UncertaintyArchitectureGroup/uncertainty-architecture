@@ -10,12 +10,23 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: research/restore-running-example-spine
-      - run: python .github/tmp_fix_running_spine.py
-      - run: git diff --check
-      - run: |
+      - name: Patch
+        run: |
+          M='content/research/notes/open-engineering-specification-article-draft.md'
+          B='content/research/notes/open-engineering-specification-article-blueprint.md'
+          sed -i 's/The same boundary exposes all four capability families:/The same boundary exposes all four capability families as parallel control functions around one authoritative boundary; the mapping below is conceptual, not an execution sequence:/' "$M"
+          sed -i 's/  and whether repeated evidence requires narrowing or disabling autonomous refund execution/  and whether accumulated evidence can be handled within delegated authority or must be escalated to the horizon whose decision basis it challenges/' "$M"
+          sed -i 's/The same event creates different questions at different horizons; the destination depends on which decision basis the evidence challenges./The four horizons maintain different standing decision bases around the same controlled object. A single runtime event does not activate all four; it produces evidence whose destination depends on which decision basis that evidence challenges./' "$M"
+          sed -i 's/| Horizon | Question exposed by the same case | Illustrative decision owner | Legitimate output or response |/| Horizon | Standing question \/ decision basis | Illustrative decision owner | Legitimate output or response |/' "$M"
+          sed -i 's/The event does not automatically “escalate to governance.” Its routing depends on what failed:/Now apply the €450 runtime event to those standing decision bases. It does not automatically “escalate to governance.” Its routing depends on what failed:/' "$M"
+          sed -i 's/This is the point of carrying one controlled object through all four horizons. The layers are not four sequential approvals./This is the point of carrying one controlled object through all four horizons. One incident does not traverse four levels, and the horizons are not four sequential approvals./' "$M"
+          sed -i 's/map it explicitly through `Constraint → Constraint Realization → Sensors → Controller \/ Human Authority → Actuator`/expose Constraint + Constraint Realization, Sensors, Controller \/ Human Authority, and Actuators as parallel control functions around that boundary/' "$B"
+          sed -i 's/carry one concrete negative case through all four decision horizons/establish the standing decision basis at each horizon, then apply one concrete runtime event and vary what fails/' "$B"
+          git diff --check
+      - name: Commit
+        run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
-          git commit -m 'docs(research): clarify running-example control and ownership semantics'
+          git commit -m 'docs(research): separate capability functions from horizon activation'
           git push origin HEAD:research/restore-running-example-spine
-# final semantic fix
