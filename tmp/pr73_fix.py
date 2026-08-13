@@ -1,32 +1,52 @@
 from pathlib import Path
-p=Path('content/research/notes/open-engineering-specification-article-draft.md')
-s=p.read_text()
+import re
 
-old="""Return to the running support-resolution example. Its workflow may be fixed end to end: receive the request, retrieve authorized context, interpret the issue, select or recommend a resolution, prepare customer communication, check authority, and either execute a bounded action or route the case to Human Authority. Nothing in that sequence requires dynamic orchestration. Yet if interpretation, resolution selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment."""
-new="""A workflow may be fixed end to end and still contain the changed controlled object. Nothing about a predefined sequence of retrieval, interpretation, decision support, communication, authority checking, and bounded execution requires dynamic orchestration. Yet if interpretation, selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment."""
-assert old in s
-s=s.replace(old,new,1)
+p = Path('content/research/notes/open-engineering-specification-article-draft.md')
+s = p.read_text()
 
-old="""    D -->|realized boundary + release scope| R
-    R --> E
-    E -.->|implementation / realization / evidence issue| D"""
-new="""    D -->|realized boundary + release scope| R
-    D -.->|realization evidence| E
-    R -->|operation evidence| E
-    E -.->|implementation / realization / evidence issue| D"""
-assert s.count(old) >= 2
-s=s.replace(old,new,2)
+# 1. Make the early Section 2 return generic so the primary case return stays inside the callout.
+pattern = re.compile(
+    r"Return to the running support-resolution example\. Its workflow may be fixed end to end:.*?The category begins when a \*\*Consequential Runtime Responsibility\*\* first depends partly on probabilistic Model Judgment\.",
+    re.S,
+)
+replacement = (
+    "A workflow may be fixed end to end and still contain the changed controlled object. "
+    "Nothing about a predefined sequence of retrieval, interpretation, decision support, communication, authority checking, and bounded execution requires dynamic orchestration. "
+    "Yet if interpretation, selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. "
+    "Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. "
+    "The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment."
+)
+s, n = pattern.subn(replacement, s, count=1)
+assert n == 1, f'early case return replacements={n}'
 
-start=s.index('### The full map is a reasoning reference, not a maximum-process mandate')
-end=s.index('### Two orthogonal models', start)
-block=s[start:end]
-s=s[:start]+s[end:]
-anchor="""**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; realization or operation evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
-"""
-assert anchor in s
-s=s.replace(anchor,anchor+'\n'+block,1)
+# 2. Let realization evidence originate at Delivery as well as operation evidence at Runtime.
+pattern = re.compile(
+    r"(\s+D -->\|realized boundary \+ release scope\| R\n)\s+R --> E\n(\s+E -\.->\|implementation / realization / evidence issue\| D)"
+)
+def repl(m):
+    indent = re.match(r"\s*", m.group(1)).group(0)
+    return (
+        m.group(1)
+        + indent + "D -.->|realization evidence| E\n"
+        + indent + "R -->|operation evidence| E\n"
+        + m.group(2)
+    )
+s, n = pattern.subn(repl, s, count=2)
+assert n == 2, f'evidence topology replacements={n}'
 
-assert s.count('**Figure 14 — Cross-level learning and stabilization loop.**') == 1
-s=s.replace('**Figure 14 — Cross-level learning and stabilization loop.**','**Figure 15 — Cross-level learning and stabilization loop.**',1)
+# 3. Keep model A -> model B -> A×B contiguous; move proportionality after the combined figure.
+start = s.index('### The full map is a reasoning reference, not a maximum-process mandate')
+end = s.index('### Two orthogonal models', start)
+block = s[start:end]
+s = s[:start] + s[end:]
+anchor = re.search(r"\*\*Figure 9 — Two orthogonal models\.\*\*.*?All four capability families may appear at every horizon\.\n", s, re.S)
+assert anchor, 'combined figure caption not found'
+pos = anchor.end()
+s = s[:pos] + '\n' + block + s[pos:]
+
+# 4. Restore unique sequential numbering for the final learning-loop figure.
+old = '**Figure 14 — Cross-level learning and stabilization loop.**'
+assert s.count(old) == 1, f'learning-loop Figure 14 count={s.count(old)}'
+s = s.replace(old, '**Figure 15 — Cross-level learning and stabilization loop.**', 1)
 
 p.write_text(s)
