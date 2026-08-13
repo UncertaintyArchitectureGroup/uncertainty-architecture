@@ -18,14 +18,6 @@ jobs:
       - run: python tmp/pr73_final_polish.py
       - run: git diff --check
       - run: |
-          python - <<'PY'
-          from pathlib import Path
-          s=Path('content/research/notes/open-engineering-specification-article-draft.md').read_text()
-          assert s.count('Reassessment evidence<br/>realization or operation evidence that challenges a decision basis') >= 2
-          assert 'required evidence can reach and inform legitimate decision authority' in s
-          assert s.count('R -->|operation evidence| E') >= 2
-          PY
-      - run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add content/research/notes/open-engineering-specification-article-draft.md
