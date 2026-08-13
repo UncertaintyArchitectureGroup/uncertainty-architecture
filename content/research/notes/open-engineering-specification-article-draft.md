@@ -452,7 +452,7 @@ flowchart LR
 
 This is the difference between a measured system, a closed feedback loop, and a bounded controlled system. The last requires not merely feedback but an approved and credibly realized operating boundary, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and a path for reassessment when the basis of control changes. Here, a **complete control architecture** means materially complete for the authorized scope, not maximal instantiation of every possible control mechanism or every cell in the later operating map.
 
-What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. Governance becomes operational through this socio-technical control architecture across Organization, Project / Architecture, Delivery, and Runtime decision horizons. Until material boundaries are credibly realized, required evidence reaches legitimate decision authority, effective Actuators exist, Human Authority and fallback are viable where needed, and invalidated assumptions can trigger reassessment, the system may be demonstrable or testable but is not ready for production at the intended scope.
+What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. Governance becomes operational through this socio-technical control architecture across Organization, Project / Architecture, Delivery, and Runtime decision horizons. Until material boundaries are credibly realized, required evidence can reach and inform legitimate decision authority, effective Actuators exist, Human Authority and fallback are viable where needed, and invalidated assumptions can trigger reassessment, the system may be demonstrable or testable but is not ready for production at the intended scope.
 
 The capability anatomy explains **how** bounded control becomes possible. It does not yet determine **where** organizational authorization, project viability, delivery release, runtime correction, and reauthorization decisions belong. That is the role of the second model.
 
@@ -477,7 +477,7 @@ flowchart TB
     P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]
     D["Delivery<br/>Is this bounded realization complete and releasable?"]
     R["Runtime<br/>Does active operation remain inside the authorized boundary?"]
-    E["Realization / operation evidence<br/>behavior · outcomes · control state · changed assumptions"]
+    E["Reassessment evidence<br/>realization or operation evidence that challenges a decision basis"]
 
     O -->|authoritative sources + delegated authority| P
     P -->|Project Constraint Architecture + Project Authorization| D
@@ -489,7 +489,7 @@ flowchart TB
     E -.->|authoritative source / decision right / shared capability changed| O
 ```
 
-**Figure 8 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries toward operation. Evidence from realization or operation returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence and need not originate only at Runtime.
+**Figure 8 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries toward operation. Realization or operation evidence that challenges a standing decision basis becomes reassessment evidence and returns directly to the horizon that owns that basis; reassessment is therefore not a mandatory upward sequence and need not originate only at Runtime.
 
 ### Two orthogonal models
 
@@ -511,7 +511,7 @@ flowchart LR
   P -->|Project Constraint Architecture + Project Authorization| D
   D -->|realized boundary + release scope| R
   D -.->|realization evidence| E
-    R -->|operation evidence| E
+  R -->|operation evidence| E
         end
 
         E -.->|implementation / realization / evidence issue| D
@@ -559,7 +559,7 @@ flowchart LR
     class J1,J2,J3,J4 railpoint;
 ```
 
-**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; realization or operation evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
+**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; reassessment evidence from realization or operation returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
 
 ### The full map is a reasoning reference, not a maximum-process mandate
 
