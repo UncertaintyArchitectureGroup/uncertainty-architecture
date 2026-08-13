@@ -688,7 +688,7 @@ The reader should leave able to explain:
 - Show a simple classification boundary: ask whether any **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment. Route **No** to Linear Software and **Yes** to Thinking System. Show orchestration topology, autonomy, and delegated authority as independent dimensions that affect architecture, risk, and control demand but do not decide category membership.
 - State that autonomy and probabilistic judgment are separate dimensions.
 - Introduce the bounded customer-support-resolution running example at intentionally low detail: a team seeking lower resolution cost and latency has a capable model, retrieval and tool access, traces, evaluations, policy guidance, a human-review path, and a pilot that interprets requests and proposes resolutions. Make clear that the same controlled object will return as the argument develops, without presenting it as validation evidence or a reference architecture.
-- Define the whole support-resolution controlled object at this stage, but leave the required evidence, decision, authority, and corrective paths explicitly unresolved so Sections 5.2–5.4 derive them rather than smuggle the solution into the premise.
+- Define the whole support-resolution controlled object at this stage, but leave the required evidence, decision, authority, and corrective paths explicitly unresolved so Sections 5.2–5.4 derive them rather than smuggle the solution into the premise. Section 5.1 may name problem domains such as authorization, architectural viability, realization, operation, and reassessment, but it must not yet present `Organization`, `Project / Architecture`, `Delivery`, and `Runtime` as the canonical decision-horizon model.
 - Ask the connected questions those components do not answer:
   - Was Model Judgment necessary?
   - What authority was delegated?
@@ -713,7 +713,7 @@ The reader should leave able to explain:
 - Keep Section 1 publication prose UA-neutral until the engineering problem and category have been derived; avoid formulations such as `UA expects` or `UA is designed to address` as premises.
 - Introduce the customer-support running example explicitly as the article's named pedagogical spine, define the whole controlled object, and leave evidence/decision/corrective paths unresolved until the corresponding engineering argument derives them.
 - Defer thresholds, Hard/Soft mechanics, explicit horizon routing, and detailed control-loop implementation to later sections.
-- Use the material-control-responsibility release-readiness criterion here, but defer explicit `four horizons × four capability families` language until those models have been introduced.
+- Use the material-control-responsibility release-readiness criterion here, but defer canonical decision-horizon labels and explicit `four horizons × four capability families` language until those models have been introduced. Section 1 may foreshadow the underlying problem domains without presenting them as the operating model.
 - In the Abstract, describe UA as the resulting open-specification synthesis and its falsifiable maturity boundary rather than narrating when the framework name appears in the paper.
 
 **Supporting figures:**
@@ -741,7 +741,7 @@ The reader should leave able to explain:
 
 > A Thinking System intended for production use is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path.
 
-**Working word budget:** 1,100–1,450
+**Working word budget:** 1,800–2,250  <!-- reconciled against current Section 1 (~2,016 words) -->
 
 ---
 
