@@ -1,0 +1,38 @@
+name: tmp-pr73-fix
+on:
+  push:
+    branches:
+      - research/tighten-section-2-horizon-foreshadowing
+    paths:
+      - tmp/pr73_fix.py
+      - .github/workflows/tmp-pr73-fix.yml
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/tighten-section-2-horizon-foreshadowing
+      - run: python tmp/pr73_fix.py
+      - run: git diff --check
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('content/research/notes/open-engineering-specification-article-draft.md').read_text()
+          nums=[int(x) for x in re.findall(r'\*\*Figure (\d+) —', s)]
+          assert nums == sorted(nums), nums
+          assert len(nums) == len(set(nums)), nums
+          assert 'Return to the running support-resolution example.' not in s
+          assert s.index('### Two orthogonal models') < s.index('### The full map is a reasoning reference, not a maximum-process mandate')
+          assert s.count('D -.->|realization evidence| E') >= 2
+          print(nums)
+          PY
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m 'docs(research): tighten decision-model progression'
+          git push origin HEAD:research/tighten-section-2-horizon-foreshadowing
