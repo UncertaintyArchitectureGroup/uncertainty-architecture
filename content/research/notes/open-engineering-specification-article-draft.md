@@ -626,6 +626,7 @@ flowchart TB
     RE["Delivery / Runtime invalidating evidence"]
     ORG --> NEED
     OUT --> NEED --> RISK --> K --> LOOP
+    OUT -->|value hypothesis| DEC
     LOOP --> HUMAN --> DEC
     LOOP --> ECON --> DEC
     RE -.-> RISK
@@ -665,6 +666,7 @@ flowchart LR
     R["Definition of Ready<br/> bounded work may begin"]
     ENG["Delivery realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
     VER["Implementation / evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]
+    BIZ["Exposure / decision consequences<br/> business interpretation of technical evidence"]
     D["Definition of Done<br/> implementation + evidence complete"]
     G["Release Gate<br/> accept · limit · condition · escalate · reject"]
     RUN["Runtime deployment and evidence"]
@@ -672,11 +674,13 @@ flowchart LR
     REAUTH["Project Reauthorization<br/> authorization basis invalidated"]
 
     P --> R --> ENG --> VER --> D --> G --> RUN
+    VER -.->|technical evidence| BIZ
+    BIZ -.->|changed exposure / decision consequence| ENG
     RUN -->|local implementation / realization / evidence issue| LOCAL --> ENG
     RUN -->|risk / authority / feasibility / capacity / economics invalidated| REAUTH --> P
 ```
 
-**Figure 12 — Delivery realization and release loop.** Delivery translates the project authorization into one bounded realization, then turns technical evidence back into a release or reassessment decision. Local repair remains distinct from Project Reauthorization.
+**Figure 12 — Delivery realization and release loop.** Delivery translates the project authorization into one bounded realization, while the dotted translation path converts technical evidence back into changed business exposure and decision consequences. That translation informs engineering and release decisions; it is not an additional gate or execution stage. Local repair remains distinct from Project Reauthorization.
 
 Three decisions must remain distinct even when one lightweight workflow carries all three.
 
@@ -711,14 +715,14 @@ flowchart LR
     CTRL["Runtime Controller / Human Authority<br/> interpret · decide · authorize within delegated authority"]
     ACT["Runtime Actuator<br/> reject · contain · fallback · narrow<br/> roll back · compensate · disable · stop"]
     VERIFY["Post-action evidence<br/> resulting state verified"]
-    ESC["Authorization basis invalidated<br/> Delivery reassessment · Project Reauthorization<br/> or Organizational review"]
+    ESC["Authorization basis invalidated<br/> route by decision ownership"]
 
     SYS --> OBS --> CTRL
     CTRL -->|local authorized correction| ACT --> VERIFY --> SYS
     CTRL -->|basis no longer valid| ESC
 ```
 
-**Figure 13 — Runtime control and reassessment.** Runtime control covers the active socio-technical system and verifies the result of corrective action. Local response may restore a previously authorized state; it does not authorize redesign or wider authority.
+**Figure 13 — Runtime control and reassessment.** Runtime control covers the active socio-technical system and verifies the result of corrective action. When the authorization basis is invalidated, the exit routes by decision ownership; Figure 14 resolves the concrete destination. Local response may restore a previously authorized state; it does not authorize redesign or wider authority.
 
 The key distinction is **restoration versus redesign**. Blocking a transaction, narrowing exposure, switching to fallback, rolling back, or disabling a feature may restore a known authorized state. Persistent drift, degraded Human Authority, invalid Sensor assumptions, recurring realization failure, new reachable consequences, or broken control economics may show that there is no authorized state to “tune back to” without revisiting an earlier decision.
 

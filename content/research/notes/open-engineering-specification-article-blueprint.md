@@ -1419,7 +1419,7 @@ Project Authorization + Constraints + evidence obligations
    OR Project Reauthorization when the authorization basis is invalidated
 ```
 
-Preserve the existing two-way business ↔ engineering translation claim inside this process.
+Preserve the existing two-way business ↔ engineering translation claim inside this process. The figure should show technical evidence being interpreted as changed exposure / decision consequences and feeding back into engineering/release reasoning without implying an additional lifecycle gate.
 
 #### Runtime operation, correction, and reassessment
 
@@ -1520,6 +1520,8 @@ Repeated cases should become less frequent, earlier detectable, less consequenti
 
 - runtime control and reassessment;
 - evidence and change routing.
+
+Keep the runtime-control figure's escalation exit generic (`authorization basis invalidated → route by decision ownership`) and let the evidence-routing figure own the concrete Delivery / Project / Organization destinations.
 
 #### Cross-level operating discipline — measurement, negative-case learning, automation, and stabilization
 
@@ -1630,7 +1632,7 @@ Preserve these explicitly for future drafting and external review:
 - Replace the department-centric Organization figure with a process-oriented organizational control relationship in which authoritative sources, external/organizational evidence, and lower-level evidence converge on legitimate decision owners.
 - Keep the Organization / Project boundary strict: Organization owns admissibility, reserved authority, shared capabilities, evidence obligations, and exceptions; Project / Architecture owns AI necessity, concrete control architecture, control economics, and Project Authorization.
 - Make the Project / Architecture horizon explicitly compare deterministic, manual, narrower model-assisted, and broader Thinking-System alternatives before authorizing Model Judgment for the intended outcome.
-- Include the complete control perimeter in project viability rather than treating evaluation, Human Authority, fallback, observability, and control friction as post-launch overhead.
+- Include the complete control perimeter in project viability rather than treating evaluation, Human Authority, fallback, observability, and control friction as post-launch overhead; keep attributable value visibly connected to the final Project decision rather than only to the AI-necessity check.
 - Preserve DoR, DoD, and Release Gate as distinct Delivery decisions even when one lightweight workflow carries them.
 - Keep Runtime restoration distinct from redesign and route evidence according to the decision basis invalidated rather than the team that first observed the signal.
 - Add a cross-level negative-case learning and stabilization loop as a publication-facing operating hypothesis under validation, not a fifth horizon or already-established normative doctrine.
