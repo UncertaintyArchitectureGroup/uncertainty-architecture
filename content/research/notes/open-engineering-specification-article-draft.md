@@ -627,6 +627,7 @@ flowchart TB
     ORG --> NEED
     OUT --> NEED --> RISK --> K --> LOOP
     OUT -->|value hypothesis| DEC
+    K -->|non-negotiable authorization boundary| DEC
     LOOP --> HUMAN --> DEC
     LOOP --> ECON --> DEC
     RE -.-> RISK
