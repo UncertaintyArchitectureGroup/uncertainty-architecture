@@ -388,7 +388,7 @@ An **Actuator** executes an authorized change in operation or in a Constraint Re
 
 In the support system, Actuators may block a transaction, route a case to Human Authority, narrow autonomous scope, switch to a manual path, disable refund execution, roll back a model or configuration, or compensate downstream state. A feature flag, API call, workflow step, deployment action, or human intervention is an Actuator only when it provides a real path from an authorized decision to changed operation.
 
-The distinction from decision authority matters. A Controller decides or authorizes; an Actuator executes. One component may perform both, but treating them as the same concept hides who may decide, who may execute, what happens when execution fails, and what evidence proves that the requested change actually occurred. A Controller without an effective Actuator can diagnose but cannot correct.
+The distinction from decision authority matters. A Controller selects or initiates a bounded response within delegated authority; an Actuator executes the authorized change. One component may perform both, but treating them as the same concept hides who may decide, who may execute, what happens when execution fails, and what evidence proves that the requested change actually occurred. A Controller without an effective Actuator can diagnose but cannot correct.
 
 ### Constraints and their realizations
 
@@ -420,7 +420,7 @@ Controllers are often socio-technical. Human decision authority may be combined 
 
 Automation should remove repetitive sensing, checking, routing, evidence aggregation, and safe bounded response where evidence quality, failure behavior, reversibility, and delegated authority make the automated path credible. Maximum automation is not an independent objective. Automated Controller and Actuator behavior is itself part of the control architecture: its decisions, configuration, latency, failures, execution, and resulting state must remain observable and correctable.
 
-Read together, the four families form a bounded control relationship: Controllers authorize Actuators; Actuators change operation or a Constraint Realization; Constraints define what changes and operating states are legitimate; Realizations enforce or influence those boundaries; Sensors expose behavior, outcomes, realization health, and action effects; evidence returns to Controllers.
+Read together, the four families form a bounded control relationship: Controllers turn evidence into bounded response decisions within delegated authority; Actuators execute authorized changes to operation or a Constraint Realization; Constraints define what changes and operating states are legitimate; Realizations enforce or influence those boundaries; Sensors expose behavior, outcomes, realization health, and action effects; evidence returns to Controllers.
 
 ```mermaid
 flowchart LR
@@ -519,7 +519,7 @@ flowchart LR
   P["Project / Architecture<br/> Is the controlled system viable and authorizable?"]
   D["Delivery<br/> Is this bounded realization complete and releasable?"]
   R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
-  E["Runtime evidence<br/> behavior · outcomes · control state · changed assumptions"]
+  E["Realization / operation evidence<br/> behavior · outcomes · control state · changed assumptions"]
 
   O -->|authoritative sources + delegated authority| P
   P -->|Project Constraint Architecture + Project Authorization| D
@@ -572,7 +572,7 @@ flowchart LR
     class J1,J2,J3,J4 railpoint;
 ```
 
-**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; Runtime evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
+**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; realization or operation evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
 
 Each horizon below follows the same operating rhythm without turning it into an eight-box bureaucracy: **what activates the level; what authoritative basis and evidence enter; what decisions it owns; which control capabilities those decisions require; what flows downward; what evidence returns; what may be handled locally versus escalated; and what negative cases teach about the decision basis.**
 
