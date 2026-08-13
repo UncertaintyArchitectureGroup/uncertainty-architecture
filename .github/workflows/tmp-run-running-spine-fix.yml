@@ -1,0 +1,26 @@
+name: tmp-run-running-spine-fix
+on: [push]
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: github.ref == 'refs/heads/research/restore-running-example-spine'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/restore-running-example-spine
+      - run: python .github/tmp_fix_running_spine.py
+      - run: |
+          git diff --check
+          files="$(git diff --name-only)"
+          echo "$files"
+          test "$(echo "$files" | wc -l)" -eq 2
+          echo "$files" | grep -qx 'content/research/notes/open-engineering-specification-article-draft.md'
+          echo "$files" | grep -qx 'content/research/notes/open-engineering-specification-article-blueprint.md'
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m 'docs(research): clarify running-example control and ownership semantics'
+          git push origin HEAD:research/restore-running-example-spine
