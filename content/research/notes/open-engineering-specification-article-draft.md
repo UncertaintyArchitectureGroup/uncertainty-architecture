@@ -398,8 +398,6 @@ The same boundary requires four distinct capability functions around it. They ar
 **Actuators**
 - block, route, narrow, disable, roll back, fallback, or compensate within delegated authority.
 
-```
-
 If any part is missing, the sentence “large refunds require approval” has not yet become a complete control path. A policy without a credible realization can be bypassed; a realization without evidence can silently degrade; evidence without a legitimate Controller is observation; a Controller without an effective Actuator cannot correct the system.
 
 The four capability families describe the logical functions needed to make such a boundary operational. The order below is a pedagogical traversal, not a mandatory execution pipeline or physical stack.
