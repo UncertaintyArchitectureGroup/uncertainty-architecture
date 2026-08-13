@@ -1358,7 +1358,7 @@ Delivery makes the project control architecture concrete. It must implement, con
 
 **Controller composition at Delivery level:**
 
-Delivery Controllers combine explicit human release/engineering authority with automation. Automation may handle repeatable invariant checks, build/test/evaluation execution, evidence aggregation, traceability, drift/version detection, policy-as-code checks, blocked-action verification, release-condition checks, routing, and safe bounded actions **when those checks and actions are themselves sufficiently observable, reversible, and inside delegated authority**. Human decision owners retain decisions that require contextual acceptance, architecture judgment, residual-risk acceptance, or authority change.
+Delivery Controllers combine explicit human release/engineering authority with automation. Automation may handle repeatable invariant checks, build/test/evaluation execution, evidence aggregation, traceability, drift/version detection, policy-as-code checks, blocked-action verification, release-condition checks, routing, and safe bounded actions **when those checks and actions are themselves sufficiently observable, reversible, and inside delegated authority**. Human decision owners retain contextual release acceptance, bounded engineering judgment, and residual-risk acceptance within delegated release authority; changes to project architecture or authority must be escalated to Project / Architecture or Organization as appropriate.
 
 **Outputs and artifacts:**
 
@@ -1410,15 +1410,16 @@ The fix should improve the weakest control element and the evidence that verifie
 
 ```text
 Project Authorization + Constraints + evidence obligations
-→ delivery translation and realization
-→ implementation / evaluation / verification
-→ DoR / DoD / Release Gate decisions
+→ Definition of Ready
+→ delivery realization / implementation / evaluation / verification
+→ Definition of Done
+→ deployment-specific Release Gate
 → runtime deployment and evidence
 → local repair / rollback / narrow / re-release
    OR Project Reauthorization when the authorization basis is invalidated
 ```
 
-Preserve the existing two-way business ↔ engineering translation claim inside this process.
+Preserve the existing two-way business ↔ engineering translation claim inside this process. The figure should show technical evidence being interpreted as changed exposure / decision consequences and feeding back into engineering/release reasoning without implying an additional lifecycle gate.
 
 #### Runtime operation, correction, and reassessment
 
@@ -1455,8 +1456,8 @@ Runtime must operate the complete feedback path:
 ```text
 active Thinking System / realizations
 → Sensors and evidence
-→ Runtime Controller within delegated authority
-→ Actuator / Human Authority / fallback
+→ Runtime Controller / Human Authority within delegated authority
+→ Actuator / fallback
 → changed operation
 → Sensor verification of the resulting state
 ```
@@ -1519,6 +1520,8 @@ Repeated cases should become less frequent, earlier detectable, less consequenti
 
 - runtime control and reassessment;
 - evidence and change routing.
+
+Keep the runtime-control figure's escalation exit generic (`authorization basis invalidated → route by decision ownership`) and let the evidence-routing figure own the concrete Delivery / Project / Organization destinations.
 
 #### Cross-level operating discipline — measurement, negative-case learning, automation, and stabilization
 
@@ -1620,6 +1623,20 @@ Preserve these explicitly for future drafting and external review:
 > The complete map should be inspected even when implementation is deliberately lightweight; proportionality is justified reduction, not permission to ignore complexity that is actually present.
 
 > Systematic negative-case learning is a proposed way to improve the control architecture at the level that owns the failed decision basis; it remains to be validated through worked applications and external review.
+
+**Accepted drafting decisions from the 2026-08-12 Section 4 rewrite:**
+
+- Make proportionality explicit before the level subsections: inspect the full four-horizon × four-capability map first, then justify implementation depth from the actual controlled object rather than superficial feature size.
+- Preserve Figure 9 as the literal orthogonal-model bridge: decision horizons answer where decisions belong; capability families answer how control becomes operational; no one-to-one mapping is permitted.
+- Use one visible operating rhythm across all four horizons without mechanically repeating eight labels: activation, authoritative basis, owned decision, capability obligations, outputs, returned evidence, local action versus escalation, and learning.
+- Replace the department-centric Organization figure with a process-oriented organizational control relationship in which authoritative sources, external/organizational evidence, and lower-level evidence converge on legitimate decision owners.
+- Keep the Organization / Project boundary strict: Organization owns admissibility, reserved authority, shared capabilities, evidence obligations, and exceptions; Project / Architecture owns AI necessity, concrete control architecture, control economics, and Project Authorization.
+- Make the Project / Architecture horizon explicitly compare deterministic, manual, narrower model-assisted, and broader Thinking-System alternatives before authorizing Model Judgment for the intended outcome.
+- Include the complete control perimeter in project viability rather than treating evaluation, Human Authority, fallback, observability, and control friction as post-launch overhead; keep attributable value, non-negotiable Project Constraint Architecture boundaries, and residual exposure / uncertainty after proposed control visibly connected to the final Project decision rather than collapsing them into tradeable economics.
+- Preserve DoR, DoD, and Release Gate as distinct Delivery decisions even when one lightweight workflow carries them.
+- Keep Runtime restoration distinct from redesign and route evidence according to the decision basis invalidated rather than the team that first observed the signal.
+- Add a cross-level negative-case learning and stabilization loop as a publication-facing operating hypothesis under validation, not a fifth horizon or already-established normative doctrine.
+- Define stabilization as reducing uncontrolled recurrence, not eliminating probabilistic variance; prefer deterministic prevention where prohibited states can feasibly be made unreachable.
 
 **Working word budget:** 3,400–4,600 before final compression. Do not optimize this section back to the previous 1,800–2,300-word target until the operating model is fully expressed and reviewed.
 
