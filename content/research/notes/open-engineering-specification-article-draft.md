@@ -165,7 +165,7 @@ A controlled object is the thing whose behavior engineering seeks to keep within
 
 Thinking Systems change this object by making one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment. The change can occur in the first model-enabled iteration; it does not require autonomous agents, dynamic orchestration, multiple models, memory, or a mature AI platform.
 
-Return to the running support-resolution example. Its workflow may be fixed end to end: receive the request, retrieve authorized context, interpret the issue, select or recommend a resolution, prepare customer communication, check authority, and either execute a bounded action or route the case to Human Authority. Nothing in that sequence requires dynamic orchestration. Yet if interpretation, resolution selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment.
+A workflow may be fixed end to end and still contain the changed controlled object. Nothing about a predefined sequence of retrieval, interpretation, decision support, communication, authority checking, and bounded execution requires dynamic orchestration. Yet if interpretation, selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment.
 
 The distinction matters because engineering needs a stable name for the object being designed, released, operated, and controlled. In Linear Software, no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment; its **Consequential Runtime Responsibilities**, if any, are fulfilled entirely through explicitly encoded logic. In a Thinking System, part of the mapping from situation to consequential behavior is instead completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively specifies the consequential responsibility that depends on it.
 
@@ -482,28 +482,14 @@ flowchart TB
     O -->|authoritative sources + delegated authority| P
     P -->|Project Constraint Architecture + Project Authorization| D
     D -->|realized boundary + release scope| R
-    R --> E
+    D -.->|realization evidence| E
+    R -->|operation evidence| E
     E -.->|implementation / realization / evidence issue| D
     E -.->|risk / authority / feasibility / capacity / economics invalidated| P
     E -.->|authoritative source / decision right / shared capability changed| O
 ```
 
 **Figure 8 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries toward operation. Evidence from realization or operation returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence and need not originate only at Runtime.
-
-### The full map is a reasoning reference, not a maximum-process mandate
-
-The complete map should be inspected before implementation depth is chosen:
-
-```text
-full map = inspect every decision horizon and capability family
-implementation depth = proportionate to the actual controlled object
-```
-
-A low-consequence internal assistant with narrow authority, reversible effects, strong feedback, and simple fallback may require only a small explicit control surface, with the same people carrying several responsibilities. A system with broad downstream authority, weak reversibility, slow or uncertain evidence, expensive Human Authority, fragile fallback, or tight unit economics may require much more of the map to be explicit and operational.
-
-The point of showing the whole map is therefore not to maximize governance. It is to **expose hidden complexity before deciding what can safely remain lightweight**. “One model call,” “one prompt,” “one feature,” or “one engineer” does not by itself imply a simple controlled object. The relevant dimensions are consequence, reachable authority and side effects, reversibility, Sensor quality and latency, Constraint Realization difficulty and bypass surface, Human Authority capacity, dependency fragility, and the cost of the control perimeter.
-
-Production release at the intended scope requires the **relevant** decisions and capability functions to be connected across all four horizons at a depth proportionate to that consequence and control problem.
 
 ### Two orthogonal models
 
@@ -524,7 +510,8 @@ flowchart LR
   O -->|authoritative sources + delegated authority| P
   P -->|Project Constraint Architecture + Project Authorization| D
   D -->|realized boundary + release scope| R
-  R --> E
+  D -.->|realization evidence| E
+    R -->|operation evidence| E
         end
 
         E -.->|implementation / realization / evidence issue| D
@@ -573,6 +560,21 @@ flowchart LR
 ```
 
 **Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; realization or operation evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
+
+### The full map is a reasoning reference, not a maximum-process mandate
+
+The complete map should be inspected before implementation depth is chosen:
+
+```text
+full map = inspect every decision horizon and capability family
+implementation depth = proportionate to the actual controlled object
+```
+
+A low-consequence internal assistant with narrow authority, reversible effects, strong feedback, and simple fallback may require only a small explicit control surface, with the same people carrying several responsibilities. A system with broad downstream authority, weak reversibility, slow or uncertain evidence, expensive Human Authority, fragile fallback, or tight unit economics may require much more of the map to be explicit and operational.
+
+The point of showing the whole map is therefore not to maximize governance. It is to **expose hidden complexity before deciding what can safely remain lightweight**. “One model call,” “one prompt,” “one feature,” or “one engineer” does not by itself imply a simple controlled object. The relevant dimensions are consequence, reachable authority and side effects, reversibility, Sensor quality and latency, Constraint Realization difficulty and bypass surface, Human Authority capacity, dependency fragility, and the cost of the control perimeter.
+
+Production release at the intended scope requires the **relevant** decisions and capability functions to be connected across all four horizons at a depth proportionate to that consequence and control problem.
 
 Each horizon below follows the same operating rhythm without turning it into an eight-box bureaucracy: **what activates the level; what authoritative basis and evidence enter; what decisions it owns; which control capabilities those decisions require; what flows downward; what evidence returns; what may be handled locally versus escalated; and what negative cases teach about the decision basis.**
 
@@ -718,7 +720,8 @@ flowchart LR
     LOCAL["Local response<br/> repair · rollback · narrow · re-release"]
     REAUTH["Project Reauthorization<br/> authorization basis invalidated"]
 
-    P --> R --> ENG --> VER --> D --> G --> RUN
+    P --> D -.->|realization evidence| E
+    R -->|operation evidence| ENG --> VER --> D --> G --> RUN
     VER -.->|technical evidence| BIZ
     BIZ -.->|changed exposure / decision consequence| ENG
     BIZ -.->|release consequence| G
@@ -863,7 +866,7 @@ flowchart LR
     V -. new evidence .-> N
 ```
 
-**Figure 14 — Cross-level learning and stabilization loop.** Negative cases route to the horizon that owns the failed decision basis, then improve the weakest control element or trigger reauthorization. The figure does not imply that every case escalates, that every deviation is a Bug, or that stabilization is already empirically validated across real systems.
+**Figure 15 — Cross-level learning and stabilization loop.** Negative cases route to the horizon that owns the failed decision basis, then improve the weakest control element or trigger reauthorization. The figure does not imply that every case escalates, that every deviation is a Bug, or that stabilization is already empirically validated across real systems.
 
 The four horizons therefore form a nested lifecycle rather than a waterfall. Higher-level authority and Constraints flow downward by reference and become more concrete in Project, Delivery, and Runtime realization. Evidence flows upward when it invalidates an earlier basis. Lower levels may refine and narrow. They may not silently expand authority, weaken an inherited Hard Constraint, or normalize evidence that the earlier authorization is no longer valid.
 
