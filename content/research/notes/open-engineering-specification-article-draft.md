@@ -622,6 +622,7 @@ flowchart TB
     LOOP["Credible complete control loops<br/> realizations · Sensors · Controllers · Actuators"]
     HUMAN["Human Authority · fallback<br/> containment · recovery"]
     ECON["Control economics and capacity<br/> latency · operating friction · dependencies"]
+    RES["Residual exposure + uncertainty<br/> after proposed control"]
     DEC["Project decision<br/> authorize · narrow · research<br/> redesign · defer · No-Go"]
     RE["Delivery / Runtime invalidating evidence"]
     ORG --> NEED
@@ -630,6 +631,7 @@ flowchart TB
     K -->|non-negotiable authorization boundary| DEC
     LOOP --> HUMAN --> DEC
     LOOP --> ECON --> DEC
+    LOOP --> RES --> DEC
     RE -.-> RISK
     DEC -. Project Reauthorization .-> RISK
     DEC -.->|wider organizational authority required| ORG
