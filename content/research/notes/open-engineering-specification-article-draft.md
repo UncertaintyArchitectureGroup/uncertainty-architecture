@@ -292,42 +292,17 @@ flowchart LR
 
 **Figure 5 — Three connected uncertainty locations.** Product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty coexist. Product methods, deterministic software engineering, DevOps, resilience, security, and incident response remain necessary; Thinking-System engineering adds explicit treatment of uncertainty produced through runtime judgment inside the controlled object.
 
-Once probabilistic judgment enters the controlled object, its consequences do not remain inside a model call. Different decisions govern the same object through different decision contexts, timescales, and authority boundaries.
+Once probabilistic judgment enters the controlled object, its consequences do not remain inside a model call. For material cases, the control problem may cross several distinct decision contexts because authority can be established outside runtime, architecture must make that authority operable, Delivery must realize it, and Runtime must keep operation inside it while returning evidence when an earlier assumption no longer holds.
 
-**Organizational control context.** This horizon owns the authoritative conditions within which a project may operate: applicable organizational boundaries, shared capabilities, prohibited uses, decision rights, and exception authority. It does not decide a concrete project's architecture merely because it supplies the sources that constrain it.
-
-**Project / architecture control and viability.** This horizon decides whether the proposed Thinking System is worth building in this form and whether its control architecture is technically credible, operationally supportable, and economically viable. It owns the placement of Model Judgment and deterministic responsibilities, the proposed authority and Human Authority model, evidence and correction paths, control economics, and **Project Authorization**. Project viability and architecture belong to one decision horizon, not two levels.
-
-**Delivery realization and release.** This horizon turns the authorized project design into a bounded realization. It owns whether inherited Constraints are actually realized for the delivery scope, whether required evidence and corrective paths exist, and whether that specific realization is releasable without silently expanding project authority.
-
-**Runtime operation and reassessment.** This horizon asks whether active operation remains inside the authorized boundary and what must happen when evidence shows violation, degradation, control failure, or invalidated assumptions. Runtime may correct locally within delegated authority or route evidence back to Delivery, Project / Architecture, or Organization when the basis of an earlier decision has changed.
-
-These horizons use different evidence, participants, authority, time scales, and actions. They are connected but not interchangeable. A runtime Controller cannot rewrite an organizational prohibition. A Release Gate cannot expand **Project Authorization**. Project Authorization cannot support a Hard Constraint claim without a complete realized path. An organizational policy is not an operable boundary merely because it is authoritative.
-
-```mermaid
-flowchart TB
-    subgraph SPINE[" "]
-        direction TB
-        O["Organization<br/>What may be authorized?"]
-        P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]
-        D["Delivery<br/>Is this bounded realization complete and releasable?"]
-        R["Runtime<br/>Does active operation remain inside the authorized boundary?"]
-        E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]
-
-        O -->|authoritative sources + delegated authority| P
-        P -->|Project Constraint Architecture + Project Authorization| D
-        D -->|realized boundary + release scope| R
-        R --> E
-    end
-
-    E -.->|implementation / realization / evidence issue| D
-    E -.->|risk / authority / feasibility / capacity / economics invalidated| P
-    E -.->|authoritative source / decision right / shared capability changed| O
-
-    style SPINE fill:none,stroke:none
+```text
+Organization
+→ Project / Architecture
+→ Delivery
+→ Runtime
+↺ reassessment when evidence invalidates an earlier decision basis
 ```
 
-**Figure 6 — One controlled object across four decision horizons.** The same Thinking System is viewed through four decision horizons. Authority and Constraints become more concrete as they move downward from Organization to Project / Architecture, Delivery, and Runtime. Runtime evidence returns directly to the horizon whose decision basis it invalidates. The figure shows decision ownership and reassessment routing, not a four-stage delivery workflow.
+These names are introduced here only to show how far the control perimeter may extend around one consequential controlled object. They are not four mandatory departments, approval stages, or a lifecycle sequence. Their distinct ownership, authority, evidence, and reassessment semantics are developed later; at this point the important consequence is simply that the engineering perimeter may have to connect technical mechanisms, human decision rights, delivery evidence, and organizational authority around the same system.
 
 Across those horizons, the concrete subject changes but a recurring control structure appears:
 
@@ -347,7 +322,7 @@ The useful transfer is that bounded control requires an intended condition, an a
 
 The problem is therefore not merely that AI is harder to test. Part of the controlled object's consequential behavior is now produced through runtime judgment, and every decision that controls that object must account for the change.
 
-The next section asks what capabilities are required to turn those connected decisions into bounded control.
+The next section asks what capabilities are required to make that expanded control perimeter operational. The later decision-horizon section then asks where the consequential decisions around it are legitimately owned.
 
 ## 3. From Model Quality to Bounded Control
 
