@@ -391,9 +391,10 @@ The same boundary requires four distinct capability functions around it. They ar
 - realization health and downstream transaction result;
 - Human Authority latency and capacity evidence.
 
-**Controller / decision authority**
-- for a given refund attempt, determine whether execution is authorized or must route to Human Authority;
-- for accumulated evidence, decide within delegated authority whether runtime operation should be narrowed or disabled, or whether the evidence must be escalated for reassessment at the horizon that owns the challenged decision basis.
+**Controller**
+- for a given refund attempt, interpret the relevant evidence against the applicable Constraint and determine the authorized response within its delegated decision boundary;
+- where substantive judgment is reserved to Human Authority, route the case and evidence to that authority rather than treating the Controller as the source of the authority itself;
+- for accumulated evidence, narrow or disable runtime operation only within delegated authority, or route the evidence for reassessment to the horizon that owns the challenged decision basis.
 
 **Actuators**
 - block, route, narrow, disable, roll back, fallback, or compensate within delegated authority.
@@ -803,7 +804,7 @@ The same support system is governed by four standing decision bases. Assume it m
 
 Now apply one concrete runtime event to those standing decision bases. Suppose the model selects or proposes a **€450** refund and the workflow reaches the transaction-authority check.
 
-- If the €450 transaction is deterministically blocked and the case is routed correctly, the Hard transaction boundary worked; the event is Runtime evidence and no higher-level reassessment is implied.
+- If the €450 transaction is deterministically blocked and the case is routed correctly, the deterministic transaction guard preserved the authorized boundary; the event is Runtime evidence and no higher-level reassessment is implied.
 - If one release contains a bypassable amount precondition, the evidence belongs to Delivery reassessment; Delivery may repair and re-release **if** the authorized architecture remains credible.
 - If repeated evidence shows that no available realization can make the required transaction boundary credible, or that Human Authority capacity cannot meet the Project assumption, the evidence challenges a Project / Architecture decision basis and requires **Project Reauthorization**.
 - If the business wants to raise the delegated threshold beyond the organizationally reserved limit, the project cannot grant that authority to itself; the request must return through Project / Architecture to Organization.
