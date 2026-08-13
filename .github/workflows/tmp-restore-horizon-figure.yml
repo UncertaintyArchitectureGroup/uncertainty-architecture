@@ -20,26 +20,21 @@ jobs:
           mp=Path('content/research/notes/open-engineering-specification-article-draft.md')
           bp=Path('content/research/notes/open-engineering-specification-article-blueprint.md')
           m=mp.read_text(); b=bp.read_text()
-
-          # Make room for the restored standalone horizon figure by shifting existing 9+ references.
           def bump(match):
               n=int(match.group(1))
               return f'Figure {n+1}' if 9 <= n <= 14 else match.group(0)
           m=re.sub(r'Figure (\d+)', bump, m)
-
           anchor='### The full map is a reasoning reference, not a maximum-process mandate\n'
           assert m.count(anchor)==1
           fig='''The decision-ownership model can therefore be shown on its own before it is combined with the capability anatomy from Section 3:\n\n```mermaid\nflowchart TB\n    O["Organization<br/>What may be authorized?"]\n    P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]\n    D["Delivery<br/>Is this bounded realization complete and releasable?"]\n    R["Runtime<br/>Does active operation remain inside the authorized boundary?"]\n    E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]\n\n    O -->|authoritative sources + delegated authority| P\n    P -->|Project Constraint Architecture + Project Authorization| D\n    D -->|realized boundary + release scope| R\n    R --> E\n    E -.->|implementation / realization / evidence issue| D\n    E -.->|risk / authority / feasibility / capacity / economics invalidated| P\n    E -.->|authoritative source / decision right / shared capability changed| O\n```\n\n**Figure 9 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries into operation. Runtime evidence returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence.\n\n'''
           m=m.replace(anchor,fig+anchor)
-
-          old='''The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one.\n'''
-          new='''The standalone model above establishes **where consequential decisions belong**. Section 3 established a different structure: the capability functions required to make bounded control operational. The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one. The next step is therefore to place the capability anatomy across the decision-ownership horizons rather than assign one family to one level.\n'''
+          old='The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one.\n'
+          new='The standalone model above establishes **where consequential decisions belong**. Section 3 established a different structure: the capability functions required to make bounded control operational. The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one. The next step is therefore to place the capability anatomy across the decision-ownership horizons rather than assign one family to one level.\n'
           assert m.count(old)==1
           m=m.replace(old,new)
-
-          needle='- **5.4 / Section 4:** use one concrete runtime event against the standing decision bases of all four horizons, then vary what fails to show that escalation follows the decision basis invalidated, not the component or team where the signal first appears.\n'
+          needle='- **Section 5.4** — establish the standing decision basis and illustrative owner at each of the four horizons, then apply one concrete runtime event and vary what fails. Show that one event does not automatically traverse all horizons: local response and escalation follow the **invalidated decision basis**, not the component or team where the signal first appeared.\n'
           assert b.count(needle)==1
-          addition='- **Section 5.4 figure sequence:** first show the four decision-ownership horizons as a standalone model, including downward inheritance and direct reassessment to the horizon whose decision basis is invalidated. Only then combine that model with the Section 5.3 capability anatomy to produce the orthogonal horizons × capability-families map. Preserve the pedagogical order: capability model → decision-ownership model → combined model.\n'
+          addition='- **Section 5.4 figure sequence** — first show the four decision-ownership horizons as a standalone model, including downward inheritance and direct reassessment to the horizon whose decision basis is invalidated. Only then combine that model with the Section 5.3 capability anatomy to produce the orthogonal horizons × capability-families map. Preserve the pedagogical order: capability model → decision-ownership model → combined model.\n'
           b=b.replace(needle,needle+addition)
           mp.write_text(m); bp.write_text(b)
       - name: Verify and commit
