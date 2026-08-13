@@ -379,25 +379,25 @@ A closed loop can still be unacceptable. It may optimize the wrong objective, re
 
 Take one boundary in the same support-resolution system: automated refunds are permitted only up to a delegated amount; above that amount, execution requires **Human Authority**. The important engineering object is not the sentence “large refunds require approval.” The control problem is whether that authoritative boundary survives the complete path from Model Judgment to downstream transaction.
 
-The same boundary exposes all four capability families:
+The same boundary requires four distinct capability functions around it. They are parallel control functions, not an execution sequence:
 
-```text
-Constraint
-→ refunds above the delegated amount must not execute without Human Authority
+**Constraint and Constraint Realization**
+- Constraint: refunds above the delegated amount must not execute without Human Authority.
+- Realization: transaction permission + amount precondition + valid approval state/token + rejecting endpoint.
 
-Constraint Realization
-→ transaction permission + amount precondition + valid approval state/token + rejecting endpoint
+**Sensors**
+- attempted and blocked high-value refunds;
+- approval outcomes and bypass attempts;
+- realization health and downstream transaction result;
+- Human Authority latency and capacity evidence.
 
-Sensors
-→ attempted and blocked high-value refunds + approval outcomes + bypass attempts
-  + realization health + downstream transaction result + Human Authority latency
+**Controller / decision authority**
+- for a given refund attempt, determine whether execution is authorized or must route to Human Authority;
+- for accumulated evidence, decide within delegated authority whether runtime operation should be narrowed or disabled, or whether the evidence must be escalated for reassessment at the horizon that owns the challenged decision basis.
 
-Controller / decision authority
-→ decide whether execution is authorized, whether the case must route to Human Authority,
-  and whether repeated evidence requires narrowing or disabling autonomous refund execution
+**Actuators**
+- block, route, narrow, disable, roll back, fallback, or compensate within delegated authority.
 
-Actuator
-→ block, route, narrow, disable, roll back, fallback, or compensate within delegated authority
 ```
 
 If any part is missing, the sentence “large refunds require approval” has not yet become a complete control path. A policy without a credible realization can be bypassed; a realization without evidence can silently degrade; evidence without a legitimate Controller is observation; a Controller without an effective Actuator cannot correct the system.
@@ -794,24 +794,24 @@ flowchart TB
 
 ### Running Example — One Refund Case Across Four Decision Horizons
 
-Use one concrete event to make the ownership model visible. Assume the support system may execute refunds automatically only up to **€50**, while larger refunds require Human Authority. The model selects or proposes a **€450** refund for a customer case, and the workflow reaches the transaction-authority check. The same event creates different questions at different horizons; the destination depends on which decision basis the evidence challenges.
+The same support system is governed by four standing decision bases. Assume it may execute refunds automatically only up to **€50**, while larger refunds require Human Authority. A single runtime event does not activate all four horizons. Instead, it produces evidence that must be routed to whichever horizon owns the decision basis that evidence challenges.
 
-| Horizon | Question exposed by the same case | Illustrative decision owner | Legitimate output or response |
+| Horizon | Standing question / decision basis | Illustrative decision owner | What that horizon may decide |
 |---|---|---|---|
 | **Organization** | May this class of system ever exercise refund authority, and what authority must remain reserved? | The organizational authority that legitimately owns the commercial, financial, customer, security/privacy, or exception boundary; several bundles may sit with the same person in an SMB. | Permit, prohibit, condition, or change delegated refund authority; define reserved Human Authority and evidence obligations. |
 | **Project / Architecture** | Is Model Judgment justified for this resolution path, and can a credible control perimeter keep the system inside the organizational boundary at viable cost and capacity? | Product/architecture/engineering decision authority operating inside the organizational boundary. | Project Authorization, Project Constraint Architecture, narrower scope, bounded research, redesign, defer, or No-Go. |
 | **Delivery** | Has the €50 boundary actually been realized and evidenced for this release, and is this deployment acceptable? | Delivery/release decision authority within Project Authorization. | DoR/DoD/Release decisions; repair a bypassable guard, improve evidence, narrow the release, or escalate when the project basis is invalid. |
-| **Runtime** | What happened in this case, did the realized boundary hold, and what correction is authorized now? | Runtime Controller and, where required, Human Authority within delegated authority. | Block the €450 execution, route the case, verify resulting state, narrow/disable/rollback locally, or route invalidating evidence upward. |
+| **Runtime** | Does active operation remain inside the authorized refund boundary, and what correction is authorized locally? | Runtime Controller and, where required, Human Authority within delegated authority. | Block, route, verify resulting state, narrow/disable/rollback locally, or emit reassessment evidence. |
 
-The event does not automatically “escalate to governance.” Its routing depends on what failed:
+Now apply one concrete runtime event to those standing decision bases. Suppose the model selects or proposes a **€450** refund and the workflow reaches the transaction-authority check.
 
-- if the €450 transaction is deterministically blocked and the case is routed correctly, the Hard transaction boundary worked; Runtime records the evidence and no higher-level redesign is implied;
-- if one release contains a bypassable amount precondition, Delivery can repair and re-release **if** the authorized architecture remains credible;
-- if repeated evidence shows that no available realization can make the required transaction boundary credible, or that Human Authority capacity cannot meet the Project assumption, **Project Reauthorization** is required;
-- if the business wants to raise the delegated threshold beyond the organizationally reserved limit, that is an **authority change**, not a runtime configuration tweak, and must return through Project to Organization;
-- if abnormal refund patterns or repeated exceptions reveal that the organizational source, delegated decision right, or shared capability itself is wrong, the evidence belongs at **Organization**.
+- If the €450 transaction is deterministically blocked and the case is routed correctly, the Hard transaction boundary worked; the event is Runtime evidence and no higher-level reassessment is implied.
+- If one release contains a bypassable amount precondition, the evidence belongs to Delivery reassessment; Delivery may repair and re-release **if** the authorized architecture remains credible.
+- If repeated evidence shows that no available realization can make the required transaction boundary credible, or that Human Authority capacity cannot meet the Project assumption, the evidence challenges a Project / Architecture decision basis and requires **Project Reauthorization**.
+- If the business wants to raise the delegated threshold beyond the organizationally reserved limit, the project cannot grant that authority to itself; the request must return through Project / Architecture to Organization.
+- If abnormal refund patterns or repeated exceptions reveal that the organizational source, delegated decision right, or shared capability itself is wrong, Organization owns that reassessment.
 
-This is the point of carrying one controlled object through all four horizons. The layers are not four sequential approvals. They are distinct ownership surfaces around the same consequential system: authority is made progressively concrete downward, while evidence returns to the level whose earlier decision it can no longer support.
+The point is not that one incident traverses four horizons. The four horizons maintain different standing decision bases around the same controlled object; a concrete event activates local control and only the reassessment path required by the basis its evidence invalidates.
 
 ### Cross-level operating discipline — learn from negative cases without turning every deviation into governance
 
