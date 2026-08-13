@@ -1,0 +1,34 @@
+name: tmp-pr73-final-polish
+on:
+  push:
+    branches:
+      - research/tighten-section-2-horizon-foreshadowing
+    paths:
+      - tmp/pr73_final_polish.py
+      - .github/workflows/tmp-pr73-final-polish.yml
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/tighten-section-2-horizon-foreshadowing
+      - run: python tmp/pr73_final_polish.py
+      - run: git diff --check
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('content/research/notes/open-engineering-specification-article-draft.md').read_text()
+          assert s.count('Reassessment evidence<br/>realization or operation evidence that challenges a decision basis') >= 2
+          assert 'required evidence can reach and inform legitimate decision authority' in s
+          assert '  R -->|operation evidence| E' in s
+          assert '    R -->|operation evidence| E' in s
+          PY
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m 'docs(research): polish reassessment evidence semantics'
+          git push origin HEAD:research/tighten-section-2-horizon-foreshadowing
