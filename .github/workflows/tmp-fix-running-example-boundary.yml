@@ -1,0 +1,35 @@
+name: tmp fix running example boundary
+on:
+  push:
+    branches: [research/tighten-section-2-horizon-foreshadowing]
+    paths: [.github/workflows/tmp-fix-running-example-boundary.yml]
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/tighten-section-2-horizon-foreshadowing
+      - name: Fix section 1 callout boundary
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('content/research/notes/open-engineering-specification-article-draft.md')
+          s=p.read_text()
+          closing='**What this adds to the case:** the support-resolution system is established as the stable controlled object; authority, evidence, control, and reassessment paths are deliberately left unresolved for later sections.\n\n---\n\n'
+          assert s.count(closing)==1
+          s=s.replace(closing,'',1)
+          marker='This is a practitioner observation about fragmentation, not a claim that governance, safety, architecture, or control practices do not exist.'
+          assert s.count(marker)==1
+          s=s.replace(marker,closing+marker,1)
+          p.write_text(s)
+      - name: Verify and commit
+        run: |
+          git diff --check
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m 'docs(research): close section 1 running example before generic argument'
+          git push origin HEAD:research/tighten-section-2-horizon-foreshadowing
