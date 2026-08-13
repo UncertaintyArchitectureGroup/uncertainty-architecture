@@ -16,32 +16,38 @@ jobs:
         shell: python
         run: |
           from pathlib import Path
+          import re
           mp=Path('content/research/notes/open-engineering-specification-article-draft.md')
           bp=Path('content/research/notes/open-engineering-specification-article-blueprint.md')
           m=mp.read_text(); b=bp.read_text()
-          marker='''One person may hold several of these responsibilities in a small organization. One automated platform may implement parts of several Controller functions. That does **not** collapse the decisions themselves. A runtime rollback is not Project Reauthorization; a successful build is not a Release Gate; Project Authorization does not create an organizational exception; an organizational policy does not prove that a concrete system is viable.\n\n'''
-          fig='''The decision-ownership model can therefore be shown on its own before it is combined with the capability anatomy from Section 3:\n\n```mermaid\nflowchart TB\n    O["Organization<br/>What may be authorized?"]\n    P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]\n    D["Delivery<br/>Is this bounded realization complete and releasable?"]\n    R["Runtime<br/>Does active operation remain inside the authorized boundary?"]\n    E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]\n\n    O -->|authoritative sources + delegated authority| P\n    P -->|Project Constraint Architecture + Project Authorization| D\n    D -->|realized boundary + release scope| R\n    R --> E\n    E -.->|implementation / realization / evidence issue| D\n    E -.->|risk / authority / feasibility assumption invalidated| P\n    E -.->|organizational source / delegated authority invalidated| O\n```\n\n**Figure 9 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries into operation. Runtime evidence returns to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence.\n\n'''
-          assert m.count(marker)==1
-          m=m.replace(marker, marker+fig)
-          # Existing combined figure was Figure 9; it now becomes Figure 10.
-          assert m.count('**Figure 9 —')==2
-          old='**Figure 9 — Decision horizons and capability families are orthogonal.**'
+
+          # Make room for the restored standalone horizon figure by shifting existing 9+ references.
+          def bump(match):
+              n=int(match.group(1))
+              return f'Figure {n+1}' if 9 <= n <= 14 else match.group(0)
+          m=re.sub(r'Figure (\d+)', bump, m)
+
+          anchor='### The full map is a reasoning reference, not a maximum-process mandate\n'
+          assert m.count(anchor)==1
+          fig='''The decision-ownership model can therefore be shown on its own before it is combined with the capability anatomy from Section 3:\n\n```mermaid\nflowchart TB\n    O["Organization<br/>What may be authorized?"]\n    P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]\n    D["Delivery<br/>Is this bounded realization complete and releasable?"]\n    R["Runtime<br/>Does active operation remain inside the authorized boundary?"]\n    E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]\n\n    O -->|authoritative sources + delegated authority| P\n    P -->|Project Constraint Architecture + Project Authorization| D\n    D -->|realized boundary + release scope| R\n    R --> E\n    E -.->|implementation / realization / evidence issue| D\n    E -.->|risk / authority / feasibility / capacity / economics invalidated| P\n    E -.->|authoritative source / decision right / shared capability changed| O\n```\n\n**Figure 9 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries into operation. Runtime evidence returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence.\n\n'''
+          m=m.replace(anchor,fig+anchor)
+
+          old='''The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one.\n'''
+          new='''The standalone model above establishes **where consequential decisions belong**. Section 3 established a different structure: the capability functions required to make bounded control operational. The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one. The next step is therefore to place the capability anatomy across the decision-ownership horizons rather than assign one family to one level.\n'''
           assert m.count(old)==1
-          m=m.replace(old,'**Figure 10 — Decision horizons and capability families are orthogonal.**')
-          # Strengthen the transition into the combined model.
-          old2='''The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one.\n'''
-          new2='''The standalone model above establishes **where consequential decisions belong**. Section 3 established a different structure: the capability functions required to make bounded control operational. The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one. The next step is therefore to place the capability anatomy across the decision-ownership horizons rather than assign one family to one level.\n'''
-          assert m.count(old2)==1
-          m=m.replace(old2,new2)
-          # Blueprint: make the pedagogical sequence explicit.
-          needle='''- **5.4 / Section 4:** use one concrete runtime event against the standing decision bases of all four horizons, then vary what fails to show that escalation follows the decision basis invalidated, not the component or team where the signal first appears.\n'''
-          repl=needle+'''- **Section 5.4 figure sequence:** first show the four decision-ownership horizons as a standalone model, including downward inheritance and direct reassessment to the horizon whose decision basis is invalidated. Only then combine that model with the Section 5.3 capability anatomy to produce the orthogonal horizons × capability-families map. Preserve this pedagogical order: capability model → decision-ownership model → combined model.\n'''
+          m=m.replace(old,new)
+
+          needle='- **5.4 / Section 4:** use one concrete runtime event against the standing decision bases of all four horizons, then vary what fails to show that escalation follows the decision basis invalidated, not the component or team where the signal first appears.\n'
           assert b.count(needle)==1
-          b=b.replace(needle,repl)
+          addition='- **Section 5.4 figure sequence:** first show the four decision-ownership horizons as a standalone model, including downward inheritance and direct reassessment to the horizon whose decision basis is invalidated. Only then combine that model with the Section 5.3 capability anatomy to produce the orthogonal horizons × capability-families map. Preserve the pedagogical order: capability model → decision-ownership model → combined model.\n'
+          b=b.replace(needle,needle+addition)
           mp.write_text(m); bp.write_text(b)
       - name: Verify and commit
         run: |
           git diff --check
+          grep -q 'Figure 9 — Four decision-ownership horizons' content/research/notes/open-engineering-specification-article-draft.md
+          grep -q 'Figure 10 — Two orthogonal models' content/research/notes/open-engineering-specification-article-draft.md
+          grep -q 'Figure 15 — Evidence and change routing' content/research/notes/open-engineering-specification-article-draft.md
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
