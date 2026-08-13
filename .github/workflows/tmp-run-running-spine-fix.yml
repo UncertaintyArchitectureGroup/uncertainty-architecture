@@ -24,4 +24,4 @@ jobs:
           git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
           git commit -m 'docs(research): clarify running-example control and ownership semantics'
           git push origin HEAD:research/restore-running-example-spine
-# rerun
+# corrected rerun
