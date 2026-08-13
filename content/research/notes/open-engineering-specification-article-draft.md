@@ -129,7 +129,11 @@ flowchart TB
 
 Thinking-System engineering still requires product discovery, deterministic software engineering, testing, security, deployment discipline, observability, and incident response. The new category does not invalidate those practices. It changes the object they are controlling.
 
-### Running Example — Bounded Customer-Support Resolution
+---
+
+### Running Example | Bounded Customer-Support Resolution
+
+**Lens in this section:** business proposal, controlled-object identity, and intentionally unresolved control paths.
 
 Throughout this paper, one fictional system will make the control model concrete: a company wants to reduce the cost and latency of customer-support resolution while preserving explicit authority over consequential decisions and downstream effects.
 
@@ -150,6 +154,10 @@ Without the connection, local confidence is easily substituted for system contro
 > **Previous engineering methods learned to manage uncertainty surrounding software. Thinking Systems require engineering to manage consequential uncertainty produced by the software itself.**
 
 The missing layer is not another AI component. It is the engineering connection between delegated judgment, authorized boundaries, evidence, decision authority, corrective action, and reassessment. Understanding why that connection is necessary requires examining the object being controlled.
+
+**What this adds to the case:** the support-resolution system is established as the stable controlled object; authority, evidence, control, and reassessment paths are deliberately left unresolved for later sections.
+
+---
 
 ## 2. The Controlled Object Has Changed
 
@@ -254,7 +262,11 @@ The reason to introduce Model Judgment is its ability to resolve consequential s
 
 That requires a mixed-system view. A model may interpret a support request while deterministic identity and permission checks constrain which customer data is reachable. It may recommend a resolution while deterministic tool permissions limit what can be executed. It may draft a customer response while outbound authority remains on a separate human or deterministic path. It may estimate semantic acceptability while the release decision and the mechanism executing that decision remain separate responsibilities.
 
-### Running Example — The Controlled Object Expands
+---
+
+### Running Example | The Controlled Object Expands
+
+**Lens in this section:** how Model Judgment changes the engineering boundary and the reach of the required control perimeter.
 
 The bounded support-resolution system already contains this mixed structure. Retrieval, identity, permissions, tool access, and execution paths can remain deterministic while request interpretation, resolution selection, or response generation depends partly on Model Judgment. That is enough to change the controlled object even before the paper decides whether the resulting authority, evidence, Human Authority, fallback, and economics are adequate for production.
 
@@ -273,6 +285,10 @@ organizational authority and reserved decision rights
 In the running example, an organizational decision might permit automated refunds only inside a delegated amount and reserve larger transactions to Human Authority. Project / Architecture must decide whether Model Judgment is justified inside that boundary and whether a credible control perimeter can exist. Delivery must realize the transaction boundary, approval state, evidence, fallback, and release conditions. Runtime must observe attempted actions and control health, block or route transactions inside delegated authority, and return evidence when a local defect, project assumption, or organizational boundary is no longer credible.
 
 This does **not** mean every Thinking System needs four departments, four committees, or a maximal governance stack. The same people or platform may carry several responsibilities, and lower-consequence systems may implement the map lightly. The point is causal: once probabilistic Model Judgment participates in a consequential responsibility, the required control perimeter follows the authority and effects of the **whole controlled object**, potentially all the way to organizational decision rights.
+
+**What this adds to the case:** the same support system now exposes why consequential responsibility can require a socio-technical control perimeter that extends beyond the model and runtime component.
+
+---
 
 This is why model quality alone is insufficient. Evaluation may estimate whether behavior is useful or acceptable. It does not, by itself, define prohibited states, establish who may accept residual exposure, restrict reachable authority, execute correction, or determine when the basis of Project Authorization must be reconsidered.
 
@@ -350,7 +366,11 @@ flowchart LR
 
 A closed loop can still be unacceptable. It may optimize the wrong objective, react too slowly for the consequence, rely on evidence that misses the relevant failure, or possess authority that was never legitimately delegated. Its Actuator may be able to change a prompt but not prevent a transaction. It may keep an evaluator score inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse. Closing feedback is therefore weaker than bounding operation.
 
-### Running Example — From Authority to a Complete Control Path
+---
+
+### Running Example | From Authority to a Complete Control Path
+
+**Lens in this section:** how one refund-authority boundary becomes operational through Constraints, Sensors, Controller functions, Human Authority, and Actuators.
 
 Take one boundary in the same support-resolution system: automated refunds are permitted only up to a delegated amount; above that amount, execution requires **Human Authority**. The important engineering object is not the sentence “large refunds require approval.” The control problem is whether that authoritative boundary survives the complete path from Model Judgment to downstream transaction.
 
@@ -375,6 +395,10 @@ The same boundary requires four distinct capability functions around it. They ar
 - block, route, narrow, disable, roll back, fallback, or compensate within delegated authority.
 
 If any part is missing, the sentence “large refunds require approval” has not yet become a complete control path. A policy without a credible realization can be bypassed; a realization without evidence can silently degrade; evidence without a Controller able to interpret it and act within an authorized decision boundary is observation; a Controller without an effective Actuator cannot correct the system.
+
+**What this adds to the case:** the refund rule is no longer only policy intent; the case now has the logical anatomy of a complete control path around that boundary.
+
+---
 
 The four capability families describe the logical functions needed to make such a boundary operational. The order below is a pedagogical traversal, not a mandatory execution pipeline or physical stack.
 
@@ -766,7 +790,11 @@ flowchart TB
 
 **Figure 14 — Evidence and change routing.** The destination follows the challenged decision basis. This avoids both escalation theater—where every runtime defect becomes a governance meeting—and silent authority drift—where repeated local fixes gradually redesign the project in production.
 
-### Running Example — One Refund Case Across Four Decision Horizons
+---
+
+### Running Example | One Refund Case Across Four Decision Horizons
+
+**Lens in this section:** who owns the standing decision bases around the same controlled object, and where runtime evidence belongs when one of those bases is challenged.
 
 The same support system is governed by four standing decision bases. Assume it may execute refunds automatically only up to **€50**, while larger refunds require Human Authority. A single runtime event does not activate all four horizons. Instead, it produces evidence that must be routed to whichever horizon owns the decision basis that evidence challenges.
 
@@ -786,6 +814,10 @@ Now apply one concrete runtime event to those standing decision bases. Suppose t
 - If abnormal refund patterns or repeated exceptions reveal that the organizational source, delegated decision right, or shared capability itself is wrong, Organization owns that reassessment.
 
 The point is not that one incident traverses four horizons. The four horizons maintain different standing decision bases around the same controlled object; a concrete event activates local control and only the reassessment path required by the basis its evidence invalidates.
+
+**What this adds to the case:** the same €50/€450 refund boundary now exposes standing ownership across the four horizons and routes reassessment by the decision basis that evidence invalidates.
+
+---
 
 ### Cross-level operating discipline — learn from negative cases without turning every deviation into governance
 

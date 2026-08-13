@@ -188,6 +188,8 @@ The example must remain stable enough that the reader can recognize the **same c
 
 **Progressive-disclosure rule.** Introduce the running example explicitly in Section 5.1 as a named pedagogical spine and define the business goal and whole controlled object there, but reveal implementation detail only when the corresponding concept is introduced. For each major conceptual section, prefer the sequence `generic model → application to the same running example → optional secondary counterexample or transfer check`. Do not let a new domain example silently replace the support-resolution system as the primary explanatory object.
 
+**Running-example visual contract.** Every primary return to the support-resolution case should be visibly separated from generic exposition using portable Markdown rather than platform-specific callout syntax. Use a horizontal rule, a `### Running Example | <lens-specific title>` heading, a bold `Lens in this section:` line, the case material itself, a short bold `What this adds to the case:` progression statement, and a closing horizontal rule. Keep tables, diagrams, lists, and prose inside the callout as ordinary Markdown so the structure survives GitHub, static-site, and publication export. The title after the pipe and the lens must change with the section; the controlled object must not. This visual contract is editorial, not UA doctrine.
+
 #### Section-by-section running-example progression
 
 The running example is a **cumulative architectural trace**, not a recurring anecdote. Each section should expose one additional property of the same support-resolution system and keep the example visibly separated from generic exposition with a consistent `Running Example` heading or equivalent callout.
