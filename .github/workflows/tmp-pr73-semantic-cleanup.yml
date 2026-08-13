@@ -1,0 +1,36 @@
+name: tmp pr73 semantic cleanup
+on:
+  push:
+    branches: [research/tighten-section-2-horizon-foreshadowing]
+    paths: [.github/workflows/tmp-pr73-semantic-cleanup.yml]
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/tighten-section-2-horizon-foreshadowing
+      - name: Cleanup remaining semantic tails
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('content/research/notes/open-engineering-specification-article-draft.md')
+          s=p.read_text()
+          s=s.replace('E["Runtime evidence<br/> behavior · outcomes · control state · changed assumptions"]','E["Realization / operation evidence<br/> behavior · outcomes · control state · changed assumptions"]')
+          s=s.replace('**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; Runtime evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.','**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; realization or operation evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.')
+          s=s.replace('The distinction from decision authority matters. A Controller decides or authorizes; an Actuator executes.','The distinction from decision authority matters. A Controller selects or initiates a bounded response within delegated authority; an Actuator executes the authorized change.')
+          s=s.replace('Read together, the four families form a bounded control relationship: Controllers authorize Actuators; Actuators change operation or a Constraint Realization;','Read together, the four families form a bounded control relationship: Controllers turn evidence into bounded response decisions within delegated authority; Actuators execute authorized changes to operation or a Constraint Realization;')
+          p.write_text(s)
+      - name: Verify and commit
+        run: |
+          git diff --check
+          ! grep -q 'Controllers and decision authority' content/research/notes/open-engineering-specification-article-draft.md
+          ! grep -q 'Controller and decision authority' content/research/notes/open-engineering-specification-article-draft.md
+          ! grep -q 'Runtime evidence<br/> behavior · outcomes · control state · changed assumptions' content/research/notes/open-engineering-specification-article-draft.md
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m 'docs(research): finish controller and evidence semantic cleanup'
+          git push origin HEAD:research/tighten-section-2-horizon-foreshadowing
