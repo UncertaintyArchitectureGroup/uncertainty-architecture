@@ -342,7 +342,7 @@ flowchart LR
     A -->|changes operation| P
 ```
 
-**Figure 7 — A closed feedback loop.** Evidence reaches a Controller / decision function and an authorized action changes the controlled process. Decision authority comes from the applicable authorized decision boundary; the Controller operates within that boundary rather than constituting its source. The figure deliberately does not yet claim that the loop operates inside a legitimate or adequately realized boundary.
+**Figure 6 — A closed feedback loop.** Evidence reaches a Controller / decision function and an authorized action changes the controlled process. Decision authority comes from the applicable authorized decision boundary; the Controller operates within that boundary rather than constituting its source. The figure deliberately does not yet claim that the loop operates inside a legitimate or adequately realized boundary.
 
 A closed loop can still be unacceptable. It may optimize the wrong objective, react too slowly for the consequence, rely on evidence that misses the relevant failure, or possess authority that was never legitimately delegated. Its Actuator may be able to change a prompt but not prevent a transaction. It may keep an evaluator score inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse. Closing feedback is therefore weaker than bounding operation.
 
@@ -410,9 +410,9 @@ A Sensor need not produce one objective truth value. Semantic acceptability may 
 
 Telemetry without a decision path is observation. Valuable observation is not yet control. An evaluator normally performs a Sensor function; logic that interprets its evidence and selects `block`, `canary`, or `release` performs a Controller function; the mechanism that applies that decision performs an Actuator function.
 
-### Controllers and decision authority
+### Controllers and bounded decision functions
 
-A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or authorizes action. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is ownership of a defined decision together with legitimate authority over the available response.
+A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or initiates action within delegated authority. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is the control function that turns evidence into a bounded response decision. Decision authority belongs to the applicable human, organizational, project, delivery, or runtime decision basis; the Controller exercises only the portion delegated to its function.
 
 In the running example, one Controller function may determine that a transaction cannot proceed automatically and must be routed to Human Authority. Another may decide, from repeated realization failures or abnormal financial behavior, that autonomous refund execution should be disabled or narrowed. The associated Actuator performs that change. A dashboard presenting the evidence is not itself the Controller.
 
@@ -429,7 +429,7 @@ flowchart LR
     KR["Constraint Realizations<br/>enforce or influence the boundary"]
     P["Thinking System<br/>controlled process"]
     S["Sensors and evidence<br/>behavior · outcomes · conditions<br/>realization and execution state"]
-    C["Controller and decision authority<br/>compare · interpret · authorize"]
+    C["Controllers / decision functions<br/>compare · interpret · select bounded response"]
     A["Actuators<br/>execute authorized change"]
 
     R --> C
@@ -448,7 +448,7 @@ flowchart LR
     A -->|change within delegated authority| KR
 ```
 
-**Figure 8 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions.
+**Figure 7 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions.
 
 This is the difference between a measured system, a closed feedback loop, and a bounded controlled system. The last requires not merely feedback but an approved and credibly realized operating boundary, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and a path for reassessment when the basis of control changes. Here, a **complete control architecture** means materially complete for the authorized scope, not maximal instantiation of every possible control mechanism or every cell in the later operating map.
 
@@ -477,7 +477,7 @@ flowchart TB
     P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]
     D["Delivery<br/>Is this bounded realization complete and releasable?"]
     R["Runtime<br/>Does active operation remain inside the authorized boundary?"]
-    E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]
+    E["Realization / operation evidence<br/>behavior · outcomes · control state · changed assumptions"]
 
     O -->|authoritative sources + delegated authority| P
     P -->|Project Constraint Architecture + Project Authorization| D
@@ -488,7 +488,7 @@ flowchart TB
     E -.->|authoritative source / decision right / shared capability changed| O
 ```
 
-**Figure 9 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries into operation. Runtime evidence returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence.
+**Figure 8 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries toward operation. Evidence from realization or operation returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence and need not originate only at Runtime.
 
 ### The full map is a reasoning reference, not a maximum-process mandate
 
@@ -551,7 +551,7 @@ flowchart LR
         end
         subgraph F4[" "]
   direction LR
-  J4(( )) --- C["Controllers and decision authority<br/> interpret evidence and authorize action"]
+  J4(( )) --- C["Controllers / decision functions<br/> interpret evidence and select bounded response"]
         end
 
         J1 --- J2
@@ -572,7 +572,7 @@ flowchart LR
     class J1,J2,J3,J4 railpoint;
 ```
 
-**Figure 10 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; Runtime evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
+**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: authority and Constraints become more concrete downward; Runtime evidence returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
 
 Each horizon below follows the same operating rhythm without turning it into an eight-box bureaucracy: **what activates the level; what authoritative basis and evidence enter; what decisions it owns; which control capabilities those decisions require; what flows downward; what evidence returns; what may be handled locally versus escalated; and what negative cases teach about the decision basis.**
 
@@ -620,7 +620,7 @@ flowchart LR
     C --> D --> A --> OUT --> P
 ```
 
-**Figure 11 — Organizational control process.** Authoritative sources provide the reference basis while external/organizational evidence and lower-level evidence converge on legitimate decision owners. The figure is a decision horizon and control relationship, not a required department structure or a claim that Organization directly performs downstream technical actions.
+**Figure 10 — Organizational control process.** Authoritative sources provide the reference basis while external/organizational evidence and lower-level evidence converge on legitimate decision owners. The figure is a decision horizon and control relationship, not a required department structure or a claim that Organization directly performs downstream technical actions.
 
 The running support system makes the boundary concrete. Organization might permit automated refunds only inside a delegated amount, require Human Authority above it, restrict which customer data can reach the model, and require use of approved identity and transaction capabilities. Project / Architecture must then decide whether a useful support system can actually be built and operated inside those limits.
 
@@ -679,7 +679,7 @@ flowchart TB
     DEC -.->|wider organizational authority required| ORG
 ```
 
-**Figure 12 — Project control architecture and viability.** Organizational admissibility becomes a concrete system decision only after AI necessity, material scenarios, complete control loops, Human Authority/fallback, capacity, and control economics are examined. Bounded research is a legitimate outcome; prototype success is not Project Authorization.
+**Figure 11 — Project control architecture and viability.** Organizational admissibility becomes a concrete system decision only after AI necessity, material scenarios, complete control loops, Human Authority/fallback, capacity, and control economics are examined. Bounded research is a legitimate outcome; prototype success is not Project Authorization.
 
 For the support system, this is where the refund boundary becomes a Project Constraint Architecture rather than a policy slogan. The project asks whether high-value refund execution can be made unreachable without valid Human Authority, what evidence verifies that realization, whether semantic policy application remains soft, whether the approval queue can absorb expected volume, and whether the combined latency and cost preserve the support business case.
 
@@ -726,7 +726,7 @@ flowchart LR
     RUN -->|risk / authority / feasibility / capacity / economics invalidated| REAUTH --> P
 ```
 
-**Figure 13 — Delivery realization and release loop.** Delivery translates the project authorization into one bounded realization, while the dotted translation path converts technical evidence back into changed business exposure and decision consequences. That translation informs engineering and release decisions; it is not an additional gate or execution stage. Local repair remains distinct from Project Reauthorization.
+**Figure 12 — Delivery realization and release loop.** Delivery translates the project authorization into one bounded realization, while the dotted translation path converts technical evidence back into changed business exposure and decision consequences. That translation informs engineering and release decisions; it is not an additional gate or execution stage. Local repair remains distinct from Project Reauthorization.
 
 Three decisions must remain distinct even when one lightweight workflow carries all three.
 
@@ -768,7 +768,7 @@ flowchart LR
     CTRL -->|basis no longer valid| ESC
 ```
 
-**Figure 14 — Runtime control and reassessment.** Runtime control covers the active socio-technical system and verifies the result of corrective action. When the authorization basis is invalidated, the exit routes by decision ownership; Figure 15 resolves the concrete destination. Local response may restore a previously authorized state; it does not authorize redesign or wider authority.
+**Figure 13 — Runtime control and reassessment.** Runtime control covers the active socio-technical system and verifies the result of corrective action. When the authorization basis is invalidated, the exit routes by decision ownership; Figure 14 resolves the concrete destination. Local response may restore a previously authorized state; it does not authorize redesign or wider authority.
 
 The key distinction is **restoration versus redesign**. Blocking a transaction, narrowing exposure, switching to fallback, rolling back, or disabling a feature may restore a known authorized state. Persistent drift, degraded Human Authority, invalid Sensor assumptions, recurring realization failure, new reachable consequences, or broken control economics may show that there is no authorized state to “tune back to” without revisiting an earlier decision.
 
@@ -789,7 +789,7 @@ flowchart TB
     PR -->|organizational boundary must change| OR
 ```
 
-**Figure 15 — Evidence and change routing.** The destination follows the challenged decision basis. This avoids both escalation theater—where every runtime defect becomes a governance meeting—and silent authority drift—where repeated local fixes gradually redesign the project in production.
+**Figure 14 — Evidence and change routing.** The destination follows the challenged decision basis. This avoids both escalation theater—where every runtime defect becomes a governance meeting—and silent authority drift—where repeated local fixes gradually redesign the project in production.
 
 ---
 
@@ -863,7 +863,7 @@ flowchart LR
     V -. new evidence .-> N
 ```
 
-**Figure 15 — Cross-level learning and stabilization loop.** Negative cases route to the horizon that owns the failed decision basis, then improve the weakest control element or trigger reauthorization. The figure does not imply that every case escalates, that every deviation is a Bug, or that stabilization is already empirically validated across real systems.
+**Figure 14 — Cross-level learning and stabilization loop.** Negative cases route to the horizon that owns the failed decision basis, then improve the weakest control element or trigger reauthorization. The figure does not imply that every case escalates, that every deviation is a Bug, or that stabilization is already empirically validated across real systems.
 
 The four horizons therefore form a nested lifecycle rather than a waterfall. Higher-level authority and Constraints flow downward by reference and become more concrete in Project, Delivery, and Runtime realization. Evidence flows upward when it invalidates an earlier basis. Lower levels may refine and narrow. They may not silently expand authority, weaken an inherited Hard Constraint, or normalize evidence that the earlier authorization is no longer valid.
 
