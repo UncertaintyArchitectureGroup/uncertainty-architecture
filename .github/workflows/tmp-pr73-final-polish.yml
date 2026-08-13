@@ -23,8 +23,7 @@ jobs:
           s=Path('content/research/notes/open-engineering-specification-article-draft.md').read_text()
           assert s.count('Reassessment evidence<br/>realization or operation evidence that challenges a decision basis') >= 2
           assert 'required evidence can reach and inform legitimate decision authority' in s
-          assert '  R -->|operation evidence| E' in s
-          assert '    R -->|operation evidence| E' in s
+          assert s.count('R -->|operation evidence| E') >= 2
           PY
       - run: |
           git config user.name github-actions[bot]
