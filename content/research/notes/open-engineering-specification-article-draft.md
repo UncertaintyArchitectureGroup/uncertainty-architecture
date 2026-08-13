@@ -272,17 +272,7 @@ The bounded support-resolution system already contains this mixed structure. Ret
 
 Now follow the consequential responsibility rather than the model boundary. If Model Judgment can influence which remedy applies, what the customer is told, whether a refund is proposed, or whether an authorized tool changes downstream business state, then the engineering perimeter cannot stop at the model-serving component. The controlled object includes the path by which runtime judgment becomes a consequential outcome and the people, permissions, evidence, and corrective mechanisms needed to keep that path inside an authorized boundary.
 
-For a material case, that control perimeter may therefore become explicitly **socio-technical** and span several decision horizons:
-
-```text
-organizational authority and reserved decision rights
-→ Project / Architecture authorization and control assumptions
-→ Delivery realization, verification, and release evidence
-→ Runtime sensing, decision, correction, and containment
-↺ evidence routed back to the horizon whose decision basis it invalidates
-```
-
-In the running example, an organizational decision might permit automated refunds only inside a delegated amount and reserve larger transactions to Human Authority. Project / Architecture must decide whether Model Judgment is justified inside that boundary and whether a credible control perimeter can exist. Delivery must realize the transaction boundary, approval state, evidence, fallback, and release conditions. Runtime must observe attempted actions and control health, block or route transactions inside delegated authority, and return evidence when a local defect, project assumption, or organizational boundary is no longer credible.
+For a material case, that control perimeter may therefore become explicitly **socio-technical** and cross technical, delivery, architectural, human-authority, and organizational decision boundaries. In the running example, a bounded-refund authority may originate outside the runtime system, depend on architectural choices about where Model Judgment is permitted, require a concrete delivery realization, and ultimately constrain whether a runtime transaction can execute. The point here is the **reach of the perimeter**, not yet the ownership model inside it.
 
 This does **not** mean every Thinking System needs four departments, four committees, or a maximal governance stack. The same people or platform may carry several responsibilities, and lower-consequence systems may implement the map lightly. The point is causal: once probabilistic Model Judgment participates in a consequential responsibility, the required control perimeter follows the authority and effects of the **whole controlled object**, potentially all the way to organizational decision rights.
 
@@ -308,19 +298,9 @@ flowchart LR
 
 **Figure 5 — Three connected uncertainty locations.** Product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty coexist. Product methods, deterministic software engineering, DevOps, resilience, security, and incident response remain necessary; Thinking-System engineering adds explicit treatment of uncertainty produced through runtime judgment inside the controlled object.
 
-Once probabilistic judgment enters the controlled object, its consequences do not remain inside a model call. For material cases, the control problem may cross several distinct decision contexts because authority can be established outside runtime, architecture must make that authority operable, Delivery must realize it, and Runtime must keep operation inside it while returning evidence when an earlier assumption no longer holds.
+The example exposes a broader consequence: the control perimeter of a Thinking System may cross technical, delivery, architectural, human-authority, and organizational decision boundaries. Different decisions across that perimeter require different evidence, authority, and corrective mechanisms. Before assigning those decisions to explicit horizons, however, the engineering problem is more basic: **what capabilities must exist for bounded control to be possible at all?**
 
-```text
-Organization
-→ Project / Architecture
-→ Delivery
-→ Runtime
-↺ reassessment when evidence invalidates an earlier decision basis
-```
-
-These names are introduced here only to show how far the control perimeter may extend around one consequential controlled object. They are not four mandatory departments, approval stages, or a lifecycle sequence. Their distinct ownership, authority, evidence, and reassessment semantics are developed later; at this point the important consequence is simply that the engineering perimeter may have to connect technical mechanisms, human decision rights, delivery evidence, and organizational authority around the same system.
-
-Across those horizons, the concrete subject changes but a recurring control structure appears:
+Across that expanded perimeter, the concrete subject changes but a recurring control structure appears:
 
 ```text
 What outcome or condition is intended?
@@ -338,7 +318,7 @@ The useful transfer is that bounded control requires an intended condition, an a
 
 The problem is therefore not merely that AI is harder to test. Part of the controlled object's consequential behavior is now produced through runtime judgment, and every decision that controls that object must account for the change.
 
-The next section asks what capabilities are required to make that expanded control perimeter operational. The later decision-horizon section then asks where the consequential decisions around it are legitimately owned.
+The next section therefore asks what capabilities are required to make that expanded control perimeter operational. Only after establishing those control functions does the paper assign consequential decisions to explicit decision horizons.
 
 ## 3. From Model Quality to Bounded Control
 
