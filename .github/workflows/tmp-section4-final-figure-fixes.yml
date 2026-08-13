@@ -1,0 +1,92 @@
+name: tmp-section4-final-figure-fixes
+on:
+  push:
+    branches: [research/rewrite-section-4-operating-map]
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/rewrite-section-4-operating-map
+          fetch-depth: 0
+      - name: Apply reviewed Section 4 figure fixes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          manuscript = Path('content/research/notes/open-engineering-specification-article-draft.md')
+          blueprint = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          m = manuscript.read_text()
+          b = blueprint.read_text()
+
+          replacements_m = [
+            (
+              '    OUT --> NEED --> RISK --> K --> LOOP\n    LOOP --> HUMAN --> DEC\n    LOOP --> ECON --> DEC\n',
+              '    OUT --> NEED --> RISK --> K --> LOOP\n    OUT -->|value hypothesis| DEC\n    LOOP --> HUMAN --> DEC\n    LOOP --> ECON --> DEC\n'
+            ),
+            (
+              '    VER["Implementation / evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]\n    D["Definition of Done<br/> implementation + evidence complete"]\n',
+              '    VER["Implementation / evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]\n    BIZ["Exposure / decision consequences<br/> business interpretation of technical evidence"]\n    D["Definition of Done<br/> implementation + evidence complete"]\n'
+            ),
+            (
+              '    P --> R --> ENG --> VER --> D --> G --> RUN\n    RUN -->|local implementation / realization / evidence issue| LOCAL --> ENG\n',
+              '    P --> R --> ENG --> VER --> D --> G --> RUN\n    VER -.->|technical evidence| BIZ\n    BIZ -.->|changed exposure / decision consequence| ENG\n    RUN -->|local implementation / realization / evidence issue| LOCAL --> ENG\n'
+            ),
+            (
+              '**Figure 12 — Delivery realization and release loop.** Delivery translates the project authorization into one bounded realization, then turns technical evidence back into a release or reassessment decision. Local repair remains distinct from Project Reauthorization.',
+              '**Figure 12 — Delivery realization and release loop.** Delivery translates the project authorization into one bounded realization, while the dotted translation path converts technical evidence back into changed business exposure and decision consequences. That translation informs engineering and release decisions; it is not an additional gate or execution stage. Local repair remains distinct from Project Reauthorization.'
+            ),
+            (
+              '    ESC["Authorization basis invalidated<br/> Delivery reassessment · Project Reauthorization<br/> or Organizational review"]',
+              '    ESC["Authorization basis invalidated<br/> route by decision ownership"]'
+            ),
+            (
+              '**Figure 13 — Runtime control and reassessment.** Runtime control covers the active socio-technical system and verifies the result of corrective action. Local response may restore a previously authorized state; it does not authorize redesign or wider authority.',
+              '**Figure 13 — Runtime control and reassessment.** Runtime control covers the active socio-technical system and verifies the result of corrective action. When the authorization basis is invalidated, the exit routes by decision ownership; Figure 14 resolves the concrete destination. Local response may restore a previously authorized state; it does not authorize redesign or wider authority.'
+            ),
+          ]
+
+          for old, new in replacements_m:
+              c = m.count(old)
+              assert c == 1, f'manuscript match count {c} for {old[:80]!r}'
+              m = m.replace(old, new, 1)
+
+          replacements_b = [
+            (
+              'Preserve the existing two-way business ↔ engineering translation claim inside this process.',
+              'Preserve the existing two-way business ↔ engineering translation claim inside this process. The figure should show technical evidence being interpreted as changed exposure / decision consequences and feeding back into engineering/release reasoning without implying an additional lifecycle gate.'
+            ),
+            (
+              '**Supporting figures:**\n\n- runtime control and reassessment;\n- evidence and change routing.',
+              '**Supporting figures:**\n\n- runtime control and reassessment;\n- evidence and change routing.\n\nKeep the runtime-control figure\'s escalation exit generic (`authorization basis invalidated → route by decision ownership`) and let the evidence-routing figure own the concrete Delivery / Project / Organization destinations.'
+            ),
+            (
+              '- Include the complete control perimeter in project viability rather than treating evaluation, Human Authority, fallback, observability, and control friction as post-launch overhead.',
+              '- Include the complete control perimeter in project viability rather than treating evaluation, Human Authority, fallback, observability, and control friction as post-launch overhead; keep attributable value visibly connected to the final Project decision rather than only to the AI-necessity check.'
+            ),
+          ]
+          for old, new in replacements_b:
+              c = b.count(old)
+              assert c == 1, f'blueprint match count {c} for {old[:80]!r}'
+              b = b.replace(old, new, 1)
+
+          manuscript.write_text(m)
+          blueprint.write_text(b)
+          PY
+          git diff --check
+          changed="$(git diff --name-only | sort)"
+          expected="$(printf '%s\n' content/research/notes/open-engineering-specification-article-blueprint.md content/research/notes/open-engineering-specification-article-draft.md | sort)"
+          test "$changed" = "$expected"
+      - name: Commit fixes
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m 'docs(research): align Section 4 figure semantics'
+          git push origin HEAD:research/rewrite-section-4-operating-map
