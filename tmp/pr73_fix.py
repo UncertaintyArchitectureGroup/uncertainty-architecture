@@ -15,21 +15,15 @@ replacement = (
 )
 s = s[:start] + replacement + s[end:]
 
-# 2. Section 4 figures: Delivery realization evidence and Runtime operation evidence are distinct evidence origins.
+# 2. Section 4 figures: realization evidence may originate at Delivery, operation evidence at Runtime.
 sec4 = s.index('## 4. Four Decision Levels for Thinking Systems')
 runex = s.index('### Running Example | One Refund Case Across Four Decision Horizons', sec4)
-head = s[:sec4]
-body = s[sec4:runex]
-tail = s[runex:]
-body = body.replace(
-    '    D -->|realized boundary + release scope| R\n    R --> E\n',
-    '    D -->|realized boundary + release scope| R\n    D -.->|realization evidence| E\n    R -->|operation evidence| E\n',
-    2,
-)
-assert body.count('D -.->|realization evidence| E') >= 2
+head, body, tail = s[:sec4], s[sec4:runex], s[runex:]
+body = body.replace('R --> E', 'D -.->|realization evidence| E\n    R -->|operation evidence| E')
+body = body.replace('  R --> E', '  D -.->|realization evidence| E\n  R -->|operation evidence| E')
 s = head + body + tail
 
-# 3. Put the combined A×B model immediately after the standalone decision model; proportionality comes after composition.
+# 3. Keep model A -> model B -> A×B contiguous; proportionality comes after the combined model.
 start = s.index('### The full map is a reasoning reference, not a maximum-process mandate', sec4)
 end = s.index('### Two orthogonal models', start)
 block = s[start:end]
@@ -39,11 +33,7 @@ cap_start = s.index(caption, sec4)
 cap_end = s.index('\n\n', cap_start) + 2
 s = s[:cap_end] + block + s[cap_end:]
 
-# 4. Unique final figure number.
-s = s.replace(
-    '**Figure 14 — Cross-level learning and stabilization loop.**',
-    '**Figure 15 — Cross-level learning and stabilization loop.**',
-    1,
-)
+# 4. Restore unique final figure number.
+s = s.replace('**Figure 14 — Cross-level learning and stabilization loop.**', '**Figure 15 — Cross-level learning and stabilization loop.**', 1)
 
 p.write_text(s)
