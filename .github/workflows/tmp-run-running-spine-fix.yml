@@ -15,7 +15,7 @@ jobs:
       - run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add content/research/notes/open-engineering-specification-article-draft.md
-          git commit -m 'docs(research): clarify capability-family example semantics'
+          git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m 'docs(research): clarify running-example control and ownership semantics'
           git push origin HEAD:research/restore-running-example-spine
-# section3
+# final semantic fix
