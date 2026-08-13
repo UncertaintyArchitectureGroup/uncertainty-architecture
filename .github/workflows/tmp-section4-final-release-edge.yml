@@ -1,0 +1,39 @@
+name: tmp-section4-final-release-edge
+on:
+  push:
+    branches:
+      - research/rewrite-section-4-operating-map
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/rewrite-section-4-operating-map
+          fetch-depth: 0
+      - name: Patch Figure 12
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('content/research/notes/open-engineering-specification-article-draft.md')
+          s = p.read_text()
+          old = '''    VER -.->|technical evidence| BIZ\n    BIZ -.->|changed exposure / decision consequence| ENG\n    RUN -->|local implementation / realization / evidence issue| LOCAL --> ENG\n'''
+          new = '''    VER -.->|technical evidence| BIZ\n    BIZ -.->|changed exposure / decision consequence| ENG\n    BIZ -.->|release consequence| G\n    RUN -->|local implementation / realization / evidence issue| LOCAL --> ENG\n'''
+          assert s.count(old) == 1, s.count(old)
+          s = s.replace(old, new)
+          p.write_text(s)
+          PY
+          git diff --check
+          test "$(git diff --name-only | wc -l)" -eq 1
+          test "$(git diff --name-only)" = "content/research/notes/open-engineering-specification-article-draft.md"
+      - name: Commit
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m 'docs(research): connect exposure to release decision'
+          git push origin HEAD:research/rewrite-section-4-operating-map
