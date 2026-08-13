@@ -333,7 +333,7 @@ flowchart LR
     R["Reference<br/>Requirement and intended conditions"]
     P["Thinking System<br/>controlled process"]
     S["Sensors and evidence"]
-    C["Controller and decision authority"]
+    C["Controller / decision function"]
     A["Actuators"]
 
     R --> C
@@ -342,7 +342,7 @@ flowchart LR
     A -->|changes operation| P
 ```
 
-**Figure 7 — A closed feedback loop.** Evidence reaches a decision function and an authorized action changes the controlled process. The figure deliberately does not yet claim that the loop operates inside a legitimate or adequately realized boundary.
+**Figure 7 — A closed feedback loop.** Evidence reaches a Controller / decision function and an authorized action changes the controlled process. Decision authority comes from the applicable authorized decision boundary; the Controller operates within that boundary rather than constituting its source. The figure deliberately does not yet claim that the loop operates inside a legitimate or adequately realized boundary.
 
 A closed loop can still be unacceptable. It may optimize the wrong objective, react too slowly for the consequence, rely on evidence that misses the relevant failure, or possess authority that was never legitimately delegated. Its Actuator may be able to change a prompt but not prevent a transaction. It may keep an evaluator score inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse. Closing feedback is therefore weaker than bounding operation.
 
