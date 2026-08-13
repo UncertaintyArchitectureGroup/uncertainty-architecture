@@ -676,6 +676,7 @@ flowchart LR
     P --> R --> ENG --> VER --> D --> G --> RUN
     VER -.->|technical evidence| BIZ
     BIZ -.->|changed exposure / decision consequence| ENG
+    BIZ -.->|release consequence| G
     RUN -->|local implementation / realization / evidence issue| LOCAL --> ENG
     RUN -->|risk / authority / feasibility / capacity / economics invalidated| REAUTH --> P
 ```
