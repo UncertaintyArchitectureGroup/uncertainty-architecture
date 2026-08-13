@@ -1,0 +1,29 @@
+name: tmp-section4-residual-exposure-runner
+on:
+  push:
+    branches:
+      - research/rewrite-section-4-operating-map
+jobs:
+  patch:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/rewrite-section-4-operating-map
+          fetch-depth: 0
+      - name: Apply patch
+        run: python .tmp-section4-residual-exposure.py
+      - name: Verify diff
+        run: |
+          git diff --check
+          git diff --name-only
+      - name: Commit and push
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/research/notes/open-engineering-specification-article-draft.md content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m 'docs(research): expose residual exposure in project decision'
+          git push origin HEAD:research/rewrite-section-4-operating-map
