@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-07-31
-updated: 2026-08-12
+updated: 2026-08-13
 language: en
 license: CC-BY-4.0
 draft: true
@@ -187,6 +187,21 @@ The manuscript should use one **running educational example** to make the abstra
 The example must remain stable enough that the reader can recognize the **same controlled object** as it moves from business proposal through organizational authorization, Project / Architecture viability, Delivery realization, Runtime operation, and reassessment. Do not replace it with unrelated examples at each level. Short counterexamples from other domains may be used to prevent overfitting, but they must remain secondary.
 
 **Progressive-disclosure rule.** Introduce the running example explicitly in Section 5.1 as a named pedagogical spine and define the business goal and whole controlled object there, but reveal implementation detail only when the corresponding concept is introduced. For each major conceptual section, prefer the sequence `generic model → application to the same running example → optional secondary counterexample or transfer check`. Do not let a new domain example silently replace the support-resolution system as the primary explanatory object.
+
+#### Section-by-section running-example progression
+
+The running example is a **cumulative architectural trace**, not a recurring anecdote. Each section should expose one additional property of the same support-resolution system and keep the example visibly separated from generic exposition with a consistent `Running Example` heading or equivalent callout.
+
+- **Section 5.1** — establish the business goal, whole controlled object, Model-Judgment-dependent Consequential Runtime Responsibilities, and the fact that control/evidence/authority paths are intentionally unresolved.
+- **Section 5.2** — show that a fixed workflow can already be a Thinking System; then make the engineering consequence explicit: once Model Judgment participates in consequential responsibility, the control perimeter follows the whole object and may become a socio-technical architecture spanning organizational authority, Project / Architecture, Delivery, and Runtime. Do not present those horizons as mandatory departments or stages.
+- **Section 5.3** — take one stable refund-authority boundary and map it explicitly through `Constraint → Constraint Realization → Sensors → Controller / Human Authority → Actuator`, showing why a policy sentence is not yet a complete control path.
+- **Section 5.4** — carry one concrete negative case through all four decision horizons. Make the owned question, illustrative decision owner, local response, escalation trigger, and reauthorization destination visible for Organization, Project / Architecture, Delivery, and Runtime. Use the same case to demonstrate routing by **invalidated decision basis**, not by where the signal first appeared.
+- **Section 5.5** — use variants of the same support system to demonstrate proportionality: for example, draft-only/human-execution versus bounded autonomous refund execution. Show why the complete map is inspected first while implementation depth differs materially.
+- **Section 5.6** — use the same system as a substitution/composition test for existing tooling and methods. Ask which parts of the support-system control relationship are already supplied by orchestration, guardrails, observability/evaluation, managed platforms, governance systems, standards, or regulation, and which ownership/reassessment relationships remain external.
+- **Section 5.7** — when naming Uncertainty Architecture, show that UA organizes the relationships already derived in the running example rather than introducing a new layer after the fact. The example must remain evidence of explanatory continuity, not validation evidence for UA.
+- **Section 5.8** — turn the same case into validation questions: can a team use the map to find an otherwise-missed responsibility, remove unnecessary control, route evidence correctly, or show that an existing stack already preserves the material relationships without additional UA artifacts?
+
+The example should accumulate detail rather than restart. Later sections may refer back to earlier disclosed facts (`€50` delegated refund authority, Human Authority above the threshold, approved identity/data paths, the realized transaction guard, evidence and escalation routes) instead of re-explaining the business context.
 
 #### Business context
 
