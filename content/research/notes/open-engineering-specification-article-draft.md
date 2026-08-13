@@ -794,7 +794,7 @@ flowchart TB
 
 ### Running Example — One Refund Case Across Four Decision Horizons
 
-Use one concrete event to make the ownership model visible. Assume the support system may execute refunds automatically only up to **€50**, while larger refunds require Human Authority. The model proposes a **€450** refund for a customer case. The same event creates different questions at different horizons; the destination depends on which decision basis the evidence challenges.
+Use one concrete event to make the ownership model visible. Assume the support system may execute refunds automatically only up to **€50**, while larger refunds require Human Authority. The model selects or proposes a **€450** refund for a customer case, and the workflow reaches the transaction-authority check. The same event creates different questions at different horizons; the destination depends on which decision basis the evidence challenges.
 
 | Horizon | Question exposed by the same case | Illustrative decision owner | Legitimate output or response |
 |---|---|---|---|
