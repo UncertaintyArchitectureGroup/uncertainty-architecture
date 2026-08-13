@@ -1,90 +1,18 @@
 from pathlib import Path
-
-mpath = Path('content/research/notes/open-engineering-specification-article-draft.md')
-bpath = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
-m = mpath.read_text()
-b = bpath.read_text()
-
-old = '''The same boundary exposes all four capability families:
-
-```text
-Constraint
-→ refunds above the delegated amount must not execute without Human Authority
-
-Constraint Realization
-→ transaction permission + amount precondition + valid approval state/token + rejecting endpoint
-
-Sensors
-→ attempted and blocked high-value refunds + approval outcomes + bypass attempts
-  + realization health + downstream transaction result + Human Authority latency
-
-Controller / decision authority
-→ decide whether execution is authorized, whether the case must route to Human Authority,
-  and whether repeated evidence requires narrowing or disabling autonomous refund execution
-
-Actuator
-→ block, route, narrow, disable, roll back, fallback, or compensate within delegated authority
-```
-'''
-new = '''The same boundary requires four distinct capability functions around it. They are parallel control functions, not an execution sequence:
-
-**Constraint and Constraint Realization**
-- Constraint: refunds above the delegated amount must not execute without Human Authority.
-- Realization: transaction permission + amount precondition + valid approval state/token + rejecting endpoint.
-
-**Sensors**
-- attempted and blocked high-value refunds;
-- approval outcomes and bypass attempts;
-- realization health and downstream transaction result;
-- Human Authority latency and capacity evidence.
-
-**Controller / decision authority**
-- for a given refund attempt, determine whether execution is authorized or must route to Human Authority;
-- for accumulated evidence, decide within delegated authority whether runtime operation should be narrowed or disabled, or whether the evidence must be escalated for reassessment at the horizon that owns the challenged decision basis.
-
-**Actuators**
-- block, route, narrow, disable, roll back, fallback, or compensate within delegated authority.
-'''
-assert m.count(old) == 1, f'section 3 target count={m.count(old)}'
-m = m.replace(old, new)
-
-old = '''That one event creates different questions at different horizons:
-
-| Horizon | Question exposed by the same case | Illustrative decision owner | Legitimate output or action |
-| --- | --- | --- | --- |
-| **Organization** | Which refund authority may this class of system receive at all? Which transactions remain reserved to Human Authority? | Product / business authority with legal, risk, security, privacy, or finance participation as required | authoritative source, delegated amount, reserved authority, exception rights, evidence obligation |
-| **Project / Architecture** | Is Model Judgment justified in the refund path? Can the €50 boundary, Human Authority path, evidence, fallback, and economics form a credible control perimeter? | accountable project / architecture authority with the required domain, engineering, operations, security, and risk input | Project Constraint Architecture + Project Authorization, narrowing, bounded research, redesign, or No-Go |
-| **Delivery** | Did this release actually realize the €50 boundary and required approval/evidence paths without expanding Project Authorization? | delivery / release authority with engineering, evaluation, security, operations, and domain evidence | DoR / DoD / Release decision, repair, or escalation for Project Reauthorization |
-| **Runtime** | Did the €450 attempt remain inside the authorized boundary, and what may be corrected locally? | Runtime Controller and Human Authority where substantive judgment is required | block, route, narrow, fallback, disable, compensate, or emit reassessment evidence |
-
-The important point is not that every €450 attempt should climb through four committees. If the transaction is correctly blocked and the realized boundary remains healthy, Runtime control has done its job. If the guard is bypassable in this release, the evidence belongs to Delivery. If repeated evidence shows that the approved boundary cannot be credibly realized or Human Authority cannot sustain the assumed capacity, Project / Architecture must reconsider authorization. If the project wants authority above the organizationally delegated €50 limit, it cannot grant that authority to itself; the request must return through Project / Architecture to Organization. If the organizational source, delegated decision right, or shared capability itself proves wrong, Organization owns that reassessment.
-'''
-new = '''The same support system is governed by four standing decision bases. A single runtime event does not activate all four. Instead, it produces evidence that must be routed to whichever horizon owns the decision basis that evidence challenges:
-
-| Horizon | Standing question / decision basis | Illustrative decision owner | What that horizon may decide |
-| --- | --- | --- | --- |
-| **Organization** | Which refund authority may this class of system receive at all? Which transactions remain reserved to Human Authority? | Product / business authority with legal, risk, security, privacy, or finance participation as required | authoritative source, delegated amount, reserved authority, exception rights, evidence obligation |
-| **Project / Architecture** | Is Model Judgment justified in the refund path? Can the €50 boundary, Human Authority path, evidence, fallback, and economics form a credible control perimeter? | accountable project / architecture authority with the required domain, engineering, operations, security, and risk input | Project Constraint Architecture + Project Authorization, narrowing, bounded research, redesign, or No-Go |
-| **Delivery** | Did this release actually realize the €50 boundary and required approval/evidence paths without expanding Project Authorization? | delivery / release authority with engineering, evaluation, security, operations, and domain evidence | DoR / DoD / Release decision, repair, or escalation for Project Reauthorization |
-| **Runtime** | Does active operation remain inside the authorized refund boundary, and what may be corrected locally? | Runtime Controller and Human Authority where substantive judgment is required | block, route, narrow, fallback, disable, compensate, or emit reassessment evidence |
-
-Now apply one concrete runtime event to those standing decision bases. Suppose the model proposes or selects a €450 refund and the workflow reaches the transaction-authority check.
-
-- If the €450 transaction is correctly blocked and the realized boundary remains healthy, the event is Runtime evidence and no escalation is required.
-- If the guard is bypassable in this release, the evidence belongs to Delivery reassessment.
-- If repeated evidence shows that the approved boundary cannot be credibly realized or Human Authority cannot sustain the assumed capacity, the evidence challenges a Project / Architecture assumption and requires Project Reauthorization.
-- If the project wants authority above the organizationally delegated €50 limit, it cannot grant that authority to itself; the request must return through Project / Architecture to Organization.
-- If the organizational source, delegated decision right, or shared capability itself proves wrong, Organization owns that reassessment.
-
-The point is therefore not that one incident traverses four horizons. The four horizons maintain different standing decision bases around the same controlled object; a concrete event activates local control and any reassessment path required by the basis its evidence invalidates.
-'''
-assert m.count(old) == 1, f'section 4 target count={m.count(old)}'
-m = m.replace(old, new)
-
-old = '- **5.4 / Section 4:** carry one concrete negative case through all four decision horizons and show that escalation follows the decision basis invalidated, not the component or team where the signal first appears.'
-new = '- **5.4 / Section 4:** use one concrete runtime event against the standing decision bases of all four horizons, then vary what fails to show that escalation follows the decision basis invalidated, not the component or team where the signal first appears.'
-assert b.count(old) == 1, f'blueprint target count={b.count(old)}'
-b = b.replace(old, new)
-
-mpath.write_text(m)
-bpath.write_text(b)
+mpath=Path('content/research/notes/open-engineering-specification-article-draft.md'); bpath=Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+m=mpath.read_text(); b=bpath.read_text()
+start='The same boundary exposes all four capability families:\n\n```text\n'; end='```\n\nIf any part is missing, the sentence “large refunds require approval” has not yet become a complete control path.'
+assert m.count(start)==1 and m.count(end)==1
+si=m.index(start); ei=m.index(end,si)
+rep='''The same boundary requires four distinct capability functions around it. They are parallel control functions, not an execution sequence:\n\n**Constraint and Constraint Realization**\n- Constraint: refunds above the delegated amount must not execute without Human Authority.\n- Realization: transaction permission + amount precondition + valid approval state/token + rejecting endpoint.\n\n**Sensors**\n- attempted and blocked high-value refunds;\n- approval outcomes and bypass attempts;\n- realization health and downstream transaction result;\n- Human Authority latency and capacity evidence.\n\n**Controller / decision authority**\n- for a given refund attempt, determine whether execution is authorized or must route to Human Authority;\n- for accumulated evidence, decide within delegated authority whether runtime operation should be narrowed or disabled, or whether the evidence must be escalated for reassessment at the horizon that owns the challenged decision basis.\n\n**Actuators**\n- block, route, narrow, disable, roll back, fallback, or compensate within delegated authority.\n\n'''
+m=m[:si]+rep+m[ei:]
+start='Use one concrete event to make the ownership model visible. Assume the support system may execute refunds automatically only up to **€50**, while larger refunds require Human Authority.'; end='### Cross-level operating discipline — learn from negative cases without turning every deviation into governance'
+assert m.count(start)==1 and m.count(end)==1
+si=m.index(start); ei=m.index(end,si)
+rep='''The same support system is governed by four standing decision bases. Assume it may execute refunds automatically only up to **€50**, while larger refunds require Human Authority. A single runtime event does not activate all four horizons. Instead, it produces evidence that must be routed to whichever horizon owns the decision basis that evidence challenges.\n\n| Horizon | Standing question / decision basis | Illustrative decision owner | What that horizon may decide |\n|---|---|---|---|\n| **Organization** | May this class of system ever exercise refund authority, and what authority must remain reserved? | The organizational authority that legitimately owns the commercial, financial, customer, security/privacy, or exception boundary; several bundles may sit with the same person in an SMB. | Permit, prohibit, condition, or change delegated refund authority; define reserved Human Authority and evidence obligations. |\n| **Project / Architecture** | Is Model Judgment justified for this resolution path, and can a credible control perimeter keep the system inside the organizational boundary at viable cost and capacity? | Product/architecture/engineering decision authority operating inside the organizational boundary. | Project Authorization, Project Constraint Architecture, narrower scope, bounded research, redesign, defer, or No-Go. |\n| **Delivery** | Has the €50 boundary actually been realized and evidenced for this release, and is this deployment acceptable? | Delivery/release decision authority within Project Authorization. | DoR/DoD/Release decisions; repair a bypassable guard, improve evidence, narrow the release, or escalate when the project basis is invalid. |\n| **Runtime** | Does active operation remain inside the authorized refund boundary, and what correction is authorized locally? | Runtime Controller and, where required, Human Authority within delegated authority. | Block, route, verify resulting state, narrow/disable/rollback locally, or emit reassessment evidence. |\n\nNow apply one concrete runtime event to those standing decision bases. Suppose the model selects or proposes a **€450** refund and the workflow reaches the transaction-authority check.\n\n- If the €450 transaction is deterministically blocked and the case is routed correctly, the Hard transaction boundary worked; the event is Runtime evidence and no higher-level reassessment is implied.\n- If one release contains a bypassable amount precondition, the evidence belongs to Delivery reassessment; Delivery may repair and re-release **if** the authorized architecture remains credible.\n- If repeated evidence shows that no available realization can make the required transaction boundary credible, or that Human Authority capacity cannot meet the Project assumption, the evidence challenges a Project / Architecture decision basis and requires **Project Reauthorization**.\n- If the business wants to raise the delegated threshold beyond the organizationally reserved limit, the project cannot grant that authority to itself; the request must return through Project / Architecture to Organization.\n- If abnormal refund patterns or repeated exceptions reveal that the organizational source, delegated decision right, or shared capability itself is wrong, Organization owns that reassessment.\n\nThe point is not that one incident traverses four horizons. The four horizons maintain different standing decision bases around the same controlled object; a concrete event activates local control and only the reassessment path required by the basis its evidence invalidates.\n\n'''
+m=m[:si]+rep+m[ei:]
+old='- **Section 5.3** — take one stable refund-authority boundary and map it explicitly through `Constraint → Constraint Realization → Sensors → Controller / Human Authority → Actuator`, showing why a policy sentence is not yet a complete control path.'; new='- **Section 5.3** — take one stable refund-authority boundary and expose the four capability families as parallel control functions around that boundary: Constraint + Constraint Realization, Sensors, Controller / Human Authority, and Actuators. Show why a policy sentence is not yet a complete control path without implying an execution pipeline.'
+assert b.count(old)==1; b=b.replace(old,new)
+old='- **Section 5.4** — carry one concrete negative case through all four decision horizons. Make the owned question, illustrative decision owner, local response, escalation trigger, and reauthorization destination visible for Organization, Project / Architecture, Delivery, and Runtime. Use the same case to demonstrate routing by **invalidated decision basis**, not by where the signal first appeared.'; new='- **Section 5.4** — establish the standing decision basis and illustrative owner at each of the four horizons, then apply one concrete runtime event and vary what fails. Show that one event does not automatically traverse all horizons: local response and escalation follow the **invalidated decision basis**, not the component or team where the signal first appeared.'
+assert b.count(old)==1; b=b.replace(old,new)
+mpath.write_text(m); bpath.write_text(b)
