@@ -1,52 +1,49 @@
 from pathlib import Path
-import re
 
 p = Path('content/research/notes/open-engineering-specification-article-draft.md')
 s = p.read_text()
 
-# 1. Make the early Section 2 return generic so the primary case return stays inside the callout.
-pattern = re.compile(
-    r"Return to the running support-resolution example\. Its workflow may be fixed end to end:.*?The category begins when a \*\*Consequential Runtime Responsibility\*\* first depends partly on probabilistic Model Judgment\.",
-    re.S,
-)
+# 1. Section 2: keep the early discussion generic; the primary return to the support case belongs in the callout.
+start = s.index('Return to the running support-resolution example.')
+end = s.index('\n\nThe distinction matters because engineering needs a stable name', start)
 replacement = (
-    "A workflow may be fixed end to end and still contain the changed controlled object. "
-    "Nothing about a predefined sequence of retrieval, interpretation, decision support, communication, authority checking, and bounded execution requires dynamic orchestration. "
-    "Yet if interpretation, selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. "
-    "Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. "
-    "The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment."
+    'A workflow may be fixed end to end and still contain the changed controlled object. '
+    'Nothing about a predefined sequence of retrieval, interpretation, decision support, communication, authority checking, and bounded execution requires dynamic orchestration. '
+    'Yet if interpretation, selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. '
+    'Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. '
+    'The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment.'
 )
-s, n = pattern.subn(replacement, s, count=1)
-assert n == 1, f'early case return replacements={n}'
+s = s[:start] + replacement + s[end:]
 
-# 2. Let realization evidence originate at Delivery as well as operation evidence at Runtime.
-pattern = re.compile(
-    r"(\s+D -->\|realized boundary \+ release scope\| R\n)\s+R --> E\n(\s+E -\.->\|implementation / realization / evidence issue\| D)"
+# 2. Section 4 figures: Delivery realization evidence and Runtime operation evidence are distinct evidence origins.
+sec4 = s.index('## 4. Four Decision Levels for Thinking Systems')
+runex = s.index('### Running Example | One Refund Case Across Four Decision Horizons', sec4)
+head = s[:sec4]
+body = s[sec4:runex]
+tail = s[runex:]
+body = body.replace(
+    '    D -->|realized boundary + release scope| R\n    R --> E\n',
+    '    D -->|realized boundary + release scope| R\n    D -.->|realization evidence| E\n    R -->|operation evidence| E\n',
+    2,
 )
-def repl(m):
-    indent = re.match(r"\s*", m.group(1)).group(0)
-    return (
-        m.group(1)
-        + indent + "D -.->|realization evidence| E\n"
-        + indent + "R -->|operation evidence| E\n"
-        + m.group(2)
-    )
-s, n = pattern.subn(repl, s, count=2)
-assert n == 2, f'evidence topology replacements={n}'
+assert body.count('D -.->|realization evidence| E') >= 2
+s = head + body + tail
 
-# 3. Keep model A -> model B -> A×B contiguous; move proportionality after the combined figure.
-start = s.index('### The full map is a reasoning reference, not a maximum-process mandate')
+# 3. Put the combined A×B model immediately after the standalone decision model; proportionality comes after composition.
+start = s.index('### The full map is a reasoning reference, not a maximum-process mandate', sec4)
 end = s.index('### Two orthogonal models', start)
 block = s[start:end]
 s = s[:start] + s[end:]
-anchor = re.search(r"\*\*Figure 9 — Two orthogonal models\.\*\*.*?All four capability families may appear at every horizon\.\n", s, re.S)
-assert anchor, 'combined figure caption not found'
-pos = anchor.end()
-s = s[:pos] + '\n' + block + s[pos:]
+caption = '**Figure 9 — Two orthogonal models.**'
+cap_start = s.index(caption, sec4)
+cap_end = s.index('\n\n', cap_start) + 2
+s = s[:cap_end] + block + s[cap_end:]
 
-# 4. Restore unique sequential numbering for the final learning-loop figure.
-old = '**Figure 14 — Cross-level learning and stabilization loop.**'
-assert s.count(old) == 1, f'learning-loop Figure 14 count={s.count(old)}'
-s = s.replace(old, '**Figure 15 — Cross-level learning and stabilization loop.**', 1)
+# 4. Unique final figure number.
+s = s.replace(
+    '**Figure 14 — Cross-level learning and stabilization loop.**',
+    '**Figure 15 — Cross-level learning and stabilization loop.**',
+    1,
+)
 
 p.write_text(s)
