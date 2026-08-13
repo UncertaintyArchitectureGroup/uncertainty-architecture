@@ -21,45 +21,26 @@ jobs:
           bp=Path('content/research/notes/open-engineering-specification-article-blueprint.md')
           m=mp.read_text(); b=bp.read_text()
 
-          # 1) Decouple Controller capability from decision-authority ownership semantics.
-          replacements = {
-            '### Controllers and decision authority': '### Controllers and bounded decision functions',
-            'A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or authorizes action. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is ownership of a defined decision together with legitimate authority over the available response.': 'A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or initiates action within delegated authority. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is the control function that turns evidence into a bounded response decision. Decision authority belongs to the applicable human, organizational, project, delivery, or runtime decision basis; the Controller exercises only the portion delegated to its function.',
-            'C["Controller and decision authority<br/>compare · interpret · authorize"]': 'C["Controllers / decision functions<br/>compare · interpret · select bounded response"]',
-            'C["Controllers and decision authority<br/> interpret evidence and authorize action"]': 'C["Controllers / decision functions<br/> interpret evidence and select bounded response"]'
-          }
-          for old,new in replacements.items():
-              assert m.count(old)==1, (old, m.count(old))
-              m=m.replace(old,new)
+          m=m.replace('### Controllers and decision authority','### Controllers and bounded decision functions')
+          m=m.replace(
+            'A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or authorizes action. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is ownership of a defined decision together with legitimate authority over the available response.',
+            'A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or initiates action within delegated authority. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is the control function that turns evidence into a bounded response decision. Decision authority belongs to the applicable human, organizational, project, delivery, or runtime decision basis; the Controller exercises only the portion delegated to its function.'
+          )
+          m=m.replace('C["Controller and decision authority<br/>compare · interpret · authorize"]','C["Controllers / decision functions<br/>compare · interpret · select bounded response"]')
+          m=m.replace('Controllers and decision authority<br/> interpret evidence and authorize action','Controllers / decision functions<br/> interpret evidence and select bounded response')
 
-          # 2) Make the standalone decision-horizon figure evidence-source neutral.
-          old='E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]'
-          new='E["Realization / operation evidence<br/>behavior · outcomes · control state · changed assumptions"]'
-          # appears in standalone + combined model; both should be neutral.
-          assert m.count(old)==2, m.count(old)
-          m=m.replace(old,new)
-          oldcap='**Figure 9 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries into operation. Runtime evidence returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence.'
-          newcap='**Figure 9 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries toward operation. Evidence from realization or operation returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence and need not originate only at Runtime.'
-          assert m.count(oldcap)==1
-          m=m.replace(oldcap,newcap)
+          # Standalone and combined decision-horizon maps should accept evidence from realization or operation.
+          m=m.replace('E["Runtime evidence<br/>behavior · outcomes · control state · changed assumptions"]','E["Realization / operation evidence<br/>behavior · outcomes · control state · changed assumptions"]')
+          m=m.replace(
+            '**Figure 9 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries into operation. Runtime evidence returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence.',
+            '**Figure 9 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries toward operation. Evidence from realization or operation returns directly to the horizon whose decision basis it invalidates; reassessment is therefore not a mandatory upward sequence and need not originate only at Runtime.'
+          )
 
-          # 3) Renumber the visual system after removal of the former Figure 6.
-          # Current sequence: 1..5, 7,8,new9,10..15. Desired: 1..14 continuous.
-          # Protect textual references with placeholders then shift every figure >=7 down one.
-          def shift(match):
-              n=int(match.group(1))
-              return f'Figure {n-1}' if 7 <= n <= 15 else match.group(0)
-          m=re.sub(r'Figure (\d+)', shift, m)
+          # Full visual renumbering after removal of old Figure 6: every current 7..15 shifts down one.
+          m=re.sub(r'Figure (1[0-5]|[7-9])', lambda x: f'Figure {int(x.group(1))-1}', m)
 
-          # Blueprint language should retain the exact conceptual separation.
-          oldb='- **Section 5.3** — take one stable refund-authority boundary and expose the four capability families as parallel control functions around that boundary: Constraint + Constraint Realization, Sensors, Controller functions operating within delegated decision authority, and Actuators. Where substantive judgment is reserved, show Human Authority as the holder of that authority or escalation destination rather than as a synonym for the Controller capability. Show why a policy sentence is not yet a complete control path without implying an execution pipeline.'
-          newb='- **Section 5.3** — take one stable refund-authority boundary and expose the four capability families as parallel control functions around that boundary: Constraint + Constraint Realization, Sensors, Controller / decision functions operating within delegated authority, and Actuators. Keep decision-authority ownership outside the Controller definition: where substantive judgment is reserved, show Human Authority or the applicable horizon owner as the holder of that authority or escalation destination. Show why a policy sentence is not yet a complete control path without implying an execution pipeline.'
-          assert b.count(oldb)==1
-          b=b.replace(oldb,newb)
-          oldb2='- **Section 5.4 figure sequence** — first show the four decision-ownership horizons as a standalone model, including downward inheritance and direct reassessment to the horizon whose decision basis is invalidated. Only then combine that model with the Section 5.3 capability anatomy to produce the orthogonal horizons × capability-families map. Preserve the pedagogical order: capability model → decision-ownership model → combined model.'
-          newb2='- **Section 5.4 figure sequence** — first show the four decision-ownership horizons as a standalone model, including downward inheritance and direct reassessment from realization or operation evidence to the horizon whose decision basis is invalidated. Do not imply that reassessment originates only at Runtime. Only then combine that model with the Section 5.3 capability anatomy to produce the orthogonal horizons × capability-families map. Preserve the pedagogical order: capability model → decision-ownership model → combined model.'
-          assert b.count(oldb2)==1
-          b=b.replace(oldb2,newb2)
+          b=b.replace('Controller functions operating within delegated decision authority, and Actuators. Where substantive judgment is reserved, show Human Authority as the holder of that authority or escalation destination rather than as a synonym for the Controller capability.', 'Controller / decision functions operating within delegated authority, and Actuators. Keep decision-authority ownership outside the Controller definition: where substantive judgment is reserved, show Human Authority or the applicable horizon owner as the holder of that authority or escalation destination.')
+          b=b.replace('including downward inheritance and direct reassessment to the horizon whose decision basis is invalidated. Only then combine', 'including downward inheritance and direct reassessment from realization or operation evidence to the horizon whose decision basis is invalidated. Do not imply that reassessment originates only at Runtime. Only then combine')
 
           mp.write_text(m); bp.write_text(b)
       - name: Verify and commit
@@ -74,7 +55,10 @@ jobs:
           assert nums == list(range(1, max(nums)+1)), nums
           assert 'Controller and decision authority' not in s
           assert 'Controllers and decision authority' not in s
+          assert 'Figure 8 — Four decision-ownership horizons' in s
+          assert 'Figure 9 — Two orthogonal models' in s
           assert 'Figure 14 — Evidence and change routing' in s
+          assert 'Realization / operation evidence' in s
           PY
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
