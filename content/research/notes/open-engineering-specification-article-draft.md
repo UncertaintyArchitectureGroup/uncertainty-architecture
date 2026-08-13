@@ -483,7 +483,7 @@ flowchart TB
     P -->|Project Constraint Architecture + Project Authorization| D
     D -->|realized boundary + release scope| R
     D -.->|realization evidence| E
-    R -->|operation evidence| E
+  R -->|operation evidence| E
     E -.->|implementation / realization / evidence issue| D
     E -.->|risk / authority / feasibility / capacity / economics invalidated| P
     E -.->|authoritative source / decision right / shared capability changed| O
