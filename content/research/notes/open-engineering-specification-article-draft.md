@@ -370,8 +370,8 @@ The same boundary requires four distinct capability functions around it. They ar
 
 **Controller**
 - for a given refund attempt, interpret the relevant evidence against the applicable Constraint and determine the authorized response within its delegated decision boundary;
-- where substantive judgment is reserved to Human Authority, route the case and evidence to that authority rather than treating the Controller as the source of the authority itself;
-- for accumulated evidence, narrow or disable runtime operation only within delegated authority, or route the evidence for reassessment to the authorized decision process that owns the challenged decision basis.
+- where substantive judgment is reserved to Human Authority, select or authorize routing of the case and evidence to that authority rather than treating the Controller as the source of the authority itself;
+- for accumulated evidence, select or authorize, within delegated authority, either narrowing or disabling runtime operation or routing the evidence for reassessment by the authority that owns the challenged decision basis.
 
 **Actuators**
 - block, route, narrow, disable, roll back, fallback, or compensate within delegated authority.
@@ -414,7 +414,7 @@ Telemetry without a decision path is observation. Valuable observation is not ye
 
 ### Controllers and bounded decision functions
 
-A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or authorizes action within delegated authority. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is the control function that turns evidence into a bounded response decision. A Controller does not create its own authority: it may select or authorize action only within an applicable delegated boundary and must route reserved decisions to Human Authority or another authorized decision process.
+A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or authorizes action within delegated authority. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is the control function that turns evidence into a bounded response decision. A Controller does not create its own authority: it may select or authorize action only within an applicable delegated boundary and must escalate reserved decisions to Human Authority or another authorized decision process.
 
 In the running example, one Controller function may determine that a transaction cannot proceed automatically and must be routed to Human Authority. Another may decide, from repeated realization failures or abnormal financial behavior, that autonomous refund execution should be disabled or narrowed. The associated Actuator performs that change. A dashboard presenting the evidence is not itself the Controller.
 
