@@ -161,11 +161,11 @@ The missing layer is not another AI component. It is the engineering connection 
 
 ## 2. The Controlled Object Has Changed
 
-A controlled object is the thing whose behavior engineering seeks to keep within acceptable conditions. In software, that object is never only source code. It includes deployed components, data, configuration, dependencies, users, infrastructure, operational processes, and the effects the system can create.
+A controlled object is the thing whose behavior engineering seeks to keep within acceptable conditions. In software, that object is never only source code. It includes deployed components, data, configuration, dependencies, infrastructure, operational processes, relevant human roles and interactions within the declared system boundary, and the effects the system can create.
 
 Thinking Systems change this object by making one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment. The change can occur in the first model-enabled iteration; it does not require autonomous agents, dynamic orchestration, multiple models, memory, or a mature AI platform.
 
-A workflow may be fixed end to end and still contain the changed controlled object. Nothing about a predefined sequence of retrieval, interpretation, decision support, communication, authority checking, and bounded execution requires dynamic orchestration. Yet if interpretation, selection, consequential communication, or another **Consequential Runtime Responsibility** depends partly on Model Judgment, the mapping from situation to consequential behavior is no longer fully authored before runtime. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category. The category begins when a **Consequential Runtime Responsibility** first depends partly on probabilistic Model Judgment.
+Application topology does not determine the category. A Thinking System may contain a single model call inside an otherwise deterministic application, several model-enabled steps in a predefined workflow, dynamic routing, or agentic orchestration. Conversely, neither the presence of a probabilistic model nor any of these topologies is sufficient by itself. The category begins only when at least one **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment. Later additions such as memory, dynamic routing, cooperating agents, or broader autonomy may increase complexity and control demand, but they do not create the category.
 
 The distinction matters because engineering needs a stable name for the object being designed, released, operated, and controlled. In Linear Software, no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment; its **Consequential Runtime Responsibilities**, if any, are fulfilled entirely through explicitly encoded logic. In a Thinking System, part of the mapping from situation to consequential behavior is instead completed during runtime through Model Judgment. Deterministic software may surround that judgment, but it no longer exhaustively specifies the consequential responsibility that depends on it.
 
@@ -191,15 +191,15 @@ This is a narrow analytical comparison, not a judgment that broader AI-system co
 A useful design-contract abstraction for explicitly encoded deterministic responsibility is:
 
 ```text
-y = f(x)
+y = f(x, context, configuration, system state)
 ```
 
-This does not claim perfect physical repeatability. It means that the intended mapping is authored through explicit logic, rules, state transitions, or other inspectable mechanisms and can be tested against specified conditions.
+This does not claim perfect physical repeatability. It means that the intended mapping over the relevant input, context, configuration, and state is authored through explicit logic, rules, state transitions, or other inspectable mechanisms and can be tested against specified conditions.
 
-A model-mediated responsibility is better represented as selection from plausible outcomes under more state than the apparent request alone:
+Over the same classes of relevant conditions, a model-mediated responsibility is better represented as selection from plausible outcomes:
 
 ```text
-y ~ P(y | x, context, model configuration, system state)
+y ~ P(y | x, context, configuration, system state)
 ```
 
 For the same apparent request, plausible behavior may vary with context, model version, instructions, retrieval results, tools, configuration, prior interaction, data distribution, or operating conditions. The system does not merely execute a fully enumerated decision; part of the consequential mapping is selected or constructed at runtime.
@@ -270,11 +270,13 @@ That requires a mixed-system view. A model may interpret a support request while
 
 The bounded support-resolution system already contains this mixed structure. Retrieval, identity, permissions, tool access, and execution paths can remain deterministic while request interpretation, resolution selection, or response generation depends partly on Model Judgment. That is enough to change the controlled object even before the paper decides whether the resulting authority, evidence, Human Authority, fallback, and economics are adequate for production.
 
-Now follow the consequential responsibility rather than the model boundary. If Model Judgment can influence which remedy applies, what the customer is told, whether a refund is proposed, or whether an authorized tool changes downstream business state, then the engineering perimeter cannot stop at the model-serving component. The controlled object includes the path by which runtime judgment becomes a consequential outcome and the people, permissions, evidence, and corrective mechanisms needed to keep that path inside an authorized boundary.
+The support workflow can use predefined stages and permitted transitions: receive request → retrieve authorized context → interpret issue → select or recommend a resolution → prepare consequential communication → check authority → execute a bounded action or route to Human Authority. Its fixed orchestration topology neither creates nor prevents the category. The system crosses the boundary if a **Consequential Runtime Responsibility** within that workflow depends partly on Model Judgment.
 
-For a material case, that control perimeter may therefore become explicitly **socio-technical** and cross technical, delivery, architectural, human-authority, and organizational decision boundaries. In the running example, a bounded-refund authority may originate outside the runtime system, depend on architectural choices about where Model Judgment is permitted, require a concrete delivery realization, and ultimately constrain whether a runtime transaction can execute. The point here is the **reach of the perimeter**, not yet the ownership model inside it.
+Now follow the consequential responsibility rather than the model boundary. If Model Judgment can influence which remedy applies, what the customer is told, whether a refund is proposed, or whether an authorized tool changes downstream business state, then the engineering perimeter cannot stop at the model-serving component. That perimeter includes the path by which runtime judgment becomes a consequential outcome and connects it to the people, permissions, evidence, and corrective mechanisms needed to keep the path inside an authorized boundary.
 
-This does **not** mean every Thinking System needs four departments, four committees, or a maximal governance stack. The same people or platform may carry several responsibilities, and lower-consequence systems may implement the map lightly. The point is causal: once probabilistic Model Judgment participates in a consequential responsibility, the required control perimeter follows the authority and effects of the **whole controlled object**, potentially all the way to organizational decision rights.
+For a material case, that control perimeter may therefore become explicitly **socio-technical** and cross technical, delivery, architectural, human-authority, and organizational decision boundaries. In the running example, a bounded-refund authority may originate outside the runtime system, depend on architectural choices about where Model Judgment is permitted, require a concrete delivery realization, and ultimately constrain whether a runtime transaction can execute. The point here is the **reach of the perimeter**, not yet the ownership model inside it. Where authority, exposure, reversibility, or downstream effects make the control problem material, the engineering boundary therefore cannot be limited to the model, application, or runtime architecture alone; a socio-technical control architecture may have to be designed around the whole controlled object.
+
+This does **not** mean every Thinking System needs separate departments, committees, or a maximal governance stack. The same people or platform may carry several responsibilities, and lower-consequence systems may realize the required control perimeter lightly. The point is causal: once probabilistic Model Judgment participates in a consequential responsibility, the required control perimeter follows the authority and effects of the **whole controlled object**, potentially all the way to organizational decision rights.
 
 **What this adds to the case:** the same support system now exposes why consequential responsibility can require a socio-technical control perimeter that extends beyond the model and runtime component.
 
@@ -286,9 +288,9 @@ The new uncertainty also does not replace earlier uncertainty. It adds another l
 
 ```mermaid
 flowchart LR
-    R["Requirements and product assumptions<br/>uncertainty about what should be built"]
-    O["Environment and operation<br/>uncertainty about where and how it runs"]
-    J["Runtime Model Judgment<br/>uncertainty produced inside execution"]
+    R["Product / requirement uncertainty<br/>what should be built"]
+    O["Environment / operational uncertainty<br/>where and how it runs"]
+    J["Runtime-judgment uncertainty<br/>produced through Model Judgment inside execution"]
     S["Thinking System<br/>consequential behavior partly formed<br/>through probabilistic Model Judgment"]
 
     R --> S
