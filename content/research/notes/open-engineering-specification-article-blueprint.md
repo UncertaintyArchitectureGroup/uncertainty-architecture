@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-07-31
-updated: 2026-08-13
+updated: 2026-08-14
 language: en
 license: CC-BY-4.0
 draft: true
@@ -1001,7 +1001,7 @@ A simple low-consequence Thinking System may legitimately need few explicit cont
 
 **Primary Figure 2 — Two orthogonal models**
 
-Show two adjacent views. The **decision-ownership side must present the canonical four-horizon model defined in this section**: use the four horizon questions, the Runtime evidence node, the downward labels, and the three direct reassessment routes with the invalidated-decision-basis wording specified below. Keep the same decision-ownership model consistent between the standalone four-horizon figure and the orthogonal-model figure rather than creating a second competing representation.
+Show two adjacent views. The **decision-ownership side must present the canonical four-horizon model defined in this section**: use the four horizon questions, the shared reassessment-evidence node fed by Delivery realization evidence and Runtime operation evidence, the downward labels, and the three direct reassessment routes with the invalidated-decision-basis wording specified below. Keep the same decision-ownership model consistent between the standalone four-horizon figure and the orthogonal-model figure rather than creating a second competing representation.
 
 ```text
 Decision ownership — canonical four-horizon model
@@ -1009,11 +1009,13 @@ Organization — What may be authorized?
 → Project / Architecture — Is the controlled system viable and authorizable?
 → Delivery — Is this bounded realization complete and releasable?
 → Runtime — Does active operation remain inside the authorized boundary?
-→ Runtime evidence — behavior · outcomes · control state · changed assumptions
 
-Runtime evidence → Delivery: implementation / realization / evidence issue
-Runtime evidence → Project / Architecture: risk / authority / feasibility / capacity / economics invalidated
-Runtime evidence → Organization: authoritative source / decision right / shared capability changed
+Delivery realization evidence ─┐
+Runtime operation evidence ────┴→ Reassessment evidence — behavior · outcomes · control state · changed assumptions
+
+Reassessment evidence → Delivery: implementation / realization / evidence issue
+Reassessment evidence → Project / Architecture: risk / authority / feasibility / capacity / economics invalidated
+Reassessment evidence → Organization: authoritative source / decision right / shared capability changed
 
 Capability functions at every level — visually distinct control dimension
 Actuators and corrective action
@@ -1425,7 +1427,8 @@ The fix should improve the weakest control element and the evidence that verifie
 ```text
 Project Authorization + Constraints + evidence obligations
 → Definition of Ready
-→ delivery realization / implementation / evaluation / verification
+→ delivery implementation / realization
+→ evaluation / verification
 → Definition of Done
 → deployment-specific Release Gate
 → runtime deployment and evidence
@@ -2453,7 +2456,7 @@ If the final visual sequence is already dense, this may be a callout rather than
 The three primary architectural figures are:
 
 1. **Controlled-object shift** — two vertical top-to-bottom responsibility diagrams placed side by side; the Thinking-System column highlights only the Judgment Node(s) where probabilistic Model Judgment changes the responsibility structure. The figure is descriptive of category membership, not a target production control architecture.
-2. **Two orthogonal models** — the decision side reproduces the four-horizon decision model verbatim, including Runtime evidence and the same reassessment routes, while a visually distinct green capability-family side shows Actuators, Constraints and realizations, Sensors and evidence, and Controllers and decision authority as functions that may appear at every horizon. The green ordering is a reading aid, not an execution pipeline or one-to-one mapping. An undirected rail or equivalent structural grouping may connect the capability blocks to show one model without implying causal sequence.
+2. **Two orthogonal models** — the decision side reproduces the four-horizon decision model verbatim, including reassessment evidence from Delivery realization or Runtime operation and the same reassessment routes, while a visually distinct green capability-family side shows Actuators, Constraints and realizations, Sensors and evidence, and Controllers and decision authority as functions that may appear at every horizon. The green ordering is a reading aid, not an execution pipeline or one-to-one mapping. An undirected rail or equivalent structural grouping may connect the capability blocks to show one model without implying causal sequence.
 3. **Uncertainty Architecture operating map synthesis** — the controlled object, orthogonal capability and decision models, downward authority/concretization, upward evidence/reassessment, proportional implementation, external tools/standards as non-owned implementation/context surfaces, and UA open-specification boundary synthesized without introducing templates or platforms as mandatory nodes.
 
 Supporting figures currently expected:
@@ -2462,7 +2465,7 @@ Supporting figures currently expected:
 - Thinking Systems category boundary;
 - Model Judgment placement, with Model Judgment above and the three placement categories in one horizontal row beneath it;
 - connected uncertainty locations;
-- one controlled object across four decision horizons, with all four horizon blocks centered in one vertical line, one Runtime evidence node beneath them, and direct return routes to the level whose decision basis is invalidated; reassessment criteria belong on those routes rather than in a separate lane of component-like boxes;
+- one controlled object across four decision horizons, with all four horizon blocks centered in one vertical line, one reassessment-evidence node beneath them fed by Delivery realization evidence and Runtime operation evidence, and direct return routes to the level whose decision basis is invalidated; reassessment criteria belong on those routes rather than in a separate lane of component-like boxes;
 - closed feedback loop;
 - complete bounded control architecture;
 - **organizational control process across the lifecycle** — three converging inputs (external/organizational evidence; authoritative sources/shared capabilities/decision rights; lower-level evidence/authority requests) → legitimate organizational Controller → organizational Actuators changing permission/shared capability/exception context → updated boundaries, delegated rights, shared-capability obligations, evidence obligations, and reassessment triggers flowing to Project / Architecture. Project viability/authority requests and Runtime invalidation are examples inside the lower-level evidence lane, not duplicate routes. Do not render the three inputs as a sequential chain;
@@ -2737,8 +2740,8 @@ Every article-writing PR must satisfy all of the following:
 - [ ] The consequence of an incomplete cross-level control architecture is explicit, scoped to readiness for production release at the intended scope, and visually emphasized once as a central engineering thesis without duplicating the argument.
 - [ ] The controlled-object comparison places two vertical top-to-bottom responsibility diagrams side by side, highlights only the Judgment Node(s) where Model Judgment changes the responsibility structure, and remains descriptive of category membership rather than prescribing a target production control architecture.
 - [ ] The Model Judgment placement figure places Model Judgment above Input Interpretation, Decision Logic, and Output Mediation, with the three placements aligned horizontally and no implied mandatory sequence.
-- [ ] The four-horizon figure keeps Organization, Project / Architecture, Delivery, and Runtime in one centered vertical spine, preserves concise downward inheritance labels, places one Runtime evidence node beneath Runtime, and routes invalidating evidence directly back to the owning decision level with the invalidated basis on the return edge rather than in a separate reassessment subsystem.
-- [ ] The orthogonal-model figure reproduces the four-horizon decision model verbatim—including horizon questions, Runtime evidence, downward inheritance labels, and reassessment-route wording—and adds the capability-family dimension as a visually distinct green group with undirected structural grouping and no implied one-to-one mapping or execution pipeline.
+- [ ] The four-horizon figure keeps Organization, Project / Architecture, Delivery, and Runtime in one centered vertical spine, preserves concise downward inheritance labels, places one reassessment-evidence node beneath the horizons with inputs from Delivery realization evidence and Runtime operation evidence, and routes invalidating evidence directly back to the owning decision level with the invalidated basis on the return edge rather than in a separate reassessment subsystem.
+- [ ] The orthogonal-model figure reproduces the four-horizon decision model verbatim—including horizon questions, reassessment evidence from Delivery realization or Runtime operation, downward inheritance labels, and reassessment-route wording—and adds the capability-family dimension as a visually distinct green group with undirected structural grouping and no implied one-to-one mapping or execution pipeline.
 - [ ] Section 3 introduces the capability families in Actuator → Constraint/Realization → Sensor → Controller pedagogical order and explicitly distinguishes that reading sequence from execution order.
 - [ ] Section 3 defines Controller as a decision function that may combine legitimate human authority with automation and states that automation does not create undelegated authority.
 - [ ] Automation recommendations are conditional on evidence quality, failure behavior, reversibility, consequence, and delegated authority, and automated control paths are themselves observable and correctable.

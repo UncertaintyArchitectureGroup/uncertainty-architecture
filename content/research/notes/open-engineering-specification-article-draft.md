@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-08-04
-updated: 2026-08-13
+updated: 2026-08-14
 language: en
 license: CC-BY-4.0
 draft: true
@@ -507,7 +507,7 @@ flowchart LR
   P["Project / Architecture<br/> Is the controlled system viable and authorizable?"]
   D["Delivery<br/> Is this bounded realization complete and releasable?"]
   R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
-  E["Realization / operation evidence<br/> behavior · outcomes · control state · changed assumptions"]
+  E["Reassessment evidence<br/>realization or operation evidence that challenges a decision basis"]
 
   O -->|authoritative sources + delegated authority| P
   P -->|Project Constraint Architecture + Project Authorization| D
@@ -588,6 +588,8 @@ Organization becomes active when a new use of Model Judgment is proposed, when a
 
 Its inputs are not one “AI policy.” They are the existing sources that legitimately constrain the system: contracts, law, security and privacy obligations, customer commitments, prohibited uses, approved vendors and deployment modes, data and geography restrictions, incident obligations, shared identity/audit/rollback capabilities, exception rights, and evidence from projects or operations that may invalidate those assumptions.
 
+When authoritative sources or organizational Constraints conflict, Organization must determine—within legitimate authority—which source governs the relevant scope and who owns the resolution, or route the conflict to an authority that can do so. This paper does not propose a universal precedence rule.
+
 Organization owns **admissibility and reserved authority**. It may prohibit a use category, permit only bounded research, reserve certain decisions to Human Authority, require a shared capability, define who may grant an exception, or delegate a bounded decision to Project, Delivery, or Runtime. It does **not** own the project-specific conclusion that Model Judgment is necessary for one business outcome or that the resulting architecture is economically viable. Those are Project / Architecture decisions.
 
 For every material organizational boundary, downstream engineering needs an operable relationship:
@@ -658,6 +660,8 @@ Solution lifecycle economics may include model, platform, data, integration, and
 
 A hard prohibition or missing authority cannot be averaged away by expected ROI. Conversely, control cost that destroys the business case is not “governance overhead” to be hidden after launch. It is evidence that the proposed architecture may be non-viable.
 
+The Project / Architecture Controller is commonly socio-technical. Automated tooling may gather model or evaluator evidence, verify invariants, compare versions, estimate capacity and cost, detect missing dependencies, and route deviations where those mechanisms are sufficiently trustworthy and observable. Human decision owners remain accountable for business, architectural, residual-exposure, and authority judgments. The automation is itself part of the proposed control architecture: its failure modes, evidence obligations, and lifecycle cost must be included rather than assuming that automation automatically reduces control cost.
+
 ```mermaid
 flowchart TB
     ORG["Organizational admissibility<br/> authority · sources · shared capabilities"]
@@ -707,14 +711,16 @@ Delivery activates when Project authorizes bounded implementation or research, w
 
 Delivery receives a project baseline rather than a blank page: Project Authorization, Project Constraint Architecture, inherited Constraints and assumptions, Judgment Nodes, required realization properties, evidence obligations, shared-capability dependencies, delegated authority, reauthorization triggers, and a control-economics baseline. Its job is to turn those decisions into a **concrete bounded realization** and prove enough about that realization for the next decision.
 
+Whatever existing workflow carries these decisions, Delivery needs one canonical, versioned mapping from each material Constraint in the bounded delivery scope to its source/version, concrete realization, evidence, failure behavior, and active scope.
+
 The delivery team therefore needs to translate in both directions. Business statements such as unacceptable financial exposure or customer-trust risk must become scoped scenarios, Constraints, evidence needs, authority boundaries, and response paths. Technical evidence such as evaluator regression, version drift, override rate, fallback saturation, denied-action events, realization degradation, or Human Authority latency must be translated back into changed exposure and decision consequences.
 
 ```mermaid
 flowchart LR
     P["Project Authorization + Constraints<br/> evidence obligations · delegated authority"]
     R["Definition of Ready<br/> bounded work may begin"]
-    ENG["Delivery realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
-    VER["Implementation / evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]
+    ENG["Delivery implementation / realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
+    VER["Evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]
     BIZ["Exposure / decision consequences<br/> business interpretation of technical evidence"]
     D["Definition of Done<br/> implementation + evidence complete"]
     G["Release Gate<br/> accept · limit · condition · escalate · reject"]
@@ -722,8 +728,7 @@ flowchart LR
     LOCAL["Local response<br/> repair · rollback · narrow · re-release"]
     REAUTH["Project Reauthorization<br/> authorization basis invalidated"]
 
-    P --> D -.->|realization evidence| E
-    R -->|operation evidence| ENG --> VER --> D --> G --> RUN
+    P --> R --> ENG --> VER --> D --> G --> RUN
     VER -.->|technical evidence| BIZ
     BIZ -.->|changed exposure / decision consequence| ENG
     BIZ -.->|release consequence| G
