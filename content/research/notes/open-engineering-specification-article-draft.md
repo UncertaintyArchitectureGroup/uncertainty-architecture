@@ -507,7 +507,7 @@ flowchart LR
   P["Project / Architecture<br/> Is the controlled system viable and authorizable?"]
   D["Delivery<br/> Is this bounded realization complete and releasable?"]
   R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
-  E["Realization / operation evidence<br/> behavior · outcomes · control state · changed assumptions"]
+  E["Reassessment evidence<br/>realization or operation evidence that challenges a decision basis"]
 
   O -->|authoritative sources + delegated authority| P
   P -->|Project Constraint Architecture + Project Authorization| D
