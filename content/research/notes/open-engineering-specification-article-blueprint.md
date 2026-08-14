@@ -1010,8 +1010,9 @@ Organization — What may be authorized?
 → Delivery — Is this bounded realization complete and releasable?
 → Runtime — Does active operation remain inside the authorized boundary?
 
-Delivery → Reassessment evidence: realization evidence
-Runtime → Reassessment evidence: operation evidence
+Delivery realization evidence ─┐
+Runtime operation evidence ────┴→ Reassessment evidence — behavior · outcomes · control state · changed assumptions
+
 Reassessment evidence → Delivery: implementation / realization / evidence issue
 Reassessment evidence → Project / Architecture: risk / authority / feasibility / capacity / economics invalidated
 Reassessment evidence → Organization: authoritative source / decision right / shared capability changed
