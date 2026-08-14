@@ -371,7 +371,7 @@ The same boundary requires four distinct capability functions around it. They ar
 **Controller**
 - for a given refund attempt, interpret the relevant evidence against the applicable Constraint and determine the authorized response within its delegated decision boundary;
 - where substantive judgment is reserved to Human Authority, route the case and evidence to that authority rather than treating the Controller as the source of the authority itself;
-- for accumulated evidence, narrow or disable runtime operation only within delegated authority, or route the evidence for reassessment to the horizon that owns the challenged decision basis.
+- for accumulated evidence, narrow or disable runtime operation only within delegated authority, or route the evidence for reassessment to the authorized decision process that owns the challenged decision basis.
 
 **Actuators**
 - block, route, narrow, disable, roll back, fallback, or compensate within delegated authority.
@@ -390,7 +390,7 @@ An **Actuator** executes an authorized change in operation or in a Constraint Re
 
 In the support system, Actuators may block a transaction, route a case to Human Authority, narrow autonomous scope, switch to a manual path, disable refund execution, roll back a model or configuration, or compensate downstream state. A feature flag, API call, workflow step, deployment action, or human intervention is an Actuator only when it provides a real path from an authorized decision to changed operation.
 
-The distinction from decision authority matters. A Controller selects or initiates a bounded response within delegated authority; an Actuator executes the authorized change. One component may perform both, but treating them as the same concept hides who may decide, who may execute, what happens when execution fails, and what evidence proves that the requested change actually occurred. A Controller without an effective Actuator can diagnose but cannot correct.
+The distinction from decision authority matters. A Controller selects or authorizes a bounded response within delegated authority; an Actuator executes the authorized change. One component may perform both, but treating them as the same concept hides who may decide, who may execute, what happens when execution fails, and what evidence proves that the requested change actually occurred. A Controller without an effective Actuator can diagnose but cannot correct.
 
 ### Constraints and their realizations
 
@@ -414,7 +414,7 @@ Telemetry without a decision path is observation. Valuable observation is not ye
 
 ### Controllers and bounded decision functions
 
-A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or initiates action within delegated authority. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is the control function that turns evidence into a bounded response decision. Decision authority belongs to the applicable human, organizational, project, delivery, or runtime decision basis; the Controller exercises only the portion delegated to its function.
+A **Controller** compares or interprets evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then selects or authorizes action within delegated authority. What makes something a Controller is not intelligence, automation, a dashboard, or a job title. It is the control function that turns evidence into a bounded response decision. A Controller does not create its own authority: it may select or authorize action only within an applicable delegated boundary and must route reserved decisions to Human Authority or another authorized decision process.
 
 In the running example, one Controller function may determine that a transaction cannot proceed automatically and must be routed to Human Authority. Another may decide, from repeated realization failures or abnormal financial behavior, that autonomous refund execution should be disabled or narrowed. The associated Actuator performs that change. A dashboard presenting the evidence is not itself the Controller.
 
@@ -454,7 +454,7 @@ flowchart LR
 
 This is the difference between a measured system, a closed feedback loop, and a bounded controlled system. The last requires not merely feedback but an approved and credibly realized operating boundary, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and a path for reassessment when the basis of control changes. Here, a **complete control architecture** means materially complete for the authorized scope, not maximal instantiation of every possible control mechanism or every cell in the later operating map.
 
-What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. Governance becomes operational through this socio-technical control architecture across Organization, Project / Architecture, Delivery, and Runtime decision horizons. Until material boundaries are credibly realized, required evidence can reach and inform legitimate decision authority, effective Actuators exist, Human Authority and fallback are viable where needed, and invalidated assumptions can trigger reassessment, the system may be demonstrable or testable but is not ready for production at the intended scope.
+What is often called AI governance is therefore not a fifth capability family and not a post-hoc checkpoint. Governance becomes operational through this socio-technical control architecture across the expanded control perimeter. Until material boundaries are credibly realized, required evidence can reach and inform legitimate decision authority, effective Actuators exist, Human Authority and fallback are viable where needed, and invalidated assumptions can trigger reassessment, the system may be demonstrable or testable but is not ready for production at the intended scope.
 
 The capability anatomy explains **how** bounded control becomes possible. It does not yet determine **where** organizational authorization, project viability, delivery release, runtime correction, and reauthorization decisions belong. That is the role of the second model.
 
