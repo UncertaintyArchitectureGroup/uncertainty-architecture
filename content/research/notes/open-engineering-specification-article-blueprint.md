@@ -1427,7 +1427,8 @@ The fix should improve the weakest control element and the evidence that verifie
 ```text
 Project Authorization + Constraints + evidence obligations
 → Definition of Ready
-→ delivery realization / implementation / evaluation / verification
+→ delivery implementation / realization
+→ evaluation / verification
 → Definition of Done
 → deployment-specific Release Gate
 → runtime deployment and evidence
