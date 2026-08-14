@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-08-04
-updated: 2026-08-13
+updated: 2026-08-14
 language: en
 license: CC-BY-4.0
 draft: true
@@ -588,6 +588,8 @@ Organization becomes active when a new use of Model Judgment is proposed, when a
 
 Its inputs are not one “AI policy.” They are the existing sources that legitimately constrain the system: contracts, law, security and privacy obligations, customer commitments, prohibited uses, approved vendors and deployment modes, data and geography restrictions, incident obligations, shared identity/audit/rollback capabilities, exception rights, and evidence from projects or operations that may invalidate those assumptions.
 
+When authoritative sources or organizational Constraints conflict, Organization must resolve which source and decision right governs the relevant scope—or route the conflict to an authority that can legitimately do so. This paper does not propose a universal precedence rule.
+
 Organization owns **admissibility and reserved authority**. It may prohibit a use category, permit only bounded research, reserve certain decisions to Human Authority, require a shared capability, define who may grant an exception, or delegate a bounded decision to Project, Delivery, or Runtime. It does **not** own the project-specific conclusion that Model Judgment is necessary for one business outcome or that the resulting architecture is economically viable. Those are Project / Architecture decisions.
 
 For every material organizational boundary, downstream engineering needs an operable relationship:
@@ -658,6 +660,8 @@ Solution lifecycle economics may include model, platform, data, integration, and
 
 A hard prohibition or missing authority cannot be averaged away by expected ROI. Conversely, control cost that destroys the business case is not “governance overhead” to be hidden after launch. It is evidence that the proposed architecture may be non-viable.
 
+The Project / Architecture Controller is commonly socio-technical. Automated tooling may gather model or evaluator evidence, verify invariants, compare versions, estimate capacity and cost, detect missing dependencies, and route deviations where those mechanisms are sufficiently trustworthy and observable. Human decision owners remain accountable for business, architectural, residual-exposure, and authority judgments. The automation is itself part of the proposed control architecture: its failure modes, evidence obligations, and lifecycle cost must be included rather than assuming that automation automatically reduces control cost.
+
 ```mermaid
 flowchart TB
     ORG["Organizational admissibility<br/> authority · sources · shared capabilities"]
@@ -722,8 +726,7 @@ flowchart LR
     LOCAL["Local response<br/> repair · rollback · narrow · re-release"]
     REAUTH["Project Reauthorization<br/> authorization basis invalidated"]
 
-    P --> D -.->|realization evidence| E
-    R -->|operation evidence| ENG --> VER --> D --> G --> RUN
+    P --> R --> ENG --> VER --> D --> G --> RUN
     VER -.->|technical evidence| BIZ
     BIZ -.->|changed exposure / decision consequence| ENG
     BIZ -.->|release consequence| G
