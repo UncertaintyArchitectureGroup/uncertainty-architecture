@@ -711,7 +711,7 @@ Delivery activates when Project authorizes bounded implementation or research, w
 
 Delivery receives a project baseline rather than a blank page: Project Authorization, Project Constraint Architecture, inherited Constraints and assumptions, Judgment Nodes, required realization properties, evidence obligations, shared-capability dependencies, delegated authority, reauthorization triggers, and a control-economics baseline. Its job is to turn those decisions into a **concrete bounded realization** and prove enough about that realization for the next decision.
 
-Whatever existing workflow carries these decisions, Delivery needs one canonical, versioned mapping from each material inherited Constraint to its concrete realization, evidence, failure behavior, and active scope.
+Whatever existing workflow carries these decisions, Delivery needs one canonical, versioned mapping from each material Constraint in the bounded delivery scope to its source/version, concrete realization, evidence, failure behavior, and active scope.
 
 The delivery team therefore needs to translate in both directions. Business statements such as unacceptable financial exposure or customer-trust risk must become scoped scenarios, Constraints, evidence needs, authority boundaries, and response paths. Technical evidence such as evaluator regression, version drift, override rate, fallback saturation, denied-action events, realization degradation, or Human Authority latency must be translated back into changed exposure and decision consequences.
 
