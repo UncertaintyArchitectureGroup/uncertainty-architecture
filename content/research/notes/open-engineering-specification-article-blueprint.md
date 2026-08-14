@@ -747,32 +747,34 @@ The reader should leave able to explain:
 
 ### 5.2 The Controlled Object Has Changed
 
-**Purpose:** Explain the doctrinal reason the rest of the engineering model changes and derive the connected decision horizons from the controlled-object shift.
+**Purpose:** Explain why probabilistic Model Judgment changes the controlled object and why consequential responsibility can require an expanded socio-technical control perimeter around that object, without yet allocating that perimeter to the canonical decision horizons.
 
-**Core claim:** A Thinking System produces part of its consequential uncertainty inside the engineered object because runtime behavior depends partly on probabilistic Model Judgment. Once that happens, organizational, project / architecture, delivery, and runtime decisions become connected manifestations of one control problem.
+**Core claim:** A Thinking System produces part of its consequential uncertainty inside the engineered object because runtime behavior depends partly on probabilistic Model Judgment. Once that happens, the engineering perimeter must follow the authority, evidence, effects, realizations, and corrective paths of the **whole controlled object** rather than stop at the model invocation or runtime component.
 
 **Required content:**
 
-- Explain that **Thinking System** names the changed engineering object, not a maturity stage, architecture style, synonym for an agentic system, or replacement for the broader term **AI system**.
+- Begin Section 2 by defining the **controlled object** as the thing whose behavior engineering seeks to keep within acceptable conditions. State that in software this object is not only source code; it includes deployed components, data, configuration, dependencies, infrastructure, operational processes, relevant human roles and interactions within the declared system boundary, and the downstream effects the system can create.
+- Treat the article-level exclusions already established in the Abstract and Section 5.1—**Thinking System** is not a maturity stage, architecture style, or synonym for an agentic system—as inherited framing rather than mandatory verbatim repetition. In this section, explain the need for a distinct name through the controlled-object boundary and state explicitly that **Thinking System** is not a replacement for the broader term **AI system**.
 - Explain why the broader category is insufficient for this paper: ISO/IEC TR 29119-11 defines an AI-based system by the presence of at least one AI component, while this paper's narrower boundary asks whether a **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
 - Include a compact publication-facing comparison that keeps neighboring labels distinct rather than joining them as synonyms: at minimum separate ISO/IEC **AI-based system**, NIST **AI system**, **LLM application**, **agentic system**, and **autonomous system**. Present the table as an analytical comparison, not universal definitions of those neighboring labels.
 - State explicitly that this early ISO/NIST comparison has one narrow purpose: **category boundary**. It must not imply that NIST AI RMF, ISO standards, or broader AI-system concepts are technically shallow, operationally incomplete, or competitors that Section 5.2 is evaluating. Reserve capability/authority/lifecycle comparison of NIST, ISO/IEC 42001, regulation, governance platforms, and tooling for Section 5.6.
-- State that the category can begin in the first simple model-enabled iteration when an LLM or other probabilistic model performs one or more **Consequential Runtime Responsibilities**, even inside a predefined workflow.
-- Use the same bounded customer-support-resolution system to demonstrate a fixed sequence such as receive request → retrieve authorized context → interpret issue → select or recommend resolution → prepare consequential communication → check authority → execute a bounded action or route to Human Authority. The point is that deterministic orchestration does not remove delegated Model Judgment.
+- State explicitly that application topology does not determine the category: a single model call, a predefined workflow, dynamic routing, or agentic orchestration can all host a Thinking System, but neither the presence of a probabilistic model nor any of these topologies is sufficient by itself. The category begins only when at least one **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment.
+- Use the same bounded customer-support-resolution system to demonstrate predefined stages and permitted transitions such as receive request → retrieve authorized context → interpret issue → select or recommend resolution → prepare consequential communication → check authority → execute a bounded action or route to Human Authority. Keep that concrete sequence inside the dedicated **Running Example** block rather than generic prose. The point is that fixed orchestration topology neither creates nor prevents the category; the system crosses the boundary when a **Consequential Runtime Responsibility** within that workflow depends partly on Model Judgment.
 - Explain that later tools, memory, dynamic routing, multiple models, cooperating agents, or greater autonomy increase complexity and control demand but do not create the category.
 - Explain why the object needs a distinct name using the canonical category boundary: in Linear Software, no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment; its **Consequential Runtime Responsibilities**, if any, are fulfilled entirely through explicitly encoded logic. In a Thinking System, part of a consequential responsibility depends on runtime Model Judgment. Do not imply perfect physical repeatability or exhaustive specification of every system behavior.
 - State explicitly that the **whole Thinking System—not the model invocation—is the controlled object**. Keep this as a framework-neutral deduction; do not use UA as the premise that validates the boundary.
+- Keep the controlled process conceptually distinct from the control architecture around it: the engineering perimeter connects the consequential path to people, permissions, evidence, decision authority, and corrective mechanisms; do not redefine those control functions as part of the controlled object merely because they operate around it.
 - Keep category identity separate from control adequacy: Constraints, evidence, decision authority, corrective mechanisms, and cross-level control architecture determine governability and production readiness rather than whether the object belongs to the category.
-- Use determinism as a design-contract distinction, not a claim of perfect physical repeatability:
+- Use determinism as a design-contract distinction over the relevant input, context, configuration, and state, not as a claim of perfect physical repeatability:
 
   ```text
-  y = f(x)
+  y = f(x, context, configuration, system state)
   ```
 
-- Describe model-mediated responsibility as selection from plausible outcomes under input, context, model configuration, state, and operating conditions:
+- Compare like with like: describe model-mediated responsibility over the same classes of relevant conditions as selection from plausible outcomes:
 
   ```text
-  y ~ P(y | x, context, model configuration, system state)
+  y ~ P(y | x, context, configuration, system state)
   ```
 
 - Explain Model Judgment through interpretation, classification, ranking, planning, generation, routing, or action selection.
@@ -781,12 +783,8 @@ The reader should leave able to explain:
 - Distinguish product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty.
 - Preserve the mixed-system claim: deterministic responsibilities may remain before, between, and after Judgment Nodes.
 - Explain why model quality alone cannot define prohibited states, allocate residual-risk authority, restrict reachable actions, execute correction, or determine Project Reauthorization.
-- Explain why the changed object creates connected control questions across organizational context, project viability, architecture, delivery realization and release, and runtime reassessment.
-- Replace the dense one-paragraph summary of those horizons with four short publication-facing paragraphs using bold labels for **Organizational control context**, **Project / architecture control and viability**, **Delivery realization and release**, and **Runtime operation and reassessment**.
-- Keep project viability and control-architecture design in the same project / architecture paragraph because they belong to one decision horizon; do not create a fifth level or a separate architecture horizon.
-- Use that labeled passage as a forward bridge to the later sections rather than as a complete treatment of the levels.
-- Preserve that levels use different evidence, participants, authority, time horizons, and actions and are not interchangeable.
-- State that an operational Controller cannot rewrite an organizational prohibition; a Release Gate cannot expand project authority; Project Authorization cannot claim a Hard Constraint without a complete realized path; and organizational policy is not an operable boundary merely because it is authoritative.
+- Explain why the changed object creates connected control questions that can cross technical, delivery, architectural, human-authority, and organizational decision boundaries. Show the **reach of the control perimeter** without introducing the canonical `Organization → Project / Architecture → Delivery → Runtime` sequence, horizon ownership, or detailed reassessment routing; those belong to Section 5.4.
+- Make explicit that where authority, exposure, reversibility, or downstream effects make the control problem material, a Thinking System may require a socio-technical control architecture designed around the **whole controlled object**, rather than treating governance as an attachment to the model, application, or runtime architecture. Preserve proportionality: this is a perimeter claim, not a requirement for separate departments, committees, or a maximal stack.
 - Introduce the recurring control questions:
 
   ```text
@@ -799,6 +797,7 @@ The reader should leave able to explain:
   → When does new evidence require reassessment at this or an earlier level?
   ```
 
+- State explicitly that these recurring questions expose the control structure that reappears across the expanded perimeter; they do **not** yet allocate those questions to canonical decision horizons.
 - Explain that the transfer from control theory is structural, not a claim that organizations, projects, delivery teams, and runtime services are equivalent to one mathematical Controller or reducible to one scalar error signal.
 - State that existing disciplines remain necessary and are connected rather than replaced.
 
@@ -838,12 +837,9 @@ The figure must not imply that:
 **Supporting figures:**
 
 - functional placement of Model Judgment, with **Model Judgment** above and **Input Interpretation**, **Decision Logic**, and **Output Mediation** aligned horizontally beneath it;
-- connected locations of requirement, operational, and runtime-judgment uncertainty;
-- one controlled object viewed across four decision horizons, rendered as one centered vertical decision-horizon spine in the canonical order Organization → Project / Architecture → Delivery → Runtime. A single Runtime evidence node sits beneath Runtime. Direct dotted return routes lead from that evidence to Delivery, Project / Architecture, or Organization, with the invalidated decision basis written on the route itself. Reassessment criteria are routing conditions, not standalone architectural components or a separate subsystem.
+- connected locations of **product / requirement uncertainty**, **environment / operational uncertainty**, and **runtime-judgment uncertainty**.
 
-The Model Judgment placement figure is a taxonomy, not a sequence. It must not connect the three placement categories laterally in a way that implies a mandatory pipeline.
-
-For the four-horizon figure, keep each horizon block focused on the decision it owns rather than listing every responsibility. Downward edges should show authority and Constraints becoming more concrete. The caption must state that the figure shows decision ownership and reassessment routing, not a four-stage delivery workflow.
+The Model Judgment placement figure is a taxonomy, not a sequence. It must not connect the three placement categories laterally in a way that implies a mandatory pipeline. The canonical four-horizon decision-ownership figure belongs to Section 5.4, not Section 5.2.
 
 **Repository anchors:**
 
@@ -865,13 +861,13 @@ For the four-horizon figure, keep each horizon block focused on the decision it 
 - Treat the deterministic and model-mediated equations as design-contract abstractions, not claims of perfect repeatability or complete probabilistic specification.
 - Define Linear Software using the canonical responsibility boundary: no Consequential Runtime Responsibility depends partly on probabilistic Model Judgment; consequential responsibilities, if any, are fulfilled entirely through explicitly encoded logic.
 - Use the customer-support running example to show the mixed deterministic / Model-Judgment structure, but defer refund thresholds, Hard/Soft realization details, and full control-loop mechanics to later sections.
-- Use the same support-resolution system, rather than a separate project-planning scenario, to demonstrate that a fixed predefined workflow can already cross the Thinking-System category boundary.
+- Use the same support-resolution system, rather than a separate project-planning scenario, to demonstrate inside the dedicated **Running Example** block that the workflow may remain predefined while the category boundary still depends only on whether a **Consequential Runtime Responsibility** depends partly on Model Judgment.
 - Keep Figure 3 descriptive of the category boundary rather than a UA target architecture: highlight the Judgment Node structural change only and defer validation, authority, evidence, and corrective mechanisms to the bounded-control deduction.
 - Frame Model Judgment around situations whose relevant interpretation or decision space cannot be exhaustively specified in advance; useful variance may be part of that capability but is not the objective itself.
-- Keep the four decision-horizon paragraphs concise and ownership-focused. Project viability and architecture remain one horizon; the passage is a bridge, not the full operating-model treatment.
-- Keep Figure 6 focused on decision ownership and invalidated decision-basis routing; use `Project Authorization` consistently and do not let the diagram read as a delivery workflow.
+- Keep Section 5.2 focused on the **reach of the expanded socio-technical control perimeter**. It may foreshadow technical, delivery, architectural, human-authority, and organizational decision boundaries, but it must not teach the canonical horizon sequence or ownership model before Section 5.4.
+- Reserve the standalone decision-horizon figure, downward inheritance, invalidated-decision-basis routing, and explicit `Organization → Project / Architecture → Delivery → Runtime` ownership semantics for Section 5.4.
 
-**Working word budget:** 950–1,300
+**Working word budget:** 2,050–2,550  <!-- reconciled against current Section 2 (~2,350 words) -->
 
 ---
 
@@ -1001,14 +997,14 @@ A simple low-consequence Thinking System may legitimately need few explicit cont
 - State that production release at the intended scope requires the relevant capability functions and decisions to be connected across all four levels, **at a depth proportionate to the actual consequence and control problem**.
 - Preserve the distinction that combining responsibilities in one person does not collapse the decisions.
 - Explain that the same organization may implement Controllers at different levels using different mixtures of people and automation.
-- Reuse the bold-labeled forward bridge from Section 5.2 as orientation, but do not repeat its full prose. The detailed treatment here is the canonical explanation of the four levels.
+- Use Section 5.2's expanded-perimeter conclusion and recurring control questions as orientation. Introduce the canonical four decision levels here for the first time; Section 5.2 intentionally does not define their labels, ownership, or reassessment semantics.
 
 **Primary Figure 2 — Two orthogonal models**
 
-Show two adjacent views. The **decision-ownership side must reproduce the four-horizon supporting figure from Section 5.2 verbatim**, not paraphrase it: use the same four horizon questions, the same Runtime evidence node, the same downward labels, and the same three direct reassessment routes with the same invalidated-decision-basis wording. This makes the earlier four-horizon figure a literal submodel of the orthogonal-model figure rather than a second competing representation.
+Show two adjacent views. The **decision-ownership side must present the canonical four-horizon model defined in this section**: use the four horizon questions, the Runtime evidence node, the downward labels, and the three direct reassessment routes with the invalidated-decision-basis wording specified below. Keep the same decision-ownership model consistent between the standalone four-horizon figure and the orthogonal-model figure rather than creating a second competing representation.
 
 ```text
-Decision ownership — verbatim reuse of the four-horizon model
+Decision ownership — canonical four-horizon model
 Organization — What may be authorized?
 → Project / Architecture — Is the controlled system viable and authorizable?
 → Delivery — Is this bounded realization complete and releasable?
@@ -1026,7 +1022,7 @@ Sensors and evidence
 Controllers and decision authority
 ```
 
-Use one restrained green semantic class for the capability-family side so the additional control-theory dimension is immediately distinguishable from the reused decision-horizon model. The green treatment identifies the orthogonal capability model, not a maturity state, safety claim, or execution sequence. The capability-family ordering is a reading aid consistent with Section 5.3; it must not be rendered as a directional pipeline. Use a neutral undirected structural rail or equivalent grouping to show that the four capability families form one control-capability model without implying causal sequence. The figure must show that all four capability families may appear at every decision horizon and must not imply one-to-one mapping, four mandatory services, or a one-way waterfall.
+Use one restrained green semantic class for the capability-family side so the additional control-theory dimension is immediately distinguishable from the decision-horizon model. The green treatment identifies the orthogonal capability model, not a maturity state, safety claim, or execution sequence. The capability-family ordering is a reading aid consistent with Section 5.3; it must not be rendered as a directional pipeline. Use a neutral undirected structural rail or equivalent grouping to show that the four capability families form one control-capability model without implying causal sequence. The figure must show that all four capability families may appear at every decision horizon and must not imply one-to-one mapping, four mandatory services, or a one-way waterfall.
 
 #### Organizational authorization and control context
 
@@ -2747,7 +2743,7 @@ Every article-writing PR must satisfy all of the following:
 - [ ] Section 3 defines Controller as a decision function that may combine legitimate human authority with automation and states that automation does not create undelegated authority.
 - [ ] Automation recommendations are conditional on evidence quality, failure behavior, reversibility, consequence, and delegated authority, and automated control paths are themselves observable and correctable.
 - [ ] Hard Constraint discussion prefers deterministic prevention where feasible but does not claim Hard strength when the complete scoped realized path remains probabilistic.
-- [ ] The decision-horizon bridge uses short bold-labeled paragraphs and keeps control-architecture design inside the project / architecture level.
+- [ ] Section 2 closes with the reach of the expanded control perimeter and recurring control questions without introducing canonical horizon labels; Section 4 introduces the four decision horizons and keeps control-architecture design inside the project / architecture level.
 - [ ] Section 2's NIST/ISO neighboring-label comparison remains scoped to category definition and does not pre-judge the later landscape analysis.
 - [ ] Section 4 treats all four levels as operating processes through time, not only static ownership descriptions.
 - [ ] The article states explicitly that the complete map is a diagnostic reference for complex/high-consequence systems and that simpler systems may use proportionate subsets after the full map has been inspected for hidden complexity.
