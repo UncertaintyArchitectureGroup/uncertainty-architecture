@@ -588,7 +588,7 @@ Organization becomes active when a new use of Model Judgment is proposed, when a
 
 Its inputs are not one “AI policy.” They are the existing sources that legitimately constrain the system: contracts, law, security and privacy obligations, customer commitments, prohibited uses, approved vendors and deployment modes, data and geography restrictions, incident obligations, shared identity/audit/rollback capabilities, exception rights, and evidence from projects or operations that may invalidate those assumptions.
 
-When authoritative sources or organizational Constraints conflict, Organization must resolve which source and decision right governs the relevant scope—or route the conflict to an authority that can legitimately do so. This paper does not propose a universal precedence rule.
+When authoritative sources or organizational Constraints conflict, Organization must determine—within legitimate authority—which source governs the relevant scope and who owns the resolution, or route the conflict to an authority that can do so. This paper does not propose a universal precedence rule.
 
 Organization owns **admissibility and reserved authority**. It may prohibit a use category, permit only bounded research, reserve certain decisions to Human Authority, require a shared capability, define who may grant an exception, or delegate a bounded decision to Project, Delivery, or Runtime. It does **not** own the project-specific conclusion that Model Judgment is necessary for one business outcome or that the resulting architecture is economically viable. Those are Project / Architecture decisions.
 
@@ -711,14 +711,16 @@ Delivery activates when Project authorizes bounded implementation or research, w
 
 Delivery receives a project baseline rather than a blank page: Project Authorization, Project Constraint Architecture, inherited Constraints and assumptions, Judgment Nodes, required realization properties, evidence obligations, shared-capability dependencies, delegated authority, reauthorization triggers, and a control-economics baseline. Its job is to turn those decisions into a **concrete bounded realization** and prove enough about that realization for the next decision.
 
+Whatever existing workflow carries these decisions, Delivery needs one canonical, versioned mapping from each material inherited Constraint to its concrete realization, evidence, failure behavior, and active scope.
+
 The delivery team therefore needs to translate in both directions. Business statements such as unacceptable financial exposure or customer-trust risk must become scoped scenarios, Constraints, evidence needs, authority boundaries, and response paths. Technical evidence such as evaluator regression, version drift, override rate, fallback saturation, denied-action events, realization degradation, or Human Authority latency must be translated back into changed exposure and decision consequences.
 
 ```mermaid
 flowchart LR
     P["Project Authorization + Constraints<br/> evidence obligations · delegated authority"]
     R["Definition of Ready<br/> bounded work may begin"]
-    ENG["Delivery realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
-    VER["Implementation / evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]
+    ENG["Delivery implementation / realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
+    VER["Evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]
     BIZ["Exposure / decision consequences<br/> business interpretation of technical evidence"]
     D["Definition of Done<br/> implementation + evidence complete"]
     G["Release Gate<br/> accept · limit · condition · escalate · reject"]
