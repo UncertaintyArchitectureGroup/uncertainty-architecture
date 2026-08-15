@@ -633,7 +633,7 @@ Organizational Actuators operate on the **business and authorization context**: 
 flowchart LR
     EXT["External / Organizational evidence<br/> legal · contractual · audit · vendor<br/> cross-project incidents · shared-capability health"]
     AUTH["Authoritative context + business intent<br/> prohibitions · permissions · reserved rights<br/> shared capabilities · value assumptions"]
-    LOW["Project findings / Organizationally relevant escalated evidence<br/> research proposal · Architectural Veto · economics<br/> Model Judgment necessity · authority-change requests"]
+    LOW["Project findings / Organizationally relevant escalated evidence<br/> research proposal · Architectural Veto · economics<br/> Model-Judgment-necessity finding requiring Organizational basis / continuation action · authority-change requests"]
     C["Organizational Controller<br/> legitimate business / authority owner(s)"]
     D["Organizational decision<br/> assessment eligibility · bounded research · proceed<br/> reshape · defer · do not proceed"]
     A["Organizational Actuators<br/> change permission · price / scope / outcome / funding<br/> shared capability · exception · narrow · suspend"]
