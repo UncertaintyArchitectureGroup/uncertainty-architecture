@@ -16,7 +16,7 @@ tags:
   - ua/topic/provenance
   - ua/topic/constraints
 created: 2026-07-24
-updated: 2026-08-10
+updated: 2026-08-15
 license: CC-BY-4.0
 ---
 
@@ -71,6 +71,7 @@ Lifecycle and operating-model concerns may be represented across these areas rat
 | A model-mediated responsibility samples from a space of plausible outcomes; uncertainty is therefore produced inside the controlled system. | *Beyond Embeddings* plus the presentation opening and mathematical framing | Doctrine | Active | [`00-doctrine/uncertainty-in-the-controlled-object.md`](../../00-doctrine/uncertainty-in-the-controlled-object.md) defines the controlled-object shift and need for an additional control lifecycle. |
 | Product uncertainty, operational uncertainty, and runtime-judgment uncertainty require related but different responses. | AI delivery lifecycle note, presentation process-shift material, and current doctrine | Doctrine | Active | UA complements product discovery, iterative delivery, Agile, DevOps, QA, security, and incident response; it does not replace them. |
 | Feature delivery cannot answer whether a whole Thinking System project has a credible and viable control architecture. | *Beyond Embeddings*, lifecycle questions, and worked-review application | Doctrine, pattern, and artifact | Active | Project authorization is distinct from delivery release. The project review owns risk scenarios, Constraint architecture, capabilities, evidence, Human Authority, capacity, economics, authorization, inheritance, and reauthorization. |
+| A project-level engineering viability conclusion and the organizational business decision to pursue an initiative may need to remain distinct decision semantics; bounded research also needs an explicit technical authorization scope even when production viability is not yet established. | 2026-08-15 article blueprint/manuscript lifecycle synthesis | Doctrine, lifecycle, pattern, and artifact | Needs Resolution | Current status-bearing framework material places project viability, authorization, deferral, and No-Go together at Project level. The article is testing a sharper handshake: Project owns AI necessity and the viability conclusion; Organization owns the business proceed/reshape/defer/do-not-proceed decision; Project Authorization is a scoped technical baseline and may be **research-only** or **production-capable**. This remains research until deliberate framework review reconciles or rejects it. |
 | Some AI paths should not be built when critical violations cannot be bounded, detected, or contained, required authority is unavailable, or the control perimeter destroys the business case. | *Beyond Embeddings* and presentation architectural-veto material | Doctrine and pattern | Active | Architectural Veto and `AI path rejected / No-Go` are valid outcomes. No universal score or expected-value threshold is adopted. |
 | Project risk should be translated into Constraints and control requirements rather than compressed into one score. | Cross-source synthesis | Pattern and artifact | Active | The project review uses scenario-based mapping across obligations, authority, consequence, detectability, latency, reversibility, propagation, required Constraints and capabilities, and residual decision effect. |
 | Human review is control only when the reviewer has evidence, competence, time, capacity, independence, and real authority. | Control-theory operating-model argument and project/delivery synthesis | Pattern and process | Active | Project and delivery reviews test Human Authority and capacity explicitly. A nominal HITL gateway is insufficient. |
@@ -100,6 +101,7 @@ Lifecycle and operating-model concerns may be represented across these areas rat
 | Project operational records | Separate risk register, Constraint Register, control catalog, financial model, gate record, and responsibility matrix | One living Project Control Architecture and Viability Review | Active | The default SMB path uses one project artifact and linked evidence. |
 | UA relative to delivery methods | AI shift may be read as replacing Scrum, Agile, DevOps, or SDLC | UA adds a control lifecycle for model-mediated behavior | Active | Distinguish the control problem by where uncertainty is produced. |
 | One AI lifecycle | Discovery → engineering → evaluation → production | Organizational context → project authorization → delivery realization and release → runtime control and reassessment | Active | Preserve early lifecycle material as research; use the nested decision model in current framework content. |
+| Project viability conclusion versus Organizational Business Authorization | Current status-bearing Project pattern combines project viability, authorization, deferral, and No-Go inside the Project decision surface | Article research hypothesis separates **Project viability conclusion → Organizational Business Authorization → scoped Project Authorization**, with Project Authorization allowed to be research-only before production viability is established or production-capable after a positive business decision on a viable basis | Needs Resolution | Do not change doctrine/pattern ownership by implication. Validate the distinction, then deliberately accept, narrow, reject, or otherwise reconcile it through framework review before status-bearing sources change. |
 | Every release is an experiment | Production release described as experimentation | Material release contains a controlled evidence-generating component within an approved Requirement and Constraint baseline | Active | Avoid language that excuses uncontrolled experimentation or weakens production obligations. |
 
 ## Remaining topics for synthesis and validation
@@ -115,6 +117,7 @@ Lifecycle and operating-model concerns may be represented across these areas rat
 - validation through a two-level worked application;
 - local reassessment versus project reauthorization in real incidents;
 - organizational control context without creating a large governance layer;
+- Project viability / Organizational Business Authorization / research-only versus production-capable Project Authorization reconciliation;
 - real-team usability and decision quality.
 
 ## Update rule
