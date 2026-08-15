@@ -1,4 +1,4 @@
-name: Temporary PR78 blueprint edit
+name: Temporary PR78 blueprint audit
 
 on:
   push:
@@ -6,101 +6,31 @@ on:
       - agent/replan-sections-5-8
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  edit-blueprint:
-    if: github.actor != 'github-actions[bot]'
+  audit-blueprint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: agent/replan-sections-5-8
-          fetch-depth: 0
-      - name: Apply ownership correction to blueprint
+      - name: Audit ownership wording
         shell: python
         run: |
           from pathlib import Path
-
-          path = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
-          text = path.read_text()
-
-          def rep(old, new, required=True):
-              global text
-              count = text.count(old)
-              print(f'replace count={count}: {old[:90]}')
-              if required and count == 0:
-                  raise SystemExit(f'Missing required source text: {old[:140]!r}')
-              text = text.replace(old, new)
-
-          rep(
-          "→ when Project concludes that a deterministic/manual or otherwise simpler alternative is preferable, that conclusion—including the candidate category result—returns to Organization; if Organization selects that path, Project confirms the category for the selected design, which exits the Thinking-System lifecycle only when no Consequential Runtime Responsibility remains materially dependent on Model Judgment; a narrower model-assisted design remains inside the category when the dependency persists",
-          "→ when Project concludes that a deterministic/manual or otherwise simpler architecture can satisfy the same Organizationally authorized business outcome and stay within the standing authority/business basis, Project / Architecture owns that technical design choice and confirms the category of the selected design; the design exits the Thinking-System lifecycle only when no Consequential Runtime Responsibility remains materially dependent on Model Judgment; if obtaining the desired result requires changing the business outcome, value hypothesis, authority, investment basis, or another Organizationally owned premise, Project returns that changed-basis requirement and its engineering recommendation to Organization before reassessment"
-          )
-          rep(
-          "→ Organization owns the decision to select a simpler business/design path, issue a specific Bounded Research Authorization, proceed / continue on a viable production basis, reshape, defer, or do not proceed after receiving the Project viability conclusion; it may change price, target segment, service promise, scope, business outcome, funding, or investment assumptions and return the changed basis to Project / Architecture",
-          "→ Organization owns the business outcome and authoritative/investment basis, the decision to issue a specific Bounded Research Authorization, and the decision to proceed / continue, reshape the business basis, defer, or do not proceed after receiving the Project viability conclusion; Project / Architecture owns technical/design selection—including a deterministic, manual, narrower model-assisted, or broader Thinking-System architecture—when the selected design still satisfies that standing Organizational basis; Organization is reactivated when the engineering conclusion requires a changed outcome, authority, price, target segment, service promise, funding, investment assumption, or another premise it owns"
-          )
-          rep(
-          "the Project-viability / Organizational-business-and-research-authorization handshake, the meaning of Architectural Veto, **Project Authorization as a scoped technical baseline with research-only and production-capable forms**, the distinction between initial assessment eligibility and a later specific Bounded Research Authorization, explicit category exit only after Organization selects a simpler path and Project confirms that the selected design leaves no Consequential Runtime Responsibility dependent on Model Judgment,",
-          "the Project-viability / Organizational-business-and-research-authorization handshake, the meaning of Architectural Veto, **Project Authorization as a scoped technical baseline with research-only and production-capable forms**, the distinction between initial assessment eligibility and a later specific Bounded Research Authorization, Project-owned technical/design selection within the standing Organizational business/authority basis, and explicit category exit when Project selects and confirms a simpler design that still satisfies that basis and leaves no Consequential Runtime Responsibility dependent on Model Judgment,"
-          )
-          rep(
-          "Project / Architecture owns the analysis and the resulting **viability conclusion**, not the organization's business/design choice.",
-          "Project / Architecture owns the analysis, technical/design selection within the standing Organizational business/authority basis, and the resulting **viability conclusion**. Organization owns the business outcome, authoritative and investment basis, and continuation/research decisions; it is not an architecture-selection layer for alternatives that satisfy the same standing outcome and boundaries."
-          )
-          rep(
-          "For a simpler candidate, Project may determine the candidate category during analysis, but the lifecycle transition follows the Organizational choice. The Project viability conclusion returns `Model Judgment unnecessary / simpler alternative preferred` plus the candidate category result to Organization. If Organization selects that deterministic/manual alternative and no Consequential Runtime Responsibility remains materially dependent on Model Judgment, Project confirms the selected design's category and it **exits this Thinking-System lifecycle**. If Organization changes the desired outcome, Project reassesses the new proposal. If the selected narrower model-assisted design still materially informs a consequential responsibility, it remains a Thinking System and the map is reapplied to that narrower candidate.",
-          "For a simpler candidate, Project determines whether it can satisfy the same Organizationally authorized outcome and remain inside the standing authority/business basis. If yes, Project / Architecture may select the deterministic/manual/narrower technical design as an architecture decision and immediately confirm the selected design's category. If no Consequential Runtime Responsibility remains materially dependent on Model Judgment, the selected design **exits this Thinking-System lifecycle**; if a narrower model-assisted design still materially informs a consequential responsibility, it remains a Thinking System and the map is reapplied to that narrower candidate. Organization is reactivated only when the engineering recommendation requires changing an Organizationally owned premise—such as the intended outcome, authority, price, segment, service promise, funding, or investment basis—or when the business decision is to defer or stop."
-          )
-          rep(
-          "Do not predetermine that variant C wins. A legitimate Project conclusion may prefer variant A or B, narrower variant C, require bounded research/redesign, identify economic non-viability, or issue Architectural Veto. Organization owns selection of the business/design path after receiving that conclusion.",
-          "Do not predetermine that variant C wins. Project / Architecture may select variant A or B, a narrower variant C, or another architecture when it satisfies the same standing Organizational outcome and authority/business basis. Project may also require bounded research/redesign, identify economic non-viability, or issue Architectural Veto. Organization owns changes to the business outcome/basis and the research/proceed/reshape/defer/stop decision; it does not re-decide an architecture choice merely because the simpler solution is not AI-based."
-          )
-          rep(
-          "Organization first establishes admissibility, business intent, reserved authority, shared capabilities, evidence obligations, and **assessment eligibility**, which permits Project analysis but not exposure of a concrete experiment. Project / Architecture then performs Model-Judgment-necessity, control-architecture, technical-feasibility, Human-Authority/fallback/capacity, and control-economics analysis and returns a viability conclusion. A simpler candidate result returns to Organization; only if Organization selects that path does Project confirm whether the selected design exits the Thinking-System lifecycle or remains a narrower Thinking System.",
-          "Organization first establishes admissibility, business intent, reserved authority, shared capabilities, evidence obligations, and **assessment eligibility**, which permits Project analysis but not exposure of a concrete experiment. Project / Architecture then performs Model-Judgment-necessity, alternative-design/category, control-architecture, technical-feasibility, Human-Authority/fallback/capacity, and control-economics analysis. When a simpler architecture satisfies the same standing Organizational outcome and authority/business basis, Project owns the design selection and category confirmation. Organization is reactivated only when Project needs a changed Organizational premise or when a research/proceed/reshape/defer/stop business decision is required."
-          )
-          rep(
-          "A simpler alternative is a Project viability conclusion, not a unilateral Project lifecycle exit: if Organization selects that path, Project confirms category status for the selected design and exits this lifecycle only when no Consequential Runtime Responsibility remains materially dependent on Model Judgment.",
-          "A simpler alternative is a Project architecture/viability conclusion. When it satisfies the same standing Organizational business outcome and authority basis, Project may select it and confirm category status directly; the design exits this lifecycle only when no Consequential Runtime Responsibility remains materially dependent on Model Judgment. If adopting the alternative requires changing an Organizationally owned premise, Project escalates that changed-basis requirement before reassessment."
-          )
-          rep(
-          "Organization owns initial admissibility/assessment eligibility and later path/business/research decisions; Project / Architecture owns Model-Judgment necessity, alternative/category analysis, concrete control architecture, complete control economics, Architectural Veto, and the viability conclusion.",
-          "Organization owns initial admissibility/assessment eligibility, the business outcome and authoritative/investment basis, specific bounded-research authorization, and proceed/reshape/defer/stop decisions. Project / Architecture owns Model-Judgment necessity, alternative/category analysis, technical/design selection within that standing basis, concrete control architecture, complete control economics, Architectural Veto, and the viability conclusion."
-          )
-          rep(
-          "Treat `simpler alternative preferred` as a Project viability conclusion that reaches Organization before lifecycle exit. Organization selects the path; Project then confirms category for the selected design. Exit occurs only when the selected design has no Model-Judgment-dependent Consequential Runtime Responsibility.",
-          "Treat `simpler alternative preferred` as a Project architecture/viability conclusion. If the simpler design satisfies the standing Organizational outcome and authority/business basis, Project selects the technical path and confirms category directly; exit occurs only when the selected design has no Model-Judgment-dependent Consequential Runtime Responsibility. Return to Organization only when the recommendation requires a changed Organizational premise or business continuation decision."
-          )
-          rep(
-          "- let Project turn `simpler alternative preferred` into unilateral business/design-path selection or lifecycle exit; return the conclusion to Organization, then confirm category for the selected path;",
-          "- let Project change an Organizationally owned business outcome, authority, price/value premise, service promise, funding, or investment basis under the label `simpler alternative preferred`; Project may select a simpler technical architecture inside the standing basis and confirm its category, but changed Organizational premises require Organizational decision and reassessment;"
-          )
-
-          # Repeated shorthand in later validation/acceptance language.
-          text = text.replace(
-              "Organization selects the business/design path",
-              "Project / Architecture selects the technical/design path within the standing Organizational business/authority basis; Organization changes the business/design basis when needed"
-          )
-          text = text.replace(
-              "after Organization selects a simpler path",
-              "after Project selects a simpler path within the standing Organizational basis"
-          )
-          text = text.replace(
-              "if Organization selects that path",
-              "if Project selects that path within the standing Organizational basis"
-          )
-
-          path.write_text(text)
-      - name: Commit blueprint correction
-        run: |
-          if git diff --quiet -- content/research/notes/open-engineering-specification-article-blueprint.md; then
-            echo "No blueprint changes produced"
-            exit 1
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/research/notes/open-engineering-specification-article-blueprint.md
-          git commit -m "Correct Project and Organization ownership in article blueprint"
-          git push origin HEAD:agent/replan-sections-5-8
+          p = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          lines = p.read_text().splitlines()
+          needles = [
+              'Organization selects',
+              'Organization select',
+              'business/design path',
+              'selected-path category',
+              'simpler alternative',
+              'simpler path',
+              'candidate category',
+              'lifecycle exit',
+          ]
+          for i, line in enumerate(lines, 1):
+              if any(n.lower() in line.lower() for n in needles):
+                  print(f'{i}: {line}')
