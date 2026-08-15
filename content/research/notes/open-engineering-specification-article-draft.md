@@ -758,7 +758,7 @@ flowchart LR
     ENG["Delivery implementation / realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
     VER["Evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]
     D{"Definition of Done<br/> implementation + evidence complete?"}
-    G{"Release Gate<br/> release only inside authorized exposure"]
+    G{"Release Gate<br/> release only inside authorized exposure"}
     RUN["Authorized research exposure<br/> or production deployment + evidence"]
     STOP["Release stopped / deferred / rejected"]
     LOCAL["Local response<br/> contain · roll back · narrow · disable"]
