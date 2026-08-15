@@ -459,93 +459,99 @@ The capability anatomy explains **how** bounded control becomes possible. It doe
 
 ## 4. Four Decision Levels for Thinking Systems
 
-The second model answers a different problem: **where does each consequential decision legitimately belong?** The same Thinking System may require an organizational permission decision, a project architecture and viability decision, a delivery release decision, and a runtime correction decision. Those decisions concern one controlled object, but they require different evidence, authority, time horizons, automation, and corrective actions.
+The capability anatomy tells us how a bounded control relationship can work. It still does not answer a second question: **where does each consequential decision legitimately belong, and how does evidence move between those decision owners without collapsing engineering analysis, business authorization, release, and runtime control into one generic “AI governance gate”?**
 
-The four levels below are therefore not four governance documents, four mandatory teams, or four approval meetings. They are **decision-ownership horizons** inside one socio-technical control system:
+The same Thinking System may require an organizational decision about whether the initiative may be pursued, a Project / Architecture conclusion about whether the proposed controlled system is actually viable, a Delivery decision about whether one realization is releasable, and Runtime decisions about whether operation remains inside the authorized boundary. Those decisions concern one controlled object, but they require different evidence, authority, time horizons, and corrective actions.
 
-- **Organization** decides what may be authorized, which authority remains reserved, which shared capabilities and source obligations apply, and which exceptions are legitimate.
-- **Project / Architecture** decides whether Model Judgment is necessary for the intended outcome and whether a credible, operable, economically viable controlled system can exist inside the organizational boundary.
-- **Delivery** decides whether one bounded realization is ready to begin, complete enough to review, and acceptable for a specific deployment context.
-- **Runtime** decides whether active operation remains inside the authorized boundary and which local response is permitted when evidence says that it does not.
+The repository's current draft-normative **Nested Control Lifecycle** already establishes four connected decision levels, downward inheritance, local reassessment, Project Reauthorization, and Organizational review. This paper makes one additional lifecycle distinction explicit as a **research refinement under validation**: Project / Architecture produces the engineering viability conclusion; Organization owns the business decision to proceed with the initiative; and the versioned **Project Authorization** that Delivery inherits is the technical authorization baseline Project issues only after the applicable Organizational business decision is positive for a technically viable basis. That sharper handshake should be tested and separately reconciled into status-bearing framework sources before it is treated as normative UA doctrine.
 
-One person may hold several of these responsibilities in a small organization. One automated platform may implement parts of several Controller functions. That does **not** collapse the decisions themselves. A runtime rollback is not Project Reauthorization; a successful build is not a Release Gate; Project Authorization does not create an organizational exception; an organizational policy does not prove that a concrete system is viable.
+The four horizons are therefore not four documents, four mandatory teams, or four sequential approval meetings:
 
-The decision-ownership model can therefore be shown on its own before it is combined with the capability anatomy from Section 3:
+- **Organization** owns authoritative boundaries, reserved decision rights, shared capabilities, exceptions, and business authority over whether the initiative should proceed. It acts both before Project research and, where required, after the Project viability conclusion.
+- **Project / Architecture** owns AI or Model-Judgment necessity analysis, alternatives, the concrete control architecture, technical/control feasibility, Human Authority and fallback feasibility, complete control economics, and the resulting **Project viability conclusion**. After a positive Organizational business decision on a viable basis, Project issues the versioned technical **Project Authorization** inherited by Delivery.
+- **Delivery** owns the bounded Requirement and Operating Envelope, implementation-level Judgment Nodes, concrete realizations and evidence, DoR, DoD, and the deployment-specific Release Gate.
+- **Runtime** owns operation inside delegated authority: observe, decide, act, verify, restore where possible, and emit reassessment evidence when the active authorization basis no longer holds.
+
+One person may hold several of these responsibilities in a small organization. One platform may implement pieces of several Controller functions. That does **not** collapse the decisions. Organizational Business Authorization is not a production Release Gate; a Project viability conclusion is not Project Authorization; Project Authorization is not permission to violate an organizational boundary; and a runtime rollback is not redesign.
+
+The decision-ownership model can now be shown with the Project–Organization handshake explicit:
 
 ```mermaid
 flowchart TB
-    O["Organization<br/>What may be authorized?"]
-    P["Project / Architecture<br/>Is the controlled system viable and authorizable?"]
+    O["Organization<br/>What may the organization pursue or continue?"]
+    P["Project / Architecture<br/>Is the proposed controlled system viable?"]
     D["Delivery<br/>Is this bounded realization complete and releasable?"]
     R["Runtime<br/>Does active operation remain inside the authorized boundary?"]
     E["Reassessment evidence<br/>realization or operation evidence that challenges a decision basis"]
 
-    O -->|authoritative sources + delegated authority| P
-    P -->|Project Constraint Architecture + Project Authorization| D
-    D -->|realized boundary + release scope| R
+    O -->|admissibility + authoritative / business basis| P
+    P -->|Project viability conclusion| O
+    O -->|Organizational Business Authorization<br/>or changed business / authority basis| P
+    P -->|Project Authorization technical baseline| D
+    D -->|approved realization + release scope| R
+
     D -.->|realization evidence| E
     R -->|operation evidence| E
     E -.->|implementation / realization / evidence issue| D
-    E -.->|risk / authority / feasibility / capacity / economics invalidated| P
-    E -.->|authoritative source / decision right / shared capability changed| O
+    E -.->|risk / feasibility / AI necessity / capacity / economics invalidated| P
+    E -.->|authoritative source / reserved decision right / shared capability changed| O
 ```
 
-**Figure 8 — Four decision-ownership horizons around one controlled object.** Downward paths carry authoritative sources, delegated authority, architecture, release scope, and realized boundaries toward operation. Realization or operation evidence that challenges a standing decision basis becomes reassessment evidence and returns directly to the horizon that owns that basis; reassessment is therefore not a mandatory upward sequence and need not originate only at Runtime.
+**Figure 8 — Four decision-ownership horizons around one controlled object.** Organization and Project / Architecture are connected by a two-way decision relationship rather than a one-pass stage gate: Organization supplies admissibility, authoritative constraints, business intent, and business authority; Project returns a viability conclusion; Organization may proceed, reshape, authorize bounded research, defer, or stop; and Project then issues the technical Project Authorization baseline only for a viable basis covered by that business decision. Delivery and Runtime operate beneath that baseline. Reassessment routes directly to the horizon whose decision basis is challenged.
 
 ### Two orthogonal models
 
-The standalone model above establishes **where consequential decisions belong**. Section 3 established a different structure: the capability functions required to make bounded control operational. The **decision horizons** answer *where a decision is owned*. The **capability families** answer *how boundaries, evidence, decisions, and actions become operational*. Every capability family may appear at every horizon; the models must not be mapped one-to-one. The next step is therefore to place the capability anatomy across the decision-ownership horizons rather than assign one family to one level.
+The decision horizons answer **where a decision is owned**. The capability families from Section 3 answer **how boundaries, evidence, decisions, and actions become operational**. They remain orthogonal. Every horizon can require Constraints and realizations, Sensors and evidence, Controllers and legitimate decision authority, and Actuators. A legal or business decision at Organization does not become a Sensor merely because evidence informed it; a runtime service does not become the organizational Controller merely because it executes a policy.
 
 ```mermaid
 flowchart LR
     subgraph L["Decision ownership: where the decision belongs"]
         direction TB
         subgraph SPINE9[" "]
-  direction TB
-  O["Organization<br/> What may be authorized?"]
-  P["Project / Architecture<br/> Is the controlled system viable and authorizable?"]
-  D["Delivery<br/> Is this bounded realization complete and releasable?"]
-  R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
-  E["Reassessment evidence<br/>realization or operation evidence that challenges a decision basis"]
+            direction TB
+            O["Organization<br/> What may the organization pursue or continue?"]
+            P["Project / Architecture<br/> Is the proposed controlled system viable?"]
+            D["Delivery<br/> Is this bounded realization complete and releasable?"]
+            R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
+            E["Reassessment evidence<br/> realization or operation evidence that challenges a decision basis"]
 
-  O -->|authoritative sources + delegated authority| P
-  P -->|Project Constraint Architecture + Project Authorization| D
-  D -->|realized boundary + release scope| R
-  D -.->|realization evidence| E
-  R -->|operation evidence| E
+            O -->|admissibility + authoritative / business basis| P
+            P -->|Project viability conclusion| O
+            O -->|Business Authorization or changed basis| P
+            P -->|Project Authorization technical baseline| D
+            D -->|approved realization + release scope| R
+            D -.->|realization evidence| E
+            R -->|operation evidence| E
         end
 
         E -.->|implementation / realization / evidence issue| D
-        E -.->|risk / authority / feasibility / capacity / economics invalidated| P
-        E -.->|authoritative source / decision right / shared capability changed| O
-
+        E -.->|risk / feasibility / AI necessity / capacity / economics invalidated| P
+        E -.->|authoritative source / reserved decision right / shared capability changed| O
         style SPINE9 fill:none,stroke:none
     end
 
     subgraph F["Capability functions: how control becomes operational"]
         direction TB
-
         subgraph F1[" "]
-  direction LR
-  J1(( )) --- A["Actuators and corrective action<br/> execute authorized change"]
+            direction LR
+            J1(( )) --- A["Actuators and corrective action<br/> execute authorized change"]
         end
         subgraph F2[" "]
-  direction LR
-  J2(( )) --- K["Constraints and realizations<br/> define and operationalize boundaries"]
+            direction LR
+            J2(( )) --- K["Constraints and realizations<br/> define and operationalize boundaries"]
         end
         subgraph F3[" "]
-  direction LR
-  J3(( )) --- S["Sensors and evidence<br/> observe behavior, conditions, and control state"]
+            direction LR
+            J3(( )) --- S["Sensors and evidence<br/> observe behavior, conditions, and control state"]
         end
         subgraph F4[" "]
-  direction LR
-  J4(( )) --- C["Controllers / decision functions<br/> interpret evidence and select bounded response"]
+            direction LR
+            J4(( )) --- C["Controllers / decision functions<br/> interpret evidence and select bounded response"]
         end
 
         J1 --- J2
         J2 --- J3
         J3 --- J4
-
         style F1 fill:none,stroke:none
         style F2 fill:none,stroke:none
         style F3 fill:none,stroke:none
@@ -560,7 +566,7 @@ flowchart LR
     class J1,J2,J3,J4 railpoint;
 ```
 
-**Figure 9 — Two orthogonal models.** The left side reuses the four-horizon model introduced earlier: higher-level decisions and Constraint authority flow downward by reference while scoped realizations become more concrete; reassessment evidence from realization or operation returns directly to the horizon whose decision basis it invalidates. The green side is the orthogonal capability anatomy. Its ordering is a reading aid, not a pipeline. All four capability families may appear at every horizon.
+**Figure 9 — Two orthogonal models.** The left side reproduces the decision model from Figure 8, including the Project viability ↔ Organizational business-authority relationship and direct reassessment by invalidated decision basis. The green side is the capability anatomy. Its ordering is a reading aid, not an execution pipeline. There is no one-to-one mapping between horizons and capability families.
 
 ### The full map is a reasoning reference, not a maximum-process mandate
 
@@ -571,53 +577,57 @@ full map = inspect every decision horizon and capability family
 implementation depth = proportionate to the actual controlled object
 ```
 
-A low-consequence internal assistant with narrow authority, reversible effects, strong feedback, and simple fallback may require only a small explicit control surface, with the same people carrying several responsibilities. A system with broad downstream authority, weak reversibility, slow or uncertain evidence, expensive Human Authority, fragile fallback, or tight unit economics may require much more of the map to be explicit and operational.
+A low-consequence internal assistant with narrow authority, reversible effects, strong feedback, simple fallback, and little Human Authority load may require only a small explicit control surface, with the same people carrying several responsibilities. A system with broad downstream authority, weak reversibility, slow or uncertain evidence, fragile fallback, expensive Human Authority, or tight unit economics may require much more of the map to be explicit and operational.
 
-The point of showing the whole map is therefore not to maximize governance. It is to **expose hidden complexity before deciding what can safely remain lightweight**. “One model call,” “one prompt,” “one feature,” or “one engineer” does not by itself imply a simple controlled object. The relevant dimensions are consequence, reachable authority and side effects, reversibility, Sensor quality and latency, Constraint Realization difficulty and bypass surface, Human Authority capacity, dependency fragility, and the cost of the control perimeter.
+The purpose of showing the whole map is therefore not to maximize governance. It is to **expose hidden complexity before deciding what can safely remain lightweight**. “One model call,” “one prompt,” “one feature,” or “one engineer” does not prove that the controlled object is simple. Consequence, reachable authority, reversibility, evidence quality and latency, realization difficulty and bypass surface, Human Authority capacity, dependency fragility, and control economics are better predictors of control depth.
 
-Production release at the intended scope requires the **relevant** decisions and capability functions to be connected across all four horizons at a depth proportionate to that consequence and control problem.
+Production release at the intended scope requires the **relevant** decisions and capability functions to be connected across all four horizons at a depth proportionate to the actual consequence and control problem. The horizons may activate repeatedly and out of sequence. Organization may act before research, after a Project viability conclusion, or later when an authoritative or business basis changes. Project may iterate several candidate architectures before any Project Authorization exists.
 
-Each horizon below follows the same operating rhythm without turning it into an eight-box bureaucracy: **what activates the level; what authoritative basis and evidence enter; what decisions it owns; which control capabilities those decisions require; what flows downward; what evidence returns; what may be handled locally versus escalated; and what negative cases teach about the decision basis.**
+### Organization — authorization context and business authority
 
-### Organization — authorization context and reserved authority
+**Question owned:** Within which authoritative boundaries may Project / Architecture research proceed—and, after the Project viability conclusion, should the organization proceed with, reshape, continue, fund further research into, defer, or stop the initiative?
 
-**Question owned:** Within which authoritative boundaries, shared capabilities, and decision rights may a proposed project explore or operate?
+The Organizational horizon has **two distinct decision moments** inside one level.
 
-Organization becomes active when a new use of Model Judgment is proposed, when a project asks to cross or change an organizational boundary, reserved decision right, shared capability, approved vendor/deployment mode, or exception basis for autonomy, data, geography, population, or downstream action capability, or when legal, contractual, security, privacy, procurement, audit, vendor, cross-project, or shared-capability evidence changes the basis on which projects were allowed to operate. Expansions that remain inside existing organizational authority are Project Reauthorization decisions rather than automatic Organizational reviews.
+The first is **admissibility and research authority**. Before a project can treat a prototype as an engineering path, Organization supplies the authoritative context: applicable laws and contracts, prohibited uses, data and geography restrictions, vendor/deployment permissions, shared identity/audit/incident capabilities, reserved Human Authority, exception rights, and the business intent that motivates the work. Organization may prohibit the use outright, allow bounded research, or allow Project / Architecture to assess a candidate inside stated conditions.
 
-Its inputs are not one “AI policy.” They are the existing sources that legitimately constrain the system: contracts, law, security and privacy obligations, customer commitments, prohibited uses, approved vendors and deployment modes, data and geography restrictions, incident obligations, shared identity/audit/rollback capabilities, exception rights, and evidence from projects or operations that may invalidate those assumptions.
+The second is **Organizational Business Authorization**. Project / Architecture returns evidence about AI necessity, alternatives, control feasibility, Human Authority, fallback, capacity, residual uncertainty, and complete control economics. Organization then decides whether the initiative should proceed on that basis. This is a business/initiative decision, not the deployment-specific Release Gate that belongs to Delivery.
 
-When authoritative sources or organizational Constraints conflict, Organization must determine—within legitimate authority—which source governs the relevant scope and who owns the resolution, or route the conflict to an authority that can do so. This paper does not propose a universal precedence rule.
+Organization does **not** perform the project-level analysis that decides whether Model Judgment is actually needed or whether a credible bounded control architecture can be built. It owns the business and authority levers around that analysis. It can change price, target segment, service promise, scope, intended outcome, funding, investment horizon, shared capabilities, or reserved authority where it legitimately owns those decisions; if it changes the basis materially, Project must reassess the resulting proposal.
 
-Organization owns **admissibility and reserved authority**. It may prohibit a use category, permit only bounded research, reserve certain decisions to Human Authority, require a shared capability, define who may grant an exception, or delegate a bounded decision to Project, Delivery, or Runtime. It does **not** own the project-specific conclusion that Model Judgment is necessary for one business outcome or that the resulting architecture is economically viable. Those are Project / Architecture decisions.
+This distinction matters most for two negative Project conclusions.
 
-For every material organizational boundary, downstream engineering needs an operable relationship:
+An **Architectural Veto** means that, for the current scope, authority, consequence profile, and assumptions, Project / Architecture cannot identify a credible complete bounded control architecture. Organization cannot override that conclusion for the unchanged proposal merely by “accepting the risk.” It may change the proposal—narrow authority, simplify the business outcome, provide a missing shared capability, change an organizational Constraint or grant an exception where it legitimately has that power—and return the changed basis to Project. But that is a new proposal requiring a new engineering viability assessment, not an override of technical impossibility or an unrealisable non-negotiable boundary.
+
+A technically credible architecture whose **economics do not close** is different. Project can conclude that the system is technically/control viable but economically unattractive under the current business assumptions. Organization may then change price, segment, service level, scope, investment horizon, funding, Human Authority capacity, or the target outcome, authorize more research, or stop the initiative. The business owner has levers the project analysis does not.
+
+The same separation applies to AI necessity. Project / Architecture may conclude that a deterministic, manual, or narrower model-assisted design is preferable for the stated outcome. Organization can accept that recommendation, change the intended business outcome and ask for a new analysis, or stop the AI path. An executive preference for “using AI” does not make Model Judgment technically necessary for an unchanged outcome.
+
+For every material Organizational boundary, downstream engineering still needs an operable relationship:
 
 ```text
-authoritative source or organizational decision
-→ scoped project Constraint or explicit assumption
+authoritative source or Organizational decision
+→ scoped Project Constraint or explicit assumption
 → required realization properties
 → evidence obligation
 → legitimate decision owner and expected decision latency
-→ available exception, suspension, escalation, or reauthorization path
+→ available exception, suspension, reassessment, or reauthorization path
 ```
 
-Organization does not need to design the concrete Sensor or transaction guard. It must make clear **which evidence and decision obligations Project / Architecture must make realizable**. An authoritative policy sentence is not automatically a Hard Constraint; guarantee strength still depends on the complete realized path.
+The Organizational Controller is the legitimate business/authority decision function, not a committee by definition. In a large enterprise it may be distributed across product, finance, security, legal, procurement, operations, architecture, or executive authority. In an SMB, the same person may hold several bundles. Automation may track source changes, aggregate evidence, verify explicit delegated conditions, route exceptions, or prepare business/viability context. It cannot invent authority or waive an Architectural Veto for an unchanged proposal.
 
-The organizational Controller is a legitimate decision function, not a committee by definition. In one company it may be distributed across product, security, legal, operations, finance, procurement, architecture, and domain authority; in another, several of those responsibilities may sit with the same two people. Automation may track source versions, aggregate evidence, verify explicit policy-as-code conditions, route exceptions, or detect shared-capability degradation. It cannot invent authority that was never delegated.
-
-Organizational Actuators operate on the **authorization context**: approve or deny eligibility, narrow or suspend a project, grant or reject a scoped exception, change an approved vendor or deployment mode, reserve a decision to Human Authority, require additional evidence, or fund, restrict, or withdraw a shared capability. These actions differ from a Runtime rollback even if the same person ultimately has permission to trigger both.
+Organizational Actuators operate on the **business and authorization context**: prohibit or permit bounded research; proceed, defer, or stop an initiative; change price, scope, outcome, funding, service assumptions, or a shared capability; grant or reject a legitimate exception; change vendor/deployment permission; narrow or suspend permission; reserve a decision to Human Authority; or require renewed Project viability analysis.
 
 ```mermaid
 flowchart LR
     EXT["External / organizational evidence<br/> legal · contractual · audit · vendor<br/> cross-project incidents · shared-capability health"]
-    AUTH["Authoritative sources + shared capabilities<br/> prohibitions · permissions · decision rights · exceptions"]
-    LOW["Project / runtime evidence<br/> viability findings · invalidated assumptions<br/> authority-change requests"]
-    C["Organizational Controller<br/> legitimate decision owner(s)"]
-    D["Organizational decision<br/> prohibit · research-only · eligible · condition · exception"]
-    A["Organizational Actuators<br/> change permission · shared capability<br/> vendor/deployment approval · narrow · suspend"]
-    OUT["Updated authoritative context<br/> delegated authority + evidence obligations"]
-    P["Project / Architecture"]
+    AUTH["Authoritative context + business intent<br/> prohibitions · permissions · reserved rights<br/> shared capabilities · value assumptions"]
+    LOW["Project viability conclusion / runtime evidence<br/> Architectural Veto · economics · AI necessity<br/> authority-change requests"]
+    C["Organizational Controller<br/> legitimate business / authority owner(s)"]
+    D["Organizational decision<br/> admissible · bounded research · proceed<br/> reshape · defer · do not proceed"]
+    A["Organizational Actuators<br/> change permission · price / scope / outcome / funding<br/> shared capability · exception · narrow · suspend"]
+    OUT["Updated authoritative / business basis<br/> Organizational Business Authorization<br/> + evidence obligations"]
+    P["Project / Architecture<br/> reassess or formalize technical baseline"]
 
     EXT --> C
     AUTH --> C
@@ -625,175 +635,168 @@ flowchart LR
     C --> D --> A --> OUT --> P
 ```
 
-**Figure 10 — Organizational control process.** Authoritative sources provide the reference basis while external/organizational evidence and lower-level evidence converge on legitimate decision owners. The figure is a decision horizon and control relationship, not a required department structure or a claim that Organization directly performs downstream technical actions.
+**Figure 10 — Organizational control process across the lifecycle.** Authoritative/business context, external evidence, and Project/Runtime evidence converge on legitimate Organizational decision owners. The same horizon may act before Project research and again after Project viability analysis. The figure is not a mandatory department structure or a sequential project stage. Its Actuators change the business or authority basis; they do not directly design the control architecture or perform Runtime correction.
 
-The running support system makes the boundary concrete. Organization might permit automated refunds only inside a delegated amount, require Human Authority above it, restrict which customer data can reach the model, and require use of approved identity and transaction capabilities. Project / Architecture must then decide whether a useful support system can actually be built and operated inside those limits.
-
-Organization should be revisited when the **organizational basis** changes: an authoritative source, reserved decision right, exception authority, vendor/deployment permission, or shared capability changes or proves inadequate. A lower-level workaround cannot silently normalize an organizationally prohibited state. Repeated exceptions, cross-project incidents, or recurrent requests for the same workaround should also test whether the source is ambiguous, delegated authority is wrong, a shared capability is inadequate, or the organization is repeatedly admitting project classes whose control perimeter later proves unattractive.
+For the support-resolution example, Organization might reserve refunds above €50 to Human Authority, constrain customer-data access to approved paths, and permit only approved transaction capabilities. Project then determines whether a useful system can be built inside those boundaries and what that control perimeter costs. If Project concludes that the architecture is credible but that Human Authority makes each resolution too expensive, Organization may change the business model or scope. If Project concludes that no credible realization can prevent unauthorized transactions for the proposed path, the unchanged proposal cannot proceed merely because its expected revenue is attractive.
 
 ### Project / Architecture — AI necessity, control architecture, and viability
 
-**Question owned:** Does a credible, operable, and economically viable controlled system exist for the intended outcome inside the organizationally authorized boundary?
+**Question owned:** Is Model Judgment needed for the stated outcome, does a credible complete bounded control architecture exist, and what is the resulting technical, operational, and economic **Project viability conclusion** to return to Organization?
 
-This horizon activates when Organization permits project assessment or bounded research, when Model Judgment is proposed inside an existing system, when a material Judgment Node, tool path, vendor, deployment mode, population, or authority boundary changes, or when Delivery/Runtime evidence invalidates project assumptions about risk, feasibility, evidence, Human Authority, capacity, or economics.
+Project / Architecture is the analytical and architectural horizon. It receives business intent and authoritative boundaries; it does not receive a presumption that AI is justified. The first project question is deliberately uncomfortable: **is Model Judgment necessary at all?** The comparison should include credible deterministic logic, manual work, a narrower model-assisted path, and the broader Thinking-System design.
 
-The first project decision is deliberately uncomfortable: **is Model Judgment necessary at all?** The comparison is not “AI versus no innovation.” It is between credible alternatives: deterministic logic, a manual path, a narrower model-assisted path, or a broader Thinking System. The relevant value is the value attributable to Model Judgment after the Constraints required to make it acceptable have narrowed autonomy, speed, data, tool access, or reachable actions.
+If Model Judgment remains justified, Project owns the project-level controlled-object model and the proposed control architecture: the intended system outcome; boundary and intended Judgment landscape; reachable authority and consequences; material scenarios; Project Constraints; required operating-contract properties and evidence obligations; candidate Constraint Realizations and guarantee strength; Sensors and evidence feasibility; Controller authority; Actuator paths; Human Authority; fallback, containment, recovery, and shutdown; dependencies and shared capabilities; active-baseline reconstructability; and the assumptions that could invalidate viability later.
 
-If Model Judgment remains justified, Project / Architecture owns the project-level controlled-object and control-architecture model: intended outcome; project boundary and intended Judgment landscape; reachable authority and consequences; material scenarios; project Constraints; required operating-contract properties and evidence obligations that Delivery must translate into an approved Requirement and Operating Envelope for a bounded scope; candidate Constraint Realizations and guarantee strength; Sensors and evidence feasibility; Controller authority; Actuator paths; Human Authority, fallback, containment, recovery, and shutdown; dependencies and shared capabilities; and the assumptions that would require Project Reauthorization.
+For every material scenario, Project should be able to describe **at least one credible complete bounded control path through the required capability functions** before it concludes that the proposal is viable. That does not require final production configuration. It does require more than “we will add guardrails later.” If the relevant failure cannot be observed in time, an inherited boundary cannot be realized at the claimed strength, no effective corrective path exists, fallback shares the same critical failure, or required Human Authority cannot be supplied at the necessary volume or latency, the architecture is not yet credible.
 
-For every material scenario, the project should be able to describe **at least one credible complete bounded control path through the required capability functions** before a production path is authorized. This does not mean final configuration exists before implementation. It means the architecture is more than “we will add guardrails later.” If the system cannot detect the relevant failure before the consequence, cannot realize an inherited boundary at the claimed strength, lacks an effective corrective path, or requires Human Authority capacity the organization cannot supply, then the control architecture is not yet credible.
-
-The business case must include the control perimeter from the beginning. The decision should consider five dimensions together rather than collapse them into one pseudo-precise score:
+The Project business-case analysis must include the control perimeter from the beginning:
 
 ```text
 expected value attributable to Model Judgment
-considered against:
+considered together with:
 - solution lifecycle economics
 - complete control-perimeter lifecycle economics
-- residual exposure and uncertainty after control
-- hard authorization constraints that cannot be traded away
-→ authorize / narrow / bounded research / redesign / defer / No-Go
+- residual exposure and uncertainty after proposed control
+- non-negotiable authorization boundaries
+→ Project viability conclusion
 ```
 
-Solution lifecycle economics may include model, platform, data, integration, and ordinary operation. Control-perimeter economics may include Constraint design and realization, evaluations and evidence, Human Authority, fallback, observability, incident response, false blocks, control maintenance, reassessment, added latency, and control-specific operational friction. Residual exposure and uncertainty remain separate decision dimensions unless they are credibly translated into comparable expected-loss or range estimates. These are reasoning buckets, not a universal accounting standard.
+Solution lifecycle economics may include model, platform, data, integration, and ordinary operation. Control-perimeter economics may include Constraint design and realization, evaluation and evidence, Human Authority, fallback, observability, incident response, false blocks, control maintenance, reassessment, additional latency, and control-specific operational friction. These are reasoning buckets rather than a universal accounting standard.
 
-A hard prohibition or missing authority cannot be averaged away by expected ROI. Conversely, control cost that destroys the business case is not “governance overhead” to be hidden after launch. It is evidence that the proposed architecture may be non-viable.
+Project does **not** turn every unfavorable economic result into technical No-Go. It distinguishes the nature of the conclusion. A useful viability vocabulary is:
 
-The Project / Architecture Controller is commonly socio-technical. Automated tooling may gather model or evaluator evidence, verify invariants, compare versions, estimate capacity and cost, detect missing dependencies, and route deviations where those mechanisms are sufficiently trustworthy and observable. Human decision owners remain accountable for business, architectural, residual-exposure, and authority judgments. The automation is itself part of the proposed control architecture: its failure modes, evidence obligations, and lifecycle cost must be included rather than assuming that automation automatically reduces control cost.
+- **viable as proposed**;
+- **viable with conditions or narrower scope**;
+- **further research required**;
+- **Model Judgment unnecessary or a simpler alternative preferred**;
+- **technically/control viable but economically unattractive under current business assumptions**;
+- **Architectural Veto** — no credible complete bounded control architecture for the current proposal.
+
+That distinction is what makes the return path to Organization meaningful. A hard prohibition or missing capability cannot be averaged away by favorable ROI. Conversely, a technically sound architecture with poor economics may become attractive if Organization legitimately changes the business basis.
+
+The Project / Architecture Controller is commonly socio-technical. Architecture, product, engineering, domain, risk/security, operations, and finance may contribute evidence and authority according to the decision. Automated tooling may gather evaluator evidence, compare versions, verify invariants, estimate capacity/cost, detect missing dependencies, and route deviations. Human decision owners remain accountable for architectural feasibility, AI-necessity, residual-exposure, and viability judgments.
+
+The Project output therefore occurs in **two stages**.
+
+First, Project returns a **versioned Project viability conclusion** to Organization. It records the candidate design and scope, AI-necessity rationale and alternatives, Project Constraint Architecture, required operating-contract properties, credible bounded control paths, Human Authority/fallback/capacity assumptions, control economics, residual exposure/uncertainty, viability status, and the assumptions whose change requires reassessment.
+
+Second, when Organization has made a positive **Organizational Business Authorization** for a technically viable basis, Project issues the **Project Authorization** that Delivery inherits. Project Authorization is the versioned **technical authorization baseline**, not the business decision to pursue the initiative. It contains the exact authorized technical scope, Project Constraint Architecture, intended Judgment landscape, required operating-contract properties and evidence obligations, delegated technical/control authority, required shared capabilities, Human Authority/fallback requirements, active Organizational/business assumptions, control-economics baseline, and reauthorization triggers.
 
 ```mermaid
 flowchart TB
-    ORG["Organizational admissibility<br/> authority · sources · shared capabilities"]
-    OUT["Intended outcome<br/> value hypothesis"]
+    ORG["Organizational admissibility + business intent<br/> authoritative context · value assumptions"]
     NEED["Model Judgment necessity<br/> deterministic · manual · narrower alternative check"]
-    RISK["Material scenarios<br/> intended Judgment landscape · authority · consequences"]
+    RISK["Material scenarios<br/> Judgment landscape · authority · consequences"]
     K["Project Constraint Architecture<br/> Constraints · assumptions"]
-    PROP["Required operating-contract properties<br/> evidence obligations for Delivery"]
-    PATH["Credible complete bounded control paths<br/> Realizations · Sensors · Controllers · Actuators"]
-    HUMAN["Human Authority · fallback<br/> containment · recovery"]
-    ECON["Control economics and capacity<br/> latency · operating friction · dependencies"]
-    RES["Residual exposure + uncertainty<br/> after proposed control"]
-    DEC["Project decision<br/> authorize · narrow · research<br/> redesign · defer · No-Go"]
-    RE["Delivery / Runtime invalidating evidence"]
-    ORG --> NEED
-    OUT --> NEED --> RISK
+    PROP["Required operating-contract properties<br/> evidence obligations"]
+    PATH["Credible bounded control paths<br/> Realizations · Sensors · Controllers · Actuators"]
+    HUMAN["Human Authority · fallback · recovery<br/> capacity · latency · common-mode assumptions"]
+    ECON["Complete economics + residual exposure<br/> solution cost · control-perimeter cost"]
+    V["Project viability conclusion<br/> viable · narrower · research · simpler alternative<br/> economic non-viability · Architectural Veto"]
+    OD["Organization<br/> proceed · reshape · bounded research<br/> defer · do not proceed"]
+    PA["Project Authorization<br/> versioned technical baseline"]
+    D["Delivery"]
+
+    ORG --> NEED --> RISK
     RISK --> K --> PATH
     RISK --> PROP --> PATH
-    OUT -->|value hypothesis| DEC
-    K -->|non-negotiable authorization boundary| DEC
-    PROP -->|required properties for bounded scope| DEC
-    PATH --> HUMAN --> DEC
-    PATH --> ECON --> DEC
-    PATH --> RES --> DEC
-    RE -.-> RISK
-    DEC -. Project Reauthorization .-> RISK
-    DEC -.->|wider organizational authority required| ORG
+    PATH --> HUMAN --> ECON --> V
+    V --> OD
+    OD -->|changed business / authority basis| NEED
+    OD -->|positive decision on viable basis| PA --> D
 ```
 
-**Figure 11 — Project control architecture and viability.** Organizational admissibility becomes a concrete system decision only after AI necessity, material scenarios, the Project Constraint Architecture, separate required operating-contract properties for Delivery, complete bounded control paths, Human Authority/fallback, capacity, and control economics are examined. Bounded research is a legitimate outcome; prototype success is not Project Authorization.
+**Figure 11 — Project control architecture, viability conclusion, and authorization handshake.** Project / Architecture owns AI necessity, architectural feasibility, control economics, and the Project viability conclusion. Organization owns the business decision to proceed with the initiative. Project Authorization is then the versioned technical baseline issued for Delivery only after a positive Organizational business decision covers a technically viable basis. Architectural Veto is a Project conclusion; “do not proceed” is an Organizational business decision.
 
-For the support system, this is where the refund boundary becomes a Project Constraint Architecture rather than a policy slogan. The project asks whether high-value refund execution can be made unreachable without valid Human Authority, what evidence verifies that realization, whether semantic policy application remains soft, whether the approval queue can absorb expected volume, and whether the combined latency and cost preserve the support business case.
-
-The output is a **versioned Project Authorization and Project Constraint Architecture**, plus the required operating-contract properties and evidence obligations that Delivery must translate into its approved Requirement and Operating Envelope for the bounded scope. Delivery inherits the project baseline by reference and may refine or narrow the authorized scope. Delivery may not silently expand delegated authority or weaken an inherited Hard Constraint. Project Reauthorization is required when evidence changes the project basis—risk, authority, feasibility, evidence coverage, Human Authority, capacity, dependencies, or economics. If the required change exceeds organizational authority, Project escalates to Organization.
-
-**Architectural Veto is a valid engineering result.** A system can be impressive as a prototype and still deserve deterministic redesign, narrower scope, further research, deferral, or No-Go. Repeated Delivery or Runtime workarounds should be treated as evidence against the project model when they expose a missing scenario, non-credible Constraint, weak Sensor basis, ineffective Actuator, unrealistic Human Authority capacity, or invalid control economics rather than as an endless queue of local defects.
+Project Reauthorization follows the same distinction. If Delivery or Runtime evidence changes the technical design but the proposal remains viable inside the standing Organizational business and authority basis, Project may reassess and issue a new technical Project Authorization without a new business decision. If evidence destroys the business assumptions, makes Model Judgment unnecessary, creates an Architectural Veto, or requires wider Organizational authority, Project returns the viability conclusion to Organization before a new technical baseline can be issued.
 
 #### Designing the control architecture
 
-This is work **inside** the Project / Architecture horizon, not a fifth level. Architectural analysis locates Model Judgment, the deterministic responsibilities around it, reachable tools and consequences, and scenarios that could produce unacceptable outcomes. It then derives the required Constraints, candidate realizations, Sensors, Controller decisions, Actuator paths, Human Authority, fallback, containment, recovery, and reassessment mechanisms.
+This remains work **inside** Project / Architecture, not a fifth decision level. Architectural analysis locates Model Judgment, the deterministic responsibilities around it, reachable tools and consequences, and scenarios that could produce unacceptable outcomes. It then derives the required Constraints, candidate realizations, Sensors, Controller decisions, Actuator paths, Human Authority, fallback, containment, recovery, and reassessment mechanisms.
 
-Sensor design must match the property being controlled. Machine-checkable evidence can verify schema, type, permissions, tool arguments, state transitions, resource limits, and other deterministic conditions. Semantic evidence may estimate grounding, relevance, harmfulness, factual support, policy meaning, or business acceptability. Semantic Sensors remain probabilistic; they should expose coverage, uncertainty, latency, blind spots, active version, and the conditions that can invalidate their calibration or validation basis rather than being treated as oracles.
+Sensor design must match the property being controlled. Machine-checkable evidence can verify schema, type, permissions, tool arguments, state transitions, resource limits, and other deterministic conditions. Semantic evidence may estimate grounding, relevance, harmfulness, factual support, policy meaning, or business acceptability. Semantic Sensors remain probabilistic; their active version, coverage, uncertainty, latency, blind spots, validation/calibration basis where applicable, and validity-loss conditions must remain visible enough for the decisions they support.
 
-Human Authority, where required, is part of the architecture: information available, decision right, expertise, time, expected volume, fatigue, independence, escalation authority, overload behavior, and what happens when the human path is unavailable all affect viability.
+Human Authority, where required, is architecture: information available, legitimate decision right, expertise, expected volume, acceptable latency, independence, fatigue, escalation power, overload behavior, and what happens when the human path is unavailable all affect viability.
 
-Fallback, containment, and recovery are not credible simply because a secondary path exists. Where they are material to Project Authorization, the architecture should have a defensible reason to expect that the fallback is safer for the relevant failure, sufficiently independent from the primary failure mode and common dependencies, available at the required capacity and latency, and capable of restoring an authorized operating state. A fallback that shares the same failed dependency or cannot carry real demand is not a control merely because it has a separate label.
+Fallback, containment, and recovery are also architecture, not comforting labels. Where material, Project should have a defensible reason to expect that fallback avoids the relevant primary or common-mode failure, is available at required capacity and latency, transitions correctly, and can restore an authorized state. A fallback that shares the failed dependency or cannot carry real demand does not become credible merely because it is called a secondary path.
 
 ### Delivery — realization, evidence, and release
 
-**Question owned:** Is this bounded realization complete, evidence-bearing, operationally supportable, and acceptable for a specific deployment context under Project Authorization?
+**Question owned:** Is this bounded realization complete, evidence-bearing, operationally supportable, and acceptable for a specific deployment context under the technical Project Authorization?
 
-Delivery activates when Project authorizes bounded implementation or research, when a material model/prompt/context/retrieval/tool/evaluator/realization/configuration change enters scope, when a new deployment population or environment is proposed inside existing authority, or when Runtime exposes a local defect or evidence gap that Delivery is authorized to repair.
+Delivery begins from a Project Authorization baseline—not from the Project viability conclusion alone and not from Organizational Business Authorization alone. For bounded research, the Project Authorization may explicitly authorize only an experiment. For a production path, it carries the technically authorized scope and conditions that Delivery is permitted to realize.
 
-Delivery receives a project baseline rather than a blank page: Project Authorization, Project Constraint Architecture, inherited Constraints and assumptions, the intended Judgment landscape and placement assumptions, required realization properties, evidence obligations, shared-capability dependencies, delegated authority, reauthorization triggers, and a control-economics baseline. Within that baseline, Delivery owns the implementation-level Judgment Nodes, approves the Requirement and Operating Envelope for the bounded scope, turns the inherited decisions into a **concrete bounded realization**, and proves enough about that realization for the next decision.
+Delivery receives Project Authorization, the current Project Constraint Architecture, the intended Judgment landscape and placement assumptions, required operating-contract properties, evidence obligations, shared-capability dependencies, delegated authority, reauthorization triggers, baseline-correlation obligations, control economics, and the Organizational business assumptions on which the technical authorization depends. Within that baseline, Delivery owns the implementation-level Judgment Nodes, approves the Requirement and Operating Envelope for the bounded scope, turns inherited decisions into a concrete realization, and proves enough about that realization for the next decision.
 
-Whatever existing workflow carries these decisions, Delivery needs one canonical, versioned mapping from each material Constraint in the bounded delivery scope to its source/version, concrete realization, evidence, failure behavior, and active scope.
-
-The delivery team therefore needs to translate in both directions. Business statements such as unacceptable financial exposure or customer-trust risk must become scoped scenarios, Constraints, evidence needs, authority boundaries, and response paths. Technical evidence such as evaluator regression, evaluator-validity loss, version drift, override rate, fallback saturation, denied-action events, realization degradation, or Human Authority latency must be translated back into changed exposure and decision consequences.
+Whatever workflow carries these decisions, Delivery needs traceability from each material Constraint and operating-contract property to its source/version, realization, evidence, failure behavior, active scope, decision owner, and reassessment path. Business statements such as unacceptable financial exposure must become scoped technical obligations; technical evidence such as evaluator validity loss, fallback saturation, Human Authority overload, version drift, or realization degradation must be translated back into decision consequences.
 
 ```mermaid
 flowchart LR
-    P["Project Authorization + Constraints<br/> evidence obligations · delegated authority"]
+    PA["Project Authorization<br/> technical baseline + evidence obligations"]
     C["Delivery operating contract<br/> Requirement · Operating Envelope"]
     R{"Definition of Ready<br/> bounded work may begin?"}
     ENG["Delivery implementation / realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
     VER["Evaluation / verification<br/> deterministic tests · semantic evidence · traceability"]
-    BIZ["Exposure / decision consequences<br/> business interpretation of technical evidence"]
     D{"Definition of Done<br/> implementation + evidence complete?"}
     G{"Release Gate<br/> accept · limit · condition · escalate · reject"}
     RUN["Runtime deployment and evidence"]
     STOP["Release stopped / deferred / rejected"]
-    LOCAL["Immediate local response<br/> contain · roll back · narrow · disable"]
-    REAUTH["Project / Architecture<br/> Project Reauthorization"]
-    ORGREV["Organization<br/> organizational review"]
+    LOCAL["Local response<br/> contain · roll back · narrow · disable"]
+    PR["Project / Architecture<br/> viability reassessment / Project Reauthorization"]
+    ORG["Organization<br/> business / authority review"]
 
-    P --> C --> R
+    PA --> C --> R
     R -->|ready| ENG
     R -->|not ready| C
-    R -->|project contradiction| REAUTH
+    R -->|project contradiction| PR
     ENG --> VER --> D
     D -->|incomplete| ENG
     D -->|complete| G
-    D -->|project basis invalidated| REAUTH
+    D -->|Project basis invalidated| PR
     G -->|approved or limited| RUN
     G -->|rework required| ENG
     G -->|stop / defer / reject| STOP
-    G -->|project decision required| REAUTH
-    G -->|organizational boundary / reserved authority issue| REAUTH
-    VER -.->|technical evidence| BIZ
-    BIZ -.->|changed exposure / decision consequence| ENG
-    BIZ -.->|release consequence| G
+    G -->|Project decision required| PR
     RUN -->|local implementation / realization / evidence issue| LOCAL --> ENG
-    RUN -->|risk / authority / feasibility / capacity / economics invalidated| REAUTH --> P
-    REAUTH -->|organizational boundary must change or exception required| ORGREV
+    RUN -->|risk / feasibility / AI necessity / capacity / economics invalidated| PR
+    PR -->|still viable inside standing Organizational basis| PA
+    PR -->|business basis challenged / Architectural Veto<br/> or wider Organizational authority required| ORG
+    ORG -->|changed basis or renewed Business Authorization| PR
 ```
 
-**Figure 12 — Delivery realization and release loop.** Delivery translates Project Authorization into an approved Requirement and Operating Envelope for the bounded scope and then into one bounded realization. DoR, DoD, and Release Gate distinguish rework, terminal stop/defer/reject, and escalation to Project / Architecture when delivery evidence challenges the project basis or discovers an organizational-boundary issue. Project Reauthorization then reaches Organization when a changed organizational boundary, reserved decision right, or exception is actually required; Delivery does not bypass the Project decision surface. The dotted translation path converts technical evidence back into changed business exposure and decision consequences; it informs engineering and release decisions rather than adding another gate. Local repair remains distinct from Project Reauthorization.
+**Figure 12 — Delivery realization and release loop.** Delivery translates the technical Project Authorization into a bounded operating contract and realization. DoR, DoD, and Release Gate remain distinct. Local repair remains local. Evidence that challenges the project technical/viability basis routes to Project / Architecture; only when that reassessment challenges the Organizational business/authority basis does it return to Organization. Delivery therefore does not silently convert a release problem into a business decision or bypass Project analysis on the way upward.
 
-An exogenous change in an authoritative organizational source, reserved decision right, or shared capability may activate Organization directly because the organizational basis itself changed. If that change affects this system, Project / Architecture must reassess and issue the resulting authorized baseline before Delivery proceeds under it.
-
-Three decisions must remain distinct even when one lightweight workflow carries all three.
+Three Delivery decisions remain separate even when one lightweight workflow carries them.
 
 **Definition of Ready** asks whether bounded work or an experiment may begin. Authority, scope, Judgment Nodes, required realizations, evidence plan, Human Authority, fallback, assumptions, and escalation path must be explicit enough to proceed.
 
 **Definition of Done** asks whether implementation and evidence are complete for the reviewed scope. Required paths are covered; unavailable, bypass, and degraded behavior are tested; active versions are traceable; required Sensors and Actuators operate; and known gaps are visible.
 
-**Release Gate** asks whether this specific deployment should be accepted, limited, conditioned, escalated, or rejected for its population, environment, active versions, evidence, residual exposure, capacity, economics, and operational readiness. Passing DoD does not force a release decision. A release decision that identifies delivery rework returns to implementation; a stop/defer/reject outcome is terminal for that release attempt; delivery evidence that challenges Project Authorization routes to Project Reauthorization, which may then require Organizational review when the organizational boundary itself must change.
+**Release Gate** asks whether this specific deployment should be accepted, limited, conditioned, escalated, or rejected for its population, environment, active versions, evidence, residual exposure, capacity, economics, and operational readiness. Passing DoD does not force release. Rework returns to implementation. Stop/defer/reject is terminal for that release attempt. Evidence that invalidates Project Authorization or the Project viability basis routes to Project / Architecture rather than being normalized as local QA work.
 
-Delivery must also know whether its evidence instruments remain valid for the release decisions they support. Evaluators, Golden Sets, rubrics, thresholds, and structured human-review signals should carry the active version and validation or calibration basis where applicable, expected coverage and uncertainty, and explicit validity-loss triggers such as material changes in model, population, policy, data distribution, or operating conditions. Incident and production evidence may require recalibration, replacement, or a changed evidence plan rather than being ingested automatically into a new release baseline.
+Delivery must also know whether evidence instruments remain valid for the decisions they support. Evaluators, Golden Sets, rubrics, thresholds, and structured human-review signals should carry active version, validation/calibration basis where applicable, expected coverage and uncertainty, and explicit validity-loss triggers such as changes in model, population, policy, data distribution, or operating conditions. Production evidence may require recalibration, replacement, revised coverage, or a changed evidence plan rather than automatic ingestion into a new baseline.
 
-For material release, incident, and correction evidence, version traceability also needs enough correlation to reconstruct the **active behavioral and control baseline** rather than merely list component versions independently. That may include the relevant authoritative-source references, Project Authorization and Delivery baseline, Constraint Realization, model, prompt or instruction, context assembly and retrieval, tool and routing, evaluator, policy/configuration, deployment scope, and fallback versions that were active when the evidence, incident, or Actuator decision occurred. This does not require one universal UA registry or manifest; existing release, configuration, deployment, evaluation, and observability records may carry the correlation.
+For material release, incident, and correction evidence, version traceability must support reconstruction of the **active behavioral and control baseline** rather than merely list components independently. Relevant correlation may span authoritative-source and Organizational-business assumptions, Project Authorization, Delivery baseline, Constraint Realization, model, prompt/instruction, context/retrieval, tool/routing, evaluator, policy/configuration, deployment scope, and fallback state. This does not require one universal UA registry; existing release, configuration, deployment, evaluation, and observability records may carry the correlation.
 
-Fallback and recovery paths should be tested as control paths, not assumed safe because they exist. Where material, Delivery should verify their failure behavior, dependency/common-mode coupling, available capacity and latency, transition behavior, and ability to restore a known authorized state. A failed or saturated fallback is itself evidence about control adequacy.
+Fallback and recovery paths should be tested as control paths. Where material, Delivery should verify dependency/common-mode coupling, capacity and latency, transition behavior, and restoration to a known authorized state. A failed or saturated fallback is itself evidence about control adequacy.
 
-Automation can carry repeatable invariant checks, tests, evaluations, evidence aggregation, version comparison, routing, policy-as-code checks, blocked-action verification, release-condition checks, and safe bounded Actuation **when evidence quality, failure behavior, reversibility, consequence, and delegated authority make the automated path credible**. The automated path must itself remain observable and correctable. Human decision owners retain contextual release acceptance, bounded engineering judgment, and residual-risk acceptance within delegated release authority; changes to project architecture or authority must be escalated to Project / Architecture or Organization as appropriate.
+Automation can carry repeatable invariant checks, evaluation, evidence aggregation, version comparison, routing, policy-as-code checks, blocked-action verification, release-condition checks, and safe bounded Actuation when evidence quality, failure behavior, reversibility, consequence, and delegated authority make that path credible. The automated path must itself remain observable and correctable.
 
-For the support system, Delivery implements the actual refund guard, authorization state, evaluator suite, approval routing, fallback, telemetry, and rollback/disable paths; verifies bypass behavior; records and correlates active versions; tests whether fallback shares a critical failure dependency with the primary path; and tests whether the human queue and fallback capacity can meet the latency assumed by Project. If implementation discovers that the claimed Hard path can be bypassed, that the evaluator no longer discriminates the semantic condition it is supposed to measure, that fallback is unavailable under the same failure it is meant to contain, or that approval capacity destroys the assumed service target, that is not merely “QA feedback.” It may invalidate Project Authorization.
-
-Delivery may repair, reconfigure, roll back, narrow exposure, disable, or re-release within delegated authority. It may not silently expand project authority, weaken an inherited Hard Constraint, change an organizational prohibition, or normalize evidence that project viability has failed. Material negative cases should improve the weakest delivery control element and its verification—Sensor coverage or validity, Constraint clarity, realization integrity, Controller logic or latency, Actuator effectiveness, Human Authority, fallback independence/capacity, automation, deterministic validation, or version traceability—rather than defaulting to prompt tuning because the model produced the visible symptom.
+For the support system, Delivery implements the actual refund guard, evaluator suite, approval routing, fallback, telemetry, and rollback/disable paths; verifies bypass behavior; correlates active versions; tests whether fallback shares a critical failure dependency; and tests whether Human Authority and fallback capacity meet the latency assumed by Project. A bypassable Hard path, invalid evaluator, common-mode fallback, or approval capacity that destroys the assumed service economics can invalidate the Project basis rather than merely produce another local defect.
 
 ### Runtime — operation, correction, and reassessment
 
-**Question owned:** Does active operation remain inside the authorized Requirement, Constraint baseline, authority, capacity, and economics, with required realizations active and healthy—and what response is authorized when it does not?
+**Question owned:** Does active operation remain inside the authorized Requirement, Constraint baseline, authority, capacity, and economics—and what response is authorized when it does not?
 
 Runtime is continuously active while the Thinking System operates. Specific Controller decisions are activated by Sensor evidence: prohibited or unusual behavior, realization degradation or bypass, version mismatch, drift, downstream outcomes, complaints, Human Authority overload, fallback saturation, cost or latency thresholds, failed Actuators, incidents, or evidence that an authorization assumption is false.
 
-The controlled object at runtime is still the **whole software Thinking System**, not the model response. Its control perimeter remains socio-technical. Evidence may therefore include model behavior and downstream outcomes; model, prompt, retrieval, context, tool, evaluator, realization, and deployment versions; authorization failures; semantic and deterministic evidence; complaints and overrides; Human Authority capacity; fallback load; cost and latency; incident state; Actuator execution; and whether the corrective action produced the intended resulting state.
+The controlled object at runtime remains the **whole software Thinking System**. Its control perimeter remains socio-technical. Evidence may therefore include model behavior and downstream outcomes; model, prompt, retrieval, context, tool, evaluator, realization, and deployment versions; authorization failures; semantic and deterministic evidence; complaints and overrides; Human Authority capacity; fallback load; cost and latency; incident state; Actuator execution; and the resulting state after correction.
 
-Material runtime evidence should be attributable to the actual baseline under which the system acted. Runtime therefore needs enough correlated source, Project, Delivery, Constraint Realization, model, prompt/instruction, context/retrieval, tool/routing, evaluator, policy/configuration, deployment-scope, and fallback identity to reconstruct what was active for a material decision, incident, or corrective action. The point is reconstructability, not a mandatory universal registry.
+Material runtime evidence must be attributable to the baseline under which the system actually acted. Runtime therefore needs enough correlated authoritative-source, Organizational-business, Project, Delivery, realization, model/prompt/context/retrieval/tool/routing/evaluator/policy/deployment/fallback identity to reconstruct what was active for a material decision, incident, or corrective action. The objective is reconstructability, not a mandatory universal registry.
 
-A signal becomes control-relevant only when it is connected to a decision boundary. For material evidence, the system should know the intended consumer, coverage and uncertainty, expected decision latency, responsible Controller, available Actuator, and escalation or reassessment route. The validity of the Sensor or evaluator is itself part of that evidence obligation: a signal calibrated for a previous model, population, policy, or operating condition cannot be assumed to remain fit for the current decision merely because the instrumentation is still running. A dashboard that aggregates signals without those connections remains an observability surface.
+A signal becomes control-relevant only when it is connected to a decision boundary. Material evidence needs an intended consumer, known coverage and uncertainty, expected decision latency, a responsible Controller, available Actuation, and a reassessment route. Sensor/evaluator validity is itself part of this obligation: an instrument calibrated for a previous model, population, policy, or operating condition cannot be presumed fit merely because it still runs.
 
-Runtime may automate control as far as evidence quality, consequence, failure behavior, reversibility, and delegated authority make credible. Deterministic permission checks, rate limits, circuit breakers, fallback selection, exposure narrowing, or rollback may be automated. Semantic interpretation, ambiguous exception decisions, or expansion of authority may still require Human Authority or an earlier decision horizon. Automation does not create authority simply because it can execute an action.
+Runtime may automate control as far as evidence quality, consequence, failure behavior, reversibility, and delegated authority make credible. Deterministic permission checks, rate limits, circuit breakers, fallback selection, exposure narrowing, or rollback may be automated. Semantic interpretation, ambiguous exceptions, or expansion of authority may still require Human Authority or an earlier horizon. Automation does not create authority simply because it can execute an action.
 
 ```mermaid
 flowchart LR
@@ -811,65 +814,68 @@ flowchart LR
     CTRL -->|basis no longer valid| ESC
 ```
 
-**Figure 13 — Runtime control and reassessment.** Runtime control operates through the socio-technical control perimeter around the active software Thinking System and verifies the result of corrective action. When the authorization basis is invalidated, the exit routes by decision ownership; Figure 14 resolves the concrete destination. Local response may restore a previously authorized state; it does not authorize redesign or wider authority.
+**Figure 13 — Runtime control and reassessment.** Runtime control operates through the socio-technical control perimeter around the active software Thinking System and verifies the result of corrective action. Local response may restore a previously authorized state; it does not authorize redesign, a new business basis, or wider authority.
 
-The key distinction is **restoration versus redesign**. Blocking a transaction, narrowing exposure, switching to fallback, rolling back, or disabling a feature may restore a known authorized state. But fallback is not a safe state by definition: common dependencies, insufficient capacity, unavailable data or authority, or an untested restore path can make fallback fail under the same conditions as the primary path. Persistent drift, degraded Human Authority, invalid Sensor assumptions, recurring realization failure, failed fallback, new reachable consequences, or broken control economics may show that there is no authorized state to “tune back to” without revisiting an earlier decision.
+The key distinction is **restoration versus redesign**. Blocking a transaction, narrowing exposure, switching to a credible fallback, rolling back, or disabling a feature may restore a known authorized state. But fallback is not a safe state by definition: common dependencies, insufficient capacity, unavailable data or authority, or an untested restoration path can fail under the same conditions as the primary path. Persistent drift, invalid Sensor assumptions, Human Authority overload, recurring realization failure, failed fallback, new reachable consequences, or broken economics may show that there is no authorized state to “tune back to” without reopening an earlier decision.
 
-Evidence routes according to the **decision basis it invalidates**, not according to where the signal first appeared:
+Evidence routes according to the **decision basis it invalidates**, not the team or component that first observed it:
 
 ```mermaid
 flowchart TB
-    E["Runtime evidence or requested change"]
-    L["Implementation / realization / configuration<br/> or evidence issue"]
-    P["Project risk / authority / feasibility<br/> capacity / evidence / economics changed"]
-    O["Authoritative source / decision right<br/> shared capability changed"]
+    E["Runtime / Delivery evidence or requested change"]
+    L["Implementation / realization / configuration<br/> or local evidence issue"]
+    P["Project risk / feasibility / AI necessity<br/> evidence / capacity / economics changed"]
+    O["Authoritative source / reserved decision right<br/> shared capability changed exogenously"]
     X["Requested expansion of authority"]
 
     E --> L --> D["Delivery reassessment"]
-    E --> P --> PR["Project Reauthorization"]
+    E --> P --> PR["Project viability reassessment<br/> / Project Reauthorization"]
     E --> O --> OR["Organizational review"]
     E --> X --> PR
-    PR -->|organizational boundary must change| OR
+    PR -->|still viable inside standing Organizational basis| PA["New Project Authorization baseline"]
+    PR -->|business basis challenged / Architectural Veto<br/> wider authority or exception required| OR
+    OR -->|changed basis / Organizational Business Authorization| PR
 ```
 
-**Figure 14 — Evidence and change routing.** The destination follows the challenged decision basis. This avoids both escalation theater—where every runtime defect becomes a governance meeting—and silent authority drift—where repeated local fixes gradually redesign the project in production.
+**Figure 14 — Evidence and change routing.** Local realization defects stay with Delivery. Evidence about architecture, AI necessity, capacity, fallback, evidence sufficiency, or economics first returns to Project / Architecture because Project owns the viability analysis. Organization is activated directly when its own authoritative basis changes, or from Project when the reassessed proposal challenges the business basis, requires wider authority, or produces Architectural Veto. This avoids both escalation theater and silent authority drift.
 
 ---
 
 ### Running Example | One Refund Case Across Four Decision Horizons
 
-**Lens in this section:** who owns the standing decision bases around the same controlled object, and where runtime evidence belongs when one of those bases is challenged.
+**Lens in this section:** how the same controlled object carries distinct standing decisions—and how technical viability, business authorization, release, and runtime evidence remain separate.
 
-The same support system is governed by four standing decision bases. Assume it may execute refunds automatically only up to **€50**, while larger refunds require Human Authority. A single runtime event does not activate all four horizons. Instead, it produces evidence that must be routed to whichever horizon owns the decision basis that evidence challenges.
+Assume the support system may execute refunds automatically only up to **€50**, while higher-value refunds require Human Authority. The four horizons hold different standing decision bases around that same boundary.
 
-| Horizon | Standing question / decision basis | Illustrative decision owner | What that horizon may decide |
+| Horizon | Standing question / decision basis | Illustrative responsibility | What that horizon may decide |
 |---|---|---|---|
-| **Organization** | May this class of system ever exercise refund authority, and what authority must remain reserved? | The organizational authority that legitimately owns the commercial, financial, customer, security/privacy, or exception boundary; several bundles may sit with the same person in an SMB. | Permit, prohibit, condition, or change delegated refund authority; define reserved Human Authority and evidence obligations. |
-| **Project / Architecture** | Is Model Judgment justified for this resolution path, and can a credible control perimeter keep the system inside the organizational boundary at viable cost and capacity? | Product/architecture/engineering decision authority operating inside the organizational boundary. | Project Authorization, Project Constraint Architecture, narrower scope, bounded research, redesign, defer, or No-Go. |
-| **Delivery** | Has the €50 boundary actually been realized and evidenced for this release, and is this deployment acceptable? | Delivery/release decision authority within Project Authorization. | DoR/DoD/Release decisions; repair a bypassable guard, improve evidence, narrow the release, or escalate when the project basis is invalid. |
-| **Runtime** | Does active operation remain inside the authorized refund boundary, and what correction is authorized locally? | Runtime Controller and, where required, Human Authority within delegated authority. | Block, route, verify resulting state, narrow/disable/rollback locally, or emit reassessment evidence. |
+| **Organization** | May this business initiative pursue bounded automated refund authority, and under which authoritative/business assumptions should it proceed? | Legitimate organizational business and authority owners; several bundles may be held by the same person in an SMB. | Initial admissibility; reserved refund authority; shared capabilities; exceptions; Organizational Business Authorization to proceed, reshape, research, defer, or stop. |
+| **Project / Architecture** | Is Model Judgment justified, can the €50/Human-Authority boundary be controlled credibly, and does the full control perimeter remain viable? | Project/architecture/product/engineering decision function operating inside the Organizational basis. | Viability conclusion, Architectural Veto, narrower/simpler alternative, economic finding; after positive Organizational Business Authorization, issue the technical Project Authorization baseline. |
+| **Delivery** | Has the authorized boundary actually been realized and evidenced for this deployment? | Delivery/release decision authority within Project Authorization. | DoR, DoD, Release Gate, local rework, narrower release, or escalation to Project when the technical/viability basis is challenged. |
+| **Runtime** | Does active operation remain inside the authorized refund boundary, and what correction is authorized locally? | Runtime Controller and Human Authority where reserved. | Block, route, contain, verify, narrow, disable, roll back, use credible fallback, or emit reassessment evidence. |
 
-Now apply one concrete runtime event to those standing decision bases. Suppose the model selects or proposes a **€450** refund and the workflow reaches the transaction-authority check.
+Now suppose the model selects or proposes a **€450** refund.
 
-- If the €450 transaction is deterministically blocked and the case is routed correctly, the deterministic transaction guard preserved the authorized boundary; the event is Runtime evidence and no higher-level reassessment is implied.
-- If one release contains a bypassable amount precondition, the evidence belongs to Delivery reassessment; Delivery may repair and re-release **if** the authorized architecture remains credible.
-- If repeated evidence shows that no available realization can make the required transaction boundary credible, or that Human Authority capacity cannot meet the Project assumption, the evidence challenges a Project / Architecture decision basis and requires **Project Reauthorization**.
-- If the business wants to raise the delegated threshold beyond the organizationally reserved limit, the project cannot grant that authority to itself; the request must return through Project / Architecture to Organization.
-- If abnormal refund patterns or repeated exceptions reveal that the organizational source, delegated decision right, or shared capability itself is wrong, Organization owns that reassessment.
+- If the transaction guard deterministically blocks execution and routes the case to Human Authority, Runtime control preserved the authorized boundary. No higher-level reassessment is implied merely because the model proposed a disallowed action.
+- If one release contains a bypassable amount precondition, the evidence belongs to Delivery reassessment. Delivery may repair and re-release if the authorized architecture and Project assumptions remain credible.
+- If repeated evidence shows that no available realization can make the required transaction boundary credible, Project / Architecture must reassess viability. If no credible bounded control path exists for the unchanged proposal, the result is **Architectural Veto**. Organization may change the proposal, but it may not authorize the unchanged architecture simply by accepting the risk.
+- If the boundary is technically credible but 35% of cases now require expensive Human Authority, approval latency is hours, and cost per resolved case exceeds the business assumption, Project first diagnoses the viability change. It may conclude **technically/control viable but economically unattractive under current assumptions**. Organization then decides whether to change price, target segment, service promise, scope, funding, investment horizon, or whether to stop the initiative. Any materially changed basis returns to Project before a new technical Project Authorization is issued.
+- If the business wants to raise the delegated threshold above the Organizationally reserved limit, Project cannot grant that authority to itself. The requested change returns to Organization, and any new authority must then be reassessed technically before Delivery receives a new baseline.
+- If abnormal refund patterns reveal that the authoritative source, reserved decision right, or shared transaction capability itself changed or was wrong, Organization owns that reassessment directly.
 
-The point is not that one incident traverses four horizons. The four horizons maintain different standing decision bases around the same controlled object; a concrete event activates local control and only the reassessment path required by the basis its evidence invalidates.
+The point is not that every event climbs a four-step ladder. A single event activates Runtime control and only the reassessment path required by the decision basis it invalidates. Organization and Project may also iterate before Delivery ever begins.
 
-**What this adds to the case:** the same €50/€450 refund boundary now exposes standing ownership across the four horizons and routes reassessment by the decision basis that evidence invalidates.
+**What this adds to the case:** the €50/€450 boundary now distinguishes four things that are often collapsed: Project engineering viability, Organizational business authority, Project technical authorization, and Delivery release authority.
 
 ---
 
 ### Cross-level operating discipline — learn from negative cases without turning every deviation into governance
 
-The Nested Control Lifecycle already establishes downward inheritance, local reassessment, Project Reauthorization, and Organizational review. The following learning discipline is a **publication-facing operating hypothesis under validation**, not a claim that UA has already empirically proven a universal stabilization law.
+The current draft-normative Nested Control Lifecycle already provides downward inheritance, local reassessment, Project Reauthorization, and Organizational review. The sharper **Project viability conclusion ↔ Organizational Business Authorization ↔ Project Authorization** handshake developed in this section is a paper-level lifecycle refinement under validation. The following systematic negative-case learning discipline is also a publication-facing hypothesis under validation rather than a claim of proven stabilization.
 
-First, **measure for decisions, not dashboards**. Every material control claim or decision basis should be observable enough for its Controller to decide inside the consequence-relevant time horizon. Evidence needs a consumer, decision boundary, latency expectation, coverage, uncertainty, a known active instrument version and validity basis where material, and known blind spots. More Sensors are not automatically better.
+First, **measure for decisions, not dashboards**. Every material control claim or decision basis should be observable enough for its Controller to decide inside the consequence-relevant time horizon. Evidence needs a consumer, decision boundary, latency expectation, coverage, uncertainty, known blind spots, an active instrument/version identity, a validation/calibration basis where applicable, and enough baseline correlation to know which authorization/configuration state produced it.
 
-Second, **treat a negative case as evidence requiring diagnosis, not as a diagnosis by itself**. A bad output, near miss, denied action, complaint, realization failure, false block, Actuator failure, Human Authority overload, fallback saturation, cost break, or violated assumption may later be classified as a Bug, Constraint violation, realization defect, accepted residual behavior, false positive, capacity problem, changed assumption, or something else. It should route to the horizon that owns the affected decision basis.
+Second, **treat a negative case as evidence requiring diagnosis, not a diagnosis by itself**. A bad output, near miss, denied action, complaint, realization failure, false block, Actuator failure, Human Authority overload, fallback saturation, economic break, or violated assumption may later be classified as a Bug, Constraint violation, realization defect, accepted residual behavior, false positive, capacity problem, changed Project assumption, or changed Organizational business basis. It should route to the horizon that owns the affected decision basis.
 
 Third, **analyze control failure, not only model failure**. For a material negative case ask:
 
@@ -880,38 +886,43 @@ Did the Constraint Realization fail, degrade, or permit bypass?
 Did the Controller have the wrong evidence, rule, authority, or latency?
 Did the Actuator fail to execute or verify correction?
 Did Human Authority lack information, time, capacity, independence, or power?
-Did fallback share the failed dependency, lack required capacity, or fail to restore an authorized state?
+Did fallback share the failed dependency, lack required capacity, fail to transition, or fail to restore an authorized state?
 Did automation introduce hidden failure, coupling, latency, or false confidence?
-Was the project scenario, assumption, dependency, or economics wrong?
-Was the organizational source, decision right, or shared capability wrong or changed?
+Can the event be attributed to the actual active authorization and behavioral/control baseline?
+Was the Project scenario, AI-necessity rationale, feasibility assumption, or economics wrong?
+Was the Organizational business assumption, authoritative source, reserved decision right, or shared capability wrong or changed?
 ```
 
 The visible model output is only one possible failure location.
 
-Fourth, **improve the weakest control element and its evidence**. Corrective learning may change Sensors, Constraints, realizations, Controller logic, Actuators, Human Authority, fallback, automation, project assumptions, tests/evaluators, delegated authority, shared capabilities, or project economics. For evidence instruments, the correction may be recalibration, replacement, revised coverage, a changed threshold/rubric, or a new validity-loss trigger—not automatic ingestion of every incident into a baseline. Repeated prompt tuning should not be the default response simply because the model produced the visible symptom.
+Fourth, **improve the weakest control element and its evidence**. Corrective learning may change Sensors, Constraints, realizations, Controller logic, Actuators, Human Authority, fallback, automation, tests/evaluators, Project assumptions, AI placement, shared capabilities, delegated authority, or economics. For evidence instruments, improvement may require recalibration, replacement, revised coverage, a changed threshold/rubric, or a new validity-loss trigger—not automatic ingestion of every incident into a baseline.
 
 Fifth, **prefer deterministic prevention for prohibited states where feasible**, and automate control work only when the automated path is itself controllable. Repetitive sensing, invariant checks, evidence aggregation, routing, version comparison, alerting, decision support, and safe bounded Actuation are good automation candidates when evidence quality, failure behavior, reversibility, consequence, and delegated authority make them credible. Automated decisions and actions must themselves expose health, configuration, failures, and resulting state.
 
-The stabilization objective is not zero variance from Model Judgment. It is progressive reduction of **uncontrolled or poorly understood recurrence**: make important failures structurally impossible where feasible, detect them earlier, route them faster, reduce consequence through narrower authority, improve corrective reliability, lower recovery cost, or revise the authorization basis when the original system model was wrong.
+The stabilization objective is not zero variance from Model Judgment. It is progressive reduction of **uncontrolled or poorly understood recurrence**: make important failures structurally impossible where feasible, detect them earlier, route them faster, narrow authority where consequence demands it, improve corrective reliability, lower recovery cost, or revise the Project or Organizational basis when the original model was wrong.
 
 ```mermaid
 flowchart LR
     N["Material negative case / evidence<br/> violation · near miss · failure · overload<br/> changed assumption · economic break"]
     T["Triage by decision basis<br/> Runtime · Delivery · Project / Architecture · Organization"]
-    D["Diagnose weakest control element<br/> Sensor · Constraint · Realization · Controller<br/> Actuator · Human Authority · automation · assumption"]
-    C["Change inside authority<br/> or reauthorize upward"]
-    I["Improved control architecture<br/> boundary · evidence · authority · response"]
-    V["Runtime verification<br/> resulting state and recurrence"]
+    D["Diagnose weakest control element or decision basis<br/> Sensor · Constraint · Realization · Controller · Actuator<br/> Human Authority · fallback · automation · Project / business assumption"]
+    C["Change inside authority<br/> or reassess / reauthorize at owning horizon"]
+    I["Improved control architecture or decision basis<br/> boundary · evidence · authority · response · business assumptions"]
+    V["Runtime / lifecycle verification<br/> resulting state and recurrence"]
 
     N --> T --> D --> C --> I --> V
     V -. new evidence .-> N
 ```
 
-**Figure 15 — Cross-level learning and stabilization loop.** Negative cases route to the horizon that owns the failed decision basis, then improve the weakest control element or trigger reauthorization. The figure does not imply that every case escalates, that every deviation is a Bug, or that stabilization is already empirically validated across real systems.
+**Figure 15 — Cross-level learning and stabilization loop.** Negative cases route to the horizon that owns the failed decision basis, then improve the weakest control element, trigger Project viability reassessment, or reopen the Organizational business/authority basis as appropriate. The figure does not imply that every case escalates, every deviation is a Bug, or the proposed stabilization effect is already empirically validated.
 
-The four horizons therefore form a nested lifecycle rather than a waterfall. Higher-level decisions and Constraint authority flow downward by reference, while scoped realizations become more concrete across Project, Delivery, and Runtime. Material evidence must remain attributable to the active authorization and behavioral/control baseline well enough to diagnose which decision or realization actually failed. Evidence flows upward when it invalidates an earlier basis. Lower levels may refine and narrow. They may not silently expand authority, weaken an inherited Hard Constraint, or normalize evidence that the earlier authorization is no longer valid.
+The four horizons therefore form a nested, recurrent lifecycle rather than a waterfall. Organizational authority and business assumptions flow into Project analysis. Project viability evidence can return to Organization before any technical authorization exists. Once Organization chooses to proceed on a viable basis, Project Authorization carries the technical baseline to Delivery. Delivery realizes and releases a bounded scope. Runtime operates it and produces evidence. That evidence may stay local, reopen Project viability, or return to Organization when the business or authoritative basis itself changes.
 
-> **Lower levels may refine and narrow a higher-level decision. They may not silently expand its authority or normalize evidence that invalidates it.**
+Lower levels may refine and narrow a higher-level authorization. They may not silently expand authority, weaken an inherited Hard Constraint, normalize evidence that Project viability has failed, or continue under business assumptions that the owning Organizational decision no longer supports.
+
+> **Project / Architecture owns the viability conclusion. Organization owns the business decision to pursue the initiative. Project Authorization is the technical baseline that connects a positive Organizational decision on a viable basis to Delivery.**
+
+> **An Architectural Veto is binding for the unchanged proposal; changing the business or authority basis creates a new proposal to reassess, not an override of engineering feasibility.**
 
 > **A decision owner that receives no fit-for-purpose evidence is authority on paper, not an operational Controller.**
 
