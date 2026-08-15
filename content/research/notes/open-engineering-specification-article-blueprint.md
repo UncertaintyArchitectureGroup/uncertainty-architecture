@@ -1429,15 +1429,18 @@ solution lifecycle cost
 + complete control-perimeter lifecycle cost
 + residual exposure / uncertainty that remains after control
 + hard authorization / feasibility boundaries that cannot be traded away
-→ Project viability conclusion:
-   Model Judgment unnecessary / simpler design preferable
-   | viable as proposed
-   | viable only with narrower scope / changed authority
-   | further bounded research required
-   | technically viable but economically unattractive under current assumptions
-   | Architectural Veto — no credible bounded control architecture for the current proposal
-→ Organization chooses:
-   specific bounded research | proceed / continue | reshape Organizational basis | defer | do not proceed
+→ Project result:
+   Project-local technical/category outcome
+      | Model Judgment unnecessary / simpler design preferable inside standing Organizational basis
+      | narrower technical design that remains a Thinking System inside standing basis
+   OR Project viability finding requiring Organizational action
+      | viable production basis requiring Business Authorization
+      | further bounded research requiring Organizationally reserved exposure/commitment
+      | technically viable but economically unattractive under current assumptions
+      | changed Organizational premise / continuation decision required
+      | Architectural Veto — no credible bounded control architecture for the current proposal
+→ Project-local outcome: select design + confirm category; hand off to ordinary product/software governance if no Thinking System remains
+→ Organizational-action finding: Organization chooses specific bounded research | proceed / continue | reshape Organizational basis | defer | do not proceed
 → Project reassesses any changed Organizational basis and issues scoped Project Authorization where applicable
 ```
 
@@ -1447,7 +1450,7 @@ The distinction between **Architectural Veto**, **economic non-viability**, **re
 
 - **Architectural Veto:** no credible complete bounded control architecture exists for the current production proposal. Project cannot issue production-capable Project Authorization for that unchanged proposal. Organization may change the proposal and request a new assessment, but may not simply accept the missing control path as a business trade-off. Bounded research is possible only if the research experiment itself has a separate credible control envelope.
 - **Economic non-viability:** a credible production control architecture exists, but current business assumptions do not justify its total solution/control burden. This conclusion goes to Organization because Organization may change price, service promise, target segment, scope, outcome, funding, investment horizon, Human Authority capacity, or decide not to proceed.
-- **Further bounded research required:** production viability remains unresolved, but Project can identify a credibly bounded experiment and the evidence it needs. Initial assessment eligibility does not expose that experiment. Organization decides whether the **specific** evidence is worth acquiring; a positive Bounded Research Authorization allows a research-only Project Authorization, not production permission.
+- **Further bounded research required:** production viability remains unresolved, but Project can identify the evidence it needs and a credible experiment envelope. If the experiment remains entirely inside the standing assessment envelope and consumes no Organizationally reserved exposure, authority, specially governed data, material commitment, or external effect, Project may run it locally under ordinary engineering controls. If the experiment crosses an Organizationally owned boundary, initial assessment eligibility does not expose it: Organization decides whether the **specific** evidence is worth acquiring, and a positive Bounded Research Authorization allows a research-only Project Authorization, not production permission.
 - **Simpler alternative preferred / Model Judgment unnecessary:** Project owns the engineering conclusion, technical/design selection within the standing Organizational business/authority basis, and category confirmation. If the selected design's category test is negative, it exits the Thinking-System lifecycle. Organization is reactivated only when the recommendation requires a changed Organizational premise or business continuation decision.
 
 A hard prohibition or missing authority/capability cannot be averaged away by favorable expected value. Conversely, a technically viable system is not automatically a business-viable project merely because the architecture can be controlled.
@@ -1460,7 +1463,7 @@ The Project Controller is commonly socio-technical. Architecture, product, engin
 
 Project / Architecture has a selected technical design/category result and viability output, plus—after the corresponding Organizational research or business authorization where applicable—one of two scoped technical-authorization outputs.
 
-**A. Viability conclusion returned to Organization:**
+**A. Project viability finding requiring Organizational action:**
 
 - Model-Judgment-necessity conclusion and compared alternatives;
 - candidate category result for serious simpler/narrower alternatives;
@@ -1477,7 +1480,7 @@ Project / Architecture has a selected technical design/category result and viabi
 - baseline-correlation obligations needed to reconstruct material active authorization/configuration later;
 - complete control economics/capacity/latency conclusions and the business assumptions on which they depend;
 - residual exposure/uncertainty;
-- viability status: viable / viable with conditions or narrower scope / further bounded research / technically viable but economically unattractive / Model Judgment unnecessary or simpler alternative preferred / Architectural Veto;
+- viability/action status relevant to the Organizational decision: viable production basis requiring Business Authorization / further bounded research requiring Organizationally reserved exposure or commitment / technically viable but economically unattractive / changed Organizational premise or continuation decision required / Architectural Veto;
 - if research is proposed, the bounded experiment scope, stopping conditions, prohibited exposure, and evidence return needed to resolve the open question;
 - the assumptions whose change would require reassessment.
 
@@ -1537,7 +1540,7 @@ The repository's **Project Control Architecture and Viability Review** is one ca
 Project / Architecture may analyze, redesign, narrow, request more research, compare alternatives, determine candidate category results, and issue the viability conclusion. It may issue or reissue Project Authorization only when a standing Organizational decision covers that **specific scope**.
 
 - If Project determines that a deterministic/manual or otherwise simpler design best satisfies the same standing Organizational outcome and authority/business basis, that is a Project architecture decision and viability conclusion. Project confirms the category of its selected design; a negative category result exits the Thinking-System lifecycle, while a selected narrower model-assisted path is reassessed as a Thinking System. Return to Organization only when the recommendation requires a changed Organizational premise or business continuation decision.
-- If Project proposes bounded research, initial assessment eligibility is insufficient. Organization must issue a **specific Bounded Research Authorization** for the Project-defined experiment before Project issues research-only Project Authorization.
+- If Project proposes evidence-generating work that remains entirely inside the standing assessment envelope and consumes no Organizationally reserved exposure or commitment, Project may conduct it locally under the applicable engineering controls. If the proposed experiment crosses an Organizationally owned boundary, initial assessment eligibility is insufficient: Organization must issue a **specific Bounded Research Authorization** for the Project-defined experiment before Project issues research-only Project Authorization.
 - Research-only authorization may be revised within the standing **specific research basis** but may not be promoted to production without a new viability conclusion and positive Organizational Business Authorization on a production-viable basis.
 - If a changed production technical design remains viable and inside the standing Organizational business/authority basis, Project may perform production Project Reauthorization without a new Organizational business decision.
 - If evidence shows that no credible bounded control architecture exists for the current production proposal, Project issues Architectural Veto and routes the result to Organization. No production-capable Project Authorization exists for that unchanged proposal.
@@ -1554,8 +1557,8 @@ Negative cases should test whether the project model of the controlled object wa
 ```text
 Organizational admissibility + assessment eligibility + business intent + authoritative context
 → Model Judgment necessity / deterministic or narrower alternative check
-   ├→ simpler alternative preferred
-   │    → Project viability conclusion + candidate category result
+   ├→ simpler alternative preferred inside standing Organizational basis
+   │    → Project-local technical/category outcome
    │    → Project selects simpler technical design inside standing Organizational basis
    │       └→ Project category confirmation for selected design
    │            ├→ no Consequential Runtime Responsibility remains Model-Judgment-dependent
@@ -1821,11 +1824,16 @@ bounded-research question answered / invalidated
 → Organizational specific-research / business/design review as required
 → no automatic production promotion
 
-project economics, Model-Judgment-necessity rationale, business-value assumptions, or viable-scope conclusion changed materially
+project economics, business-value assumptions, or another Organizationally owned premise changed materially
 → Project viability reassessment
 → Organizational business/basis / continuation / reshape / defer / do-not-proceed review
-→ if simpler path selected: Project confirms category and exits this lifecycle only if the selected design is not a Thinking System
-→ production Project Reauthorization only for a resulting authorized technically viable Thinking-System basis
+→ Project reassesses any changed Organizational basis before a new production-capable technical baseline
+
+Model-Judgment-necessity rationale or technical design changed materially
+→ Project viability reassessment
+→ if a simpler path still satisfies the standing Organizational basis: Project selects it and confirms category locally
+   → exit the Thinking-System-specific lifecycle only if the selected design is not a Thinking System; ordinary product/software governance still applies
+→ Organizational review only if the preferred path requires changing an Organizationally owned premise or continuation decision
 
 no credible bounded control architecture remains for the current production proposal
 → Project Architectural Veto
@@ -1872,7 +1880,7 @@ Repeated cases should become less frequent, earlier detectable, less consequenti
 - Figure 13 — runtime control and reassessment;
 - Figure 14 — evidence and change routing.
 
-Keep Figure 13's escalation exit generic (`authorization or viability basis invalidated → route by decision ownership`) and let Figure 14 own the concrete Delivery / Project / Organization destinations. Figure 14 must show **two top-level sources**: `(a) Runtime / Delivery evidence or requested change`, which routes locally or to Project first according to the affected decision basis, and `(b) Exogenous Organizational change`, which activates Organization directly. Ensure Figure 12 and Figure 14 agree: a Delivery-discovered issue that challenges Project Authorization routes first to Project viability reassessment; research results never self-promote to production; if Project can reauthorize inside the standing scope/basis, it does so. If economics/business basis/Model-Judgment necessity is invalidated, a simpler design is preferred, Architectural Veto applies, wider authority/new research permission is needed, or an Organizational authoritative/business basis changed exogenously, Organization owns the next path/business/authority decision before Project applies category consequences or issues the resulting scoped technical baseline.
+Keep Figure 13's escalation exit generic (`authorization or viability basis invalidated → route by decision ownership`) and let Figure 14 own the concrete Delivery / Project / Organization destinations. Figure 14 must show **two top-level sources**: `(a) Runtime / Delivery evidence or requested change`, which routes locally or to Project first according to the affected decision basis, and `(b) Exogenous Organizational change`, which activates Organization directly. Ensure Figure 12 and Figure 14 agree: a Delivery-discovered issue that challenges Project Authorization routes first to Project viability reassessment; research results never self-promote to production; if Project can reauthorize or select a simpler technical design inside the standing scope/business/authority basis, it does so and applies category consequences locally. Organization owns the next decision only when economics or another Organizationally owned business/investment premise must change, Architectural Veto requires a changed proposal, wider authority or new reserved research permission is needed, a continuation/defer/stop decision is implicated, or an Organizational authoritative/business basis changed exogenously. Project then reassesses any changed basis before issuing the resulting scoped technical baseline.
 
 #### Cross-level operating discipline — measurement, negative-case learning, automation, and stabilization
 
