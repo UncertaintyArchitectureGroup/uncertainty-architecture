@@ -1,0 +1,28 @@
+name: Temporary PR78 blueprint consistency sweep
+on:
+  push:
+    branches: [agent/replan-sections-5-8]
+    paths: [.github/workflows/tmp-pr78-blueprint-consistency-sweep.yml]
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: agent/replan-sections-5-8
+          fetch-depth: 0
+      - name: Apply consistency sweep
+        run: python3 .github/scripts/tmp_pr78_blueprint_consistency_sweep.py
+      - name: Validate
+        run: |
+          git diff --check
+          git diff --name-only
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-blueprint.md
+          git commit -m "Align blueprint with final Article 4 ownership model"
+          git push origin HEAD:agent/replan-sections-5-8
