@@ -1680,7 +1680,7 @@ Delivery Controllers combine explicit human release/engineering authority with a
 
 **Local action versus escalation:**
 
-Delivery may repair, reconfigure, roll back, narrow exposure, disable, or re-release within delegated authority. It may not silently expand project authority, weaken an inherited Hard Constraint, change an Organizational prohibition, **promote research-only exposure into production**, or normalize evidence that project viability has failed. Delivery evidence that challenges the technical Project Authorization routes to Project viability reassessment / Project Reauthorization. If Project concludes that the architecture is no longer viable, that economics/Model-Judgment necessity/business assumptions are invalid, that a simpler path is preferable, that Architectural Veto now applies, that a new specific Bounded Research Authorization is required, or that a changed Organizational boundary/exception/business decision is required, Project routes the conclusion/proposal to Organization before a new scoped technical baseline can be issued. An exogenous change to the Organizational authoritative or business basis may activate Organization directly; the affected Project Authorization must then be reassessed before Delivery proceeds under a new baseline.
+Delivery may repair, reconfigure, roll back, narrow exposure, disable, or re-release within delegated authority. It may not silently expand project authority, weaken an inherited Hard Constraint, change an Organizational prohibition, **promote research-only exposure into production**, or normalize evidence that project viability has failed. Delivery evidence that challenges the technical Project Authorization routes to Project viability reassessment / Project Reauthorization. If Project concludes that the architecture is no longer viable, that economics/Model-Judgment necessity or an Organizationally owned business assumption is invalid, that Architectural Veto now applies, that a new specific Bounded Research Authorization is required, or that a changed Organizational boundary/exception/business/continuation decision is required, Project routes the conclusion/proposal to Organization before a new scoped technical baseline can be issued. If Project instead prefers a simpler technical path that still satisfies the standing Organizational business/authority basis, Project may select that path, confirm its category, and either reauthorize the resulting narrower Thinking System or exit this lifecycle when the selected design is no longer a Thinking System; no Organizational architecture-selection step is required. An exogenous change to the Organizational authoritative or business basis may activate Organization directly; the affected Project Authorization must then be reassessed before Delivery proceeds under a new baseline.
 
 **Learning and stabilization:**
 
@@ -1725,9 +1725,10 @@ runtime / experiment evidence
 Project viability reassessment
    → research remains bounded inside the current specific research basis: research-only Project Reauthorization
    → production remains viable inside standing Organizational business/authority basis: production Project Reauthorization
-   → simpler path preferred / economics / Model-Judgment necessity / business basis invalidated / new research authorization needed / Architectural Veto / Organizational change required: Organizational review
+   → simpler technical path still satisfies standing Organizational basis: Project selects path → category confirmation → local Project Reauthorization if still a Thinking System, otherwise exit this lifecycle
+   → economics / Model-Judgment necessity challenges an Organizationally owned premise / new research authorization needed / Architectural Veto requires a changed proposal / Organizational change or continuation decision required: Organizational review
 Organizational review
-   → select simpler path / specific bounded research / changed business or authority basis / renewed Business Authorization
+   → specific bounded research / changed business or authority basis / renewed Business Authorization / reshape / defer / stop
    → Project category/viability reassessment before Delivery proceeds under a new scope
 
 Exogenous authoritative-source / organizational-decision-right / shared-capability / business-basis change
