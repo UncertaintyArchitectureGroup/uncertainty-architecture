@@ -4,24 +4,22 @@ on:
   push:
     branches:
       - agent/replan-sections-5-8
-    paths:
-      - .github/workflows/tmp-pr78-content-sync.yml
 
 permissions:
   contents: write
 
 jobs:
   sync:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/checkout@v4
         with:
           ref: agent/replan-sections-5-8
           fetch-depth: 0
       - name: Apply content fixes
-        shell: bash
+        shell: python
         run: |
-          python3 - <<'PY'
           from pathlib import Path
           import re
 
@@ -29,52 +27,22 @@ jobs:
           ms = Path('content/research/notes/open-engineering-specification-article-draft.md')
           ch = Path('CHANGELOG.md')
 
-          def replace_exact(text, old, new, label, min_count=1, max_count=None):
-              c = text.count(old)
-              if c < min_count or (max_count is not None and c > max_count):
-                  raise SystemExit(f'{label}: expected {min_count}..{max_count or "inf"} matches, found {c}')
+          def exact(text, old, new, label):
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected 1 occurrence, found {count}')
               return text.replace(old, new)
 
-          # --- Blueprint semantic sweep ---
           b = bp.read_text()
-          b = replace_exact(
-              b,
-              'Organization owns business/design selection and authority over the initiative, including the levers that may change the decision basis.',
-              'Organization owns the business outcome, authoritative/investment basis, and initiative-level research/continuation decisions. It does not select the technical architecture when Project / Architecture can satisfy the standing Organizational basis without changing an Organizationally owned premise.',
-              'blueprint org ownership', 1, 1)
-          b = replace_exact(
-              b,
-              '- a Project conclusion that Model Judgment is unnecessary for the stated outcome or that a deterministic/manual/narrower design is preferable;',
-              '- a Project conclusion that Model Judgment is unnecessary or a simpler design is preferable **only when** adopting that engineering recommendation would require changing an Organizationally owned premise or deciding whether to continue, defer, or stop the initiative;',
-              'blueprint activation trigger', 1, 1)
-          b = replace_exact(
-              b,
-              '- business/design decisions repeatedly ignored or obscured Project viability evidence;',
-              '- Organizational business/basis decisions repeatedly ignored or obscured Project viability evidence;',
-              'blueprint learning wording', 1, 1)
-          b = replace_exact(
-              b,
-              'enough cost/capacity/latency information to make the viability conclusion usable by Organization as a business/design decision input;',
-              'enough cost/capacity/latency information to make the viability conclusion usable by Organization as a business/basis decision input where Organizational action is actually required;',
-              'blueprint viability input wording', 1, 1)
-          b = replace_exact(
-              b,
-              'Project viability reassessment → Organization: business/design choice challenged, new specific research authorization needed, Architectural Veto, or changed business/authority input required',
-              'Project viability reassessment → Organization: Organizational business/authority/investment basis challenged, new specific research authorization needed, Architectural Veto requires a changed proposal, or a continuation/defer/stop decision is required',
-              'blueprint fig9 routing', 1, 1)
-          b = replace_exact(
-              b,
-              '   └→ business/design basis challenged / new research authorization needed / Architectural Veto / wider authority required → Organizational review',
-              '   └→ Organizational business/authority/investment basis challenged / new research authorization needed / Architectural Veto requires a changed proposal / continuation decision required → Organizational review',
-              'blueprint delivery routing', 1, 1)
-          b = replace_exact(
-              b,
-              '- **Organization / Project boundary and handshake:** Organization owns initial admissibility/assessment eligibility, authoritative boundaries, shared capabilities, reserved decisions, evidence obligations, exceptions, business intent, selection of the business/design path, specific Bounded Research Authorization, and the business decision to proceed/continue/reshape/defer/stop. Project / Architecture owns Model-Judgment necessity, alternative/category analysis, concrete control architecture, technical/control feasibility, Human Authority/fallback/capacity analysis, complete control economics, Architectural Veto, and the Project viability conclusion. Project Authorization is a scoped technical baseline, not the Organizational business/research decision.',
-              '- **Organization / Project boundary and handshake:** Organization owns initial admissibility/assessment eligibility, authoritative boundaries, shared capabilities, reserved decisions, evidence obligations, exceptions, the business outcome and authoritative/investment basis, specific Bounded Research Authorization, and initiative-level proceed/continue/reshape/defer/stop decisions. Project / Architecture owns Model-Judgment necessity, alternative/category analysis, technical/design selection inside that standing Organizational basis, concrete control architecture, technical/control feasibility, Human Authority/fallback/capacity analysis, complete control economics, Architectural Veto, category confirmation, and the Project viability conclusion. A Project-selected simpler design does not require Organizational architecture approval unless an Organizationally owned premise or continuation decision must change. Project Authorization is a scoped technical baseline, not the Organizational business/research decision.',
-              'blueprint known risks ownership', 1, 1)
+          b = exact(b, 'Organization owns business/design selection and authority over the initiative, including the levers that may change the decision basis.', 'Organization owns the business outcome, authoritative/investment basis, and initiative-level research/continuation decisions. It does not select the technical architecture when Project / Architecture can satisfy the standing Organizational basis without changing an Organizationally owned premise.', 'blueprint Organization ownership')
+          b = exact(b, '- a Project conclusion that Model Judgment is unnecessary for the stated outcome or that a deterministic/manual/narrower design is preferable;', '- a Project conclusion that Model Judgment is unnecessary or a simpler design is preferable **only when** adopting that engineering recommendation would require changing an Organizationally owned premise or deciding whether to continue, defer, or stop the initiative;', 'blueprint Organization activation')
+          b = exact(b, '- business/design decisions repeatedly ignored or obscured Project viability evidence;', '- Organizational business/basis decisions repeatedly ignored or obscured Project viability evidence;', 'blueprint learning wording')
+          b = exact(b, 'enough cost/capacity/latency information to make the viability conclusion usable by Organization as a business/design decision input;', 'enough cost/capacity/latency information to make the viability conclusion usable by Organization as a business/basis decision input where Organizational action is actually required;', 'blueprint viability input')
+          b = exact(b, 'Project viability reassessment → Organization: business/design choice challenged, new specific research authorization needed, Architectural Veto, or changed business/authority input required', 'Project viability reassessment → Organization: Organizational business/authority/investment basis challenged, new specific research authorization needed, Architectural Veto requires a changed proposal, or a continuation/defer/stop decision is required', 'blueprint evidence routing')
+          b = exact(b, '   └→ business/design basis challenged / new research authorization needed / Architectural Veto / wider authority required → Organizational review', '   └→ Organizational business/authority/investment basis challenged / new research authorization needed / Architectural Veto requires a changed proposal / continuation decision required → Organizational review', 'blueprint Delivery routing')
+          b = exact(b, '- **Organization / Project boundary and handshake:** Organization owns initial admissibility/assessment eligibility, authoritative boundaries, shared capabilities, reserved decisions, evidence obligations, exceptions, business intent, selection of the business/design path, specific Bounded Research Authorization, and the business decision to proceed/continue/reshape/defer/stop. Project / Architecture owns Model-Judgment necessity, alternative/category analysis, concrete control architecture, technical/control feasibility, Human Authority/fallback/capacity analysis, complete control economics, Architectural Veto, and the Project viability conclusion. Project Authorization is a scoped technical baseline, not the Organizational business/research decision.', '- **Organization / Project boundary and handshake:** Organization owns initial admissibility/assessment eligibility, authoritative boundaries, shared capabilities, reserved decisions, evidence obligations, exceptions, the business outcome and authoritative/investment basis, specific Bounded Research Authorization, and initiative-level proceed/continue/reshape/defer/stop decisions. Project / Architecture owns Model-Judgment necessity, alternative/category analysis, technical/design selection inside that standing Organizational basis, concrete control architecture, technical/control feasibility, Human Authority/fallback/capacity analysis, complete control economics, Architectural Veto, category confirmation, and the Project viability conclusion. A Project-selected simpler design does not require Organizational architecture approval unless an Organizationally owned premise or continuation decision must change. Project Authorization is a scoped technical baseline, not the Organizational business/research decision.', 'blueprint known-risk ownership')
 
-          # Clean recurring stale lifecycle labels in later-section planning.
-          replacements = {
+          for old, new in {
               'Organizational-selected-path-specific-research-business': 'Organizational-specific-research/business/basis',
               'Organizational selected-path / specific-bounded-research / business decision': 'Organizational specific-bounded-research / business / changed-basis decision',
               'selected-path category confirmation / exit': 'Project-selected-design category confirmation / exit',
@@ -87,22 +55,13 @@ jobs:
               'business/design choice': 'Organizational business/basis decision',
               'business/design selection': 'Organizational business/basis authority',
               'business/design basis': 'Organizational business/authority/investment basis',
-          }
-          for old, new in replacements.items():
-              if old in b:
-                  b = b.replace(old, new)
+          }.items():
+              b = b.replace(old, new)
 
-          # Specific acceptance criteria and figure descriptions that still encoded the old mandatory Organization hop.
-          b = b.replace(
-              'Figure 8 keeps Organization, Project / Architecture, Delivery, and Runtime as four decision horizons while showing: initial Organizational **assessment eligibility** → Project viability conclusion → Organizational selected-path / specific-bounded-research / business decision → correspondingly scoped Project Authorization → Delivery.',
-              'Figure 8 keeps Organization, Project / Architecture, Delivery, and Runtime as four decision horizons while showing: initial Organizational **assessment eligibility** → Project analysis / technical selection; Project-local category confirmation and exit when a selected design remains inside the standing Organizational basis; and an Organizational specific-bounded-research / Business Authorization / changed-basis decision only when Project evidence actually requires Organizational action → correspondingly scoped Project Authorization → Delivery.')
-          b = b.replace(
-              'Figure 9 reproduces the Figure 8 four-horizon decision model—including assessment eligibility, specific bounded research, selected-path category confirmation, research-only versus production-capable Project Authorization, reassessment evidence from Delivery realization or Runtime/research operation, and independent exogenous Organizational change—',
-              'Figure 9 reproduces the Figure 8 four-horizon decision model—including assessment eligibility, Project-owned technical selection and category confirmation/exit inside the standing Organizational basis, specific bounded research, research-only versus production-capable Project Authorization, reassessment evidence from Delivery realization or Runtime/research operation, and independent exogenous Organizational change—')
-
+          b = b.replace('Figure 8 keeps Organization, Project / Architecture, Delivery, and Runtime as four decision horizons while showing: initial Organizational **assessment eligibility** → Project viability conclusion → Organizational specific-bounded-research / business / changed-basis decision → correspondingly scoped Project Authorization → Delivery.', 'Figure 8 keeps Organization, Project / Architecture, Delivery, and Runtime as four decision horizons while showing: initial Organizational **assessment eligibility** → Project analysis / technical selection; Project-local category confirmation and exit when a selected design remains inside the standing Organizational basis; and an Organizational specific-bounded-research / Business Authorization / changed-basis decision only when Project evidence actually requires Organizational action → correspondingly scoped Project Authorization → Delivery.')
+          b = b.replace('Figure 9 reproduces the Figure 8 four-horizon decision model—including assessment eligibility, specific bounded research, Project-selected-design category confirmation / exit, research-only versus production-capable Project Authorization, reassessment evidence from Delivery realization or Runtime/research operation, and independent exogenous Organizational change—', 'Figure 9 reproduces the Figure 8 four-horizon decision model—including assessment eligibility, Project-owned technical selection and category confirmation/exit inside the standing Organizational basis, specific bounded research, research-only versus production-capable Project Authorization, reassessment evidence from Delivery realization or Runtime/research operation, and independent exogenous Organizational change—')
           bp.write_text(b)
 
-          # --- Manuscript Figure 8 / Figure 9 canonical ownership model ---
           m = ms.read_text()
           fig8_pattern = re.compile(r'```mermaid\nflowchart TB\n    O\["Organization<br/>What may the organization assess, research, pursue, or continue\?"\].*?```\n\n\*\*Figure 8 — Four decision-ownership horizons around one controlled object\.\*\*.*?(?=\n\n### Two orthogonal models)', re.S)
           fig8_new = '''```mermaid
@@ -124,7 +83,6 @@ flowchart TB
     O -->|specific Bounded Research Authorization<br/>Business Authorization or changed basis| P
     P -->|research-only or production-capable<br/>Project Authorization where applicable| D
     D -->|approved realization + authorized exposure| R
-
     D -.->|realization / experiment evidence| E
     R -->|operation evidence| E
     E -.->|implementation / realization / evidence issue| D
@@ -135,7 +93,7 @@ flowchart TB
 **Figure 8 — Four decision-ownership horizons around one controlled object.** Organization and Project / Architecture are connected by a recurrent decision relationship rather than a one-pass stage gate. Initial Organizational action establishes admissibility and **assessment eligibility**; it does not pre-authorize a concrete experiment. Project / Architecture owns technical/design selection within the standing Organizational business and authority basis and can confirm category locally: a selected design exits the Thinking-System lifecycle when no Consequential Runtime Responsibility remains materially dependent on Model Judgment. Organization is reactivated only when Project evidence requires a specific bounded-research decision, Business Authorization for a viable production basis, a changed Organizationally owned premise, or a continuation/defer/stop decision. Project turns the applicable Organizational decision into a scoped technical Project Authorization where one is needed. Delivery and Runtime may operate only inside that scope. Exogenous Organizational change is an independent input to Organization rather than evidence generated by Delivery or Runtime.'''
           m, n = fig8_pattern.subn(fig8_new, m, count=1)
           if n != 1:
-              raise SystemExit(f'Figure 8 replacement expected 1, got {n}')
+              raise SystemExit(f'Figure 8 replacement expected 1, found {n}')
 
           fig9_pattern = re.compile(r'```mermaid\nflowchart LR\n    subgraph L\["Decision ownership: where the decision belongs"\].*?```\n\n\*\*Figure 9 — Two orthogonal models\.\*\*.*?(?=\n\n### The full map is a reasoning reference)', re.S)
           fig9_new = '''```mermaid
@@ -189,7 +147,6 @@ flowchart LR
             direction LR
             J4(( )) --- C["Controllers / decision functions<br/> interpret evidence and select bounded response"]
         end
-
         J1 --- J2
         J2 --- J3
         J3 --- J4
@@ -200,7 +157,6 @@ flowchart LR
     end
 
     L -. "all four capability families may appear at every decision horizon" .- F
-
     classDef capability fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
     classDef railpoint fill:transparent,stroke:transparent,color:transparent;
     class A,K,S,C capability;
@@ -210,9 +166,8 @@ flowchart LR
 **Figure 9 — Two orthogonal models.** The left side reproduces the decision model from Figure 8: initial assessment eligibility is distinct from a later specific Bounded Research Authorization; Project / Architecture owns technical/design selection and category confirmation inside the standing Organizational basis; Organization is reactivated only when its business/authority/investment basis or an initiative-level research/continuation decision is implicated; research-only and production-capable Project Authorization remain distinct; Delivery/Runtime reassessment evidence returns to Delivery or Project; and exogenous Organizational change activates Organization independently. The green side is the capability anatomy. Its ordering is a reading aid, not an execution pipeline. There is no one-to-one mapping between horizons and capability families.'''
           m, n = fig9_pattern.subn(fig9_new, m, count=1)
           if n != 1:
-              raise SystemExit(f'Figure 9 replacement expected 1, got {n}')
+              raise SystemExit(f'Figure 9 replacement expected 1, found {n}')
 
-          # Project output semantics: not every technical outcome requires Organization.
           old_outputs = '''The Project output therefore occurs in two related forms.
 
 First, Project returns a **versioned Project viability conclusion** to Organization. It records the candidate design and scope, Model-Judgment necessity rationale and alternatives, candidate category result where relevant, Project Constraint Architecture, required operating-contract properties, credible bounded control paths or explicitly unresolved production questions, Human Authority/fallback/capacity assumptions, control economics, residual exposure/uncertainty, viability status, and the assumptions whose change requires reassessment.
@@ -225,35 +180,28 @@ For a **Project-local technical outcome**, Project / Architecture may select a d
 When **Organizational action is required**, Project returns a **versioned Project viability conclusion**. It records the candidate design and scope, Model-Judgment necessity rationale and alternatives, candidate category result where relevant, Project Constraint Architecture, required operating-contract properties, credible bounded control paths or explicitly unresolved production questions, Human Authority/fallback/capacity assumptions, control economics, residual exposure/uncertainty, viability status, and the assumptions whose change requires reassessment. Organizational action is required when Project requests a specific bounded experiment, presents a viable production basis that needs Business Authorization, finds that economics or another Organizational premise must change, raises an Architectural Veto that can only be addressed by changing the proposal, or needs an initiative-level continue/defer/stop decision.
 
 After the applicable Organizational decision, Project may issue a **scoped Project Authorization** for Delivery:'''
-          m = replace_exact(m, old_outputs, new_outputs, 'manuscript project outputs', 1, 1)
-
-          # Fix the Mermaid syntax error in Figure 12.
-          m = replace_exact(m, 'G{"Release Gate<br/> release only inside authorized exposure"]', 'G{"Release Gate<br/> release only inside authorized exposure"}', 'figure12 mermaid gate', 1, 1)
-
-          # Remove stale "business/design" ownership wording if any remains in manuscript prose.
+          m = exact(m, old_outputs, new_outputs, 'manuscript Project outputs')
+          m = exact(m, 'G{"Release Gate<br/> release only inside authorized exposure"]', 'G{"Release Gate<br/> release only inside authorized exposure"}', 'Figure 12 Mermaid')
           m = m.replace('Organization owns the business/design choice because it can change levers the project cannot.', 'Organization owns the business/basis decision because it can change levers the project cannot; it does not re-select a technical architecture that remains inside the standing basis.')
           m = m.replace('Organizational business/design choice', 'Organizational business/basis decision')
           m = m.replace('business/design choice', 'business/basis decision')
           m = m.replace('business/design basis', 'Organizational business/authority/investment basis')
-
           ms.write_text(m)
 
-          # --- Changelog truth ---
           c = ch.read_text()
-          old_line = '- Reopened lifecycle-ownership research in the synthesis article and framework traceability. The paper now tests a sharper distinction between initial Organizational **assessment eligibility**, Project-owned Model-Judgment-necessity / bounded-control / economics analysis and **Project viability conclusion**, Organization-owned selection of the business/design path plus **specific Bounded Research Authorization** or production Business Authorization, and scoped technical **research-only** versus **production-capable Project Authorization**. A simpler candidate remains a Project conclusion until Organization selects that path; Project then confirms whether the selected design remains a Thinking System. Exogenous Organizational authoritative/business changes are treated as direct Organization inputs rather than as Runtime/Delivery evidence. These semantics remain research under validation and do not change status-bearing doctrine or patterns by implication.'
-          new_line = '- Reopened lifecycle-ownership research in the synthesis article and framework traceability. The paper now tests a sharper distinction between initial Organizational **assessment eligibility**; Project-owned Model-Judgment necessity, technical/design selection inside the standing Organizational business/authority basis, bounded-control/economics analysis, category confirmation, and **Project viability conclusion**; Organization-owned business outcome/basis plus **specific Bounded Research Authorization**, production Business Authorization, changed-basis, and initiative-level proceed/reshape/defer/stop decisions; and scoped technical **research-only** versus **production-capable Project Authorization**. A simpler design that still satisfies the standing Organizational basis may be selected and category-tested at Project without a second Organizational architecture approval; Organization is reactivated only when an Organizationally owned premise or initiative-level decision must change. Exogenous Organizational authoritative/business changes are treated as direct Organization inputs rather than as Runtime/Delivery evidence. These semantics remain research under validation and do not change status-bearing doctrine or patterns by implication.'
-          c = replace_exact(c, old_line, new_line, 'changelog lifecycle line', 1, 1)
+          old = '- Reopened lifecycle-ownership research in the synthesis article and framework traceability. The paper now tests a sharper distinction between initial Organizational **assessment eligibility**, Project-owned Model-Judgment-necessity / bounded-control / economics analysis and **Project viability conclusion**, Organization-owned selection of the business/design path plus **specific Bounded Research Authorization** or production Business Authorization, and scoped technical **research-only** versus **production-capable Project Authorization**. A simpler candidate remains a Project conclusion until Organization selects that path; Project then confirms whether the selected design remains a Thinking System. Exogenous Organizational authoritative/business changes are treated as direct Organization inputs rather than as Runtime/Delivery evidence. These semantics remain research under validation and do not change status-bearing doctrine or patterns by implication.'
+          new = '- Reopened lifecycle-ownership research in the synthesis article and framework traceability. The paper now tests a sharper distinction between initial Organizational **assessment eligibility**; Project-owned Model-Judgment necessity, technical/design selection inside the standing Organizational business/authority basis, bounded-control/economics analysis, category confirmation, and **Project viability conclusion**; Organization-owned business outcome/basis plus **specific Bounded Research Authorization**, production Business Authorization, changed-basis, and initiative-level proceed/reshape/defer/stop decisions; and scoped technical **research-only** versus **production-capable Project Authorization**. A simpler design that still satisfies the standing Organizational basis may be selected and category-tested at Project without a second Organizational architecture approval; Organization is reactivated only when an Organizationally owned premise or initiative-level decision must change. Exogenous Organizational authoritative/business changes are treated as direct Organization inputs rather than as Runtime/Delivery evidence. These semantics remain research under validation and do not change status-bearing doctrine or patterns by implication.'
+          c = exact(c, old, new, 'CHANGELOG lifecycle entry')
           ch.write_text(c)
-          PY
 
-          git diff --check
-          git status --short
-
-      - name: Commit fixes
-        shell: bash
+      - name: Validate diff
         run: |
-          git config user.name "oborskyivitalii"
-          git config user.email "oborskyivitalii@gmail.com"
+          git diff --check
+          grep -n "selection of the business/design path\|Organization owns business/design selection" content/research/notes/open-engineering-specification-article-blueprint.md && exit 1 || true
+      - name: Commit fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add CHANGELOG.md content/research/notes/open-engineering-specification-article-blueprint.md content/research/notes/open-engineering-specification-article-draft.md
-          git commit -m "docs(article): align lifecycle ownership semantics"
+          git commit -m "Align Article lifecycle ownership semantics"
           git push origin HEAD:agent/replan-sections-5-8
