@@ -45,6 +45,13 @@ m = repl(
 # Blueprint: remove remaining blanket "any concrete experiment needs Organization" semantics.
 b = repl(
     b,
+    '**Primary question owned:** Within which authoritative boundaries, shared capabilities, business outcome, and decision rights may Project / Architecture **assessment** and technical design selection proceed—and, after a Project viability conclusion, should the organization authorize a **specific bounded experiment**, proceed/continue on a viable production basis, reshape its business/authority basis, defer, or stop the initiative?',
+    '**Primary question owned:** Within which authoritative boundaries, shared capabilities, business outcome, and decision rights may Project / Architecture **assessment** and technical design selection proceed—and, when a Project finding implicates an Organizationally owned basis or initiative-level decision, should the organization authorize **specific bounded research**, proceed/continue on a viable production basis, reshape its business/authority basis, defer, or stop the initiative?',
+    'blueprint Organization primary question',
+)
+
+b = repl(
+    b,
     'assessment eligibility**, which permits Project analysis but not exposure of a concrete experiment.',
     'assessment eligibility**, which permits Project-local analysis and evidence generation inside the standing assessment envelope but not experiment exposure that crosses an Organizationally reserved boundary.',
     'Article 4 progression eligibility wording',
