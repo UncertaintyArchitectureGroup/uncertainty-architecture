@@ -1587,7 +1587,7 @@ Organizational admissibility + assessment eligibility + business intent + author
 Delivery / Runtime invalidating evidence
 → Project viability reassessment
    ├→ research remains bounded inside the existing specific research basis → research-only Project Reauthorization
-   ├→ still production-viable inside standing Organizational basis → production Project Reauthorization
+   ├→ still production-viable inside standing Organizational basis and covered by the applicable existing Organizational Business Authorization → production Project Reauthorization
    └→ Organizational business/authority/investment basis challenged / new research authorization needed / Architectural Veto requires a changed proposal / continuation decision required → Organizational review
 ```
 
