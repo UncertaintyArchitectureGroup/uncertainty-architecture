@@ -66,14 +66,6 @@ b = replace_exact(
     'Program 3 acceptance concurrency',
 )
 
-# A stale Article 5 acceptance check still used singular type/scope language.
-b = replace_exact(
-    b,
-    '- [ ] **Article §5** revisits implementation depth and carrier choice when authoritative sources, Organizational assessment/research/business authorization, Project Authorization type/scope, Project assumptions, Delivery realization evidence, Runtime operation evidence, or evidence-instrument validity change;',
-    '- [ ] **Article §5** revisits implementation depth and carrier choice when authoritative sources, Organizational assessment/research/business authorization, the applicable Project Authorization set/scope/precedence relationship, Project assumptions, Delivery realization evidence, Runtime operation evidence, or evidence-instrument validity change;',
-    'Article 5 acceptance authorization set',
-)
-
 # 2) Figures 12 and 14 must not visually imply mutually exclusive full-system PA states.
 m = replace_exact(
     m,
@@ -117,7 +109,6 @@ for obsolete in [
     'Project Authorization<br/> research-only or production-capable<br/> technical baseline + evidence obligations',
     'RA["Research-only Project Authorization"]',
     'PA["Production-capable Project Authorization"]',
-    'Project Authorization type/scope, Project assumptions',
 ]:
     if obsolete in joined:
         raise SystemExit('obsolete wording remains: ' + obsolete)
