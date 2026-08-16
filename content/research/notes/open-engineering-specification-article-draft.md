@@ -765,7 +765,7 @@ Whatever workflow carries these decisions, Delivery needs traceability from each
 
 ```mermaid
 flowchart LR
-    PA["Project Authorization<br/> research-only or production-capable<br/> technical baseline + evidence obligations"]
+    PA["Applicable Project Authorization scope / set<br/> research-only and/or production-capable<br/> explicit scope · precedence · evidence obligations"]
     C["Delivery operating contract<br/> Requirement · Operating Envelope"]
     R{"Definition of Ready<br/> bounded work may begin?"}
     ENG["Delivery implementation / realization<br/> Judgment Nodes · realizations · Human Authority<br/> fallback · Sensors · Controllers · Actuators"]
@@ -866,13 +866,13 @@ flowchart TB
     E --> P --> PR["Project viability reassessment<br/> / Project Reauthorization"]
     E --> XAUTH --> PR
     EX --> OR["Organizational review"]
-    PR -->|research remains bounded inside specific research basis| RA["Research-only Project Authorization"]
-    PR -->|still production-viable inside standing Organizational basis| PA["Production-capable Project Authorization"]
+    PR -->|research remains bounded inside specific research basis| RA["Research-only Project Authorization<br/>issue · retain · update scoped member"]
+    PR -->|still production-viable inside standing Organizational basis| PA["Production-capable Project Authorization<br/>issue · retain · update scoped member"]
     PR -->|business basis challenged / new research authorization needed<br/>Architectural Veto / wider authority or exception required| OR
     OR -->|changed basis / specific Bounded Research Authorization<br/> / Organizational Business Authorization| PR
 ```
 
-**Figure 14 — Evidence and change routing.** Local realization defects stay with Delivery. Evidence about architecture, Model-Judgment necessity, capacity, fallback, evidence sufficiency, economics, or the result of a bounded experiment first returns to Project / Architecture because Project owns the viability analysis. A requested authority expansion also reaches Organization through Project analysis when an Organizational boundary must change. **Exogenous** authoritative or business-basis changes originate outside the Delivery/Runtime evidence lane and activate Organization directly; Project then reassesses technical consequences where the active baseline is affected. This avoids both escalation theater and false causality.
+**Figure 14 — Evidence and change routing.** Local realization defects stay with Delivery. Evidence about architecture, Model-Judgment necessity, capacity, fallback, evidence sufficiency, economics, or the result of a bounded experiment first returns to Project / Architecture because Project owns the viability analysis. The research-only and production-capable branches show which scoped authorization member Project may issue, retain, or update after reassessment; they are not mutually exclusive full-system states when an explicitly separated or nested authorization set is active. A requested authority expansion also reaches Organization through Project analysis when an Organizational boundary must change. **Exogenous** authoritative or business-basis changes originate outside the Delivery/Runtime evidence lane and activate Organization directly; Project then reassesses technical consequences where the active baseline is affected. This avoids both escalation theater and false causality.
 
 ---
 
