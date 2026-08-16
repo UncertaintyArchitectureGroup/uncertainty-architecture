@@ -2118,12 +2118,14 @@ Organizational Business Authorization on a viable production basis
 → action, verification, and reassessment when the operating contract is violated or invalidated
 ```
 
-For bounded research:
+For **reserved-boundary bounded research**:
+
+Project-local evidence generation that remains entirely inside the standing assessment envelope does not enter this authorization chain. When the needed experiment crosses an Organizationally reserved boundary, use:
 
 ```text
 initial assessment eligibility
 → Project viability conclusion: further research required
-→ Project-defined experiment: purpose / control envelope / exposure / stopping conditions / evidence obligations
+→ Project-defined reserved-boundary experiment: purpose / control envelope / exposure / stopping conditions / evidence obligations
 → specific Organizational Bounded Research Authorization
 → research-only Project Authorization
 → Delivery-approved bounded research Requirement and Operating Envelope
@@ -2151,7 +2153,7 @@ For a standing decision or assumption such as Model-Judgment necessity, viabilit
 legitimate source / decision authority
 → recorded rationale, alternatives, candidate category facts, and assumptions
 → Project viability conclusion
-→ Organizational business/basis/research/continuation decision where required where required
+→ Organizational business/basis/research/continuation decision where required
 → active Project decision basis / scoped authorization and version
 → downstream obligations and accountable owner
 → fit-for-decision evidence
