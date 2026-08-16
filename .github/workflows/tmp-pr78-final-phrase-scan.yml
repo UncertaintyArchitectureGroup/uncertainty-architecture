@@ -13,18 +13,78 @@ jobs:
         with:
           ref: agent/replan-sections-5-8
           fetch-depth: 0
-      - name: Fix final generic experiment wording
+      - name: Finish reserved-boundary wording cleanup
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          p=Path('content/research/notes/open-engineering-specification-article-draft.md')
-          s=p.read_text()
-          old='Initial assessment eligibility allows analysis, not experiment exposure.'
-          new='Initial assessment eligibility permits Project-local evidence generation inside the standing assessment envelope but not experiment exposure that crosses an Organizationally reserved boundary.'
-          if old not in s:
-              raise SystemExit('expected final generic experiment wording not found')
-          s=s.replace(old,new,1)
-          p.write_text(s)
+
+          bp=Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          ms=Path('content/research/notes/open-engineering-specification-article-draft.md')
+          b=bp.read_text()
+          m=ms.read_text()
+
+          def r(text, old, new, label):
+              if old not in text:
+                  raise SystemExit('missing '+label)
+              return text.replace(old,new,1)
+
+          m=r(m,
+              'Initial assessment eligibility allows analysis, not experiment exposure.',
+              'Initial assessment eligibility permits Project-local evidence generation inside the standing assessment envelope but not experiment exposure that crosses an Organizationally reserved boundary.',
+              'manuscript cross-level proportionality sentence')
+
+          b=r(b,
+              '- If production viability remains open but Project can define a credibly bounded experiment, initial assessment eligibility is insufficient: Organization must issue a **specific Bounded Research Authorization**, after which Project issues a research-only Project Authorization. Its Delivery/Runtime evidence returns to Project and cannot self-promote into production.',
+              '- If production viability remains open, Project may generate evidence locally while the work remains inside the standing assessment envelope. If the needed credibly bounded experiment crosses an Organizationally reserved boundary, initial assessment eligibility is insufficient for that reserved exposure: Organization must issue a **specific Bounded Research Authorization**, after which Project issues a research-only Project Authorization. Its Delivery/Runtime evidence returns to Project and cannot self-promote into production.',
+              'Article 4 chapter-usage research branch')
+
+          b=r(b,
+              '- treat initial assessment eligibility as authorization to expose a concrete research experiment;',
+              '- treat initial assessment eligibility as authorization for research exposure that crosses an Organizationally reserved boundary;',
+              'anti-overfitting proportionality rule')
+
+          b=r(b,
+              '**Lifecycle-refinement status.** Current authority-bearing UA sources already separate Organization, Project / Architecture, Delivery, and Runtime and already place AI necessity, control-architecture feasibility, Human Authority/capacity, and control economics at Project level. This blueprint makes an additional decision handshake explicit for the paper: **Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business/authority basis, and the viability conclusion; Organization owns the business outcome and basis plus the decision to authorize a specific bounded experiment, proceed on a viable production basis, reshape that basis, defer, or stop; Project Authorization is the scoped technical baseline that connects the applicable Organizational decision to Delivery.**',
+              '**Lifecycle-refinement status.** Current authority-bearing UA sources already separate Organization, Project / Architecture, Delivery, and Runtime and already place AI necessity, control-architecture feasibility, Human Authority/capacity, and control economics at Project level. This blueprint makes an additional decision handshake explicit for the paper: **Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business/authority basis, and the viability conclusion; Organization owns the business outcome and basis plus the decision to authorize specific bounded research when the proposed experiment crosses an Organizationally reserved boundary, proceed on a viable production basis, reshape that basis, defer, or stop; Project Authorization is the scoped technical baseline that connects the applicable Organizational decision to Delivery.**',
+              'lifecycle status Organizational research authority')
+
+          b=r(b,
+              '> Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business/authority basis, and the viability conclusion. Organization owns the business outcome and basis plus the decision to authorize a specific bounded experiment, proceed/continue on a viable production basis, reshape that basis, defer, or stop. Project Authorization is the scoped technical baseline that connects the applicable Organizational decision to Delivery.',
+              '> Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business/authority basis, and the viability conclusion. Organization owns the business outcome and basis plus the decision to authorize specific bounded research when the experiment crosses an Organizationally reserved boundary, proceed/continue on a viable production basis, reshape that basis, defer, or stop. Project Authorization is the scoped technical baseline that connects the applicable Organizational decision to Delivery.',
+              'Article 4 closing ownership claim')
+
+          b=r(b,
+              '> Initial assessment eligibility is not Bounded Research Authorization. Research-only Project Authorization follows only after Project defines a credibly bounded experiment and Organization authorizes that specific research. Production-capable Project Authorization follows only a technically viable basis covered by Organizational Business Authorization.',
+              '> Initial assessment eligibility permits Project-local evidence generation inside the standing assessment envelope. When needed research crosses an Organizationally reserved boundary, Project defines a credibly bounded experiment, Organization may authorize that specific research, and research-only Project Authorization scopes the reserved exposure. Production-capable Project Authorization follows only a technically viable basis covered by Organizational Business Authorization.',
+              'Article 4 closing proportionality claim')
+
+          b=r(b,
+              '> A simpler alternative is a Project architecture/viability conclusion. When it still satisfies the standing Organizational business outcome and authority basis, Project may select it and confirm category directly; a negative category result exits this Thinking-System lifecycle. Changing the business initiative or another Organizational premise remains an Organizational decision.',
+              '> A simpler alternative is a Project architecture/viability conclusion. When it still satisfies the standing Organizational business outcome and authority basis, Project may select it and confirm category directly; a negative category result exits the Thinking-System-specific lifecycle and hands the design off to ordinary product/software governance without itself authorizing funding, initiative continuation, delivery, or release. Changing the business initiative or another Organizational premise remains an Organizational decision.',
+              'Article 4 closing category handoff')
+
+          b=r(b,
+              '- traces of initial Organizational assessment eligibility and whether teams could distinguish it from permission to expose a concrete experiment;',
+              '- traces of initial Organizational assessment eligibility and whether teams could distinguish Project-local evidence generation inside the standing envelope from permission for experiment exposure that crosses an Organizationally reserved boundary;',
+              'validation evidence request proportionality')
+
+          b=r(b,
+              'teams cannot distinguish assessment eligibility from concrete experiment authorization;',
+              'teams cannot distinguish assessment eligibility from authorization for experiment exposure that crosses an Organizationally reserved boundary;',
+              'Program 3 contradictory evidence wording')
+
+          b=r(b,
+              'whether distinguishing assessment eligibility from specific Bounded Research Authorization prevents premature experiment exposure without creating unnecessary bureaucracy;',
+              'whether distinguishing assessment eligibility from specific Bounded Research Authorization prevents unauthorized crossing of Organizationally reserved research boundaries without creating unnecessary bureaucracy;',
+              'Article 7 hypothesis proportionality')
+
+          b=r(b,
+              'Initial assessment eligibility must not be shown as if it were concrete experiment authorization.',
+              'Initial assessment eligibility must not be shown as if it authorized experiment exposure that crosses an Organizationally reserved boundary.',
+              'Figure 11 reserved-boundary guard')
+
+          bp.write_text(b)
+          ms.write_text(m)
           PY
       - name: Scan experiment and lifecycle phrases
         run: |
@@ -41,16 +101,19 @@ jobs:
               for n,line in enumerate(p.read_text().splitlines(),1):
                   if rx.search(line):
                       print(f'{n}: {line}')
+          joined='\n'.join(p.read_text() for p in paths)
           bad=[
             'allows analysis, not experiment exposure',
             'does not pre-authorize a concrete experiment',
             'permission to expose a concrete experiment',
+            'authorization to expose a concrete research experiment',
             'does not authorize exposure of a concrete experiment',
             'does not authorize experiment exposure.',
             'does not permit experiment exposure.',
             'not the experiment authorization',
+            'after a Project viability conclusion, should the organization',
+            'a negative category result exits this Thinking-System lifecycle',
           ]
-          joined='\n'.join(p.read_text() for p in paths)
           for phrase in bad:
               if phrase in joined:
                   raise SystemExit('obsolete generic wording remains: '+phrase)
@@ -60,6 +123,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/research/notes/open-engineering-specification-article-draft.md
+          git add content/research/notes/open-engineering-specification-article-blueprint.md content/research/notes/open-engineering-specification-article-draft.md
           git commit -m "Finish experiment-authorization wording cleanup"
           git push origin HEAD:agent/replan-sections-5-8
+# final reserved-boundary consistency pass
