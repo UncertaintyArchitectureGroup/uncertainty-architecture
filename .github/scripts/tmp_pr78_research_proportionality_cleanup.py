@@ -30,13 +30,6 @@ m = repl(
 
 m = repl(
     m,
-    '- Project conclusion that a deterministic/manual/narrower model-assisted design is preferable for the stated outcome;',
-    '- Project conclusion that a deterministic/manual/narrower model-assisted design is preferable for the stated outcome **when adopting that recommendation would require an Organizationally owned premise or continuation decision to change**;',
-    'Organization received-evidence qualification',
-)
-
-m = repl(
-    m,
     'Project then confirms the category result; if no Consequential Runtime Responsibility remains materially dependent on Model Judgment, the design **exits this Thinking-System lifecycle**. A Project-selected narrower model-assisted alternative that still materially informs a consequential responsibility remains a Thinking System and is reassessed at its narrower scope.',
     'Project then confirms the category result; if no Consequential Runtime Responsibility remains materially dependent on Model Judgment, the design **exits the Thinking-System-specific lifecycle and hands off to ordinary product/software governance**; that category exit does not itself authorize funding, initiative continuation, delivery, or release. A Project-selected narrower model-assisted alternative that still materially informs a consequential responsibility remains a Thinking System and is reassessed at its narrower scope.',
     'running-example category exit handoff',
@@ -76,6 +69,13 @@ b = repl(
     'If Project concludes that production viability is still open but a bounded experiment is credibly controllable, Project first defines that experiment; Organization then decides whether to authorize the **specific** evidence-generating exposure.',
     'If Project concludes that production viability is still open, it may continue evidence generation locally while the work remains inside the standing assessment envelope. When the needed experiment crosses an Organizationally reserved boundary, Project first defines that experiment; Organization then decides whether to authorize the **specific** reserved evidence-generating exposure.',
     'running-example bounded research branch',
+)
+
+b = repl(
+    b,
+    '- Project conclusion that a deterministic/manual/narrower model-assisted design is preferable for the stated outcome;',
+    '- Project conclusion that a deterministic/manual/narrower model-assisted design is preferable for the stated outcome **when adopting that recommendation would require an Organizationally owned premise or continuation decision to change**;',
+    'Organization received-evidence qualification',
 )
 
 b = repl(
