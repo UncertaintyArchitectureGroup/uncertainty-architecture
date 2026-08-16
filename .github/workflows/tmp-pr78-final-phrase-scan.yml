@@ -1,0 +1,65 @@
+name: Temporary PR78 final phrase scan
+on:
+  push:
+    branches: [agent/replan-sections-5-8]
+    paths: [.github/workflows/tmp-pr78-final-phrase-scan.yml]
+permissions:
+  contents: write
+jobs:
+  fix-and-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: agent/replan-sections-5-8
+          fetch-depth: 0
+      - name: Fix final generic experiment wording
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('content/research/notes/open-engineering-specification-article-draft.md')
+          s=p.read_text()
+          old='Initial assessment eligibility allows analysis, not experiment exposure.'
+          new='Initial assessment eligibility permits Project-local evidence generation inside the standing assessment envelope but not experiment exposure that crosses an Organizationally reserved boundary.'
+          if old not in s:
+              raise SystemExit('expected final generic experiment wording not found')
+          s=s.replace(old,new,1)
+          p.write_text(s)
+          PY
+      - name: Scan experiment and lifecycle phrases
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          paths=[
+            Path('content/research/notes/open-engineering-specification-article-blueprint.md'),
+            Path('content/research/notes/open-engineering-specification-article-draft.md'),
+          ]
+          rx=re.compile(r'concrete experiment|experiment exposure|assessment eligibility.*experiment|bounded experiment', re.I)
+          for p in paths:
+              print(f'--- {p}')
+              for n,line in enumerate(p.read_text().splitlines(),1):
+                  if rx.search(line):
+                      print(f'{n}: {line}')
+          bad=[
+            'allows analysis, not experiment exposure',
+            'does not pre-authorize a concrete experiment',
+            'permission to expose a concrete experiment',
+            'does not authorize exposure of a concrete experiment',
+            'does not authorize experiment exposure.',
+            'does not permit experiment exposure.',
+            'not the experiment authorization',
+          ]
+          joined='\n'.join(p.read_text() for p in paths)
+          for phrase in bad:
+              if phrase in joined:
+                  raise SystemExit('obsolete generic wording remains: '+phrase)
+          PY
+      - run: git diff --check
+      - name: Commit final phrase cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-draft.md
+          git commit -m "Finish experiment-authorization wording cleanup"
+          git push origin HEAD:agent/replan-sections-5-8
