@@ -25,7 +25,8 @@ m = replace_exact(
     m,
     'PR -->|still production-viable inside standing Organizational basis| PA',
     'PR -->|still production-viable and covered by applicable<br/>Organizational Business Authorization| PA',
-    'manuscript Figure 12 production reauthorization edge',
+    'manuscript production reauthorization edge',
+    expected=2,
 )
 
 # 2) Figure 11 must make clear that research/production branches are scoped members, not mutually exclusive system states.
