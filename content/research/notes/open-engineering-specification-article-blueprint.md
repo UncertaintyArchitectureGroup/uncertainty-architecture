@@ -20,7 +20,7 @@ tags:
   - ua/topic/sdlc
   - ua/topic/repository-architecture
 created: 2026-07-31
-updated: 2026-08-15
+updated: 2026-08-16
 language: en
 license: CC-BY-4.0
 draft: true
@@ -1547,7 +1547,7 @@ Project / Architecture may analyze, redesign, narrow, request more research, com
 - If Project determines that a deterministic/manual or otherwise simpler design best satisfies the same standing Organizational outcome and authority/business basis, that is a Project architecture decision and viability conclusion. Project confirms the category of its selected design; a negative category result exits the Thinking-System-specific lifecycle and hands off to ordinary product/software governance without granting business, funding, delivery, or release authorization, while a selected narrower model-assisted path is reassessed as a Thinking System. Return to Organization only when the recommendation requires a changed Organizational premise or business continuation decision.
 - If Project proposes evidence-generating work that remains entirely inside the standing assessment envelope and consumes no Organizationally reserved exposure or commitment, Project may conduct it locally under the applicable engineering controls. If the proposed experiment crosses an Organizationally owned boundary, initial assessment eligibility is insufficient: Organization must issue a **specific Bounded Research Authorization** for the Project-defined experiment before Project issues research-only Project Authorization.
 - Research-only authorization may be revised within the standing **specific research basis** but may not be promoted to production without a new viability conclusion and positive Organizational Business Authorization on a production-viable basis.
-- If a changed production technical design remains viable and inside the standing Organizational business/authority basis, Project may perform production Project Reauthorization without a new Organizational business decision.
+- If a changed production technical design remains viable inside the standing Organizational business/authority basis **and the resulting production scope remains covered by the applicable existing Organizational Business Authorization**, Project may perform production Project Reauthorization without a new Organizational business decision; otherwise Organization must renew, reshape, or explicitly change the applicable Business Authorization before Project issues the corresponding production-capable technical baseline.
 - If evidence shows that no credible bounded control architecture exists for the current production proposal, Project issues Architectural Veto and routes the result to Organization. No production-capable Project Authorization exists for that unchanged proposal.
 - If the architecture remains credible but economics, price/value assumptions, Human Authority/capacity burden, business outcome, or another Organizationally owned premise no longer closes, Project returns the relevant viability finding to Organization for a business/basis decision. If the Model-Judgment-necessity rationale changes but a simpler technical path still satisfies the standing Organizational basis, Project selects that path and confirms category locally; Organization is reactivated only when the preferred path requires changing an Organizationally owned premise or continuation decision.
 - If wider Organizational authority, a changed prohibited-use boundary, exception, vendor/deployment permission, shared capability, or business assumption is required, Project returns to Organization.
