@@ -1162,7 +1162,7 @@ Organization does **not** perform the Project-level analysis that determines whe
 **Activation triggers:**
 
 - a new business capability, process problem, customer need, or product opportunity for which a Thinking-System path or assessment is proposed;
-- a Project viability conclusion requiring a proceed/continuation, reshape of an Organizational premise, specific bounded research, or do-not-proceed decision;
+- a Project viability conclusion requiring a proceed/continuation, reshape of an Organizational premise, specific reserved-boundary research, or do-not-proceed decision;
 - a Project-defined bounded experiment that crosses an Organizationally reserved boundary and whose evidence question, scope, data/tools, reachable authority, stopping conditions, and control envelope are ready for an Organizational research decision;
 - a Project finding that a technically credible architecture exists but current price, target segment, service promise, scope, investment horizon, Human Authority capacity, or control economics make the business case unattractive;
 - a Project conclusion that Model Judgment is unnecessary or a simpler design is preferable **only when** adopting that engineering recommendation would require changing an Organizationally owned premise or deciding whether to continue, defer, or stop the initiative;
@@ -2134,7 +2134,7 @@ standing Organizational assessment / research / business basis
 → no automatic production promotion
 ```
 
-For the first research cycle, the standing basis may be only initial assessment eligibility; later cycles may begin from an existing research or production basis that new evidence has caused Project to reassess.
+For the first research cycle, the standing basis may be only initial assessment eligibility; later cycles may begin from an existing research or production basis that new evidence has caused Project to reassess. When a research-only Project Authorization is introduced while a production-capable Project Authorization remains active elsewhere, the authorizations may coexist only through explicit scope separation or an explicit overlap/nesting rule. The research-only authorization does not supersede production scope outside the declared experiment unless that effect is stated explicitly, and material evidence must remain attributable to the applicable authorization set and its scope/precedence relationship.
 
 For a material boundary or control obligation:
 
@@ -2249,7 +2249,7 @@ Before any relationship rows, record a mapping header containing:
 
 - **Mapping ID and version** — a stable identifier plus explicit version, e.g. `support-resolution-canonical-material-map / vN`;
 - **controlled object and lifecycle baseline** — exactly which canonical system state is being mapped, including applicable Organizational Business Authorization and production-capable Project Authorization when the mapping represents an authorized delivered production system;
-- **source/authorization baseline** — Organizational business/authority decision, Project Authorization type/scope, authoritative source references, and other standing decisions used by the mapping;
+- **source/authorization baseline** — Organizational business/authority decision, the applicable Project Authorization set (type, scope, and any overlap/nesting or precedence relationship), authoritative source references, and other standing decisions used by the mapping;
 - **scope boundaries** — subjects, paths, populations, environments, authority, and excluded scope relevant to materiality;
 - **assumptions** — the assumptions under which carrier and guarantee claims are made;
 - **materiality decision rule** — apply the invariant above independently of whether the derived UA categories or the candidate substitute already contain the relationship, and name the accountable owner of the judgment;
