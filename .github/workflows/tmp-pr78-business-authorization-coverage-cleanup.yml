@@ -21,3 +21,4 @@ jobs:
           git add content/research/notes/open-engineering-specification-article-blueprint.md content/research/notes/open-engineering-specification-article-draft.md
           git commit -m "Require Business Authorization coverage for production reauthorization"
           git push origin HEAD:agent/replan-sections-5-8
+# rerun after exact-occurrence guard correction
