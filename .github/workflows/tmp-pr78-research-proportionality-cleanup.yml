@@ -21,4 +21,4 @@ jobs:
           git add content/research/notes/open-engineering-specification-article-blueprint.md content/research/notes/open-engineering-specification-article-draft.md
           git commit -m "Align research proportionality and category handoff semantics"
           git push origin HEAD:agent/replan-sections-5-8
-# retry after correcting the target of one blueprint-only replacement
+# retry after covering the blueprint Organization primary question
