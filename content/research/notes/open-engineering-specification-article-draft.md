@@ -491,7 +491,7 @@ flowchart TB
     P -->|Project selects technical design<br/>inside standing Organizational basis| CAT
     CAT -->|No| EXIT
     CAT -->|Yes: Thinking-System candidate remains| P
-    P -->|specific research request / viable production basis<br/>or changed Organizational premise / continuation decision| O
+    P -->|reserved-boundary research request / viable production basis<br/>or changed Organizational premise / continuation decision| O
     O -->|specific Bounded Research Authorization<br/>Business Authorization or changed basis| P
     P -->|research-only or production-capable<br/>Project Authorization where applicable| D
     D -->|approved realization + authorized exposure| R
@@ -527,7 +527,7 @@ flowchart LR
             P -->|technical design selected<br/>inside standing Organizational basis| CAT
             CAT -->|No| EXIT
             CAT -->|Yes| P
-            P -->|specific research request / viable production basis<br/>or changed Organizational premise / continuation decision| O
+            P -->|reserved-boundary research request / viable production basis<br/>or changed Organizational premise / continuation decision| O
             O -->|specific Bounded Research Authorization<br/>Business Authorization or changed basis| P
             P -->|research-only or production-capable<br/>Project Authorization where applicable| D
             D -->|approved realization + authorized exposure| R
@@ -955,17 +955,17 @@ flowchart LR
 
 **Figure 15 — Cross-level learning and stabilization loop.** Negative cases and bounded-research evidence route to the horizon that owns the affected decision basis, then improve the weakest control element, trigger Project viability reassessment, or reopen the Organizational business/authority basis as appropriate. The figure does not imply that every case escalates, every deviation is a Bug, or the proposed stabilization effect is already empirically validated.
 
-The four horizons therefore form a nested, recurrent lifecycle rather than a waterfall. Organizational authority and business assumptions flow into Project analysis. Initial assessment eligibility permits Project-local evidence generation inside the standing assessment envelope but not experiment exposure that crosses an Organizationally reserved boundary. Project viability evidence can return to Organization before any technical authorization exists. A Project-defined experiment that remains inside the standing assessment envelope may run under applicable Project-local engineering controls. When the experiment crosses an Organizationally reserved boundary, it may run only after specific Bounded Research Authorization and under research-only Project Authorization; in either case, research evidence returns without creating production permission. Once Organization chooses to proceed on a technically viable production basis, a production-capable Project Authorization carries the technical baseline to Delivery. Delivery realizes and releases only the authorized scope. Runtime operates it and produces evidence. Exogenous Organizational changes can also reopen the Organizational horizon directly. A simpler technical path may leave the Thinking-System lifecycle at Project after category confirmation when it still satisfies the standing Organizational basis; Organization re-enters only when its business outcome, authority, investment premise, or continuation decision must change.
+The four horizons therefore form a nested, recurrent lifecycle rather than a waterfall. Organizational authority and business assumptions flow into Project analysis. Initial assessment eligibility permits Project-local evidence generation inside the standing assessment envelope but not experiment exposure that crosses an Organizationally reserved boundary. Project viability evidence can return to Organization before any technical authorization exists. A Project-defined experiment that remains inside the standing assessment envelope may run under applicable Project-local engineering controls. When the experiment crosses an Organizationally reserved boundary, it may run only after specific Bounded Research Authorization and under research-only Project Authorization; in either case, research evidence returns without creating production permission. Once Organization chooses to proceed on a technically viable production basis, a production-capable Project Authorization carries the technical baseline to Delivery. Delivery realizes and releases only the authorized scope. Runtime operates it and produces evidence. Exogenous Organizational changes can also reopen the Organizational horizon directly. A simpler technical path may leave the Thinking-System-specific lifecycle at Project after category confirmation when it still satisfies the standing Organizational basis; Organization re-enters only when its business outcome, authority, investment premise, or continuation decision must change.
 
 Lower levels may refine and narrow a higher-level authorization. They may not silently expand authority, weaken an inherited Hard Constraint, normalize evidence that Project viability has failed, promote research exposure into production, or continue under business assumptions that the owning Organizational decision no longer supports.
 
-> **Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business/authority basis, category confirmation, and the viability conclusion. Organization owns the business outcome and basis plus the decisions to authorize a specific bounded experiment, pursue a viable production basis, reshape that basis, defer, or stop. Project Authorization is the scoped technical baseline that connects the applicable Organizational decision to Delivery.**
+> **Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business/authority basis, category confirmation, and the viability conclusion. Organization owns the business outcome and basis plus the decisions to authorize specific bounded research when the experiment crosses an Organizationally reserved boundary, pursue a viable production basis, reshape that basis, defer, or stop. Project Authorization is the scoped technical baseline that connects the applicable Organizational decision to Delivery.**
 
 > **Initial assessment eligibility permits Project-local evidence generation inside the standing assessment envelope. When needed research crosses an Organizationally reserved boundary, Project defines the experiment, Organization may issue a specific Bounded Research Authorization, and a research-only Project Authorization scopes that bounded exposure.**
 
 > **An Architectural Veto is binding for the unchanged proposal; changing the business or authority basis creates a new proposal to reassess, not an override of engineering feasibility.**
 
-> **A simpler alternative is a Project architecture/viability conclusion. If it satisfies the standing Organizational business/authority basis, Project may select it directly; category retest of that selected design determines whether it exits this Thinking-System lifecycle.**
+> **A simpler alternative is a Project architecture/viability conclusion. If it satisfies the standing Organizational business/authority basis, Project may select it directly; category retest of that selected design determines whether it exits this Thinking-System-specific lifecycle.**
 
 > **A decision owner that receives no fit-for-purpose evidence is authority on paper, not an operational Controller.**
 
