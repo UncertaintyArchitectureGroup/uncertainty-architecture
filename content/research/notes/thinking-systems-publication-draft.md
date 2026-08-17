@@ -33,10 +33,10 @@ derived_from:
   - open-engineering-specification-article-blueprint.md
 related:
   - ../index.md
-  - ../../../../00-doctrine/glossary.md
-  - ../../../../00-doctrine/uncertainty-in-the-controlled-object.md
-  - ../../../../00-doctrine/control-loop-anatomy.md
-  - ../../../../00-doctrine/nested-control-lifecycle.md
+  - ../../../00-doctrine/glossary.md
+  - ../../../00-doctrine/uncertainty-in-the-controlled-object.md
+  - ../../../00-doctrine/control-loop-anatomy.md
+  - ../../../00-doctrine/nested-control-lifecycle.md
 ---
 
 # Thinking Systems: From Model Judgment to Bounded Control
