@@ -253,7 +253,25 @@ The controlled-object shift changes what counts as sufficient engineering eviden
 
 Measurement answers questions such as *what happened, how often, under which conditions, and with what confidence?* Control adds different questions: *relative to which approved boundary, who or what may decide that action is required, which action can actually change operation, and what happens when the assumptions behind the boundary no longer hold?*
 
-A closed feedback loop can still be unacceptable. It may optimize the wrong objective, react too slowly for the consequence, rely on evidence that misses the relevant failure, or possess authority that was never legitimately delegated. Its Actuator may be able to change a prompt but not prevent a transaction. It may keep an evaluator score inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse. Closing feedback is therefore weaker than bounding operation.
+A feedback loop becomes closed when evidence about the controlled process reaches a decision function and an authorized action can affect the process again:
+
+```mermaid
+flowchart LR
+    R["Reference<br/>Requirement and intended conditions"]
+    P["Thinking System<br/>controlled process"]
+    S["Sensors and evidence"]
+    C["Controller / decision function"]
+    A["Actuators"]
+
+    R --> C
+    P --> S --> C
+    C -->|authorized action| A
+    A -->|changes operation| P
+```
+
+**Figure 6 — A closed feedback loop.** Evidence reaches a Controller / decision function and an authorized action changes the controlled process. Decision authority comes from the applicable authorized decision boundary; the Controller operates within that boundary rather than constituting its source. The figure deliberately does not yet claim that the loop operates inside a legitimate or adequately realized boundary.
+
+A closed loop can still be unacceptable. It may optimize the wrong objective, react too slowly for the consequence, rely on evidence that misses the relevant failure, or possess authority that was never legitimately delegated. Its Actuator may be able to change a prompt but not prevent a transaction. It may keep an evaluator score inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse. Closing feedback is therefore weaker than bounding operation.
 
 A bounded control architecture requires four distinct capability families. They are logical functions, not mandatory products, services, teams, layers, or one execution order.
 
@@ -297,7 +315,7 @@ flowchart LR
     A -->|change within delegated authority| KR
 ```
 
-**Figure 6 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions. Software Constraint Realizations, Sensors, Controllers, and Actuators may therefore be physically inside the same software-system boundary while remaining logically distinct from the controlled-process relationship.
+**Figure 7 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions.
 
 This is the difference between a measured system, a closed feedback loop, and a bounded controlled system. The last requires not merely feedback but an approved and credibly realized operating boundary, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and a path for reassessment when the basis of control changes. Here, a **complete control architecture** means materially complete for the authorized scope, not maximal instantiation of every possible control mechanism.
 
@@ -327,33 +345,6 @@ Sometimes the evidence is architectural. If Human Authority is overloaded, fallb
 Control economics belongs in that reassessment. Project / Architecture must expose the complete cost and feasibility of the control perimeter. Under the paper-level ownership refinement, if the architecture remains technically viable but Human Authority burden, latency, operating cost, or investment requirement makes the business case unattractive, that engineering finding reaches the owner of the business or investment basis rather than being converted into a technical veto.
 
 And sometimes the relevant change reaches further still. An Organizationally owned legal, contractual, policy, vendor, business, or reserved-authority premise may change outside the software entirely. Or project/runtime evidence may show that such a boundary is no longer adequate. The legitimate authority that owns that basis must change it; Project / Architecture then reassesses the design against the changed context.
-
-```mermaid
-flowchart TB
-    O["Organization<br/>authoritative boundaries · reserved authority · business basis"]
-    P["Project / Architecture<br/>Model-Judgment necessity · viability · control design"]
-    D["Delivery<br/>concrete realization · evidence · release"]
-
-    subgraph ACTIVE["Active operation"]
-        direction LR
-        T["Thinking System<br/>controlled software object"]
-        R["Runtime control<br/>evidence · bounded decisions · corrective action"]
-        T -->|behavior · outcomes · control state| R
-        R -->|action within delegated authority| T
-    end
-
-    O -->|authoritative boundaries and business basis| P
-    P -->|technical authorization and obligations| D
-    D -->|released realization| T
-
-    R -. Delivery basis invalidated .-> D
-    R -. Project / Architecture basis invalidated .-> P
-    R -. Organizational basis invalidated .-> O
-
-    O -. exogenous authoritative or business change .-> P
-```
-
-**Figure 7 — Research ownership hypothesis: the control perimeter can reach organizational authority without making the decision horizons a runtime stack.** Runtime control acts around the active Thinking System within delegated authority. Evidence routes to the owner of the decision basis it invalidates. The exact Organization / Project ownership split shown here remains under research validation and is not yet the status-bearing UA lifecycle model.
 
 The larger conclusion does **not** depend on accepting every detail of that ownership refinement. Section 2 already established the more basic point: for a material case, the required control perimeter may cross technical, delivery, architectural, Human Authority, and organizational decision boundaries. **Once probabilistic Model Judgment participates in a consequential responsibility, the required control perimeter follows the authority and effects of the whole controlled object, potentially all the way to organizational decision rights.**
 
