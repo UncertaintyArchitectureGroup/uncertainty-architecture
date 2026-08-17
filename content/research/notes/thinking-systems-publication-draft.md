@@ -338,6 +338,33 @@ For this shorter article, the four horizons can remain compact:
 
 One person may hold several of these responsibilities in a small organization. One platform may implement pieces of several control functions. That does **not** collapse the decisions.
 
+The decision horizons answer **where a decision is owned**. The capability families from Section 3 answer **how boundaries, evidence, decisions, and actions become operational**. They remain orthogonal. Every horizon can require Constraints and realizations, Sensors and evidence, Controllers and legitimate decision authority, and Actuators. A legal or business decision at Organization does not become a Sensor merely because evidence informed it; a runtime service does not become the Organizational Controller merely because it executes a policy.
+
+```mermaid
+flowchart LR
+    subgraph L["Decision ownership: where the decision belongs"]
+        direction TB
+        O["Organization<br/>authoritative boundaries · business / authority decisions"]
+        P["Project / Architecture<br/>Model-Judgment necessity · viability · control design"]
+        D["Delivery<br/>realization · evidence · release"]
+        R["Runtime<br/>operation · correction · reassessment evidence"]
+        O --> P --> D --> R
+    end
+
+    subgraph F["Capability functions: how control becomes operational"]
+        direction TB
+        A["Actuators and corrective action<br/>execute authorized change"]
+        K["Constraints and realizations<br/>define and operationalize boundaries"]
+        S["Sensors and evidence<br/>observe behavior, conditions, and control state"]
+        C["Controllers / decision functions<br/>interpret evidence and select bounded response"]
+        A --- K --- S --- C
+    end
+
+    L -. "all four capability families may appear at every decision horizon" .- F
+```
+
+**Figure 8 — Two orthogonal models.** The decision horizons answer where a decision is owned; the capability families answer how boundaries, evidence, decisions, and actions become operational. There is no one-to-one mapping between horizons and capability families. The ordering on either side is a reading aid, not an execution pipeline or mandatory organizational structure.
+
 Sometimes correction is local. A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other basis underlying the applicable Delivery evidence/release decision or Project Authorization. If only the Delivery basis changes, Delivery must revalidate or reassess the affected release decision; if a Project-Authorization basis changes, the evidence routes to Project / Architecture.
 
 Sometimes the evidence is architectural. If Human Authority is overloaded, fallback cannot carry expected traffic, Model-Judgment placement no longer produces the expected value, or a supposedly deterministic boundary cannot actually be realized, the Project / Architecture basis has changed. Runtime cannot solve that by silently widening authority or adding another retry. The design has to be reassessed.
@@ -356,7 +383,7 @@ This is the engineering problem the larger **Uncertainty Architecture** research
 
 This argument does not claim invention of feedback control, socio-technical safety, runtime assurance, software engineering for AI, human oversight, or AI risk management. It sits in continuity with established systems/safety/control traditions and current AI engineering practice.
 
-The claim under test is narrower: whether connecting **Thinking-System classification**, the **whole software system as the controlled object**, explicit control-capability functions, and lifecycle decision ownership around the same consequential responsibility gives practitioners a useful engineering map—and whether an existing method or composition already does that more simply.
+The claim under test is narrower: whether connecting **Thinking-System classification**, the **whole software system as the controlled object**, explicit control-capability functions, and **orthogonal lifecycle decision ownership** around the same consequential responsibility gives practitioners a useful engineering map—and whether an existing method or composition already does that more simply.
 
 Relevant primary or authoritative context includes Nancy Leveson's systems-theoretic safety work in [*Engineering a Safer World*](https://mitpress.mit.edu/9780262533690/engineering-a-safer-world/), the Software Engineering Institute's [Simplex architecture](https://www.sei.cmu.edu/library/an-architectural-description-of-the-simplex-architecture/) for dependable and evolvable process-control systems, the [NIST AI Risk Management Framework 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), and [ISO/IEC TR 29119-11:2020](https://www.iso.org/standard/79016.html) on testing AI-based systems. These are antecedents and comparison points, not claimed derivations, endorsements, or exact equivalents of UA.
 
@@ -387,11 +414,9 @@ The larger [working paper](open-engineering-specification-article-draft.md) and 
 
 ## Acknowledgments and Provenance
 
-I want to thank **Arkadiy Dobkin** specifically for the formulation **“Thinking Systems”** and for the exchange that pushed me to sharpen the engineering boundary around it. The phrase provenance is distinct from the specific UA engineering definition and control model developed in this research.
+The formulation provenance for **Thinking Systems** is recorded where the term is introduced above. That credit concerns the formulation and exchange, not authorship of the UA-specific definition or endorsement of this article.
 
-The work has also benefited from continuing dialogue with the **Taller** team, especially **Christophe Kolb, Maxi Armesto, and Jan**, around the socio-technical architecture surrounding AI systems. Those exchanges have helped pressure-test how authority, human participation, workflow, tooling, and control mechanics fit around the model rather than inside the model alone.
-
-These acknowledgments record intellectual provenance and dialogue. They do not imply co-authorship, endorsement of UA, or agreement with the specific definitions and claims in this article.
+The work has also benefited from continuing dialogue with the **Taller** team, especially **Christophe Kolb, Maxi Armesto, and Jan**, around the socio-technical architecture surrounding AI systems. Those exchanges helped pressure-test questions of authority, human participation, workflow, and control around the model. This acknowledgment does not imply co-authorship or endorsement.
 
 ## Try to Break the Argument
 
