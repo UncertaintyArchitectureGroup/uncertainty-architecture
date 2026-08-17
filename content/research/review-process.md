@@ -13,7 +13,7 @@ tags:
   - ua/status/informative
   - ua/topic/provenance
 created: 2026-07-24
-updated: 2026-07-31
+updated: 2026-08-17
 license: CC-BY-4.0
 ---
 
@@ -87,6 +87,12 @@ A proposal translating one or more research findings into a possible Doctrine, P
 
 A bounded record derived from a talk, working session, operational observation, external critique, worked application, or emerging question when a full source review is unnecessary.
 
+### Publication adaptation draft
+
+A shorter publication-facing derivative of a larger living paper or synthesis, developed before or alongside completion of the long-form work so that external review can challenge the current argument while later sections remain revisable.
+
+A publication adaptation is not a new authority-bearing source. It remains research and must identify the living manuscript or synthesis from which it is derived.
+
 ## Optional review artifacts
 
 The following are available tools rather than mandatory components of every research change:
@@ -97,7 +103,8 @@ The following are available tools rather than mandatory components of every rese
 - contradiction review;
 - terminology review;
 - framework-candidate proposal;
-- lightweight observation or worked-application note.
+- lightweight observation or worked-application note;
+- publication adaptation draft.
 
 Use the artifacts that make the reasoning visible and proportionate to the change.
 
@@ -117,6 +124,39 @@ Research Source, Observation, or Worked Application
 ```
 
 No step is automatic, and not every item requires every intermediate document. The flow is iterative: framework application may create new evidence that reopens, narrows, or resolves a research question.
+
+## Publication adaptation and external-feedback cycle
+
+A long-form paper does not need to be complete before a defensible subset of its argument is exposed to external review. When later sections depend on assumptions that external experts can meaningfully challenge, the repository may develop a bounded publication adaptation under `content/research/notes/` while the larger manuscript remains a living research artifact.
+
+Use this sequence:
+
+```text
+living blueprint + long-form manuscript
+→ choose a self-contained current argument
+→ create a shorter adaptation with explicit derivation/provenance
+→ review for claim equivalence, omissions, and maturity boundary
+→ publish externally when ready
+→ collect critique, substitutions, counterexamples, and provenance corrections
+→ classify only material feedback as research evidence
+→ reconcile material changes into the owning blueprint/manuscript or other research record
+→ continue or revise the long-form work
+→ preserve the externally published edition under content/research/publications/
+```
+
+The adaptation may reorder or compress prose for distribution, but it must not silently strengthen a claim, imply that unfinished sections were completed, or promote paper-only hypotheses into specification. A material correction discovered while preparing the adaptation belongs back in the owning research pair before release.
+
+External feedback should be triaged by effect rather than prominence of the reviewer:
+
+- **editorial/distribution feedback** may improve the adaptation without changing research state;
+- **conceptual critique** may narrow, reopen, or reject a claim and must be reconciled with the owning research record;
+- **substitution evidence** may show that an existing method, platform, standard, or internal process already carries a relationship more simply and should change the remaining comparison or contribution claim;
+- **provenance correction** must be repaired wherever the affected attribution appears;
+- **endorsement or disagreement alone** is not framework evidence.
+
+Acknowledgments should identify the kind of contribution accurately. A person credited for a phrase, framing, question, challenge, or dialogue is not thereby a co-author or endorser. Where a phrase came into the research through a specific exchange, distinguish that provenance from the paper's later engineering definition or synthesis.
+
+This cycle is intentionally compatible with open-source development: publication can become a review surface for the next research iteration instead of a ceremonial endpoint after every conclusion has already hardened.
 
 ## Source extraction and framework crystallization
 
@@ -204,6 +244,7 @@ One logical change per pull request remains a useful default for substantial wor
 Dedicated branches and pull requests are recommended for:
 
 - major research synthesis;
+- publication adaptations derived from active long-form research when external review is intended to influence remaining sections;
 - normative or high-impact changes;
 - externally contributed work;
 - automation-generated changes;
@@ -227,7 +268,7 @@ The next major corpus task is a cross-publication synthesis identifying:
 - candidates for the framework spine;
 - material that should remain research context only.
 
-This synthesis should proceed alongside worked applications of the current framework rather than wait for every concept to be completed. Worked Thinking System Reviews, operational observations, incidents, and reference implementations may produce evidence that refines the research questions and the practical artifact.
+This synthesis should proceed alongside worked applications of the current framework rather than wait for every concept to be completed. Worked Thinking System Reviews, operational observations, incidents, publication-feedback cases, and reference implementations may produce evidence that refines the research questions and the practical artifact.
 
 Source-specific analysis may still be added where it produces useful evidence or resolves a concrete question.
 
