@@ -50,7 +50,7 @@ The detailed lifecycle, feedback classification, publication-state transition, a
 - preserve attribution proportionately, distinguishing phrase/framing provenance from authorship, endorsement, and framework authority;
 - do not treat external feedback as framework evidence merely because it was public or came from a prominent reviewer; classify it under the Research Review Process first;
 - treat equivalent Medium, LinkedIn, website, or other platform copies as **renditions of one content edition** when only formatting, image substitution, or platform mechanics differ; use one principal `canonical_url` and `additional_publication_urls` for equivalent renditions, and preserve a separate repository edition only when the substantive text materially diverges;
-- after actual publication, preserve the published content edition under `content/research/publications/` according to the Research Review Process.
+- immediately after actual publication, preserve the exact published content edition under `content/research/publications/`, record publication URLs and an immutable source identity such as the source commit SHA or content digest, and do so **before** feedback-driven reconciliation; later substantive changes require a new edition or explicit material-transformation record.
 
 ## Mandatory drafting iteration
 
