@@ -136,15 +136,18 @@ living blueprint + long-form manuscript
 → choose a self-contained current argument
 → create a shorter adaptation with explicit derivation/provenance
 → review for claim equivalence, omissions, and maturity boundary
-→ publish externally when ready
+→ publish one content edition to one or more external platforms when ready
 → collect critique, substitutions, counterexamples, and provenance corrections
 → classify only material feedback as research evidence
 → reconcile material changes into the owning blueprint/manuscript or other research record
 → continue or revise the long-form work
-→ preserve the externally published edition under content/research/publications/
+→ preserve the published content edition under content/research/publications/
+→ record the principal canonical URL and equivalent additional publication URLs
 ```
 
 The adaptation may reorder or compress prose for distribution, but it must not silently strengthen a claim, imply that unfinished sections were completed, or promote paper-only hypotheses into specification. A material correction discovered while preparing the adaptation belongs back in the owning research pair before release.
+
+One **content edition** may have several platform **renditions**. For example, equivalent copies may be published on the UA website, Medium, and LinkedIn while using platform-native formatting or replacing Mermaid with rendered images. Formatting, image substitution, embed mechanics, or other platform-only transformations do not create separate research editions when the substantive text and claims remain equivalent. Record one principal `canonical_url` and use `additional_publication_urls` for equivalent renditions. When a platform version materially changes the substantive text, claim boundary, figures, or argument, preserve it as a distinct repository edition or explicitly record the material transformation rather than treating it as an equivalent rendition.
 
 External feedback should be triaged by effect rather than prominence of the reviewer:
 
