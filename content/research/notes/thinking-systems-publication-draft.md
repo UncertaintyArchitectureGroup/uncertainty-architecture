@@ -87,7 +87,7 @@ Consequential does **not** mean dangerous, autonomous, regulated, or high-risk. 
 
 The category also does not certify adequate control. A Thinking System can be well controlled, poorly controlled, experimental, or not ready for production. Constraints, evidence, decision rights, and corrective mechanisms are part of the engineering response to the changed object; they are not what creates the category.
 
-**Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. It is useful precisely where the relevant interpretation or decision space cannot be exhaustively encoded in advance.
+**Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. It is useful precisely because the relevant interpretation or decision space cannot always be exhaustively encoded in advance.
 
 The word **Thinking** is functional, not anthropomorphic. It makes no claim about consciousness, sentience, or human-like cognition. It names the responsibility structure that changes when consequential behavior depends partly on runtime Model Judgment.
 
@@ -97,8 +97,8 @@ Broader labels remain useful, but they answer different questions.
 
 | Label | What it primarily tells us | What it does not tell us |
 |---|---|---|
-| **AI-based system (ISO/IEC TR 29119-11)** | An AI component is present | Whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment |
-| **AI system (NIST AI RMF)** | A broader system produces machine-generated outputs that influence real or virtual environments | Whether this narrower responsibility boundary has changed |
+| **[AI-based system (ISO/IEC TR 29119-11)](https://www.iso.org/standard/79016.html)** | An AI component is present | Whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment |
+| **[AI system (NIST AI RMF)](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10)** | A broader system produces machine-generated outputs that influence real or virtual environments | Whether this narrower responsibility boundary has changed |
 | **LLM application** | A particular model technology is used | Which consequential responsibility the model carries |
 | **Agentic system** | Agency-oriented behavior or orchestration is present | Whether consequential responsibility depends partly on Model Judgment |
 | **Autonomous system** | The system operates with some degree of independence | Whether probabilistic judgment is the mechanism carrying consequential responsibility |
@@ -233,7 +233,7 @@ The new uncertainty also does not replace earlier uncertainty. It adds another l
 flowchart LR
     R["Product / requirement uncertainty<br/>what should be built"]
     O["Environment / operational uncertainty<br/>where and how it runs"]
-    J["Runtime-judgment uncertainty<br/>produced through Model Judgment inside execution"]
+    J["Runtime-judgment uncertainty<br/>behavior selected or constructed<br/>through Model Judgment inside execution"]
     S["Thinking System<br/>consequential behavior partly formed<br/>through probabilistic Model Judgment"]
 
     R --> S
@@ -241,9 +241,9 @@ flowchart LR
     J --> S
 ```
 
-**Figure 5 — Three connected uncertainty locations.** Product/requirement uncertainty and operational uncertainty remain. Thinking-System engineering adds explicit treatment of uncertainty produced through runtime judgment inside the controlled object.
+**Figure 5 — Three connected uncertainty locations.** Product/requirement uncertainty and operational uncertainty remain. Thinking-System engineering adds explicit treatment of uncertainty arising because consequential behavior is partly selected or constructed through runtime Model Judgment inside the controlled object.
 
-This is why the engineering problem is not simply that AI is harder to test. Part of the controlled object's consequential behavior is now produced through runtime judgment, and every decision that controls that object must account for the change.
+This is why the engineering problem is not simply that AI is harder to test. Part of the controlled object's consequential behavior is now selected or constructed through runtime judgment, and every decision that controls that object must account for the resulting uncertainty.
 
 ## If the object changed, control must change
 
@@ -335,46 +335,52 @@ Once the controlled object and the control relationship are visible, one final q
 
 Sometimes the answer is local.
 
-A realization or configuration defect may be repaired by Delivery. A degraded evaluator may be replaced or recalibrated. A deployment can be rolled back. Exposure can be narrowed. These actions restore a previously authorized state without changing the basis on which the system was approved.
+A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally **only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other decision basis underlying Project Authorization**. These actions restore a previously authorized state rather than redefine the basis on which the system was approved.
 
 Sometimes the evidence is architectural.
 
-If Human Authority is overloaded, the fallback cannot carry expected traffic, model placement no longer produces the expected value, a supposedly deterministic boundary cannot actually be realized, or the complete control perimeter destroys the business economics, the Project / Architecture basis has changed. Runtime cannot solve that by silently widening authority or adding another retry. The design has to be reassessed.
+If Human Authority is overloaded, the fallback cannot carry expected traffic, model placement no longer produces the expected value, or a supposedly deterministic boundary cannot actually be realized, the Project / Architecture basis has changed. Runtime cannot solve that by silently widening authority or adding another retry. The design has to be reassessed.
+
+Control economics belongs in that reassessment too, but it requires a separate ownership distinction. Project / Architecture must expose the complete cost and feasibility of the control perimeter. If the architecture remains technically viable but the resulting Human Authority burden, latency, operating cost, or investment requirement makes the business case unattractive, that is an engineering finding that must reach the owner of the business or investment basis. **Organization—not Project / Architecture—owns the proceed, reshape, defer, or stop decision when that Organizationally owned basis must change.**
 
 And sometimes the evidence or change reaches further still.
 
-A legal, contractual, policy, vendor, business, or reserved-authority condition may change outside the software entirely. Or runtime/project evidence may show that a boundary owned by the organization is no longer adequate. Only the legitimate organizational authority can change that basis. Project / Architecture must then reassess the design against the new organizational context before Delivery realizes and releases a changed system.
+An **Organizationally owned** legal, contractual, policy, vendor, business, or reserved-authority premise may change outside the software entirely. Or runtime/project evidence may show that an Organizationally owned boundary is no longer adequate. Only the legitimate organizational authority can change that basis. Project / Architecture must then reassess the design against the new organizational context before Delivery realizes and releases a changed system.
 
 ```mermaid
 flowchart TB
     O["Organization<br/>authoritative boundaries · reserved authority · business basis"]
     P["Project / Architecture<br/>Model-Judgment placement · viability · control design"]
     D["Delivery<br/>concrete realization · evidence · release"]
-    R["Runtime<br/>operation · evidence · bounded action"]
-    T["Thinking System<br/>controlled software object"]
 
-    O -->|authority and constraints become concrete| P
-    P -->|authorized design and obligations| D
-    D -->|released realization| R
-    R --> T
+    subgraph ACTIVE["Active operation"]
+        direction LR
+        T["Thinking System<br/>controlled software object"]
+        R["Runtime control<br/>evidence · bounded decisions · corrective action"]
+        T -->|behavior · outcomes · control state| R
+        R -->|action within delegated authority| T
+    end
 
-    T -->|behavior · outcomes · control state| R
-    R -. realization/configuration basis invalidated .-> D
-    R -. architecture/viability basis invalidated .-> P
-    R -. organizational basis invalidated .-> O
+    O -->|authoritative boundaries and business basis| P
+    P -->|technical authorization and obligations| D
+    D -->|released realization| T
 
-    O -. authoritative or business change .-> P
+    R -. Delivery basis invalidated .-> D
+    R -. Project / Architecture basis invalidated .-> P
+    R -. Organizational basis invalidated .-> O
+
+    O -. exogenous authoritative or business change .-> P
 ```
 
-**Figure 7 — The control perimeter can reach organizational authority.** The figure shows decision ownership and reassessment routes, not a four-stage delivery waterfall. Lower levels may repair or narrow inside delegated authority; they may not silently redefine a higher-level decision basis.
+**Figure 7 — The control perimeter can reach organizational authority without making the decision horizons a runtime stack.** Runtime control acts around the active Thinking System within delegated authority. Evidence routes to the owner of the decision basis it invalidates, while an exogenous Organizational change can reactivate Organization directly. Lower levels may repair or narrow inside delegated authority; they may not silently redefine a higher-level decision basis.
 
 This is the larger consequence of the controlled-object shift.
 
-**The organization is no longer merely the environment in which the software is developed. In some Thinking Systems, organizational decision authority becomes part of the control architecture required to keep the software bounded.**
+**When consequential operation depends on an Organizationally owned authority boundary, the organization can no longer be treated merely as external governance context for that control problem. Its legitimate decision authority becomes part of the socio-technical control architecture required to keep the software bounded.**
 
 That does not mean employees become software components. It means people and organizational decision processes can become necessary architectural elements of the control system around the software.
 
-For consequential Thinking Systems, **software architecture alone may therefore be an incomplete description of the production architecture**. The effective architecture is socio-technical: software, deterministic and probabilistic mechanisms, evidence, Human Authority, engineering decisions, and legitimate organizational authority participate in keeping one controlled object inside an authorized boundary.
+For consequential Thinking Systems, **software architecture alone may therefore be an incomplete description of the production control architecture for that system**. The effective control architecture is socio-technical: software, deterministic and probabilistic mechanisms, evidence, Human Authority, engineering decisions, and legitimate organizational authority participate in keeping one controlled object inside an authorized boundary.
 
 This is where the control-theoretic framing becomes useful. The transfer is structural, not literal. A company is not one mathematical Controller, and business viability, legal authority, human judgment, and model behavior cannot be reduced to one scalar error signal. But the same engineering questions recur across the perimeter:
 
@@ -388,7 +394,7 @@ What outcome or condition is intended?
 → When does new evidence require reassessment at this or an earlier decision level?
 ```
 
-The important shift is that those questions now surround **one system whose consequential uncertainty is partly produced from inside**.
+The important shift is that those questions now surround **one system in which consequential behavior subject to uncertainty is partly selected or constructed inside the controlled object at runtime**.
 
 That is the engineering problem the larger Uncertainty Architecture research track is trying to map.
 
@@ -398,11 +404,15 @@ This argument does not claim invention of feedback control, socio-technical safe
 
 The claim under test is narrower: whether connecting **Thinking-System classification**, the **whole software system as the controlled object**, explicit control-capability functions, and lifecycle decision ownership around the same consequential responsibility gives practitioners a useful engineering map—and whether an existing method or composition already does that more simply.
 
-The longer working paper examines those substitution questions in much greater detail. If STAMP/STPA, Simplex/runtime-assurance patterns, NIST/ISO-based practice, a managed AI platform, an internal engineering method, or another coherent composition preserves the material relationships with equal or stronger semantics and less overhead, that is evidence to narrow UA rather than a threat to it.
+Relevant primary or authoritative context includes Nancy Leveson's systems-theoretic safety work in [*Engineering a Safer World*](https://mitpress.mit.edu/9780262533690/engineering-a-safer-world/), the Software Engineering Institute's [Simplex architecture](https://www.sei.cmu.edu/library/an-architectural-description-of-the-simplex-architecture/) for dependable and evolvable process-control systems, the [NIST AI Risk Management Framework 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), and [ISO/IEC TR 29119-11:2020](https://www.iso.org/standard/79016.html) on testing AI-based systems. These are antecedents and comparison points, not claimed derivations, endorsements, or exact equivalents of UA.
+
+The **living editorial blueprint** extends the remaining research into proportional implementation, substitution against existing engineering methods and platforms, detailed lifecycle semantics, and a broader validation agenda. The working paper itself remains under development; later sections are planned to test those questions rather than being treated here as completed analysis.
+
+If STAMP/STPA, Simplex/runtime-assurance patterns, NIST/ISO-based practice, a managed AI platform, an internal engineering method, or another coherent composition preserves the material relationships with equal or stronger semantics and less overhead, that would be evidence to narrow UA rather than a threat to it.
 
 ## Why publish this before the larger paper is finished?
 
-The larger working paper continues into proportional implementation, substitution against existing engineering methods and platforms, detailed lifecycle semantics, and a broader validation agenda.
+The larger working paper is **planned to continue** into proportional implementation, substitution against existing engineering methods and platforms, detailed lifecycle semantics, and a broader validation agenda. Those later sections remain research work rather than completed conclusions.
 
 I could complete that entire structure first and ask for feedback later.
 
