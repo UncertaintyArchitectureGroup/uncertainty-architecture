@@ -36,6 +36,23 @@ A long-form research publication should normally use two living documents:
 
 The blueprint is not a temporary checklist and must not be shortened merely because prose has been written. The target manuscript must not contain internal drafting rules, agent instructions, repository workflow notes, or editorial status commentary intended only for contributors.
 
+## Publication adaptation rule
+
+A long-form working paper may intentionally produce a shorter publication-facing adaptation before the complete manuscript is finished when early external review can materially improve the remaining research and the shorter argument can stand on its own.
+
+The detailed lifecycle, feedback classification, publication-state transition, and provenance handling for that surface are owned by [`review-process.md`](review-process.md#publication-adaptation-and-external-feedback-cycle). This file adds only the contributor execution rules needed while editing:
+
+- treat the adaptation as a **distribution surface, not a new source of conceptual authority**;
+- keep the blueprint and long-form manuscript as the owning research pair;
+- develop an unpublished adaptation under `content/research/notes/` as non-normative research, normally with `draft: true`;
+- prefer **direct compression, omission, and reordering of the owning prose** over fresh paraphrase for definitions, scope boundaries, ownership semantics, maturity caveats, and other claim-bearing formulations; when new wording is necessary for readability, compare it side-by-side with the owning passage and treat any new noun, boundary, causal claim, or authority statement as a semantic-change risk until proven equivalent;
+- compare every material adapted claim against the owning long-form sources;
+- if adaptation work discovers a conceptual correction rather than a distribution-only wording change, reconcile that correction into the owning long-form pair before release;
+- preserve attribution proportionately, distinguishing phrase/framing provenance from authorship, endorsement, and framework authority;
+- do not treat external feedback as framework evidence merely because it was public or came from a prominent reviewer; classify it under the Research Review Process first;
+- treat equivalent Medium, LinkedIn, website, or other platform copies as **renditions of one content edition** when only formatting, image substitution, or platform mechanics differ; use one principal `canonical_url` and `additional_publication_urls` for equivalent renditions, and preserve a separate repository edition only when the substantive text materially diverges;
+- immediately after actual publication, preserve the exact published content edition under `content/research/publications/`, record publication URLs and an immutable source identity such as the source commit SHA or content digest, and do so **before** feedback-driven reconciliation; later substantive changes require a new edition or explicit material-transformation record.
+
 ## Mandatory drafting iteration
 
 Every substantial drafting iteration MUST follow this sequence:
@@ -54,6 +71,17 @@ Read the complete editorial blueprint
 ```
 
 A drafting iteration is incomplete until both documents are reconciled.
+
+For a publication adaptation, add one bounded distribution pass after the owning pair is coherent:
+
+```text
+reread the current long-form manuscript and blueprint
+→ select the bounded public argument
+→ draft or revise the adaptation
+→ compare every material claim against the owning long-form sources
+→ reconcile any conceptual change back into the owning pair
+→ review provenance, maturity boundary, links, figures, and external-feedback invitation
+```
 
 ## Cumulative argument rule
 
@@ -141,11 +169,13 @@ Before completing an article-writing session or PR:
 
 1. reread the complete target manuscript;
 2. reread and update the complete blueprint;
-3. confirm the target title, H1, abstract, section names, and final framing are consistent;
-4. confirm internal drafting notes did not leak into publication prose;
-5. confirm figures form one coherent visual sequence;
-6. confirm new claims follow repository authority and external evidence rules;
-7. confirm the PR description names both documents when both changed;
-8. confirm the machine-readable change contract includes every changed owning path;
-9. run the applicable metadata, link, Mermaid, build, and change-coupling checks;
-10. report what remains unresolved and whether the PR remains Draft.
+3. when a publication adaptation changed, compare its material claims and provenance against the owning long-form pair;
+4. confirm the target title, H1, abstract, section names, and final framing are consistent;
+5. confirm internal drafting notes did not leak into publication prose;
+6. confirm figures form one coherent visual sequence;
+7. confirm new claims follow repository authority and external evidence rules;
+8. confirm attribution distinguishes dialogue/provenance from authorship, endorsement, and framework authority;
+9. confirm the PR description names all publication surfaces that materially changed;
+10. confirm the machine-readable change contract includes every changed owning path;
+11. run the applicable metadata, link, Mermaid, build, and change-coupling checks;
+12. report what remains unresolved and whether the PR remains Draft.

@@ -17,7 +17,7 @@ tags:
 canonical_for:
   - research-track
 created: 2026-07-24
-updated: 2026-08-10
+updated: 2026-08-17
 license: CC-BY-4.0
 ---
 
@@ -42,7 +42,7 @@ UA did not begin as a finished standard. It evolved through architectural, opera
 `content/research/` is the only active research namespace in the repository.
 
 - completed or normalized publications belong in [`publications/`](publications/);
-- bounded working briefs, source-intake records, observations, and worked-application notes belong in [`notes/`](notes/);
+- bounded working briefs, source-intake records, observations, publication adaptations, and worked-application notes belong in [`notes/`](notes/);
 - preserved unnormalized source snapshots belong in [`content/raw/`](../raw/);
 - public milestones, talks, discussions, and superseded project-process records belong in [`content/history/`](../history/).
 
@@ -72,7 +72,7 @@ Focused analysis of one or more sources that may record the research question, k
 
 ### Research notes
 
-Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, worked applications, emerging questions, or source-intake gaps.
+Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, worked applications, publication adaptations, emerging questions, or source-intake gaps.
 
 See the [Research Notes index](notes/README.md).
 
@@ -92,7 +92,7 @@ Depending on the question and impact, a change may contain one or more of:
 4. a terminology or contradiction review;
 5. a traceability update;
 6. a framework-candidate note;
-7. a bounded worked-application or operational observation note.
+7. a bounded publication adaptation, worked-application, or operational observation note.
 
 Research changes do **not** automatically rewrite the framework. Normative changes are proposed separately after the relevant evidence has been synthesized and reviewed.
 
@@ -102,7 +102,7 @@ See [Research Review Process](review-process.md).
 
 Research is not a one-time phase that begins only after all framework concepts are merged. It operates as a feedback loop with specification work and practical application.
 
-When a framework change or worked application resolves, narrows, rejects, supersedes, or reopens a research question, update the affected source-intake note, working brief, analysis, or [`framework-traceability.md`](framework-traceability.md).
+When a framework change, worked application, or classified material external review resolves, narrows, rejects, supersedes, or reopens a research question, update the affected source-intake note, working brief, analysis, or [`framework-traceability.md`](framework-traceability.md).
 
 Do not record every editing session. Research records should capture meaningful changes in evidence, interpretation, question state, or framework destination.
 
@@ -173,11 +173,17 @@ This sequence should first be exercised through a two-level worked application a
 
 The next major corpus task also remains a cross-publication synthesis that identifies stable concepts, refinements, contradictions, superseded claims, terminology requiring review, framework candidates, and material that should remain research context only.
 
-Project-level validation and corpus synthesis should proceed as a feedback loop rather than sequential phases.
+Project-level validation, publication-feedback cycles, and corpus synthesis should proceed as a feedback loop rather than sequential phases.
+
+Publication adaptations are deliberately treated as **distribution surfaces of the owning research**, not alternate conceptual authorities. The current Thinking Systems adaptation is therefore maintained by direct compression, omission, and reordering of the merged long-form Sections 1–4 wherever practical; claim-bearing paraphrases are treated as semantic-risk points rather than as harmless style changes.
 
 ## Research positioning, antecedents, and intellectual context
 
-UA is a synthesis and specification effort, not a claim that its underlying engineering primitives were invented here. UA also does not claim coinage of the phrase **Thinking Systems**; it defines a specific engineering category under that name. Current research should distinguish established foundations from UA-specific composition and should prefer primary sources when describing those foundations. Relevant antecedents and adjacent traditions include:
+UA is a synthesis and specification effort, not a claim that its underlying engineering primitives were invented here. UA also does not claim coinage of the phrase **Thinking Systems**; it defines a specific engineering category under that name. Current research should distinguish established foundations from UA-specific composition and should prefer primary sources when describing those foundations.
+
+For the current Thinking Systems research line, the **maintainer-reported provenance** is that the formulation **“Thinking Systems”** entered the work through Vitalii Oborskyi's exchange with **Arkadiy Dobkin**, in the context of discussion prompted by Dobkin's public *From Fall to Rise* LinkedIn post. This is an author-attested record of dialogue provenance: the public post anchors the surrounding discussion context but is not presented as independent evidence that the phrase itself appeared in the post. The provenance concerns the formulation and research prompt, not authorship of the UA-specific definition, the Consequential Runtime Responsibility boundary, the control-capability model, or the resulting paper. Acknowledgment of the exchange does not imply Dobkin's endorsement or agreement with UA.
+
+Relevant antecedents and adjacent traditions include:
 
 - Nancy Leveson's [STAMP/STPA systems-theoretic safety work](https://mitpress.mit.edu/9780262016629/engineering-a-safer-world/), which applies systems thinking and systems theory to complex socio-technical safety problems;
 - the Software Engineering Institute's [Simplex architecture](https://www.sei.cmu.edu/library/an-architectural-description-of-the-simplex-architecture/) for dependable and evolvable process-control systems;
