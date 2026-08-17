@@ -45,6 +45,7 @@ The detailed lifecycle, feedback classification, publication-state transition, a
 - treat the adaptation as a **distribution surface, not a new source of conceptual authority**;
 - keep the blueprint and long-form manuscript as the owning research pair;
 - develop an unpublished adaptation under `content/research/notes/` as non-normative research, normally with `draft: true`;
+- prefer **direct compression, omission, and reordering of the owning prose** over fresh paraphrase for definitions, scope boundaries, ownership semantics, maturity caveats, and other claim-bearing formulations; when new wording is necessary for readability, compare it side-by-side with the owning passage and treat any new noun, boundary, causal claim, or authority statement as a semantic-change risk until proven equivalent;
 - compare every material adapted claim against the owning long-form sources;
 - if adaptation work discovers a conceptual correction rather than a distribution-only wording change, reconcile that correction into the owning long-form pair before release;
 - preserve attribution proportionately, distinguishing phrase/framing provenance from authorship, endorsement, and framework authority;
