@@ -106,5 +106,6 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Fixed
 
+- Aligned publication Figure 8 in *Thinking Systems: When the Controlled Object Changes* with the manuscript orthogonal model by restoring assessment eligibility, Project-owned technical selection and category confirmation, category exit, the specific research/business authorization handshake, scoped research-only or production-capable Project Authorization, explicit reassessment routes, and the visually distinct capability-family axis.
 - Corrected a stale Article §4 blueprint shorthand so Project-only production reauthorization is explicitly limited to changes whose resulting production scope remains covered by the applicable existing Organizational Business Authorization, matching the merged manuscript and the blueprint's own Business-Authorization coverage rule.
 - Restored the root README attribution, contributor, advisor, maturity, evidence, contribution, repository-citation, and full dual-license guidance that was unintentionally dropped during landing-page simplification.

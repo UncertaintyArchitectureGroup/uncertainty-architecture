@@ -351,9 +351,9 @@ The repository's current draft-normative **Nested Control Lifecycle** already es
 
 For this shorter article, the four horizons can remain compact:
 
-- **Organization** owns authoritative boundaries, reserved decision rights, shared capabilities, exceptions, and business authority. Under the paper-level refinement, it also owns decisions that change an Organizationally owned business, authority, exposure, or investment basis.
-- **Project / Architecture** owns Model-Judgment necessity analysis, alternatives, technical/design selection inside the standing Organizational basis, the concrete control architecture, technical/control feasibility, Human Authority and fallback feasibility, complete control economics, and the resulting viability conclusion.
-- **Delivery** owns the bounded Requirement and Operating Envelope, implementation-level Judgment Nodes, concrete realizations and evidence, Definition of Ready, Definition of Done, and the deployment-specific Release Gate inside the applicable Project Authorization.
+- **Organization** owns initial admissibility and assessment eligibility, authoritative boundaries, reserved decision rights, shared capabilities, exceptions, and business authority. Under the paper-level refinement, it also owns specific Bounded Research Authorization for research that crosses an Organizationally reserved boundary, Business Authorization for a viable production basis, changed-basis decisions, and initiative-level proceed, reshape, defer, or stop decisions.
+- **Project / Architecture** owns Model-Judgment necessity analysis, alternatives, technical/design selection inside the standing Organizational basis, category confirmation for the selected design, the concrete control architecture, technical/control feasibility, Human Authority and fallback feasibility, complete control economics, and the resulting viability conclusion. After any required Organizational decision, it issues the applicable scoped research-only or production-capable Project Authorization or authorization set.
+- **Delivery** owns the bounded Requirement and Operating Envelope, implementation-level Judgment Nodes, concrete realizations and evidence, Definition of Ready, Definition of Done, and the deployment-specific Release Gate inside the applicable Project Authorization scope or authorization set; it may release only the bounded research or production exposure that authorization permits.
 - **Runtime** owns operation inside delegated authority: observe, decide, act, verify, restore where possible, and emit reassessment evidence when the active authorization basis no longer holds.
 
 One person may hold several of these responsibilities in a small organization. One platform may implement pieces of several control functions. That does **not** collapse the decisions.
@@ -364,42 +364,52 @@ The decision horizons answer **where a decision is owned**. The capability famil
 flowchart LR
     subgraph L["Decision ownership: where the decision belongs"]
         direction TB
-        O["Organization<br/>authoritative boundaries · business / authority decisions"]
-        P["Project / Architecture<br/>Model-Judgment necessity · viability · control design"]
-        D["Delivery<br/>realization · evidence · release"]
-        R["Runtime<br/>operation · correction · reassessment evidence"]
-        E["Reassessment evidence<br/>implementation · operation · invalidated decision basis"]
-        X["Exogenous Organizational change<br/>law · contract · policy · business / authority basis"]
+        subgraph SPINE9[" "]
+  direction TB
+  O["Organization<br/> What may the organization assess, research, pursue, or continue?"]
+  P["Project / Architecture<br/> Model-Judgment necessity · technical selection<br/> control feasibility · economics · viability"]
+  CAT{"Selected technical design<br/> still a Thinking System?"}
+  EXIT["Exit Thinking-System-specific lifecycle<br/>handoff to ordinary product/software governance"]
+  D["Delivery<br/> Is this bounded realization complete and releasable<br/> for its authorized scope?"]
+  R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
+  E["Delivery / Runtime reassessment evidence<br/> realization or operation evidence that challenges a decision basis"]
+  X["Exogenous Organizational change<br/> authoritative or business basis"]
 
-        O -->|standing authoritative / business basis| P
-        O -->|specific Bounded Research Authorization<br/>Business Authorization or changed basis| P
-        P -->|applicable Project Authorization| D
-        D -->|authorized realization / exposure| R
-        P -. changed Organizational basis or reserved research needed .-> O
-        D -. realization evidence .-> E
-        R -->|operation evidence| E
-        E -. implementation / realization issue .-> D
-        E -. Project basis invalidated .-> P
-        X --> O
+  O -->|initial admissibility + assessment eligibility<br/>authoritative / business basis| P
+  P -->|technical design selected<br/>inside standing Organizational basis| CAT
+  CAT -->|No| EXIT
+  CAT -->|Yes| P
+  P -->|reserved-boundary research request / viable production basis<br/>or changed Organizational premise / continuation decision| O
+  O -->|specific Bounded Research Authorization<br/>Business Authorization or changed basis| P
+  P -->|applicable Project Authorization scope / set<br/>research-only and/or production-capable where applicable| D
+  D -->|approved realization + authorized exposure| R
+  D -.->|realization / experiment evidence| E
+  R -->|operation evidence| E
+  X --> O
+        end
+
+        E -.->|implementation / realization / evidence issue| D
+        E -.->|risk / feasibility / Model Judgment necessity<br/>capacity / economics invalidated or research answered| P
+        style SPINE9 fill:none,stroke:none
     end
 
     subgraph F["Capability functions: how control becomes operational"]
         direction TB
         subgraph F1[" "]
-            direction LR
-            J1(( )) --- A["Actuators and corrective action<br/>execute authorized change"]
+  direction LR
+  J1(( )) --- A["Actuators and corrective action<br/> execute authorized change"]
         end
         subgraph F2[" "]
-            direction LR
-            J2(( )) --- K["Constraints and realizations<br/>define and operationalize boundaries"]
+  direction LR
+  J2(( )) --- K["Constraints and realizations<br/> define and operationalize boundaries"]
         end
         subgraph F3[" "]
-            direction LR
-            J3(( )) --- S["Sensors and evidence<br/>observe behavior, conditions, and control state"]
+  direction LR
+  J3(( )) --- S["Sensors and evidence<br/> observe behavior, conditions, and control state"]
         end
         subgraph F4[" "]
-            direction LR
-            J4(( )) --- C["Controllers / decision functions<br/>interpret evidence and select bounded response"]
+  direction LR
+  J4(( )) --- C["Controllers / decision functions<br/> interpret evidence and select bounded response"]
         end
         J1 --- J2
         J2 --- J3
@@ -411,11 +421,13 @@ flowchart LR
     end
 
     L -. "all four capability families may appear at every decision horizon" .- F
+    classDef capability fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
     classDef railpoint fill:transparent,stroke:transparent,color:transparent;
+    class A,K,S,C capability;
     class J1,J2,J3,J4 railpoint;
 ```
 
-**Figure 8 — Two orthogonal models.** The left side is a compressed lifecycle view rather than a one-way stage sequence: Organization provides both the standing authoritative/business basis and, when required, a specific research or Business Authorization or changed basis back to Project / Architecture; Project / Architecture can return a changed-basis or reserved-research request; Delivery and Runtime evidence can return to the decision basis it challenges; and exogenous Organizational change can reactivate Organization directly. The right side is a neutral capability rail rather than an execution chain. Decision horizons answer where a decision is owned; capability families answer how boundaries, evidence, decisions, and actions become operational. There is no one-to-one mapping between the two models.
+**Figure 8 — Two orthogonal models.** The left side preserves the decision semantics of the living manuscript: initial assessment eligibility is distinct from a later specific Bounded Research Authorization; Project / Architecture owns technical/design selection and category confirmation inside the standing Organizational basis; Organization is reactivated only when its business, authority, investment basis, or an initiative-level reserved-boundary research or continuation decision is implicated; research-only and production-capable Project Authorization remain distinct scoped forms and may coexist only under explicit scope, precedence, and interaction semantics; Delivery and Runtime reassessment evidence returns to Delivery or Project according to the decision basis it challenges; and exogenous Organizational change activates Organization independently. The green side is the capability anatomy. Its ordering is a reading aid, not an execution pipeline. There is no one-to-one mapping between horizons and capability families.
 
 Sometimes correction is local. A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other basis underlying the applicable Delivery evidence/release decision or Project Authorization. If only the Delivery basis changes, Delivery must revalidate or reassess the affected release decision; if a Project-Authorization basis changes, the evidence routes to Project / Architecture.
 
