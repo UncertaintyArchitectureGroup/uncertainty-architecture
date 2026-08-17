@@ -41,23 +41,21 @@ related:
 
 # Thinking Systems: When the Controlled Object Changes
 
-> **Publication note.** This is a shorter standalone argument adapted from the larger living working paper, [*Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities*](open-engineering-specification-article-draft.md). It intentionally preserves the full deduction from dominant uncertainty through the changed controlled object, then compresses the later operating-model detail. The larger paper remains under development so external criticism of this argument can shape the next research phase rather than arrive only after the full manuscript has hardened.
+> **Publication note.** This is a shorter standalone adaptation of the living working paper [*Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities*](open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
 
-Software engineering repeatedly expands when an important source of uncertainty can no longer remain outside the engineering model.
+## 1. Engineering Evolves Around Dominant Uncertainty
 
-That pattern is easier to see if familiar software movements are treated not as mutually exclusive schools, but as responses to where consequential uncertainty appears and how quickly engineering can obtain feedback about it.
+Software-engineering methods are often discussed as competing schools: planning versus iteration, development versus operations, process versus autonomy. That framing hides a more useful pattern. **Engineering expands when a consequential source of uncertainty can no longer be managed adequately by the assumptions and feedback structures already in place.**
 
-**Plan-driven development (including Waterfall)** tries to reduce requirement and design uncertainty before implementation. This remains rational where the problem can be understood sufficiently in advance, late change is expensive, and early specification can remove enough uncertainty to make execution predictable.
+The pattern is not a clean historical sequence, and none of the approaches below is reducible to one idea. Plan-driven development, iterative delivery, and modern operations are broader engineering responses; Waterfall, Agile, and DevOps are familiar but non-equivalent examples. The comparison here is narrower: each response can be read as characteristic of a different location of uncertainty and feedback.
 
-**Iterative delivery (including Agile and related approaches)** accepts that important product uncertainty cannot always be eliminated through analysis because users, markets, and teams learn by interacting with working software. Engineering therefore shortens the distance between assumption, delivery, use, and revision.
+**Plan-driven development (including Waterfall)** treats significant requirement and design uncertainty as something to reduce before implementation. Analysis, decomposition, specification, approval, and planned execution remain rational where the problem can be understood sufficiently in advance, the cost of change is high, and late feedback is dangerous.
 
-**Modern operations (commonly associated with DevOps)** recognizes another limit: production conditions cannot be reproduced exhaustively before release. Telemetry, progressive exposure, rollback, resilience, and incident response extend the engineering feedback loop into runtime.
+**Iterative delivery (including Agile and related approaches)** starts from a different limit: important requirements often cannot be stabilized through analysis alone because users, markets, and teams learn by interacting with working software. The response is to shorten the cycle between assumption, delivery, use, and revision. Feedback moves closer to implementation and becomes part of the product-development mechanism.
 
-The pattern is cumulative. Requirement uncertainty did not disappear after Agile, and operational uncertainty did not begin with DevOps. Each expansion preserved earlier responsibilities while adding mechanisms for an important source of uncertainty that could no longer be left outside the engineering model.
+**Modern operations (commonly associated with DevOps)** exposes another limit. Even a well-understood feature cannot be exhaustively validated against every production combination of traffic, infrastructure, dependency, configuration, user behavior, and failure condition. Engineering therefore extends beyond release through telemetry, progressive exposure, rollback, resilience, and incident response.
 
-Probabilistic Model Judgment can introduce another shift.
-
-The uncertainty is no longer only in what should be built or in the environment in which software runs. Part of consequential behavior may now be selected or constructed **inside execution itself** through probabilistic Model Judgment.
+**Thinking Systems add a distinct source of uncertainty.** The uncertainty is not only in what should be built or in the environment in which software runs. It also appears in the runtime selection or construction of behavior inside the controlled object. The engineering problem is how to build and operate systems that use probabilistic Model Judgment without surrendering explicit boundaries, evidence, decision authority, and corrective control.
 
 ```mermaid
 flowchart LR
@@ -69,46 +67,23 @@ flowchart LR
     W --> A --> D --> T
 ```
 
-**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** Waterfall, Agile and related approaches, and DevOps are shown as familiar but non-equivalent examples of broader engineering responses. The progression is conceptual, not replacement history.
-
-This is the point at which a new engineering category becomes useful.
-
-## Why call them Thinking Systems?
+**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** Waterfall, Agile, and DevOps are shown as familiar examples of broader engineering responses. The progression is conceptual, not replacement history.
 
 The formulation **“Thinking Systems”** entered this research through my exchange with **Arkadiy Dobkin** following his LinkedIn post [*From Fall to Rise*](https://www.linkedin.com/posts/arkadiydobkin_from-fall-to-rise-activity-7477593508879724544-8-ZL). I am grateful to Arkadiy specifically for that formulation. I use the term here for a narrower engineering category; the definition and responsibility boundary below are developed in the Uncertainty Architecture research track. This article does **not** claim coinage of the phrase.
 
-A **Thinking System** is:
+In this article, a **Thinking System** is:
 
 > A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.
 
-A runtime responsibility is **consequential** here when its output, decision, path, action, or downstream state can materially affect an intended outcome, satisfaction of an applicable Requirement or Constraint, the exercise of delegated authority, resource use, or another person or system downstream.
+A runtime responsibility is a **Consequential Runtime Responsibility** when its output, decision, path, action, or downstream state can materially affect an intended outcome, satisfaction of an applicable Requirement or Constraint, the exercise of delegated authority, resource use, or a person or system downstream. **Consequential describes material causal relevance, not implementation mechanism or risk severity.** A Consequential Runtime Responsibility may be fulfilled entirely through explicitly encoded logic or may depend partly on probabilistic Model Judgment; Thinking-System classification changes only in the latter case. Harm, severity, likelihood, autonomy, regulation, control adequacy, and production readiness are separate questions. A model invocation with no material influence on any Consequential Runtime Responsibility does not establish the category by itself.
 
-Consequential does **not** mean dangerous, autonomous, regulated, or high-risk. It describes material causal relevance. Severity, likelihood, reversibility, residual exposure, autonomy, and production readiness remain separate questions.
+The definition identifies the changed engineering object; it does not certify control adequacy. A Thinking System can be well controlled, poorly controlled, experimental, or not ready for production. Constraints, evidence, decision rights, and corrective mechanisms belong to the engineering response around Model-Judgment-dependent Consequential Runtime Responsibilities; they are not the condition that makes the category exist.
 
-The category also does not certify adequate control. A Thinking System can be well controlled, poorly controlled, experimental, or not ready for production. Constraints, evidence, decision rights, and corrective mechanisms are part of the engineering response to the changed object; they are not what creates the category.
+The word **Thinking** is functional rather than anthropomorphic. It does not claim consciousness or human-like cognition; it gives engineering a stable name for software in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment.
 
-**Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. It is useful precisely because the relevant interpretation or decision space cannot always be exhaustively encoded in advance.
+**Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. It is useful precisely because the required behavior cannot always be exhaustively encoded in advance.
 
-The word **Thinking** is functional, not anthropomorphic. It makes no claim about consciousness, sentience, or human-like cognition. It names the responsibility structure that changes when consequential behavior depends partly on runtime Model Judgment.
-
-### Why existing labels are not enough
-
-Broader labels remain useful, but they answer different questions.
-
-| Label | Common or formal emphasis | What it does not tell us |
-|---|---|---|
-| **[AI-based system (ISO/IEC TR 29119-11)](https://www.iso.org/standard/79016.html)** | An AI component is present | Whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment |
-| **[AI system (NIST AI RMF)](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10)** | A broader system produces machine-generated outputs that influence real or virtual environments | Whether this narrower responsibility boundary has changed |
-| **LLM application** | A particular model technology is used | Which consequential responsibility the model carries |
-| **Agentic system** | Terminology varies; commonly emphasizes agency, tool use, autonomous action, or orchestration | Whether consequential responsibility depends partly on Model Judgment |
-| **Autonomous system** | Some degree of independent operation | Whether probabilistic judgment is the mechanism carrying consequential responsibility |
-| **Thinking System (this article)** | A Consequential Runtime Responsibility depends partly on probabilistic Model Judgment | It does not by itself say whether the system is safe, well controlled, autonomous, or production-ready |
-
-The ISO and NIST rows above use cited formal scope; the agentic and autonomous rows describe common emphasis rather than universal definitions. The precise boundary of agentic terminology remains open and should not be inferred from this comparison table.
-
-This is a category-boundary comparison, not a claim that NIST, ISO, agent frameworks, or broader AI-system concepts are technically shallow or incomplete. **Thinking System** is not proposed as a replacement for *AI system*. It names the specific controlled-object change examined in the rest of this argument.
-
-The category question is therefore narrower than “Does this application contain AI?” and different from “Is it agentic?” or “How autonomous is it?” **Linear Software** here means software in which no Consequential Runtime Responsibility depends partly on Model Judgment; it does not imply linear, sequential, or fixed orchestration.
+The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly encoded and the software remains **Linear Software** even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. **Linear Software** here does not mean linear, sequential, or fixed orchestration; it means that no Consequential Runtime Responsibility depends partly on Model Judgment.
 
 ```mermaid
 flowchart TB
@@ -120,8 +95,8 @@ flowchart TB
     end
 
     Q{"Does any Consequential Runtime Responsibility<br/>depend partly on probabilistic Model Judgment?"}
-    L["No → Linear Software for this category test<br/>consequential responsibility remains explicitly encoded"]
-    T["Yes → Thinking System<br/>part of consequential behavior is formed through runtime Model Judgment"]
+    L["No → Linear Software<br/>relevant consequential responsibility<br/>remains explicitly encoded"]
+    T["Yes → Thinking System<br/>part of consequential behavior<br/>is formed through runtime Model Judgment"]
 
     O -. does not decide category .-> Q
     A -. does not decide category .-> Q
@@ -133,17 +108,26 @@ flowchart TB
     class T thinking;
 ```
 
-**Figure 2 — Thinking-System classification turns on a responsibility boundary, not workflow topology or autonomy.** Fixed and dynamic workflows can fall on either side of the category boundary. Autonomy and delegated authority remain additional dimensions that affect consequence and control design.
+**Figure 2 — Thinking-System classification turns on whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment, not workflow topology or autonomy.** Fixed and dynamic workflows can fall on either side of the category boundary.
 
-The term matters because the engineering object has changed.
+Broader labels remain useful, but they answer different questions.
 
-## The controlled object has changed
+| Label | What it primarily tells us | What it does not tell us |
+|---|---|---|
+| **[AI-based system (ISO/IEC TR 29119-11)](https://www.iso.org/standard/79016.html)** | Presence of at least one AI component | Component presence alone does not say whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment |
+| **[AI system (NIST AI RMF)](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10)** | A broader system producing machine-generated outputs that influence real or virtual environments | The scope is broader than the responsibility boundary used here |
+| **LLM application** | Use of a particular model technology | Technology choice does not say what consequential responsibility the model carries |
+| **Agentic system** | Terminology varies; commonly emphasizes agency, tool use, autonomous action, or orchestration | Agency, autonomy, and authority are separate dimensions from the category test |
+| **Autonomous system** | Degree of independent operation | Autonomy changes control demand but does not establish whether a consequential responsibility depends partly on Model Judgment |
+| **Thinking System (this article)** | A Consequential Runtime Responsibility depends partly on probabilistic Model Judgment | Directly identifies the controlled-object change examined in the rest of the article |
 
-A controlled object is the thing whose behavior engineering seeks to keep within acceptable conditions.
+This is a narrow analytical comparison, not a judgment that broader AI-system concepts, NIST AI RMF, ISO standards, or agentic terminology are technically shallow or operationally incomplete. **Thinking System** is not proposed as a replacement for *AI system*; it names the responsibility boundary relevant to the engineering argument developed here.
 
-For a Thinking System, that object is not merely the model invocation. It is the whole software system inside its declared boundary: deployed components, data, configuration, dependencies, infrastructure, deterministic identity/access/retrieval/tool/execution paths, and one or more responsibilities in which Model Judgment participates.
+## 2. The Controlled Object Has Changed
 
-The software-system boundary does not necessarily become larger. What changes is the responsibility structure inside it: part of consequential behavior is now selected or constructed through runtime Model Judgment rather than being exhausted by explicitly authored logic. The surrounding control perimeter may then need to extend because it must follow the consequences and authority of that judgment.
+A controlled object is the thing whose behavior engineering seeks to keep within acceptable conditions. For this category, that object is never only source code or a model invocation. It is the whole software system within its declared boundary: deployed components, data, configuration, dependencies, infrastructure, and software-operated processes and interfaces. The behavior being controlled must be assessed through the downstream effects that system can produce; those effects do not become additional software components. Relevant human roles and interactions may belong to the **socio-technical control perimeter around that object**; they do not become part of the controlled process merely because they observe, authorize, or change it. A software component may implement a control function while remaining physically inside the system boundary, but the controlled-process and control-function relationships remain conceptually distinct.
+
+Thinking Systems change this object by making one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment. The change can occur in the first model-enabled iteration; it does not require autonomous agents, dynamic orchestration, multiple models, memory, or a mature AI platform.
 
 A useful design-contract abstraction for explicitly encoded deterministic responsibility is:
 
@@ -151,17 +135,17 @@ A useful design-contract abstraction for explicitly encoded deterministic respon
 y = f(x, context, configuration, system state)
 ```
 
-This does not claim perfect physical repeatability. It means the intended consequential mapping is authored through explicit logic, rules, state transitions, or other inspectable mechanisms.
+This does not claim perfect physical repeatability. It means that the intended mapping over the relevant input, context, configuration, and state is authored through explicit logic, rules, state transitions, or other inspectable mechanisms and can be tested against specified conditions.
 
-A model-mediated consequential responsibility is different:
+Over the same classes of relevant conditions, a model-mediated responsibility is better represented as selection from plausible outcomes:
 
 ```text
 y ~ P(y | x, context, configuration, system state)
 ```
 
-Part of the relevant mapping is selected or constructed at runtime. The same apparent request may lead to different plausible behavior because context, model version, instructions, retrieval, tools, state, or operating conditions differ.
+For the same apparent request, plausible behavior may vary with context, model version, instructions, retrieval results, tools, configuration, prior interaction, data distribution, or operating conditions. The system does not merely execute a fully enumerated decision; part of the consequential mapping is selected or constructed at runtime.
 
-That does not make the entire application probabilistic. Thinking Systems remain mixed systems. Deterministic responsibilities can exist before, between, and after Model Judgment.
+The architectural difference can be shown without pretending that conventional software consists of one linear function or that every Thinking System follows one pipeline.
 
 ```mermaid
 flowchart LR
@@ -189,17 +173,17 @@ flowchart LR
     class J1 judgment;
 ```
 
-**Figure 3 — The controlled-object shift.** Explicitly authored responsibilities remain part of the system, but one or more consequential responsibilities now depend partly on probabilistic Model Judgment. Red marks the structural addition, not an error state or a claim that the whole system is probabilistic.
+**Figure 3 — The controlled-object shift.** Explicitly authored responsibilities remain part of the system while one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment, so part of the consequential mapping is completed at runtime. The parallel paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous.
 
-Model Judgment can enter through several functional placements.
+Model Judgment can enter a system through several functional placements.
 
-**Input Interpretation** affects what the system believes the user, document, environment, or upstream signal means.
+**Input Interpretation** converts ambiguous, unstructured, incomplete, or context-dependent input into a representation the rest of the system can use. It may affect what the system believes the user requested, which entities matter, which policy or context is relevant, or which deterministic path becomes available.
 
-**Decision Logic** influences or selects routes, rankings, plans, priorities, tools, or actions.
+**Decision Logic** influences or selects a route, ranking, plan, priority, tool, or action. It may recommend an action, choose among bounded alternatives, or initiate a step only where the surrounding authority boundary permits it.
 
-**Output Mediation** creates, adapts, filters, summarizes, explains, or transforms information for a person or downstream system.
+**Output Mediation** creates, adapts, filters, summarizes, explains, or transforms information for a person or downstream system. Even when underlying data remains unchanged, mediation can alter what someone understands, trusts, approves, discloses, or does next.
 
-These are placement functions, not a mandatory pipeline.
+These are placement functions, not a mandatory three-stage pipeline.
 
 ```mermaid
 flowchart TB
@@ -213,31 +197,27 @@ flowchart TB
     MJ --> O
 ```
 
-**Figure 4 — Functional placement of Model Judgment.** Model Judgment is the parent concept; the three placements are possible responsibility locations rather than sequential stages.
+**Figure 4 — Functional placement of Model Judgment.** Model Judgment is the parent concept; Input Interpretation, Decision Logic, and Output Mediation are functional placements beneath it. They are not mandatory stages or a prescribed execution order.
 
-### Follow the consequential responsibility, not the model boundary
+The reason to introduce Model Judgment is its ability to resolve consequential situations whose relevant interpretation or decision space cannot be exhaustively specified in advance. Useful behavioral variance may be part of that capability, but variance is not itself the engineering objective. **The objective is to preserve useful judgment while keeping the resulting operation bounded.**
 
-Consider a fictional bounded customer-support resolution system. It retrieves authorized account and policy context, interprets a request, selects or recommends a resolution, prepares consequential customer communication, and may eventually execute a bounded refund or route the case to Human Authority.
+Consider one fictional bounded customer-support resolution system. It receives a customer request, retrieves authorized account and policy context, interprets the issue, selects or recommends a resolution path, prepares consequential customer communication, and may eventually execute a bounded refund or route the case to Human Authority.
 
-The model may occupy only one or two points in that workflow. But if Model Judgment influences which policy applies, what remedy is selected, what the customer is told, whether a refund is proposed, or whether an authorized tool changes downstream business state, then the engineering perimeter cannot stop at the model-serving component.
+The system can remain mixed. Retrieval, identity, permissions, tool access, and execution paths may stay deterministic while request interpretation, resolution selection, or response generation depends partly on Model Judgment. Its orchestration can be predefined. That does not change the category test.
 
-It has to follow the path by which runtime judgment becomes a consequential outcome.
+Now follow the **consequential responsibility rather than the model boundary**. If Model Judgment can influence which remedy applies, what the customer is told, whether a refund is proposed, or whether an authorized tool changes downstream business state, then the engineering perimeter cannot stop at the model-serving component. That perimeter includes the path by which runtime judgment becomes a consequential outcome and connects it to the permissions, evidence, Human Authority, and corrective mechanisms needed to keep the path inside an authorized boundary.
 
-That path includes deterministic software around the model, permissions, identity, tool access, transaction boundaries, evidence, fallback, and—where a decision is reserved—the people and organizational authority that can legitimately decide what happens next.
+For a material case, that control perimeter may therefore become explicitly **socio-technical** and cross technical, delivery, architectural, human-authority, and organizational decision boundaries. A bounded-refund authority may originate outside the runtime system, depend on architectural choices about where Model Judgment is permitted, require a concrete Delivery realization, and ultimately constrain whether a runtime transaction can execute. The point is the **reach of the perimeter**, not that the human organization becomes part of the controlled software process.
 
-This is the first important consequence of the changed controlled object: **the control perimeter may become explicitly socio-technical**.
+This does not mean every Thinking System needs separate departments, committees, or a maximal governance stack. The same people or platform may carry several responsibilities, and lower-consequence systems may realize the required control perimeter lightly. The point is causal: once probabilistic Model Judgment participates in a consequential responsibility, the required control perimeter follows the authority and effects of the **whole controlled object**, potentially all the way to organizational decision rights.
 
-A bounded-refund rule, for example, may originate in an organizational business or financial decision, require a Project / Architecture decision about where Model Judgment is permitted, require Delivery to realize a concrete transaction boundary, and finally constrain whether Runtime can execute a downstream action.
-
-None of those responsibilities makes the human organization part of the software process itself. But the people and decision structures may become architectural elements of the **control system around the software**.
-
-The new uncertainty also does not replace earlier uncertainty. It adds another location that must be connected to them.
+The new uncertainty also does not replace earlier uncertainty. It adds another location that engineering must connect to the others.
 
 ```mermaid
 flowchart LR
     R["Product / requirement uncertainty<br/>what should be built"]
     O["Environment / operational uncertainty<br/>where and how it runs"]
-    J["Runtime-judgment uncertainty<br/>behavior selected or constructed<br/>through Model Judgment inside execution"]
+    J["Runtime-judgment uncertainty<br/>produced through Model Judgment inside execution"]
     S["Thinking System<br/>consequential behavior partly formed<br/>through probabilistic Model Judgment"]
 
     R --> S
@@ -245,53 +225,51 @@ flowchart LR
     J --> S
 ```
 
-**Figure 5 — Three connected uncertainty locations.** Product/requirement uncertainty and operational uncertainty remain. Thinking-System engineering adds explicit treatment of uncertainty arising because consequential behavior is partly selected or constructed through runtime Model Judgment inside the controlled object.
+**Figure 5 — Three connected uncertainty locations.** Product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty coexist. Product methods, deterministic software engineering, DevOps, resilience, security, and incident response remain necessary; Thinking-System engineering adds explicit treatment of uncertainty produced through runtime judgment inside the controlled object.
 
-This is why the engineering problem is not simply that AI is harder to test. Part of the controlled object's consequential behavior is now selected or constructed through runtime judgment, and every decision that controls that object must account for the resulting uncertainty.
+The example exposes a broader consequence: the control perimeter of a Thinking System may cross technical, delivery, architectural, human-authority, and organizational decision boundaries. Different decisions across that perimeter require different evidence, authority, and corrective mechanisms.
 
-## If the object changed, control must change
+Across that expanded perimeter, the concrete subject changes but a recurring control structure appears:
 
-Thinking Systems require decision-relevant measurement across additional behavioral and control surfaces: evaluations, traces, downstream outcomes, drift, cost, latency, realization health, incidents, Human Authority load, and the effects of corrective actions.
+```text
+What outcome or condition is intended?
+→ What operating space is acceptable?
+→ What uncertainty or disturbance can move the object outside it?
+→ What evidence reveals behavior, outcome, conditions, and control state?
+→ Who or what may decide that action is required?
+→ Which mechanism can change operation?
+→ When does new evidence require reassessment at this or an earlier level?
+```
 
-Measurement is necessary. It is not control.
+This recurrence is the bridge to control theory. The transfer is structural, not literal. Organizations, projects, delivery teams, and runtime services are not one mathematical Controller, and legal interpretation, business viability, social authority, and model behavior cannot be collapsed into one scalar error signal.
 
-Measurement asks *what happened, how often, under which conditions, and with what confidence?*
+The useful transfer is that bounded control requires an intended condition, an approved operating space, evidence about the controlled process, legitimate decision authority, a path to corrective action, and a mechanism for revisiting assumptions when the control basis changes. Existing product, architecture, software-engineering, security, operations, safety, and governance disciplines remain necessary. The changed object requires their decisions to be connected around the same system rather than treated as independent practices assembled around an AI component.
 
-Control adds different questions:
+The problem is therefore not merely that AI is harder to test. Part of the controlled object's consequential behavior is now produced through runtime judgment, and every decision that controls that object must account for the change.
 
-- relative to which approved boundary is the evidence interpreted?
-- who or what has legitimate authority to decide that action is required?
-- which mechanism can actually change operation?
-- what evidence confirms that the corrective action worked?
-- when does new evidence invalidate the assumptions or authorization on which current operation depends?
+## 3. From Model Quality to Bounded Control
 
-A dashboard can describe an uncontrolled system perfectly.
+The controlled-object shift changes what counts as sufficient engineering evidence. Once a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment, teams naturally invest in measurement: test sets, evaluators, traces, model comparisons, cost and latency monitoring, incident data, and downstream outcome analysis. All of that is necessary. None of it, by itself, establishes control.
 
-A policy can be authoritative without being technically realized.
+Measurement answers questions such as *what happened, how often, under which conditions, and with what confidence?* Control adds different questions: *relative to which approved boundary, who or what may decide that action is required, which action can actually change operation, and what happens when the assumptions behind the boundary no longer hold?*
 
-A human approval button can exist while the reviewer lacks information, competence, time, capacity, independence, or real power to change the outcome.
+A closed feedback loop can still be unacceptable. It may optimize the wrong objective, react too slowly for the consequence, rely on evidence that misses the relevant failure, or possess authority that was never legitimately delegated. Its Actuator may be able to change a prompt but not prevent a transaction. It may keep an evaluator score inside tolerance while Human Authority, fallback capacity, latency, or unit economics collapse. Closing feedback is therefore weaker than bounding operation.
 
-A rollback path can exist without evidence that it restores a known authorized state.
+A bounded control architecture requires four distinct capability families. They are logical functions, not mandatory products, services, teams, layers, or one execution order.
 
-A feedback loop can be closed and still be unacceptable because it is optimizing the wrong objective, reacting too slowly, using invalid evidence, or exercising authority that was never delegated.
+**Constraints and their realizations** define and operationalize approved boundaries. A Constraint is an authoritative decision object: an approved condition limiting the allowed operating space. A Constraint Realization is the technical or socio-technical mechanism that implements, enforces, or influences that boundary.
 
-A bounded control architecture therefore needs four distinct capability functions. They are logical functions, not mandatory products, services, teams, or execution layers.
+**Sensors and evidence** expose behavior, outcomes, operating conditions, realization state, control health, Actuator execution, and the assumptions on which authorization depends. Evidence must be fit for the decision it informs and expose uncertainty, coverage, latency, and blind spots.
 
-**Constraints and their realizations** define the approved operating boundary and make that boundary operational. A Constraint is the authoritative boundary object; a Constraint Realization is the technical or socio-technical mechanism that implements, enforces, or influences it.
+**Controllers and decision authority** compare or interpret evidence relative to approved Requirements, Constraints, assumptions, and a defined decision boundary, then select or authorize action within delegated authority. A Controller does not create its own authority; reserved decisions must route to Human Authority or another legitimate decision process.
 
-**Sensors and evidence** expose behavior, outcomes, operating conditions, realization state, control health, and the effects of corrective action.
+**Actuators and corrective action** execute authorized change. They may block, route, narrow exposure, switch fallback, disable, roll back, compensate, or otherwise change operation or a Constraint Realization within delegated authority.
 
-**Controllers and decision authority** interpret evidence relative to approved Requirements, Constraints, assumptions, and a legitimate decision boundary, then select or authorize a response inside delegated authority.
+Take one boundary in the support-resolution system: automated refunds are permitted only up to a delegated amount; above that amount, execution requires **Human Authority**. The important engineering object is not the sentence “large refunds require approval.” The control problem is whether that authoritative boundary survives the complete path from Model Judgment to downstream transaction.
 
-**Actuators and corrective action** execute that response: block, route, narrow exposure, switch fallback, roll back, disable, compensate, or otherwise change operation within authority.
+A credible realization may combine transaction permissions, an amount precondition, scoped approval state tied to an authenticated authorized identity and matching transaction, and an endpoint that rejects execution when valid approval is absent. Sensors must expose attempted and blocked transactions, approval outcomes, bypass attempts, realization health, downstream results, and Human Authority latency/capacity. A Controller must interpret the evidence against the applicable Constraint and select or authorize the response inside its decision boundary. Actuators must perform the selected change; Sensors must expose whether execution occurred and what state resulted.
 
-Take the support example. Suppose the organization reserves refunds above a delegated amount to Human Authority.
-
-The sentence “large refunds require approval” is not yet a control architecture.
-
-Project / Architecture must translate the boundary into a realizable design. Delivery may realize it through deterministic transaction permissions, an amount precondition, scoped approval state tied to an authenticated authorized identity, and an endpoint that rejects execution when the required approval is absent. Sensors must expose attempted and blocked transactions, realization health, downstream outcomes, and Human Authority latency/capacity. A Controller must know when to block, route, narrow, or escalate within its authority. **An Actuator must actually perform the selected action; Sensors must expose whether execution occurred and whether the resulting state is the intended one.**
-
-The human path is also architectural. If reserved cases require Human Authority, the person must receive usable evidence, possess the legitimate decision right, have adequate competence and time, remain operational at the expected volume, and genuinely be able to change the outcome. A decorative `Approve` button is not a complete control path.
+Human Authority is substantive only when the person has enough information, time, competence, capacity, independence, and power to change the outcome. An approval button attached to an overloaded queue is not a complete control path.
 
 ```mermaid
 flowchart LR
@@ -319,44 +297,41 @@ flowchart LR
     A -->|change within delegated authority| KR
 ```
 
-**Figure 6 — Complete bounded control architecture.** The four capability families are logical functions. One product, platform, person, or organizational process may implement several functions; the distinctions remain important because authority, sensing, decision, realization, and action can fail independently. The separation from the controlled process is logical rather than necessarily physical: software Constraint Realizations, Sensors, Controllers, and Actuators may be implemented inside the same software-system boundary while remaining distinct control functions.
+**Figure 6 — Complete bounded control architecture.** The four capability families are logical functions, not mandatory services, products, teams, layers, or one execution order. Realizations may act before, during, or after Model Judgment; Controllers and Actuators may be synchronous or asynchronous; one component may perform several functions. Software Constraint Realizations, Sensors, Controllers, and Actuators may therefore be physically inside the same software-system boundary while remaining logically distinct from the controlled-process relationship.
 
-The central production-readiness implication is stronger than “use evals” or “add governance”:
+This is the difference between a measured system, a closed feedback loop, and a bounded controlled system. The last requires not merely feedback but an approved and credibly realized operating boundary, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and a path for reassessment when the basis of control changes. Here, a **complete control architecture** means materially complete for the authorized scope, not maximal instantiation of every possible control mechanism.
 
-> **A Thinking System is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path.**
+For production use of a Thinking System, these are not gaps that can be delegated to a post-release governance review. **The system is not ready for production at the intended scope while any material control responsibility remains unowned, unrealized, insufficiently evidenced for its decision, or without a credible corrective or reassessment path.** Governance becomes operational through that socio-technical control architecture; it is not a document layered over the system.
 
-“Complete” does not mean maximal. A low-consequence internal assistant may need a small explicit control surface. A system that communicates consequential decisions directly, changes business state, exercises delegated authority, or creates difficult-to-reverse effects may need much more.
+The capability anatomy explains **how** bounded control becomes possible. It does not yet determine **where** organizational authorization, project viability, delivery release, runtime correction, and reassessment decisions belong.
 
-**Production readiness is no longer a claim about application + model alone.** It is a claim about the controlled software object together with the material control architecture required around and, where applicable, within it. Where the consequence requires it, Delivery must make those control relationships operational: realized boundaries, decision-useful evidence, corrective paths, Human Authority, fallback, and the connection to whatever authority must reassess the system when its basis changes.
+## 4. How Far Can the Control Perimeter Reach?
 
-This is why governance cannot be postponed as paperwork around the software. For a Thinking System, the relevant governance decisions become operational only when they are realized through the socio-technical control architecture.
+The capability anatomy tells us how a bounded control relationship can work. It still does not answer a second question: **where does each consequential decision legitimately belong, and how does evidence move between those decision owners without collapsing engineering analysis, business authorization, release, and runtime control into one generic “AI governance gate”?**
 
-## How far can the control loop reach?
+The repository's current draft-normative **Nested Control Lifecycle** already establishes four connected decision levels, downward inheritance, local reassessment, Project Reauthorization, and Organizational review. The long-form paper makes one additional lifecycle distinction explicit as a **research refinement under validation**: Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business and authority basis, and the engineering viability conclusion; Organization owns the business outcome and authoritative/investment basis plus the business decision to authorize specific bounded research when the proposed experiment crosses an Organizationally reserved boundary, proceed with a viable production initiative, reshape that basis, defer, or stop. **That sharper Organization / Project split is the paper's research hypothesis, not yet status-bearing UA doctrine.**
 
-Once the controlled object and the control relationship are visible, one final question matters for this shorter argument:
+For this shorter article, the four horizons can remain compact:
 
-**How far does correction have to reach when evidence says the current system is no longer inside its authorized basis?**
+- **Organization** supplies authoritative boundaries, reserved decision rights, shared capabilities, exceptions, and business authority. Under the paper-level refinement, it also owns decisions that change an Organizationally owned business, authority, exposure, or investment basis.
+- **Project / Architecture** owns Model-Judgment necessity analysis, alternatives, technical/design selection inside the standing Organizational basis, the concrete control architecture, technical/control feasibility, Human Authority and fallback feasibility, complete control economics, and the resulting viability conclusion.
+- **Delivery** owns the bounded Requirement and Operating Envelope, implementation-level Judgment Nodes, concrete realizations and evidence, Definition of Ready, Definition of Done, and the deployment-specific Release Gate inside the applicable authorization.
+- **Runtime** owns operation inside delegated authority: observe, decide, act, verify, restore where possible, and emit reassessment evidence when the active authorization basis no longer holds.
 
-One maturity boundary matters before applying the ownership model below. **The precise Organization / Project split used in this section is a paper-level research refinement under validation.** Current status-bearing UA doctrine uses a simpler Project-Authorization model with a broader Project decision surface. The larger paper is testing whether separating Organizational business/research authority from Project technical viability produces a cleaner control boundary; the examples and diagram below must not be read as a silent normative change to current UA doctrine.
+One person may hold several of these responsibilities in a small organization. One platform may implement pieces of several control functions. That does **not** collapse the decisions.
 
-Sometimes the answer is local.
+Sometimes correction is local. A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other basis underlying the applicable Delivery evidence/release decision or Project Authorization. If only the Delivery basis changes, Delivery must revalidate or reassess the affected release decision; if a Project-Authorization basis changes, the evidence routes to Project / Architecture.
 
-A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally **only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other decision basis underlying the applicable Delivery evidence/release decision or Project Authorization**. If only the Delivery basis changes, Delivery must revalidate or reassess the affected release decision; if a Project-Authorization basis changes, the evidence must route to Project / Architecture. These actions restore or re-establish an authorized state rather than silently redefine the basis on which the system was approved.
+Sometimes the evidence is architectural. If Human Authority is overloaded, fallback cannot carry expected traffic, Model-Judgment placement no longer produces the expected value, or a supposedly deterministic boundary cannot actually be realized, the Project / Architecture basis has changed. Runtime cannot solve that by silently widening authority or adding another retry. The design has to be reassessed.
 
-Sometimes the evidence is architectural.
+Control economics belongs in that reassessment. Project / Architecture must expose the complete cost and feasibility of the control perimeter. Under the paper-level ownership refinement, if the architecture remains technically viable but Human Authority burden, latency, operating cost, or investment requirement makes the business case unattractive, that engineering finding reaches the owner of the business or investment basis rather than being converted into a technical veto.
 
-If Human Authority is overloaded, the fallback cannot carry expected traffic, model placement no longer produces the expected value, or a supposedly deterministic boundary cannot actually be realized, the Project / Architecture basis has changed. Runtime cannot solve that by silently widening authority or adding another retry. The design has to be reassessed.
-
-Control economics belongs in that reassessment too, but it requires a separate ownership distinction. Project / Architecture must expose the complete cost and feasibility of the control perimeter. If the architecture remains technically viable but the resulting Human Authority burden, latency, operating cost, or investment requirement makes the business case unattractive, that is an engineering finding that must reach the owner of the business or investment basis. **Organization—not Project / Architecture—owns the proceed, reshape, defer, or stop decision when that Organizationally owned basis must change.**
-
-And sometimes the evidence or change reaches further still.
-
-An **Organizationally owned** legal, contractual, policy, vendor, business, or reserved-authority premise may change outside the software entirely. Or runtime/project evidence may show that an Organizationally owned boundary is no longer adequate. Only the legitimate organizational authority can change that basis. Project / Architecture must then reassess the design against the new organizational context before Delivery realizes and releases a changed system.
+And sometimes the relevant change reaches further still. An Organizationally owned legal, contractual, policy, vendor, business, or reserved-authority premise may change outside the software entirely. Or project/runtime evidence may show that such a boundary is no longer adequate. The legitimate authority that owns that basis must change it; Project / Architecture then reassesses the design against the changed context.
 
 ```mermaid
 flowchart TB
     O["Organization<br/>authoritative boundaries · reserved authority · business basis"]
-    P["Project / Architecture<br/>Model-Judgment placement · viability · control design"]
+    P["Project / Architecture<br/>Model-Judgment necessity · viability · control design"]
     D["Delivery<br/>concrete realization · evidence · release"]
 
     subgraph ACTIVE["Active operation"]
@@ -378,33 +353,15 @@ flowchart TB
     O -. exogenous authoritative or business change .-> P
 ```
 
-**Figure 7 — Research ownership hypothesis: the control perimeter can reach organizational authority without making the decision horizons a runtime stack.** Runtime control acts around the active Thinking System within delegated authority. Evidence routes to the owner of the decision basis it invalidates, while an exogenous Organizational change can reactivate Organization directly. Lower levels may repair or narrow inside delegated authority; they may not silently redefine a higher-level decision basis. The exact Organization / Project ownership split shown here remains under research validation and is not yet the status-bearing UA lifecycle model.
+**Figure 7 — Research ownership hypothesis: the control perimeter can reach organizational authority without making the decision horizons a runtime stack.** Runtime control acts around the active Thinking System within delegated authority. Evidence routes to the owner of the decision basis it invalidates. The exact Organization / Project ownership split shown here remains under research validation and is not yet the status-bearing UA lifecycle model.
 
-This is the larger consequence of the controlled-object shift.
+The larger conclusion does **not** depend on accepting every detail of that ownership refinement. Section 2 already established the more basic point: for a material case, the required control perimeter may cross technical, delivery, architectural, Human Authority, and organizational decision boundaries. **Once probabilistic Model Judgment participates in a consequential responsibility, the required control perimeter follows the authority and effects of the whole controlled object, potentially all the way to organizational decision rights.**
 
-**When consequential operation depends on an Organizationally owned authority boundary, the organization can no longer be treated merely as external governance context for that control problem. Its legitimate decision authority becomes part of the socio-technical control architecture required to keep the software bounded.**
+That does not make employees software components, nor does it make the organization part of the controlled software process. It means that people and organizational decision processes may become necessary architectural elements of the **control system around the software**. Software architecture alone can therefore be an incomplete description of the production **control architecture** required for a consequential Thinking System.
 
-That does not mean employees become software components. It means people and organizational decision processes can become necessary architectural elements of the control system around the software.
+This is the engineering problem the larger **Uncertainty Architecture** research track is trying to map.
 
-For consequential Thinking Systems, **software architecture alone may therefore be an incomplete description of the production control architecture for that system**. The effective control architecture is socio-technical: software, deterministic and probabilistic mechanisms, evidence, Human Authority, engineering decisions, and legitimate organizational authority participate in keeping one controlled object inside an authorized boundary.
-
-This is where the control-theoretic framing becomes useful. The transfer is structural, not literal. A company is not one mathematical Controller, and business viability, legal authority, human judgment, and model behavior cannot be reduced to one scalar error signal. But the same engineering questions recur across the perimeter:
-
-```text
-What outcome or condition is intended?
-→ What operating space is acceptable?
-→ What uncertainty can move the object outside it?
-→ What evidence reveals behavior, outcome, conditions, and control state?
-→ Who or what may decide that action is required?
-→ Which mechanism can change operation?
-→ When does new evidence require reassessment at this or an earlier decision level?
-```
-
-The important shift is that those questions now surround **one system in which consequential behavior subject to uncertainty is partly selected or constructed inside the controlled object at runtime**.
-
-That is the engineering problem the larger Uncertainty Architecture research track is trying to map.
-
-## Intellectual context and claim boundary
+## Intellectual Context and Claim Boundary
 
 This argument does not claim invention of feedback control, socio-technical safety, runtime assurance, software engineering for AI, human oversight, or AI risk management. It sits in continuity with established systems/safety/control traditions and current AI engineering practice.
 
@@ -416,34 +373,28 @@ The **living editorial blueprint** extends the remaining research into proportio
 
 If STAMP/STPA, Simplex/runtime-assurance patterns, NIST/ISO-based practice, a managed AI platform, an internal engineering method, or another coherent composition preserves the material relationships with equal or stronger semantics and less overhead, that would be evidence to narrow UA rather than a threat to it.
 
-## Why publish this before the larger paper is finished?
+## Why Publish This Before the Larger Paper Is Finished?
 
-The larger working paper is **planned to continue** into proportional implementation, substitution against existing engineering methods and platforms, detailed lifecycle semantics, and a broader validation agenda. Those later sections remain research work rather than completed conclusions.
-
-I could complete that entire structure first and ask for feedback later.
-
-I think that would be the wrong order.
+The larger working paper is planned to continue into proportional implementation, substitution against existing engineering methods and platforms, detailed lifecycle semantics, and a broader validation agenda. Those later sections remain research work rather than completed conclusions.
 
 The useful questions now are earlier and more fundamental:
 
 - Does the **Thinking System** boundary identify a real engineering distinction?
 - Does consequential Model Judgment actually change the controlled object in the way described here?
-- Is the socio-technical control perimeter a useful consequence of that shift, or does it overreach?
+- Does the required control perimeter follow the consequences and authority of the whole controlled object as argued here?
 - Are Constraints/realizations, Sensors/evidence, Controllers/authority, and Actuators/action a useful functional partition?
-- Does the control perimeter really need to reach organizational authority in the cases where this article says it does?
+- Does the control perimeter need to reach organizational decision rights in the cases where this article says it may?
 - Which existing methods already model the same relationships more cleanly?
 
 Those answers should shape the remaining research.
 
-There is also a recursive aspect to the work. Increasingly, this paper and the UA repository are being developed through **agent-mediated human–AI workflows**. I am not treating AI as a text generator attached to the side of the research. I am increasingly using explicit sources of authority, bounded tasks, review loops, evidence, versioned repository state, human decision points, and escalation when an agent cannot legitimately resolve an ambiguity.
+There is also a recursive aspect to the work. Increasingly, this paper and the UA repository are being developed through **agent-mediated human–AI workflows** using explicit sources of authority, bounded tasks, review loops, evidence, versioned repository state, human decision points, and escalation when an agent cannot legitimately resolve an ambiguity.
 
-In other words, I am beginning to use the same architectural ideas to structure the human–agent system through which the framework itself is developed.
-
-That is **not validation**. A framework cannot prove itself by being used to write about itself. But it does create another working environment in which weak boundaries, unclear authority, bad evidence routing, or false confidence become visible quickly.
+That is **not validation**. A framework cannot prove itself by being used to write about itself. But it creates another working environment in which weak boundaries, unclear authority, bad evidence routing, or false confidence become visible quickly.
 
 The larger [working paper](open-engineering-specification-article-draft.md) and its [editorial blueprint](open-engineering-specification-article-blueprint.md) remain public in the repository. The next sections are intentionally open to change.
 
-## Acknowledgments and provenance
+## Acknowledgments and Provenance
 
 I want to thank **Arkadiy Dobkin** specifically for the formulation **“Thinking Systems”** and for the exchange that pushed me to sharpen the engineering boundary around it. The phrase provenance is distinct from the specific UA engineering definition and control model developed in this research.
 
@@ -451,13 +402,13 @@ The work has also benefited from continuing dialogue with the **Taller** team, e
 
 These acknowledgments record intellectual provenance and dialogue. They do not imply co-authorship, endorsement of UA, or agreement with the specific definitions and claims in this article.
 
-## Try to break the argument
+## Try to Break the Argument
 
 I do not particularly need readers to agree with Uncertainty Architecture.
 
 I need people to try to break it.
 
-Apply the category test to a real system. Show where it over-classifies or misses an important case. Show a system where consequential Model Judgment does **not** create the responsibility-structure change described here. Show a Thinking System whose required control perimeter does **not** need to extend in the way argued here. Find a control responsibility that cannot be represented without distorting the architecture. Show where the organization should remain completely outside the control perimeter. Point to an existing method, platform, standard, or internal process that already preserves the same relationships with less conceptual overhead.
+Apply the category test to a real system. Show where it over-classifies or misses an important case. Show a system where consequential Model Judgment does **not** create the responsibility-structure change described here. Show a Thinking System whose required control perimeter does **not** need to follow the authority and effects of the whole controlled object in the way argued here. Find a control responsibility that cannot be represented without distorting the architecture. Show where organizational decision rights should remain completely outside the control perimeter. Point to an existing method, platform, standard, or internal process that already preserves the same relationships with less conceptual overhead.
 
 Show what can be removed.
 
