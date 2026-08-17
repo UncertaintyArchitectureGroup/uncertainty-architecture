@@ -95,14 +95,16 @@ The word **Thinking** is functional, not anthropomorphic. It makes no claim abou
 
 Broader labels remain useful, but they answer different questions.
 
-| Label | What it primarily tells us | What it does not tell us |
+| Label | Common or formal emphasis | What it does not tell us |
 |---|---|---|
 | **[AI-based system (ISO/IEC TR 29119-11)](https://www.iso.org/standard/79016.html)** | An AI component is present | Whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment |
 | **[AI system (NIST AI RMF)](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10)** | A broader system produces machine-generated outputs that influence real or virtual environments | Whether this narrower responsibility boundary has changed |
 | **LLM application** | A particular model technology is used | Which consequential responsibility the model carries |
-| **Agentic system** | Agency-oriented behavior or orchestration is present | Whether consequential responsibility depends partly on Model Judgment |
-| **Autonomous system** | The system operates with some degree of independence | Whether probabilistic judgment is the mechanism carrying consequential responsibility |
+| **Agentic system** | Terminology varies; commonly emphasizes agency, tool use, autonomous action, or orchestration | Whether consequential responsibility depends partly on Model Judgment |
+| **Autonomous system** | Some degree of independent operation | Whether probabilistic judgment is the mechanism carrying consequential responsibility |
 | **Thinking System (this article)** | A Consequential Runtime Responsibility depends partly on probabilistic Model Judgment | It does not by itself say whether the system is safe, well controlled, autonomous, or production-ready |
+
+The ISO and NIST rows above use cited formal scope; the agentic and autonomous rows describe common emphasis rather than universal definitions. The precise boundary of agentic terminology remains open and should not be inferred from this comparison table.
 
 This is a category-boundary comparison, not a claim that NIST, ISO, agent frameworks, or broader AI-system concepts are technically shallow or incomplete. **Thinking System** is not proposed as a replacement for *AI system*. It names the specific controlled-object change examined in the rest of this argument.
 
@@ -285,7 +287,7 @@ Take the support example. Suppose the organization reserves refunds above a dele
 
 The sentence “large refunds require approval” is not yet a control architecture.
 
-Project / Architecture must translate the boundary into a realizable design. Delivery may realize it through deterministic transaction permissions, an amount precondition, scoped approval state tied to an authenticated authorized identity, and an endpoint that rejects execution when the required approval is absent. Sensors must expose attempted and blocked transactions, realization health, downstream outcomes, and Human Authority latency/capacity. A Controller must know when to block, route, narrow, or escalate within its authority. An Actuator must actually perform the selected action and evidence whether it worked.
+Project / Architecture must translate the boundary into a realizable design. Delivery may realize it through deterministic transaction permissions, an amount precondition, scoped approval state tied to an authenticated authorized identity, and an endpoint that rejects execution when the required approval is absent. Sensors must expose attempted and blocked transactions, realization health, downstream outcomes, and Human Authority latency/capacity. A Controller must know when to block, route, narrow, or escalate within its authority. **An Actuator must actually perform the selected action; Sensors must expose whether execution occurred and whether the resulting state is the intended one.**
 
 The human path is also architectural. If reserved cases require Human Authority, the person must receive usable evidence, possess the legitimate decision right, have adequate competence and time, remain operational at the expected volume, and genuinely be able to change the outcome. A decorative `Approve` button is not a complete control path.
 
@@ -315,7 +317,7 @@ flowchart LR
     A -->|change within delegated authority| KR
 ```
 
-**Figure 6 — Complete bounded control architecture.** The four capability families are logical functions. One product, platform, person, or organizational process may implement several functions; the distinctions remain important because authority, sensing, decision, realization, and action can fail independently.
+**Figure 6 — Complete bounded control architecture.** The four capability families are logical functions. One product, platform, person, or organizational process may implement several functions; the distinctions remain important because authority, sensing, decision, realization, and action can fail independently. The separation from the controlled process is logical rather than necessarily physical: software Constraint Realizations, Sensors, Controllers, and Actuators may be implemented inside the same software-system boundary while remaining distinct control functions.
 
 The central production-readiness implication is stronger than “use evals” or “add governance”:
 
@@ -323,9 +325,9 @@ The central production-readiness implication is stronger than “use evals” or
 
 “Complete” does not mean maximal. A low-consequence internal assistant may need a small explicit control surface. A system that communicates consequential decisions directly, changes business state, exercises delegated authority, or creates difficult-to-reverse effects may need much more.
 
-The point is that the object delivered to production is no longer merely **application + model**. Where the consequence requires it, Delivery must make operational the surrounding control relationships as well: realized boundaries, decision-useful evidence, corrective paths, Human Authority, fallback, and the connection to whatever authority must reassess the system when its basis changes.
+**Production readiness is no longer a claim about application + model alone.** It is a claim about the controlled software object together with the material control architecture required around and, where applicable, within it. Where the consequence requires it, Delivery must make those control relationships operational: realized boundaries, decision-useful evidence, corrective paths, Human Authority, fallback, and the connection to whatever authority must reassess the system when its basis changes.
 
-This is why governance cannot be postponed as paperwork around the software. For a Thinking System, the relevant governance decisions become operational only when they are realized inside the socio-technical control architecture.
+This is why governance cannot be postponed as paperwork around the software. For a Thinking System, the relevant governance decisions become operational only when they are realized through the socio-technical control architecture.
 
 ## How far can the control loop reach?
 
@@ -335,7 +337,7 @@ Once the controlled object and the control relationship are visible, one final q
 
 Sometimes the answer is local.
 
-A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally **only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other decision basis underlying Project Authorization**. These actions restore a previously authorized state rather than redefine the basis on which the system was approved.
+A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally **only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other decision basis underlying the applicable Delivery evidence/release decision or Project Authorization**. If only the Delivery basis changes, Delivery must revalidate or reassess the affected release decision; if a Project-Authorization basis changes, the evidence must route to Project / Architecture. These actions restore or re-establish an authorized state rather than silently redefine the basis on which the system was approved.
 
 Sometimes the evidence is architectural.
 
@@ -346,6 +348,8 @@ Control economics belongs in that reassessment too, but it requires a separate o
 And sometimes the evidence or change reaches further still.
 
 An **Organizationally owned** legal, contractual, policy, vendor, business, or reserved-authority premise may change outside the software entirely. Or runtime/project evidence may show that an Organizationally owned boundary is no longer adequate. Only the legitimate organizational authority can change that basis. Project / Architecture must then reassess the design against the new organizational context before Delivery realizes and releases a changed system.
+
+One maturity boundary matters before the ownership model below. **The precise Organization / Project split used in this section is a paper-level research refinement under validation.** Current status-bearing UA doctrine uses a simpler Project-Authorization model with a broader Project decision surface. The larger paper is testing whether separating Organizational business/research authority from Project technical viability produces a cleaner control boundary; the diagram below must not be read as a silent normative change to current UA doctrine.
 
 ```mermaid
 flowchart TB
@@ -372,7 +376,7 @@ flowchart TB
     O -. exogenous authoritative or business change .-> P
 ```
 
-**Figure 7 — The control perimeter can reach organizational authority without making the decision horizons a runtime stack.** Runtime control acts around the active Thinking System within delegated authority. Evidence routes to the owner of the decision basis it invalidates, while an exogenous Organizational change can reactivate Organization directly. Lower levels may repair or narrow inside delegated authority; they may not silently redefine a higher-level decision basis.
+**Figure 7 — Research ownership hypothesis: the control perimeter can reach organizational authority without making the decision horizons a runtime stack.** Runtime control acts around the active Thinking System within delegated authority. Evidence routes to the owner of the decision basis it invalidates, while an exogenous Organizational change can reactivate Organization directly. Lower levels may repair or narrow inside delegated authority; they may not silently redefine a higher-level decision basis. The exact Organization / Project ownership split shown here remains under research validation and is not yet the status-bearing UA lifecycle model.
 
 This is the larger consequence of the controlled-object shift.
 
