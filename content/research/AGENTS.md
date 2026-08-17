@@ -36,43 +36,20 @@ A long-form research publication should normally use two living documents:
 
 The blueprint is not a temporary checklist and must not be shortened merely because prose has been written. The target manuscript must not contain internal drafting rules, agent instructions, repository workflow notes, or editorial status commentary intended only for contributors.
 
-## Publication adaptation cycle
+## Publication adaptation rule
 
-A long-form working paper may intentionally produce a shorter publication-facing adaptation before the complete target manuscript is finished. Use this only when early external review can materially improve the remaining research and when the shorter article can stand on its own without pretending to be the completed working paper.
+A long-form working paper may intentionally produce a shorter publication-facing adaptation before the complete manuscript is finished when early external review can materially improve the remaining research and the shorter argument can stand on its own.
 
-The adaptation is a **third publication surface, not a third source of conceptual authority**:
+The detailed lifecycle, feedback classification, publication-state transition, and provenance handling for that surface are owned by [`review-process.md`](review-process.md#publication-adaptation-and-external-feedback-cycle). This file adds only the contributor execution rules needed while editing:
 
-```text
-Editorial blueprint
-↔ living long-form target manuscript
-→ bounded publication adaptation under content/research/notes/
-→ external review and contradictory evidence
-→ reconcile material findings back into the blueprint / long-form manuscript
-→ continue, narrow, reorder, or revise the research
-→ after actual publication, preserve the published edition under content/research/publications/
-```
-
-Rules for a publication adaptation:
-
-1. Keep the living blueprint and long-form target manuscript as the owning research pair. The adaptation may compress, reorder, omit later sections, or change rhetorical sequence for a different audience, but it must not silently create a competing framework definition.
-2. Develop the adaptation as `status: research`, `maturity: draft`, `artifact_type: research-note`, normally with Quartz `draft: true`, and identify the source manuscript/blueprint through provenance or relationship metadata.
-3. State the publication boundary honestly. If the long-form paper is incomplete, the adaptation may say that it intentionally stops at the current defensible argument and is being exposed to criticism before the next research phase.
-4. When adaptation work discovers a material conceptual correction rather than a distribution-only wording change, reconcile that correction into the owning long-form manuscript and blueprint before treating the adaptation as ready for publication.
-5. External feedback is evidence, not authority by itself. Record only feedback that materially changes a research question, claim boundary, source interpretation, or framework candidate; do not turn the adaptation or Research Track into a comment log.
-6. After external publication, preserve the exact or normalized repository edition under `content/research/publications/` with `artifact_type: research-publication`, publication date, canonical URL, edition/provenance data, and any material transformations. The prior adaptation draft may be retained, superseded, or removed according to whether it still carries distinct research value; Git history remains the drafting record.
-7. A shorter adaptation must link back to the fuller living work when that helps readers inspect omitted reasoning, evidence, diagrams, or unresolved sections.
-
-### Attribution and dialogue provenance
-
-When external dialogue materially contributes a phrase, framing, distinction, example, challenge, or research direction, publication-facing material should preserve that provenance proportionately.
-
-- Distinguish **source of a phrase or framing** from authorship of the paper's specific engineering definition, model, or conclusion.
-- Do not claim coinage when the work only adopts or sharpens an existing formulation.
-- Do not imply endorsement, co-authorship, or agreement merely because a person is acknowledged, cited, tagged, or thanked for dialogue.
-- Link a public source when it materially anchors the provenance and can be cited accurately; otherwise describe the contribution as dialogue or correspondence without inventing a public record.
-- Keep acknowledgments concise enough that they explain intellectual provenance rather than functioning as promotional name lists.
-
-For the current Thinking Systems research, the repository already states that UA does not claim coinage of the phrase **Thinking Systems**. Publication adaptations should preserve the more specific provenance when relevant: the formulation entered this research through Vitalii Oborskyi's exchange with Arkadiy Dobkin, while the UA-specific engineering definition and responsibility boundary remain claims developed and tested in the UA research track.
+- treat the adaptation as a **distribution surface, not a new source of conceptual authority**;
+- keep the blueprint and long-form manuscript as the owning research pair;
+- develop an unpublished adaptation under `content/research/notes/` as non-normative research, normally with `draft: true`;
+- compare every material adapted claim against the owning long-form sources;
+- if adaptation work discovers a conceptual correction rather than a distribution-only wording change, reconcile that correction into the owning long-form pair before release;
+- preserve attribution proportionately, distinguishing phrase/framing provenance from authorship, endorsement, and framework authority;
+- do not treat external feedback as framework evidence merely because it was public or came from a prominent reviewer; classify it under the Research Review Process first;
+- after actual publication, preserve the published repository edition under `content/research/publications/` according to the Research Review Process.
 
 ## Mandatory drafting iteration
 
@@ -93,7 +70,7 @@ Read the complete editorial blueprint
 
 A drafting iteration is incomplete until both documents are reconciled.
 
-For a publication adaptation, add one more loop after the owning pair is coherent:
+For a publication adaptation, add one bounded distribution pass after the owning pair is coherent:
 
 ```text
 reread the current long-form manuscript and blueprint
@@ -101,7 +78,7 @@ reread the current long-form manuscript and blueprint
 → draft or revise the adaptation
 → compare every material claim against the owning long-form sources
 → reconcile any conceptual change back into the owning pair
-→ review provenance, maturity boundary, links, and the external-feedback invitation
+→ review provenance, maturity boundary, links, figures, and external-feedback invitation
 ```
 
 ## Cumulative argument rule
