@@ -27,8 +27,7 @@ license: CC-BY-4.0
 draft: true
 authors:
   - "Vitalii Oborskyi"
-publication_stage: adaptation-draft
-derived_from:
+source_basis:
   - open-engineering-specification-article-draft.md
   - open-engineering-specification-article-blueprint.md
 related:
