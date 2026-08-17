@@ -175,6 +175,8 @@ The next major corpus task also remains a cross-publication synthesis that ident
 
 Project-level validation, publication-feedback cycles, and corpus synthesis should proceed as a feedback loop rather than sequential phases.
 
+Publication adaptations are deliberately treated as **distribution surfaces of the owning research**, not alternate conceptual authorities. The current Thinking Systems adaptation is therefore maintained by direct compression, omission, and reordering of the merged long-form Sections 1–4 wherever practical; claim-bearing paraphrases are treated as semantic-risk points rather than as harmless style changes.
+
 ## Research positioning, antecedents, and intellectual context
 
 UA is a synthesis and specification effort, not a claim that its underlying engineering primitives were invented here. UA also does not claim coinage of the phrase **Thinking Systems**; it defines a specific engineering category under that name. Current research should distinguish established foundations from UA-specific composition and should prefer primary sources when describing those foundations.
