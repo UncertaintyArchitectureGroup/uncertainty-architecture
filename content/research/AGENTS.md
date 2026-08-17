@@ -36,6 +36,44 @@ A long-form research publication should normally use two living documents:
 
 The blueprint is not a temporary checklist and must not be shortened merely because prose has been written. The target manuscript must not contain internal drafting rules, agent instructions, repository workflow notes, or editorial status commentary intended only for contributors.
 
+## Publication adaptation cycle
+
+A long-form working paper may intentionally produce a shorter publication-facing adaptation before the complete target manuscript is finished. Use this only when early external review can materially improve the remaining research and when the shorter article can stand on its own without pretending to be the completed working paper.
+
+The adaptation is a **third publication surface, not a third source of conceptual authority**:
+
+```text
+Editorial blueprint
+↔ living long-form target manuscript
+→ bounded publication adaptation under content/research/notes/
+→ external review and contradictory evidence
+→ reconcile material findings back into the blueprint / long-form manuscript
+→ continue, narrow, reorder, or revise the research
+→ after actual publication, preserve the published edition under content/research/publications/
+```
+
+Rules for a publication adaptation:
+
+1. Keep the living blueprint and long-form target manuscript as the owning research pair. The adaptation may compress, reorder, omit later sections, or change rhetorical sequence for a different audience, but it must not silently create a competing framework definition.
+2. Develop the adaptation as `status: research`, `maturity: draft`, `artifact_type: research-note`, normally with Quartz `draft: true`, and identify the source manuscript/blueprint through provenance or relationship metadata.
+3. State the publication boundary honestly. If the long-form paper is incomplete, the adaptation may say that it intentionally stops at the current defensible argument and is being exposed to criticism before the next research phase.
+4. When adaptation work discovers a material conceptual correction rather than a distribution-only wording change, reconcile that correction into the owning long-form manuscript and blueprint before treating the adaptation as ready for publication.
+5. External feedback is evidence, not authority by itself. Record only feedback that materially changes a research question, claim boundary, source interpretation, or framework candidate; do not turn the adaptation or Research Track into a comment log.
+6. After external publication, preserve the exact or normalized repository edition under `content/research/publications/` with `artifact_type: research-publication`, publication date, canonical URL, edition/provenance data, and any material transformations. The prior adaptation draft may be retained, superseded, or removed according to whether it still carries distinct research value; Git history remains the drafting record.
+7. A shorter adaptation must link back to the fuller living work when that helps readers inspect omitted reasoning, evidence, diagrams, or unresolved sections.
+
+### Attribution and dialogue provenance
+
+When external dialogue materially contributes a phrase, framing, distinction, example, challenge, or research direction, publication-facing material should preserve that provenance proportionately.
+
+- Distinguish **source of a phrase or framing** from authorship of the paper's specific engineering definition, model, or conclusion.
+- Do not claim coinage when the work only adopts or sharpens an existing formulation.
+- Do not imply endorsement, co-authorship, or agreement merely because a person is acknowledged, cited, tagged, or thanked for dialogue.
+- Link a public source when it materially anchors the provenance and can be cited accurately; otherwise describe the contribution as dialogue or correspondence without inventing a public record.
+- Keep acknowledgments concise enough that they explain intellectual provenance rather than functioning as promotional name lists.
+
+For the current Thinking Systems research, the repository already states that UA does not claim coinage of the phrase **Thinking Systems**. Publication adaptations should preserve the more specific provenance when relevant: the formulation entered this research through Vitalii Oborskyi's exchange with Arkadiy Dobkin, while the UA-specific engineering definition and responsibility boundary remain claims developed and tested in the UA research track.
+
 ## Mandatory drafting iteration
 
 Every substantial drafting iteration MUST follow this sequence:
@@ -54,6 +92,17 @@ Read the complete editorial blueprint
 ```
 
 A drafting iteration is incomplete until both documents are reconciled.
+
+For a publication adaptation, add one more loop after the owning pair is coherent:
+
+```text
+reread the current long-form manuscript and blueprint
+→ select the bounded public argument
+→ draft or revise the adaptation
+→ compare every material claim against the owning long-form sources
+→ reconcile any conceptual change back into the owning pair
+→ review provenance, maturity boundary, links, and the external-feedback invitation
+```
 
 ## Cumulative argument rule
 
@@ -141,11 +190,13 @@ Before completing an article-writing session or PR:
 
 1. reread the complete target manuscript;
 2. reread and update the complete blueprint;
-3. confirm the target title, H1, abstract, section names, and final framing are consistent;
-4. confirm internal drafting notes did not leak into publication prose;
-5. confirm figures form one coherent visual sequence;
-6. confirm new claims follow repository authority and external evidence rules;
-7. confirm the PR description names both documents when both changed;
-8. confirm the machine-readable change contract includes every changed owning path;
-9. run the applicable metadata, link, Mermaid, build, and change-coupling checks;
-10. report what remains unresolved and whether the PR remains Draft.
+3. when a publication adaptation changed, compare its material claims and provenance against the owning long-form pair;
+4. confirm the target title, H1, abstract, section names, and final framing are consistent;
+5. confirm internal drafting notes did not leak into publication prose;
+6. confirm figures form one coherent visual sequence;
+7. confirm new claims follow repository authority and external evidence rules;
+8. confirm attribution distinguishes dialogue/provenance from authorship, endorsement, and framework authority;
+9. confirm the PR description names all publication surfaces that materially changed;
+10. confirm the machine-readable change contract includes every changed owning path;
+11. run the applicable metadata, link, Mermaid, build, and change-coupling checks;
+12. report what remains unresolved and whether the PR remains Draft.
