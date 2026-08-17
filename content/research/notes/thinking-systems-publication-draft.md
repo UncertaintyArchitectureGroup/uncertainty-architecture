@@ -55,7 +55,7 @@ That pattern is easier to see if familiar software movements are treated not as 
 
 The pattern is cumulative. Requirement uncertainty did not disappear after Agile, and operational uncertainty did not begin with DevOps. Each expansion preserved earlier responsibilities while adding mechanisms for an important source of uncertainty that could no longer be left outside the engineering model.
 
-AI introduces another shift.
+Probabilistic Model Judgment can introduce another shift.
 
 The uncertainty is no longer only in what should be built or in the environment in which software runs. Part of consequential behavior may now be selected or constructed **inside execution itself** through probabilistic Model Judgment.
 
@@ -108,7 +108,7 @@ The ISO and NIST rows above use cited formal scope; the agentic and autonomous r
 
 This is a category-boundary comparison, not a claim that NIST, ISO, agent frameworks, or broader AI-system concepts are technically shallow or incomplete. **Thinking System** is not proposed as a replacement for *AI system*. It names the specific controlled-object change examined in the rest of this argument.
 
-The category question is therefore narrower than “Does this application contain AI?” and different from “Is it agentic?” or “How autonomous is it?”
+The category question is therefore narrower than “Does this application contain AI?” and different from “Is it agentic?” or “How autonomous is it?” **Linear Software** here means software in which no Consequential Runtime Responsibility depends partly on Model Judgment; it does not imply linear, sequential, or fixed orchestration.
 
 ```mermaid
 flowchart TB
@@ -142,6 +142,8 @@ The term matters because the engineering object has changed.
 A controlled object is the thing whose behavior engineering seeks to keep within acceptable conditions.
 
 For a Thinking System, that object is not merely the model invocation. It is the whole software system inside its declared boundary: deployed components, data, configuration, dependencies, infrastructure, deterministic identity/access/retrieval/tool/execution paths, and one or more responsibilities in which Model Judgment participates.
+
+The software-system boundary does not necessarily become larger. What changes is the responsibility structure inside it: part of consequential behavior is now selected or constructed through runtime Model Judgment rather than being exhausted by explicitly authored logic. The surrounding control perimeter may then need to extend because it must follow the consequences and authority of that judgment.
 
 A useful design-contract abstraction for explicitly encoded deterministic responsibility is:
 
@@ -335,6 +337,8 @@ Once the controlled object and the control relationship are visible, one final q
 
 **How far does correction have to reach when evidence says the current system is no longer inside its authorized basis?**
 
+One maturity boundary matters before applying the ownership model below. **The precise Organization / Project split used in this section is a paper-level research refinement under validation.** Current status-bearing UA doctrine uses a simpler Project-Authorization model with a broader Project decision surface. The larger paper is testing whether separating Organizational business/research authority from Project technical viability produces a cleaner control boundary; the examples and diagram below must not be read as a silent normative change to current UA doctrine.
+
 Sometimes the answer is local.
 
 A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally **only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other decision basis underlying the applicable Delivery evidence/release decision or Project Authorization**. If only the Delivery basis changes, Delivery must revalidate or reassess the affected release decision; if a Project-Authorization basis changes, the evidence must route to Project / Architecture. These actions restore or re-establish an authorized state rather than silently redefine the basis on which the system was approved.
@@ -348,8 +352,6 @@ Control economics belongs in that reassessment too, but it requires a separate o
 And sometimes the evidence or change reaches further still.
 
 An **Organizationally owned** legal, contractual, policy, vendor, business, or reserved-authority premise may change outside the software entirely. Or runtime/project evidence may show that an Organizationally owned boundary is no longer adequate. Only the legitimate organizational authority can change that basis. Project / Architecture must then reassess the design against the new organizational context before Delivery realizes and releases a changed system.
-
-One maturity boundary matters before the ownership model below. **The precise Organization / Project split used in this section is a paper-level research refinement under validation.** Current status-bearing UA doctrine uses a simpler Project-Authorization model with a broader Project decision surface. The larger paper is testing whether separating Organizational business/research authority from Project technical viability produces a cleaner control boundary; the diagram below must not be read as a silent normative change to current UA doctrine.
 
 ```mermaid
 flowchart TB
@@ -433,7 +435,7 @@ The useful questions now are earlier and more fundamental:
 
 Those answers should shape the remaining research.
 
-There is also a recursive aspect to the work. Increasingly, this paper and the UA repository are being developed through **agentic workflows**. I am not treating AI as a text generator attached to the side of the research. I am increasingly using explicit sources of authority, bounded tasks, review loops, evidence, versioned repository state, human decision points, and escalation when an agent cannot legitimately resolve an ambiguity.
+There is also a recursive aspect to the work. Increasingly, this paper and the UA repository are being developed through **agent-mediated human–AI workflows**. I am not treating AI as a text generator attached to the side of the research. I am increasingly using explicit sources of authority, bounded tasks, review loops, evidence, versioned repository state, human decision points, and escalation when an agent cannot legitimately resolve an ambiguity.
 
 In other words, I am beginning to use the same architectural ideas to structure the human–agent system through which the framework itself is developed.
 
@@ -455,7 +457,7 @@ I do not particularly need readers to agree with Uncertainty Architecture.
 
 I need people to try to break it.
 
-Apply the category test to a real system. Show where it over-classifies or misses an important case. Show a consequential AI system whose controlled object does **not** need to expand in the way argued here. Find a control responsibility that cannot be represented without distorting the architecture. Show where the organization should remain completely outside the control perimeter. Point to an existing method, platform, standard, or internal process that already preserves the same relationships with less conceptual overhead.
+Apply the category test to a real system. Show where it over-classifies or misses an important case. Show a system where consequential Model Judgment does **not** create the responsibility-structure change described here. Show a Thinking System whose required control perimeter does **not** need to extend in the way argued here. Find a control responsibility that cannot be represented without distorting the architecture. Show where the organization should remain completely outside the control perimeter. Point to an existing method, platform, standard, or internal process that already preserves the same relationships with less conceptual overhead.
 
 Show what can be removed.
 
