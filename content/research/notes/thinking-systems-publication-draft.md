@@ -43,6 +43,38 @@ related:
 
 > **Publication note.** This is a shorter standalone adaptation of the living working paper [*Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities*](open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
 
+## Who this article is for
+
+This article is intended for people who have to **design, authorize, deliver, evaluate, operate, or govern software in which probabilistic models carry consequential runtime responsibility**. That includes software and solution architects; AI/ML, platform, and application engineers; QA, evaluation, reliability, and DevOps practitioners; engineering, delivery, product, and technical leaders; and risk, security, or governance practitioners who participate in real system decision rights.
+
+It assumes familiarity with software systems and engineering delivery, but it does **not** assume prior knowledge of Uncertainty Architecture or control theory. The goal is to make the category boundary, controlled object, control capabilities, and decision-ownership model explicit enough that readers from different engineering functions can reason about the same system without first adopting a new product stack or organizational structure.
+
+## Reader glossary
+
+The table below is a **reader aid, not a second canonical glossary**. Where a term already exists in the [UA glossary](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/glossary.md), the wording below is a compact restatement of that meaning. Article-specific shorthand is marked explicitly.
+
+| Term | Meaning in this article |
+|---|---|
+| **Thinking System** | A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. |
+| **Consequential Runtime Responsibility** | A runtime responsibility whose output, decision, path, action, or downstream state can materially affect an intended outcome, an applicable Requirement or Constraint, delegated authority, resource use, or a person or system downstream. Consequential means material causal relevance, not risk severity. |
+| **Model Judgment** | Interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. |
+| **Linear Software** | Software in which no Consequential Runtime Responsibility depends partly on Model Judgment. The term does not imply linear, sequential, or fixed orchestration. |
+| **Judgment Node** | A bounded location where Model Judgment influences an output, decision, path, action, or downstream state. It is consequential for Thinking-System classification when it performs or materially influences a Consequential Runtime Responsibility. |
+| **Controlled object** | The whole software system inside the declared boundary whose behavior engineering seeks to keep within acceptable conditions—not merely the model invocation. |
+| **Control perimeter** *(article usage)* | The technical and socio-technical control relationships that must follow the authority and effects of the controlled object: boundaries and their realizations, evidence, decision authority, corrective action, Human Authority where required, and reassessment paths. |
+| **Constraint** | An approved condition limiting the allowed operating space. A Constraint is an authoritative decision object, not the mechanism that enforces or influences it. |
+| **Constraint Realization** | The concrete technical or socio-technical mechanism through which a Constraint is implemented, configured, enforced or influenced, evidenced, and operated for a defined scope. |
+| **Sensor** | A mechanism that produces evidence about behavior, outcomes, operating conditions, drift, incidents, realization state, Actuator execution, or control performance. |
+| **Controller** | The decision function that interprets evidence relative to approved Requirements, Constraints, assumptions, and a decision boundary, then selects or authorizes action within delegated authority. |
+| **Actuator** | A mechanism that executes an authorized change in system behavior or operating conditions. A Controller decides or authorizes; an Actuator executes. |
+| **Human Authority** | A human decision right that can materially approve, reject, change, contain, escalate, or stop system behavior. A nominal human-in-the-loop step without adequate information, competence, time, capacity, independence, or intervention power is not effective Human Authority. |
+| **Requirement** | The approved operating contract for a system, feature, or change. It may include intended outcomes, deterministic and model-mediated obligations, Constraints, authority boundaries, evidence expectations, acceptable operating conditions, and failure handling. |
+| **Operating Envelope** | The approved range of conditions, authority, consequences, resource use, and observed behavior within which a system is considered acceptable to operate under a defined Requirement. |
+| **Decision horizon** *(article usage)* | One of **Organization, Project / Architecture, Delivery, or Runtime**. Decision horizons identify **where a consequential decision is owned** through the lifecycle. |
+| **Capability family** | One of the four logical control families: **Constraints and realizations, Sensors and evidence, Controllers and decision authority, Actuators and corrective action**. Capability families identify **how control becomes operational** and are orthogonal to decision horizons. |
+| **Project Authorization** | The project-level authorization for proceeding within a defined boundary. In Section 4, the long-form paper tests a sharper research refinement in which Project Authorization is the **scoped technical authorization baseline connecting the applicable Organizational decision to Delivery**; that sharper form is not yet status-bearing UA doctrine. |
+| **Complete bounded control architecture** | A control architecture materially complete for the authorized scope: approved and credibly realized boundaries, decision-useful evidence, legitimate decision authority, effective corrective action, and a reassessment path. “Complete” does not mean maximal. |
+
 ## 1. Engineering Evolves Around Dominant Uncertainty
 
 Software-engineering methods are often discussed as competing schools: planning versus iteration, development versus operations, process versus autonomy. That framing hides a more useful pattern. **Engineering expands when a consequential source of uncertainty can no longer be managed adequately by the assumptions and feedback structures already in place.**
@@ -431,3 +463,8 @@ Show what can be removed.
 Uncertainty Architecture is an open-source project and an open engineering specification under validation. Critique, contradictory cases, issues, pull requests, worked applications, and serious collaboration are welcome.
 
 If an existing approach already solves part of the problem better, the right response is not to protect the framework. It is to make the framework smaller or change it.
+
+## Continue the work
+
+- **Uncertainty Architecture repository:** https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture
+- **Full living working paper:** https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/open-engineering-specification-article-draft.md
