@@ -12,17 +12,19 @@ tags:
   - ua/type/research-index
   - ua/status/research
   - ua/topic/provenance
-updated: 2026-08-15
+updated: 2026-08-17
 license: CC-BY-4.0
 ---
 
 # UA Research Notes
 
-This directory contains bounded working notes, source-intake records, operational observations, worked-application notes, and research briefs that may inform later analysis, synthesis, or framework proposals.
+This directory contains bounded working notes, source-intake records, operational observations, worked-application notes, research briefs, and publication adaptation drafts that may inform later analysis, synthesis, framework proposals, or external review.
 
-Research notes are **non-normative**. A note may describe a question, planned investigation, operational observation, source-intake gap, completed translation state, or incomplete line of inquiry. Its presence does not establish evidence, consensus, or a specification requirement.
+Research notes are **non-normative**. A note may describe a question, planned investigation, operational observation, source-intake gap, completed translation state, incomplete line of inquiry, or a publication-facing adaptation of a larger living manuscript. Its presence does not establish evidence, consensus, or a specification requirement.
 
 The notes migrated here from the former root-level `research/` directory are planning briefs rather than completed research outputs. They are retained for traceability and should be expanded, narrowed, superseded, or closed explicitly if their research state changes.
+
+A publication adaptation draft also remains a research note until it is actually published. It may compress or reorder a bounded argument from a larger living paper, but must identify its derivation and must not silently become a second canonical source for framework meaning. After external publication, the published repository edition belongs under [`../publications/`](../publications/).
 
 ## Notes
 
@@ -31,12 +33,15 @@ The notes migrated here from the former root-level `research/` directory are pla
 - [`designing-nondeterministic-systems-source-intake.md`](designing-nondeterministic-systems-source-intake.md) — provenance and framework-transfer record for the maintainer-supplied PDF export. The repository does not currently preserve or independently verify an editable PPTX; presentation content remains research evidence rather than specification authority. During consolidation of the article plan, two concerns from the former operational-extension note that were only partially represented—active behavioral/control baseline reconstructability and explicit fallback/common-mode/capacity/restoration evidence—were transferred into the living blueprint/manuscript. The intermediary note was then removed as redundant; Git history preserves it.
 - [`metrics-brief.md`](metrics-brief.md) — planning brief for decision-useful evidence, misleading metrics, sampling, drift signals, and context-derived thresholds.
 - [`on-device-cloud-source-intake.md`](on-device-cloud-source-intake.md) — traceability record for a full author-provided source that remains pending raw preservation and normalization.
-- [`open-engineering-specification-article-blueprint.md`](open-engineering-specification-article-blueprint.md) — active living editorial contract for the public synthesis article. It preserves the complete argument, section responsibilities, running-example contract, figure plan, source plan, maturity boundaries, and unresolved editorial decisions while remaining non-normative research material.
-- [`open-engineering-specification-article-draft.md`](open-engineering-specification-article-draft.md) — active target manuscript governed by the blueprint; the Abstract and Article §§1–4 are drafted and later sections remain planned work. The former Phase 1 completion checkpoint was removed after comparison confirmed that its current architectural/editorial content was already represented more completely in the living article artifacts; Git history preserves that record.
+- [`open-engineering-specification-article-blueprint.md`](open-engineering-specification-article-blueprint.md) — active living editorial contract for the long-form public synthesis paper. It preserves the complete argument, section responsibilities, running-example contract, figure plan, source plan, maturity boundaries, and unresolved editorial decisions while remaining non-normative research material.
+- [`open-engineering-specification-article-draft.md`](open-engineering-specification-article-draft.md) — active long-form target manuscript governed by the blueprint. The current merged paper establishes the core argument through Article §4 while later research remains intentionally open; Draft PRs may continue the long-form work independently of publication adaptations.
+- [`thinking-systems-publication-draft.md`](thinking-systems-publication-draft.md) — shorter publication-facing adaptation of the current long-form Thinking Systems argument. It intentionally stops after the category, controlled-object, bounded-control, and four-decision-horizon model so external criticism can shape later long-form work. It records explicit provenance for the `Thinking Systems` formulation and does not claim coinage of the phrase.
 - [`reference-implementations-brief.md`](reference-implementations-brief.md) — planning brief for implementation evidence, two-level worked applications, and architectural examples that can test current UA doctrine and patterns.
 
 Completed publications and repository editions belong in [`../publications/`](../publications/). Research process and traceability documents remain in the parent [`content/research/`](../) namespace.
 
 New notes should use `status: research`, an explicit `maturity`, and the conventions in [`DOCUMENT-METADATA.md`](../../../DOCUMENT-METADATA.md).
 
-When a framework PR or worked application changes the state of a note's question, reconcile that state under the [`Research Review Process`](../review-process.md). Do not use this directory as a session log or duplicate pull-request history.
+Publication adaptations should additionally identify their derivation, preserve material attribution/provenance, and follow the publication-adaptation cycle in [`../AGENTS.md`](../AGENTS.md) and [`../review-process.md`](../review-process.md).
+
+When a framework PR, worked application, or material external review changes the state of a note's question, reconcile that state under the [`Research Review Process`](../review-process.md). Do not use this directory as a session log or duplicate pull-request history.
