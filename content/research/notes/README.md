@@ -24,7 +24,7 @@ Research notes are **non-normative**. A note may describe a question, planned in
 
 The notes migrated here from the former root-level `research/` directory are planning briefs rather than completed research outputs. They are retained for traceability and should be expanded, narrowed, superseded, or closed explicitly if their research state changes.
 
-A publication adaptation draft also remains a research note until it is actually published. It may compress or reorder a bounded argument from a larger living paper, but must identify its derivation and must not silently become a second canonical source for framework meaning. After external publication, the published repository edition belongs under [`../publications/`](../publications/).
+A publication adaptation draft also remains a research note until it is actually published. It may compress or reorder a bounded argument from a larger living paper, but must identify its derivation and must not silently become a second canonical source for framework meaning. After external publication, preserve the resulting **content edition** under [`../publications/`](../publications/). Equivalent Medium, LinkedIn, website, or other platform copies may be recorded as renditions of that same content edition; platform-only formatting or image substitutions do not require separate repository editions unless the substantive text materially diverges.
 
 ## Notes
 
