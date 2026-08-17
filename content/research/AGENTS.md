@@ -49,7 +49,8 @@ The detailed lifecycle, feedback classification, publication-state transition, a
 - if adaptation work discovers a conceptual correction rather than a distribution-only wording change, reconcile that correction into the owning long-form pair before release;
 - preserve attribution proportionately, distinguishing phrase/framing provenance from authorship, endorsement, and framework authority;
 - do not treat external feedback as framework evidence merely because it was public or came from a prominent reviewer; classify it under the Research Review Process first;
-- after actual publication, preserve the published repository edition under `content/research/publications/` according to the Research Review Process.
+- treat equivalent Medium, LinkedIn, website, or other platform copies as **renditions of one content edition** when only formatting, image substitution, or platform mechanics differ; use one principal `canonical_url` and `additional_publication_urls` for equivalent renditions, and preserve a separate repository edition only when the substantive text materially diverges;
+- after actual publication, preserve the published content edition under `content/research/publications/` according to the Research Review Process.
 
 ## Mandatory drafting iteration
 
