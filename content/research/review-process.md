@@ -137,13 +137,16 @@ living blueprint + long-form manuscript
 → create a shorter adaptation with explicit derivation/provenance
 → review for claim equivalence, omissions, and maturity boundary
 → publish one content edition to one or more external platforms when ready
+→ immediately preserve the exact published content edition under content/research/publications/
+→ record publication date, principal canonical URL, equivalent additional publication URLs, and an immutable source identity such as the source commit SHA or content digest
 → collect critique, substitutions, counterexamples, and provenance corrections
 → classify only material feedback as research evidence
 → reconcile material changes into the owning blueprint/manuscript or other research record
 → continue or revise the long-form work
-→ preserve the published content edition under content/research/publications/
-→ record the principal canonical URL and equivalent additional publication URLs
+→ create a new content edition when a later publication materially changes the published text or claim boundary
 ```
+
+The preservation step occurs **before** feedback-driven reconciliation so the repository edition remains an exact provenance record of what external readers actually received. Do not overwrite a preserved publication edition with later substantive corrections. If feedback changes the substantive text, claim boundary, figures, or argument, create a new edition or explicitly record the material transformation and its relationship to the earlier edition.
 
 The adaptation may reorder or compress prose for distribution, but it must not silently strengthen a claim, imply that unfinished sections were completed, or promote paper-only hypotheses into specification. A material correction discovered while preparing the adaptation belongs back in the owning research pair before release.
 
