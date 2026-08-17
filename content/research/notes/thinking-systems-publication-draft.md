@@ -45,13 +45,13 @@ related:
 
 ## Who this article is for
 
-This article is intended for people who have to **design, authorize, deliver, evaluate, operate, or govern software in which probabilistic models carry consequential runtime responsibility**. That includes software and solution architects; AI/ML, platform, and application engineers; QA, evaluation, reliability, and DevOps practitioners; engineering, delivery, product, and technical leaders; and risk, security, or governance practitioners who participate in real system decision rights.
+This article is intended for people who have to **design, authorize, deliver, evaluate, operate, or govern software in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment**. That includes software and solution architects; AI/ML, platform, and application engineers; QA, evaluation, reliability, and DevOps practitioners; engineering, delivery, product, and technical leaders; and risk, security, or governance practitioners who participate in real system decision rights.
 
 It assumes familiarity with software systems and engineering delivery, but it does **not** assume prior knowledge of Uncertainty Architecture or control theory. The goal is to make the category boundary, controlled object, control capabilities, and decision-ownership model explicit enough that readers from different engineering functions can reason about the same system without first adopting a new product stack or organizational structure.
 
 ## Reader glossary
 
-The table below is a **reader aid, not a second canonical glossary**. Where a term already exists in the [UA glossary](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/glossary.md), the wording below is a compact restatement of that meaning. Article-specific shorthand is marked explicitly.
+The table below is a **reader aid, not a second canonical glossary**. Where a term already exists in the [UA glossary](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/glossary.md), the wording below is a compact restatement of that meaning. Article-specific shorthand is marked explicitly. The remaining control and lifecycle terms are introduced where they become necessary; the canonical glossary remains the terminology authority.
 
 | Term | Meaning in this article |
 |---|---|
@@ -62,18 +62,6 @@ The table below is a **reader aid, not a second canonical glossary**. Where a te
 | **Judgment Node** | A bounded location where Model Judgment influences an output, decision, path, action, or downstream state. It is consequential for Thinking-System classification when it performs or materially influences a Consequential Runtime Responsibility. |
 | **Controlled object** | The whole software system inside the declared boundary whose behavior engineering seeks to keep within acceptable conditions—not merely the model invocation. |
 | **Control perimeter** *(article usage)* | The technical and socio-technical control relationships that must follow the authority and effects of the controlled object: boundaries and their realizations, evidence, decision authority, corrective action, Human Authority where required, and reassessment paths. |
-| **Constraint** | An approved condition limiting the allowed operating space. A Constraint is an authoritative decision object, not the mechanism that enforces or influences it. |
-| **Constraint Realization** | The concrete technical or socio-technical mechanism through which a Constraint is implemented, configured, enforced or influenced, evidenced, and operated for a defined scope. |
-| **Sensor** | A mechanism that produces evidence about behavior, outcomes, operating conditions, drift, incidents, realization state, Actuator execution, or control performance. |
-| **Controller** | The decision function that interprets evidence relative to approved Requirements, Constraints, assumptions, and a decision boundary, then selects or authorizes action within delegated authority. |
-| **Actuator** | A mechanism that executes an authorized change in system behavior or operating conditions. A Controller decides or authorizes; an Actuator executes. |
-| **Human Authority** | A human decision right that can materially approve, reject, change, contain, escalate, or stop system behavior. A nominal human-in-the-loop step without adequate information, competence, time, capacity, independence, or intervention power is not effective Human Authority. |
-| **Requirement** | The approved operating contract for a system, feature, or change. It may include intended outcomes, deterministic and model-mediated obligations, Constraints, authority boundaries, evidence expectations, acceptable operating conditions, and failure handling. |
-| **Operating Envelope** | The approved range of conditions, authority, consequences, resource use, and observed behavior within which a system is considered acceptable to operate under a defined Requirement. |
-| **Decision horizon** *(article usage)* | One of **Organization, Project / Architecture, Delivery, or Runtime**. Decision horizons identify **where a consequential decision is owned** through the lifecycle. |
-| **Capability family** | One of the four logical control families: **Constraints and realizations, Sensors and evidence, Controllers and decision authority, Actuators and corrective action**. Capability families identify **how control becomes operational** and are orthogonal to decision horizons. |
-| **Project Authorization** | The project-level authorization for proceeding within a defined boundary. In Section 4, the long-form paper tests a sharper research refinement in which Project Authorization is the **scoped technical authorization baseline connecting the applicable Organizational decision to Delivery**; that sharper form is not yet status-bearing UA doctrine. |
-| **Complete bounded control architecture** | A control architecture materially complete for the authorized scope: approved and credibly realized boundaries, decision-useful evidence, legitimate decision authority, effective corrective action, and a reassessment path. “Complete” does not mean maximal. |
 
 ## 1. Engineering Evolves Around Dominant Uncertainty
 
@@ -380,22 +368,53 @@ flowchart LR
         P["Project / Architecture<br/>Model-Judgment necessity · viability · control design"]
         D["Delivery<br/>realization · evidence · release"]
         R["Runtime<br/>operation · correction · reassessment evidence"]
-        O --> P --> D --> R
+        E["Reassessment evidence<br/>implementation · operation · invalidated decision basis"]
+        X["Exogenous Organizational change<br/>law · contract · policy · business / authority basis"]
+
+        O -->|standing authoritative / business basis| P
+        P -->|applicable Project Authorization| D
+        D -->|authorized realization / exposure| R
+        P -. changed Organizational basis or reserved research needed .-> O
+        D -. realization evidence .-> E
+        R -->|operation evidence| E
+        E -. implementation / realization issue .-> D
+        E -. Project basis invalidated .-> P
+        X --> O
     end
 
     subgraph F["Capability functions: how control becomes operational"]
         direction TB
-        A["Actuators and corrective action<br/>execute authorized change"]
-        K["Constraints and realizations<br/>define and operationalize boundaries"]
-        S["Sensors and evidence<br/>observe behavior, conditions, and control state"]
-        C["Controllers / decision functions<br/>interpret evidence and select bounded response"]
-        A --- K --- S --- C
+        subgraph F1[" "]
+            direction LR
+            J1(( )) --- A["Actuators and corrective action<br/>execute authorized change"]
+        end
+        subgraph F2[" "]
+            direction LR
+            J2(( )) --- K["Constraints and realizations<br/>define and operationalize boundaries"]
+        end
+        subgraph F3[" "]
+            direction LR
+            J3(( )) --- S["Sensors and evidence<br/>observe behavior, conditions, and control state"]
+        end
+        subgraph F4[" "]
+            direction LR
+            J4(( )) --- C["Controllers / decision functions<br/>interpret evidence and select bounded response"]
+        end
+        J1 --- J2
+        J2 --- J3
+        J3 --- J4
+        style F1 fill:none,stroke:none
+        style F2 fill:none,stroke:none
+        style F3 fill:none,stroke:none
+        style F4 fill:none,stroke:none
     end
 
     L -. "all four capability families may appear at every decision horizon" .- F
+    classDef railpoint fill:transparent,stroke:transparent,color:transparent;
+    class J1,J2,J3,J4 railpoint;
 ```
 
-**Figure 8 — Two orthogonal models.** The decision horizons answer where a decision is owned; the capability families answer how boundaries, evidence, decisions, and actions become operational. There is no one-to-one mapping between horizons and capability families. The ordering on either side is a reading aid, not an execution pipeline or mandatory organizational structure.
+**Figure 8 — Two orthogonal models.** The left side is a compressed lifecycle view rather than a one-way stage sequence: Organization and Project / Architecture have a recurrent decision relationship, Delivery and Runtime evidence can return to the decision basis it challenges, and exogenous Organizational change can reactivate Organization directly. The right side is a neutral capability rail rather than an execution chain. Decision horizons answer where a decision is owned; capability families answer how boundaries, evidence, decisions, and actions become operational. There is no one-to-one mapping between the two models.
 
 Sometimes correction is local. A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other basis underlying the applicable Delivery evidence/release decision or Project Authorization. If only the Delivery basis changes, Delivery must revalidate or reassess the affected release decision; if a Project-Authorization basis changes, the evidence routes to Project / Architecture.
 
@@ -415,7 +434,7 @@ This is the engineering problem the larger **Uncertainty Architecture** research
 
 This argument does not claim invention of feedback control, socio-technical safety, runtime assurance, software engineering for AI, human oversight, or AI risk management. It sits in continuity with established systems/safety/control traditions and current AI engineering practice.
 
-The claim under test is narrower: whether connecting **Thinking-System classification**, the **whole software system as the controlled object**, explicit control-capability functions, and **orthogonal lifecycle decision ownership** around the same consequential responsibility gives practitioners a useful engineering map—and whether an existing method or composition already does that more simply.
+The claim under test is narrower: whether connecting **Thinking-System classification**, the **whole software system as the controlled object**, explicit control-capability functions, and **the orthogonal relationship between lifecycle decision ownership and control-capability functions** around the same consequential responsibility gives practitioners a useful engineering map—and whether an existing method or composition already does that more simply.
 
 Relevant primary or authoritative context includes Nancy Leveson's systems-theoretic safety work in [*Engineering a Safer World*](https://mitpress.mit.edu/9780262533690/engineering-a-safer-world/), the Software Engineering Institute's [Simplex architecture](https://www.sei.cmu.edu/library/an-architectural-description-of-the-simplex-architecture/) for dependable and evolvable process-control systems, the [NIST AI Risk Management Framework 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), and [ISO/IEC TR 29119-11:2020](https://www.iso.org/standard/79016.html) on testing AI-based systems. These are antecedents and comparison points, not claimed derivations, endorsements, or exact equivalents of UA.
 
