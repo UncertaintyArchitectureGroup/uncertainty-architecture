@@ -1,0 +1,90 @@
+name: Temporary PR91 final semantic fixes
+
+on:
+  push:
+    branches:
+      - agent/release-contract-shift-main
+    paths:
+      - .github/workflows/temporary-pr91-final-semantic-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out PR branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: agent/release-contract-shift-main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Apply final semantic fixes
+        shell: python
+        run: |
+          from pathlib import Path
+
+          def replace_once(path: str, old: str, new: str, label: str) -> None:
+              p = Path(path)
+              text = p.read_text(encoding="utf-8")
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f"{label}: expected one match, found {count}")
+              p.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          manuscript = "content/research/notes/open-engineering-specification-article-draft.md"
+          adaptation = "content/research/notes/thinking-systems-publication-draft.md"
+          blueprint = "content/research/notes/open-engineering-specification-article-blueprint.md"
+
+          replace_once(
+              manuscript,
+              "That changes both failure analysis and reassessment. Unexpected behavior is no longer limited to a defect or unanticipated condition around a fixed intended mapping. It can also be a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. A local realization fault may remain a Delivery issue. Evidence from a single material outcome or from a repeated pattern may invalidate Project / Architecture assumptions about Model-Judgment necessity, the Operating Envelope, Human Authority, or control economics. Other outcomes may show that an Organizational authority or business premise must be narrowed or changed. The control architecture therefore needs not only local error handling but evidence and escalation paths to the decision horizon whose basis the runtime outcome challenges.",
+              "That changes both failure analysis and reassessment. Unexpected behavior is no longer limited to a defect or unanticipated condition around a fixed intended mapping. It can also be a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. A local realization or configuration fault may remain a Delivery correction. Other evidence may invalidate the Delivery release basis itself—for example, deployment-specific evidence coverage, Operating Envelope assumptions, control capacity, or Release Gate acceptance—and require Delivery reassessment before continued release. Evidence from a single material outcome or from a repeated pattern may instead invalidate Project / Architecture assumptions about Model-Judgment necessity, the broader Operating Envelope, Human Authority, or control economics. Other outcomes may show that an Organizational authority or business premise must be narrowed or changed. The control architecture therefore needs not only local error handling but evidence and escalation paths to the decision horizon whose basis the runtime outcome challenges.",
+              "manuscript delivery horizon",
+          )
+
+          replace_once(
+              manuscript,
+              "The reason to introduce Model Judgment is its ability to resolve consequential situations whose relevant interpretation or decision space cannot be exhaustively specified in advance. Useful behavioral variance may be part of that capability, but variance is not itself the engineering objective. The objective is to preserve useful judgment while keeping the resulting operation bounded.",
+              "These placements are useful precisely where consequential interpretation, synthesis, or selection cannot be exhaustively specified in advance. The engineering problem is therefore to preserve that useful judgment while bounding the resulting operation.",
+              "manuscript transition",
+          )
+
+          replace_once(
+              adaptation,
+              "This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may call for a local Delivery correction, a Project / Architecture reassessment of the design or Operating Envelope, or an Organizational change to authority or business basis.",
+              "This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may call for a local Delivery correction, invalidate the Delivery release basis and require Delivery reassessment, invalidate Project / Architecture assumptions about the design or Operating Envelope, or require an Organizational change to authority or business basis.",
+              "adaptation delivery horizon",
+          )
+
+          replace_once(
+              adaptation,
+              "The reason to introduce Model Judgment is its ability to resolve consequential situations whose relevant interpretation or decision space cannot be exhaustively specified in advance. Useful behavioral variance may be part of that capability, but variance is not itself the engineering objective. **The objective is to preserve useful judgment while keeping the resulting operation bounded.**",
+              "These placements are useful precisely where consequential interpretation, synthesis, or selection cannot be exhaustively specified in advance. **The engineering problem is to preserve that useful judgment while bounding the resulting operation.**",
+              "adaptation transition",
+          )
+
+          replace_once(
+              blueprint,
+              "- claim without evidence that Thinking Systems always produce more errors; state instead that they add qualitatively different semantic, contextual, evidentiary, and authority failure possibilities inside the runtime judgment space;",
+              "- claim without evidence that Thinking Systems always produce more errors; state instead that runtime Model Judgment introduces qualitatively different semantic and contextual failure possibilities, while controlling consequential judgment also makes evidence adequacy and authority paths part of the material system-level failure surface;",
+              "blueprint claim safety",
+          )
+
+      - name: Commit fixes and remove temporary workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/temporary-pr91-final-semantic-fix.yml
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/research/notes/open-engineering-specification-article-blueprint.md \
+            content/research/notes/open-engineering-specification-article-draft.md \
+            content/research/notes/thinking-systems-publication-draft.md \
+            .github/workflows/temporary-pr91-final-semantic-fix.yml
+          git commit -m 'Complete release-contract decision-horizon semantics'
+          git push origin HEAD:agent/release-contract-shift-main
