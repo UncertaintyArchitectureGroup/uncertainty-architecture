@@ -1,16 +1,33 @@
-# PDF and publication asset export
+# PDF export
 
-The repository keeps Markdown under `content/` as the canonical editable source. Publishing commands build temporary renditions and write generated artifacts only under `dist/`.
+The repository keeps Markdown under `content/` as the canonical editable source. PDF commands build temporary Quartz renditions and write generated artifacts only under `dist/pdf/`.
 
 ```text
 canonical Markdown
 → temporary publication rendition (when needed)
 → Quartz render
 → headless Chromium
-→ PDF / SVG / PNG artifacts
+→ PDF + provenance manifest
 ```
 
-The publishing layer does **not** move, rename, replace, or rewrite the canonical Markdown source. Normal Quartz builds continue to remove `draft: true` content; publication commands set `UA_INCLUDE_DRAFTS=1` only for temporary rendering.
+The publishing layer does **not** move, rename, replace, or rewrite the canonical Markdown source. Normal Quartz builds continue to remove `draft: true` content; PDF commands set `UA_INCLUDE_DRAFTS=1` only for temporary rendering.
+
+## One-time local setup
+
+Install the locked Node dependencies and Playwright Chromium before the first local PDF render:
+
+```bash
+npm ci
+npm run pdf:setup
+```
+
+On Linux systems that also need Chromium system packages, use:
+
+```bash
+npx playwright install --with-deps chromium
+```
+
+Visual verification additionally requires Poppler (`poppler-utils` on Ubuntu). The GitHub Actions workflows install Chromium, its Linux dependencies, and Poppler automatically.
 
 ## Commands
 
@@ -53,7 +70,9 @@ The generic exporter enforces source/output containment, rejects symlink or hard
 
 `pdf:article` and `pdf:working-paper` use `render-publication-pdf.mjs` around the generic exporter. The wrapper adds a publication title page, status/date/version/license/source-commit metadata, repository and canonical-publication links when available, a running footer with page numbers, a clickable contents page when a preflight PDF exceeds 20 pages, and a machine-readable manifest. YAML date values are normalized to stable `YYYY-MM-DD` publication or edition dates rather than serializer-specific date strings.
 
-Before and after rendering, the wrapper hashes the canonical Markdown. A source change during rendering is a hard failure. Versioned PDF and platform-asset builds are strict by default: the working-tree bytes must match the declared source commit. `--allow-dirty-preview` is an explicit local-preview escape hatch; those outputs are visibly marked as uncommitted and record both committed and working blob identities.
+Before and after rendering, the wrapper hashes the canonical Markdown. A source change during rendering is a hard failure. Versioned PDF builds are strict by default: the working-tree bytes must match the declared source commit. `--allow-dirty-preview` is an explicit local-preview escape hatch; those outputs are visibly marked as uncommitted and record both committed and working blob identities.
+
+The final PDF and its manifest are installed as one rollback-protected publication bundle. If manifest finalization fails after the PDF has been staged, the previous PDF/manifest pair is restored rather than leaving a new PDF beside stale provenance.
 
 The manifest records:
 
@@ -71,7 +90,7 @@ The manifest records:
 
 ## Dense Figure 8
 
-The canonical article keeps **one logical Figure 8**. Publishing renditions do not lower the 5 pt Mermaid-label safety floor. Instead, the renderer produces two presentation renditions only for PDF/platform output:
+The canonical article keeps **one logical Figure 8**. PDF renditions do not lower the 5 pt Mermaid-label safety floor. Instead, the renderer produces two presentation renditions only for PDF output:
 
 - **Figure 8A — Decision-ownership model**;
 - **Figure 8B — Capability-family axis and orthogonality relationship**.
@@ -82,28 +101,6 @@ The hard technical floor remains **5 pt**. The publication target is **6–7 pt 
 
 For unsplit dense diagrams in the living working paper or generic publication export, the renderer may use a dedicated **A2 landscape foldout page** rather than lowering the 5 pt guard. The shorter publication article still prefers the Figure 8A/8B rendition split, so its dense Figure 8 does not depend on the foldout fallback.
 
-## Platform assets
-
-Generate reusable figure and cover renditions with:
-
-```bash
-npm run publication:assets
-```
-
-Outputs:
-
-```text
-dist/publication/thinking-systems/
-  figures/svg/
-  figures/png/
-  cover-linkedin-article.png   # 2000 × 600
-  social-preview.png           # 1200 × 627
-  medium-hero.png              # 1600 × 900
-  assets.manifest.json
-```
-
-Regular figure PNGs target 1800 px width. Dense Figure 8A targets 3200 px; Figure 8B targets 2400 px. SVG remains available for website/PDF-quality reuse. PNG is the common platform rendition for Medium and LinkedIn. The renderer clears the generated publication directory before each run and verifies requested PNG/cover dimensions so stale or undersized assets do not silently enter a bundle.
-
 ## Visual verification
 
 After producing a PDF, render every page to images and generate a contact sheet:
@@ -112,7 +109,7 @@ After producing a PDF, render every page to images and generate a contact sheet:
 npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf
 ```
 
-This requires Poppler (`poppler-utils` on Ubuntu). Verification uses `pdfinfo`, `pdffonts`, `pdftotext`, and `pdftoppm` to confirm the reported/rasterized page count, inspect fonts, prove that the running footer and first/last page counters are present, rasterize every page, detect likely blank pages, and generate a contact sheet. It writes page PNGs, the contact sheet, and `visual-verification.json` under `dist/pdf/visual/<pdf-name>/`.
+Verification uses `pdfinfo`, `pdffonts`, `pdftotext`, and `pdftoppm` to confirm the reported/rasterized page count, inspect fonts, prove that the running footer and first/last page counters are present, rasterize every page, detect likely blank pages, and generate a contact sheet. It writes page PNGs, the contact sheet, and `visual-verification.json` under `dist/pdf/visual/<pdf-name>/`.
 
 Automated verification is deliberately not a substitute for editorial eyes: human review of the contact sheet remains the final visual acceptance step for clipping, overlap, awkward pagination, and figure readability.
 
@@ -122,8 +119,10 @@ Same-page anchors remain PDF-local. Cross-document repository links are rewritte
 
 ## GitHub Actions
 
-Build Integrity runs unit/regression tests, the ordinary draft-filtered Quartz build, and an end-to-end render of the current standalone publication. That publication job installs Chromium and Poppler, renders the PDF, verifies page furniture and page rasterization, and regenerates the platform visual assets.
+**Build integrity** runs the fast PDF unit/regression suite on every pull request together with the normal Quartz build and repository workflow checks.
 
-Run **Export research PDF** manually from the Actions tab when a downloadable artifact bundle is needed. The default source is the standalone Thinking Systems publication article. The long-form working paper or another Markdown source under `content/` can be supplied explicitly. The workflow installs Chromium and Poppler, creates the publication-grade PDF and manifest, runs visual verification, generates platform assets for the standalone article, and uploads generated artifacts for 14 days.
+The separate **Publication render** workflow performs the expensive end-to-end article and working-paper render only when publication sources, Quartz rendering code/styles/configuration, package dependencies, or the publication workflows change. It also supports manual dispatch. The workflow installs Chromium and Poppler, renders both PDFs and manifests, runs visual verification, and uploads the validation bundle for 14 days.
 
-The workflow does not deploy Quartz, publish a website, or change research status.
+Run **Export research PDF** manually from the Actions tab when a downloadable artifact bundle is needed. The default source is the standalone Thinking Systems publication article. The long-form working paper or another Markdown source under `content/` can be supplied explicitly. The workflow creates the publication-grade PDF and manifest, runs visual verification, and uploads the generated files for 14 days.
+
+The workflows do not deploy Quartz, publish a website, create Medium/LinkedIn renditions, or change research status. Platform-specific images and prose adaptations belong to a separate publication-rendition change.
