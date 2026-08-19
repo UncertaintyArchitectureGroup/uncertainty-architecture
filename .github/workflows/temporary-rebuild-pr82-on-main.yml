@@ -34,12 +34,8 @@ jobs:
           CHANGELOG = "CHANGELOG.md"
 
           def old_file(path: str) -> str:
-              return subprocess.check_output(
-                  ["git", "show", f"{OLD}:{path}"], text=True
-              )
+              return subprocess.check_output(["git", "show", f"{OLD}:{path}"], text=True)
 
-          # Manuscript: PR82's independent contribution is Article 5. Article 2 now
-          # comes entirely from merged PR91/main.
           current = Path(MANUSCRIPT).read_text(encoding="utf-8")
           historical = old_file(MANUSCRIPT)
           marker = "## 5. Applying the Map Without Overbuilding"
@@ -48,14 +44,10 @@ jobs:
           pos = historical.find(marker)
           if pos < 0:
               raise SystemExit("Historical Article 5 marker not found")
-          section5 = historical[pos:].strip()
-          Path(MANUSCRIPT).write_text(current.rstrip() + "\n\n" + section5 + "\n", encoding="utf-8")
+          Path(MANUSCRIPT).write_text(current.rstrip() + "\n\n" + historical[pos:].strip() + "\n", encoding="utf-8")
 
-          # Blueprint: preserve merged PR91 wording and restore only the Article 5
-          # canonical map plus the accepted Article 5 drafting decisions.
           current = Path(BLUEPRINT).read_text(encoding="utf-8")
           historical = old_file(BLUEPRINT)
-
           map_start = "**Blueprint-owned canonical working mapping — `support-resolution-canonical-material-map / v12`.**"
           map_end = "**Reverse-mapping closure rule:**"
           hs = historical.find(map_start)
@@ -85,8 +77,6 @@ jobs:
           current = current[:target] + decisions_block + "\n\n" + current[target:]
           Path(BLUEPRINT).write_text(current, encoding="utf-8")
 
-          # Changelog: keep PR91's already-merged release-contract entry and add
-          # only PR82's Article 5 entry.
           current = Path(CHANGELOG).read_text(encoding="utf-8")
           historical = old_file(CHANGELOG)
           prefix = "- Drafted Article §5 as the paper-level carrier-sufficiency and proportional-application test,"
@@ -99,8 +89,7 @@ jobs:
           idx = current.find(anchor)
           if idx < 0:
               raise SystemExit("Merged PR91 changelog anchor not found")
-          current = current[:idx] + article5_line + "\n" + current[idx:]
-          Path(CHANGELOG).write_text(current, encoding="utf-8")
+          Path(CHANGELOG).write_text(current[:idx] + article5_line + "\n" + current[idx:], encoding="utf-8")
 
       - name: Commit rebuilt PR and remove temporary workflow
         shell: bash
@@ -116,3 +105,5 @@ jobs:
             .github/workflows/temporary-rebuild-pr82-on-main.yml
           git commit -m 'Rebuild Article 5 PR on merged release-contract baseline'
           git push origin HEAD:agent/article-section5-carrier-sufficiency
+
+# trigger after PR reopen
