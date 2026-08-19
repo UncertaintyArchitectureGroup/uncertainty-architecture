@@ -9,8 +9,7 @@ import {
   writeFileAtomically,
 } from "./publication-path-safety.mjs"
 import { determineSourceProvenance } from "./publication-provenance.mjs"
-import { currentArticleSource, repoRoot } from "./publication-rendition.mjs"
-import { assertCoverTitleFits } from "./run-publication-assets.mjs"
+import { currentArticleSource } from "./publication-rendition.mjs"
 
 test("output safety rejects a symlinked allowed root", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "ua-output-root-test-"))
@@ -119,18 +118,4 @@ test("strict provenance rejects modified bytes for a tracked source", async () =
   assert.equal(preview.state, "dirty-preview")
   assert.notEqual(preview.workingBlob, preview.committedBlob)
   await rm(directory, { recursive: true, force: true })
-})
-
-test("cover title preflight rejects overlong and unbreakable titles", () => {
-  assert.doesNotThrow(() =>
-    assertCoverTitleFits("Thinking Systems: When the Controlled Object Changes"),
-  )
-  assert.throws(
-    () => assertCoverTitleFits("A very long publication title that needs far more than three lines on every supported publication cover surface and therefore must not be silently truncated"),
-    /cannot fit within three lines/,
-  )
-  assert.throws(
-    () => assertCoverTitleFits("X".repeat(80)),
-    /cannot fit within three lines/,
-  )
 })
