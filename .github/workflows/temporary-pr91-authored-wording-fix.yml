@@ -1,0 +1,80 @@
+name: Temporary PR91 authored-wording refinement
+
+on:
+  push:
+    branches:
+      - agent/release-contract-shift-main
+    paths:
+      - .github/workflows/temporary-pr91-authored-wording-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: agent/release-contract-shift-main
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Refine wording
+        shell: python
+        run: |
+          from pathlib import Path
+
+          replacements = {
+            "content/research/notes/open-engineering-specification-article-draft.md": [
+              (
+                "The important distinction is not the number of terminal outputs but whether the judgment-dependent situation-to-consequence mapping is exhaustively authored before release.",
+                "The important distinction is not the number of terminal outputs but whether the consequential decision structure is determined through explicitly authored logic before release or partly completed by Model Judgment at runtime."
+              ),
+              (
+                "The narrower change is that the intended consequential mapping is no longer exhausted by what was authored before release: part of the business-relevant situation-to-consequence relationship is completed by runtime Model Judgment.",
+                "The narrower change is that explicitly authored logic no longer fully determines the intended consequential mapping before release: part of the business-relevant situation-to-consequence relationship is completed by runtime Model Judgment."
+              )
+            ],
+            "content/research/notes/thinking-systems-publication-draft.md": [
+              (
+                "The important distinction is not the number of terminal outputs but whether the judgment-dependent situation-to-consequence mapping is exhaustively authored before release.",
+                "The important distinction is not the number of terminal outputs but whether the consequential decision structure is determined through explicitly authored logic before release or partly completed by Model Judgment at runtime."
+              )
+            ],
+            "content/research/notes/open-engineering-specification-article-blueprint.md": [
+              (
+                "Make clear that the general distinction is whether the judgment-dependent situation-to-consequence mapping is exhaustively authored before release, not the number of terminal outputs.",
+                "Make clear that the general distinction is whether the consequential decision structure is determined through explicitly authored logic before release or partly completed by Model Judgment at runtime, not the number of terminal outputs."
+              ),
+              (
+                "claim that conventional software had one path, no nondeterminism, or no runtime surprises; the distinction is whether the consequential mapping is fully authored before release;",
+                "claim that conventional software had one path, no nondeterminism, or no runtime surprises; the distinction is whether the consequential decision structure is determined through explicitly authored logic before release or partly completed by runtime Model Judgment;"
+              )
+            ]
+          }
+
+          for path, reps in replacements.items():
+              p = Path(path)
+              text = p.read_text(encoding="utf-8")
+              for old, new in reps:
+                  count = text.count(old)
+                  if count != 1:
+                      raise SystemExit(f"{path}: expected one match for {old[:70]!r}, found {count}")
+                  text = text.replace(old, new, 1)
+              p.write_text(text, encoding="utf-8")
+
+      - name: Commit changes and remove temporary workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/temporary-pr91-authored-wording-fix.yml
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/research/notes/open-engineering-specification-article-draft.md \
+                  content/research/notes/thinking-systems-publication-draft.md \
+                  content/research/notes/open-engineering-specification-article-blueprint.md \
+                  .github/workflows/temporary-pr91-authored-wording-fix.yml
+          git commit -m 'Clarify authored decision-structure wording'
+          git push origin HEAD:agent/release-contract-shift-main
