@@ -1,0 +1,26 @@
+name: Temporary finalize reconstructed PR79
+
+on:
+  push:
+    branches:
+      - feat/quartz-pdf-export
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.event.head_commit.message == 'chore: finalize reconstructed PR79'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out publishing branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: feat/quartz-pdf-export
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Preserve finalizer outside the worktree
+        run: cp .github/scripts/pr79_post_reconstruction_finalize.py /tmp/pr79_finalize.py
+      - name: Validate, squash, and force-push
+        run: python3 /tmp/pr79_finalize.py
