@@ -55,6 +55,10 @@
       "type": "file"
     },
     {
+      "path": ".github/workflows/publication-render.yml",
+      "type": "file"
+    },
+    {
       "path": ".github/workflows/dependency-review.yml",
       "type": "file"
     },
@@ -83,10 +87,6 @@
       "type": "file"
     },
     {
-      "path": "quartz/scripts/render-publication-assets.mjs",
-      "type": "file"
-    },
-    {
       "path": "quartz/scripts/verify-publication-pdf.mjs",
       "type": "file"
     },
@@ -108,10 +108,6 @@
     },
     {
       "path": "quartz/scripts/run-pdf-export.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/run-publication-assets.mjs",
       "type": "file"
     },
     {
@@ -195,17 +191,25 @@
         "name: Build integrity",
         "Build / Quartz production site",
         "PDF export / regression tests",
-        "Publication / current article render",
-        "Install Chromium and PDF inspection tools",
-        "Visual verify current publication PDF",
-        "Render current publication assets",
-        "Render living working paper PDF",
-        "Visual verify living working paper PDF",
-        "Upload publication validation artifact",
         "Content / render Mermaid diagrams",
         "Supply chain / workflows and pins",
         "Run supply-chain regression fixtures",
-        "zizmor --pedantic",
+        "zizmor --pedantic"
+      ]
+    },
+    {
+      "path": ".github/workflows/publication-render.yml",
+      "required_text": [
+        "name: Publication render",
+        "pull_request:",
+        "paths:",
+        "Publication / article and working paper",
+        "Install Chromium and PDF inspection tools",
+        "Render current publication PDF",
+        "Visual verify current publication PDF",
+        "Render living working paper PDF",
+        "Visual verify living working paper PDF",
+        "Upload publication validation artifact",
         "fetch-depth: 0",
         "UA_PDF_REPOSITORY_REF: ${{ github.sha }}"
       ]
@@ -244,7 +248,6 @@
         "workflow_dispatch:",
         "content/research/notes/thinking-systems-publication-draft.md",
         "npm run pdf:article",
-        "npm run publication:assets",
         "npm run pdf:verify",
         "actions/upload-artifact@",
         "fetch-depth: 0",
@@ -277,18 +280,10 @@
     {
       "path": "quartz/scripts/render-publication-pdf.mjs",
       "required_text": [
-        "writeFileAtomically",
+        "finalizePublicationBundle",
         "source_state",
-        "requireFigure8Split"
-      ]
-    },
-    {
-      "path": "quartz/scripts/render-publication-assets.mjs",
-      "required_text": [
-        "determineSourceProvenance",
-        "assertSafeOutputPath",
-        "source_state",
-        "exactly one Figure 8A"
+        "requireFigure8Split",
+        "stagedManifestPath"
       ]
     },
     {
@@ -304,14 +299,6 @@
       "required_text": [
         "assertSafeOutputPath",
         "repoRoot, outputRoot, output"
-      ]
-    },
-    {
-      "path": "quartz/scripts/run-publication-assets.mjs",
-      "required_text": [
-        "assertCoverTitleFits",
-        "--allow-dirty-preview",
-        "repoRoot, publicationRoot, outputRoot"
       ]
     },
     {

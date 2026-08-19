@@ -29,9 +29,9 @@
       "mutation": {
         "type": "remove_text",
         "path": "README.md",
-        "text": "Sam “stunspot” Walker — Technical Co-Author"
+        "text": "Sam \u201cstunspot\u201d Walker \u2014 Technical Co-Author"
       },
-      "expected_error": "README.md: missing protected text 'Sam “stunspot” Walker — Technical Co-Author'"
+      "expected_error": "README.md: missing protected text 'Sam \u201cstunspot\u201d Walker \u2014 Technical Co-Author'"
     },
     {
       "name": "required canonical link deletion is rejected",
@@ -156,6 +156,14 @@
       "expected_error": "Missing required file: .github/workflows/export-research-pdf.yml"
     },
     {
+      "name": "publication render workflow deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": ".github/workflows/publication-render.yml"
+      },
+      "expected_error": "Missing required file: .github/workflows/publication-render.yml"
+    },
+    {
       "name": "change coupling workflow deletion is rejected",
       "mutation": {
         "type": "delete_path",
@@ -213,7 +221,7 @@
       "mutation": {
         "type": "remove_text",
         "path": "README.md",
-        "text": "### Markus Kopko — Strategic Advisor on Governance and Alignment"
+        "text": "### Markus Kopko \u2014 Strategic Advisor on Governance and Alignment"
       },
       "expected_error": "README.md: missing required heading"
     },
@@ -245,10 +253,10 @@
       "name": "publication integration provenance ref deletion is rejected",
       "mutation": {
         "type": "remove_text",
-        "path": ".github/workflows/build-integrity.yml",
+        "path": ".github/workflows/publication-render.yml",
         "text": "UA_PDF_REPOSITORY_REF: ${{ github.sha }}"
       },
-      "expected_error": ".github/workflows/build-integrity.yml: missing protected text"
+      "expected_error": ".github/workflows/publication-render.yml: missing protected text"
     }
   ]
 }
