@@ -1,11 +1,6 @@
 name: Temporary rebuild PR82 on merged release-contract main
 
 on:
-  push:
-    branches:
-      - agent/article-section5-carrier-sufficiency
-    paths:
-      - .github/workflows/temporary-rebuild-pr82-on-main.yml
   pull_request:
     branches:
       - main
@@ -17,7 +12,6 @@ permissions:
 
 jobs:
   rebuild:
-    if: github.event_name == 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
