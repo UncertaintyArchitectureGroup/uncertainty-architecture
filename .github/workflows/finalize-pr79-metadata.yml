@@ -1,23 +1,22 @@
 name: Temporary finalize PR79 metadata
 
 on:
-  push:
-    branches:
-      - feat/quartz-pdf-export
+  pull_request:
+    types: [synchronize]
 
 permissions:
   contents: write
 
 jobs:
   finalize:
-    # One-shot branch repair; the helper removes this workflow before committing.
-    if: github.event.head_commit.message == 'chore: trigger PR79 metadata finalization'
+    if: github.event.pull_request.number == 79 && github.event.pull_request.head.ref == 'feat/quartz-pdf-export'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Check out repository
+      - name: Check out PR branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
           persist-credentials: true
       - name: Apply companion and contract updates
