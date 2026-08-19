@@ -1,0 +1,70 @@
+name: Temporary final PR79 publication validation
+
+on:
+  push:
+    branches:
+      - feat/quartz-pdf-export
+
+permissions:
+  contents: write
+
+jobs:
+  validate-clean:
+    if: github.event.head_commit.message == 'chore: run final PR79 publication validation'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Check out publishing branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: feat/quartz-pdf-export
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Remove temporary repair artifacts from the candidate tree
+        shell: bash
+        run: |
+          rm -f .github/workflows/*pr79*.yml .github/workflows/*reconstruct*.yml .github/workflows/*finalize*.yml .github/workflows/*hardening*.yml
+          rm -f .github/scripts/*pr79* .github/scripts/*reconstruct* .github/scripts/*finalize* .github/scripts/*hardening*
+          rm -f .github/pr79*
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Run publication regression suite
+        run: node --test quartz/scripts/export-pdf.test.mjs quartz/scripts/publication-rendition.test.mjs quartz/scripts/publication-safety.test.mjs
+      - name: Build Quartz production site
+        run: npm run build
+      - name: Validate repository contract and workflow policy
+        shell: bash
+        run: |
+          python3 .github/tests/repository_contract/test_repository_contract.py
+          python3 .github/scripts/validate_workflow_supply_chain.py
+      - name: Install Chromium and PDF inspection tools
+        shell: bash
+        run: |
+          ./node_modules/.bin/playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+      - name: Render and verify both publication objects and platform assets
+        env:
+          UA_PDF_REPOSITORY_REF: ${{ github.sha }}
+        shell: bash
+        run: |
+          npm run pdf:article
+          npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf
+          npm run publication:assets
+          npm run pdf:working-paper
+          npm run pdf:verify -- dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf
+      - name: Confirm canonical research Markdown is unchanged
+        shell: bash
+        run: |
+          git fetch origin main
+          git diff --exit-code origin/main -- content/research/notes/thinking-systems-publication-draft.md
+          git diff --exit-code origin/main -- content/research/notes/open-engineering-specification-article-draft.md
+      - name: Squash validated infrastructure into one clean commit
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git reset --soft origin/main
+          git add -A
+          git commit -m "Add universal Quartz publication export infrastructure"
+          git push --force-with-lease origin HEAD:feat/quartz-pdf-export
