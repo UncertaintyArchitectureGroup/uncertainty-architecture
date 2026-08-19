@@ -52,7 +52,6 @@ jobs:
           set -euo pipefail
           if [[ "$UA_PDF_SOURCE" == "$UA_PUBLICATION_ARTICLE_SOURCE" ]]; then
             npm run pdf:article
-            npm run publication:assets
             pdf_path="dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf"
           elif [[ "$UA_PDF_SOURCE" == "$UA_WORKING_PAPER_SOURCE" ]]; then
             npm run pdf:working-paper
@@ -71,6 +70,5 @@ jobs:
             dist/pdf/*.pdf
             dist/pdf/*.manifest.json
             dist/pdf/visual/**
-            dist/publication/thinking-systems/**
           if-no-files-found: error
           retention-days: 14
