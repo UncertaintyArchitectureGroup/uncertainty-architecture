@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   finalize:
+    # One-shot branch repair; the helper removes this workflow before committing.
     if: github.event.head_commit.message == 'chore: trigger PR79 metadata finalization'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
