@@ -43,3 +43,4 @@ jobs:
           git add -A
           git commit -m "Add Medium and LinkedIn publication renditions"
           git push origin HEAD:publishing/linkedin-medium-renditions
+# synchronize after the stacked base enabled the builder
