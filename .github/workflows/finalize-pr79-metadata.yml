@@ -1,0 +1,33 @@
+name: Temporary finalize PR79 metadata
+
+on:
+  push:
+    branches:
+      - feat/quartz-pdf-export
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.event.head_commit.message == 'chore: trigger PR79 metadata finalization'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Apply companion and contract updates
+        run: python3 .github/scripts/finalize_pr79_metadata.py
+      - name: Run repository-contract regression tests
+        run: python3 .github/tests/repository_contract/test_repository_contract.py
+      - name: Commit finalized metadata
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Align PDF publication contracts and companion records"
+          git push origin HEAD:${GITHUB_REF_NAME}
