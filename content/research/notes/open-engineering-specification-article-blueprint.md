@@ -601,7 +601,7 @@ The manuscript must not:
 - make every Constraint financial, transactional, or tool-based merely because the example uses a refund path;
 - imply that all Hard Constraints are transaction limits or all Soft Constraints are model-output quality policies;
 - claim that conventional software had one path, no nondeterminism, or no runtime surprises; the distinction is whether the consequential mapping is fully authored before release;
-- claim without evidence that Thinking Systems always produce more errors; state instead that they add qualitatively different semantic, contextual, evidentiary, and authority failure possibilities inside the runtime judgment space;
+- claim without evidence that Thinking Systems always produce more errors; state instead that runtime Model Judgment introduces qualitatively different semantic and contextual failure possibilities, while controlling consequential judgment also makes evidence adequacy and authority paths part of the material system-level failure surface;
 - infer that successful blocking of one transaction path proves the whole system is controlled;
 - reuse `K-SEND-01` as if the running example were evidence from a validated repository implementation; the running example and repository reference artifacts have different purposes;
 - change UA definitions, capability-family boundaries, decision-horizon ownership, or Hard/Soft semantics merely to make the example narratively convenient;
