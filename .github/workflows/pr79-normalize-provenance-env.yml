@@ -1,0 +1,62 @@
+name: Temporary normalize PR79 provenance ref
+
+on:
+  push:
+    branches:
+      - feat/quartz-pdf-export
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pr79-normalize-provenance-ref
+  cancel-in-progress: true
+
+jobs:
+  normalize:
+    if: github.event.head_commit.message == 'chore: normalize PR79 provenance ref contract'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out publishing branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: feat/quartz-pdf-export
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Normalize provenance ref to one job-level contract
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('.github/workflows/build-integrity.yml')
+          text = path.read_text(encoding='utf-8')
+          header = '''  publication-render:\n    name: Publication / current article render\n    runs-on: ubuntu-24.04\n    timeout-minutes: 35\n'''
+          replacement = header + '''    env:\n      UA_PDF_REPOSITORY_REF: ${{ github.sha }}\n'''
+          if header not in text:
+              raise SystemExit('publication-render job header not found')
+          text = text.replace(header, replacement, 1)
+          step_env = '''        env:\n          UA_PDF_REPOSITORY_REF: ${{ github.sha }}\n'''
+          count = text.count(step_env)
+          if count != 3:
+              raise SystemExit(f'expected 3 step-level provenance env blocks, found {count}')
+          text = text.replace(step_env, '')
+          path.write_text(text, encoding='utf-8')
+          Path('.github/workflows/pr79-normalize-provenance-env.yml').unlink()
+          PY
+      - name: Validate workflow and repository contract
+        shell: bash
+        run: |
+          python3 .github/tests/repository_contract/test_repository_contract.py
+          python3 .github/scripts/validate_workflow_supply_chain.py
+          if command -v actionlint >/dev/null 2>&1; then actionlint; fi
+      - name: Squash normalized candidate
+        shell: bash
+        run: |
+          git fetch origin main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git reset --soft origin/main
+          git add -A
+          git commit -m "Add universal Quartz publication export infrastructure"
+          git push --force-with-lease origin HEAD:feat/quartz-pdf-export
