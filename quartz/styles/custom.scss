@@ -1,3 +1,343 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// UA publication rendering styles. Screen rendering remains unchanged; all rules
+// below apply only to print/PDF renditions generated through Quartz.
+@media print {
+  :root {
+    color-scheme: light;
+    --light: #ffffff;
+    --lightgray: #e5e5e5;
+    --gray: #8a8a8a;
+    --darkgray: #3f3f3f;
+    --dark: #1f1f1f;
+    --secondary: #284b63;
+    --tertiary: #54736d;
+    --highlight: rgba(143, 159, 169, 0.12);
+    --textHighlight: rgba(255, 242, 54, 0.3);
+  }
+
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm;
+
+    @bottom-left {
+      content: "Uncertainty Architecture · Research Publication";
+      color: #666666;
+      font-family: "Source Sans Pro", sans-serif;
+      font-size: 7.5pt;
+    }
+
+    @bottom-right {
+      content: "Page " counter(page) " / " counter(pages);
+      color: #666666;
+      font-family: "Source Sans Pro", sans-serif;
+      font-size: 7.5pt;
+    }
+  }
+
+  @page ua-landscape {
+    size: A4 landscape;
+    margin: 10mm 8mm 14mm;
+  }
+
+  // Generic/working-paper export keeps an A2 fallback for a dense diagram that
+  // cannot meet the 5 pt readability floor on A4. Explicit dimensions are used
+  // because Chromium does not consistently honor the named A2 paper keyword for
+  // mixed-size paged media. The standalone article's canonical Figure 8 is split
+  // into A/B rendition panels before this fallback.
+  @page ua-foldout {
+    size: 594mm 420mm;
+    margin: 7mm 6mm 10mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: var(--dark) !important;
+  }
+
+  body {
+    font-size: 10.5pt;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  #quartz-root,
+  #quartz-body,
+  .center {
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .sidebar,
+  footer,
+  .page-footer,
+  .breadcrumb-container,
+  .page-header .tags {
+    display: none !important;
+  }
+
+  .page-header {
+    margin: 0 0 1.5rem !important;
+  }
+
+  .page-header:has(+ article > h1:first-child),
+  .page-header:has(+ article > .ua-pdf-title-page:first-child) {
+    display: none !important;
+  }
+
+  .center > hr {
+    display: none !important;
+  }
+
+  .ua-pdf-title-page {
+    min-height: 236mm;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    break-after: page;
+    page-break-after: always;
+    padding: 10mm 7mm 0;
+  }
+
+  .ua-pdf-title-page + h1 {
+    display: none !important;
+  }
+
+  .ua-pdf-title-kicker {
+    margin-bottom: 18mm;
+    color: var(--tertiary);
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .ua-pdf-title-page h1 {
+    margin: 0 0 12mm;
+    font-size: 28pt;
+    line-height: 1.08;
+    color: var(--dark);
+  }
+
+  .ua-pdf-title-author {
+    margin: 0 0 18mm;
+    font-size: 14pt;
+    font-weight: 600;
+  }
+
+  .ua-pdf-title-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm 10mm;
+    margin: 0 0 15mm;
+  }
+
+  .ua-pdf-title-meta div {
+    break-inside: avoid;
+  }
+
+  .ua-pdf-title-meta dt {
+    color: var(--gray);
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .ua-pdf-title-meta dd {
+    margin: 1mm 0 0;
+    font-size: 10pt;
+  }
+
+  .ua-pdf-title-links {
+    margin-top: auto;
+    font-size: 8.5pt;
+    line-height: 1.35;
+  }
+
+  .ua-pdf-toc {
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .ua-pdf-toc h2 {
+    margin-top: 0;
+  }
+
+  .ua-pdf-toc ul {
+    margin: 0.4rem 0 0;
+    padding-left: 1.2rem;
+  }
+
+  .ua-pdf-toc li {
+    margin: 0.18rem 0;
+  }
+
+  .ua-pdf-toc-level-3 {
+    margin-left: 1.15rem !important;
+  }
+
+  .ua-pdf-toc a {
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  pre,
+  blockquote,
+  table,
+  figure,
+  img,
+  svg,
+  .mermaid {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  pre:has(code.mermaid) {
+    break-after: avoid-page;
+  }
+
+  pre:has(code.mermaid) + p {
+    break-before: avoid-page;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .ua-pdf-mermaid-figure {
+    width: 100%;
+    margin: 0;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .ua-pdf-mermaid-figure > pre,
+  .ua-pdf-mermaid-figure > p {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .ua-pdf-mermaid-figure > pre {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 0.35rem;
+    padding: 0.65rem;
+  }
+
+  .ua-pdf-mermaid-figure > p {
+    margin: 0;
+    font-size: 9pt;
+    line-height: 1.25;
+  }
+
+  .ua-pdf-mermaid-figure--landscape {
+    page: ua-landscape;
+    width: 281mm !important;
+    max-width: 281mm !important;
+  }
+
+  .ua-pdf-mermaid-figure--landscape .mermaid svg {
+    display: block;
+    width: auto !important;
+    max-height: 155mm !important;
+    margin-inline: auto;
+  }
+
+  .ua-pdf-mermaid-figure--foldout {
+    page: ua-foldout;
+    width: 582mm !important;
+    max-width: 582mm !important;
+  }
+
+  .ua-pdf-mermaid-figure--foldout .mermaid svg {
+    display: block;
+    width: auto !important;
+    max-height: 370mm !important;
+    margin-inline: auto;
+  }
+
+  // Figure 8 remains one canonical figure. The publishing layer swaps only
+  // its visual rendition, using stable SVG layouts that preserve the canonical
+  // decision and capability relationships at publication-readable sizes.
+  .ua-pdf-static-figure {
+    width: 100%;
+    margin: 0;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .ua-pdf-static-figure > svg {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    max-width: none !important;
+    margin-inline: auto;
+  }
+
+  .ua-pdf-static-figure > p {
+    margin: 0.35rem 0 0;
+    font-size: 9pt;
+    line-height: 1.25;
+  }
+
+  .ua-pdf-static-figure--8a {
+    page: ua-landscape;
+    width: 281mm !important;
+    max-width: 281mm !important;
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .ua-pdf-static-figure--8a > svg {
+    max-height: 155mm !important;
+  }
+
+  .ua-pdf-static-figure--8b {
+    page: auto;
+  }
+
+  .ua-pdf-static-figure--8b > svg {
+    max-height: 190mm !important;
+  }
+
+  img,
+  svg,
+  .mermaid svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  table {
+    width: 100%;
+    font-size: 9pt;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  a {
+    color: var(--dark) !important;
+    text-decoration-color: var(--gray);
+  }
+}
