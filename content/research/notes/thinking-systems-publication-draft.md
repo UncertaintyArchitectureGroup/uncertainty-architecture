@@ -21,7 +21,7 @@ tags:
   - ua/topic/uncertainty-boundary
   - ua/topic/control-loop
 created: 2026-08-17
-updated: 2026-08-17
+updated: 2026-08-19
 language: en
 license: CC-BY-4.0
 draft: true
@@ -164,6 +164,12 @@ y ~ P(y | x, context, configuration, system state)
 ```
 
 For the same apparent request, plausible behavior may vary with context, model version, instructions, retrieval results, tools, configuration, prior interaction, data distribution, or operating conditions. The system does not merely execute a fully enumerated decision; part of the consequential mapping is selected or constructed at runtime.
+
+> **Release-contract shift.** For an explicitly authored consequential responsibility, Delivery releases an implementation whose intended situation-to-consequence mapping is specified in inspectable logic before release, even when it is branching, stateful, concurrent, or operationally uncertain. A Thinking-System release also places into operation a judgment process that will complete part of that mapping at runtime. Production readiness therefore depends not only on the implementation already written, but on whether that future runtime completion is credibly bounded.
+
+Each runtime realization of that model-mediated responsibility is a selection from a wider, only partly characterized behavioral space. Some outcomes are intended and desirable; some are acceptable only in a particular context or delegated boundary; some require reserved Human Authority; and some are prohibited or still unknown. The complete distribution need not be known or measurable for this distinction to matter.
+
+This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. Evidence from such outcomes may call for a local Delivery correction, a Project / Architecture reassessment of the design or Operating Envelope, or an Organizational change to authority or business basis.
 
 The architectural difference can be shown without pretending that conventional software consists of one linear function or that every Thinking System follows one pipeline.
 
