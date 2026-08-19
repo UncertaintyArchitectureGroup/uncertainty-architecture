@@ -6,12 +6,18 @@ on:
       - agent/article-section5-carrier-sufficiency
     paths:
       - .github/workflows/temporary-rebuild-pr82-on-main.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/temporary-rebuild-pr82-on-main.yml
 
 permissions:
   contents: write
 
 jobs:
   rebuild:
+    if: github.event_name == 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -105,5 +111,3 @@ jobs:
             .github/workflows/temporary-rebuild-pr82-on-main.yml
           git commit -m 'Rebuild Article 5 PR on merged release-contract baseline'
           git push origin HEAD:agent/article-section5-carrier-sufficiency
-
-# trigger after PR reopen
