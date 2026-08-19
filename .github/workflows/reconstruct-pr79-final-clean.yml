@@ -1,0 +1,26 @@
+name: Temporary final PR79 reconstruction
+
+on:
+  push:
+    branches:
+      - feat/quartz-pdf-export
+
+permissions:
+  contents: write
+
+jobs:
+  reconstruct:
+    if: github.event.head_commit.message == 'chore: run final PR79 reconstruction'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Check out publishing branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: feat/quartz-pdf-export
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Preserve reconstruction helper outside the worktree
+        run: cp .github/scripts/reconstruct_pr79_final_clean_v2.py /tmp/reconstruct_pr79_final_clean.py
+      - name: Reconstruct, validate, squash, and force-push PR 79
+        run: python3 /tmp/reconstruct_pr79_final_clean.py
