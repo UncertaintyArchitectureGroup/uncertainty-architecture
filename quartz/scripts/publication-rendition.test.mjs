@@ -1,11 +1,15 @@
 import assert from "node:assert/strict"
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
+import { mkdtemp, readFile, rename, rm, writeFile } from "node:fs/promises"
 import os from "node:os"
 import path from "node:path"
 import test from "node:test"
 
 import { buildToc, extractFigureList, normalizeDate, splitFigure8 } from "./publication-rendition.mjs"
-import { countPdfPages, determineSourceProvenance, finalizePublicationPdf } from "./render-publication-pdf.mjs"
+import {
+  countPdfPages,
+  determineSourceProvenance,
+  finalizePublicationBundle,
+} from "./render-publication-pdf.mjs"
 import { findContentlessTextPages, verifyPageFurniture } from "./verify-publication-pdf.mjs"
 import { assertCanonicalFigure8Fingerprint } from "./publication-figure8-fingerprint.mjs"
 
@@ -72,15 +76,45 @@ test("PDF page counting ignores Pages objects", () => {
   assert.equal(countPdfPages(Buffer.from("/Type /Pages /Count 2 /Kids [] /Type /Page /Type /Page", "latin1")), 2)
 })
 
-test("publication finalization preserves the previous PDF when rename fails", async () => {
-  const directory = await mkdtemp(path.join(os.tmpdir(), "ua-publication-finalize-test-"))
+test("publication bundle finalization restores the previous PDF and manifest when manifest installation fails", async () => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), "ua-publication-bundle-test-"))
   try {
-    const preflight = path.join(directory, "preflight.pdf")
+    const stagedPdf = path.join(directory, "staged.pdf")
+    const stagedManifest = path.join(directory, "staged.manifest.json")
     const output = path.join(directory, "publication.pdf")
-    await writeFile(preflight, "new publication")
+    const manifest = path.join(directory, "publication.manifest.json")
+    await writeFile(stagedPdf, "new publication")
+    await writeFile(stagedManifest, "new manifest")
     await writeFile(output, "previous publication")
-    await assert.rejects(finalizePublicationPdf(preflight, output, async () => { throw new Error("injected finalization failure") }), /injected finalization failure/)
+    await writeFile(manifest, "previous manifest")
+
+    let injected = false
+    const renameImpl = async (source, target) => {
+      if (!injected && source === stagedManifest && target === manifest) {
+        injected = true
+        throw new Error("injected bundle finalization failure")
+      }
+      await rename(source, target)
+    }
+
+    await assert.rejects(
+      finalizePublicationBundle(
+        {
+          stagedPdfPath: stagedPdf,
+          stagedManifestPath: stagedManifest,
+          outputPath: output,
+          manifestPath: manifest,
+        },
+        {
+          trustedRoot: directory,
+          allowedRoot: directory,
+          renameImpl,
+        },
+      ),
+      /injected bundle finalization failure/,
+    )
     assert.equal(await readFile(output, "utf8"), "previous publication")
+    assert.equal(await readFile(manifest, "utf8"), "previous manifest")
   } finally {
     await rm(directory, { recursive: true, force: true })
   }
