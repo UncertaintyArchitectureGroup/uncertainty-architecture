@@ -1,0 +1,71 @@
+name: Temporary select clean PR79 candidate
+
+on:
+  push:
+    branches:
+      - feat/quartz-pdf-export
+
+permissions:
+  contents: write
+
+jobs:
+  select:
+    if: github.event.head_commit.message == 'chore: select clean validated PR79 candidate'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out complete repository history
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: feat/quartz-pdf-export
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Select newest squashed candidate with all final controls
+        id: candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main feat/quartz-pdf-export
+          main_sha="$(git rev-parse origin/main)"
+          chosen=""
+          while read -r commit; do
+            [[ -n "$commit" ]] || continue
+            parent="$(git rev-parse "${commit}^")"
+            [[ "$parent" == "$main_sha" ]] || continue
+            tree_paths="$(git ls-tree -r --name-only "$commit")"
+            for required in \
+              quartz/scripts/publication-path-safety.mjs \
+              quartz/scripts/publication-provenance.mjs \
+              quartz/scripts/publication-cover.mjs \
+              quartz/scripts/publication-figure8-fingerprint.mjs \
+              quartz/scripts/publication-safety.test.mjs \
+              quartz/scripts/render-publication-pdf.mjs \
+              quartz/scripts/render-publication-assets.mjs; do
+              grep -Fxq "$required" <<<"$tree_paths" || continue 2
+            done
+            if grep -Eq '(^|/)(pr79|reconstruct|finalize-pr79|.*hardening.*)' <<<"$tree_paths"; then
+              continue
+            fi
+            git show "$commit:.github/workflows/build-integrity.yml" | grep -Fq 'fetch-depth: 0' || continue
+            git show "$commit:.github/workflows/build-integrity.yml" | grep -Fq 'UA_PDF_REPOSITORY_REF: ${{ github.sha }}' || continue
+            git show "$commit:quartz/scripts/render-publication-pdf.mjs" | grep -Fq 'finalizePublicationPair' || continue
+            git show "$commit:quartz/scripts/render-publication-assets.mjs" | grep -Fq 'source_state' || continue
+            git show "$commit:quartz/scripts/publication-path-safety.mjs" | grep -Fq 'trustedRoot' || continue
+            chosen="$commit"
+            break
+          done < <(git rev-list --all --grep='^Add universal Quartz publication export infrastructure$' --date-order)
+          [[ -n "$chosen" ]] || { echo 'No clean final candidate found'; exit 1; }
+          echo "sha=$chosen" >> "$GITHUB_OUTPUT"
+          git checkout --detach "$chosen"
+      - name: Validate selected candidate
+        shell: bash
+        run: |
+          npm ci --ignore-scripts
+          node --test quartz/scripts/export-pdf.test.mjs quartz/scripts/publication-rendition.test.mjs quartz/scripts/publication-safety.test.mjs
+          npm run build
+          python3 .github/tests/repository_contract/test_repository_contract.py
+          python3 .github/scripts/validate_workflow_supply_chain.py
+      - name: Restore selected clean candidate as PR head
+        env:
+          CANDIDATE_SHA: ${{ steps.candidate.outputs.sha }}
+        run: git push --force-with-lease origin "$CANDIDATE_SHA:refs/heads/feat/quartz-pdf-export"
