@@ -1,0 +1,238 @@
+name: Temporary authoritative PR79 final validation
+
+on:
+  push:
+    branches:
+      - feat/quartz-pdf-export
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pr79-authoritative-final-validation
+  cancel-in-progress: true
+
+jobs:
+  validate-and-restore:
+    if: github.event.head_commit.message == 'chore: validate and restore final PR79 candidate'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Check out complete repository history
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: feat/quartz-pdf-export
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Locate newest clean reconstructed candidate
+        id: candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import subprocess
+          import urllib.parse
+          import urllib.request
+
+          repo = 'UncertaintyArchitectureGroup/uncertainty-architecture'
+          headers = {
+              'Accept': 'application/vnd.github+json',
+              'Authorization': f"Bearer {os.environ['GH_TOKEN']}",
+              'User-Agent': 'pr79-authoritative-final-validation',
+              'X-GitHub-Api-Version': '2022-11-28',
+          }
+          query = urllib.parse.quote(f'repo:{repo} "Add universal Quartz publication export infrastructure"')
+          url = f'https://api.github.com/search/commits?q={query}&sort=committer-date&order=desc&per_page=100'
+          request = urllib.request.Request(url, headers=headers)
+          with urllib.request.urlopen(request) as response:
+              items = json.load(response)['items']
+
+          subprocess.run(['git', 'fetch', 'origin', 'main'], check=True)
+          main_sha = subprocess.check_output(['git', 'rev-parse', 'origin/main'], text=True).strip()
+          required = {
+              'quartz/scripts/publication-path-safety.mjs',
+              'quartz/scripts/publication-provenance.mjs',
+              'quartz/scripts/publication-cover.mjs',
+              'quartz/scripts/publication-figure8-fingerprint.mjs',
+              'quartz/scripts/publication-safety.test.mjs',
+              'quartz/scripts/render-publication-pdf.mjs',
+              'quartz/scripts/render-publication-assets.mjs',
+              'quartz/scripts/run-pdf-export.mjs',
+              'quartz/scripts/run-publication-assets.mjs',
+              'quartz/scripts/run-publication-verify.mjs',
+          }
+          forbidden_fragments = (
+              'pr79-',
+              'pr79_',
+              'reconstruct-pr79',
+              'reconstruct_pr79',
+              'finalize-pr79',
+              'finalize_pr79',
+              'hardening',
+              'authoritative-final',
+          )
+
+          chosen = None
+          diagnostics = []
+          for item in items:
+              sha = item['sha']
+              try:
+                  subprocess.run(['git', 'fetch', 'origin', sha], check=True, stdout=subprocess.DEVNULL)
+                  parents = subprocess.check_output(['git', 'show', '-s', '--format=%P', sha], text=True).strip().split()
+                  if parents != [main_sha]:
+                      diagnostics.append(f'{sha[:12]} parent mismatch')
+                      continue
+                  paths = set(subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', sha], text=True).splitlines())
+                  missing = sorted(required - paths)
+                  if missing:
+                      diagnostics.append(f'{sha[:12]} missing {missing[:2]}')
+                      continue
+                  temporary = sorted(path for path in paths if any(fragment in path for fragment in forbidden_fragments))
+                  if temporary:
+                      diagnostics.append(f'{sha[:12]} temporary paths {temporary[:2]}')
+                      continue
+                  build = subprocess.check_output(['git', 'show', f'{sha}:.github/workflows/build-integrity.yml'], text=True)
+                  pdf = subprocess.check_output(['git', 'show', f'{sha}:quartz/scripts/render-publication-pdf.mjs'], text=True)
+                  assets = subprocess.check_output(['git', 'show', f'{sha}:quartz/scripts/render-publication-assets.mjs'], text=True)
+                  safety = subprocess.check_output(['git', 'show', f'{sha}:quartz/scripts/publication-path-safety.mjs'], text=True)
+                  provenance = subprocess.check_output(['git', 'show', f'{sha}:quartz/scripts/publication-provenance.mjs'], text=True)
+                  checks = [
+                      ('fetch-depth: 0' in build, 'full checkout'),
+                      ('UA_PDF_REPOSITORY_REF: ${{ github.sha }}' in build, 'integration provenance ref'),
+                      ('publication-safety.test.mjs' in build, 'safety tests'),
+                      ('finalizePublicationPair' in pdf, 'pair finalization'),
+                      ('assertSafeOutputPath(repoRoot' in pdf, 'PDF core safety'),
+                      ('source_state' in assets and 'determineSourceProvenance' in assets, 'asset provenance'),
+                      ('validateFigureAssetIds' in assets, 'asset Figure 8 contract'),
+                      ('trustedRoot' in safety and 'assertNoPathAliases' in safety, 'trusted-root safety'),
+                      ('dirty-preview' in provenance, 'preview provenance'),
+                  ]
+                  failed = [label for ok, label in checks if not ok]
+                  if failed:
+                      diagnostics.append(f'{sha[:12]} failed {failed}')
+                      continue
+                  chosen = sha
+                  break
+              except subprocess.CalledProcessError as error:
+                  diagnostics.append(f'{sha[:12]} inspection error {error.returncode}')
+
+          if not chosen:
+              raise SystemExit('No clean reconstructed candidate found. Diagnostics: ' + '; '.join(diagnostics[:20]))
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as handle:
+              handle.write(f'sha={chosen}\n')
+              handle.write(f'main_sha={main_sha}\n')
+          print(f'Chosen clean candidate: {chosen}')
+          PY
+
+      - name: Check out selected candidate tree
+        env:
+          CANDIDATE_SHA: ${{ steps.candidate.outputs.sha }}
+        run: git checkout --detach "$CANDIDATE_SHA"
+
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Run deterministic publication and repository tests
+        shell: bash
+        run: |
+          node --test \
+            quartz/scripts/export-pdf.test.mjs \
+            quartz/scripts/publication-rendition.test.mjs \
+            quartz/scripts/publication-safety.test.mjs
+          npm run build
+          python3 .github/tests/repository_contract/test_repository_contract.py
+          python3 .github/scripts/validate_workflow_supply_chain.py
+
+      - name: Install Chromium and PDF inspection tools
+        shell: bash
+        run: |
+          ./node_modules/.bin/playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
+      - name: Render and verify both publication objects and assets
+        env:
+          UA_PDF_REPOSITORY_REF: ${{ steps.candidate.outputs.sha }}
+        shell: bash
+        run: |
+          npm run pdf:article
+          npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf
+          npm run publication:assets
+          npm run pdf:working-paper
+          npm run pdf:verify -- dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf
+
+      - name: Validate manifests, Figure 8 assets, and source immutability
+        env:
+          CANDIDATE_SHA: ${{ steps.candidate.outputs.sha }}
+          MAIN_SHA: ${{ steps.candidate.outputs.main_sha }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+
+          candidate = os.environ['CANDIDATE_SHA']
+          article_manifest = json.loads(Path('dist/pdf/thinking-systems-when-the-controlled-object-changes.manifest.json').read_text())
+          working_manifest = json.loads(Path('dist/pdf/uncertainty-architecture-thinking-systems-working-paper.manifest.json').read_text())
+          asset_manifest = json.loads(Path('dist/publication/thinking-systems/assets.manifest.json').read_text())
+
+          for label, manifest in [('article', article_manifest), ('working paper', working_manifest), ('assets', asset_manifest)]:
+              if manifest.get('source_state') != 'committed':
+                  raise SystemExit(f'{label} source state is not committed: {manifest.get("source_state")}')
+              if manifest.get('source_commit') != candidate:
+                  raise SystemExit(f'{label} source commit mismatch: {manifest.get("source_commit")} != {candidate}')
+              if manifest.get('source_git_blob_sha') != manifest.get('source_working_blob_sha'):
+                  raise SystemExit(f'{label} committed/working blob mismatch')
+
+          if article_manifest.get('figure_8_split_for_readability') is not True:
+              raise SystemExit('Article PDF did not require Figure 8A/8B rendition')
+          if asset_manifest.get('figure_8_split_for_readability') is not True:
+              raise SystemExit('Asset rendition did not require Figure 8A/8B')
+          ids = [figure['id'] for figure in asset_manifest.get('figures', [])]
+          if ids.count('08a') != 1 or ids.count('08b') != 1 or '08' in ids or len(ids) != len(set(ids)):
+              raise SystemExit(f'Invalid Figure 8 asset IDs: {ids}')
+
+          for path in [
+              'dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf',
+              'dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf',
+              'dist/publication/thinking-systems/cover-linkedin-article.png',
+              'dist/publication/thinking-systems/social-preview.png',
+              'dist/publication/thinking-systems/medium-hero.png',
+              'dist/publication/thinking-systems/figures/png/figure-08a.png',
+              'dist/publication/thinking-systems/figures/png/figure-08b.png',
+          ]:
+              if not Path(path).is_file() or Path(path).stat().st_size == 0:
+                  raise SystemExit(f'Missing or empty publication artifact: {path}')
+
+          for source in [
+              'content/research/notes/thinking-systems-publication-draft.md',
+              'content/research/notes/open-engineering-specification-article-draft.md',
+          ]:
+              subprocess.run(['git', 'diff', '--exit-code', os.environ['MAIN_SHA'], candidate, '--', source], check=True)
+          print('Exact candidate manifests, assets, and source immutability validated.')
+          PY
+
+      - name: Upload exact-candidate validation artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pr79-authoritative-validation
+          path: |
+            dist/pdf/*.pdf
+            dist/pdf/*.manifest.json
+            dist/pdf/visual/**
+            dist/publication/thinking-systems/**
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Restore validated clean candidate as PR head
+        env:
+          CANDIDATE_SHA: ${{ steps.candidate.outputs.sha }}
+        shell: bash
+        run: |
+          git push --force-with-lease origin "$CANDIDATE_SHA:refs/heads/feat/quartz-pdf-export"
