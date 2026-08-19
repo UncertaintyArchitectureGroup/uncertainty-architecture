@@ -1,0 +1,81 @@
+name: Temporary PR79 final arbiter
+
+on:
+  push:
+    branches:
+      - feat/quartz-pdf-export
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pr79-final-arbiter
+  cancel-in-progress: true
+
+jobs:
+  arbitrate:
+    if: github.event.head_commit.message == 'chore: arbitrate final PR79 candidate'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out exact branch candidate
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: feat/quartz-pdf-export
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Prepare clean candidate and record exact source commit
+        id: candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          for required in \
+            quartz/scripts/publication-path-safety.mjs \
+            quartz/scripts/publication-provenance.mjs \
+            quartz/scripts/publication-cover.mjs \
+            quartz/scripts/publication-figure8-fingerprint.mjs \
+            quartz/scripts/publication-safety.test.mjs; do
+            test -f "$required" || { echo "Missing reconstructed file: $required"; exit 1; }
+          done
+          rm -f .github/workflows/*pr79*.yml .github/workflows/*reconstruct*.yml .github/workflows/*finalize*.yml .github/workflows/*hardening*.yml
+          rm -f .github/scripts/*pr79* .github/scripts/*reconstruct* .github/scripts/*finalize* .github/scripts/*hardening*
+          rm -f .github/pr79*
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Run deterministic publication tests and Quartz build
+        shell: bash
+        run: |
+          node --test quartz/scripts/export-pdf.test.mjs quartz/scripts/publication-rendition.test.mjs quartz/scripts/publication-safety.test.mjs
+          npm run build
+          python3 .github/tests/repository_contract/test_repository_contract.py
+          python3 .github/scripts/validate_workflow_supply_chain.py
+      - name: Install Chromium and PDF inspection tools
+        shell: bash
+        run: |
+          ./node_modules/.bin/playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+      - name: Render and verify exact candidate
+        env:
+          UA_PDF_REPOSITORY_REF: ${{ steps.candidate.outputs.sha }}
+        shell: bash
+        run: |
+          npm run pdf:article
+          npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf
+          npm run publication:assets
+          npm run pdf:working-paper
+          npm run pdf:verify -- dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf
+      - name: Confirm research sources and squash final branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git diff --exit-code origin/main -- content/research/notes/thinking-systems-publication-draft.md
+          git diff --exit-code origin/main -- content/research/notes/open-engineering-specification-article-draft.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git reset --soft origin/main
+          git add -A
+          git commit -m "Add universal Quartz publication export infrastructure"
+          git push --force-with-lease origin HEAD:feat/quartz-pdf-export
