@@ -1,6 +1,9 @@
 name: Temporary build platform rendition PR
 
 on:
+  pull_request:
+    branches:
+      - feat/quartz-pdf-export
   push:
 
 permissions:
@@ -8,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/publishing/linkedin-medium-renditions' && github.event.head_commit.message == 'chore: trigger platform rendition PR build'
+    if: (github.event_name == 'pull_request' && github.head_ref == 'publishing/linkedin-medium-renditions') || (github.ref == 'refs/heads/publishing/linkedin-medium-renditions' && github.event.head_commit.message == 'chore: trigger platform rendition PR build')
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
