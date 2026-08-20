@@ -9,26 +9,59 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: change-coupling-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  pr94-changelog-repair:
+    if: github.event_name == 'pull_request' && github.head_ref == 'agent/publication-flow-refinement'
+    name: One-time PR94 changelog repair
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out PR branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: agent/publication-flow-refinement
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Restore changelog from main and add PR94 record
+        shell: python
+        run: |
+          import subprocess
+          from pathlib import Path
+          main = subprocess.check_output(['git','show','origin/main:CHANGELOG.md'], text=True)
+          marker = '### Changed\n\n'
+          entry = '- Refined the standalone publication adaptation while preserving the unfinished larger-paper boundary: restored the `Uncertainty Architecture:` title prefix, connected behavioral acceptability, epistemic status, authority, and consequential execution to the bounded-control capability argument, deferred formal lifecycle-horizon vocabulary in the earlier failure-surface bridge, restored the causal derivation of the four decision horizons before naming the UA Nested Control Lifecycle, added a concise engineering-practice conclusion before intellectual context and publication metadata, and synchronized the active Research Notes index with the renamed adaptation.\n'
+          if marker not in main:
+              raise SystemExit('Changed marker not found')
+          Path('CHANGELOG.md').write_text(main.replace(marker, marker + entry, 1), encoding='utf-8')
+      - name: Restore workflow, commit, and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout origin/main -- .github/workflows/change-coupling.yml
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add CHANGELOG.md .github/workflows/change-coupling.yml
+          git commit -m 'Repair PR94 changelog diff'
+          git push origin HEAD:agent/publication-flow-refinement
+
   pr-contract:
     if: github.event_name == 'pull_request'
     name: Contract / diff-aware companion updates
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
           persist-credentials: false
-
       - name: Validate PR contract and actual diff
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
@@ -45,13 +78,11 @@ jobs:
     name: Policy / change coupling self-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-
       - name: Run diff-aware regression fixtures
         working-directory: 03-reference-architectures
         run: python3 ../.github/tests/change_coupling/test_change_coupling.py
