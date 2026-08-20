@@ -1,0 +1,43 @@
+name: Temporary PR 95 source snapshot
+
+on:
+  push:
+    branches:
+      - publishing/thinking-systems-pdf-review
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    name: Temporary / publication source snapshot
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out review branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Upload publication source surfaces
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pr95-source-snapshot
+          path: |
+            content/research/notes/thinking-systems-publication-draft.md
+            quartz/scripts/publication-rendition.mjs
+            quartz/scripts/publication-figure8.mjs
+            quartz/scripts/publication-figure8-fingerprint.mjs
+            quartz/scripts/publication-rendition.test.mjs
+            quartz/scripts/publication-figure8.test.mjs
+            quartz/scripts/render-publication-pdf.mjs
+            quartz/scripts/verify-publication-pdf.mjs
+            quartz/styles/custom.scss
+            package.json
+            .github/policy/repository-contract-change-coupling.json
+            .github/tests/repository_contract/cases.json
+            .github/tests/repository_contract/test_repository_contract.py
+            CHANGELOG.md
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
