@@ -41,6 +41,8 @@ REQUIRED_CASE_NAMES: Set[str] = {
     "publication path safety helper deletion is rejected",
     "publication provenance helper deletion is rejected",
     "Figure 8 fingerprint helper deletion is rejected",
+    "Figure 3 publication helper deletion is rejected",
+    "Figure 3 side-by-side rendition marker deletion is rejected",
     "Figure 8 readability policy deletion is rejected",
     "Figure 8 desktop asset verifier deletion is rejected",
     "Figure 8 separate-page PDF verification deletion is rejected",

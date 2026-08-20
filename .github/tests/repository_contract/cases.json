@@ -363,6 +363,23 @@
         "text": "separate_pages"
       },
       "expected_error": "quartz/scripts/verify-publication-pdf.mjs: missing protected text 'separate_pages'"
+    },
+    {
+      "name": "Figure 3 publication helper deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "quartz/scripts/publication-figure3.mjs"
+      },
+      "expected_error": "Missing required file: quartz/scripts/publication-figure3.mjs"
+    },
+    {
+      "name": "Figure 3 side-by-side rendition marker deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "quartz/scripts/publication-figure3.mjs",
+        "text": "Consequential mapping authored before release"
+      },
+      "expected_error": "quartz/scripts/publication-figure3.mjs: missing protected text 'Consequential mapping authored before release'"
     }
   ]
 }

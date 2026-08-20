@@ -14,6 +14,10 @@ import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import {
+  assertFigure3SemanticSource,
+  buildFigure3ControlledObjectSvg,
+} from "./publication-figure3.mjs";
+import {
   assertFigure8SemanticSource,
   buildFigure8RenditionAssets,
 } from "./publication-figure8.mjs";
@@ -212,6 +216,57 @@ ${items}
 </section>`;
 }
 
+export function locateCanonicalFigure3(content) {
+  const blockPattern = /```mermaid\r?\n([\s\S]*?)\r?\n```/g;
+  let match;
+  while ((match = blockPattern.exec(content)) !== null) {
+    const mermaid = match[1];
+    if (
+      !mermaid.includes(
+        "Primarily explicitly authored consequential behavior",
+      ) ||
+      !mermaid.includes("Thinking System — changed responsibility structure")
+    ) {
+      continue;
+    }
+    const tail = content.slice(blockPattern.lastIndex);
+    const captionMatch =
+      /^\s*(?:<!--[\s\S]*?-->\s*)*(\*\*Figure 3 — The controlled-object shift\.\*\*[^\n]*)(?=\n\n|$)/.exec(
+        tail,
+      );
+    if (!captionMatch) return null;
+    const captionStart =
+      blockPattern.lastIndex +
+      captionMatch.index +
+      captionMatch[0].indexOf(captionMatch[1]);
+    return {
+      start: match.index,
+      end: captionStart + captionMatch[1].length,
+      mermaid,
+      caption: captionMatch[1],
+    };
+  }
+  return null;
+}
+
+export function renderFigure3(content) {
+  const located = locateCanonicalFigure3(content);
+  if (!located) return { content, rendered: false };
+  const { start, end, mermaid, caption } = located;
+  assertFigure3SemanticSource(mermaid);
+  const captionBody = caption
+    .replace(/^\*\*Figure 3 — The controlled-object shift\.\*\*\s*/, "")
+    .trim();
+  const rendered = `<section class="ua-pdf-static-figure ua-pdf-static-figure--3" data-ua-figure3-rendition="side-by-side">
+${buildFigure3ControlledObjectSvg()}
+<p><strong>Figure 3 — The controlled-object shift.</strong> ${escapeHtml(captionBody)}</p>
+</section>`;
+  return {
+    content: `${content.slice(0, start)}${rendered}${content.slice(end)}`,
+    rendered: true,
+  };
+}
+
 export function locateCanonicalFigure8(content) {
   const blockPattern = /```mermaid\r?\n([\s\S]*?)\r?\n```/g;
   let match;
@@ -292,6 +347,29 @@ export function extractFigureList(content) {
     });
   }
   return figures;
+}
+
+export function assertCurrentArticleFigure3Rendition(rendition) {
+  if (!rendition.figure3Rendition) {
+    throw new Error(
+      "Current Thinking Systems publication requires the reviewed side-by-side Figure 3 rendition.",
+    );
+  }
+  const canonicalThree = rendition.canonicalFigures.filter(
+    (figure) => figure.number === 3,
+  );
+  const renderedThree = rendition.renditionFigures.filter(
+    (figure) => figure.number === 3,
+  );
+  if (
+    canonicalThree.length !== 1 ||
+    renderedThree.length !== 1 ||
+    renderedThree[0].title !== "The controlled-object shift"
+  ) {
+    throw new Error(
+      "Current publication must preserve one canonical Figure 3 and one side-by-side publication rendition.",
+    );
+  }
 }
 
 export function assertCurrentArticleFigure8Rendition(rendition) {
@@ -385,9 +463,12 @@ export async function buildPublicationRendition(
     process.env.GITHUB_SHA ||
     (await gitOutput(["rev-parse", "HEAD"]));
   const sourceHash = sha256(Buffer.from(source.raw));
+  const figure3 = splitDenseFigures
+    ? renderFigure3(source.content)
+    : { content: source.content, rendered: false };
   const transformed = splitDenseFigures
-    ? splitFigure8(source.content)
-    : { content: source.content, split: false };
+    ? splitFigure8(figure3.content)
+    : { content: figure3.content, split: false };
   const titlePage = buildTitlePage({
     data: source.data,
     content: source.content,
@@ -408,11 +489,15 @@ export async function buildPublicationRendition(
     authors: resolvePublicationAuthors(source.data, source.relative),
     canonicalFigures: extractFigureList(source.content),
     renditionFigures: extractFigureList(transformed.content),
+    figure3Rendition: figure3.rendered,
     figure8Split: transformed.split,
     figure8Fingerprint: transformed.fingerprint,
     figure8Readability: transformed.readability,
   };
-  if (requireFigure8Split) assertCurrentArticleFigure8Rendition(result);
+  if (requireFigure8Split) {
+    assertCurrentArticleFigure3Rendition(result);
+    assertCurrentArticleFigure8Rendition(result);
+  }
   return result;
 }
 
