@@ -27,7 +27,7 @@ The documents are preserved as historical research evidence. Their original argu
 
 The current standalone publication adaptation, [*Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes*](../notes/thinking-systems-publication-draft.md), remains an unpublished research draft under `content/research/notes/`.
 
-This link exposes the active review surface without treating the draft as a preserved publication edition. After actual publication, the exact published content edition must be copied into this directory before feedback-driven substantive changes are made.
+This link exposes the active review surface without treating the draft as a preserved publication edition. During review, PDFs and platform images are generated as CI artifacts and are not preserved in this archive. After actual publication, the exact published content edition must be copied into this directory before feedback-driven substantive changes are made.
 
 ## Terminology migration
 
