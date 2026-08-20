@@ -97,8 +97,7 @@ Later publication work may add title pages, manifests, visual verification, or p
 
 `pdf:article` and `pdf:working-paper` use `render-publication-pdf.mjs` around the generic exporter. The wrapper adds:
 
-- a title page with the publication title, author, publication status, publication or edition date, version, CC BY 4.0 license, visible repository/canonical URLs, versioned source link, and the full immutable source commit SHA;
-- `Vitalii Oborskyi` as the curated author fallback for the standalone article and living working paper when their source metadata does not declare an author; an explicitly declared source author remains authoritative;
+- a title page with the publication title, declared author, publication status, publication or edition date, version, CC BY 4.0 license, visible repository/canonical URLs, versioned source link, and the full immutable source commit SHA;
 - page numbers and a short running footer on every page;
 - a clickable contents page when the preflight PDF exceeds 20 pages;
 - an adjacent machine-readable provenance manifest;
@@ -122,6 +121,14 @@ Versioned PDF builds are strict by default: the working-tree source bytes must m
 
 Generated PDF, manifest, and verification paths are anchored to the real repository root. Symlinked output roots or parents, aliases to canonical Markdown, and destinations outside `dist/pdf/` are rejected.
 
+## Figure presentation
+
+Publication pages retain a white background for print fidelity and predictable contrast. Diagram bodies use a restrained off-white panel with a thin neutral border so figures remain visually grouped without turning the paper into a slide deck.
+
+For the standalone article, canonical Figure 3 remains a single Mermaid comparison in Markdown, while the publication rendition presents the same meaning as two side-by-side panels: **Linear Software** on the left and **Thinking System** on the right. The transformation is guarded by semantic markers and does not edit the canonical article source.
+
+Figure 8A is re-authored for publication as three decision bands across **Organization**, **Project / Architecture**, **Delivery**, and **Runtime**, replacing the dense sequence-style presentation while preserving the canonical decision relationships. Figure 8B retains the capability-family and orthogonality view.
+
 ## Dense Figure 8
 
 The canonical article keeps **one logical Figure 8**. The PDF renderer does not lower the 5 pt Mermaid-label safety floor. For the standalone article it instead produces two presentation panels:
@@ -129,46 +136,9 @@ The canonical article keeps **one logical Figure 8**. The PDF renderer does not 
 - **Figure 8A — Decision-ownership model**;
 - **Figure 8B — Capability-family axis and orthogonality relationship**.
 
-Together Figures 8A–8B preserve the canonical Figure 8 semantics and full caption. The Markdown source is unchanged. Figure 8A occupies its own A4 landscape page; Figure 8B occupies its own following A4 page and carries the shared canonical-caption continuation note. The article fails closed unless the reviewed split produces exactly one 8A and one 8B, no unsplit Figure 8, and the expected fingerprint of the canonical Mermaid plus caption.
+Together Figures 8A–8B preserve the canonical Figure 8 semantics and full caption. The Markdown source is unchanged. The article fails closed unless the reviewed split produces exactly one 8A and one 8B, no unsplit Figure 8, and the expected fingerprint of the canonical Mermaid plus caption.
 
-The hard floor remains **5 pt**. The current measured panel geometry is also required to meet the preferred **6 pt** publication minimum, with 6–7 pt as the intended range for the densest panel. Desktop-image verification assumes a 1440 px no-zoom display width and requires an effective minimum label size of at least 12 px. Generate the reviewed SVG/PNG pair and machine-readable measurements with:
-
-```bash
-npm run pdf:verify:figure8
-```
-
-Outputs are written under `dist/pdf/visual/figure-8/` and included in the CI publication-validation artifact. For an unsplit dense diagram in the living working paper or generic publication export, the renderer may still use a dedicated A2 landscape foldout rather than reducing the floor.
-
-## Platform assets
-
-Generate all standalone-article figures and platform imagery with:
-
-```bash
-npm run publication:assets
-```
-
-The renderer reads the canonical standalone article and writes only under:
-
-```text
-dist/publication/thinking-systems/
-├── assets.manifest.json
-├── cover-linkedin-article.png
-├── social-preview.png
-├── medium-hero.png
-└── figures/
-    ├── svg/
-    └── png/
-```
-
-Every canonical Mermaid figure is exported as SVG for website/PDF reuse and as PNG for Medium or LinkedIn distribution. Standard figures are rendered at no less than **1600 px** wide; denser figures use **2400–3200 px**. Figure 8 is not reinterpreted: the renderer reuses the reviewed, fingerprint-coupled 8A/8B panel builders. At a declared 1600 px desktop display width, each Figure 8 panel must retain a projected minimum label size of at least 14 px, so the platform image does not depend on browser zoom.
-
-The generated platform sizes are:
-
-- `cover-linkedin-article.png` — **2000 × 600**;
-- `social-preview.png` — **1200 × 627**;
-- `medium-hero.png` — **1600 × 840**.
-
-`assets.manifest.json` records the canonical source path and digest, generated date, output checksums and dimensions, the figure-density classification, platform target sizes, and the Figure 8 semantic fingerprint/readability result. Canonical Markdown is hashed before and after rendering and must remain byte-identical.
+The hard floor remains **5 pt**; 6–7 pt or larger is the target where layout permits it. For an unsplit dense diagram in the living working paper or generic publication export, the renderer may use a dedicated A2 landscape foldout rather than reducing the floor.
 
 ## Visual verification
 
@@ -182,7 +152,7 @@ Publication verification uses `pdfinfo`, `pdffonts`, `pdftotext`, `pdftohtml`, a
 
 - compare the adjacent manifest with the actual PDF and canonical Markdown bytes;
 - require full source and PDF identities, page-count agreement, figure lists, and publication URL fields;
-- confirm the title page contains the resolved author, status, date/version, CC BY 4.0 license, visible URLs, and full source commit SHA;
+- confirm the title page contains the declared author, status, date/version, CC BY 4.0 license, visible URLs, and full source commit SHA;
 - verify the running footer and correct page counter on every page;
 - prove that a TOC required by the 20-page threshold exists and contains internal clickable links;
 - rasterize every page, reject likely blank/contentless pages, and create `visual-verification.json` plus a contact sheet under `dist/pdf/visual/<pdf-name>/`.
@@ -197,8 +167,8 @@ Same-page anchors remain PDF-local. Cross-document repository links become durab
 
 ## GitHub Actions
 
-Build Integrity runs PDF unit/regression tests and the ordinary draft-filtered Quartz build on every pull request. The Chromium/Poppler end-to-end render is path-aware for pull requests and runs when publication sources or PDF/Quartz rendering surfaces change. Pushes to `main` and manual Build Integrity runs execute the complete article and working-paper PDF path plus the standalone article platform-asset renderer.
+Build Integrity runs PDF unit/regression tests and the ordinary draft-filtered Quartz build on every pull request. The Chromium/Poppler end-to-end render is path-aware for pull requests and runs when publication sources or PDF/Quartz rendering surfaces change. Pushes to `main` and manual Build Integrity runs execute the complete article and working-paper PDF path.
 
-Run **Export research PDF** manually when a downloadable review artifact is needed. The workflow defaults to the standalone article, accepts the living working paper or another Markdown source under `content/`, performs visual verification, and uploads PDFs, manifests, contact sheets, and the complete `dist/publication/thinking-systems/` asset bundle for 14 days when the standalone article is selected.
+Run **Export research PDF** manually when a downloadable review artifact is needed. The workflow defaults to the standalone article, accepts the living working paper or another Markdown source under `content/`, performs visual verification, and uploads PDFs, manifests, and contact sheets for 14 days.
 
-The workflow does not deploy Quartz, publish a website, commit generated PDF or image binaries, or change research status. Permanent released artifacts should be attached to an explicit GitHub Release after the content edition is frozen.
+The workflow does not deploy Quartz, publish a website, commit generated PDF binaries, or change research status. Permanent released PDFs should be attached to an explicit GitHub Release after the content edition is frozen.
