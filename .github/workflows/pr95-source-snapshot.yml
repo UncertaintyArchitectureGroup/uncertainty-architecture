@@ -1,6 +1,7 @@
 name: Temporary PR 95 source snapshot
 
 on:
+  pull_request:
   push:
     branches:
       - publishing/thinking-systems-pdf-review
