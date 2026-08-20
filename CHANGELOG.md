@@ -89,6 +89,22 @@ Publications, talks, community discussions, and independent references belong un
 - Reworked Sensor guidance to include Constraint Realization state, violation evidence, false blocks, control health, and Actuator execution evidence.
 - Reworked Actuator guidance so Actuators change operation or Constraint Realizations within delegated authority rather than directly owning policy decisions.
 - Simplified the project and delivery patterns and templates to avoid repeating the same Constraint definition across scenarios, Judgment Nodes, DoR, DoD, Release Gate, and runtime sections.
+- Updated the Judgment Node Boundary card to reference delivery Constraint IDs instead of redefining Constraints locally.
+- Updated reference architectures so diagrams distinguish Constraints, realizations, Sensors, Controllers, and Actuators.
+- Updated the failure taxonomy to distinguish open-loop operation from closed-loop but unbounded operation.
+- Simplified the root README into a landing page that links to canonical doctrine instead of acting as a second specification.
+- Reworked `AGENTS.md` around an explicit SMB-first operating model, practical organization–architecture/project–delivery-team–runtime ownership, and a four-decision-level by four-capability-family review matrix while preserving role flexibility and rejecting unnecessary enterprise-governance artifacts.
+- Updated `SPECIFICATION.md` conformance to require accurate scoped Hard/Soft claims, explicit realization assumptions, reference conditions, decision authority, execution paths, and reassessment.
+- Updated the Nested Control Lifecycle so the project owns one Project Constraint Architecture, delivery owns one Constraint Realization Map, and lower levels inherit higher-level decisions by reference.
+- Updated the roadmap to reflect the reviewed four-family consolidation and its remaining validation work.
+- Corrected presentation provenance: the verified repository-review source is the maintainer-supplied PDF export; an editable PPTX is not preserved or independently verified.
+- Preserved the slide 12 brain/nerves/skeleton/muscles model as an explanatory metaphor while rejecting it as mandatory topology, execution order, or literal product taxonomy.
+- Adopted **Thinking Systems** as the current system-category term while preserving **Behavioral Software** and **Behavioral Applications** in historical sources and provenance records.
+- Clarified that UA complements rather than replaces Agile, DevOps, QA, security, change management, and incident response.
+- Established separate canonical ownership for project authorization, delivery readiness/completion/release, and runtime reassessment.
+- Replaced universal sample sizes, fixed thresholds, mandatory review cadences, and mandatory specialist titles with context-derived guidance.
+- Clarified that Golden Scenarios support regression and change detection rather than universal ground truth.
+- Clarified that telemetry or evaluation becomes control only when connected to reference conditions, decision authority, and an effective Actuator path.
 
 ### Fixed
 
