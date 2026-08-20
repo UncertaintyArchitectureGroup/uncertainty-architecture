@@ -79,14 +79,6 @@
       "type": "file"
     },
     {
-      "path": "quartz/scripts/publication-figure3.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-figure3.test.mjs",
-      "type": "file"
-    },
-    {
       "path": "quartz/scripts/publication-figure8.mjs",
       "type": "file"
     },
@@ -305,10 +297,7 @@
         "Figure 8A occupies its own A4 landscape page",
         "preferred **6 pt** publication minimum",
         "1440 px no-zoom display width",
-        "npm run pdf:verify:figure8",
-        "## Figure presentation",
-        "two side-by-side panels",
-        "restrained off-white panel"
+        "npm run pdf:verify:figure8"
       ]
     },
     {
@@ -460,10 +449,7 @@
         "ua-pdf-figure8-shared-caption",
         "figure8Fingerprint",
         "figure8Readability",
-        "canonicalFigure8Fingerprint",
-        "renderFigure3",
-        "assertCurrentArticleFigure3Rendition",
-        "figure3Rendition"
+        "canonicalFigure8Fingerprint"
       ]
     },
     {
@@ -475,11 +461,7 @@
         "desktopMinimumPx: 12",
         "assertFigure8PanelReadability",
         "assertFigure8RenditionSemantics",
-        "buildFigure8RenditionAssets",
-        "NORMAL AUTHORIZATION PATH",
-        "RESERVED OR CHANGED BASIS PATH",
-        "REASSESSMENT — EVIDENCE RETURNS TO THE OWNER OF THE DECISION BASIS IT CHALLENGES",
-        "Solid arrows carry authorization forward"
+        "buildFigure8RenditionAssets"
       ]
     },
     {
@@ -506,30 +488,7 @@
         ".ua-pdf-figure8-shared-caption",
         ".ua-pdf-static-figure--8a",
         ".ua-pdf-static-figure--8b",
-        "break-after: page",
-        "--ua-figure-panel",
-        "--ua-figure-border",
-        ".ua-pdf-static-figure--3"
-      ]
-    },
-    {
-      "path": "quartz/scripts/publication-figure3.mjs",
-      "required_text": [
-        "figure3SemanticMarkers",
-        "assertFigure3SemanticSource",
-        "buildFigure3ControlledObjectSvg",
-        "Linear Software",
-        "Thinking System",
-        "Consequential mapping authored before release",
-        "Part of the consequential mapping completed at runtime"
-      ]
-    },
-    {
-      "path": "quartz/scripts/publication-figure3.test.mjs",
-      "required_text": [
-        "Figure 3 publication rendition is a side-by-side Linear Software comparison",
-        "Figure 3 semantic guard rejects a materially incomplete source",
-        "current article Figure 3 acceptance preserves one canonical and one rendered figure"
+        "break-after: page"
       ]
     }
   ]
