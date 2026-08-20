@@ -9,62 +9,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: change-coupling-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  pr94-consistency-fix:
-    if: github.event_name == 'pull_request' && github.head_ref == 'agent/publication-flow-refinement'
-    name: One-time PR94 consistency fix
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - name: Check out PR branch
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: agent/publication-flow-refinement
-          fetch-depth: 0
-          persist-credentials: true
-
-      - name: Apply final consistency fixes
-        shell: python
-        run: |
-          from pathlib import Path
-
-          publication = Path('content/research/notes/thinking-systems-publication-draft.md')
-          text = publication.read_text(encoding='utf-8')
-          old = 'A Thinking System is not defined by agentic orchestration or by how autonomous it looks. It exists when probabilistic Model Judgment participates in a Consequential Runtime Responsibility.'
-          new = 'A Thinking System is not defined by agentic orchestration or by how autonomous it looks. It exists when one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment.'
-          if text.count(old) != 1:
-              raise SystemExit(f'publication category sentence: expected 1 match, got {text.count(old)}')
-          publication.write_text(text.replace(old, new, 1), encoding='utf-8')
-
-          notes = Path('content/research/notes/README.md')
-          n = notes.read_text(encoding='utf-8')
-          if 'updated: 2026-08-17' not in n:
-              raise SystemExit('notes README updated date not found')
-          n = n.replace('updated: 2026-08-17', 'updated: 2026-08-20', 1)
-          old_title = 'publication-facing adaptation titled *Thinking Systems: When the Controlled Object Changes*.'
-          new_title = 'publication-facing adaptation titled *Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes*.'
-          if n.count(old_title) != 1:
-              raise SystemExit(f'notes README title reference: expected 1 match, got {n.count(old_title)}')
-          notes.write_text(n.replace(old_title, new_title, 1), encoding='utf-8')
-
-      - name: Restore workflow, commit, and push
-        shell: bash
-        run: |
-          set -euo pipefail
-          git checkout origin/main -- .github/workflows/change-coupling.yml
-          git diff --check
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add content/research/notes/thinking-systems-publication-draft.md content/research/notes/README.md .github/workflows/change-coupling.yml
-          git commit -m 'Align publication category wording and research index'
-          git push origin HEAD:agent/publication-flow-refinement
-
   pr-contract:
     if: github.event_name == 'pull_request'
     name: Contract / diff-aware companion updates

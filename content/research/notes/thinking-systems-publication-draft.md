@@ -460,7 +460,7 @@ This is the engineering problem the larger **Uncertainty Architecture** research
 
 ## What Changes in Engineering Practice
 
-A Thinking System is not defined by agentic orchestration or by how autonomous it looks. It exists when probabilistic Model Judgment participates in a Consequential Runtime Responsibility. That changes what Delivery puts into operation: not only an implementation whose consequential decision structure is already determined through explicitly authored logic, but a system in which part of that structure will be completed through judgment at runtime.
+A Thinking System is not defined by agentic orchestration or by how autonomous it looks. It exists when one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment. That changes what Delivery puts into operation: not only an implementation whose consequential decision structure is already determined through explicitly authored logic, but a system in which part of that structure will be completed through judgment at runtime.
 
 The engineering response is therefore not to pretend that Model Judgment can be made deterministic. It is to bound the **whole system that turns judgment into consequences**. That requires approved Constraints and credible realizations, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and reassessment when runtime evidence invalidates the basis on which the system was designed, released, authorized, or allowed to continue.
 
