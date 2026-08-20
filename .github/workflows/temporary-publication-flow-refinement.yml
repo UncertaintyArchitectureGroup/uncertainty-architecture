@@ -1,0 +1,94 @@
+name: Temporary publication flow refinement
+
+on:
+  push:
+    branches:
+      - agent/publication-flow-refinement
+    paths:
+      - .github/workflows/temporary-publication-flow-refinement.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: agent/publication-flow-refinement
+          persist-credentials: true
+
+      - name: Refine publication argument flow
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('content/research/notes/thinking-systems-publication-draft.md')
+          text = path.read_text(encoding='utf-8')
+
+          def replace_once(old, new, label):
+              global text
+              n = text.count(old)
+              if n != 1:
+                  raise SystemExit(f'{label}: expected 1 match, got {n}')
+              text = text.replace(old, new, 1)
+
+          # Problem 1: keep the release-contract causal bridge here, but defer formal
+          # lifecycle names until Section 4 actually introduces the horizons.
+          replace_once(
+              "This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may call for a local Delivery correction, invalidate the Delivery release basis and require Delivery reassessment, invalidate Project / Architecture assumptions about the design or Operating Envelope, or require an Organizational change to authority or business basis.",
+              "This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may therefore require a local implementation correction, reassessment of the release basis, architectural redesign, or a change to the underlying authority or business premise. Section 4 formalizes these as distinct decision horizons rather than treating every negative case as the same kind of failure or escalation.",
+              'defer formal horizons'
+          )
+
+          # Problem 2: turn the three dimensions into the causal bridge to the four
+          # capability families rather than leaving them as an isolated taxonomy.
+          replace_once(
+              "What remains open is not necessarily the set of terminal actions, but the judgment-dependent mapping from situations and context to consequential behavior. In the LLM use cases that motivate this category, the space of possible situations, meanings, evidence, and relevant distinctions can be large and only partly characterized in advance even when downstream actions are tightly enumerated. Keep three questions separate: whether the resulting behavior is desired, accepted only within stated conditions or residual bounds, or prohibited; whether the case is sufficiently characterized or remains uncertain or unclassified; and whether execution or acceptance is within delegated authority or reserved for Human Authority. The complete distribution or decision boundary need not be known or measurable for this distinction to matter.",
+              "What remains open is not necessarily the set of terminal actions, but the judgment-dependent mapping from situations and context to consequential behavior. In the LLM use cases that motivate this category, the space of possible situations, meanings, evidence, and relevant distinctions can be large and only partly characterized in advance even when downstream actions are tightly enumerated. Keep three questions separate: whether the resulting behavior is desired, accepted only within stated conditions or residual bounds, or prohibited; whether the case is sufficiently characterized or remains uncertain or unclassified; and whether execution or acceptance is within delegated authority or reserved for Human Authority. The complete distribution or decision boundary need not be known or measurable for this distinction to matter. These are different control questions rather than one model-quality score: behavioral acceptability requires an approved boundary, epistemic uncertainty requires evidence fit for the decision, authority requires a legitimate decision path, and consequential execution requires a mechanism that can actually change or stop operation. Section 3 turns those needs into the four capability families of bounded control.",
+              'connect dimensions to capabilities'
+          )
+
+          # Problem 3: give the core argument an actual conclusion before provenance,
+          # publication-state, acknowledgments, and invitation-to-critique sections.
+          anchor = "## Intellectual Context and Claim Boundary\n"
+          if text.count(anchor) != 1:
+              raise SystemExit('conclusion anchor mismatch')
+          conclusion = """## What Changes in Engineering Practice
+
+A Thinking System is not defined by agentic orchestration or by how autonomous it looks. It exists when probabilistic Model Judgment participates in a Consequential Runtime Responsibility. That changes what Delivery puts into operation: not only an implementation whose consequential decision structure is already determined through explicitly authored logic, but a system in which part of that structure will be completed through judgment at runtime.
+
+The engineering response is therefore not to pretend that Model Judgment can be made deterministic. It is to bound the **whole system that turns judgment into consequences**. That requires approved Constraints and credible realizations, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and reassessment when runtime evidence invalidates the basis on which the system was designed, released, authorized, or allowed to continue.
+
+This is the practical consequence of the changed controlled object: **uncertainty in runtime judgment becomes an engineering concern only when it is connected to consequential responsibility, and control must follow that responsibility through the system to the authority and mechanisms capable of changing its effects.**
+
+"""
+          text = text.replace(anchor, conclusion + anchor, 1)
+
+          # Keep the user's publication-state framing unchanged: Sections 6-8 are
+          # unfinished and Section 5 is not assumed merged/published here.
+          path.write_text(text, encoding='utf-8')
+
+          # Changelog only records this publication-surface flow refinement.
+          cp = Path('CHANGELOG.md')
+          c = cp.read_text(encoding='utf-8')
+          marker = '### Changed\n\n'
+          if c.count(marker) < 1:
+              raise SystemExit('changelog marker missing')
+          entry = ('- Refined the standalone Thinking Systems publication flow without changing its research boundary: Section 2 now defers formal lifecycle-horizon names until they are introduced, connects behavioral acceptability, epistemic status, authority, and consequential execution directly to the bounded-control capability argument, and adds a concise engineering-practice conclusion before intellectual context and publication metadata.\n')
+          c = c.replace(marker, marker + entry, 1)
+          cp.write_text(c, encoding='utf-8')
+
+      - name: Commit refinement and remove temporary workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/temporary-publication-flow-refinement.yml
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add CHANGELOG.md content/research/notes/thinking-systems-publication-draft.md .github/workflows/temporary-publication-flow-refinement.yml
+          git commit -m 'Refine standalone Thinking Systems publication flow'
+          git push origin HEAD:agent/publication-flow-refinement
