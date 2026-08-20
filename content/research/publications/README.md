@@ -23,6 +23,12 @@ This directory contains normalized repository editions of publications that cont
 
 The documents are preserved as historical research evidence. Their original arguments, category names, and publication titles are not automatically current specification language.
 
+## Active publication adaptation under review
+
+The current standalone publication adaptation, [*Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes*](../notes/thinking-systems-publication-draft.md), remains an unpublished research draft under `content/research/notes/`.
+
+This link exposes the active review surface without treating the draft as a preserved publication edition. After actual publication, the exact published content edition must be copied into this directory before feedback-driven substantive changes are made.
+
 ## Terminology migration
 
 Current UA terminology uses **Thinking Systems** as defined in the [canonical glossary](../../../00-doctrine/glossary.md#thinking-system): software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. Control completeness is evaluated separately.
