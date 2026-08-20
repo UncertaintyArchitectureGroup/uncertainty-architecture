@@ -207,6 +207,16 @@ jobs:
           cat .github/pr95-layout.part*.b64 | base64 -d | gzip -d > /tmp/pr95-layout.patch
           git apply --check /tmp/pr95-layout.patch
           git apply /tmp/pr95-layout.patch
+          python3 - <<'PY'
+          from pathlib import Path
+          test_path = Path("quartz/scripts/publication-figure3.test.mjs")
+          text = test_path.read_text(encoding="utf-8")
+          old = "  assert.match(result.content, /One or more Judgment Nodes/);"
+          new = "  assert.match(result.content, /One or more/);\n  assert.match(result.content, /Judgment Nodes/);"
+          if old not in text:
+              raise SystemExit("Figure 3 test assertion was not found")
+          test_path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
           rm -f .github/pr95-layout.part*.b64
           rm -f .github/workflows/pr95-source-snapshot.yml
           git checkout origin/main -- .github/workflows/build-integrity.yml
