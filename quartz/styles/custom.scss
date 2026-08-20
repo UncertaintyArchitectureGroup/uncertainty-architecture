@@ -344,6 +344,8 @@
   }
 
   .ua-pdf-static-figure--8a > svg {
+    width: auto !important;
+    max-width: 100% !important;
     max-height: 155mm !important;
   }
 
