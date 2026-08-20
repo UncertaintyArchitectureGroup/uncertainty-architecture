@@ -1,9 +1,9 @@
 name: Temporary publication flow refinement
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/publication-flow-refinement
+      - main
     paths:
       - .github/workflows/temporary-publication-flow-refinement.yml
 
@@ -25,35 +25,72 @@ jobs:
         run: |
           from pathlib import Path
 
-          path = Path('content/research/notes/thinking-systems-publication-draft.md')
-          text = path.read_text(encoding='utf-8')
+          publication = Path('content/research/notes/thinking-systems-publication-draft.md')
+          text = publication.read_text(encoding='utf-8')
 
-          def replace_once(old, new, label):
+          def rep(old, new, label):
               global text
               n = text.count(old)
               if n != 1:
                   raise SystemExit(f'{label}: expected 1 match, got {n}')
               text = text.replace(old, new, 1)
 
-          # Problem 1: keep the release-contract causal bridge here, but defer formal
-          # lifecycle names until Section 4 actually introduces the horizons.
-          replace_once(
-              "This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may call for a local Delivery correction, invalidate the Delivery release basis and require Delivery reassessment, invalidate Project / Architecture assumptions about the design or Operating Envelope, or require an Organizational change to authority or business basis.",
-              "This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may therefore require a local implementation correction, reassessment of the release basis, architectural redesign, or a change to the underlying authority or business premise. Section 4 formalizes these as distinct decision horizons rather than treating every negative case as the same kind of failure or escalation.",
-              'defer formal horizons'
-          )
+          # Title: keep the public article visibly under the Uncertainty Architecture research track.
+          rep('title: "Thinking Systems: When the Controlled Object Changes"',
+              'title: "Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes"',
+              'frontmatter title')
+          rep('# Thinking Systems: When the Controlled Object Changes',
+              '# Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes',
+              'h1 title')
 
-          # Problem 2: turn the three dimensions into the causal bridge to the four
-          # capability families rather than leaving them as an isolated taxonomy.
-          replace_once(
+          # Problem 2 from prior review: make the three post-release-contract dimensions a bridge
+          # to the capability families rather than an isolated taxonomy.
+          rep(
               "What remains open is not necessarily the set of terminal actions, but the judgment-dependent mapping from situations and context to consequential behavior. In the LLM use cases that motivate this category, the space of possible situations, meanings, evidence, and relevant distinctions can be large and only partly characterized in advance even when downstream actions are tightly enumerated. Keep three questions separate: whether the resulting behavior is desired, accepted only within stated conditions or residual bounds, or prohibited; whether the case is sufficiently characterized or remains uncertain or unclassified; and whether execution or acceptance is within delegated authority or reserved for Human Authority. The complete distribution or decision boundary need not be known or measurable for this distinction to matter.",
               "What remains open is not necessarily the set of terminal actions, but the judgment-dependent mapping from situations and context to consequential behavior. In the LLM use cases that motivate this category, the space of possible situations, meanings, evidence, and relevant distinctions can be large and only partly characterized in advance even when downstream actions are tightly enumerated. Keep three questions separate: whether the resulting behavior is desired, accepted only within stated conditions or residual bounds, or prohibited; whether the case is sufficiently characterized or remains uncertain or unclassified; and whether execution or acceptance is within delegated authority or reserved for Human Authority. The complete distribution or decision boundary need not be known or measurable for this distinction to matter. These are different control questions rather than one model-quality score: behavioral acceptability requires an approved boundary, epistemic uncertainty requires evidence fit for the decision, authority requires a legitimate decision path, and consequential execution requires a mechanism that can actually change or stop operation. Section 3 turns those needs into the four capability families of bounded control.",
-              'connect dimensions to capabilities'
-          )
+              'dimensions bridge')
 
-          # Problem 3: give the core argument an actual conclusion before provenance,
-          # publication-state, acknowledgments, and invitation-to-critique sections.
-          anchor = "## Intellectual Context and Claim Boundary\n"
+          # Problem 1 from prior review: preserve the causal ladder in Section 2 but defer formal
+          # horizon vocabulary until Section 4 introduces the ownership model.
+          rep(
+              "This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may call for a local Delivery correction, invalidate the Delivery release basis and require Delivery reassessment, invalidate Project / Architecture assumptions about the design or Operating Envelope, or require an Organizational change to authority or business basis.",
+              "This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may therefore require a local implementation correction, reassessment of the release basis, architectural redesign, or a change to the underlying authority or business premise. Section 4 formalizes these as distinct decision horizons rather than treating every negative case as the same kind of failure or escalation.",
+              'defer horizons')
+
+          # Restore the causal derivation that the full manuscript already contains but the
+          # compressed publication adaptation lost. The framework is named only after the reader
+          # sees why the decision bases are irreducible.
+          old_section4 = """The capability anatomy tells us how a bounded control relationship can work. It still does not answer a second question: **where does each consequential decision legitimately belong, and how does evidence move between those decision owners without collapsing engineering analysis, business authorization, release, and runtime control into one generic “AI governance gate”?**
+
+The repository's current draft-normative **Nested Control Lifecycle** already establishes four connected decision levels, downward inheritance, local reassessment, Project Reauthorization, and Organizational review. In current draft-normative UA, **Project Authorization is the project-level decision surface for whether and under what conditions a proposed Thinking System may proceed within a defined boundary**. It assesses whether the Constraint and control architecture are sufficiently credible, operable, and viable; outcomes may include bounded research, constrained authorization, redesign, deferral, escalation, or No-Go. The long-form paper makes one additional lifecycle distinction explicit as a **research refinement under validation**: Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business and authority basis, and the engineering viability conclusion; Organization owns the business outcome and authoritative/investment basis plus the business decision to authorize specific bounded research when the proposed experiment crosses an Organizationally reserved boundary, proceed with a viable production initiative, reshape that basis, defer, or stop; and under that refinement **Project Authorization becomes the scoped technical authorization baseline that connects the applicable Organizational decision to Delivery**. The long-form paper further distinguishes research-only and production-capable Project Authorizations; those detailed authorization forms remain part of the same research refinement and are intentionally not expanded here. **That sharper Organization / Project split is the paper's research hypothesis, not yet status-bearing UA doctrine.**
+
+For this shorter article, the four horizons can remain compact:
+"""
+          new_section4 = """The capability anatomy tells us how a bounded control relationship can work. It still does not answer a second question: **where does each consequential decision legitimately belong, and how does evidence move between those decision owners without collapsing engineering analysis, business authorization, release, and runtime control into one generic “AI governance gate”?**
+
+The same Thinking System can require fundamentally different decisions around the same controlled object. Someone must decide whether the intended outcome, external exposure, and delegated authority are legitimate at all. Someone must decide whether Model Judgment is actually necessary and whether a credible bounded architecture exists. Someone must decide whether the concrete realization has enough evidence to be released for its authorized scope. And during operation, someone or something must decide whether the system remains inside that boundary and what corrective action is permitted now. These decisions concern one system, but they differ in evidence, authority, time horizon, and available action even when the same person or platform carries several of them.
+
+UA represents these distinct decision bases through four connected horizons: **Organization, Project / Architecture, Delivery, and Runtime**. The repository's current draft-normative **Nested Control Lifecycle** already establishes those four connected levels, downward inheritance, local reassessment, Project Reauthorization, and Organizational review. The long-form paper then makes one additional lifecycle distinction explicit as a **research refinement under validation**: Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business and authority basis, and the engineering viability conclusion; Organization owns the business outcome and authoritative/investment basis plus the business decision to authorize specific bounded research when the proposed experiment crosses an Organizationally reserved boundary, proceed with a viable production initiative, reshape that basis, defer, or stop; and under that refinement **Project Authorization becomes the scoped technical authorization baseline that connects the applicable Organizational decision to Delivery**. The long-form paper further distinguishes research-only and production-capable Project Authorizations; those detailed authorization forms remain part of the same research refinement and are intentionally not expanded here. **That sharper Organization / Project split is the paper's research hypothesis, not yet status-bearing UA doctrine.**
+
+The four horizons can therefore be read first as four irreducible questions:
+
+- **Organization:** Is the outcome, exposure, and delegated authority legitimate?
+- **Project / Architecture:** Is Model Judgment necessary, and is the bounded design technically and operationally viable?
+- **Delivery:** Is this concrete realization complete, sufficiently evidenced, and releasable within that basis?
+- **Runtime:** Does active operation remain inside the authorized boundary, and what correction is permitted now?
+
+The more detailed responsibilities used in this article remain:
+"""
+          rep(old_section4, new_section4, 'section4 derivation')
+
+          # Avoid duplicated compact list intro by replacing the existing list's first line with a
+          # transition that makes clear it is the detailed layer, not a second derivation.
+          rep('- **Organization** owns initial admissibility and assessment eligibility, authoritative boundaries, reserved decision rights, shared capabilities, exceptions, and business authority. Under the paper-level refinement, it also owns specific Bounded Research Authorization for research that crosses an Organizationally reserved boundary, Business Authorization for a viable production basis, changed-basis decisions, and initiative-level proceed, reshape, defer, or stop decisions.',
+              '- **Organization** owns initial admissibility and assessment eligibility, authoritative boundaries, reserved decision rights, shared capabilities, exceptions, and business authority. Under the paper-level refinement, it also owns specific Bounded Research Authorization for research that crosses an Organizationally reserved boundary, Business Authorization for a viable production basis, changed-basis decisions, and initiative-level proceed, reshape, defer, or stop decisions.',
+              'organization list presence')
+
+          # Problem 3: add an actual conclusion to the core argument before context/provenance.
+          anchor = '## Intellectual Context and Claim Boundary\n'
           if text.count(anchor) != 1:
               raise SystemExit('conclusion anchor mismatch')
           conclusion = """## What Changes in Engineering Practice
@@ -62,23 +99,34 @@ A Thinking System is not defined by agentic orchestration or by how autonomous i
 
 The engineering response is therefore not to pretend that Model Judgment can be made deterministic. It is to bound the **whole system that turns judgment into consequences**. That requires approved Constraints and credible realizations, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and reassessment when runtime evidence invalidates the basis on which the system was designed, released, authorized, or allowed to continue.
 
-This is the practical consequence of the changed controlled object: **uncertainty in runtime judgment becomes an engineering concern only when it is connected to consequential responsibility, and control must follow that responsibility through the system to the authority and mechanisms capable of changing its effects.**
+This is the practical consequence of the changed controlled object: **uncertainty in runtime judgment becomes an engineering concern when it participates in consequential responsibility, and control must follow that responsibility through the system to the authority and mechanisms capable of changing its effects.**
 
 """
           text = text.replace(anchor, conclusion + anchor, 1)
+          publication.write_text(text, encoding='utf-8')
 
-          # Keep the user's publication-state framing unchanged: Sections 6-8 are
-          # unfinished and Section 5 is not assumed merged/published here.
-          path.write_text(text, encoding='utf-8')
+          # Blueprint: preserve the manuscript's existing good derivation as an editorial invariant
+          # so future publication compression cannot jump straight from the question to "UA says four".
+          bp = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          b = bp.read_text(encoding='utf-8')
+          marker = '## 4. Four Decision Levels for Thinking Systems\n'
+          if b.count(marker) != 1:
+              raise SystemExit('blueprint section4 marker mismatch')
+          invariant = """## 4. Four Decision Levels for Thinking Systems
 
-          # Changelog only records this publication-surface flow refinement.
+> **Editorial invariant for manuscript and publication adaptations:** derive the need for separate decision horizons before appealing to the UA lifecycle as authority. The derivation must start from distinct decision bases around one controlled object: legitimacy of outcome/exposure/authority; Model-Judgment necessity and bounded-design viability; concrete realization/evidence/release; and active runtime operation/correction. Only after those distinctions are established should the text identify **Organization, Project / Architecture, Delivery, and Runtime** as UA's framework representation of them. Compression must not remove this causal bridge.
+"""
+          b = b.replace(marker, invariant, 1)
+          bp.write_text(b, encoding='utf-8')
+
+          # Changelog records the publication-flow and blueprint editorial-invariant refinement.
           cp = Path('CHANGELOG.md')
           c = cp.read_text(encoding='utf-8')
-          marker = '### Changed\n\n'
-          if c.count(marker) < 1:
+          cm = '### Changed\n\n'
+          if c.count(cm) < 1:
               raise SystemExit('changelog marker missing')
-          entry = ('- Refined the standalone Thinking Systems publication flow without changing its research boundary: Section 2 now defers formal lifecycle-horizon names until they are introduced, connects behavioral acceptability, epistemic status, authority, and consequential execution directly to the bounded-control capability argument, and adds a concise engineering-practice conclusion before intellectual context and publication metadata.\n')
-          c = c.replace(marker, marker + entry, 1)
+          entry = ('- Refined the standalone Thinking Systems publication flow while preserving the larger-paper boundary: restored the causal derivation of the four decision horizons before naming the UA lifecycle, connected acceptability/epistemic-status/authority/execution questions to the bounded-control capability families, deferred formal lifecycle vocabulary in the earlier failure-surface bridge, added a concise engineering-practice conclusion, restored the `Uncertainty Architecture:` publication title prefix, and recorded the horizon-derivation rule as a blueprint editorial invariant.\n')
+          c = c.replace(cm, cm + entry, 1)
           cp.write_text(c, encoding='utf-8')
 
       - name: Commit refinement and remove temporary workflow
@@ -89,6 +137,6 @@ This is the practical consequence of the changed controlled object: **uncertaint
           git diff --check
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add CHANGELOG.md content/research/notes/thinking-systems-publication-draft.md .github/workflows/temporary-publication-flow-refinement.yml
-          git commit -m 'Refine standalone Thinking Systems publication flow'
+          git add CHANGELOG.md content/research/notes/thinking-systems-publication-draft.md content/research/notes/open-engineering-specification-article-blueprint.md .github/workflows/temporary-publication-flow-refinement.yml
+          git commit -m 'Refine publication horizon derivation and conclusion'
           git push origin HEAD:agent/publication-flow-refinement
