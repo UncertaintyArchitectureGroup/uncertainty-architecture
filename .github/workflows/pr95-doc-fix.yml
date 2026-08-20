@@ -1,6 +1,7 @@
 name: Temporary PR 95 documentation repair
 
 on:
+  pull_request:
   push:
     branches:
       - publishing/thinking-systems-pdf-review
