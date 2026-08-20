@@ -216,4 +216,302 @@ ${items}
 </section>`;
 }
 
-export function locateCanonicalFigur²È="25•ÑÕÉ¸MÑÉ¥¹œ¡ÍÙœ¤¹É•Á±…” ½q¹lqÑt©q¸½œ°€‰q¸ˆ¤ì)ô()•áÁ½ÉĞ™Õ¹Ñ¥½¸ÍÁ±¥Ñ¥ÕÉ”à¡½¹Ñ•¹Ğ°ìÙ•É¥™å¥¹•ÉÁÉ¥¹Ğ€ôÑÉÕ”ô€ôíô¤ì(€½¹ÍĞ±½…Ñ•€ô±½…Ñ•…¹½¹¥…±¥ÕÉ”à¡½¹Ñ•¹Ğ¤ì(€¥˜€ …±½…Ñ•¤ì(€€€É•ÑÕÉ¸ì(€€€€€½¹Ñ•¹Ğ°(€€€€€ÍÁ±¥Ğè™…±Í”°(€€€€€™¥¹•ÉÁÉ¥¹Ğè¹Õ±°°(€€€€€É•…‘…‰¥±¥Ñäè¹Õ±°°(€€€ôì(€ô(€½¹ÍĞìÍÑ…ÉĞ°•¹°µ•Éµ…¥°…ÁÑ¥½¸ô€ô±½…Ñ•ì(€…ÍÍ•ÉÑ¥ÕÉ”áM•µ…¹Ñ¥M½ÕÉ”¡µ•Éµ…¥¤ì(€½¹ÍĞ™¥¹•ÉÁÉ¥¹Ğ€ôÙ•É¥™å¥¹•ÉÁÉ¥¹Ğ(€€€€ü…ÍÍ•ÉÑ…¹½¹¥…±¥ÕÉ”á¥¹•ÉÁÉ¥¹Ğ¡µ•Éµ…¥°…ÁÑ¥½¸¤(€€€€è¹Õ±°ì(€½¹ÍĞ…ÍÍ•ÑÌ€ô‰Õ¥±‘¥ÕÉ”áI•¹‘¥Ñ¥½¹ÍÍ•ÑÌ ¤ì((€½¹ÍĞ…¹½¹¥…±…ÁÑ¥½¸€ô…ÁÑ¥½¸(€€€€¹É•Á±…” ½yp©p©¥ÕÉ”€àƒŠQqÌ¨¼°€ˆˆ¤(€€€€¹É•Á±…” ½p©p¨¼°€ˆˆ¤(€€€€¹ÑÉ¥´ ¤ì(€½¹ÍĞÁ…¹•±€ô€ñÍ•Ñ¥½¸±…ÍÌô‰Õ„µÁ‘˜µÍÑ…Ñ¥Œµ™¥ÕÉ”Õ„µÁ‘˜µÍÑ…Ñ¥Œµ™¥ÕÉ”´´á„ˆ‘…Ñ„µÕ„µ™¥ÕÉ”àµÁ…¹•°ô‰ˆø(‘í½µÁ…Ñ%¹±¥¹•MÙœ¡…ÍÍ•ÑÌ¹‘•¥Í¥½¸¹ÍÙœ¥ô(ñÀøñÍÑÉ½¹œù¥ÕÉ”€áƒŠP•¥Í¥½¸µ½İ¹•ÉÍ¡¥Àµ½‘•°¸ğ½ÍÑÉ½¹œøAÕ‰±¥…Ñ¥½¸É•¹‘¥Ñ¥½¸½˜…¹½¹¥…°¥ÕÉ”€àì½¹Ñ¥¹Õ”İ¥Ñ ¥ÕÉ”€á¸ğ½Àø(ğ½Í•Ñ¥½¸ù€ì(€½¹ÍĞÁ…¹•±€ô€ñÍ•Ñ¥½¸±…ÍÌô‰Õ„µÁ‘˜µÍÑ…Ñ¥Œµ™¥ÕÉ”Õ„µÁ‘˜µÍÑ…Ñ¥Œµ™¥ÕÉ”´´áˆˆ‘…Ñ„µÕ„µ™¥ÕÉ”àµÁ…¹•°ô‰ˆø(‘í½µÁ…Ñ%¹±¥¹•MÙœ¡…ÍÍ•ÑÌ¹…Á…‰¥±¥Ñä¹ÍÙœ¥ô(ñÀøñÍÑÉ½¹œù¥ÕÉ”€áƒŠP…Á…‰¥±¥Ñäµ™…µ¥±ä…á¥Ì…¹½ÉÑ¡½½¹…±¥ÑäÉ•±…Ñ¥½¹Í¡¥À¸ğ½ÍÑÉ½¹œøAÕ‰±¥…Ñ¥½¸É•¹‘¥Ñ¥½¸½˜…¹½¹¥…°¥ÕÉ”€à¸ğ½Àø(ñÀ±…ÍÌô‰Õ„µÁ‘˜µ™¥ÕÉ”àµÍ¡…É•µ…ÁÑ¥½¸ˆøñÍÑÉ½¹œùQ½•Ñ¡•È°¥ÕÉ•Ì€áŠLáÁÉ•Í•ÉÙ”…¹½¹¥…°¥ÕÉ”€à¸ğ½ÍÑÉ½¹œø€‘í•Í…Á•!Ñµ°¡…¹½¹¥…±…ÁÑ¥½¸¥ôğ½Àø(ğ½Í•Ñ¥½¸ù€ì(€É•ÑÕÉ¸ì(€€€½¹Ñ•¹Ğè€‘í½¹Ñ•¹Ğ¹Í±¥” À°ÍÑ…ÉĞ¥ô‘íÁ…¹•±õq¹q¸‘íÁ…¹•±	ô‘í½¹Ñ•¹Ğ¹Í±¥”¡•¹¥õ€°(€€€ÍÁ±¥ĞèÑÉÕ”°(€€€™¥¹•ÉÁÉ¥¹Ğ°(€€€É•…‘…‰¥±¥Ñäè…ÍÍ•ÑÌ¹É•…‘…‰¥±¥Ñä°(€ôì)ô()•áÁ½ÉĞ™Õ¹Ñ¥½¸•áÑÉ…Ñ¥ÕÉ•1¥ÍĞ¡½¹Ñ•¹Ğ¤ì(€½¹ÍĞ™¥ÕÉ•Ì€ômtì(€½¹ÍĞÉ••à€ô(€€€€¼ üép©p©ğñÍÑÉ½¹œø¥¥ÕÉ•qÌ¬¡q¬¤¡m	t¤ıqÌ¯ŠQqÌ¬¡mx¨ñq¹t¬ü¤ üép¹p©p©ñp¸ñp½ÍÑÉ½¹œø¤½œì(€±•Ğµ…Ñ ì(€İ¡¥±”€ ¡µ…Ñ €ôÉ••à¹•á•Œ¡½¹Ñ•¹Ğ¤¤€„ôô¹Õ±°¤ì(€€€™¥ÕÉ•Ì¹ÁÕÍ ¡ì(€€€€€¹Õµ‰•Èè9Õµ‰•È¡µ…Ñ¡lÅt¤°(€€€€€Á…¹•°èµ…Ñ¡lÉtñğ¹Õ±°°(€€€€€Ñ¥Ñ±”èµ…Ñ¡lÍt¹ÑÉ¥´ ¤°(€€€ô¤ì(€ô(€É•ÑÕÉ¸™¥ÕÉ•Ìì)ô()•áÁ½ÉĞ™Õ¹Ñ¥½¸…ÍÍ•ÉÑÕÉÉ•¹ÑÉÑ¥±•¥ÕÉ”ÍI•¹‘¥Ñ¥½¸¡É•¹‘¥Ñ¥½¸¤ì(€¥˜€ …É•¹‘¥Ñ¥½¸¹™¥ÕÉ”ÍI•¹‘¥Ñ¥½¸¤ì(€€€Ñ¡É½Ü¹•ÜÉÉ½È (€€€€€€‰ÕÉÉ•¹ĞQ¡¥¹­¥¹œMåÍÑ•µÌÁÕ‰±¥…Ñ¥½¸É•ÅÕ¥É•ÌÑ¡”É•Ù¥•İ•Í¥‘”µ‰äµÍ¥‘”¥ÕÉ”€ÌÉ•¹‘¥Ñ¥½¸¸ˆ°(€€€€¤ì(€ô(€½¹ÍĞ…¹½¹¥…±Q¡É•”€ôÉ•¹‘¥Ñ¥½¸¹…¹½¹¥…±¥ÕÉ•Ì¹™¥±Ñ•È (€€€€¡™¥ÕÉ”¤€ôø™¥ÕÉ”¹¹Õµ‰•È€ôôô€Ì°(€€¤ì(€½¹ÍĞÉ•¹‘•É•‘Q¡É•”€ôÉ•¹‘¥Ñ¥½¸¹É•¹‘¥Ñ¥½¹¥ÕÉ•Ì¹™¥±Ñ•È (€€€€¡™¥ÕÉ”¤€ôø™¥ÕÉ”¹¹Õµ‰•È€ôôô€Ì°(€€¤ì(€¥˜€ (€€€…¹½¹¥…±Q¡É•”¹±•¹Ñ €„ôô€Äñğ(€€€É•¹‘•É•‘Q¡É•”¹±•¹Ñ €„ôô€Äñğ(€€€É•¹‘•É•‘Q¡É••lÁt¹Ñ¥Ñ±”€„ôô€‰Q¡”½¹ÑÉ½±±•µ½‰©•ĞÍ¡¥™Ğˆ(€€¤ì(€€€Ñ¡É½Ü¹•ÜÉÉ½È (€€€€€€‰ÕÉÉ•¹ĞÁÕ‰±¥…Ñ¥½¸µÕÍĞÁÉ•Í•ÉÙ”½¹”…¹½¹¥…°¥ÕÉ”€Ì…¹½¹”Í¥‘”µ‰äµÍ¥‘”ÁÕ‰±¥…Ñ¥½¸É•¹‘¥Ñ¥½¸¸ˆ°(€€€€¤ì(€ô)ô()•áÁ½ÉĞ™Õ¹Ñ¥½¸…ÍÍ•ÉÑÕÉÉ•¹ÑÉÑ¥±•¥ÕÉ”áI•¹‘¥Ñ¥½¸¡É•¹‘¥Ñ¥½¸¤ì(€¥˜€ …É•¹‘¥Ñ¥½¸¹™¥ÕÉ”áMÁ±¥Ğ¤ì(€€€Ñ¡É½Ü¹•ÜÉÉ½È (€€€€€€‰ÕÉÉ•¹ĞQ¡¥¹­¥¹œMåÍÑ•µÌÁÕ‰±¥…Ñ¥½¸É•ÅÕ¥É•ÌÑ¡”É•Ù¥•İ•¥ÕÉ”€á¼áÉ•¹‘¥Ñ¥½¸°‰ÕĞ…¹½¹¥…°¥ÕÉ”€àİ…Ì¹½ĞÉ•½¹¥é•¸ˆ°(€€€¤ì(€ô(€½¹ÍĞ…¹½¹¥…±¥¡Ğ€ôÉ•¹‘¥Ñ¥½¸¹…¹½¹¥…±¥ÕÉ•Ì¹™¥±Ñ•È (€€€€¡™¥ÕÉ”¤€ôø™¥ÕÉ”¹¹Õµ‰•È€ôôô€à°(€€¤ì(€½¹ÍĞÉ•¹‘•É•‘¥¡Ğ€ôÉ•¹‘¥Ñ¥½¸¹É•¹‘¥Ñ¥½¹¥ÕÉ•Ì¹™¥±Ñ•È (€€€€¡™¥ÕÉ”¤€ôø™¥ÕÉ”¹¹Õµ‰•È€ôôô€à°(€€¤ì(€½¹ÍĞÁ…¹•±Ì€ôÉ•¹‘•É•‘¥¡Ğ¹µ…À ¡™¥ÕÉ”¤€ôø™¥ÕÉ”¹Á…¹•°¤¹Í½ÉĞ ¤ì(€¥˜€ (€€€…¹½¹¥…±¥¡Ğ¹±•¹Ñ €„ôô€Äñğ(€€€…¹½¹¥…±¥¡ÑlÁt¹Á…¹•°€„ôô¹Õ±°ñğ(€€€É•¹‘•É•‘¥¡Ğ¹±•¹Ñ €„ôô€Èñğ(€€€Á…¹•±ÍlÁt€„ôô€‰ˆñğ(€€€Á…¹•±ÍlÅt€„ôô€‰ˆ(€€¤ì(€€€Ñ¡É½Ü¹•ÜÉÉ½È (€€€€€€‰ÕÉÉ•¹ĞÁÕ‰±¥…Ñ¥½¸µÕÍĞ½¹Ñ…¥¸•á…Ñ±ä½¹”…¹½¹¥…°¥ÕÉ”€à…¹•á…Ñ±ä½¹”É•Ù¥•İ•¥ÕÉ”€áÁ±ÕÌ½¹”¥ÕÉ”€áÉ•¹‘¥Ñ¥½¸¸ˆ°(€€€€¤ì(€ô(€¥˜€¡É•¹‘¥Ñ¥½¸¹™¥ÕÉ”á¥¹•ÉÁÉ¥¹Ğ€„ôô…¹½¹¥…±¥ÕÉ”á¥¹•ÉÁÉ¥¹Ğ¤ì(€€€Ñ¡É½Ü¹•ÜÉÉ½È (€€€€€€‰ÕÉÉ•¹ĞÁÕ‰±¥…Ñ¥½¸¥ÕÉ”€á¼á¥Ì¹½Ğ½ÕÁ±•Ñ¼Ñ¡”É•Ù¥•İ•…¹½¹¥…°¥ÕÉ”€à™¥¹•ÉÁÉ¥¹Ğ¸ˆ°(€€€€¤ì(€ô(€½¹ÍĞÉ•…‘…‰¥±¥Ñä€ôÉ•¹‘¥Ñ¥½¸¹™¥ÕÉ”áI•…‘…‰¥±¥Ñäì(€¥˜€ …É•…‘…‰¥±¥Ñäñğ€…É•…‘…‰¥±¥Ñä¹Á…¹•±Ìü¹ñğ€…É•…‘…‰¥±¥Ñä¹Á…¹•±Ìü¹¤ì(€€€Ñ¡É½Ü¹•ÜÉÉ½È (€€€€€€‰ÕÉÉ•¹ĞÁÕ‰±¥…Ñ¥½¸¥ÕÉ”€àÉ•…‘…‰¥±¥Ñä•Ù¥‘•¹”¥Ìµ¥ÍÍ¥¹œˆ°(€€€€¤ì(€ô(€™½È€¡½¹ÍĞÁ…¹•°½˜l‰ˆ°€‰‰t¤ì(€€€½¹ÍĞÉ•ÍÕ±Ğ€ôÉ•…‘…‰¥±¥Ñä¹Á…¹•±ÍmÁ…¹•±tì(€€€¥˜€ (€€€€€€…É•ÍÕ±Ğ¹Á‘™}¡…É‘}™±½½É}µ•Ğñğ(€€€€€€…É•ÍÕ±Ğ¹Á‘™}ÁÉ•™•ÉÉ•‘}Ñ…É•Ñ}µ•ÒÇÀ¢&W7VÇBæFW6·F÷÷&VF&ÆP¢’°¢F‡&÷ræWrW'&÷"€¢7W'&VçBV&Æ–6F–öâf–wW&R‚G·æVÇÒFöW2æ÷BÖVWBDbæBFW6·F÷&VF&–Æ—G’66WFæ6VÀ¢“°¢Ğ¢Ğ§Ğ ¦W‡÷'B7–æ2gVæ7F–öâÆöEV&Æ–6F–öå6÷W&6R‡6÷W&6UF‚’°¢6öç7B&WVW7FVBÒF‚ç&W6öÇfR‡&Wõ&ö÷BÂ6÷W&6UF‚“°¢–b‡F‚æW‡FæÖR‡&WVW7FVB’çFôÆ÷vW$66R‚’ÓÒ"æÖB"’°¢F‡&÷ræWrW'&÷"‚%V&Æ–6F–öâ6÷W&6R×W7B†fRæÖBW‡FVç6–öâ"“°¢Ğ¢6öç7B'6öÇWFRÒv—B&VÇF‚‡&WVW7FVB“°¢–b‚—4–ç6–FR†6öçFVçE&ö÷BÂ'6öÇWFR’’°¢F‡&÷ræWrW'&÷"€¢%V&Æ–6F–öâ6÷W&6R×W7B&RÖ&¶F÷vâf–ÆRVæFW"6öçFVçBò"À¢“°¢Ğ¢–b‚†v—B7FB†'6öÇWFR’’æ—4f–ÆR‚’’°¢F‡&÷ræWrW'&÷"‚%V&Æ–6F–öâ6÷W&6R×W7B&R&VwVÆ"Ö&¶F÷vâf–ÆR"“°¢Ğ¢6öç7B&rÒv—B&VDf–ÆR†'6öÇWFRÂ'WFc‚"“°¢6öç7B'6VBÒÖGFW"‡&r“°¢&WGW&â°¢'6öÇWFRÀ¢&VÆF—fS¢F‚ç&VÆF—fR‡&Wõ&ö÷BÂ'6öÇWFR’ç7Æ—B‡F‚ç6W’æ¦ö–â‚"ò"’À¢&rÀ¢FF¢'6VBæFFÀ¢6öçFVçC¢'6VBæ6öçFVçBÀ¢Ó°§Ğ ¦W‡÷'B7–æ2gVæ7F–öâ'V–ÆEV&Æ–6F–öå&VæF—F–öâ€¢6÷W&6RÀ¢°¢–æ6ÇVFUFö2ÒfÇ6RÀ¢7Æ—DFVç6Tf–wW&W2ÒG'VRÀ¢6÷W&6T6öÖÖ—C¢W‡Æ–6—E6÷W&6T6öÖÖ—BÀ¢&÷fVææ6RÀ¢&WV—&Tf–wW&S…7Æ—BÒfÇ6RÀ¢ÒÒ·ÒÀ¢’°¢6öç7B&W÷6—F÷'’Ò&ö6W72æVçbät•D…T%õ$Uõ4•Dõ%’ÇÂFVfVÇE&W÷6—F÷'“°¢6öç7B6÷W&6T6öÖÖ—BĞ¢W‡Æ–6—E6÷W&6T6öÖÖ—BÇÀ¢&ö6W72æVçbåTõDeõ$Uõ4•Dõ%•õ$TbÇÀ¢&ö6W72æVçbät•D…T%õ4„ÇÀ¢†v—Bv—D÷WGWB…²'&Wb×'6R"Â$„TB%Ò’“°¢6öç7B6÷W&6T†6‚Ò6†#Sb„'VffW"æg&öÒ‡6÷W&6Rç&r’“°¢6öç7Bf–wW&S2Ò7Æ—DFVç6Tf–wW&W0¢ò&VæFW$f–wW&S2‡6÷W&6Ræ6öçFVçB¢¢²6öçFVçC¢6÷W&6Ræ6öçFVçBÂ&VæFW&VC¢fÇ6RÓ°¢6öç7BG&ç6f÷&ÖVBÒ7Æ—DFVç6Tf–wW&W2(€€€€üÍÁ±¥Ñ¥ÕÉ”à¡™¥ÕÉ”Ì¹½¹Ñ•¹Ğ¤(€€€€èì½¹Ñ•¹Ğè™¥ÕÉ”Ì¹½¹Ñ•¹Ğ°ÍÁ±¥Ğè™…±Í”ôì(€½¹ÍĞÑ¥Ñ±•A…”€ô‰Õ¥±‘Q¥Ñ±•A…”¡ì(€€€‘…Ñ„èÍ½ÕÉ”¹‘…Ñ„°(€€€½¹Ñ•¹ĞèÍ½ÕÉ”¹½¹Ñ•¹Ğ°(€€€Í½ÕÉ•I•±…Ñ¥Ù”èÍ½ÕÉ”¹É•±…Ñ¥Ù”°(€€€Í½ÕÉ•½µµ¥Ğ°(€€€É•Á½Í¥Ñ½Éä°(€€€ÁÉ½Ù•¹…¹”°(€ô¤ì(€½¹ÍĞÑ½Œ€ô¥¹±Õ‘•Q½Œ€ü‰Õ¥±‘Q½Œ¡ÑÉ…¹Í™½Éµ•¹½¹Ñ•¹Ğ¤€è€ˆˆì(€½¹ÍĞ‰½‘ä€ômÑ¥Ñ±•A…”°Ñ½Œ°ÑÉ…¹Í™½Éµ•¹½¹Ñ•¹Ñt(€€€€¹™¥±Ñ•È¡	½½±•…¸¤(€€€€¹©½¥¸ ‰q¹q¸ˆ¤ì(€½¹ÍĞÉ•¹‘•É•€ôµ…ÑÑ•È¹ÍÑÉ¥¹¥™ä¡‰½‘ä°ì€¸¸¹Í½ÕÉ”¹‘…Ñ„°‘É…™ĞèÑÉÕ”ô¤ì(€½¹ÍĞÉ•ÍÕ±Ğ€ôì(€€€É•¹‘•É•°(€€€Í½ÕÉ•½µµ¥Ğ°(€€€Í½ÕÉ•!…Í °(€€€…ÕÑ¡½ÉÌèÉ•Í½±Ù•AÕ‰±¥…Ñ¥½¹ÕÑ¡½ÉÌ¡Í½ÕÉ”¹‘…Ñ„°Í½ÕÉ”¹É•±…Ñ¥Ù”¤°(€€€…¹½¹¥…±¥ÕÉ•Ìè•áÑÉ…Ñ¥ÕÉ•1¥ÍĞ¡Í½ÕÉ”¹½¹Ñ•¹Ğ¤°(€€€É•¹‘¥Ñ¥½¹¥ÕÉ•Ìè•áÑÉ…Ñ¥ÕÉ•1¥ÍĞ¡ÑÉ…¹Í™½Éµ•¹½¹Ñ•¹Ğ¤°(€€€™¥ÕÉ”ÍI•¹‘¥Ñ¥½¸è™¥ÕÉ”Ì¹É•¹‘•É•°(€€€™¥ÕÉ”áMÁ±¥ĞèÑÉ…¹Í™½Éµ•¹ÍÁ±¥Ğ°(€€€™¥ÕÉ”á¥¹•ÉÁÉ¥¹ĞèÑÉ…¹Í™½Éµ•¹™¥¹•ÉÁÉ¥¹Ğ°(€€€™¥ÕÉ”áI•…‘…‰¥±¥ÑäèÑÉ…¹Í™½Éµ•¹É•…‘…‰¥±¥Ñä°(€ôì(€¥˜€¡É•ÅÕ¥É•¥ÕÉ”áMÁ±¥Ğ¤ì(€€€…ÍÍ•ÉÑÕÉÉ•¹ÑÉÑ¥±•¥ÕÉ”ÍI•¹‘¥Ñ¥½¸¡É•ÍÕ±Ğ¤ì(€€€…ÍÍ•ÉÑÕÉÉ•¹ÑÉÑ¥±•¥ÕÉ”áI•¹‘¥Ñ¥½¸¡É•ÍÕ±Ğ¤ì(€ô(€É•ÑÕÉ¸É•ÍÕ±Ğì)ô()•áÁ½ÉĞ…Íå¹Œ™Õ¹Ñ¥½¸İ¥Ñ¡Q•µÁ½É…ÉåI•¹‘¥Ñ¥½¸¡Í½ÕÉ”°É•¹‘•É•°…Ñ¥½¸¤ì(€½¹ÍĞ‘¥É•Ñ½Éä€ôÁ…Ñ ¹‘¥É¹…µ”¡Í½ÕÉ”¹…‰Í½±ÕÑ”¤ì(€½¹ÍĞÍÉ…Ñ €ô…İ…¥Ğµ­‘Ñ•µÀ (€€€Á…Ñ ¹©½¥¸¡½Ì¹ÑµÁ‘¥È ¤°€‰Õ„µÁÕ‰±¥…Ñ¥½¸µÉ•¹‘¥Ñ¥½¸´ˆ¤°(€€¤ì(€½¹ÍĞÑ•µÁ9…µ”€ôÕ„µÁÕ‰±¥…Ñ¥½¸µÉ•¹‘•È´‘íÁÉ½•ÍÌ¹Á¥‘ô´‘í…Ñ”¹¹½Ü ¥ô¹µ‘€ì(€½¹ÍĞÑ•µÁA…Ñ €ôÁ…Ñ ¹©½¥¸¡‘¥É•Ñ½Éä°Ñ•µÁ9…µ”¤ì(€ÑÉäì(€€€…İ…¥ĞİÉ¥Ñ•¥±”¡Ñ•µÁA…Ñ °É•¹‘•É•°€‰ÕÑ˜àˆ¤ì(€€€É•ÑÕÉ¸…İ…¥Ğ…Ñ¥½¸¡Ñ•µÁA…Ñ °ÍÉ…Ñ ¤ì(€ô™¥¹…±±äì(€€€…İ…¥ĞÉ´¡Ñ•µÁA…Ñ °ì™½É”èÑÉÕ”ô¤ì(€€€…İ…¥ĞÉ´¡ÍÉ…Ñ °ìÉ•ÕÉÍ¥Ù”èÑÉÕ”°™½É”èÑÉÕ”ô¤ì(€ô)ô(
+export function compactInlineSvg(svg) {
+  return String(svg ?? "")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n\sj\n/g, "\n")
+    .trim();
+}
+
+export function locateCanonicalFigure3(content) {
+  const blockPattern = /```mermaid\r?\n([\s\S]*?)\r?\n```/g;
+  let match;
+  while ((match = blockPattern.exec(content)) !== null) {
+    const mermaid = match[1];
+    if (
+      !mermaid.includes("Primarily explicitly authored consequential behavior") ||
+      !mermaid.includes("Thinking System â€” changed responsibility structure")
+    ) {
+      continue;
+    }
+    const tail = content.slice(blockPattern.lastIndex);
+    const captionMatch =
+      /^\s*(\*\*Figure 3 â€”[^\n]*)(?=\n\n|$)/.exec(tail);
+    if (!captionMatch) return null;
+    const captionStart =
+      blockPattern.lastIndex +
+      captionMatch.index +
+      captionMatch[0].indexOf(captionMatch[1]);
+    return {
+      start: match.index,
+      end: captionStart + captionMatch[1].length,
+      mermaid,
+      caption: captionMatch[1],
+    };
+  }
+  return null;
+}
+
+export function renderFigure3(content) {
+  const located = locateCanonicalFigure3(content);
+  if (!located) return { content, rendered: false };
+  assertFigure3SemanticSource(located.mermaid);
+  const svg = compactInlineSvg(buildFigure3ControlledObjectSvg());
+  const caption = located.caption.replace(
+    /^(\**Figure 3 â€” ?.*?\.\*\*)/,
+    "<strong>$1</strong>",
+  );
+  const panel = `<section class="ua-pdf-static-figure ua-pdf-static-figure--3" data-ua-figure3-rendition="side-by-side">
+${svg}
+<p>${caption}</p>
+</section>`;
+  return {
+    content: `${content.slice(0, located.start)}${panel}${content.slice(located.end)}`,
+    rendered: true,
+  };
+}
+
+export function assertCurrentArticleFigure3Rendition(rendition) {
+  if (!rendition.figure3Rendition) {
+    throw new Error(
+      "Current Thinking Systems publication requires the reviewed side-by-side Figure 3 rendition.",
+    );
+  }
+  const canonical = rendition.canonicalFigures.filter((figure) => figure.number === 3);
+  const rendered = rendition.renditionFigures.filter((figure) => figure.number === 3);
+  if (
+    canonical.length !== 1 ||
+    canonical[0].panel !== null ||
+    rendered.length !== 1 ||
+    rendered[0].panel !== null
+  ) {
+    throw new Error(
+      "Current publication must preserve exactly one canonical Figure 3 and one rendered Figure 3.",
+    );
+  }
+}
+
+export function locateCanonicalFigure8(content) {
+  const blockPattern = /```mermaid\r?\n([\s\S]*?)\r?\n```/g;
+  let match;
+  while ((match = blockPattern.exec(content)) !== null) {
+    const mermaid = match[1];
+    if (
+      !/\bsubgraph\s+L(?:\[|\s|$)/.test(mermaid) ||
+      !/\bsubgraph\s+F(?:\[|\s|$)/.test(mermaid)
+    ) {
+      continue;
+    }
+    const tail = content.slice(blockPattern.lastIndex);
+    const captionMatch =
+      /^\s*(?:<!--[\s\S]*?-->\s*)*(\*\*Figure 8 â€”[^\n]*)(?=\n\n|$)/.exec(tail);
+    if (!captionMatch) return null;
+    const captionStart =
+      blockPattern.lastIndex +
+      captionMatch.index +
+      captionMatch[0].indexOf(captionMatch[1]);
+    return {
+      start: match.index,
+      end: captionStart + captionMatch[1].length,
+      mermaid,
+      caption: captionMatch[1],
+    };
+  }
+  return null;
+}
+
+export function splitFigure8(content, { verifyFingerprint = true } = {}) {
+  const located = locateCanonicalFigure8(content);
+  if (!located) {
+    return {
+      content,
+      split: false,
+      fingerprint: null,
+      readability: null,
+    };
+  }
+  const { start, end, mermaid, caption } = located;
+  assertFigure8SemanticSource(mermaid);
+  const fingerprint = verifyFingerprint
+    ? assertCanonicalFigure8Fingerprint(mermaid, caption)
+    : null;
+  const assets = buildFigure8RenditionAssets();
+
+  const canonicalCaption = caption
+    .replace(/^\*\*Figure 8 â€”\s*/, "")
+    .replace(/\*\*/, "")
+    .trim();
+  const panelA = `<section class="ua-pdf-static-figure ua-pdf-static-figure--8a" data-ua-figure8-panel="A">
+${compactInlineSvg(assets.decision.svg)}
+<p><strong>Figure 8A â€” Decision-ownership model.</strong> Publication rendition of canonical Figure 8; continue with Figure 8B.</p>
+</section>`;
+  const panelB = `<section class="ua-pdf-static-figure ua-pdf-static-figure--8b" data-ua-figure8-panel="B">
+${compactInlineSvg(assets.capability.svg)}
+<p><strong>Figure 8B â€” Capability-family axis and orthogonality relationship.</strong> Publication rendition of canonical Figure 8.</p>
+<p class="ua-pdf-figure8-shared-caption"><strong>Together, Figures 8Aâ€“8B preserve canonical Figure 8.</strong> ${escapeHtml(canonicalCaption)}</p>
+</section>`;
+  return {
+    content: `${content.slice(0, start)}${panelA}\n\n${panelB}${content.slice(end)}`,
+    split: true,
+    fingerprint,
+    readability: assets.readability,
+  };
+}
+
+export function extractFigureList(content) {
+  const figures = [];
+  const regex =
+    /(?:\*\*|<strong>)Figure\s+(\d+)([AB])?\s+â€”\s+([^*<\n]+?)(?:\.\*\*|\.<\/strong>)/g;
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    figures.push({
+      number: Number(match[1]),
+      panel: match[2] || null,
+      title: match[3].trim(),
+    });
+  }
+  return figures;
+}
+
+export function assertCurrentArticleFigure8Rendition(rendition) {
+  if (!rendition.figure8Split) {
+    throw new Error(
+      "Current Thinking Systems publication requires the reviewed Figure 8A/8B rendition, but canonical Figure 8 was not recognized.",
+    );
+  }
+  const canonicalEight = rendition.canonicalFigures.filter(
+    (figure) => figure.number === 8,
+  );
+  const renderedEight = rendition.renditionFigures.filter(
+    (figure) => figure.number === 8,
+  );
+  const panels = renderedEight.map((figure) => figure.panel).sort();
+  if (
+    canonicalEight.length !== 1 ||
+    canonicalEight[0].panel !== null ||
+    renderedEight.length !== 2 ||
+    panels[0] !== "A" ||
+    panels[1] !== "B"
+  ) {
+    throw new Error(
+      "Current publication must contain exactly one canonical Figure 8 and exactly one reviewed Figure 8A plus one Figure 8B rendition.",
+    );
+  }
+  if (rendition.figure8Fingerprint !== canonicalFigure8Fingerprint) {
+    throw new Error(
+      "Current publication Figure 8A/8B is not coupled to the reviewed canonical Figure 8 fingerprint.",
+    );
+  }
+  const readability = rendition.figure8Readability;
+  if (!readability || !readability.panels?.A || !readability.panels?.B) {
+    throw new Error(
+      "Current publication Figure 8 readability evidence is missing",
+    );
+  }
+  for (const panel of ["A", "B"]) {
+    const result = readability.panels[panel];
+    if (
+      !result.pdf_hard_floor_met ||
+      !result.pdf_preferred_target_met ||
+      !result.desktop_readable
+    ) {
+      throw new Error(
+        `Current publication Figure 8${panel} does not meet PDF and desktop readability acceptance`,
+      );
+    }
+  }
+}
+
+export async function loadPublicationSource(sourcePath) {
+  const requested = path.resolve(repoRoot, sourcePath);
+  if (path.extname(requested).toLowerCase() !== ".md") {
+    throw new Error("Publication source must have a .md extension");
+  }
+  const absolute = await realpath(requested);
+  if (!isInside(contentRoot, absolute)) {
+    throw new Error(
+      "Publication source must be a Markdown file under content/",
+    );
+  }
+  if (!(await stat(absolute)).isFile()) {
+    throw new Error("Publication source must be a regular Markdown file");
+  }
+  const raw = await readFile(absolute, "utf8");
+  const parsed = matter(raw);
+  return {
+    absolute,
+    relative: path.relative(repoRoot, absolute).split(path.sep).join("/"),
+    raw,
+    data: parsed.data,
+    content: parsed.content,
+  };
+}
+
+export async function buildPublicationRendition(
+  source,
+  {
+    includeToc = false,
+    splitDenseFigures = true,
+    sourceCommit: explicitSourceCommit,
+    provenance,
+    requireFigure8Split = false,
+  } = {},
+) {
+  const repository = process.env.GITHUB_REPOSITORY || defaultRepository;
+  const sourceCommit =
+    explicitSourceCommit ||
+    process.env.UA_PDF_REPOSITORY_REF ||
+    process.env.GITHUB_SHA ||
+    (await gitOutput(["rev-parse", "HEAD"]));
+  const sourceHash = sha256(Buffer.from(source.raw));
+  const figure3 = renderFigure3(source.content);
+  const transformed = splitDenseFigures
+    ? splitFigure8(figure3.content)
+    : { content: figure3.content, split: false };
+  const titlePage = buildTitlePage({
+    data: source.data,
+    content: source.content,
+    sourceRelative: source.relative,
+    sourceCommit,
+    repository,
+    provenance,
+  });
+  const toc = includeToc ? buildToc(transformed.content) : "";
+  const body = [titlePage, toc, transformed.content]
+    .filter(Boolean)
+    .join("\n\n");
+  const rendered = matter.stringify(body, { ...source.data, draft: true });
+  const result = {
+    rendered,
+    sourceCommit,
+    sourceHash,
+    authors: resolvePublicationAuthors(source.data, source.relative),
+    canonicalFigures: extractFigureList(source.content),
+    renditionFigures: extractFigureList(transformed.content),
+    figure3Rendition: figure3.rendered,
+    figure8Split: transformed.split,
+    figure8Fingerprint: transformed.fingerprint,
+    figure8Readability: transformed.readability,
+  };
+  if (requireFigure8Split) {
+    assertCurrentArticleFigure3Rendition(result);
+    assertCurrentArticleFigure8Rendition(result);
+  }
+  return result;
+}
+
+export async function withTemporaryRendition(source, rendered, action) {
+  const directory = path.dirname(source.absolute);
+  const scratch = await mkdtemp(
+    path.join(os.tmpdir(), "ua-publication-rendition-"),
+  );
+  const tempName = `ua-publication-render-${process.pid}-${Date.now()}.md`;
+  const tempPath = path.join(directory, tempName);
+  try {
+    await writeFile(tempPath, rendered, "utf8");
+    return await action(tempPath, scratch);
+  } finally {
+    await rm(tempPath, { force: true });
+    await rm(scratch, { recursive: true, force: true });
+  }
+}
