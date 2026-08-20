@@ -1,27 +1,368 @@
 {
   "cases": [
-    {"name": "valid synthetic repository passes", "mutation": {"type": "none"}, "expected_valid": true},
-    {"name": "critical file deletion is rejected", "mutation": {"type": "delete_path", "path": "README.md"}, "expected_error": "Missing critical file: README.md"},
-    {"name": "critical README section deletion is rejected", "mutation": {"type": "remove_text", "path": "README.md", "text": "## How to Cite"}, "expected_error": "README.md: missing required heading '## How to Cite'"},
-    {"name": "protected attribution text deletion is rejected", "mutation": {"type": "remove_text", "path": "README.md", "text": "Sam “stunspot” Walker — Technical Co-Author"}, "expected_error": "README.md: missing protected text 'Sam “stunspot” Walker — Technical Co-Author'"},
-    {"name": "required canonical link deletion is rejected", "mutation": {"type": "remove_text", "path": "README.md", "text": "[fixture](CITATION.cff)"}, "expected_error": "README.md: missing required Markdown link to CITATION.cff"},
-    {"name": "unexpected top-level directory is rejected", "mutation": {"type": "add_directory", "path": "05-governance"}, "expected_error": "Unexpected top-level directory: 05-governance"},
-    {"name": "unexpected top-level file is rejected", "mutation": {"type": "add_file", "path": "NAVIGATION.md"}, "expected_error": "Unexpected top-level file: NAVIGATION.md"},
-    {"name": "legacy runtime anchor deletion is rejected", "mutation": {"type": "remove_text", "path": "00-doctrine/nested-control-lifecycle.md", "text": "<a id=\"4-runtime-control-and-reassessment\"></a>"}, "expected_error": "00-doctrine/nested-control-lifecycle.md: missing protected marker"},
-    {"name": "compatibility path deletion is rejected", "mutation": {"type": "delete_path", "path": "02-ai-control-plane/01-sensors/README.md"}, "expected_error": "Missing required file: 02-ai-control-plane/01-sensors/README.md"},
-    {"name": "immutable documentation license modification is rejected", "mutation": {"type": "append_text", "path": "LICENSE-DOCS.md", "text": "\nmodified\n"}, "expected_error": "Immutable file fingerprint changed: LICENSE-DOCS.md"},
-    {"name": "CODEOWNERS default ownership deletion is rejected", "mutation": {"type": "remove_text", "path": ".github/CODEOWNERS", "text": "* @oborskyivitalii"}, "expected_error": ".github/CODEOWNERS: missing protected text"},
-    {"name": "PR contract marker deletion is rejected", "mutation": {"type": "remove_text", "path": ".github/pull_request_template.md", "text": "<!-- ua-change-contract"}, "expected_error": ".github/pull_request_template.md: missing protected text"},
-    {"name": "AI contributor coupling protocol deletion is rejected", "mutation": {"type": "remove_text", "path": "AGENTS.md", "text": "Maintainer exception labels are not a universal override."}, "expected_error": "AGENTS.md: missing protected text"},
-    {"name": "CITATION author deletion is rejected", "mutation": {"type": "remove_text", "path": "CITATION.cff", "text": "    given-names: \"Sam\""}, "expected_error": "CITATION.cff: missing protected text"},
-    {"name": "link-integrity citation step deletion is rejected", "mutation": {"type": "remove_text", "path": ".github/workflows/link-integrity.yml", "text": "- name: Validate CITATION.cff"}, "expected_error": ".github/workflows/link-integrity.yml: missing protected text"},
-    {"name": "metadata workflow job deletion is rejected", "mutation": {"type": "remove_text", "path": ".github/workflows/metadata-integrity.yml", "text": "name: Metadata / canonical ownership"}, "expected_error": ".github/workflows/metadata-integrity.yml: missing protected text"},
-    {"name": "change coupling workflow deletion is rejected", "mutation": {"type": "delete_path", "path": ".github/workflows/change-coupling.yml"}, "expected_error": "Missing required file: .github/workflows/change-coupling.yml"},
-    {"name": "navigation routing declaration deletion is rejected", "mutation": {"type": "remove_text", "path": ".github/scripts/validate_navigation.py", "text": "EXPECTED_NAVIGATION_ROUTES"}, "expected_error": ".github/scripts/validate_navigation.py: missing protected text"},
-    {"name": "self-test manifest deletion is rejected", "mutation": {"type": "remove_text", "path": ".github/tests/repository_contract/test_repository_contract.py", "text": "REQUIRED_CASE_NAMES"}, "expected_error": ".github/tests/repository_contract/test_repository_contract.py: missing protected text"},
-    {"name": "preferred citation author deletion is rejected", "mutation": {"type": "remove_text", "path": "CITATION.cff", "text": "      given-names: \"Sam\""}, "expected_error": "CITATION.cff: missing protected text"},
-    {"name": "README evidence boundary deletion is rejected", "mutation": {"type": "remove_text", "path": "README.md", "text": "Visibility, recommendations, advisory relationships, invited talks, and synthesized examples are not treated as certification, institutional endorsement, formal adoption, or production evidence."}, "expected_error": "README.md: missing protected text"},
-    {"name": "README BibTeX author deletion is rejected", "mutation": {"type": "remove_text", "path": "README.md", "text": "  author = {Oborskyi, Vitalii and Walker, Sam},"}, "expected_error": "README.md: missing protected text"},
-    {"name": "README advisor attribution deletion is rejected", "mutation": {"type": "remove_text", "path": "README.md", "text": "### Markus Kopko — Strategic Advisor on Governance and Alignment"}, "expected_error": "README.md: missing required heading"}
+    {
+      "name": "valid synthetic repository passes",
+      "mutation": {
+        "type": "none"
+      },
+      "expected_valid": true
+    },
+    {
+      "name": "critical file deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "README.md"
+      },
+      "expected_error": "Missing critical file: README.md"
+    },
+    {
+      "name": "critical README section deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "## How to Cite"
+      },
+      "expected_error": "README.md: missing required heading '## How to Cite'"
+    },
+    {
+      "name": "protected attribution text deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "Sam “stunspot” Walker — Technical Co-Author"
+      },
+      "expected_error": "README.md: missing protected text 'Sam “stunspot” Walker — Technical Co-Author'"
+    },
+    {
+      "name": "required canonical link deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "[fixture](CITATION.cff)"
+      },
+      "expected_error": "README.md: missing required Markdown link to CITATION.cff"
+    },
+    {
+      "name": "unexpected top-level directory is rejected",
+      "mutation": {
+        "type": "add_directory",
+        "path": "05-governance"
+      },
+      "expected_error": "Unexpected top-level directory: 05-governance"
+    },
+    {
+      "name": "unexpected top-level file is rejected",
+      "mutation": {
+        "type": "add_file",
+        "path": "NAVIGATION.md"
+      },
+      "expected_error": "Unexpected top-level file: NAVIGATION.md"
+    },
+    {
+      "name": "legacy runtime anchor deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "00-doctrine/nested-control-lifecycle.md",
+        "text": "<a id=\"4-runtime-control-and-reassessment\"></a>"
+      },
+      "expected_error": "00-doctrine/nested-control-lifecycle.md: missing protected marker"
+    },
+    {
+      "name": "compatibility path deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "02-ai-control-plane/01-sensors/README.md"
+      },
+      "expected_error": "Missing required file: 02-ai-control-plane/01-sensors/README.md"
+    },
+    {
+      "name": "immutable documentation license modification is rejected",
+      "mutation": {
+        "type": "append_text",
+        "path": "LICENSE-DOCS.md",
+        "text": "\nmodified\n"
+      },
+      "expected_error": "Immutable file fingerprint changed: LICENSE-DOCS.md"
+    },
+    {
+      "name": "CODEOWNERS default ownership deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/CODEOWNERS",
+        "text": "* @oborskyivitalii"
+      },
+      "expected_error": ".github/CODEOWNERS: missing protected text"
+    },
+    {
+      "name": "PR contract marker deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/pull_request_template.md",
+        "text": "<!-- ua-change-contract"
+      },
+      "expected_error": ".github/pull_request_template.md: missing protected text"
+    },
+    {
+      "name": "AI contributor coupling protocol deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "AGENTS.md",
+        "text": "Maintainer exception labels are not a universal override."
+      },
+      "expected_error": "AGENTS.md: missing protected text"
+    },
+    {
+      "name": "CITATION author deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "CITATION.cff",
+        "text": "    given-names: \"Sam\""
+      },
+      "expected_error": "CITATION.cff: missing protected text"
+    },
+    {
+      "name": "link-integrity citation step deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/link-integrity.yml",
+        "text": "- name: Validate CITATION.cff"
+      },
+      "expected_error": ".github/workflows/link-integrity.yml: missing protected text"
+    },
+    {
+      "name": "metadata workflow job deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/metadata-integrity.yml",
+        "text": "name: Metadata / canonical ownership"
+      },
+      "expected_error": ".github/workflows/metadata-integrity.yml: missing protected text"
+    },
+    {
+      "name": "PDF export regression step deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/build-integrity.yml",
+        "text": "PDF export / regression tests"
+      },
+      "expected_error": ".github/workflows/build-integrity.yml: missing protected text 'PDF export / regression tests'"
+    },
+    {
+      "name": "manual publication export workflow deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": ".github/workflows/export-research-pdf.yml"
+      },
+      "expected_error": "Missing required file: .github/workflows/export-research-pdf.yml"
+    },
+    {
+      "name": "explicit generic PDF entrypoint deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "package.json",
+        "text": "\"pdf\": \"node quartz/scripts/export-pdf.mjs\""
+      },
+      "expected_error": "package.json: missing protected text '\"pdf\": \"node quartz/scripts/export-pdf.mjs\"'"
+    },
+    {
+      "name": "curated working-paper command deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "package.json",
+        "text": "\"pdf:working-paper\": \"node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense\""
+      },
+      "expected_error": "package.json: missing protected text '\"pdf:working-paper\": \"node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense\"'"
+    },
+    {
+      "name": "manual PDF workflow default article deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/export-research-pdf.yml",
+        "text": "default: content/research/notes/thinking-systems-publication-draft.md"
+      },
+      "expected_error": ".github/workflows/export-research-pdf.yml: missing protected text 'default: content/research/notes/thinking-systems-publication-draft.md'"
+    },
+    {
+      "name": "manual PDF workflow working-paper route deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/export-research-pdf.yml",
+        "text": "UA_WORKING_PAPER_SOURCE: content/research/notes/open-engineering-specification-article-draft.md"
+      },
+      "expected_error": ".github/workflows/export-research-pdf.yml: missing protected text 'UA_WORKING_PAPER_SOURCE: content/research/notes/open-engineering-specification-article-draft.md'"
+    },
+    {
+      "name": "change coupling workflow deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": ".github/workflows/change-coupling.yml"
+      },
+      "expected_error": "Missing required file: .github/workflows/change-coupling.yml"
+    },
+    {
+      "name": "navigation routing declaration deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/scripts/validate_navigation.py",
+        "text": "EXPECTED_NAVIGATION_ROUTES"
+      },
+      "expected_error": ".github/scripts/validate_navigation.py: missing protected text"
+    },
+    {
+      "name": "self-test manifest deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/tests/repository_contract/test_repository_contract.py",
+        "text": "REQUIRED_CASE_NAMES"
+      },
+      "expected_error": ".github/tests/repository_contract/test_repository_contract.py: missing protected text"
+    },
+    {
+      "name": "preferred citation author deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "CITATION.cff",
+        "text": "      given-names: \"Sam\""
+      },
+      "expected_error": "CITATION.cff: missing protected text"
+    },
+    {
+      "name": "README evidence boundary deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "Visibility, recommendations, advisory relationships, invited talks, and synthesized examples are not treated as certification, institutional endorsement, formal adoption, or production evidence."
+      },
+      "expected_error": "README.md: missing protected text"
+    },
+    {
+      "name": "README BibTeX author deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "  author = {Oborskyi, Vitalii and Walker, Sam},"
+      },
+      "expected_error": "README.md: missing protected text"
+    },
+    {
+      "name": "README advisor attribution deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "README.md",
+        "text": "### Markus Kopko — Strategic Advisor on Governance and Alignment"
+      },
+      "expected_error": "README.md: missing required heading"
+    },
+    {
+      "name": "publication path safety helper deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "quartz/scripts/publication-path-safety.mjs"
+      },
+      "expected_error": "Missing required file: quartz/scripts/publication-path-safety.mjs"
+    },
+    {
+      "name": "publication provenance helper deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "quartz/scripts/publication-provenance.mjs"
+      },
+      "expected_error": "Missing required file: quartz/scripts/publication-provenance.mjs"
+    },
+    {
+      "name": "Figure 8 fingerprint helper deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "quartz/scripts/publication-figure8-fingerprint.mjs"
+      },
+      "expected_error": "Missing required file: quartz/scripts/publication-figure8-fingerprint.mjs"
+    },
+    {
+      "name": "publication integration provenance ref deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/build-integrity.yml",
+        "text": "UA_PDF_REPOSITORY_REF: ${{ github.sha }}"
+      },
+      "expected_error": ".github/workflows/build-integrity.yml: missing protected text"
+    },
+    {
+      "name": "publication finalization regression file deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "quartz/scripts/publication-finalization.test.mjs"
+      },
+      "expected_error": "Missing required file: quartz/scripts/publication-finalization.test.mjs"
+    },
+    {
+      "name": "publication pair verification deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "quartz/scripts/render-publication-pdf.mjs",
+        "text": "verifyPublicationPair"
+      },
+      "expected_error": "quartz/scripts/render-publication-pdf.mjs: missing protected text 'verifyPublicationPair'"
+    },
+    {
+      "name": "publication manifest source commit field deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "quartz/scripts/render-publication-pdf.mjs",
+        "text": "source_commit_sha"
+      },
+      "expected_error": "quartz/scripts/render-publication-pdf.mjs: missing protected text 'source_commit_sha'"
+    },
+    {
+      "name": "publication strict manifest verification deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/build-integrity.yml",
+        "text": "npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf --require-manifest"
+      },
+      "expected_error": ".github/workflows/build-integrity.yml: missing protected text 'npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf --require-manifest'"
+    },
+    {
+      "name": "publication-grade regression test deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "quartz/scripts/publication-rendition.test.mjs"
+      },
+      "expected_error": "Missing required file: quartz/scripts/publication-rendition.test.mjs"
+    },
+    {
+      "name": "curated publication author fallback deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "quartz/scripts/publication-rendition.mjs",
+        "text": "Vitalii Oborskyi"
+      },
+      "expected_error": "quartz/scripts/publication-rendition.mjs: missing protected text 'Vitalii Oborskyi'"
+    },
+    {
+      "name": "Figure 8 readability policy deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "quartz/scripts/publication-figure8.mjs",
+        "text": "hardFloorPt: 5"
+      },
+      "expected_error": "quartz/scripts/publication-figure8.mjs: missing protected text 'hardFloorPt: 5'"
+    },
+    {
+      "name": "Figure 8 desktop asset verifier deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "quartz/scripts/verify-publication-figure8.mjs"
+      },
+      "expected_error": "Missing required file: quartz/scripts/verify-publication-figure8.mjs"
+    },
+    {
+      "name": "Figure 8 separate-page PDF verification deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "quartz/scripts/verify-publication-pdf.mjs",
+        "text": "separate_pages"
+      },
+      "expected_error": "quartz/scripts/verify-publication-pdf.mjs: missing protected text 'separate_pages'"
+    }
   ]
 }

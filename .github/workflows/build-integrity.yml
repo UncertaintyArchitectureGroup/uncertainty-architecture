@@ -32,8 +32,110 @@ jobs:
           package-manager-cache: false
       - name: Install locked dependencies
         run: npm ci --ignore-scripts
+      - name: PDF export / regression tests
+        run: node --test quartz/scripts/*.test.mjs
+      - name: Figure 8 / semantic and readability verification
+        run: npm run pdf:verify:figure8
       - name: Build Quartz site
         run: npm run build
+
+  publication-impact:
+    name: Publication / detect impacted surfaces
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      required: ${{ steps.detect.outputs.required }}
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Detect publication-impacting changes
+        id: detect
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" != "pull_request" ]]; then
+            echo "required=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          required=false
+          while IFS= read -r changed_path; do
+            case "$changed_path" in
+              .github/policy/repository-contract-change-coupling.json|\
+              .github/tests/repository_contract/*|\
+              .github/workflows/build-integrity.yml|\
+              .github/workflows/export-research-pdf.yml|\
+              package.json|package-lock.json|quartz.config.ts|\
+              quartz/PDF-EXPORT.md|quartz/scripts/*|quartz/styles/custom.scss|\
+              content/research/notes/thinking-systems-publication-draft.md|\
+              content/research/notes/open-engineering-specification-article-draft.md|\
+              content/research/publications/*)
+                required=true
+                break
+                ;;
+            esac
+          done < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          echo "required=$required" >> "$GITHUB_OUTPUT"
+
+  publication-render:
+    needs: publication-impact
+    if: needs.publication-impact.outputs.required == 'true'
+    name: Publication / current article render
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: '22'
+          cache: npm
+          package-manager-cache: false
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Install Chromium and PDF inspection tools
+        shell: bash
+        run: |
+          ./node_modules/.bin/playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+      - name: Generate Figure 8 review assets
+        run: npm run pdf:verify:figure8
+      - name: Render current publication PDF
+        env:
+          UA_PDF_REPOSITORY_REF: ${{ github.sha }}
+        run: npm run pdf:article
+      - name: Visual verify current publication PDF
+        run: npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf --require-manifest
+      - name: Render publication platform assets
+        run: npm run publication:assets
+      - name: Render living working paper PDF
+        env:
+          UA_PDF_REPOSITORY_REF: ${{ github.sha }}
+        run: npm run pdf:working-paper
+      - name: Visual verify living working paper PDF
+        run: npm run pdf:verify -- dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --require-manifest
+      - name: Upload publication validation artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: publication-render-validation
+          path: |
+            dist/pdf/*.pdf
+            dist/pdf/*.manifest.json
+            dist/pdf/visual/**
+            dist/publication/thinking-systems/**
+          if-no-files-found: error
+          retention-days: 14
 
   mermaid-render:
     name: Content / render Mermaid diagrams

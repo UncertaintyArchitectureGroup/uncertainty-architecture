@@ -13,6 +13,13 @@
   },
   "scripts": {
     "build": "npx quartz build",
+    "pdf": "node quartz/scripts/export-pdf.mjs",
+    "pdf:setup": "playwright install chromium",
+    "pdf:article": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/thinking-systems-publication-draft.md --output dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf",
+    "pdf:working-paper": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense",
+    "pdf:verify": "node quartz/scripts/run-publication-verify.mjs",
+    "pdf:verify:figure8": "node quartz/scripts/verify-publication-figure8.mjs",
+    "publication:assets": "node quartz/scripts/render-publication-assets.mjs",
     "serve": "npx quartz build --serve",
     "quartz": "./quartz/bootstrap-cli.mjs",
     "check": "tsc --noEmit && npx prettier . --check",
@@ -108,6 +115,7 @@
     "@types/ws": "^8.18.1",
     "@types/yargs": "^17.0.35",
     "esbuild": "^0.28.2",
+    "playwright": "^1.62.1",
     "prettier": "^3.9.6",
     "tsx": "^4.23.12",
     "typescript": "^5.9.3"

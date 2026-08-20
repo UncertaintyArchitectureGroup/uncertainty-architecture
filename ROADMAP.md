@@ -170,6 +170,7 @@ A new top-level Operating Model module is not planned at this stage.
 - non-blocking warnings for selected terminology drift, title/H1 drift, and unusually large tag sets;
 - diff-aware changelog, glossary, roadmap, research-traceability, deletion, rename, compatibility, and pull-request declaration validation;
 - Quartz production builds and rendering of maintained Mermaid blocks;
+- deployment-independent Quartz-to-PDF rendering from canonical Markdown, with draft-only temporary builds, strict provenance manifests, coherent PDF/manifest rollback, visual verification, and explicit standalone-article versus long-form working-paper outputs;
 - actionlint and zizmor checks for GitHub Actions workflows;
 - full-SHA action references, version comments, and sha256 container digests enforced by a machine-readable contract;
 - weekly Dependabot updates for npm and GitHub Actions;
