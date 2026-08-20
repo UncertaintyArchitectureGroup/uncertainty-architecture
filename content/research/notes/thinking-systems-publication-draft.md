@@ -1,5 +1,5 @@
 ---
-title: "Thinking Systems: When the Controlled Object Changes"
+title: "Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes"
 artifact_type: research-note
 status: research
 maturity: draft
@@ -21,7 +21,7 @@ tags:
   - ua/topic/uncertainty-boundary
   - ua/topic/control-loop
 created: 2026-08-17
-updated: 2026-08-19
+updated: 2026-08-20
 language: en
 license: CC-BY-4.0
 draft: true
@@ -39,7 +39,7 @@ related:
   - ../../../00-doctrine/nested-control-lifecycle.md
 ---
 
-# Thinking Systems: When the Controlled Object Changes
+# Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes
 
 > **Publication note.** This is a shorter standalone adaptation of the living working paper [*Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities*](open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
 
@@ -167,9 +167,9 @@ For the same apparent request, plausible behavior may vary with context, model v
 
 > **Release-contract shift.** For an explicitly authored consequential responsibility, Delivery releases an implementation whose intended situation-to-consequence mapping is specified in inspectable logic before release, even when it is branching, stateful, concurrent, or operationally uncertain. A Thinking-System release also places into operation a judgment process that will complete part of that mapping at runtime. The important distinction is not the number of terminal outputs but whether the consequential decision structure is determined through explicitly authored logic before release or partly completed by Model Judgment at runtime. In LLM-based systems, a few allowed actions may still depend on Model Judgment over a large, context-dependent space of situations, meanings, and evidence. Production readiness therefore depends not only on the implementation already written, but on whether the surrounding control architecture can keep the resulting system operation, reachable authority, and consequential effects within the approved boundary despite judgment that remains unresolved until runtime.
 
-What remains open is not necessarily the set of terminal actions, but the judgment-dependent mapping from situations and context to consequential behavior. In the LLM use cases that motivate this category, the space of possible situations, meanings, evidence, and relevant distinctions can be large and only partly characterized in advance even when downstream actions are tightly enumerated. Keep three questions separate: whether the resulting behavior is desired, accepted only within stated conditions or residual bounds, or prohibited; whether the case is sufficiently characterized or remains uncertain or unclassified; and whether execution or acceptance is within delegated authority or reserved for Human Authority. The complete distribution or decision boundary need not be known or measurable for this distinction to matter.
+What remains open is not necessarily the set of terminal actions, but the judgment-dependent mapping from situations and context to consequential behavior. In the LLM use cases that motivate this category, the space of possible situations, meanings, evidence, and relevant distinctions can be large and only partly characterized in advance even when downstream actions are tightly enumerated. Keep three questions separate: whether the resulting behavior is desired, accepted only within stated conditions or residual bounds, or prohibited; whether the case is sufficiently characterized or remains uncertain or unclassified; and whether execution or acceptance is within delegated authority or reserved for Human Authority. The complete distribution or decision boundary need not be known or measurable for this distinction to matter. These are different control questions rather than one model-quality score: behavioral acceptability requires an approved boundary, epistemic uncertainty requires evidence fit for the decision, authority requires a legitimate decision path, and consequential execution requires a mechanism that can actually change or stop operation. Section 3 turns those needs into the four capability families of bounded control.
 
-This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may call for a local Delivery correction, invalidate the Delivery release basis and require Delivery reassessment, invalidate Project / Architecture assumptions about the design or Operating Envelope, or require an Organizational change to authority or business basis.
+This does not mean conventional software had one path, no nondeterminism, or no surprises. The difference is that unexpected behavior can now arise not only from defects or conditions around a fixed intended mapping, but also from a semantically wrong, contextually inappropriate, unsupported, or unauthorized selection inside the runtime judgment space. This is a qualitative shift in the failure surface, not a claim that every Thinking System necessarily produces more errors. A single material outcome or a repeated pattern may therefore require a local implementation correction, reassessment of the release basis, architectural redesign, or a change to the underlying authority or business premise. Section 4 formalizes these as distinct decision horizons rather than treating every negative case as the same kind of failure or escalation.
 
 The architectural difference can be shown without pretending that conventional software consists of one linear function or that every Thinking System follows one pipeline.
 
@@ -353,9 +353,18 @@ The capability anatomy explains **how** bounded control becomes possible. It doe
 
 The capability anatomy tells us how a bounded control relationship can work. It still does not answer a second question: **where does each consequential decision legitimately belong, and how does evidence move between those decision owners without collapsing engineering analysis, business authorization, release, and runtime control into one generic “AI governance gate”?**
 
-The repository's current draft-normative **Nested Control Lifecycle** already establishes four connected decision levels, downward inheritance, local reassessment, Project Reauthorization, and Organizational review. In current draft-normative UA, **Project Authorization is the project-level decision surface for whether and under what conditions a proposed Thinking System may proceed within a defined boundary**. It assesses whether the Constraint and control architecture are sufficiently credible, operable, and viable; outcomes may include bounded research, constrained authorization, redesign, deferral, escalation, or No-Go. The long-form paper makes one additional lifecycle distinction explicit as a **research refinement under validation**: Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business and authority basis, and the engineering viability conclusion; Organization owns the business outcome and authoritative/investment basis plus the business decision to authorize specific bounded research when the proposed experiment crosses an Organizationally reserved boundary, proceed with a viable production initiative, reshape that basis, defer, or stop; and under that refinement **Project Authorization becomes the scoped technical authorization baseline that connects the applicable Organizational decision to Delivery**. The long-form paper further distinguishes research-only and production-capable Project Authorizations; those detailed authorization forms remain part of the same research refinement and are intentionally not expanded here. **That sharper Organization / Project split is the paper's research hypothesis, not yet status-bearing UA doctrine.**
+The same Thinking System can require fundamentally different decisions around the same controlled object. Someone must decide whether the intended outcome, external exposure, and delegated authority are legitimate at all. Someone must decide whether Model Judgment is actually necessary and whether a credible bounded architecture exists. Someone must decide whether the concrete realization has enough evidence to be released for its authorized scope. And during operation, someone or something must decide whether the system remains inside that boundary and what corrective action is permitted now. These decisions concern one system, but they differ in evidence, authority, time horizon, and available action even when the same person or platform carries several of them.
 
-For this shorter article, the four horizons can remain compact:
+UA represents these distinct decision bases through four connected horizons: **Organization, Project / Architecture, Delivery, and Runtime**. The repository's current draft-normative **Nested Control Lifecycle** already establishes those four connected levels, downward inheritance, local reassessment, Project Reauthorization, and Organizational review. The long-form paper then makes one additional lifecycle distinction explicit as a **research refinement under validation**: Project / Architecture owns Model-Judgment necessity, technical/design selection within the standing Organizational business and authority basis, and the engineering viability conclusion; Organization owns the business outcome and authoritative/investment basis plus the business decision to authorize specific bounded research when the proposed experiment crosses an Organizationally reserved boundary, proceed with a viable production initiative, reshape that basis, defer, or stop; and under that refinement **Project Authorization becomes the scoped technical authorization baseline that connects the applicable Organizational decision to Delivery**. The long-form paper further distinguishes research-only and production-capable Project Authorizations; those detailed authorization forms remain part of the same research refinement and are intentionally not expanded here. **That sharper Organization / Project split is the paper's research hypothesis, not yet status-bearing UA doctrine.**
+
+The four horizons can therefore be read first as four irreducible questions:
+
+- **Organization:** Is the outcome, exposure, and delegated authority legitimate?
+- **Project / Architecture:** Is Model Judgment necessary, and is the bounded design technically and operationally viable?
+- **Delivery:** Is this concrete realization complete, sufficiently evidenced, and releasable within that basis?
+- **Runtime:** Does active operation remain inside the authorized boundary, and what correction is permitted now?
+
+The more detailed responsibilities used in this article remain:
 
 - **Organization** owns initial admissibility and assessment eligibility, authoritative boundaries, reserved decision rights, shared capabilities, exceptions, and business authority. Under the paper-level refinement, it also owns specific Bounded Research Authorization for research that crosses an Organizationally reserved boundary, Business Authorization for a viable production basis, changed-basis decisions, and initiative-level proceed, reshape, defer, or stop decisions.
 - **Project / Architecture** owns Model-Judgment necessity analysis, alternatives, technical/design selection inside the standing Organizational basis, category confirmation for the selected design, the concrete control architecture, technical/control feasibility, Human Authority and fallback feasibility, complete control economics, and the resulting viability conclusion. After any required Organizational decision, it issues the applicable scoped research-only or production-capable Project Authorization or authorization set.
@@ -448,6 +457,14 @@ The larger conclusion does **not** depend on accepting every detail of that owne
 That does not make employees software components, nor does it make the organization part of the controlled software process. It means that people and organizational decision processes may become necessary architectural elements of the **control system around the software**. Software architecture alone can therefore be an incomplete description of the production **control architecture** required for a consequential Thinking System.
 
 This is the engineering problem the larger **Uncertainty Architecture** research track is trying to map.
+
+## What Changes in Engineering Practice
+
+A Thinking System is not defined by agentic orchestration or by how autonomous it looks. It exists when probabilistic Model Judgment participates in a Consequential Runtime Responsibility. That changes what Delivery puts into operation: not only an implementation whose consequential decision structure is already determined through explicitly authored logic, but a system in which part of that structure will be completed through judgment at runtime.
+
+The engineering response is therefore not to pretend that Model Judgment can be made deterministic. It is to bound the **whole system that turns judgment into consequences**. That requires approved Constraints and credible realizations, evidence fit for the decisions being made, legitimate decision authority, effective corrective action, and reassessment when runtime evidence invalidates the basis on which the system was designed, released, authorized, or allowed to continue.
+
+This is the practical consequence of the changed controlled object: **uncertainty in runtime judgment becomes an engineering concern when it participates in consequential responsibility, and control must follow that responsibility through the system to the authority and mechanisms capable of changing its effects.**
 
 ## Intellectual Context and Claim Boundary
 
