@@ -1,0 +1,71 @@
+name: Temporary PR 95 Figure 3 caption repair
+
+on:
+  push:
+    branches:
+      - publishing/thinking-systems-pdf-review
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    name: Temporary / repair Figure 3 caption
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out review branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: publishing/thinking-systems-pdf-review
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Repair caption and test it
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('quartz/scripts/publication-rendition.mjs')
+          s = p.read_text(encoding='utf-8')
+          old = '''  const caption = located.caption.replace(\n    /^(\\**Figure 3 — ?.*?\\.\\*\\*)/,\n    "<strong>$1</strong>",\n  );'''
+          new = '''  const caption = located.caption.replace(\n    /^\\*\\*(Figure 3 — ?.*?\\.)\\*\\*/,\n    "<strong>$1</strong>",\n  );'''
+          if old not in s:
+              raise RuntimeError('Figure 3 caption conversion anchor not found')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+
+          t = Path('quartz/scripts/publication-figure3.test.mjs')
+          ts = t.read_text(encoding='utf-8')
+          if 'renderFigure3' not in ts:
+              ts = ts.replace(
+                  'import {\n',
+                  'import {\n',
+                  1,
+              )
+          # The end-to-end rendition suite already exercises renderFigure3; add a direct guard there instead.
+          r = Path('quartz/scripts/publication-rendition.test.mjs')
+          rs = r.read_text(encoding='utf-8')
+          anchor = 'test("Figure 8 publication rendition preserves decision and capability semantics", () => {'
+          guard = '''test("Figure 3 publication caption renders HTML emphasis without literal Markdown stars", () => {\n  const source = `Before\\n\\n\\`\\`\\`mermaid\\nflowchart LR\\nsubgraph A["Primarily explicitly authored consequential behavior"]\\nA1["Situation"] --> A2["Explicitly authored consequential responsibilities"]\\nend\\nsubgraph B["Thinking System — changed responsibility structure"]\\nB1["Situation"] --> B2["One or more Judgment Nodes"]\\nend\\n\\`\\`\\`\\n\\n**Figure 3 — The controlled-object shift.** Caption body.\\n\\nAfter`;\n  const result = renderFigure3(source);\n  assert.equal(result.rendered, true);\n  assert.match(result.content, /<strong>Figure 3 — The controlled-object shift\\.<\\/strong>/);\n  assert.doesNotMatch(result.content, /\\*\\*Figure 3/);\n});\n\n'''
+          if 'Figure 3 publication caption renders HTML emphasis' not in rs:
+              rs = rs.replace(anchor, guard + anchor, 1)
+              # ensure renderFigure3 is imported
+              rs = rs.replace('  repoRoot,\n', '  renderFigure3,\n  repoRoot,\n', 1)
+          r.write_text(rs, encoding='utf-8')
+
+          Path('.github/workflows/pr95-caption-fix.yml').unlink(missing_ok=True)
+          Path('.github/pr95-caption-trigger.txt').unlink(missing_ok=True)
+          PY
+      - name: Validate and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts
+          node --check quartz/scripts/publication-rendition.mjs
+          node --test quartz/scripts/*.test.mjs
+          git diff --check
+          git config user.name "oborskyivitalii"
+          git config user.email "oborskyivitalii@gmail.com"
+          git add -A
+          git commit -m "Fix Figure 3 publication caption rendering"
+          git push origin HEAD:publishing/thinking-systems-pdf-review
