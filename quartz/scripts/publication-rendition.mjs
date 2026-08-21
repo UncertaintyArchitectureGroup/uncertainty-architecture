@@ -14,6 +14,10 @@ import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import {
+  assertFigure3SemanticSource,
+  buildFigure3ControlledObjectSvg,
+} from "./publication-figure3.mjs";
+import {
   assertFigure8SemanticSource,
   buildFigure8RenditionAssets,
 } from "./publication-figure8.mjs";
@@ -212,6 +216,86 @@ ${items}
 </section>`;
 }
 
+export function compactInlineSvg(svg) {
+  return String(svg ?? "")
+    .replace(/\r\n/g, "\n")
+    .replace(/\r?\n[ \t]*\r?\n/g, "\n")
+    .trim();
+}
+
+export function locateCanonicalFigure3(content) {
+  const blockPattern = /```mermaid\r?\n([\s\S]*?)\r?\n```/g;
+  let match;
+  while ((match = blockPattern.exec(content)) !== null) {
+    const mermaid = match[1];
+    if (
+      !mermaid.includes(
+        "Primarily explicitly authored consequential behavior",
+      ) ||
+      !mermaid.includes("Thinking System — changed responsibility structure")
+    ) {
+      continue;
+    }
+    const tail = content.slice(blockPattern.lastIndex);
+    const captionMatch = /^\s*(\*\*Figure 3 —[^\n]*)(?=\n\n|$)/.exec(tail);
+    if (!captionMatch) return null;
+    const captionStart =
+      blockPattern.lastIndex +
+      captionMatch.index +
+      captionMatch[0].indexOf(captionMatch[1]);
+    return {
+      start: match.index,
+      end: captionStart + captionMatch[1].length,
+      mermaid,
+      caption: captionMatch[1],
+    };
+  }
+  return null;
+}
+
+export function renderFigure3(content) {
+  const located = locateCanonicalFigure3(content);
+  if (!located) return { content, rendered: false };
+  assertFigure3SemanticSource(located.mermaid);
+  const svg = compactInlineSvg(buildFigure3ControlledObjectSvg());
+  const caption = located.caption.replace(
+    /^\*\*(Figure 3 — ?.*?\.)\*\*/,
+    "<strong>$1</strong>",
+  );
+  const panel = `<section class="ua-pdf-static-figure ua-pdf-static-figure--3" data-ua-figure3-rendition="side-by-side">
+${svg}
+<p>${caption}</p>
+</section>`;
+  return {
+    content: `${content.slice(0, located.start)}${panel}${content.slice(located.end)}`,
+    rendered: true,
+  };
+}
+
+export function assertCurrentArticleFigure3Rendition(rendition) {
+  if (!rendition.figure3Rendition) {
+    throw new Error(
+      "Current Thinking Systems publication requires the reviewed side-by-side Figure 3 rendition.",
+    );
+  }
+  const canonical = rendition.canonicalFigures.filter(
+    (figure) => figure.number === 3,
+  );
+  const rendered = rendition.renditionFigures.filter(
+    (figure) => figure.number === 3,
+  );
+  if (
+    canonical.length !== 1 ||
+    canonical[0].panel !== null ||
+    rendered.length !== 1 ||
+    rendered[0].panel !== null
+  ) {
+    throw new Error(
+      "Current publication must preserve exactly one canonical Figure 3 and one rendered Figure 3.",
+    );
+  }
+}
+
 export function locateCanonicalFigure8(content) {
   const blockPattern = /```mermaid\r?\n([\s\S]*?)\r?\n```/g;
   let match;
@@ -263,11 +347,11 @@ export function splitFigure8(content, { verifyFingerprint = true } = {}) {
     .replace(/\*\*/, "")
     .trim();
   const panelA = `<section class="ua-pdf-static-figure ua-pdf-static-figure--8a" data-ua-figure8-panel="A">
-${assets.decision.svg}
+${compactInlineSvg(assets.decision.svg)}
 <p><strong>Figure 8A — Decision-ownership model.</strong> Publication rendition of canonical Figure 8; continue with Figure 8B.</p>
 </section>`;
   const panelB = `<section class="ua-pdf-static-figure ua-pdf-static-figure--8b" data-ua-figure8-panel="B">
-${assets.capability.svg}
+${compactInlineSvg(assets.capability.svg)}
 <p><strong>Figure 8B — Capability-family axis and orthogonality relationship.</strong> Publication rendition of canonical Figure 8.</p>
 <p class="ua-pdf-figure8-shared-caption"><strong>Together, Figures 8A–8B preserve canonical Figure 8.</strong> ${escapeHtml(canonicalCaption)}</p>
 </section>`;
@@ -385,9 +469,10 @@ export async function buildPublicationRendition(
     process.env.GITHUB_SHA ||
     (await gitOutput(["rev-parse", "HEAD"]));
   const sourceHash = sha256(Buffer.from(source.raw));
+  const figure3 = renderFigure3(source.content);
   const transformed = splitDenseFigures
-    ? splitFigure8(source.content)
-    : { content: source.content, split: false };
+    ? splitFigure8(figure3.content)
+    : { content: figure3.content, split: false };
   const titlePage = buildTitlePage({
     data: source.data,
     content: source.content,
@@ -408,11 +493,15 @@ export async function buildPublicationRendition(
     authors: resolvePublicationAuthors(source.data, source.relative),
     canonicalFigures: extractFigureList(source.content),
     renditionFigures: extractFigureList(transformed.content),
+    figure3Rendition: figure3.rendered,
     figure8Split: transformed.split,
     figure8Fingerprint: transformed.fingerprint,
     figure8Readability: transformed.readability,
   };
-  if (requireFigure8Split) assertCurrentArticleFigure8Rendition(result);
+  if (requireFigure8Split) {
+    assertCurrentArticleFigure3Rendition(result);
+    assertCurrentArticleFigure8Rendition(result);
+  }
   return result;
 }
 

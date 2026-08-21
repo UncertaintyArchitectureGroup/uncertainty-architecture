@@ -14,6 +14,8 @@
     --tertiary: #54736d;
     --highlight: rgba(143, 159, 169, 0.12);
     --textHighlight: rgba(255, 242, 54, 0.3);
+    --ua-figure-panel: #fafaf7;
+    --ua-figure-border: #d4ddd8;
   }
 
   @page {
@@ -256,7 +258,11 @@
     width: 100%;
     box-sizing: border-box;
     margin: 0 0 0.35rem;
-    padding: 0.65rem;
+    padding: 0.8rem;
+    background: var(--ua-figure-panel) !important;
+    border: 0.6pt solid var(--ua-figure-border);
+    border-radius: 2.5mm;
+    box-shadow: none !important;
   }
 
   .ua-pdf-mermaid-figure > p {
@@ -307,12 +313,24 @@
     height: auto !important;
     max-width: none !important;
     margin-inline: auto;
+    box-sizing: border-box;
+    background: var(--ua-figure-panel) !important;
+    border: 0.6pt solid var(--ua-figure-border);
+    border-radius: 2.5mm;
   }
 
   .ua-pdf-static-figure > p {
     margin: 0.35rem 0 0;
     font-size: 9pt;
     line-height: 1.25;
+  }
+
+  .ua-pdf-static-figure--3 {
+    margin: 0.35rem 0 0.75rem;
+  }
+
+  .ua-pdf-static-figure--3 > svg {
+    max-height: 90mm !important;
   }
 
   .ua-pdf-static-figure--8a {
@@ -326,6 +344,8 @@
   }
 
   .ua-pdf-static-figure--8a > svg {
+    width: auto !important;
+    max-width: 100% !important;
     max-height: 155mm !important;
   }
 

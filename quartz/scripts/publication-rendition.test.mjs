@@ -6,6 +6,7 @@ import test from "node:test";
 
 import {
   buildPublicationRendition,
+  compactInlineSvg,
   buildToc,
   extractFigureList,
   normalizeDate,
@@ -29,6 +30,13 @@ import {
   verifyTitlePage,
 } from "./verify-publication-pdf.mjs";
 import { assertCanonicalFigure8Fingerprint } from "./publication-figure8-fingerprint.mjs";
+
+test("inline publication SVG remains one raw HTML block", () => {
+  const svg = `<svg>\n<text>top</text>\n\n<rect/>\n\n<text>bottom</text>\n</svg>`;
+  const compacted = compactInlineSvg(svg);
+  assert.doesNotMatch(compacted, /\n[ \t]*\n/);
+  assert.match(compacted, /<text>bottom<\/text>/);
+});
 
 test("Figure 8 publication rendition preserves decision and capability semantics", () => {
   const source = `Before\n\n\`\`\`mermaid\nflowchart LR\n    subgraph L["Decision ownership"]\n        O["Organization"] -->|initial admissibility + assessment eligibility| P["Project"]\n        P --> CAT{"Selected technical design still a Thinking System?"}\n        CAT -->|No| EXIT["Exit Thinking-System-specific lifecycle"]\n        P --> RQ["specific Bounded Research Authorization"]\n        P --> VB["viable production basis"]\n        P --> PA["research-only and/or production-capable"]\n        D["Delivery"] --> E["Delivery / Runtime reassessment evidence"]\n        X["Exogenous Organizational change"] --> O\n    end\n    subgraph F["Capability functions"]\n        A["Actuators and corrective action"]\n        K["Constraints and realizations"]\n        S["Sensors and evidence"]\n        C["Controllers / decision functions"]\n    end\n    L -. "all four capability families may appear at every decision horizon" .- F\n\`\`\`\n\n**Figure 8 — Two orthogonal models.** Canonical caption.\n\nAfter`;
