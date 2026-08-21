@@ -1,6 +1,7 @@
 name: Temporary PR 95 visual refinement
 
 on:
+  pull_request:
   push:
     branches:
       - publishing/thinking-systems-pdf-review
@@ -25,7 +26,18 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
+      - name: Check refinement trigger
+        id: gate
+        shell: bash
+        run: |
+          if [[ -f .github/pr95-visual-refinement-trigger.txt ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Apply reviewed publication changes
+        if: steps.gate.outputs.run == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -272,14 +284,11 @@ jobs:
               raise RuntimeError("Changelog refinement entry was not found")
           write(changelog_path, changelog.replace(old_changelog, new_changelog, 1))
 
-          for temporary in [
-              ".github/workflows/pr95-visual-refinement.yml",
-              ".github/pr95-visual-refinement-trigger.txt",
-          ]:
-              Path(temporary).unlink(missing_ok=True)
+          Path(".github/pr95-visual-refinement-trigger.txt").unlink(missing_ok=True)
           PY
 
       - name: Format, test, and push
+        if: steps.gate.outputs.run == 'true'
         shell: bash
         run: |
           set -euo pipefail
