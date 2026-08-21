@@ -229,14 +229,15 @@ export function locateCanonicalFigure3(content) {
   while ((match = blockPattern.exec(content)) !== null) {
     const mermaid = match[1];
     if (
-      !mermaid.includes("Primarily explicitly authored consequential behavior") ||
+      !mermaid.includes(
+        "Primarily explicitly authored consequential behavior",
+      ) ||
       !mermaid.includes("Thinking System — changed responsibility structure")
     ) {
       continue;
     }
     const tail = content.slice(blockPattern.lastIndex);
-    const captionMatch =
-      /^\s*(\*\*Figure 3 —[^\n]*)(?=\n\n|$)/.exec(tail);
+    const captionMatch = /^\s*(\*\*Figure 3 —[^\n]*)(?=\n\n|$)/.exec(tail);
     if (!captionMatch) return null;
     const captionStart =
       blockPattern.lastIndex +
@@ -258,7 +259,7 @@ export function renderFigure3(content) {
   assertFigure3SemanticSource(located.mermaid);
   const svg = compactInlineSvg(buildFigure3ControlledObjectSvg());
   const caption = located.caption.replace(
-    /^(\**Figure 3 — ?.*?\.\*\*)/,
+    /^\*\*(Figure 3 — ?.*?\.)\*\*/,
     "<strong>$1</strong>",
   );
   const panel = `<section class="ua-pdf-static-figure ua-pdf-static-figure--3" data-ua-figure3-rendition="side-by-side">
@@ -277,8 +278,12 @@ export function assertCurrentArticleFigure3Rendition(rendition) {
       "Current Thinking Systems publication requires the reviewed side-by-side Figure 3 rendition.",
     );
   }
-  const canonical = rendition.canonicalFigures.filter((figure) => figure.number === 3);
-  const rendered = rendition.renditionFigures.filter((figure) => figure.number === 3);
+  const canonical = rendition.canonicalFigures.filter(
+    (figure) => figure.number === 3,
+  );
+  const rendered = rendition.renditionFigures.filter(
+    (figure) => figure.number === 3,
+  );
   if (
     canonical.length !== 1 ||
     canonical[0].panel !== null ||

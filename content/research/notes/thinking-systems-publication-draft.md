@@ -21,7 +21,7 @@ tags:
   - ua/topic/uncertainty-boundary
   - ua/topic/control-loop
 created: 2026-08-17
-updated: 2026-08-20
+updated: 2026-08-21
 language: en
 license: CC-BY-4.0
 draft: true
@@ -41,7 +41,7 @@ related:
 
 # Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes
 
-> **Publication note.** This is a shorter standalone adaptation of the living working paper [*Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities*](open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
+> **Publication note.** This is a shorter standalone adaptation of the living working paper [_Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities_](open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
 
 ## Who this article is for
 
@@ -53,15 +53,15 @@ It assumes familiarity with software systems and engineering delivery, but it do
 
 The table below is a **reader aid, not a second canonical glossary**. Where a term already exists in the [UA glossary](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/glossary.md), the wording below is a compact restatement of that meaning. Article-specific shorthand is marked explicitly. The remaining control and lifecycle terms are introduced where they become necessary; the canonical glossary remains the terminology authority.
 
-| Term | Meaning in this article |
-|---|---|
-| **Thinking System** | A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. |
+| Term                                     | Meaning in this article                                                                                                                                                                                                                                                                                       |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Thinking System**                      | A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.                                                                                                |
 | **Consequential Runtime Responsibility** | A runtime responsibility whose output, decision, path, action, or downstream state can materially affect an intended outcome, an applicable Requirement or Constraint, delegated authority, resource use, or a person or system downstream. Consequential means material causal relevance, not risk severity. |
-| **Model Judgment** | Interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. |
-| **Linear Software** | Software in which no Consequential Runtime Responsibility depends partly on Model Judgment. The term does not imply linear, sequential, or fixed orchestration. |
-| **Judgment Node** | A bounded location where Model Judgment influences an output, decision, path, action, or downstream state. It is consequential for Thinking-System classification when it performs or materially influences a Consequential Runtime Responsibility. |
-| **Controlled object** | The whole software system inside the declared boundary whose behavior engineering seeks to keep within acceptable conditions—not merely the model invocation. |
-| **Control perimeter** *(article usage)* | The technical and socio-technical control relationships that must follow the authority and effects of the controlled object: boundaries and their realizations, evidence, decision authority, corrective action, Human Authority where required, and reassessment paths. |
+| **Model Judgment**                       | Interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty.                                                                                                                                             |
+| **Linear Software**                      | Software in which no Consequential Runtime Responsibility depends partly on Model Judgment. The term does not imply linear, sequential, or fixed orchestration.                                                                                                                                               |
+| **Judgment Node**                        | A bounded location where Model Judgment influences an output, decision, path, action, or downstream state. It is consequential for Thinking-System classification when it performs or materially influences a Consequential Runtime Responsibility.                                                           |
+| **Controlled object**                    | The whole software system inside the declared boundary whose behavior engineering seeks to keep within acceptable conditions—not merely the model invocation.                                                                                                                                                 |
+| **Control perimeter** _(article usage)_  | The technical and socio-technical control relationships that must follow the authority and effects of the controlled object: boundaries and their realizations, evidence, decision authority, corrective action, Human Authority where required, and reassessment paths.                                      |
 
 ## 1. Engineering Evolves Around Dominant Uncertainty
 
@@ -89,7 +89,7 @@ flowchart LR
 
 **Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** Waterfall, Agile, and DevOps are shown as familiar examples of broader engineering responses. The progression is conceptual, not replacement history.
 
-The formulation **“Thinking Systems”** entered this research through my exchange with **Arkadiy Dobkin** following his LinkedIn post [*From Fall to Rise*](https://www.linkedin.com/posts/arkadiydobkin_from-fall-to-rise-activity-7477593508879724544-8-ZL). I am grateful to Arkadiy specifically for that formulation. I use the term here for a narrower engineering category; the definition and responsibility boundary below are developed in the Uncertainty Architecture research track. This article does **not** claim coinage of the phrase.
+The formulation **“Thinking Systems”** entered this research through my exchange with **Arkadiy Dobkin** following his LinkedIn post [_From Fall to Rise_](https://www.linkedin.com/posts/arkadiydobkin_from-fall-to-rise-activity-7477593508879724544-8-ZL). I am grateful to Arkadiy specifically for that formulation. I use the term here for a narrower engineering category; the definition and responsibility boundary below are developed in the Uncertainty Architecture research track. This article does **not** claim coinage of the phrase.
 
 In this article, a **Thinking System** is:
 
@@ -107,17 +107,22 @@ The category must not be collapsed into “agentic application.” The classific
 
 ```mermaid
 flowchart TB
-    subgraph I["Independent dimensions — they affect architecture and control demand, not category membership"]
-        direction LR
-        O["Orchestration topology<br/>fixed ↔ dynamic"]
-        A["Autonomy<br/>low ↔ high"]
-        D["Delegated authority<br/>narrow ↔ broad"]
+    subgraph I["Independent dimensions"]
+        direction TB
+        IN["They affect architecture and control demand,<br/>not category membership"]
+        subgraph R[" "]
+            direction LR
+            O["Orchestration topology<br/>fixed ↔ dynamic"]
+            A["Autonomy<br/>low ↔ high"]
+            D["Delegated authority<br/>narrow ↔ broad"]
+        end
     end
 
     Q{"Does any Consequential Runtime Responsibility<br/>depend partly on probabilistic Model Judgment?"}
     L["No → Linear Software<br/>relevant consequential responsibility<br/>remains explicitly encoded"]
     T["Yes → Thinking System<br/>part of consequential behavior<br/>is formed through runtime Model Judgment"]
 
+    IN ~~~ A
     O -. does not decide category .-> Q
     A -. does not decide category .-> Q
     D -. does not decide category .-> Q
@@ -125,6 +130,9 @@ flowchart TB
     Q -->|Yes| T
 
     classDef thinking fill:#eef6ff,stroke:#3367a8,stroke-width:2px;
+    classDef dimensionNote fill:transparent,stroke:transparent,color:#42545f,font-weight:600;
+    class IN dimensionNote;
+    style R fill:transparent,stroke:transparent
     class T thinking;
 ```
 
@@ -132,16 +140,16 @@ flowchart TB
 
 Broader labels remain useful, but they answer different questions.
 
-| Label | What it primarily tells us | What it does not tell us |
-|---|---|---|
-| **[AI-based system (ISO/IEC TR 29119-11)](https://www.iso.org/standard/79016.html)** | Presence of at least one AI component | Component presence alone does not say whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment |
-| **[AI system (NIST AI RMF)](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10)** | A broader system producing machine-generated outputs that influence real or virtual environments | The scope is broader than the responsibility boundary used here |
-| **LLM application** | Use of a particular model technology | Technology choice does not say what consequential responsibility the model carries |
-| **Agentic system** | Terminology varies; commonly emphasizes agency, tool use, autonomous action, or orchestration | Agency, autonomy, and authority are separate dimensions from the category test |
-| **Autonomous system** | Degree of independent operation | Autonomy changes control demand but does not establish whether a consequential responsibility depends partly on Model Judgment |
-| **Thinking System (this article)** | A Consequential Runtime Responsibility depends partly on probabilistic Model Judgment | Directly identifies the controlled-object change examined in the rest of the article |
+| Label                                                                                                                        | What it primarily tells us                                                                       | What it does not tell us                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **[AI-based system (ISO/IEC TR 29119-11)](https://www.iso.org/standard/79016.html)**                                         | Presence of at least one AI component                                                            | Component presence alone does not say whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment |
+| **[AI system (NIST AI RMF)](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10)** | A broader system producing machine-generated outputs that influence real or virtual environments | The scope is broader than the responsibility boundary used here                                                                     |
+| **LLM application**                                                                                                          | Use of a particular model technology                                                             | Technology choice does not say what consequential responsibility the model carries                                                  |
+| **Agentic system**                                                                                                           | Terminology varies; commonly emphasizes agency, tool use, autonomous action, or orchestration    | Agency, autonomy, and authority are separate dimensions from the category test                                                      |
+| **Autonomous system**                                                                                                        | Degree of independent operation                                                                  | Autonomy changes control demand but does not establish whether a consequential responsibility depends partly on Model Judgment      |
+| **Thinking System (this article)**                                                                                           | A Consequential Runtime Responsibility depends partly on probabilistic Model Judgment            | Directly identifies the controlled-object change examined in the rest of the article                                                |
 
-This is a narrow analytical comparison, not a judgment that broader AI-system concepts, NIST AI RMF, ISO standards, or agentic terminology are technically shallow or operationally incomplete. **Thinking System** is not proposed as a replacement for *AI system*; it names the responsibility boundary relevant to the engineering argument developed here.
+This is a narrow analytical comparison, not a judgment that broader AI-system concepts, NIST AI RMF, ISO standards, or agentic terminology are technically shallow or operationally incomplete. **Thinking System** is not proposed as a replacement for _AI system_; it names the responsibility boundary relevant to the engineering argument developed here.
 
 ## 2. The Controlled Object Has Changed
 
@@ -277,7 +285,7 @@ The problem is therefore not merely that AI is harder to test. Part of the contr
 
 The controlled-object shift changes what counts as sufficient engineering evidence. Once a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment, teams naturally invest in measurement: test sets, evaluators, traces, model comparisons, cost and latency monitoring, incident data, and downstream outcome analysis. All of that is necessary. None of it, by itself, establishes control.
 
-Measurement answers questions such as *what happened, how often, under which conditions, and with what confidence?* Control adds different questions: *relative to which approved boundary, who or what may decide that action is required, which action can actually change operation, and what happens when the assumptions behind the boundary no longer hold?*
+Measurement answers questions such as _what happened, how often, under which conditions, and with what confidence?_ Control adds different questions: _relative to which approved boundary, who or what may decide that action is required, which action can actually change operation, and what happens when the assumptions behind the boundary no longer hold?_
 
 A feedback loop becomes closed when evidence about the controlled process reaches a decision function and an authorized action can affect the process again:
 
@@ -474,7 +482,7 @@ This argument does not claim invention of feedback control, socio-technical safe
 
 The claim under test is narrower: whether connecting **Thinking-System classification**, the **whole software system as the controlled object**, explicit control-capability functions, and **the orthogonal relationship between lifecycle decision ownership and control-capability functions** around the same consequential responsibility gives practitioners a useful engineering map—and whether an existing method or composition already does that more simply.
 
-Relevant primary or authoritative context includes Nancy Leveson's systems-theoretic safety work in [*Engineering a Safer World*](https://mitpress.mit.edu/9780262533690/engineering-a-safer-world/), the Software Engineering Institute's [Simplex architecture](https://www.sei.cmu.edu/library/an-architectural-description-of-the-simplex-architecture/) for dependable and evolvable process-control systems, the [NIST AI Risk Management Framework 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), and [ISO/IEC TR 29119-11:2020](https://www.iso.org/standard/79016.html) on testing AI-based systems. These are antecedents and comparison points, not claimed derivations, endorsements, or exact equivalents of UA.
+Relevant primary or authoritative context includes Nancy Leveson's systems-theoretic safety work in [_Engineering a Safer World_](https://mitpress.mit.edu/9780262533690/engineering-a-safer-world/), the Software Engineering Institute's [Simplex architecture](https://www.sei.cmu.edu/library/an-architectural-description-of-the-simplex-architecture/) for dependable and evolvable process-control systems, the [NIST AI Risk Management Framework 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), and [ISO/IEC TR 29119-11:2020](https://www.iso.org/standard/79016.html) on testing AI-based systems. These are antecedents and comparison points, not claimed derivations, endorsements, or exact equivalents of UA.
 
 The **living editorial blueprint** extends the remaining research into proportional implementation, substitution against existing engineering methods and platforms, detailed lifecycle semantics, and a broader validation agenda. The working paper itself remains under development; later sections are planned to test those questions rather than being treated here as completed analysis.
 
@@ -505,7 +513,7 @@ The larger [working paper](open-engineering-specification-article-draft.md) and 
 
 The formulation provenance for **Thinking Systems** is recorded where the term is introduced above. That credit concerns the formulation and exchange, not authorship of the UA-specific definition or endorsement of this article.
 
-The work has also benefited from continuing dialogue with the **Taller** team, especially **Christophe Kolb, Maxi Armesto, and Jan**, around the socio-technical architecture surrounding AI systems. Those exchanges helped pressure-test questions of authority, human participation, workflow, and control around the model. This acknowledgment does not imply co-authorship or endorsement.
+The work has also benefited from continuing dialogue with the **Taller** team, especially **Christophe Kolb, Maximiliano Armesto, and Jan Rosen**, around the socio-technical architecture surrounding AI systems. Those exchanges helped pressure-test questions of authority, human participation, workflow, and control around the model. This acknowledgment does not imply co-authorship or endorsement.
 
 ## Try to Break the Argument
 

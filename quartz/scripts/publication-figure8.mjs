@@ -49,9 +49,14 @@ function arrow(
 
 function curve(
   d,
-  { dashed = false, color = "#46616f", marker = "ua8a-arrow" } = {},
+  {
+    dashed = false,
+    color = "#46616f",
+    marker = "ua8a-arrow",
+    width = 2.2,
+  } = {},
 ) {
-  return `<path d="${d}" fill="none" stroke="${color}" stroke-width="2.2"${dashed ? ' stroke-dasharray="8 7"' : ""} marker-end="url(#${marker})"/>`;
+  return `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}"${dashed ? ' stroke-dasharray="8 7"' : ""} marker-end="url(#${marker})"/>`;
 }
 
 const millimetersToPoints = 72 / 25.4;
@@ -263,8 +268,8 @@ ${arrow(332, 268, 382, 268)}
 ${arrow(662, 268, 712, 268)}
 ${arrow(992, 268, 1042, 268)}
 ${textBlock(687, 191, ["Yes — continue", "applicable Project Authorization scope / set"], { size: 13.1, line: 18, weight: 600, fill: "#42545f" })}
-${arrow(522, 326, 522, 338)}
-${box(407, 338, 230, 40, { fill: "#f2f4f5", stroke: "#87959c", radius: 8 })}${textBlock(522, 354, ["No — category exit", "Exit Thinking-System-specific lifecycle"], { size: 12.8, line: 16, weight: 650, fill: "#42545f" })}
+${arrow(522, 326, 522, 334)}
+${box(392, 334, 260, 46, { fill: "#f2f4f5", stroke: "#87959c", radius: 8 })}${textBlock(522, 350, ["No — category exit", "Exit Thinking-System-specific lifecycle"], { size: 12.8, line: 17, weight: 650, fill: "#42545f" })}
 
 ${box(28, 398, 1344, 248, { fill: "#fffaf2", stroke: "#dfc79e", radius: 18 })}
 ${textBlock(55, 428, ["RESERVED OR CHANGED BASIS PATH — ONLY WHEN THE STANDING BASIS IS NOT ENOUGH"], { size: 13, weight: 700, fill: "#8c622a", anchor: "start" })}
@@ -282,11 +287,11 @@ ${box(52, 728, 280, 118, { fill: "#fffaf2", stroke: "#b7853c" })}${textBlock(192
 ${box(382, 718, 300, 138, { fill: "#ffffff", stroke: "#6c8795" })}${textBlock(532, 749, ["Project reassessment"], { size: 17.2, weight: 700, fill: "#17242c" })}${textBlock(532, 777, ["risk / feasibility / Model Judgment necessity", "capacity / economics invalidated", "or research answered"], { size: 13.1, line: 18, fill: "#42545f" })}
 ${box(732, 728, 250, 118, { fill: "#ffffff", stroke: "#6c8795" })}${textBlock(857, 760, ["Delivery reassessment"], { size: 17.2, weight: 700, fill: "#17242c" })}${textBlock(857, 790, ["implementation / realization", "/ evidence issue"], { size: 13.4, line: 19, fill: "#42545f" })}
 ${box(1032, 718, 290, 138, { fill: "#ffffff", stroke: "#597887" })}${textBlock(1177, 749, ["Reassessment evidence"], { size: 17.2, weight: 700, fill: "#17242c" })}${textBlock(1177, 777, ["Delivery / Runtime reassessment evidence", "realization / experiment evidence", "or operation evidence"], { size: 13, line: 18, fill: "#42545f" })}
-${arrow(1032, 775, 982, 775, { dashed: true })}
-${arrow(1032, 820, 682, 820, { dashed: true })}
-${curve("M 192 728 L 42 700 L 42 268 L 52 268", { color: "#a9742d" })}
-${curve("M 852 316 L 1000 390 L 1000 690 L 1110 718", { dashed: true })}
-${curve("M 1182 316 L 1350 390 L 1350 690 L 1245 718", { dashed: true })}
+${arrow(1032, 775, 982, 775, { dashed: true, color: "#6f848e" })}
+${arrow(1032, 820, 682, 820, { dashed: true, color: "#6f848e" })}
+${curve("M 192 728 L 12 700 L 12 248 L 52 248", { color: "#a9742d", width: 3.2 })}
+${curve("M 852 316 L 1000 390 L 1000 690 L 1110 718", { dashed: true, color: "#6f848e" })}
+${curve("M 1182 316 L 1350 390 L 1350 690 L 1245 718", { dashed: true, color: "#6f848e" })}
 ${textBlock(700, 906, ["Solid arrows carry authorization forward. Dashed arrows return evidence for reassessment."], { size: 13.2, weight: 650, fill: "#54736d" })}
 </svg>`;
 }

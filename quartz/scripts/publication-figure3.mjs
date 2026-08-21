@@ -74,40 +74,42 @@ export function assertFigure3SemanticSource(mermaid) {
 }
 
 export function buildFigure3ControlledObjectSvg() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 500" style="width:100%;height:auto;max-width:none" role="img" aria-label="Side-by-side comparison of Linear Software and a Thinking System">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 690" style="width:100%;height:auto;max-width:none" role="img" aria-label="Side-by-side top-down comparison of Linear Software and a Thinking System" data-ua-flow="top-down">
 <defs>
   <marker id="ua3-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#496574"/></marker>
 </defs>
 ${textBlock(700, 38, ["The controlled-object shift"], { size: 26, weight: 700, fill: "#17242c" })}
-${box(24, 65, 660, 385, { fill: "#f7f9f8", stroke: "#b7c2c7", radius: 18 })}
-${box(716, 65, 660, 385, { fill: "#f6fafb", stroke: "#9fb5bf", radius: 18 })}
-${textBlock(354, 104, ["Linear Software"], { size: 24, weight: 700, fill: "#284b63" })}
-${textBlock(1046, 104, ["Thinking System"], { size: 24, weight: 700, fill: "#284b63" })}
+${box(24, 62, 660, 570, { fill: "#f7f9f8", stroke: "#b7c2c7", radius: 18 })}
+${box(716, 62, 660, 570, { fill: "#f6fafb", stroke: "#9fb5bf", radius: 18 })}
+${textBlock(354, 103, ["Linear Software"], { size: 24, weight: 700, fill: "#284b63" })}
+${textBlock(1046, 103, ["Thinking System"], { size: 24, weight: 700, fill: "#284b63" })}
 ${textBlock(354, 132, ["Consequential mapping authored before release"], { size: 16, weight: 600, fill: "#54736d" })}
 ${textBlock(1046, 132, ["Part of the consequential mapping completed at runtime"], { size: 16, weight: 600, fill: "#54736d" })}
 
-${box(52, 190, 170, 92)}
-${textBlock(137, 224, ["Situation and", "operating conditions"], { size: 18, line: 24 })}
-${box(255, 178, 205, 116)}
-${textBlock(357.5, 213, ["Explicitly authored", "consequential", "responsibilities"], { size: 18, line: 24 })}
-${box(493, 190, 163, 92)}
-${textBlock(574.5, 218, ["Consequential", "output, action,", "or downstream state"], { size: 17, line: 22 })}
-${arrow(222, 236, 255, 236)}
-${arrow(460, 236, 493, 236)}
-${textBlock(354, 352, ["No Consequential Runtime Responsibility depends partly", "on probabilistic Model Judgment."], { size: 16, line: 22, weight: 600, fill: "#42545f" })}
+${box(150, 165, 408, 72)}
+${textBlock(354, 193, ["Situation and", "operating conditions"], { size: 18, line: 23 })}
+${arrow(354, 237, 354, 260)}
+${box(150, 260, 408, 94)}
+${textBlock(354, 289, ["Explicitly authored", "consequential responsibilities"], { size: 18, line: 24 })}
+${arrow(354, 354, 354, 378)}
+${box(150, 378, 408, 92)}
+${textBlock(354, 407, ["Consequential output, action,", "or downstream state"], { size: 18, line: 24 })}
+${textBlock(354, 515, ["No Consequential Runtime Responsibility depends partly", "on probabilistic Model Judgment."], { size: 16, line: 22, weight: 600, fill: "#42545f" })}
 
-${box(744, 190, 170, 92)}
-${textBlock(829, 224, ["Situation and", "operating conditions"], { size: 18, line: 24 })}
-${box(958, 160, 220, 100)}
-${textBlock(1068, 193, ["Explicitly authored", "responsibilities before,", "between, and after"], { size: 17, line: 22 })}
-${box(958, 270, 220, 132, { fill: "#fce8e8", stroke: "#b43a3a", strokeWidth: 3 })}
-${textBlock(1068, 298, ["One or more", "Judgment Nodes", "probabilistic", "Model Judgment"], { size: 16.5, line: 21, weight: 650, fill: "#7b1f1f" })}
-${box(1216, 220, 136, 116)}
-${textBlock(1284, 250, ["Consequential", "output, action,", "or downstream", "state"], { size: 16.5, line: 21 })}
-${curve("M 914 226 C 930 226, 940 210, 958 210")}
-${curve("M 914 246 C 930 270, 940 330, 958 338")}
-${curve("M 1178 210 C 1195 210, 1202 250, 1216 258")}
-${curve("M 1178 338 C 1195 338, 1202 300, 1216 292")}
-${textBlock(1046, 414, ["Model Judgment changes the responsibility structure at a bounded node;", "the surrounding system still contains explicitly authored responsibilities."], { size: 15.5, line: 20, weight: 600, fill: "#42545f" })}
+${box(835, 150, 422, 60)}
+${textBlock(1046, 176, ["Situation and operating conditions"], { size: 17.5 })}
+${arrow(1046, 210, 1046, 227)}
+${box(835, 227, 422, 72)}
+${textBlock(1046, 253, ["Explicitly authored responsibilities", "before / between Judgment Nodes"], { size: 17, line: 22 })}
+${arrow(1046, 299, 1046, 316)}
+${box(850, 316, 392, 88, { fill: "#fce8e8", stroke: "#b43a3a", strokeWidth: 3 })}
+${textBlock(1046, 342, ["One or more Judgment Nodes", "probabilistic Model Judgment"], { size: 17, line: 23, weight: 650, fill: "#7b1f1f" })}
+${arrow(1046, 404, 1046, 421)}
+${box(835, 421, 422, 64)}
+${textBlock(1046, 447, ["Explicitly authored responsibilities", "after Judgment Nodes"], { size: 17, line: 22 })}
+${arrow(1046, 485, 1046, 502)}
+${box(835, 502, 422, 72)}
+${textBlock(1046, 529, ["Consequential output, action,", "or downstream state"], { size: 17, line: 22 })}
+${textBlock(1046, 604, ["Model Judgment changes the responsibility structure at a bounded node;", "the surrounding system still contains explicitly authored responsibilities."], { size: 15.5, line: 20, weight: 600, fill: "#42545f" })}
 </svg>`;
 }

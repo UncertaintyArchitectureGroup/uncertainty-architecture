@@ -34,6 +34,7 @@ test("Figure 3 publication rendition is a side-by-side Linear Software compariso
   const result = renderFigure3(canonicalFigure3);
   assert.equal(result.rendered, true);
   assert.match(result.content, /data-ua-figure3-rendition="side-by-side"/);
+  assert.match(result.content, /data-ua-flow="top-down"/);
   assert.match(result.content, /Linear Software/);
   assert.match(result.content, /Thinking System/);
   assert.match(result.content, /Consequential mapping authored before release/);
@@ -43,8 +44,14 @@ test("Figure 3 publication rendition is a side-by-side Linear Software compariso
   );
   assert.match(result.content, /One or more/);
   assert.match(result.content, /Judgment Nodes/);
+  assert.match(result.content, /before \/ between Judgment Nodes/);
+  assert.match(result.content, /after Judgment Nodes/);
   assert.doesNotMatch(result.content, /```mermaid/);
-  assert.match(result.content, /Figure 3 — The controlled-object shift/);
+  assert.match(
+    result.content,
+    /<strong>Figure 3 — The controlled-object shift\.<\/strong>/,
+  );
+  assert.doesNotMatch(result.content, /\*\*Figure 3/);
 });
 
 test("Figure 3 semantic guard rejects a materially incomplete source", () => {
