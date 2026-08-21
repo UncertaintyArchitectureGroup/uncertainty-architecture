@@ -6,8 +6,8 @@ import test from "node:test";
 
 import {
   buildPublicationRendition,
-  buildToc,
   compactInlineSvg,
+  buildToc,
   extractFigureList,
   normalizeDate,
   repoRoot,
@@ -32,13 +32,7 @@ import {
 import { assertCanonicalFigure8Fingerprint } from "./publication-figure8-fingerprint.mjs";
 
 test("inline publication SVG remains one raw HTML block", () => {
-  const svg = `<svg>
-<text>top</text>
-
-<rect/>
-
-<text>bottom</text>
-</svg>`;
+  const svg = `<svg>\n<text>top</text>\n\n<rect/>\n\n<text>bottom</text>\n</svg>`;
   const compacted = compactInlineSvg(svg);
   assert.doesNotMatch(compacted, /\n[ \t]*\n/);
   assert.match(compacted, /<text>bottom<\/text>/);
@@ -139,7 +133,7 @@ test("publication title page carries full author, status, license, URLs, and sou
   const sourceCommit = "0123456789abcdef0123456789abcdef01234567";
   const source = {
     relative: "content/research/notes/publication.md",
-    raw : "---\ntitle: Publication title\n---\n# Publication title\n\n## Section\n",
+    raw: "---\ntitle: Publication title\n---\n# Publication title\n\n## Section\n",
     data: {
       title: "Publication title",
       authors: ["Vitalii Oborskyi"],
@@ -181,14 +175,21 @@ test("publication manifest verifies explicit source and PDF identities", async (
     title: "Publication title",
     authors: ["Vitalii Oborskyi"],
     source_path: "content/research/notes/publication.md",
+    source_sha: commit,
+    source_commit: commit,
     source_commit_sha: commit,
     source_state: "committed",
     source_git_blob_sha: "2".repeat(40),
     source_working_blob_sha: "2".repeat(40),
+    source_content_digest: {
+      algorithm: "sha256",
+      value: sha256(sourceBuffer),
+    },
+    source_sha256: sha256(sourceBuffer),
     source_content_sha256: sha256(sourceBuffer),
-    pdf_path: path.relative(repoRoot, pdfPath).split(path.sep).join("/"),
+    pdf_path: "dist/pdf/publication.pdf",
     pdf_sha256: sha256(pdfBuffer),
-    generated_at: "2026-08-20T12:34:56.000Z",
+    generated_at: "2026-08-20T10:00:00.000Z",
     generated_date: "2026-08-20",
     publication_date: "2026-08-20",
     edition_date: "2026-08-20",
@@ -198,15 +199,21 @@ test("publication manifest verifies explicit source and PDF identities", async (
     draft: true,
     license: "CC-BY-4.0",
     repository_url: "https://github.com/Example/Repository",
+    source_url: `https://github.com/Example/Repository/blob/${commit}/content/research/notes/publication.md`,
     canonical_url: "https://example.org/publication",
-    additional_publication_urls: ["https://example.org/medium"],
+    additional_publication_urls: ["https://example.org/copy"],
     external_publication_urls: [
       "https://example.org/publication",
-      "https://example.org/medium",
+      "https://example.org/copy",
     ],
+    number_of_pages: 21,
     page_count: 21,
     toc_included: true,
     toc_threshold_pages: 20,
+    figures: {
+      canonical: [{ number: 1, panel: null, title: "Canonical" }],
+      rendered: [{ number: 1, panel: null, title: "Canonical" }],
+    },
     canonical_figures: [{ number: 1, panel: null, title: "Canonical" }],
     rendition_figures: [{ number: 1, panel: null, title: "Canonical" }],
     figure_8_split_for_readability: false,
@@ -266,7 +273,7 @@ test("title-page and clickable-contents verification reject incomplete publicati
     verifyTitlePage(titleText.replace(commit, commit.slice(0, 12)), manifest)
       .valid,
     false,
- );
+  );
 
   const pdfText = `${titleText}\fContents\nFirst Section\fBody`;
   const xml = '<text><a href="publication.html#3">First Section</a></text>';

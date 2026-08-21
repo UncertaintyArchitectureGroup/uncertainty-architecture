@@ -219,7 +219,7 @@ ${items}
 export function compactInlineSvg(svg) {
   return String(svg ?? "")
     .replace(/\r\n/g, "\n")
-    .replace(/\n\sj\n/g, "\n")
+    .replace(/\r?\n[ \t]*\r?\n/g, "\n")
     .trim();
 }
 
