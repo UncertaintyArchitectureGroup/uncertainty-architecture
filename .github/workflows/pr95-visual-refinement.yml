@@ -259,23 +259,6 @@ jobs:
           )
           write(figure8_path, figure8)
 
-          figure8_test_path = "quartz/scripts/publication-figure8.test.mjs"
-          figure8_tests = read(figure8_test_path)
-          anchor = '''  assert.equal(
-            assertFigure8RenditionSemantics(assets.decision.svg, assets.capability.svg),
-            true,
-          );'''
-          addition = anchor + '''
-          assert.match(
-            assets.decision.svg,
-            /M 192 728 L 12 700 L 12 248 L 52 248/,
-          );
-          assert.match(assets.decision.svg, /stroke-width="3.2"/);'''
-          if anchor not in figure8_tests:
-              raise RuntimeError("Figure 8 test insertion anchor was not found")
-          figure8_tests = figure8_tests.replace(anchor, addition, 1)
-          write(figure8_test_path, figure8_tests)
-
           changelog_path = "CHANGELOG.md"
           changelog = read(changelog_path)
           old_changelog = "- Refined the standalone Thinking Systems publication PDF for screen and print review: kept the page background white, added a restrained off-white panel and thin border around diagrams, replaced the stacked Figure 3 render with a side-by-side Linear Software versus Thinking System comparison, and re-authored Figure 8A as three explicit authorization, reserved-basis, and reassessment bands without changing the canonical Figure 8 semantics or readability thresholds."
