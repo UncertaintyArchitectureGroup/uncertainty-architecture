@@ -12,7 +12,7 @@ tags:
   - ua/type/research-index
   - ua/status/research
   - ua/topic/provenance
-updated: 2026-08-20
+updated: 2026-08-24
 license: CC-BY-4.0
 ---
 
@@ -34,7 +34,8 @@ A publication adaptation draft also remains a research note until it is actually
 - [`metrics-brief.md`](metrics-brief.md) — planning brief for decision-useful evidence, misleading metrics, sampling, drift signals, and context-derived thresholds.
 - [`on-device-cloud-source-intake.md`](on-device-cloud-source-intake.md) — traceability record for a full author-provided source that remains pending raw preservation and normalization.
 - [`open-engineering-specification-article-blueprint.md`](open-engineering-specification-article-blueprint.md) — active living editorial contract for the long-form public synthesis paper. It preserves the complete argument, section responsibilities, running-example contract, figure plan, source plan, maturity boundaries, and unresolved editorial decisions while remaining non-normative research material.
-- [`open-engineering-specification-article-draft.md`](open-engineering-specification-article-draft.md) — active long-form target manuscript governed by the blueprint. The current merged paper establishes the core argument through Article §4 while later research remains intentionally open; Draft PRs may continue the long-form work independently of publication adaptations.
+- [`open-engineering-specification-article-draft.md`](open-engineering-specification-article-draft.md) — active long-form target manuscript governed by the blueprint. The current draft establishes the core argument and practical carrier analysis through Article §5 while later comparative research remains intentionally open; Draft PRs may continue the long-form work independently of publication adaptations.
+- [`thinking-systems-external-review-maximiliano-armesto.md`](thinking-systems-external-review-maximiliano-armesto.md) — provenance and reconciliation record for Maximiliano Armesto's substantive pre-publication review. It records the publication-facing terminology change, pre-LLM category lineage, early proportionality requirement, direct STAMP/STPA positioning, broader bidirectional comparison scope, and open framework questions without implying co-authorship or endorsement.
 - [`thinking-systems-publication-draft.md`](thinking-systems-publication-draft.md) — publication-facing adaptation titled *Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes*. It preserves the category and controlled-object deduction from the long-form §§1–2, follows the manuscript's closed-loop → complete bounded-control figure sequence through Figures 6–7, and aligns publication Figure 8 with the manuscript's orthogonal model: assessment eligibility, Project-owned technical selection and category confirmation, category exit, specific research/business authorization, scoped research-only or production-capable Project Authorization, reassessment routing, and the independent capability-family axis remain visible while later operating detail stays compressed. It is intended to expose that argument to external criticism before the larger paper is completed.
 - [`reference-implementations-brief.md`](reference-implementations-brief.md) — planning brief for implementation evidence, two-level worked applications, and architectural examples that can test current UA doctrine and patterns.
 

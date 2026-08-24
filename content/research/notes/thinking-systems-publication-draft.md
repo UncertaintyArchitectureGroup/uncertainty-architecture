@@ -21,7 +21,7 @@ tags:
   - ua/topic/uncertainty-boundary
   - ua/topic/control-loop
 created: 2026-08-17
-updated: 2026-08-21
+updated: 2026-08-24
 language: en
 license: CC-BY-4.0
 draft: true
@@ -31,6 +31,7 @@ source_basis:
   - open-engineering-specification-article-draft.md
   - open-engineering-specification-article-blueprint.md
 related:
+  - thinking-systems-external-review-maximiliano-armesto.md
   - ../index.md
   - ../../../00-doctrine/glossary.md
   - ../../../00-doctrine/uncertainty-in-the-controlled-object.md
@@ -58,7 +59,7 @@ The table below is a **reader aid, not a second canonical glossary**. Where a te
 | **Thinking System**                      | A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.                                                                                                |
 | **Consequential Runtime Responsibility** | A runtime responsibility whose output, decision, path, action, or downstream state can materially affect an intended outcome, an applicable Requirement or Constraint, delegated authority, resource use, or a person or system downstream. Consequential means material causal relevance, not risk severity. |
 | **Model Judgment**                       | Interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty.                                                                                                                                             |
-| **Linear Software**                      | Software in which no Consequential Runtime Responsibility depends partly on Model Judgment. The term does not imply linear, sequential, or fixed orchestration.                                                                                                                                               |
+| **Explicitly authored consequential behavior** _(descriptive contrast)_ | Consequential behavior whose relevant responsibility is specified through explicit logic rather than depending partly on runtime Model Judgment. This describes the responsibility boundary, not a second canonical system category or a sequential topology. |
 | **Judgment Node**                        | A bounded location where Model Judgment influences an output, decision, path, action, or downstream state. It is consequential for Thinking-System classification when it performs or materially influences a Consequential Runtime Responsibility.                                                           |
 | **Controlled object**                    | The whole software system inside the declared boundary whose behavior engineering seeks to keep within acceptable conditions—not merely the model invocation.                                                                                                                                                 |
 | **Control perimeter** _(article usage)_  | The technical and socio-technical control relationships that must follow the authority and effects of the controlled object: boundaries and their realizations, evidence, decision authority, corrective action, Human Authority where required, and reassessment paths.                                      |
@@ -82,7 +83,7 @@ flowchart LR
     W["Plan-driven engineering (Waterfall)<br/>dominant concern: requirement and design uncertainty<br/>response: reduce uncertainty before implementation"]
     A["Iterative delivery (Agile and related approaches)<br/>dominant concern: product-learning uncertainty<br/>response: shorten delivery and feedback cycles"]
     D["Modern operations (DevOps)<br/>dominant concern: production-condition uncertainty<br/>response: observe, expose progressively, recover"]
-    T["Thinking-System engineering<br/>new concern: runtime judgment inside the object<br/>response: bounded control of the changed object"]
+    T["Thinking-System engineering<br/>now-widespread concern: runtime judgment inside the object<br/>response: bounded control of the changed object"]
 
     W --> A --> D --> T
 ```
@@ -95,6 +96,13 @@ In this article, a **Thinking System** is:
 
 > A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.
 
+
+This category did not begin with LLMs. Earlier probabilistic systems can qualify when their outputs materially perform or mediate a Consequential Runtime Responsibility. A traditional credit-scoring model can therefore qualify when its score materially shapes a consequential decision; an internal document summarizer can qualify when its summary materially changes what a reviewer understands or attends to. Neither example qualifies merely because a model is present.
+
+LLMs did not create this responsibility structure. They made model-mediated interpretation, generation, routing, planning, and action selection far more general-purpose, accessible, and widespread across ordinary software. They are the practical trigger and primary contemporary focus of this paper, not the historical beginning of the category.
+
+**Category membership, consequence severity, and required control depth are separate questions.** A low-consequence internal summarizer used to support a reversible human review may require only a modest explicit control surface. A system authorized to alter financial or operational state may require much more. Classification identifies the nature of the engineering problem; consequence, reachable authority, reversibility, evidence quality, and operating context determine the depth of implementation.
+
 A runtime responsibility is a **Consequential Runtime Responsibility** when its output, decision, path, action, or downstream state can materially affect an intended outcome, satisfaction of an applicable Requirement or Constraint, the exercise of delegated authority, resource use, or a person or system downstream. **Consequential describes material causal relevance, not implementation mechanism or risk severity.** A Consequential Runtime Responsibility may be fulfilled entirely through explicitly encoded logic or may depend partly on probabilistic Model Judgment; Thinking-System classification changes only in the latter case. Harm, severity, likelihood, autonomy, regulation, control adequacy, and production readiness are separate questions. A model invocation with no material influence on any Consequential Runtime Responsibility does not establish the category by itself.
 
 The definition identifies the changed engineering object; it does not certify control adequacy. A Thinking System can be well controlled, poorly controlled, experimental, or not ready for production. Constraints, evidence, decision rights, and corrective mechanisms belong to the engineering response around Model-Judgment-dependent Consequential Runtime Responsibilities; they are not the condition that makes the category exist.
@@ -103,7 +111,7 @@ The word **Thinking** is functional rather than anthropomorphic. It does not cla
 
 **Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. It is useful precisely because the required behavior cannot always be exhaustively encoded in advance.
 
-The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly encoded and the software remains **Linear Software** even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. **Linear Software** here does not mean linear, sequential, or fixed orchestration; it means that no Consequential Runtime Responsibility depends partly on Model Judgment.
+The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly authored even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. No proper-name opposite category is required here: **explicitly authored** describes the responsibility boundary, not a sequential or fixed topology.
 
 ```mermaid
 flowchart TB
@@ -119,7 +127,7 @@ flowchart TB
     end
 
     Q{"Does any Consequential Runtime Responsibility<br/>depend partly on probabilistic Model Judgment?"}
-    L["No → Linear Software<br/>relevant consequential responsibility<br/>remains explicitly encoded"]
+    L["No → Relevant consequential responsibility<br/>remains explicitly authored"]
     T["Yes → Thinking System<br/>part of consequential behavior<br/>is formed through runtime Model Judgment"]
 
     IN ~~~ A
@@ -154,6 +162,11 @@ This is a narrow analytical comparison, not a judgment that broader AI-system co
 ## 2. The Controlled Object Has Changed
 
 A controlled object is the thing whose behavior engineering seeks to keep within acceptable conditions. For this category, that object is never only source code or a model invocation. It is the whole software system within its declared boundary: deployed components, data, configuration, dependencies, infrastructure, and software-operated processes and interfaces. The behavior being controlled must be assessed through the downstream effects that system can produce; those effects do not become additional software components. Relevant human roles and interactions may belong to the **socio-technical control perimeter around that object**; they do not become part of the controlled process merely because they observe, authorize, or change it. A software component may implement a control function while remaining physically inside the system boundary, but the controlled-process and control-function relationships remain conceptually distinct.
+
+
+This article does not claim that hierarchical socio-technical control—or its extension into management and regulatory authority—is new. STAMP/STPA already supports control structures that can span those levels. The narrower working hypothesis is that explicitly separating lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime may provide a useful specialization for model-judgment-dependent software. That hypothesis must be demonstrated, narrowed, or rejected through comparison rather than inferred from the four-horizon model itself.
+
+A complete bidirectional comparison is a substantial research task and is not compressed into this standalone category-and-control argument. It remains part of the larger working paper and is not limited to STAMP/STPA: the planned analysis also includes Simplex and other runtime-assurance architectures, mathematical and control-theoretic work, production ML and software-engineering practice, risk and AI management systems, and implementation approaches and platforms. It must ask both what those approaches leave outside their normal scope and what the four-horizon model itself flattens, renames, duplicates, or fails to preserve.
 
 Thinking Systems change this object by making one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment. The change can occur in the first model-enabled iteration; it does not require autonomous agents, dynamic orchestration, multiple models, memory, or a mature AI platform.
 

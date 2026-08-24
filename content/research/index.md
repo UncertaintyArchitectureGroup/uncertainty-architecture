@@ -17,7 +17,7 @@ tags:
 canonical_for:
   - research-track
 created: 2026-07-24
-updated: 2026-08-17
+updated: 2026-08-24
 license: CC-BY-4.0
 ---
 
@@ -179,6 +179,8 @@ Publication adaptations are deliberately treated as **distribution surfaces of t
 
 ## Research positioning, antecedents, and intellectual context
 
+A substantive pre-publication review by **Maximiliano Armesto** reopened and narrowed several publication-facing questions. The current paper now states that the category predates LLMs while retaining LLM-based systems as its primary contemporary focus; separates category membership, consequence severity, and required control depth through an early low-consequence case; replaces the publication-facing **Linear Software** binary with descriptive language about explicitly authored consequential responsibilities; and acknowledges STAMP/STPA's existing hierarchical socio-technical control scope before testing any narrower four-horizon contribution. The review and reconciliation record is preserved in [`notes/thinking-systems-external-review-maximiliano-armesto.md`](notes/thinking-systems-external-review-maximiliano-armesto.md). These are research/editorial changes; the draft-normative glossary remains unchanged pending separate framework review.
+
 UA is a synthesis and specification effort, not a claim that its underlying engineering primitives were invented here. UA also does not claim coinage of the phrase **Thinking Systems**; it defines a specific engineering category under that name. Current research should distinguish established foundations from UA-specific composition and should prefer primary sources when describing those foundations.
 
 For the current Thinking Systems research line, the **maintainer-reported provenance** is that the formulation **“Thinking Systems”** entered the work through Vitalii Oborskyi's exchange with **Arkadiy Dobkin**, in the context of discussion prompted by Dobkin's public *From Fall to Rise* LinkedIn post. This is an author-attested record of dialogue provenance: the public post anchors the surrounding discussion context but is not presented as independent evidence that the phrase itself appeared in the post. The provenance concerns the formulation and research prompt, not authorship of the UA-specific definition, the Consequential Runtime Responsibility boundary, the control-capability model, or the resulting paper. Acknowledgment of the exchange does not imply Dobkin's endorsement or agreement with UA.
@@ -213,7 +215,7 @@ Current UA terminology uses **Thinking Systems** as defined in the [canonical gl
 
 Historical publications used **Behavioral Software** and **Behavioral Applications**. Current framework documents may identify the migration on first use, but should use **Thinking Systems** thereafter.
 
-Fixed or dynamic orchestration does not determine whether software is Linear Software or a Thinking System; Model Judgment may appear in either topology, while Thinking-System classification depends on whether at least one Consequential Runtime Responsibility depends partly on probabilistic Model Judgment. Agentic terminology raises additional questions about autonomy and delegated authority and remains an open research topic rather than a synonym for Thinking Systems.
+Fixed or dynamic orchestration does not determine the category. In publication-facing research, the opposite side of the boundary is described through consequential responsibilities that remain explicitly authored rather than through a required **Linear Software** binary label. Thinking-System classification depends on whether at least one Consequential Runtime Responsibility depends partly on probabilistic Model Judgment. The draft-normative glossary term remains unchanged until a separate terminology review decides whether the framework should retain, narrow, or replace it. Agentic terminology raises additional questions about autonomy and delegated authority and remains an open research topic rather than a synonym for Thinking Systems.
 
 Historical publications and raw sources retain their original language for provenance.
 
