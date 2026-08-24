@@ -43,6 +43,10 @@ jobs:
           if old not in script:
               raise SystemExit('related-frontmatter hotfix target not found')
           script = script.replace(old, new, 1)
+          jan_validation = '            \"Jan Rosen\",\n'
+          if script.count(jan_validation) != 1:
+              raise SystemExit('Jan Rosen validation hotfix target not found')
+          script = script.replace(jan_validation, '', 1)
           path = pathlib.Path('/tmp/reconcile-thinking-systems-review.py')
           path.write_text(script)
           subprocess.run(['python3', str(path)], check=True)
