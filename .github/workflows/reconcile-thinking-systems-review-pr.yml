@@ -37,9 +37,14 @@ jobs:
           match = re.search(r'^\s*RECONCILE_PAYLOAD:\s*(\S+)\s*$', workflow, re.MULTILINE)
           if not match:
               raise SystemExit('reconciliation payload not found')
-          script = zlib.decompress(base64.b64decode(match.group(1)))
+          script = zlib.decompress(base64.b64decode(match.group(1))).decode()
+          old = 'def add_related_review(text: str) -> str:\n    if f"  - {REVIEW_NOTE}" in text:\n        return text\n    if "related:\\n" not in text:\n        raise RuntimeError("Missing related frontmatter block")\n    return text.replace("related:\\n", f"related:\\n  - {REVIEW_NOTE}\\n", 1)\n'
+          new = 'def add_related_review(text: str) -> str:\n    if f"  - {REVIEW_NOTE}" in text:\n        return text\n    frontmatter_end = text.find("\\n---\\n", 4)\n    if frontmatter_end < 0:\n        raise RuntimeError("Missing closing frontmatter delimiter")\n    frontmatter = text[:frontmatter_end]\n    if "related:\\n" in frontmatter:\n        return text.replace("related:\\n", f"related:\\n  - {REVIEW_NOTE}\\n", 1)\n    insertion = f"\\nrelated:\\n  - {REVIEW_NOTE}"\n    return text[:frontmatter_end] + insertion + text[frontmatter_end:]\n'
+          if old not in script:
+              raise SystemExit('related-frontmatter hotfix target not found')
+          script = script.replace(old, new, 1)
           path = pathlib.Path('/tmp/reconcile-thinking-systems-review.py')
-          path.write_bytes(script)
+          path.write_text(script)
           subprocess.run(['python3', str(path)], check=True)
           PYCODE
 
