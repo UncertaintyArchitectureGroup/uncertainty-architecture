@@ -1,0 +1,63 @@
+name: One-shot Thinking Systems review reconciliation (PR)
+
+on:
+  pull_request:
+    types: [synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    if: github.head_ref == 'research/reconcile-thinking-systems-review'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out head branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Run staged refinement script
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYCODE'
+          from pathlib import Path
+          import subprocess
+          import textwrap
+
+          source = Path('.github/workflows/refine-thinking-systems-review-reconciliation.yml').read_text()
+          marker = "          python3 - <<'PYCODE'\n"
+          start = source.index(marker) + len(marker)
+          end = source.index("\n          PYCODE", start)
+          script = textwrap.dedent(source[start:end])
+          path = Path('/tmp/refine-thinking-systems-review.py')
+          path.write_text(script)
+          subprocess.run(['python3', str(path)], check=True)
+          PYCODE
+
+      - name: Validate repository-facing changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/validate_metadata.py --mode metadata
+          python3 .github/scripts/validate_metadata.py --mode canonical
+          python3 .github/scripts/validate_metadata.py --mode terminology
+          python3 .github/scripts/validate_repository_contract.py
+          git diff --check
+
+      - name: Remove one-shot automation and commit refinement
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/reconcile-thinking-systems-review-pr.yml
+          rm -f .github/workflows/refine-thinking-systems-review-reconciliation.yml
+          rm -f .github/refine-thinking-systems-review.trigger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "research: tighten review-driven positioning"
+          git push origin HEAD:${{ github.head_ref }}
