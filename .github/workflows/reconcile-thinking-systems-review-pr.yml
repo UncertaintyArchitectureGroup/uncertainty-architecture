@@ -26,13 +26,13 @@ jobs:
           python3 - <<'PYCODE'
           from pathlib import Path
           import subprocess
-          import textwrap
 
           source = Path('.github/workflows/refine-thinking-systems-review-reconciliation.yml').read_text()
           marker = "          python3 - <<'PYCODE'\n"
           start = source.index(marker) + len(marker)
           end = source.index("\n          PYCODE", start)
-          script = textwrap.dedent(source[start:end])
+          extracted = source[start:end].splitlines()
+          script = "\n".join(line[10:] if line.startswith("          ") else line for line in extracted) + "\n"
           path = Path('/tmp/refine-thinking-systems-review.py')
           path.write_text(script)
           subprocess.run(['python3', str(path)], check=True)
