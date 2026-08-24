@@ -1,0 +1,205 @@
+name: One-shot review reconciliation refinement
+
+on:
+  pull_request:
+    types: [synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    if: github.head_ref == 'research/reconcile-thinking-systems-review'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out head branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Refine review-driven argument changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYCODE'
+          from pathlib import Path
+
+          BP = Path('content/research/notes/open-engineering-specification-article-blueprint.md')
+          MS = Path('content/research/notes/open-engineering-specification-article-draft.md')
+          PUB = Path('content/research/notes/thinking-systems-publication-draft.md')
+          TRACE = Path('content/research/framework-traceability.md')
+          INDEX = Path('content/research/index.md')
+          REVIEW = Path('content/research/notes/thinking-systems-external-review-maximiliano-armesto.md')
+          CHANGELOG = Path('CHANGELOG.md')
+
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              count = text.count(old)
+              if count != 1:
+                  raise RuntimeError(f'{label}: expected exactly one match, found {count}')
+              return text.replace(old, new, 1)
+
+          lineage_old = '''This category did not begin with LLMs. Earlier probabilistic systems can qualify when their outputs materially perform or mediate a Consequential Runtime Responsibility. A traditional credit-scoring model can therefore qualify when its score materially shapes a consequential decision; an internal document summarizer can qualify when its summary materially changes what a reviewer understands or attends to. Neither example qualifies merely because a model is present.
+
+LLMs did not create this responsibility structure. They made model-mediated interpretation, generation, routing, planning, and action selection far more general-purpose, accessible, and widespread across ordinary software. They are the practical trigger and primary contemporary focus of this paper, not the historical beginning of the category.
+
+**Category membership, consequence severity, and required control depth are separate questions.** A low-consequence internal summarizer used to support a reversible human review may require only a modest explicit control surface. A system authorized to alter financial or operational state may require much more. Classification identifies the nature of the engineering problem; consequence, reachable authority, reversibility, evidence quality, and operating context determine the depth of implementation.'''
+
+          lineage_new = '''This category did not begin with LLMs. Earlier probabilistic systems can qualify whenever at least one Consequential Runtime Responsibility depends partly on their Model Judgment—for example, a credit-scoring system used so that its score materially shapes a lending decision. LLMs did not create this responsibility structure; they made model-mediated judgment far more general-purpose, accessible, and widespread, which is why LLM-based systems are the paper's primary contemporary focus.
+
+**Category membership, consequence severity, and required control depth are separate questions.** An internal summarizer whose output materially influences a reversible human review may fall within the category while requiring only a modest explicit control surface; a system authorized to alter financial or operational state may require much more. Classification identifies the engineering problem, while consequence, reachable authority, reversibility, evidence quality, and operating context determine implementation depth.'''
+
+          ms = MS.read_text()
+          pub = PUB.read_text()
+          bp = BP.read_text()
+          trace = TRACE.read_text()
+          index = INDEX.read_text()
+          review = REVIEW.read_text()
+          changelog = CHANGELOG.read_text()
+
+          ms = replace_once(ms, lineage_old, lineage_new, 'manuscript lineage block')
+          pub = replace_once(pub, lineage_old, lineage_new, 'publication lineage block')
+
+          for label, text in [('manuscript', ms), ('publication', pub)]:
+              text = replace_once(
+                  text,
+                  'now-widespread concern: runtime judgment inside the object',
+                  'expanded concern: model-mediated runtime judgment inside the object',
+                  f'{label} Figure 1 label',
+              )
+              text = replace_once(
+                  text,
+                  'No proper-name opposite category is required here: **explicitly authored** describes the responsibility boundary, not a sequential or fixed topology.',
+                  'The distinction is therefore expressed at the responsibility level: **explicitly authored** does not imply sequential or fixed topology.',
+                  f'{label} category contrast',
+              )
+              if label == 'manuscript':
+                  ms = text
+              else:
+                  pub = text
+
+          pub = replace_once(
+              pub,
+              '| **Explicitly authored consequential behavior** _(descriptive contrast)_ | Consequential behavior whose relevant responsibility is specified through explicit logic rather than depending partly on runtime Model Judgment. This describes the responsibility boundary, not a second canonical system category or a sequential topology. |',
+              '| **Explicitly authored consequential responsibility** _(descriptive contrast)_ | A Consequential Runtime Responsibility fulfilled entirely through explicit logic rather than depending partly on runtime Model Judgment. This describes the responsibility boundary, not a second canonical system category or a sequential topology. |',
+              'publication reader glossary contrast',
+          )
+
+          ms = replace_once(
+              ms,
+              'In explicitly authored software, no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment; its **Consequential Runtime Responsibilities**, if any, are fulfilled entirely through explicitly encoded logic.',
+              'Where consequential responsibilities remain explicitly authored, no **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment; any such responsibilities are fulfilled entirely through explicitly encoded logic.',
+              'manuscript explicitly authored side',
+          )
+
+          ms_stamp_early = '''This paper does not claim that hierarchical socio-technical control—or its extension into management and regulatory authority—is new. STAMP/STPA already supports control structures that can span those levels. The narrower working hypothesis is that explicitly separating lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime may provide a useful specialization for model-judgment-dependent software. That hypothesis must be demonstrated, narrowed, or rejected through comparison rather than inferred from the four-horizon model itself.
+
+The systematic comparison is developed later in this working paper rather than compressed into this early category-and-control deduction. It is not limited to STAMP/STPA: the planned bidirectional analysis also includes Simplex and other runtime-assurance architectures, mathematical and control-theoretic work, production ML and software-engineering practice, risk and AI management systems, and implementation approaches and platforms. It must ask both what those approaches leave outside their normal scope and what the four-horizon model itself flattens, renames, duplicates, or fails to preserve.
+
+'''
+          pub_stamp_early = '''This article does not claim that hierarchical socio-technical control—or its extension into management and regulatory authority—is new. STAMP/STPA already supports control structures that can span those levels. The narrower working hypothesis is that explicitly separating lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime may provide a useful specialization for model-judgment-dependent software. That hypothesis must be demonstrated, narrowed, or rejected through comparison rather than inferred from the four-horizon model itself.
+
+A complete bidirectional comparison is a substantial research task and is not compressed into this standalone category-and-control argument. It remains part of the larger working paper and is not limited to STAMP/STPA: the planned analysis also includes Simplex and other runtime-assurance architectures, mathematical and control-theoretic work, production ML and software-engineering practice, risk and AI management systems, and implementation approaches and platforms. It must ask both what those approaches leave outside their normal scope and what the four-horizon model itself flattens, renames, duplicates, or fails to preserve.
+
+'''
+          ms = replace_once(ms, ms_stamp_early, '', 'remove premature manuscript STAMP block')
+          pub = replace_once(pub, pub_stamp_early, '', 'remove premature publication STAMP block')
+
+          ms_figure9 = '''**Figure 9 — Two orthogonal models.** The left side reproduces the decision model from Figure 8: initial assessment eligibility is distinct from a later specific Bounded Research Authorization; Project / Architecture owns technical/design selection and category confirmation inside the standing Organizational basis; Organization is reactivated only when its business/authority/investment basis or an initiative-level reserved-boundary research/continuation decision is implicated; research-only and production-capable Project Authorization remain distinct scoped authorization forms and may coexist only under explicit scope/precedence semantics; Delivery/Runtime reassessment evidence returns to Delivery or Project; and exogenous Organizational change activates Organization independently. The green side is the capability anatomy. Its ordering is a reading aid, not an execution pipeline. There is no one-to-one mapping between horizons and capability families.'''
+          ms_positioning = '''**Relationship to established systems-theoretic control.** This paper does not claim that hierarchical socio-technical control—or its extension into management and regulatory authority—is new; STAMP/STPA already supports control structures that can span those levels. The narrower working hypothesis is that explicit lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime provides a useful specialization for model-judgment-dependent software. A later bidirectional comparison tests that hypothesis against STAMP/STPA, Simplex and other runtime-assurance architectures, control-theoretic research, production ML and software engineering, risk and AI management systems, and implementation platforms—including what the four-horizon model itself flattens, renames, duplicates, or misses.'''
+          ms = replace_once(ms, ms_figure9, ms_figure9 + '\n\n' + ms_positioning, 'insert manuscript STAMP positioning')
+
+          pub_figure8 = '''**Figure 8 — Two orthogonal models.** The left side preserves the decision semantics of the living manuscript: initial assessment eligibility is distinct from a later specific Bounded Research Authorization; Project / Architecture owns technical/design selection and category confirmation inside the standing Organizational basis; Organization is reactivated only when its business, authority, investment basis, or an initiative-level reserved-boundary research or continuation decision is implicated; research-only and production-capable Project Authorization remain distinct scoped forms and may coexist only under explicit scope, precedence, and interaction semantics; Delivery and Runtime reassessment evidence returns to Delivery or Project according to the decision basis it challenges; and exogenous Organizational change activates Organization independently. The green side is the capability anatomy. Its ordering is a reading aid, not an execution pipeline. There is no one-to-one mapping between horizons and capability families.'''
+          pub_positioning = '''**Relationship to established systems-theoretic control.** This article does not claim that hierarchical socio-technical control—or its extension into management and regulatory authority—is new; STAMP/STPA already supports control structures that can span those levels. The narrower working hypothesis is that explicit lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime provides a useful specialization for model-judgment-dependent software. The larger working paper's planned bidirectional comparison tests that hypothesis against STAMP/STPA, Simplex and other runtime-assurance architectures, control-theoretic research, production ML and software engineering, risk and AI management systems, and implementation platforms—including what the four-horizon model itself flattens, renames, duplicates, or misses.'''
+          pub = replace_once(pub, pub_figure8, pub_figure8 + '\n\n' + pub_positioning, 'insert publication STAMP positioning')
+
+          bp = replace_once(
+              bp,
+              'the category is stated as predating LLMs, while LLMs remain the practical trigger and primary contemporary focus because they made model-mediated judgment more general-purpose, accessible, and widespread;',
+              'the category is stated as predating LLMs, while LLMs remain the practical trigger and primary contemporary focus because they made model-mediated judgment more general-purpose, accessible, and widespread;',
+              'blueprint lineage decision guard',
+          )
+          bp = replace_once(
+              bp,
+              '→ the category predates LLMs; earlier probabilistic systems may qualify when their outputs materially perform or mediate a Consequential Runtime Responsibility',
+              '→ the category predates LLMs; earlier probabilistic systems may qualify when at least one Consequential Runtime Responsibility depends partly on their Model Judgment',
+              'blueprint connected argument lineage',
+          )
+          bp = replace_once(
+              bp,
+              '- Article §2 carries one direct STAMP/STPA positioning paragraph, while the full bidirectional comparison remains later research across STAMP/STPA, Simplex/runtime assurance, control-theoretic work, production ML/software engineering, risk and management systems, and implementation approaches and platforms.',
+              '- Article §4 carries one direct STAMP/STPA positioning paragraph after the four-horizon model is introduced, while the full bidirectional comparison remains later research across STAMP/STPA, Simplex/runtime assurance, control-theoretic work, production ML/software engineering, risk and management systems, and implementation approaches and platforms.',
+              'blueprint review reconciliation location',
+          )
+          bp = replace_once(
+              bp,
+              '**Early antecedent-positioning rule.** Article §2 must include one direct paragraph acknowledging that STAMP/STPA already supports hierarchical socio-technical control structures extending into management and regulatory authority. The paper must not imply novelty for that generic control perimeter. The narrower candidate contribution is whether explicit lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime provides a useful specialization for model-judgment-dependent software. Treat that as a hypothesis to demonstrate, narrow, or reject. The complete comparison remains later, broad, and bidirectional; the publication adaptation must not compress that substantial analysis into a superficial page of claims.',
+              '**Antecedent-positioning rule.** After Article §4 introduces the four-horizon model, include one direct paragraph acknowledging that STAMP/STPA already supports hierarchical socio-technical control structures extending into management and regulatory authority. The paper must not imply novelty for that generic control perimeter. The narrower candidate contribution is whether explicit lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime provides a useful specialization for model-judgment-dependent software. Treat that as a hypothesis to demonstrate, narrow, or reject. The complete comparison remains later, broad, and bidirectional; the publication adaptation must not compress that substantial analysis into a superficial page of claims.',
+              'blueprint antecedent positioning rule',
+          )
+
+          trace = replace_once(
+              trace,
+              'Thinking-System classification predates LLMs when earlier probabilistic systems materially perform or mediate a Consequential Runtime Responsibility; LLMs changed prevalence and generality rather than creating the responsibility structure from zero.',
+              'Thinking-System classification predates LLMs when at least one Consequential Runtime Responsibility depends partly on an earlier probabilistic system’s Model Judgment; LLMs changed prevalence and generality rather than creating the responsibility structure from zero.',
+              'traceability lineage wording',
+          )
+          review = replace_once(
+              review,
+              'The category, as defined, **predates LLMs** and can include earlier probabilistic systems when their outputs materially perform or mediate a Consequential Runtime Responsibility.',
+              'The category, as defined, **predates LLMs** and can include earlier probabilistic systems when at least one Consequential Runtime Responsibility depends partly on their Model Judgment.',
+              'review record lineage wording',
+          )
+          index = replace_once(
+              index,
+              'A substantive pre-publication review by **Maximiliano Armesto** reopened and narrowed several publication-facing questions.',
+              'A substantive pre-publication review by **Maximiliano Armesto** reopened and sharpened several publication-facing questions.',
+              'research index review wording',
+          )
+          changelog = replace_once(
+              changelog,
+              "corrected Jan Rosen's full-name acknowledgment",
+              "confirmed and preserved Jan Rosen's full-name acknowledgment",
+              'changelog Jan wording',
+          )
+
+          MS.write_text(ms)
+          PUB.write_text(pub)
+          BP.write_text(bp)
+          TRACE.write_text(trace)
+          INDEX.write_text(index)
+          REVIEW.write_text(review)
+          CHANGELOG.write_text(changelog)
+
+          for path in (MS, PUB):
+              content = path.read_text()
+              if 'Linear Software' in content:
+                  raise RuntimeError(f'{path}: publication-facing Linear Software label remains')
+              if content.count('Relationship to established systems-theoretic control.') != 1:
+                  raise RuntimeError(f'{path}: expected one systems-theoretic positioning paragraph')
+              if 'materially perform or mediate a Consequential Runtime Responsibility' in content:
+                  raise RuntimeError(f'{path}: non-canonical lineage wording remains')
+          PYCODE
+
+      - name: Validate repository-facing changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/validate_metadata.py --mode metadata
+          python3 .github/scripts/validate_metadata.py --mode canonical
+          python3 .github/scripts/validate_metadata.py --mode terminology
+          python3 .github/scripts/validate_repository_contract.py
+          git diff --check
+
+      - name: Remove one-shot workflow and commit refinement
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/refine-thinking-systems-review-reconciliation.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "research: tighten review-driven positioning"
+          git push origin HEAD:${{ github.head_ref }}
