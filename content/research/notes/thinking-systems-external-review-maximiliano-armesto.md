@@ -53,7 +53,7 @@ This record attributes the review and its effect on the research. It does **not*
 
 ## Scope decision
 
-The current standalone article receives bounded positioning and proportionality revisions before publication. The direct STAMP/STPA positioning appears only after the four-horizon model has been introduced, so the article does not compare an operating model the reader has not yet seen. It does **not** compress the complete comparative mapping into a token paragraph that would imply research already performed. The systematic, bidirectional comparison remains a substantial later section of the long-form research and may be separated into a companion publication if responsible treatment would otherwise make the manuscript unmanageable.
+The current standalone article receives bounded positioning and proportionality revisions before publication. The direct STAMP/STPA positioning appears only after the four-horizon model has been introduced, so the article does not compare an operating model the reader has not yet seen. It does **not** compress the complete comparative mapping into a brief positioning paragraph in a way that would imply the comparison has already been performed. The systematic, bidirectional comparison remains a substantial later section of the long-form research and may be separated into a companion publication if responsible treatment would otherwise make the manuscript unmanageable.
 
 ## Open research questions
 
