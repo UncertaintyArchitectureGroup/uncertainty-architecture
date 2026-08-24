@@ -1,0 +1,67 @@
+name: One-shot Thinking Systems review reconciliation (PR)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.head_ref == 'research/reconcile-thinking-systems-review'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out head branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Restore latest long-form research head from PR 82
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin refs/pull/82/head:refs/remotes/origin/pr-82
+          git show refs/remotes/origin/pr-82:content/research/notes/open-engineering-specification-article-blueprint.md > content/research/notes/open-engineering-specification-article-blueprint.md
+          git show refs/remotes/origin/pr-82:content/research/notes/open-engineering-specification-article-draft.md > content/research/notes/open-engineering-specification-article-draft.md
+
+      - name: Extract and run reconciliation payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYCODE'
+          import base64, pathlib, re, subprocess, zlib
+          workflow = pathlib.Path('.github/workflows/reconcile-thinking-systems-review.yml').read_text()
+          match = re.search(r'^\s*RECONCILE_PAYLOAD:\s*(\S+)\s*$', workflow, re.MULTILINE)
+          if not match:
+              raise SystemExit('reconciliation payload not found')
+          script = zlib.decompress(base64.b64decode(match.group(1)))
+          path = pathlib.Path('/tmp/reconcile-thinking-systems-review.py')
+          path.write_bytes(script)
+          subprocess.run(['python3', str(path)], check=True)
+          PYCODE
+
+      - name: Validate changed Markdown locally
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/validate_metadata.py --mode metadata
+          python3 .github/scripts/validate_metadata.py --mode canonical
+          python3 .github/scripts/validate_metadata.py --mode terminology
+          python3 .github/scripts/validate_repository_contract.py
+
+      - name: Remove one-shot automation and commit result
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/reconcile-thinking-systems-review.yml
+          rm -f .github/workflows/reconcile-thinking-systems-review-pr.yml
+          rm -f .github/reconcile-thinking-systems-review.trigger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "research: reconcile Thinking Systems external review"
+          git push origin HEAD:${{ github.head_ref }}
