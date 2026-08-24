@@ -1,0 +1,134 @@
+name: One-shot Thinking Systems review claim tightening
+
+on:
+  pull_request:
+    types: [synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  tighten:
+    if: github.head_ref == 'research/reconcile-thinking-systems-review'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out head branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Tighten historical scope and STAMP positioning
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYCODE'
+          from pathlib import Path
+
+          paths = {
+              'blueprint': Path('content/research/notes/open-engineering-specification-article-blueprint.md'),
+              'manuscript': Path('content/research/notes/open-engineering-specification-article-draft.md'),
+              'publication': Path('content/research/notes/thinking-systems-publication-draft.md'),
+              'index': Path('content/research/index.md'),
+              'traceability': Path('content/research/framework-traceability.md'),
+              'changelog': Path('CHANGELOG.md'),
+          }
+          texts = {name: path.read_text() for name, path in paths.items()}
+
+          def replace_once(name: str, old: str, new: str, label: str) -> None:
+              count = texts[name].count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected one match, found {count}')
+              texts[name] = texts[name].replace(old, new, 1)
+
+          # Historical precision: the systems/responsibility structure predate LLMs; the named category is made explicit here.
+          replace_once(
+              'blueprint',
+              'the category is stated as predating LLMs, while LLMs remain the practical trigger and primary contemporary focus because they made model-mediated judgment more general-purpose, accessible, and widespread;',
+              'the systems covered by the category definition are stated as predating LLMs, while LLMs remain the practical trigger and primary contemporary focus because they made model-mediated judgment more general-purpose, accessible, and widespread;',
+              'blueprint external-review lineage',
+          )
+          replace_once(
+              'blueprint',
+              '→ the category predates LLMs; earlier probabilistic systems may qualify when at least one Consequential Runtime Responsibility depends partly on their Model Judgment',
+              '→ systems covered by the category predate LLMs; earlier probabilistic systems may qualify when at least one Consequential Runtime Responsibility depends partly on their Model Judgment',
+              'blueprint connected-argument lineage',
+          )
+          replace_once(
+              'index',
+              'The current paper now states that the category predates LLMs while retaining LLM-based systems as its primary contemporary focus;',
+              'The current paper now states that systems covered by the category predate LLMs while retaining LLM-based systems as its primary contemporary focus;',
+              'research index lineage',
+          )
+          replace_once(
+              'changelog',
+              "made the category's pre-LLM lineage explicit while retaining LLM systems as the primary contemporary focus;",
+              'made the pre-LLM lineage of systems covered by the category explicit while retaining LLM systems as the primary contemporary focus;',
+              'changelog lineage',
+          )
+          for name in ('manuscript', 'publication'):
+              replace_once(
+                  name,
+                  'The systems covered by this definition did not begin with LLMs.',
+                  'Systems with this responsibility structure predate LLMs.',
+                  f'{name} lineage opening',
+              )
+
+          # Make the proposed practitioner delta explicit rather than leaving the reader to infer it.
+          old_positioning = 'The narrower working hypothesis is that explicit lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime provides a useful specialization for model-judgment-dependent software.'
+          new_positioning = 'The narrower working hypothesis is that, for model-judgment-dependent software, the four-horizon model provides a useful specialization by explicitly separating ownership of technical viability, business and authority authorization, release scope, runtime correction, and reassessment when the basis of operation becomes invalid.'
+          for name in ('manuscript', 'publication'):
+              replace_once(name, old_positioning, new_positioning, f'{name} STAMP positioning')
+
+          replace_once(
+              'blueprint',
+              'The narrower candidate contribution is whether explicit lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime provides a useful specialization for model-judgment-dependent software.',
+              'The narrower candidate contribution is whether, for model-judgment-dependent software, the four-horizon model adds practitioner value by explicitly separating ownership of technical viability, business and authority authorization, release scope, runtime correction, and reassessment when the basis of operation becomes invalid.',
+              'blueprint antecedent-positioning rule',
+          )
+          replace_once(
+              'traceability',
+              'the narrower candidate contribution is explicit lifecycle decision ownership for model-judgment-dependent software',
+              'the narrower candidate contribution is explicit ownership of technical viability, business and authority authorization, release scope, runtime correction, and reassessment for model-judgment-dependent software',
+              'traceability conflict-register delta',
+          )
+          replace_once(
+              'traceability',
+              'Test whether explicit lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime adds practitioner value for model-judgment-dependent software.',
+              'Test whether explicit separation of technical viability, business and authority authorization, release scope, runtime correction, and reassessment across Organization, Project / Architecture, Delivery / Release, and Runtime adds practitioner value for model-judgment-dependent software.',
+              'traceability research-question delta',
+          )
+
+          for name, path in paths.items():
+              path.write_text(texts[name])
+
+          for name in ('manuscript', 'publication'):
+              text = texts[name]
+              if text.count('Relationship to established systems-theoretic control.') != 1:
+                  raise SystemExit(f'{name}: expected one STAMP positioning paragraph')
+              if 'Linear Software' in text:
+                  raise SystemExit(f'{name}: publication-facing Linear Software label remains')
+          PYCODE
+
+      - name: Validate repository-facing changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/validate_metadata.py --mode metadata
+          python3 .github/scripts/validate_metadata.py --mode canonical
+          python3 .github/scripts/validate_metadata.py --mode terminology
+          python3 .github/scripts/validate_repository_contract.py
+          git diff --check
+
+      - name: Remove one-shot workflow and commit tightening
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/tighten-thinking-systems-review-claims.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "research: make reviewer-driven scope and delta explicit"
+          git push origin HEAD:${{ github.head_ref }}
