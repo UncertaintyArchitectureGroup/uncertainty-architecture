@@ -21,7 +21,7 @@ tags:
   - ua/topic/uncertainty-boundary
   - ua/topic/control-loop
 created: 2026-08-17
-updated: 2026-08-21
+updated: 2026-08-24
 language: en
 license: CC-BY-4.0
 draft: true
@@ -58,7 +58,7 @@ The table below is a **reader aid, not a second canonical glossary**. Where a te
 | **Thinking System**                      | A software system in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.                                                                                                |
 | **Consequential Runtime Responsibility** | A runtime responsibility whose output, decision, path, action, or downstream state can materially affect an intended outcome, an applicable Requirement or Constraint, delegated authority, resource use, or a person or system downstream. Consequential means material causal relevance, not risk severity. |
 | **Model Judgment**                       | Interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty.                                                                                                                                             |
-| **Linear Software**                      | Software in which no Consequential Runtime Responsibility depends partly on Model Judgment. The term does not imply linear, sequential, or fixed orchestration.                                                                                                                                               |
+| **Explicitly Authored Software**          | Software in which no Consequential Runtime Responsibility depends partly on Model Judgment; any such responsibilities are fulfilled entirely through explicitly encoded logic. The label concerns the consequential responsibility mapping, not whether orchestration is sequential, fixed, or dynamic. |
 | **Judgment Node**                        | A bounded location where Model Judgment influences an output, decision, path, action, or downstream state. It is consequential for Thinking-System classification when it performs or materially influences a Consequential Runtime Responsibility.                                                           |
 | **Controlled object**                    | The whole software system inside the declared boundary whose behavior engineering seeks to keep within acceptable conditions—not merely the model invocation.                                                                                                                                                 |
 | **Control perimeter** _(article usage)_  | The technical and socio-technical control relationships that must follow the authority and effects of the controlled object: boundaries and their realizations, evidence, decision authority, corrective action, Human Authority where required, and reassessment paths.                                      |
@@ -82,12 +82,12 @@ flowchart LR
     W["Plan-driven engineering (Waterfall)<br/>dominant concern: requirement and design uncertainty<br/>response: reduce uncertainty before implementation"]
     A["Iterative delivery (Agile and related approaches)<br/>dominant concern: product-learning uncertainty<br/>response: shorten delivery and feedback cycles"]
     D["Modern operations (DevOps)<br/>dominant concern: production-condition uncertainty<br/>response: observe, expose progressively, recover"]
-    T["Thinking-System engineering<br/>new concern: runtime judgment inside the object<br/>response: bounded control of the changed object"]
+    T["Thinking-System engineering<br/>growing concern: runtime judgment inside the object<br/>response: bounded control of the changed object"]
 
     W --> A --> D --> T
 ```
 
-**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** Waterfall, Agile, and DevOps are shown as familiar examples of broader engineering responses. The progression is conceptual, not replacement history.
+**Figure 1 — Engineering expands its feedback model as consequential uncertainty moves closer to runtime and eventually enters the controlled object.** This transition does not claim that model-mediated consequential systems began with LLMs; LLMs and other general-purpose models have made the pattern substantially more prevalent. Waterfall, Agile, and DevOps are shown as familiar examples of broader engineering responses. The progression is conceptual, not replacement history.
 
 The formulation **“Thinking Systems”** entered this research through my exchange with **Arkadiy Dobkin** following his LinkedIn post [_From Fall to Rise_](https://www.linkedin.com/posts/arkadiydobkin_from-fall-to-rise-activity-7477593508879724544-8-ZL). I am grateful to Arkadiy specifically for that formulation. I use the term here for a narrower engineering category; the definition and responsibility boundary below are developed in the Uncertainty Architecture research track. This article does **not** claim coinage of the phrase.
 
@@ -103,7 +103,11 @@ The word **Thinking** is functional rather than anthropomorphic. It does not cla
 
 **Model Judgment** means interpretation, synthesis, classification, generation, planning, ranking, routing, or action selection performed through a probabilistic model under uncertainty. It is useful precisely because the required behavior cannot always be exhaustively encoded in advance.
 
-The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly encoded and the software remains **Linear Software** even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. **Linear Software** here does not mean linear, sequential, or fixed orchestration; it means that no Consequential Runtime Responsibility depends partly on Model Judgment.
+Systems that meet the Thinking-System definition predate LLMs. A traditional credit-scoring model can meet the definition when approval, pricing, routing, or review materially depends on its probabilistic output; a document summarizer or code-completion suggestion can meet it when Output Mediation materially affects what a person understands, approves, or does next. LLMs are the practical trigger for this article because they make model-mediated interpretation, synthesis, generation, routing, planning, and action selection general-purpose and easy to embed across ordinary software.
+
+Category membership does not determine consequence severity or control depth. An internal summarizer used for a reversible, inspectable prioritization decision may need only a small explicit control surface; an agent able to change financial or operational state may require much stronger Constraints, evidence, Human Authority, fallback, and runtime intervention. The complete map is a diagnostic reference, not a mandate to instantiate every control mechanism for every case.
+
+The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly authored and this article calls the system **Explicitly Authored Software**, even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category.
 
 ```mermaid
 flowchart TB
@@ -119,7 +123,7 @@ flowchart TB
     end
 
     Q{"Does any Consequential Runtime Responsibility<br/>depend partly on probabilistic Model Judgment?"}
-    L["No → Linear Software<br/>relevant consequential responsibility<br/>remains explicitly encoded"]
+    L["No → Explicitly Authored Software<br/>relevant consequential responsibility<br/>remains explicitly encoded"]
     T["Yes → Thinking System<br/>part of consequential behavior<br/>is formed through runtime Model Judgment"]
 
     IN ~~~ A
@@ -363,6 +367,8 @@ The capability anatomy tells us how a bounded control relationship can work. It 
 
 The same Thinking System can require fundamentally different decisions around the same controlled object. Someone must decide whether the intended outcome, external exposure, and delegated authority are legitimate at all. Someone must decide whether Model Judgment is actually necessary and whether a credible bounded architecture exists. Someone must decide whether the concrete realization has enough evidence to be released for its authorized scope. And during operation, someone or something must decide whether the system remains inside that boundary and what corrective action is permitted now. These decisions concern one system, but they differ in evidence, authority, time horizon, and available action even when the same person or platform carries several of them.
 
+**STAMP already models hierarchical socio-technical control structures that can extend from software and operators through management and regulatory authority; STPA applies that systems-theoretic model to analyze unsafe control actions and causal scenarios.** The four-horizon model does not claim to introduce that reach. Its narrower hypothesis is that, for model-judgment-dependent software, explicitly separating lifecycle decision ownership across Organization, Project / Architecture, Delivery / Release, and Runtime may help practitioners distinguish business and authority authorization, technical viability, release scope, delegated runtime correction, and reassessment when a decision basis is no longer valid. Whether this adds useful operational clarity beyond a well-applied STAMP/STPA control structure remains a question for systematic comparison; the four-horizon model may instead merely rename existing concepts or lose relationships that STAMP/STPA represents more faithfully.
+
 UA represents these distinct decision bases through four connected horizons: **Organization, Project / Architecture, Delivery, and Runtime**.
 
 The four horizons can therefore be read first as four irreducible questions:
@@ -480,6 +486,8 @@ This is the practical consequence of the changed controlled object: **when a Con
 
 This argument does not claim invention of feedback control, socio-technical safety, runtime assurance, software engineering for AI, human oversight, or AI risk management. It sits in continuity with established systems/safety/control traditions and current AI engineering practice.
 
+The planned comparison extends beyond STAMP/STPA to Simplex and related runtime-assurance architectures, control-theoretic research, production ML and software-engineering practice, AI risk and management systems, and implementation approaches such as orchestration, guardrails, evaluation, observability, and integrated platforms. That work remains unfinished research and is intentionally bidirectional: it asks not only what another method leaves outside its normal scope, but what the four-horizon model itself flattens, renames, duplicates, or adds unnecessarily.
+
 The claim under test is narrower: whether connecting **Thinking-System classification**, the **whole software system as the controlled object**, explicit control-capability functions, and **the orthogonal relationship between lifecycle decision ownership and control-capability functions** around the same consequential responsibility gives practitioners a useful engineering map—and whether an existing method or composition already does that more simply.
 
 Relevant primary or authoritative context includes Nancy Leveson's systems-theoretic safety work in [_Engineering a Safer World_](https://mitpress.mit.edu/9780262533690/engineering-a-safer-world/), the Software Engineering Institute's [Simplex architecture](https://www.sei.cmu.edu/library/an-architectural-description-of-the-simplex-architecture/) for dependable and evolvable process-control systems, the [NIST AI Risk Management Framework 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), and [ISO/IEC TR 29119-11:2020](https://www.iso.org/standard/79016.html) on testing AI-based systems. These are antecedents and comparison points, not claimed derivations, endorsements, or exact equivalents of UA.
@@ -513,7 +521,7 @@ The larger [working paper](open-engineering-specification-article-draft.md) and 
 
 The formulation provenance for **Thinking Systems** is recorded where the term is introduced above. That credit concerns the formulation and exchange, not authorship of the UA-specific definition or endorsement of this article.
 
-The work has also benefited from continuing dialogue with the **Taller** team, especially **Christophe Kolb, Maximiliano Armesto, and Jan Rosen**, around the socio-technical architecture surrounding AI systems. Those exchanges helped pressure-test questions of authority, human participation, workflow, and control around the model. This acknowledgment does not imply co-authorship or endorsement.
+The work has also benefited from continuing dialogue with the **Taller** team, especially **Christophe Kolb, Maximiliano Armesto, and Jan Rosen**, around the socio-technical architecture surrounding AI systems. A pre-publication review by **Maximiliano Armesto** challenged the publication-facing category label, highlighted that systems meeting the definition predate LLMs and that proportionality should appear earlier, and asked for a direct account of the four-horizon model's relationship to STAMP/STPA. Those comments prompted the revisions reflected in this edition. This acknowledgment records review provenance; it does not imply co-authorship or endorsement.
 
 ## Try to Break the Argument
 
