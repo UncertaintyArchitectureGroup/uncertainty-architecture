@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: metadata-integrity-${{ github.workflow }}-${{ github.ref }}
@@ -19,13 +19,11 @@ jobs:
     name: Metadata / frontmatter and controlled values
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-
       - name: Validate frontmatter and controlled values
         working-directory: 01-patterns
         run: python3 ../.github/scripts/validate_metadata.py --mode metadata
@@ -34,13 +32,11 @@ jobs:
     name: Metadata / canonical ownership
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-
       - name: Validate canonical ownership
         working-directory: 02-ai-control-plane
         run: python3 ../.github/scripts/validate_metadata.py --mode canonical
@@ -49,13 +45,11 @@ jobs:
     name: Content / glossary and terminology
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-
       - name: Validate protected glossary entries and report terminology warnings
         working-directory: 00-doctrine
         run: python3 ../.github/scripts/validate_metadata.py --mode terminology
@@ -64,13 +58,11 @@ jobs:
     name: Research / state and provenance register
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-
       - name: Validate research state register
         run: python3 .github/scripts/validate_research_register.py
 
@@ -78,16 +70,35 @@ jobs:
     name: Policy / metadata self-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-
       - name: Run metadata regression fixtures
         working-directory: 03-reference-architectures
         run: python3 ../.github/tests/metadata_contract/test_metadata.py
-
       - name: Run research-register regression fixtures
         run: python3 .github/tests/research_register/test_research_register.py
+
+  stable-thesis-scope-cleanup:
+    name: Research / one-shot stable thesis scope cleanup
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'research/maxi-review-category-positioning'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out PR head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+      - name: Apply stable thesis scope cleanup
+        run: python3 .github/scripts/pr99_stable_thesis_scope_cleanup.py
+      - name: Commit cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/notes/open-engineering-specification-article-blueprint.md
+          git diff --cached --check
+          git commit -m "research: scope stable thesis to motivating class"
+          git push origin HEAD:${{ github.head_ref }}
