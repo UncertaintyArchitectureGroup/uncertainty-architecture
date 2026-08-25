@@ -60,8 +60,22 @@ jobs:
         working-directory: 00-doctrine
         run: python3 ../.github/scripts/validate_metadata.py --mode terminology
 
+  research-register:
+    name: Research / active item and provenance register
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Validate active research register
+        run: python3 .github/scripts/validate_research_register.py
+
   self-tests:
-    name: Policy / metadata self-tests
+    name: Policy / metadata and research self-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 5
 
@@ -74,3 +88,6 @@ jobs:
       - name: Run metadata regression fixtures
         working-directory: 03-reference-architectures
         run: python3 ../.github/tests/metadata_contract/test_metadata.py
+
+      - name: Run research-register regression fixtures
+        run: python3 .github/tests/research_register/test_research_register.py
