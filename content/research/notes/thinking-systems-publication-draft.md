@@ -197,11 +197,11 @@ flowchart TB
         subgraph B["Motivating runtime-judgment class — part of mapping completed at runtime"]
             direction TB
             B1["Situation and operating conditions"]
-            B2["Explicitly authored responsibilities<br/>before, between, and after Judgment Nodes"]
+            B2["Explicitly authored responsibilities<br/>before and between Judgment Nodes"]
             J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
+            B4["Explicitly authored responsibilities<br/>after Judgment Nodes"]
             B3["Consequential output, action,<br/>or downstream state"]
-            B1 --> B2 --> B3
-            B1 --> J1 --> B3
+            B1 --> B2 --> J1 --> B4 --> B3
         end
         A2 ~~~ J1
     end
@@ -210,7 +210,7 @@ flowchart TB
     style ROW3 fill:transparent,stroke:transparent
 ```
 
-**Figure 3 — The controlled-object shift for the motivating class.** Explicitly authored responsibilities remain part of the system while Model Judgment leaves part of a Consequential Runtime Responsibility unresolved until operation, so part of the consequential mapping is completed at runtime. The figure does not resolve whether fixed learned probabilistic functions with a release-time-determined mapping belong to the broader Thinking-System category. The parallel paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous.
+**Figure 3 — The controlled-object shift for the motivating class.** Explicitly authored responsibilities remain part of the system while Model Judgment leaves part of a Consequential Runtime Responsibility unresolved until operation, so part of the consequential mapping is completed at runtime. The figure does not resolve whether fixed learned probabilistic functions with a release-time-determined mapping belong to the broader Thinking-System category. The vertical paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous.
 
 Model Judgment can enter a system through several functional placements.
 
@@ -423,29 +423,22 @@ flowchart TB
             E -.->|risk / feasibility / Model Judgment necessity<br/>capacity / economics invalidated or research answered| P
             style SPINE9 fill:transparent,stroke:transparent
         end
-        subgraph F["Capability functions — how control becomes operational"]
+        subgraph F["Capability functions — one control architecture, not a sequence"]
             direction TB
-            subgraph CAP_TOP[" "]
-                direction LR
-                A["Actuators and corrective action<br/>execute authorized change"]
-                K["Constraints and realizations<br/>define and operationalize boundaries"]
-            end
-            subgraph CAP_BOTTOM[" "]
-                direction LR
-                S["Sensors and evidence<br/>observe behavior, conditions, and control state"]
-                C["Controllers / decision functions<br/>interpret evidence and select bounded response"]
-            end
+            C["Controllers / decision functions<br/>interpret evidence and select bounded response"]
+            S["Sensors and evidence<br/>observe behavior, conditions, and control state"]
+            K["Constraints and realizations<br/>define and operationalize boundaries"]
+            A["Actuators and corrective action<br/>execute authorized change"]
+            C --- S --- K --- A
         end
     end
     L -. "all four capability families may appear at every decision horizon" .- F
     classDef capability fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
     class A,K,S,C capability;
     style ROW_ORTHO fill:transparent,stroke:transparent
-    style CAP_TOP fill:transparent,stroke:transparent
-    style CAP_BOTTOM fill:transparent,stroke:transparent
 ```
 
-**Figure 8 — Two orthogonal models.** The left side preserves the decision semantics of the living manuscript: initial assessment eligibility is distinct from a later specific Bounded Research Authorization; Project / Architecture owns technical/design selection and category confirmation inside the standing Organizational basis; Organization is reactivated only when its business, authority, investment basis, or an initiative-level reserved-boundary research or continuation decision is implicated; research-only and production-capable Project Authorization remain distinct scoped forms and may coexist only under explicit scope, precedence, and interaction semantics; Delivery and Runtime reassessment evidence returns to Delivery or Project according to the decision basis it challenges; and exogenous Organizational change activates Organization independently. The green side is the capability anatomy. Its ordering is a reading aid, not an execution pipeline. There is no one-to-one mapping between horizons and capability families.
+**Figure 8 — Two orthogonal models.** The left side preserves the decision semantics of the living manuscript: initial assessment eligibility is distinct from a later specific Bounded Research Authorization; Project / Architecture owns technical/design selection and category confirmation inside the standing Organizational basis; Organization is reactivated only when its business, authority, investment basis, or an initiative-level reserved-boundary research or continuation decision is implicated; research-only and production-capable Project Authorization remain distinct scoped forms and may coexist only under explicit scope, precedence, and interaction semantics; Delivery and Runtime reassessment evidence returns to Delivery or Project according to the decision basis it challenges; and exogenous Organizational change activates Organization independently. The green side is the capability anatomy. Controllers, Sensors, Constraints, and Actuators are stacked vertically and connected with non-directional lines to show that they belong to one control architecture; the vertical order is a reading aid, not an execution sequence. There is no one-to-one mapping between horizons and capability families.
 
 Sometimes correction is local. A realization or configuration defect may be repaired by Delivery. A deployment can be rolled back. Exposure can be narrowed. An evaluator may be replaced or recalibrated locally only when the change remains inside delegated Delivery authority and does not change the evidence semantics, applicability assumptions, or other basis underlying the applicable Delivery evidence/release decision or Project Authorization. If only the Delivery basis changes, Delivery must revalidate or reassess the affected release decision; if a Project-Authorization basis changes, the evidence routes to Project / Architecture.
 
