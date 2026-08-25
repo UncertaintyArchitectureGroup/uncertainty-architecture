@@ -75,7 +75,7 @@ jobs:
         run: python3 .github/scripts/validate_research_register.py
 
   self-tests:
-    name: Policy / metadata and research self-tests
+    name: Policy / metadata self-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 5
 
