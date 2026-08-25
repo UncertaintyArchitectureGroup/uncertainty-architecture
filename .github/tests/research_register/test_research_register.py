@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression tests for the Active Research Register validator."""
+"""Regression tests for the Research Item Register validator."""
 
 import importlib.util
 import json
@@ -27,11 +27,9 @@ def write(path: Path, text: str) -> None:
 
 def human_status(status: str) -> str:
     return {
-        "active": "Active",
-        "candidate": "Candidate",
-        "needs-resolution": "Needs Resolution",
-        "research-finding": "Research Finding",
-        "proposed-for-framework-review": "Proposed for Framework Review",
+        "open": "Open",
+        "under-validation": "Under Validation",
+        "resolved": "Resolved",
         "superseded": "Superseded",
         "rejected": "Rejected",
     }.get(status, status)
@@ -39,7 +37,7 @@ def human_status(status: str) -> str:
 
 def document(items: List[Dict[str, object]]) -> str:
     rows = [
-        "| ID | Item | Class | Origin | Status | Detailed owner / provenance | Next decision |",
+        "| ID | Item | Class | Origin | Research state | Detailed owner / provenance | Next decision |",
         "|---|---|---|---|---|---|---|",
     ]
     for item in items:
@@ -52,7 +50,7 @@ def document(items: List[Dict[str, object]]) -> str:
             )
         )
     return (
-        "# Active Research Register\n\n"
+        "# Research Item Register\n\n"
         "## Current material items\n\n"
         + "\n".join(rows)
         + "\n\n## Machine-readable register\n\n"
@@ -67,7 +65,7 @@ def valid_item() -> Dict[str, object]:
         "id": "TS-TERM-001",
         "title": "Thinking Systems formulation provenance",
         "item_class": "term",
-        "status": "active",
+        "status": "resolved",
         "origin_kind": "external-dialogue",
         "provenance_record": "content/research/notes/provenance.md",
         "owning_record": "00-doctrine/glossary.md",
@@ -112,9 +110,13 @@ def main() -> int:
         items.append(dict(items[0]))
     failures.append(run_case("duplicate ID rejected", duplicate, "duplicate research-item ID"))
 
+    def old_framework_status(root: Path, items: List[Dict[str, object]]) -> None:
+        items[0]["status"] = "active"
+    failures.append(run_case("framework status rejected as research lifecycle state", old_framework_status, "uncontrolled research lifecycle state"))
+
     def bad_status(root: Path, items: List[Dict[str, object]]) -> None:
         items[0]["status"] = "maybe"
-    failures.append(run_case("uncontrolled status rejected", bad_status, "uncontrolled status"))
+    failures.append(run_case("uncontrolled lifecycle state rejected", bad_status, "uncontrolled research lifecycle state"))
 
     def missing_provenance(root: Path, items: List[Dict[str, object]]) -> None:
         (root / "content/research/notes/provenance.md").unlink()
@@ -133,26 +135,20 @@ def main() -> int:
         write(root / "content/research/notes/provenance.md", "# Provenance without stable ID\n")
     failures.append(run_case("external provenance must reference stable ID", missing_id_in_provenance, "does not reference its stable research-item ID"))
 
-    def human_status_drift(root: Path, items: List[Dict[str, object]]) -> None:
-        path = root / "content/research/research-register.md"
-        text = path.read_text(encoding="utf-8")
-        text = text.replace("| Active |", "| Candidate |", 1)
-        write(path, text)
-    # This mutation must run after document regeneration, so exercise validator directly below.
     validator = load_validator()
     with tempfile.TemporaryDirectory(prefix="ua-research-register-human-") as temporary:
         root = Path(temporary)
         items = [valid_item()]
-        write(root / "content/research/research-register.md", document(items).replace("| Active |", "| Candidate |", 1))
+        write(root / "content/research/research-register.md", document(items).replace("| Resolved |", "| Under Validation |", 1))
         write(root / "content/research/notes/provenance.md", "TS-TERM-001\n")
         write(root / "content/research/notes/README.md", "- [provenance.md](provenance.md)\n")
         write(root / "00-doctrine/glossary.md", "# Glossary\n")
         findings = validator.validate(root, root / "content/research/research-register.md", root / "content/research/notes/README.md")
         messages = "\n".join(f.message for f in findings)
-        if "status differs between human table" not in messages:
-            failures.append("human-readable status drift rejected: expected synchronization error, got {!r}".format(messages))
+        if "research lifecycle state differs between human table" not in messages:
+            failures.append("human-readable lifecycle drift rejected: expected synchronization error, got {!r}".format(messages))
         else:
-            print("PASS: human-readable status drift rejected")
+            print("PASS: human-readable lifecycle drift rejected")
 
     failures = [failure for failure in failures if failure]
     if failures:
