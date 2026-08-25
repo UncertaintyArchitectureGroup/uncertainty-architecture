@@ -95,22 +95,22 @@ A publication adaptation is not a new authority-bearing source. It remains resea
 
 ## Active research item register
 
-The repository maintains one canonical [`Active Research Register`](research-register.md) for **material terms, hypotheses, comparison propositions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs that remain relevant across research documents or workstreams**.
+The repository maintains one canonical [`Active Research Register`](research-register.md) for **research concerns that require independent identity and lifecycle across research documents or workstreams**, including selected terms, hypotheses, comparison propositions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs.
 
 The register exists because a long paper or blueprint is not a sufficient cross-document state ledger. It should remain possible to answer, without reconstructing old pull requests or private conversations:
 
 - what material item is under investigation;
 - where it came from;
 - which note, analysis, blueprint, brief, or synthesis owns the detailed reasoning;
-- its current epistemic status;
+- its current research lifecycle state, kept separate from framework disposition;
 - what decision or evidence is still required;
 - whether it has affected framework traceability.
 
-Register only material items. A citation, sentence-level editing question, ordinary implementation detail, or every noun in a source does not deserve an ID merely because it exists.
+Register only concerns that need independent cross-document identity. A citation, sentence-level editing question, ordinary implementation detail, validation subclaim, or every noun in a source does not deserve an ID merely because it exists. A separate ID is justified when provenance, owner, research lifecycle state, next decision, or later evidence can change independently of the parent question; otherwise keep the subclaim in the owning analysis, blueprint, brief, or validation program.
 
 ### Stable item identity
 
-Material items receive a stable research-item ID when cross-document identity or provenance is useful. IDs survive wording changes. If a term or hypothesis is superseded, preserve the old ID/status rather than silently recycling it for a different idea.
+Material items receive a stable research-item ID when independent cross-document identity or provenance is useful. IDs survive wording changes. Register lifecycle state uses `Open`, `Under Validation`, `Resolved`, `Superseded`, or `Rejected`; these states describe research progression, not framework acceptance. If a term or hypothesis is superseded, preserve the old ID/state rather than silently recycling it for a different idea.
 
 ### Provenance-bearing external input
 
@@ -129,8 +129,8 @@ Private correspondence does not need to be reproduced verbatim. The repository s
 
 The Active Research Register and [`framework-traceability.md`](framework-traceability.md) are complementary, not duplicate ledgers:
 
-- the **Active Research Register** tracks material research items currently in play and their epistemic/provenance state;
-- **Research-to-Framework Traceability** records material decisions about how research influences canonical or candidate framework components.
+- the **Active Research Register** tracks cross-document research-item identity, provenance, research lifecycle state, owner, and next decision;
+- **Research-to-Framework Traceability** records material decisions about how research influences canonical or candidate framework components and therefore owns framework disposition.
 
 A research item may remain entirely inside research and therefore require no new framework-traceability row. Once its relationship to canonical terminology, doctrine, patterns, control capabilities, artifacts, failure modes, or specification meaning materially changes, update framework traceability in the same reconciliation.
 
@@ -259,7 +259,7 @@ A repository change requires research-state reconciliation when it does one or m
 When a trigger applies, review and update only the records whose state actually changed:
 
 1. the owning source-intake, analysis, synthesis, provenance, or research note;
-2. the [`Active Research Register`](research-register.md) when a material item is introduced or its epistemic/provenance state changes;
+2. the [`Active Research Register`](research-register.md) when an independently tracked item is introduced or its research lifecycle/provenance state changes;
 3. [`framework-traceability.md`](framework-traceability.md) when the decision changes an auditable source-to-framework relationship;
 4. open questions, maturity, or translation status in affected briefs and working notes;
 5. [`index.md`](index.md) or a local research index when the current research direction or navigation materially changes;

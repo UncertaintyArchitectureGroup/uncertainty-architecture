@@ -65,7 +65,7 @@ source / dialogue / review / observation
 → preserve a provenance note when origin or evidentiary boundary would otherwise be lost
 → assign or reuse a stable research-item ID
 → identify the owning analysis / blueprint / brief / synthesis
-→ record current status and next decision in the Active Research Register
+→ record research lifecycle state and next decision in the Active Research Register
 → update framework-traceability.md only when the source-to-framework relationship materially changes
 → require deliberate framework review before normative promotion
 ```
@@ -82,7 +82,7 @@ Register an item when at least one of these is true:
 - it is a counterexample or boundary case that can falsify or materially narrow a claim;
 - an external review, dialogue, worked application, or incident reopened, narrowed, rejected, or materially clarified it.
 
-Do **not** register every noun, paragraph, citation, routine editing question, or implementation detail. The register is an epistemic control surface, not a backlog or session log.
+Do **not** register every noun, paragraph, citation, routine editing question, or implementation detail. Create a separate ID only when the concern needs independent cross-document tracking because its provenance, owner, research lifecycle state, next decision, or later evidence can change independently of its parent question. Subclaims that share those properties stay under the parent research item. The register is an epistemic control surface, not a backlog or session log.
 
 ### Provenance discipline
 
@@ -102,8 +102,10 @@ Do not publish private correspondence verbatim merely to prove provenance. Prese
 
 The two records have different jobs:
 
-- [`research-register.md`](research-register.md) tracks **material research items currently in play**, their provenance, current epistemic status, owner, and next decision across papers and workstreams;
-- [`framework-traceability.md`](framework-traceability.md) remains the canonical ledger of **material source-to-framework decisions**.
+- [`research-register.md`](research-register.md) tracks cross-document research-item identity, provenance, **research lifecycle state**, owner, and next decision across papers and workstreams;
+- [`framework-traceability.md`](framework-traceability.md) remains the canonical ledger of **material source-to-framework decisions and framework disposition**.
+
+Do not use framework states such as `Active` as research-lifecycle states. A research item can be `Resolved` while its framework result is `Active`, or remain `Under Validation` while the related framework concept is already active and only a narrower refinement is being tested.
 
 A research item can exist in the register without a framework-traceability entry when no framework relationship has changed yet. When a research item changes canonical terminology, doctrine, patterns, control capabilities, failure modes, artifacts, or other specification meaning, update framework traceability in the same research-state reconciliation.
 
