@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto"
 
-export const canonicalFigure8Fingerprint = "6b58efedd5ae4ab3ec8ef9422548c6a80ff9c41d94577cbd9a977e4562bc7305"
+export const canonicalFigure8Fingerprint = "9564729a771d2b0e56ce6600420709efefa032d8b2494159fd05aac6fb19e9a6"
 
 function normalize(value) {
   return String(value)

@@ -396,27 +396,38 @@ flowchart TB
         direction LR
         subgraph L["Decision ownership — where the decision belongs"]
             direction TB
-            X["Exogenous Organizational change"] --> O
-            O["Organization<br/>assessment eligibility · authoritative / business basis"]
-            O -->|initial assessment eligibility| P
-            P["Project / Architecture<br/>technical selection · category · feasibility · economics"]
-            P --> CAT{"Selected design still<br/>a Thinking System?"}
-            CAT -->|No| EXIT["Exit Thinking-System-specific lifecycle"]
-            CAT -->|Yes| PA["Applicable Project Authorization<br/>research-only and/or production-capable"]
-            P -->|reserved-boundary research<br/>or changed basis| O
-            PA --> D["Delivery<br/>realization + release decision"]
-            D --> R["Runtime<br/>authorized operation"]
-            D -->|realization evidence| E["Reassessment evidence"]
-            R -->|operation evidence| E
-            E -->|local realization / evidence basis| D
-            E -->|technical / viability basis| P
-            E -->|authority / business basis| O
+            subgraph SPINE9[" "]
+                direction TB
+                O["Organization<br/>What may the organization assess, research, pursue, or continue?"]
+                P["Project / Architecture<br/>Model-Judgment necessity · technical selection<br/>control feasibility · economics · viability"]
+                CAT{"Selected technical design<br/>still a Thinking System?"}
+                EXIT["Exit Thinking-System-specific lifecycle<br/>handoff to ordinary product/software governance"]
+                D["Delivery<br/>Is this bounded realization complete and releasable<br/>for its authorized scope?"]
+                R["Runtime<br/>Does active operation remain inside the authorized boundary?"]
+                E["Delivery / Runtime reassessment evidence<br/>realization or operation evidence that challenges a decision basis"]
+                X["Exogenous Organizational change<br/>authoritative or business basis"]
+
+                O -->|initial admissibility + assessment eligibility<br/>authoritative / business basis| P
+                P -->|technical design selected<br/>inside standing Organizational basis| CAT
+                CAT -->|No| EXIT
+                CAT -->|Yes| P
+                P -->|reserved-boundary research request / viable production basis<br/>or changed Organizational premise / continuation decision| O
+                O -->|specific Bounded Research Authorization<br/>Business Authorization or changed basis| P
+                P -->|applicable Project Authorization scope / set<br/>research-only and/or production-capable where applicable| D
+                D -->|approved realization + authorized exposure| R
+                D -.->|realization / experiment evidence| E
+                R -->|operation evidence| E
+                X --> O
+            end
+            E -.->|implementation / realization / evidence issue| D
+            E -.->|risk / feasibility / Model Judgment necessity<br/>capacity / economics invalidated or research answered| P
+            style SPINE9 fill:transparent,stroke:transparent
         end
         subgraph F["Capability functions — how control becomes operational"]
             direction TB
             subgraph CAP_TOP[" "]
                 direction LR
-                A["Actuators<br/>execute authorized change"]
+                A["Actuators and corrective action<br/>execute authorized change"]
                 K["Constraints and realizations<br/>define and operationalize boundaries"]
             end
             subgraph CAP_BOTTOM[" "]
@@ -426,7 +437,7 @@ flowchart TB
             end
         end
     end
-    L -. "orthogonal: all four capability families may appear at every decision horizon" .- F
+    L -. "all four capability families may appear at every decision horizon" .- F
     classDef capability fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
     class A,K,S,C capability;
     style ROW_ORTHO fill:transparent,stroke:transparent
