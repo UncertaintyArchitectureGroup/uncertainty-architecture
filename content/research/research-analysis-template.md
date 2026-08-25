@@ -64,7 +64,7 @@ Identify where the source rejects, narrows, or changes an earlier position.
 
 ### Tensions with later UA work
 
-Identify where later sources, worked applications, incidents, or current framework decisions modify this source.
+Identify where later sources, worked applications, incidents, external reviews, or current framework decisions modify this source.
 
 ## Over-strong or ambiguous claims
 
@@ -77,11 +77,13 @@ For each claim:
 
 ## Terminology review
 
-| Source term | Meaning in the source | Current interpretation | Decision candidate |
-|---|---|---|---|
-| [Term] | [Meaning] | [Current meaning] | [Retain / narrow / rename / supersede / unresolved] |
+| Research item ID | Source term | Meaning in the source | Current interpretation | Decision candidate |
+|---|---|---|---|---|
+| [Existing ID / assign if material] | [Term] | [Meaning] | [Current meaning] | [Retain / narrow / rename / supersede / unresolved] |
 
 Review historical system-category terms against **Thinking Systems**. Also review AI Control Plane terminology, actuator and constraint distinctions, controllers, and specialized role names where relevant.
+
+If a term is materially under evaluation across documents or its provenance matters, reconcile it with the [`Active Research Register`](research-register.md) rather than leaving its state only in this analysis.
 
 ## Methodology impact
 
@@ -99,11 +101,23 @@ List conclusions that should not be promoted into the framework.
 
 ## Extracted entities and framework candidates
 
-| Finding or extracted entity | Entity class | Candidate owner | Current status | Work required |
-|---|---|---|---|---|
-| [Finding] | [Term / doctrine distinction / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | [Research Finding / Candidate / Needs Resolution / Proposed for Framework Review] | [Validation, definition, conflict resolution, worked application, or separate review] |
+| Research item ID | Finding or extracted entity | Entity class | Candidate owner | Current status | Work required |
+|---|---|---|---|---|---|
+| [Existing ID / assign if material] | [Finding] | [Term / doctrine distinction / hypothesis / comparison / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / boundary case / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | [Research Finding / Candidate / Needs Resolution / Proposed for Framework Review] | [Validation, definition, conflict resolution, worked application, comparison, or separate review] |
 
 Lifecycle and operating concerns should be placed in the module that owns their architectural meaning. Do not assume they require a separate top-level repository module.
+
+Assign a stable research-item ID when cross-document identity, provenance, or unresolved state matters. Do not assign IDs to routine observations that can remain local to the analysis.
+
+## Provenance-bearing inputs
+
+If a material item came through dialogue, external review, private correspondence, a talk, worked application, incident, or other source whose context may disappear, state:
+
+- the source or reviewed artifact;
+- whether provenance is public, maintainer-attested, or otherwise bounded;
+- what entered the research;
+- what did not transfer by implication, such as endorsement, authorship, framework authority, or validation;
+- whether a bounded provenance/review note is required under `content/research/notes/`.
 
 ## SMB surface vs technical depth
 
@@ -123,17 +137,19 @@ What should remain in advanced patterns, rationale, research, failure modes, con
 
 List only records whose state changes:
 
-- source-intake, working note, analysis, or synthesis;
-- `framework-traceability.md`;
+- source-intake, working note, analysis, synthesis, or provenance record;
+- `research-register.md` for material items introduced, reopened, narrowed, superseded, rejected, or otherwise changed;
+- `framework-traceability.md` when the source-to-framework relationship changes;
 - open-question or maturity status;
 - research index or local navigation;
 - no research-state change.
 
-Do not create a second traceability ledger or a session log.
+Do not create another source-to-framework traceability ledger or a session log.
 
 ## Review outcome
 
 - **Research record:** [Accepted / changes requested]
+- **Research items introduced or changed:** [IDs / none]
 - **Framework candidates:** [List]
 - **Superseded concepts:** [List]
 - **Separate framework work required:** [List]
