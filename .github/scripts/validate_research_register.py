@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the canonical Research Item Register and provenance links."""
+"""Validate the canonical Active Research Register and provenance links."""
 
 import argparse
 import json
@@ -127,7 +127,7 @@ def validate(
 ) -> List[Finding]:
     findings: List[Finding] = []
     if not register_path.is_file():
-        return [Finding("error", "Research Item Register is missing: {}".format(register_path))]
+        return [Finding("error", "Active Research Register is missing: {}".format(register_path))]
 
     try:
         register_text = register_path.read_text(encoding="utf-8")
