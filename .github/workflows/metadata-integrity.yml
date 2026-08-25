@@ -105,6 +105,9 @@ jobs:
           ref: ${{ github.head_ref }}
           persist-credentials: true
 
+      - name: Align live manuscript anchor
+        run: python3 .github/scripts/pr99_final_prepatch.py
+
       - name: Apply final semantic reconciliation
         run: python3 .github/scripts/apply_pr99_final_semantic_fixes.py
 
