@@ -8,90 +8,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: metadata-integrity-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  pr99-final-sync:
-    if: github.event_name == 'pull_request' && github.event.pull_request.number == 99
-    name: Research / one-shot PR99 semantic sync
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - name: Check out source branch
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: research/maxi-review-category-positioning
-          fetch-depth: 2
-      - name: Apply exact semantic replacements
-        shell: python
-        run: |
-          from pathlib import Path
-
-          def replace_once(path, old, new):
-              p = Path(path)
-              text = p.read_text(encoding="utf-8")
-              count = text.count(old)
-              if count != 1:
-                  raise SystemExit(f"{path}: expected exactly one match, found {count}")
-              p.write_text(text.replace(old, new), encoding="utf-8")
-
-          replace_once(
-              "content/research/notes/open-engineering-specification-article-draft.md",
-              '''The category must not be collapsed into "agentic application." The classification question is narrower: does any **Consequential Runtime Responsibility** depend partly on probabilistic Model Judgment? If not, the relevant **Consequential Runtime Responsibility** remains explicitly authored and this paper calls the system **Explicitly Authored Software**, even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Deterministic code before, between, or after that judgment does not make the delegated judgment deterministic. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. The precise boundary of agentic terminology remains an open research question.''',
-              '''The category must not be collapsed into "agentic application." The classification question is narrower: does any **Consequential Runtime Responsibility** depend partly on probabilistic Model Judgment? If not, the relevant **Consequential Runtime Responsibility** remains explicitly authored. For comparison, this paper uses **Explicitly Authored Software** as a paper-level research label under validation; the current UA glossary still uses **Linear Software** pending separate framework terminology review. If yes, the software contains the changed object described here even when orchestration is fixed. Deterministic code before, between, or after that judgment does not make the delegated judgment deterministic. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. The precise boundary of agentic terminology remains an open research question.'''
-          )
-
-          replace_once(
-              "content/research/notes/thinking-systems-publication-draft.md",
-              '''The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly authored and this article calls the system **Explicitly Authored Software**, even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category.''',
-              '''The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly authored. For comparison, this article uses **Explicitly Authored Software** as a paper-level research label under validation; the current UA glossary still uses **Linear Software** pending separate framework terminology review. If yes, the software contains the changed object described here even when orchestration is fixed. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category.'''
-          )
-
-          replace_once(
-              "content/research/notes/open-engineering-specification-article-blueprint.md",
-              '''- state directly that the definition is not LLM-exclusive; treat concrete earlier systems as case-specific boundary tests, while explaining that general-purpose LLMs are the practical trigger and amplifier for the current engineering problem rather than proof of its historical origin;''',
-              '''- state directly that the definition is not LLM-exclusive and treat that definition-level scope point as resolved research; track concrete earlier and intentionally low-consequence systems separately as case-specific boundary tests under validation, while explaining that general-purpose LLMs are the practical trigger and amplifier for the current engineering problem rather than proof of its historical origin;'''
-          )
-
-          replace_once(
-              "content/research/notes/open-engineering-specification-article-blueprint.md",
-              '''State explicitly that this definition is not LLM-exclusive. Traditional probabilistic systems are candidate historical cases when a Consequential Runtime Responsibility materially depends on their output; classify concrete systems case by case rather than treating category applicability or historical prevalence as already established. General-purpose LLMs make this responsibility pattern more accessible and semantically broad. Also state that category membership, consequence severity, and implementation depth are separate decisions.''',
-              '''State explicitly that this definition is not LLM-exclusive. Track that definition-level implication as resolved research item `TS-SCOPE-001`. Track concrete pre-LLM and intentionally low-consequence systems separately under `TS-CASE-001`: they remain case-specific boundary tests requiring causal analysis, and historical or prevalence claims require supporting evidence. General-purpose LLMs make this responsibility pattern more accessible and semantically broad. Also state that category membership, consequence severity, and implementation depth are separate decisions.'''
-          )
-
-          replace_once(
-              "content/research/framework-traceability.md",
-              '''| Historical scope of the Thinking-System definition | Current public framing could be read as if the category began with LLMs | The definition itself is technology-neutral and can classify pre-LLM probabilistic systems when a Consequential Runtime Responsibility materially depends on Model Judgment | Needs Resolution | Treat technology-neutral applicability as a definition-level implication while testing concrete historical/boundary cases separately. Do not convert the claim that LLMs increased prevalence into an empirical historical conclusion without supporting evidence. Track as `TS-SCOPE-001`. |''',
-              '''| Technology scope of the Thinking-System definition | Current public framing could be read as if the category were restricted to LLM-based systems | The definition is technology-neutral: Thinking-System membership is not restricted to LLM-based systems | Active | Preserve this definition-level scope implication as resolved research item `TS-SCOPE-001`; no separate doctrine change is implied because the current definition already carries the technology-neutral boundary. |
-| Concrete pre-LLM and low-consequence boundary cases | Technology-neutral applicability could be mistaken for proof that particular historical or low-consequence systems satisfy the category | Specific systems qualify only when causal analysis shows that a Consequential Runtime Responsibility materially depends on their Model Judgment | Needs Resolution | Test concrete cases separately under `TS-CASE-001`. Do not infer historical prevalence or classify examples solely from the presence of a probabilistic component. |'''
-          )
-
-          replace_once(
-              "CHANGELOG.md",
-              '''stated that the Thinking-System definition is not LLM-exclusive while concrete pre-LLM systems remain case-specific classification tests, and that general-purpose LLMs make model-mediated judgment substantially easier to embed across ordinary software;''',
-              '''resolved the definition-level point that the Thinking-System definition is not LLM-exclusive while tracking concrete pre-LLM and intentionally low-consequence systems as a separate under-validation boundary-case question, and stated that general-purpose LLMs make model-mediated judgment substantially easier to embed across ordinary software;'''
-          )
-      - name: Restore workflow, remove temporary helper, commit and push
-        shell: bash
-        run: |
-          git show HEAD^:.github/workflows/metadata-integrity.yml > .github/workflows/metadata-integrity.yml
-          rm -f .github/workflows/pr99-final-semantic-sync.yml
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/research/notes/open-engineering-specification-article-draft.md \
-                  content/research/notes/thinking-systems-publication-draft.md \
-                  content/research/notes/open-engineering-specification-article-blueprint.md \
-                  content/research/framework-traceability.md \
-                  CHANGELOG.md \
-                  .github/workflows/metadata-integrity.yml \
-                  .github/workflows/pr99-final-semantic-sync.yml
-          git commit -m "research: synchronize scope and terminology status"
-          git push origin HEAD:research/maxi-review-category-positioning
-
   frontmatter:
     name: Metadata / frontmatter and controlled values
     runs-on: ubuntu-24.04
