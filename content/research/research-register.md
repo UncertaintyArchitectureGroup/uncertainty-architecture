@@ -1,5 +1,5 @@
 ---
-title: Research Item Register
+title: Active Research Register
 artifact_type: research-index
 status: research
 maturity: active
@@ -23,7 +23,7 @@ updated: 2026-08-25
 license: CC-BY-4.0
 ---
 
-# Research Item Register
+# Active Research Register
 
 ## Purpose
 
