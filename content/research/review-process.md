@@ -93,7 +93,7 @@ A shorter publication-facing derivative of a larger living paper or synthesis, d
 
 A publication adaptation is not a new authority-bearing source. It remains research and must identify the living manuscript or synthesis from which it is derived.
 
-## Active research item register
+## Research State Register
 
 The repository maintains one canonical [`Research State Register`](research-register.md) for **research concerns that require independent identity and lifecycle across research documents or workstreams**, including selected terms, hypotheses, comparison propositions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs.
 
@@ -142,7 +142,7 @@ The following are available tools rather than mandatory components of every rese
 
 - repository edition;
 - research analysis;
-- active research-register delta;
+- research-state-register delta;
 - traceability delta;
 - contradiction review;
 - terminology review;
