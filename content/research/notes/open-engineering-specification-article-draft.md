@@ -220,29 +220,30 @@ That changes both failure analysis and reassessment. Unexpected behavior is no l
 The architectural difference can be shown without pretending that conventional software consists of one linear function or that every Thinking System follows one pipeline.
 
 ```mermaid
-flowchart LR
-    subgraph A["Primarily explicitly authored consequential behavior"]
-        direction TB
-        A1["Situation and operating conditions"]
-        A2["Explicitly authored consequential<br/>responsibilities"]
-        A3["Consequential output, action,<br/>or downstream state"]
-        A1 --> A2 --> A3
+flowchart TB
+    subgraph ROW3[" "]
+        direction LR
+        subgraph A["Explicitly Authored Software — consequential mapping authored before release"]
+            direction TB
+            A1["Situation and operating conditions"]
+            A2["Explicitly authored consequential<br/>responsibilities"]
+            A3["Consequential output, action,<br/>or downstream state"]
+            A1 --> A2 --> A3
+        end
+        subgraph B["Motivating runtime-judgment class — part of mapping completed at runtime"]
+            direction TB
+            B1["Situation and operating conditions"]
+            B2["Explicitly authored responsibilities<br/>before, between, and after Judgment Nodes"]
+            J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
+            B3["Consequential output, action,<br/>or downstream state"]
+            B1 --> B2 --> B3
+            B1 --> J1 --> B3
+        end
+        A2 ~~~ J1
     end
-
-    subgraph B["Motivating class — changed responsibility structure"]
-        direction TB
-        B1["Situation and operating conditions"]
-        B2["Explicitly authored responsibilities<br/>before, between, and after Judgment Nodes"]
-        J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
-        B3["Consequential output, action,<br/>or downstream state"]
-        B1 --> B2 --> B3
-        B1 --> J1 --> B3
-    end
-
-    A2 ~~~ J1
-
     classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
     class J1 judgment;
+    style ROW3 fill:transparent,stroke:transparent
 ```
 
 **Figure 3 — The controlled-object shift for the motivating class.** On the left, Consequential Runtime Responsibilities are fulfilled through explicitly authored logic. On the right, the motivating runtime-judgment class retains explicitly authored responsibilities while Model Judgment leaves part of a Consequential Runtime Responsibility unresolved until operation, so part of the consequential mapping is completed at runtime. The figure does not resolve whether fixed learned probabilistic functions with a release-time-determined mapping belong to the broader Thinking-System category. The parallel paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous. The figure is descriptive of the motivating class under the release-contract deduction, not a resolution of the broader category boundary or a prescribed control architecture. The deterministic boundaries, evidence, authority, and corrective mechanisms required for controlled production use are derived in the sections that follow.
@@ -525,70 +526,47 @@ flowchart TB
 The decision horizons answer **where a decision is owned**. The capability families from Section 3 answer **how boundaries, evidence, decisions, and actions become operational**. They remain orthogonal. Every horizon can require Constraints and realizations, Sensors and evidence, Controllers and legitimate decision authority, and Actuators. A legal or business decision at Organization does not become a Sensor merely because evidence informed it; a runtime service does not become the Organizational Controller merely because it executes a policy.
 
 ```mermaid
-flowchart LR
-    subgraph L["Decision ownership: where the decision belongs"]
-        direction TB
-        subgraph SPINE9[" "]
+flowchart TB
+    subgraph ROW_ORTHO[" "]
+        direction LR
+        subgraph L["Decision ownership — where the decision belongs"]
             direction TB
-            O["Organization<br/> What may the organization assess, research, pursue, or continue?"]
-            P["Project / Architecture<br/> Model-Judgment necessity · technical selection<br/> control feasibility · economics · viability"]
-            CAT{"Selected technical design<br/> still a Thinking System?"}
-            EXIT["Exit Thinking-System-specific lifecycle<br/>handoff to ordinary product/software governance"]
-            D["Delivery<br/> Is this bounded realization complete and releasable<br/> for its authorized scope?"]
-            R["Runtime<br/> Does active operation remain inside the authorized boundary?"]
-            E["Delivery / Runtime reassessment evidence<br/> realization or operation evidence that challenges a decision basis"]
-            X["Exogenous Organizational change<br/> authoritative or business basis"]
-
-            O -->|initial admissibility + assessment eligibility<br/>authoritative / business basis| P
-            P -->|technical design selected<br/>inside standing Organizational basis| CAT
-            CAT -->|No| EXIT
-            CAT -->|Yes| P
-            P -->|reserved-boundary research request / viable production basis<br/>or changed Organizational premise / continuation decision| O
-            O -->|specific Bounded Research Authorization<br/>Business Authorization or changed basis| P
-            P -->|applicable Project Authorization scope / set<br/>research-only and/or production-capable where applicable| D
-            D -->|approved realization + authorized exposure| R
-            D -.->|realization / experiment evidence| E
+            X["Exogenous Organizational change"] --> O
+            O["Organization<br/>assessment eligibility · authoritative / business basis"]
+            O -->|initial assessment eligibility| P
+            P["Project / Architecture<br/>technical selection · category · feasibility · economics"]
+            P --> CAT{"Selected design still<br/>a Thinking System?"}
+            CAT -->|No| EXIT["Exit Thinking-System-specific lifecycle"]
+            CAT -->|Yes| PA["Applicable Project Authorization<br/>research-only and/or production-capable"]
+            P -->|reserved-boundary research<br/>or changed basis| O
+            PA --> D["Delivery<br/>realization + release decision"]
+            D --> R["Runtime<br/>authorized operation"]
+            D -->|realization evidence| E["Reassessment evidence"]
             R -->|operation evidence| E
-            X --> O
+            E -->|local realization / evidence basis| D
+            E -->|technical / viability basis| P
+            E -->|authority / business basis| O
         end
-
-        E -.->|implementation / realization / evidence issue| D
-        E -.->|risk / feasibility / Model Judgment necessity<br/>capacity / economics invalidated or research answered| P
-        style SPINE9 fill:none,stroke:none
+        subgraph F["Capability functions — how control becomes operational"]
+            direction TB
+            subgraph CAP_TOP[" "]
+                direction LR
+                A["Actuators<br/>execute authorized change"]
+                K["Constraints and realizations<br/>define and operationalize boundaries"]
+            end
+            subgraph CAP_BOTTOM[" "]
+                direction LR
+                S["Sensors and evidence<br/>observe behavior, conditions, and control state"]
+                C["Controllers / decision functions<br/>interpret evidence and select bounded response"]
+            end
+        end
     end
-
-    subgraph F["Capability functions: how control becomes operational"]
-        direction TB
-        subgraph F1[" "]
-            direction LR
-            J1(( )) --- A["Actuators and corrective action<br/> execute authorized change"]
-        end
-        subgraph F2[" "]
-            direction LR
-            J2(( )) --- K["Constraints and realizations<br/> define and operationalize boundaries"]
-        end
-        subgraph F3[" "]
-            direction LR
-            J3(( )) --- S["Sensors and evidence<br/> observe behavior, conditions, and control state"]
-        end
-        subgraph F4[" "]
-            direction LR
-            J4(( )) --- C["Controllers / decision functions<br/> interpret evidence and select bounded response"]
-        end
-        J1 --- J2
-        J2 --- J3
-        J3 --- J4
-        style F1 fill:none,stroke:none
-        style F2 fill:none,stroke:none
-        style F3 fill:none,stroke:none
-        style F4 fill:none,stroke:none
-    end
-
-    L -. "all four capability families may appear at every decision horizon" .- F
+    L -. "orthogonal: all four capability families may appear at every decision horizon" .- F
     classDef capability fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
-    classDef railpoint fill:transparent,stroke:transparent,color:transparent;
     class A,K,S,C capability;
-    class J1,J2,J3,J4 railpoint;
+    style ROW_ORTHO fill:transparent,stroke:transparent
+    style CAP_TOP fill:transparent,stroke:transparent
+    style CAP_BOTTOM fill:transparent,stroke:transparent
 ```
 
 **Figure 9 — Two orthogonal models.** The left side reproduces the decision model from Figure 8: initial assessment eligibility is distinct from a later specific Bounded Research Authorization; Project / Architecture owns technical/design selection and category confirmation inside the standing Organizational basis; Organization is reactivated only when its business/authority/investment basis or an initiative-level reserved-boundary research/continuation decision is implicated; research-only and production-capable Project Authorization remain distinct scoped authorization forms and may coexist only under explicit scope/precedence semantics; Delivery/Runtime reassessment evidence returns to Delivery or Project; and exogenous Organizational change activates Organization independently. The green side is the capability anatomy. Its ordering is a reading aid, not an execution pipeline. There is no one-to-one mapping between horizons and capability families.
