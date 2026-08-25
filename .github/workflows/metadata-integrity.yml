@@ -106,7 +106,7 @@ jobs:
           persist-credentials: true
 
       - name: Apply semantic reconciliation
-        run: python3 .github/scripts/apply_pr99_semantic_fixes.py
+        run: python3 .github/scripts/run_pr99_semantic_no_workflow.py
 
       - name: Commit reconciled state
         run: |
