@@ -1,0 +1,1 @@
+temporary trigger; remove after Figure 3 Markdown SVG switch
