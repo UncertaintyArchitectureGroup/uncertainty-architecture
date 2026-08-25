@@ -105,7 +105,7 @@ The current Thinking-System definition is written in technology-neutral terms, b
 
 Category membership does not determine consequence severity or control depth. If an internal summarizer used for a reversible, inspectable prioritization decision independently satisfies the category test, it may need only a small explicit control surface; an agent able to change financial or operational state may require much stronger Constraints, evidence, Human Authority, fallback, and runtime intervention. The complete map is a diagnostic reference, not a mandate to instantiate every control mechanism for every case.
 
-The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly authored and this article calls the system **Explicitly Authored Software**, even when orchestration is dynamic. If yes, the software contains the changed object described here even when orchestration is fixed. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category.
+The category must not be collapsed into “agentic application.” The classification question is narrower: does any Consequential Runtime Responsibility depend partly on probabilistic Model Judgment? If not, the relevant consequential responsibility remains explicitly authored and this article calls the system **Explicitly Authored Software**, even when orchestration is dynamic. If yes, the software satisfies the current Thinking-System classification test even when orchestration is fixed. Whether every system admitted by that wording also exhibits the runtime-unresolved responsibility structure developed in Section 2 remains under `TS-SCOPE-001`. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category.
 
 ```mermaid
 flowchart TB
@@ -122,7 +122,7 @@ flowchart TB
 
     Q{"Does any Consequential Runtime Responsibility<br/>depend partly on probabilistic Model Judgment?"}
     L["No → Explicitly Authored Software<br/>relevant consequential responsibility<br/>remains explicitly encoded"]
-    T["Yes → Thinking System<br/>part of consequential behavior<br/>is formed through runtime Model Judgment"]
+    T["Yes → Thinking System<br/>Consequential Runtime Responsibility<br/>depends partly on Model Judgment"]
 
     IN ~~~ A
     O -. does not decide category .-> Q

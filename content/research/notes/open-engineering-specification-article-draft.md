@@ -105,7 +105,7 @@ The current Thinking-System definition is written in technology-neutral terms, b
 
 Category membership does not determine consequence severity or control depth. If an internal summarizer used for a reversible, inspectable prioritization decision independently satisfies the category test, it may require only a small explicit control surface; an agent able to change financial or operational state may require much stronger Constraints, evidence, Human Authority, fallback, and runtime intervention. The full map developed later is a diagnostic reference. Implementation remains proportionate to the actual consequence, authority, exposure, reversibility, uncertainty, feedback latency, and control economics.
 
-The category must not be collapsed into "agentic application." The classification question is narrower: does any **Consequential Runtime Responsibility** depend partly on probabilistic Model Judgment? If not, the relevant **Consequential Runtime Responsibility** remains explicitly authored. For comparison, this paper uses **Explicitly Authored Software** as a paper-level research label under validation; the current UA glossary still uses **Linear Software** pending separate framework terminology review. If yes, the software contains the changed object described here even when orchestration is fixed. Deterministic code before, between, or after that judgment does not make the delegated judgment deterministic. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. The precise boundary of agentic terminology remains an open research question.
+The category must not be collapsed into "agentic application." The classification question is narrower: does any **Consequential Runtime Responsibility** depend partly on probabilistic Model Judgment? If not, the relevant **Consequential Runtime Responsibility** remains explicitly authored. For comparison, this paper uses **Explicitly Authored Software** as a paper-level research label under validation; the current UA glossary still uses **Linear Software** pending separate framework terminology review. If yes, the software satisfies the current Thinking-System classification test even when orchestration is fixed. Whether every system admitted by that wording also exhibits the runtime-unresolved responsibility structure developed in Section 2 remains under `TS-SCOPE-001`. Deterministic code before, between, or after a runtime judgment process does not make that delegated judgment deterministic. Orchestration topology, autonomy, and delegated authority affect architecture and control demand, but they do not decide the category. The precise boundary of agentic terminology remains an open research question.
 
 ```mermaid
 flowchart TB
@@ -118,7 +118,7 @@ flowchart TB
 
     Q{"Classification question:<br/> Does any Consequential Runtime Responsibility<br/> depend partly on probabilistic Model Judgment?"}
     L["No → Explicitly Authored Software<br/> relevant Consequential Runtime Responsibility<br/> remains explicitly encoded"]
-    T["Yes → Thinking System<br/> part of consequential behavior<br/> is formed through runtime Model Judgment"]
+    T["Yes → Thinking System<br/> Consequential Runtime Responsibility<br/> depends partly on Model Judgment"]
 
     O -. does not decide category .-> Q
     A -. does not decide category .-> Q
@@ -132,7 +132,7 @@ flowchart TB
 
 **Figure 2 — Thinking-System classification turns on whether a Consequential Runtime Responsibility depends partly on probabilistic Model Judgment, not workflow topology or autonomy.** Fixed and dynamic workflows can fall on either side of the category boundary. The category changes when a **Consequential Runtime Responsibility** is no longer fully specified through explicitly encoded logic and instead depends partly on probabilistic Model Judgment. Autonomy and delegated authority remain additional dimensions that affect risk and control design rather than classification.
 
-Thinking-System engineering still requires product discovery, deterministic software engineering, testing, security, deployment discipline, observability, and incident response. The new category does not invalidate those practices. It changes the object they are controlling.
+Thinking-System engineering still requires product discovery, deterministic software engineering, testing, security, deployment discipline, observability, and incident response. The current category test does not invalidate those practices. For the motivating runtime-judgment class developed in Section 2, it identifies the responsibility structure that changes the object they are controlling; whether that deduction extends to every case admitted by the broader wording remains under `TS-SCOPE-001`.
 
 ---
 
