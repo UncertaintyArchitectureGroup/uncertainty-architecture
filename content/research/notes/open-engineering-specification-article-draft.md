@@ -219,31 +219,9 @@ That changes both failure analysis and reassessment. Unexpected behavior is no l
 
 The architectural difference can be shown without pretending that conventional software consists of one linear function or that every Thinking System follows one pipeline.
 
-```mermaid
-flowchart LR
-    subgraph A["Explicitly Authored Software"]
-        direction TB
-        A1["Situation and operating conditions"]
-        A2["Explicitly authored consequential<br/>responsibilities"]
-        A3["Consequential output, action,<br/>or downstream state"]
-        A1 --> A2 --> A3
-    end
+![Figure 3 — The controlled-object shift for the motivating class](../assets/thinking-systems-figure-3.svg)
 
-    subgraph B["Motivating runtime-judgment class"]
-        direction TB
-        B1["Situation and operating conditions"]
-        B2["Explicitly authored responsibilities<br/>before, between, and after Judgment Nodes"]
-        J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
-        B3["Consequential output, action,<br/>or downstream state"]
-        B1 --> B2 --> B3
-        B1 --> J1 --> B3
-    end
-
-    A2 ~~~ J1
-
-    classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
-    class J1 judgment;
-```
+<!-- Figure 3 editable semantic source: ../assets/thinking-systems-figure-3.mmd -->
 
 **Figure 3 — The controlled-object shift for the motivating class.** On the left, Consequential Runtime Responsibilities are fulfilled through explicitly authored logic. On the right, the motivating runtime-judgment class retains explicitly authored responsibilities while Model Judgment leaves part of a Consequential Runtime Responsibility unresolved until operation, so part of the consequential mapping is completed at runtime. The figure does not resolve whether fixed learned probabilistic functions with a release-time-determined mapping belong to the broader Thinking-System category. The vertical paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous. The figure is descriptive of the motivating class under the release-contract deduction, not a resolution of the broader category boundary or a prescribed control architecture. The deterministic boundaries, evidence, authority, and corrective mechanisms required for controlled production use are derived in the sections that follow.
 
