@@ -101,13 +101,15 @@ List conclusions that should not be promoted into the framework.
 
 ## Extracted entities and framework candidates
 
-| Research item ID | Finding or extracted entity | Entity class | Candidate owner | Current status | Work required |
-|---|---|---|---|---|---|
-| [Existing ID / assign if material] | [Finding] | [Term / doctrine distinction / hypothesis / comparison / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / boundary case / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | [Research Finding / Candidate / Needs Resolution / Proposed for Framework Review] | [Validation, definition, conflict resolution, worked application, comparison, or separate review] |
+| Research item ID | Finding or extracted entity | Entity class | Candidate owner | Research lifecycle state | Framework disposition / candidate state | Work required |
+|---|---|---|---|---|---|---|
+| [Existing ID / assign only if independently trackable] | [Finding] | [Term / doctrine distinction / hypothesis / comparison / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / boundary case / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | [Open / Under Validation / Resolved / Superseded / Rejected] | [No framework effect / Research Finding / Candidate / Needs Resolution / Proposed for Framework Review / Active / Superseded / Rejected] | [Validation, definition, conflict resolution, worked application, comparison, or separate review] |
+
+The **research lifecycle state** above belongs to the Active Research Register when the item needs cross-document identity. **Framework disposition** belongs to `framework-traceability.md` or the applicable status-bearing framework source; do not use `Active` as a research-lifecycle synonym.
 
 Lifecycle and operating concerns should be placed in the module that owns their architectural meaning. Do not assume they require a separate top-level repository module.
 
-Assign a stable research-item ID when cross-document identity, provenance, or unresolved state matters. Do not assign IDs to routine observations that can remain local to the analysis.
+Assign a stable research-item ID only when the concern needs independent cross-document lifecycle or provenance tracking—for example because it has distinct provenance, owner, lifecycle state, next decision, or can change independently of a parent hypothesis. Subclaims that share those properties should remain under the parent research item rather than becoming separate register rows.
 
 ## Provenance-bearing inputs
 
@@ -138,8 +140,8 @@ What should remain in advanced patterns, rationale, research, failure modes, con
 List only records whose state changes:
 
 - source-intake, working note, analysis, synthesis, or provenance record;
-- `research-register.md` for material items introduced, reopened, narrowed, superseded, rejected, or otherwise changed;
-- `framework-traceability.md` when the source-to-framework relationship changes;
+- `research-register.md` when an independently tracked item's research lifecycle or provenance changes;
+- `framework-traceability.md` when the source-to-framework relationship or framework disposition changes;
 - open-question or maturity status;
 - research index or local navigation;
 - no research-state change.
@@ -150,7 +152,8 @@ Do not create another source-to-framework traceability ledger or a session log.
 
 - **Research record:** [Accepted / changes requested]
 - **Research items introduced or changed:** [IDs / none]
-- **Framework candidates:** [List]
+- **Research lifecycle transitions:** [ID: old → new / none]
+- **Framework candidates or disposition changes:** [List / none]
 - **Superseded concepts:** [List]
 - **Separate framework work required:** [List]
 - **Terminology decisions deferred:** [List]
