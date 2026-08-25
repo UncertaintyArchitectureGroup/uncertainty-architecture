@@ -68,6 +68,7 @@ The objective is to consolidate research into a coherent, bounded specification.
 - Repository-relative links, navigation routes, citation metadata, critical repository structure, compatibility markers, and the top-level namespace have deterministic validation foundations.
 - Controlled frontmatter, tag projection, active canonical ownership, and protected glossary entries have deterministic validation foundations; selected terminology drift remains advisory.
 - Pull-request declarations, notable-change companion updates, research-state traceability, and maintained-path deletion or rename decisions have a diff-aware validation foundation.
+- The Research Track now separates active epistemic state from framework promotion: a canonical Active Research Register carries material terms, hypotheses, comparison questions, candidate artifacts/processes, provenance records, status, ownership, and next decisions, while `framework-traceability.md` remains the source-to-framework decision ledger.
 - Quartz production builds, maintained Mermaid diagrams, workflow syntax and security posture, immutable action and container references, dependency updates, and dependency-risk checks have an executable repository-integrity foundation.
 
 ### Four-family capability baseline
@@ -98,6 +99,7 @@ The repository integration is complete. The relevant framework documents remain 
 - [x] Establish a machine-readable repository contract protecting critical files, landing-page functions, compatibility paths, and the top-level namespace, with independent regression fixtures.
 - [x] Establish controlled frontmatter, tag-projection, active canonical-ownership, protected-glossary, and terminology-warning validation.
 - [x] Establish diff-aware changelog, glossary, roadmap, traceability, deletion, rename, and machine-readable pull-request coupling.
+- [x] Establish a cross-document Active Research Register with stable material-item IDs, provenance boundaries, epistemic status, ownership, next decisions, deterministic CI validation, and regression fixtures.
 - [x] Complete automated Mermaid rendering and Quartz production-build validation.
 - [x] Establish workflow linting, security analysis, immutable action/container policy, dependency update automation, and bounded dependency-risk checks.
 - [ ] Build a two-level worked application tracing Constraints from organizational source through project architecture, delivery realization, runtime evidence, and reauthorization.
@@ -169,17 +171,19 @@ A new top-level Operating Model module is not planned at this stage.
 - protected glossary-entry presence and uniqueness checks;
 - non-blocking warnings for selected terminology drift, title/H1 drift, and unusually large tag sets;
 - diff-aware changelog, glossary, roadmap, research-traceability, deletion, rename, compatibility, and pull-request declaration validation;
+- deterministic validation of stable Active Research Register IDs, controlled item classes/statuses/origins, repository paths, and indexed provenance records for external review/dialogue inputs;
 - Quartz production builds and rendering of maintained Mermaid blocks;
 - deployment-independent Quartz-to-PDF rendering from canonical Markdown, with draft-only temporary builds, strict provenance manifests, coherent PDF/manifest rollback, visual verification, and explicit standalone-article versus long-form working-paper outputs;
 - actionlint and zizmor checks for GitHub Actions workflows;
 - full-SHA action references, version comments, and sha256 container digests enforced by a machine-readable contract;
 - weekly Dependabot updates for npm and GitHub Actions;
 - bounded npm audit enforcement and GitHub Dependency Review integration, with Dependency Graph enablement remaining a repository-setting prerequisite;
-- independent mutation fixtures proving that protected structural, metadata, change-coupling, and supply-chain regressions fail predictably;
+- independent mutation fixtures proving that protected structural, metadata, research-register, change-coupling, and supply-chain regressions fail predictably;
 - explicit repository ownership through `CODEOWNERS` and structured pull-request input through the default template.
 
 ### Later tooling
 
+- diff-aware enforcement that material research-state transitions update either the Active Research Register, framework traceability, or both according to the declared effect;
 - checks for stale canonical paths and relationships;
 - stronger dependency-review enforcement after repository Dependency Graph enablement;
 - example Constraint, realization, prompt, policy, evaluation, and release manifests;
