@@ -1,0 +1,36 @@
+name: PR102 refresh Figure 8 fixture
+
+on:
+  push:
+    branches:
+      - publishing/thinking-systems-pdf-review-v4
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: publishing/thinking-systems-pdf-review-v4
+          persist-credentials: true
+      - name: Refresh stale synthetic fingerprint fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          old='9564729a771d2b0e56ce6600420709efefa032d8b2494159fd05aac6fb19e9a6'
+          new='54c622e1404e7ee760934f231bc81f9e9a5ce2dde30a7c85422316ecc138626a'
+          file='quartz/scripts/publication-rendition.test.mjs'
+          count=$(grep -o "$old" "$file" | wc -l)
+          test "$count" -eq 1
+          sed -i "s/$old/$new/" "$file"
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$file"
+          git commit -m 'test: refresh repaired Figure 8 fixture fingerprint'
+          git push origin HEAD:publishing/thinking-systems-pdf-review-v4
