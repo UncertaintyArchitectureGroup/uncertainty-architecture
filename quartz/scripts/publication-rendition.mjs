@@ -232,7 +232,7 @@ export function locateCanonicalFigure3(content) {
       !mermaid.includes(
         "Primarily explicitly authored consequential behavior",
       ) ||
-      !mermaid.includes("Thinking System — changed responsibility structure")
+      !mermaid.includes("Motivating class — changed responsibility structure")
     ) {
       continue;
     }

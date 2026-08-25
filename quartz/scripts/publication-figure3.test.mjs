@@ -18,7 +18,7 @@ flowchart LR
         A3["Consequential output, action, or downstream state"]
         A1 --> A2 --> A3
     end
-    subgraph B["Thinking System — changed responsibility structure"]
+    subgraph B["Motivating class — changed responsibility structure"]
         B1["Situation and operating conditions"]
         B2["Explicitly authored responsibilities before, between, and after Judgment Nodes"]
         J1["One or more Judgment Nodes probabilistic Model Judgment"]
@@ -28,15 +28,15 @@ flowchart LR
     end
 \`\`\`
 
-**Figure 3 — The controlled-object shift.** Canonical caption.`;
+**Figure 3 — The controlled-object shift for the motivating class.** Canonical caption.`;
 
-test("Figure 3 publication rendition is a side-by-side Linear Software comparison", () => {
+test("Figure 3 publication rendition is a side-by-side motivating-class comparison", () => {
   const result = renderFigure3(canonicalFigure3);
   assert.equal(result.rendered, true);
   assert.match(result.content, /data-ua-figure3-rendition="side-by-side"/);
   assert.match(result.content, /data-ua-flow="top-down"/);
-  assert.match(result.content, /Linear Software/);
-  assert.match(result.content, /Thinking System/);
+  assert.match(result.content, /Explicitly Authored Software/);
+  assert.match(result.content, /Motivating runtime-judgment class/);
   assert.match(result.content, /Consequential mapping authored before release/);
   assert.match(
     result.content,
@@ -49,15 +49,15 @@ test("Figure 3 publication rendition is a side-by-side Linear Software compariso
   assert.doesNotMatch(result.content, /```mermaid/);
   assert.match(
     result.content,
-    /<strong>Figure 3 — The controlled-object shift\.<\/strong>/,
+    /<strong>Figure 3 — The controlled-object shift for the motivating class\.<\/strong>/,
   );
   assert.doesNotMatch(result.content, /\*\*Figure 3/);
 });
 
 test("Figure 3 semantic guard rejects a materially incomplete source", () => {
   const svg = buildFigure3ControlledObjectSvg();
-  assert.match(svg, /Linear Software/);
-  assert.match(svg, /Thinking System/);
+  assert.match(svg, /Explicitly Authored Software/);
+  assert.match(svg, /Motivating runtime-judgment class/);
   assert.throws(
     () =>
       assertFigure3SemanticSource(
