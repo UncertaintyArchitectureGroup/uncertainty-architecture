@@ -1,0 +1,39 @@
+name: PR99 mark research terminology
+
+on:
+  push:
+    branches:
+      - research/maxi-review-category-positioning
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
+      - name: Mark Explicitly Authored Software as research term
+        shell: python
+        run: |
+          from pathlib import Path
+          path = Path("content/research/notes/thinking-systems-publication-draft.md")
+          text = path.read_text(encoding="utf-8")
+          old = "| **Explicitly Authored Software**          | Software in which no Consequential Runtime Responsibility depends partly on Model Judgment; any such responsibilities are fulfilled entirely through explicitly encoded logic. The label concerns the consequential responsibility mapping, not whether orchestration is sequential, fixed, or dynamic. |"
+          new = "| **Explicitly Authored Software** _(research term under validation)_ | Paper-level comparative label for software in which no Consequential Runtime Responsibility depends partly on Model Judgment; any such responsibilities are fulfilled entirely through explicitly encoded logic. The label concerns the consequential responsibility mapping, not whether orchestration is sequential, fixed, or dynamic, and is not yet canonical UA terminology. |"
+          count = text.count(old)
+          if count != 1:
+              raise SystemExit(f"expected exactly one glossary row, found {count}")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          Path(".github/workflows/pr99-label-patch.yml").unlink()
+      - name: Commit terminology marker
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "research: mark publication terminology candidate"
+          git push origin HEAD:${GITHUB_REF_NAME}
