@@ -37,6 +37,8 @@ test("Figure 3 publication rendition is a side-by-side motivating-class comparis
   assert.match(result.content, /data-ua-flow="top-down"/);
   assert.match(result.content, /Explicitly Authored Software/);
   assert.match(result.content, /Motivating runtime-judgment class/);
+  assert.doesNotMatch(result.content, />Linear Software</);
+  assert.doesNotMatch(result.content, />Thinking System</);
   assert.match(result.content, /Consequential mapping authored before release/);
   assert.match(
     result.content,
