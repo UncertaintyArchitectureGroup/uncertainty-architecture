@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: metadata-integrity-${{ github.workflow }}-${{ github.ref }}
@@ -61,7 +61,7 @@ jobs:
         run: python3 ../.github/scripts/validate_metadata.py --mode terminology
 
   research-register:
-    name: Research / active item and provenance register
+    name: Research / state and provenance register
     runs-on: ubuntu-24.04
     timeout-minutes: 5
 
@@ -71,7 +71,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Validate active research register
+      - name: Validate research state register
         run: python3 .github/scripts/validate_research_register.py
 
   self-tests:
@@ -91,3 +91,28 @@ jobs:
 
       - name: Run research-register regression fixtures
         run: python3 .github/tests/research_register/test_research_register.py
+
+  apply-pr99-final-fixes:
+    name: Research / one-shot PR99 final reconciliation
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'research/maxi-review-category-positioning'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out PR head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+
+      - name: Apply final semantic reconciliation
+        run: python3 .github/scripts/apply_pr99_final_semantic_fixes.py
+
+      - name: Commit reconciled state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "research: resolve final PR99 review findings"
+          git push origin HEAD:${{ github.head_ref }}
