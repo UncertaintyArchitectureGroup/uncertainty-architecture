@@ -123,7 +123,9 @@ When an item enters through an external review, dialogue, private exchange, talk
 - disposition and remaining questions;
 - related research-item IDs.
 
-Private correspondence does not need to be reproduced verbatim. The repository should preserve the material research effect and evidence boundary, not convert private mail into a public archive by default.
+Private correspondence does not need to be reproduced verbatim.
+
+**Origin versus transition provenance.** Record where a research item first entered the work separately from later evidence, dialogue, or review that reopens, narrows, sharpens, or resolves it. A later reviewer who materially changes an existing hypothesis is a transition source, not retroactively the origin of that hypothesis. Preserve both when the distinction matters. The repository should preserve the material research effect and evidence boundary, not convert private mail into a public archive by default.
 
 ### Register versus source-to-framework traceability
 

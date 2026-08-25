@@ -68,7 +68,8 @@ def valid_item() -> Dict[str, object]:
         "status": "resolved",
         "origin_kind": "external-dialogue",
         "provenance_record": "content/research/notes/provenance.md",
-        "owning_record": "00-doctrine/glossary.md",
+        "owning_record": "content/research/notes/provenance.md",
+        "framework_destination": "00-doctrine/glossary.md",
         "next_step": "Preserve the provenance boundary.",
     }
 
@@ -134,6 +135,12 @@ def main() -> int:
     def missing_id_in_provenance(root: Path, items: List[Dict[str, object]]) -> None:
         write(root / "content/research/notes/provenance.md", "# Provenance without stable ID\n")
     failures.append(run_case("external provenance must reference stable ID", missing_id_in_provenance, "does not reference its stable research-item ID"))
+
+    def transition_missing_id(root: Path, items: List[Dict[str, object]]) -> None:
+        write(root / "content/research/notes/review.md", "# Review without item identity\n")
+        write(root / "content/research/notes/README.md", "- [provenance.md](provenance.md)\n- [review.md](review.md)\n")
+        items[0]["transition_record"] = "content/research/notes/review.md"
+    failures.append(run_case("transition provenance must reference stable ID", transition_missing_id, "transition record does not reference its stable research-item ID"))
 
     validator = load_validator()
     with tempfile.TemporaryDirectory(prefix="ua-research-register-human-") as temporary:

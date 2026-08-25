@@ -116,10 +116,14 @@ Assign a stable research-item ID only when the concern needs independent cross-d
 If a material item came through dialogue, external review, private correspondence, a talk, worked application, incident, or other source whose context may disappear, state:
 
 - the source or reviewed artifact;
+- the item's original source, when different from the source that later changed its state;
+- the latest material transition source (review, evidence, dialogue, incident, or worked application), when applicable;
 - whether provenance is public, maintainer-attested, or otherwise bounded;
 - what entered the research;
 - what did not transfer by implication, such as endorsement, authorship, framework authority, or validation;
 - whether a bounded provenance/review note is required under `content/research/notes/`.
+
+Do not rewrite an item's origin when a later reviewer merely reopens, sharpens, narrows, or resolves it. Preserve origin provenance and transition provenance separately when that distinction matters.
 
 ## SMB surface vs technical depth
 

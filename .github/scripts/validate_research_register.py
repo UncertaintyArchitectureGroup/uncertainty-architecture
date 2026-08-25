@@ -185,7 +185,7 @@ def validate(
             findings.append(Finding("error", "{} uses uncontrolled origin_kind {!r}".format(label, origin)))
 
         resolved_paths: Dict[str, Path] = {}
-        for field in ("provenance_record", "owning_record"):
+        for field in ("provenance_record", "owning_record", "transition_record", "framework_destination"):
             relative = item.get(field)
             if not isinstance(relative, str) or not relative.strip():
                 continue
@@ -196,6 +196,20 @@ def validate(
                 findings.append(Finding("error", "{} {} does not exist: {!r}".format(label, field, relative)))
             else:
                 resolved_paths[field] = path
+
+        transition = item.get("transition_record")
+        if isinstance(transition, str) and transition.strip():
+            transition_path = resolved_paths.get("transition_record")
+            if not transition.startswith("content/research/notes/"):
+                findings.append(Finding("error", "{} transition_record must use a bounded research note under content/research/notes/".format(label)))
+            else:
+                basename = Path(transition).name
+                if basename and basename not in notes_index:
+                    findings.append(Finding("error", "{} transition record is not indexed in content/research/notes/README.md".format(label)))
+                if transition_path is not None and isinstance(item_id, str):
+                    transition_text = transition_path.read_text(encoding="utf-8")
+                    if item_id not in transition_text:
+                        findings.append(Finding("error", "{} transition record does not reference its stable research-item ID".format(label)))
 
         provenance = item.get("provenance_record")
         if isinstance(origin, str) and origin in EXTERNAL_ORIGINS and isinstance(provenance, str):

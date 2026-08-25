@@ -96,7 +96,9 @@ When the material item comes through an external review, dialogue, private excha
 - the research disposition and remaining questions;
 - related research-item IDs.
 
-Do not publish private correspondence verbatim merely to prove provenance. Preserve the material research effect and evidence boundary proportionately.
+Do not publish private correspondence verbatim merely to prove provenance.
+
+**Origin versus transition provenance.** Record where a research item first entered the work separately from later evidence, dialogue, or review that reopens, narrows, sharpens, or resolves it. A later reviewer who materially changes an existing hypothesis is a transition source, not retroactively the origin of that hypothesis. Preserve both when the distinction matters. Preserve the material research effect and evidence boundary proportionately.
 
 ### Register versus framework traceability
 

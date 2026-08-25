@@ -54,7 +54,7 @@ The technology-neutral scope is therefore **Under Validation**, not resolved. Th
 - the release-contract thesis needs to be generalized so it correctly describes both; or
 - the category definition needs an additional condition that excludes some fixed learned functions from Thinking-System membership.
 
-Concrete pre-LLM cases are tracked separately from this definition-level question. Low-consequence examples are also separate because they test proportionality rather than historical scope.
+Concrete pre-LLM cases are tracked separately as `TS-HIST-001`. Low-consequence examples are tracked as `TS-LOW-001` because they test proportionality rather than historical scope.
 
 ## Claim boundary
 

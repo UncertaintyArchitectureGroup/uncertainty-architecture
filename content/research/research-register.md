@@ -27,7 +27,7 @@ license: CC-BY-4.0
 
 ## Purpose
 
-This register is the canonical cross-document inventory of **research concerns that require an identity and lifecycle outside any one paper, pull request, or conversation**.
+This register is the canonical cross-document inventory of **research concerns that require an identity and lifecycle outside any one paper, pull request, or conversation**. It preserves an item's origin separately from later evidence, dialogue, or review that changes its research state.
 
 It exists to preserve the state of important terminology candidates, hypotheses, comparison questions, candidate artifacts/processes, and provenance-bearing external inputs when those items may be discussed or changed across several research records.
 
@@ -65,9 +65,10 @@ Do **not** split every subclaim into its own ID. Subclaims that share provenance
 |---|---|---|---|---|---|---|
 | `TS-TERM-001` | **Thinking Systems** formulation provenance | Term / provenance | External dialogue with Arkadiy Dobkin | Resolved | [`thinking-systems-formulation-provenance-arkadiy-dobkin.md`](notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md); canonical meaning remains in the glossary | Preserve formulation provenance separately from authorship, endorsement, and definition authority |
 | `TS-TERM-002` | **Explicitly Authored Software** | Terminology candidate | Maximiliano Armesto pre-publication review identified topology ambiguity in `Linear Software` | Under Validation | [`thinking-systems-pre-publication-review-maximiliano-armesto.md`](notes/thinking-systems-pre-publication-review-maximiliano-armesto.md); article blueprint owns the current paper-level test | Test whether the label is clearer and durable enough for separate framework terminology review; do not rename the glossary by implication |
-| `TS-SCOPE-001` | Technology-neutral applicability of the Thinking-System definition | Category-scope clarification | Maximiliano Armesto review plus current technology-neutral definition | Resolved | Same review record and article blueprint | Preserve the resolved definition-level implication that Thinking-System membership is not restricted to LLM-based systems; keep concrete classification claims separate |
-| `TS-CASE-001` | Concrete pre-LLM and low-consequence Thinking-System boundary cases | Category-boundary / classification test | Maximiliano Armesto review | Under Validation | Same review record and article blueprint | Test concrete historical and low-consequence cases through causal analysis before treating them as established examples or making prevalence claims |
-| `TS-PROP-001` | Category membership, consequence severity, and required control depth are distinct | Proportionality finding | Maximiliano Armesto review sharpened an existing UA distinction | Resolved | Same review record; current glossary/doctrine already separate consequentiality from severity and control adequacy | Keep the resolved distinction visible in publication prose; validation of particular low-consequence examples remains under `TS-CASE-001` |
+| `TS-SCOPE-001` | Technology-neutral scope of the Thinking-System definition versus the release-contract thesis | Category-scope hypothesis | Current repository definition; external review exposed the breadth and a later consistency review exposed a release-contract tension | Under Validation | [`thinking-systems-release-contract-scope-review.md`](notes/thinking-systems-release-contract-scope-review.md) owns the current consistency issue; current glossary supplies the definition; blueprint owns the paper-level test | Test whether fixed learned probabilistic functions and runtime judgment processes belong to one category without weakening the release-contract distinction; narrow or generalize the definition/thesis if necessary |
+| `TS-HIST-001` | Concrete pre-LLM Thinking-System boundary cases | Historical/category-boundary test | Maximiliano Armesto review raised earlier probabilistic systems as candidate cases | Under Validation | Same external-review record plus the scope-consistency note and article blueprint | Test concrete pre-LLM systems through causal and release-contract analysis before treating them as established examples or making prevalence claims |
+| `TS-LOW-001` | Intentionally low-consequence Thinking-System boundary case | Proportionality/category-boundary test | Maximiliano Armesto review requested a deliberately low-consequence case | Under Validation | Same external-review record and article blueprint | Validate a low-consequence case independently of historical classification so the paper can show category membership ≠ severity ≠ control depth without assuming the example qualifies |
+| `TS-PROP-001` | Category membership, consequence severity, and required control depth are distinct | Proportionality finding | Existing UA separation of consequentiality, severity, and control adequacy; sharpened by Maximiliano Armesto review | Resolved | Current glossary/doctrine support the distinction; review record preserves the later sharpening | Keep the resolved distinction visible in publication prose; validation of the illustrative low-consequence case remains under `TS-LOW-001` |
 | `TS-LIFE-001` | Four-horizon lifecycle ownership and authorization refinement | Lifecycle / process hypothesis | Internal article synthesis against current Nested Control Lifecycle and project/delivery patterns | Under Validation | [`framework-traceability.md`](framework-traceability.md) conflict/evolution register; article blueprint owns the detailed hypothesis | Validate assessment eligibility, Project technical/design authority, Organization business/research authority, research-only versus production-capable Project Authorization, Business-Authorization coverage, and scoped-authorization semantics before any status-bearing lifecycle change |
 | `TS-CARRIER-001` | Material-relationship carrier sufficiency and proportional application | Artifact / process hypothesis | Article §5 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Complete Article §5 mapping and test whether existing records/tools can carry each material relationship without UA-specific duplicate artifacts or semantic loss |
 | `TS-COMP-001` | Four-horizon model relative to STAMP/STPA | Comparative hypothesis | Maximiliano Armesto review | Under Validation | Same review record; planned Article §6 landscape/substitution analysis | Perform bidirectional mapping and determine whether the four-horizon model adds useful lifecycle-decision specialization, merely renames existing semantics, or loses material relationships |
@@ -88,7 +89,8 @@ The block below is validated in CI. Human-readable rows above must express the s
       "status": "resolved",
       "origin_kind": "external-dialogue",
       "provenance_record": "content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md",
-      "owning_record": "00-doctrine/glossary.md",
+      "owning_record": "content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md",
+      "framework_destination": "00-doctrine/glossary.md",
       "next_step": "Preserve formulation provenance separately from authorship, endorsement, and definition authority."
     },
     {
@@ -103,33 +105,45 @@ The block below is validated in CI. Human-readable rows above must express the s
     },
     {
       "id": "TS-SCOPE-001",
-      "title": "Technology-neutral applicability of the Thinking-System definition",
+      "title": "Technology-neutral scope of the Thinking-System definition versus the release-contract thesis",
       "item_class": "hypothesis",
-      "status": "resolved",
-      "origin_kind": "external-review",
-      "provenance_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
+      "status": "under-validation",
+      "origin_kind": "repository-source",
+      "provenance_record": "00-doctrine/glossary.md",
+      "transition_record": "content/research/notes/thinking-systems-release-contract-scope-review.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Preserve the resolved definition-level implication that Thinking-System membership is not restricted to LLM-based systems; keep concrete classification claims separate."
+      "next_step": "Test whether fixed learned probabilistic functions and runtime judgment processes belong to one category without weakening the release-contract distinction; narrow or generalize the definition/thesis if necessary."
     },
     {
-      "id": "TS-CASE-001",
-      "title": "Concrete pre-LLM and low-consequence Thinking-System boundary cases",
+      "id": "TS-HIST-001",
+      "title": "Concrete pre-LLM Thinking-System boundary cases",
       "item_class": "example",
       "status": "under-validation",
       "origin_kind": "external-review",
       "provenance_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Test concrete historical and low-consequence cases through causal analysis before treating them as established examples or making prevalence claims."
+      "next_step": "Test concrete pre-LLM systems through causal and release-contract analysis before treating them as established examples or making prevalence claims."
+    },
+    {
+      "id": "TS-LOW-001",
+      "title": "Intentionally low-consequence Thinking-System boundary case",
+      "item_class": "example",
+      "status": "under-validation",
+      "origin_kind": "external-review",
+      "provenance_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
+      "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
+      "next_step": "Validate a low-consequence case independently of historical classification so the paper can demonstrate proportionality without assuming the example qualifies."
     },
     {
       "id": "TS-PROP-001",
       "title": "Category membership, consequence severity, and required control depth are distinct",
       "item_class": "hypothesis",
       "status": "resolved",
-      "origin_kind": "external-review",
-      "provenance_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
+      "origin_kind": "repository-source",
+      "provenance_record": "00-doctrine/glossary.md",
+      "transition_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Keep the resolved distinction visible in publication prose; validation of particular low-consequence examples remains under TS-CASE-001."
+      "next_step": "Keep the resolved distinction visible in publication prose; validation of the illustrative low-consequence case remains under TS-LOW-001."
     },
     {
       "id": "TS-LIFE-001",
