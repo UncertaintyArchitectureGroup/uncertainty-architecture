@@ -52,11 +52,11 @@ function curve(d, { color = "#496574", marker = "ua3-arrow" } = {}) {
 }
 
 export const figure3SemanticMarkers = Object.freeze([
-  "Explicitly Authored Software — consequential mapping authored before release",
-  "Motivating runtime-judgment class — part of mapping completed at runtime",
+  "Explicitly Authored Software",
+  "Motivating runtime-judgment class",
   "Situation and operating conditions",
   "Explicitly authored consequential",
-  "Explicitly authored responsibilities",
+  "before, between, and after Judgment Nodes",
   "One or more Judgment Nodes",
   "probabilistic Model Judgment",
   "Consequential output, action",

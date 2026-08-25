@@ -12,13 +12,15 @@ import {
 
 const canonicalFigure3 = `\`\`\`mermaid
 flowchart LR
-    subgraph A["Explicitly Authored Software — consequential mapping authored before release"]
+    subgraph A["Explicitly Authored Software"]
+        direction TB
         A1["Situation and operating conditions"]
         A2["Explicitly authored consequential responsibilities"]
         A3["Consequential output, action, or downstream state"]
         A1 --> A2 --> A3
     end
-    subgraph B["Motivating runtime-judgment class — part of mapping completed at runtime"]
+    subgraph B["Motivating runtime-judgment class"]
+        direction TB
         B1["Situation and operating conditions"]
         B2["Explicitly authored responsibilities before, between, and after Judgment Nodes"]
         J1["One or more Judgment Nodes probabilistic Model Judgment"]
@@ -26,6 +28,7 @@ flowchart LR
         B1 --> B2 --> B3
         B1 --> J1 --> B3
     end
+    A2 ~~~ J1
 \`\`\`
 
 **Figure 3 — The controlled-object shift for the motivating class.** Canonical caption.`;

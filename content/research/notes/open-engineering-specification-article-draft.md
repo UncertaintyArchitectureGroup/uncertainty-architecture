@@ -224,20 +224,22 @@ flowchart LR
     subgraph A["Explicitly Authored Software"]
         direction TB
         A1["Situation and operating conditions"]
-        A2["Explicitly authored consequential responsibilities"]
-        A3["Consequential output, action, or downstream state"]
+        A2["Explicitly authored consequential<br/>responsibilities"]
+        A3["Consequential output, action,<br/>or downstream state"]
         A1 --> A2 --> A3
     end
 
     subgraph B["Motivating runtime-judgment class"]
         direction TB
         B1["Situation and operating conditions"]
-        B2["Explicitly authored responsibilities before and between Judgment Nodes"]
+        B2["Explicitly authored responsibilities<br/>before, between, and after Judgment Nodes"]
         J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
-        B4["Explicitly authored responsibilities after Judgment Nodes"]
-        B3["Consequential output, action, or downstream state"]
-        B1 --> B2 --> J1 --> B4 --> B3
+        B3["Consequential output, action,<br/>or downstream state"]
+        B1 --> B2 --> B3
+        B1 --> J1 --> B3
     end
+
+    A2 ~~~ J1
 
     classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
     class J1 judgment;
