@@ -52,24 +52,24 @@ The reviewer observed that the paper repeatedly has to explain that `Linear Soft
 
 **Register item:** `TS-TERM-002`.
 
-### 2. The category is not historically LLM-exclusive
+### 2. The definition is not LLM-exclusive
 
-The current Thinking-System definition is technology-neutral: a pre-LLM probabilistic system may qualify when a Consequential Runtime Responsibility materially depends on probabilistic Model Judgment. Traditional credit scoring, summarization, or code-completion systems are therefore useful boundary cases depending on how their outputs causally influence downstream responsibility.
+The current Thinking-System definition is technology-neutral. That establishes a definition-level scope point: membership is not restricted to LLM-based systems. It does **not** by itself establish that any particular pre-LLM system qualifies, nor how prevalent such systems were historically.
 
-**Research effect:** distinguish two claims that must not be collapsed:
+Traditional credit scoring, summarization, or code-completion systems are therefore useful boundary cases only when their outputs causally influence a Consequential Runtime Responsibility strongly enough to satisfy the category test.
 
-- the **definition-level implication** that Thinking-System membership is not restricted to LLMs;
-- the **historical/empirical claim** about how common such systems were before general-purpose LLMs.
+**Research effect:** preserve two distinct research items rather than collapsing them:
 
-The first follows from the current definition. The second still requires careful historical framing and evidence. Specific examples remain case-dependent classification tests rather than universal declarations.
+- `TS-SCOPE-001` — **Resolved:** the definition-level implication that Thinking-System membership is not restricted to LLMs;
+- `TS-CASE-001` — **Under Validation:** which concrete pre-LLM and low-consequence systems actually satisfy the category test, and what historical/prevalence claims are supportable.
 
-**Register item:** `TS-SCOPE-001`.
+The first follows from the current definition. The second still requires case-specific causal analysis and, for historical/prevalence claims, supporting evidence.
 
 ### 3. Category membership must be separated from control depth
 
 A low-consequence summarizer whose output is reversible and human-mediated may satisfy the category test while requiring much lighter controls than an agent authorized to change financial or operational state.
 
-**Research effect:** make proportionality visible before the full control map appears. Category membership, consequence severity, and implementation depth are separate decisions.
+**Research effect:** make proportionality visible before the full control map appears. Category membership, consequence severity, and implementation depth are separate decisions. The proportionality distinction is resolved at the conceptual level; whether a particular low-consequence example satisfies the category remains under `TS-CASE-001`.
 
 **Register item:** `TS-PROP-001`.
 
@@ -88,17 +88,19 @@ That question remains unresolved until the planned bidirectional mapping is perf
 | Finding | Current disposition | Framework effect |
 |---|---|---|
 | `Linear Software` publication label | Reopened; test `Explicitly Authored Software` as a research candidate | No canonical rename in this PR |
-| Pre-LLM applicability | Accepted as a necessary scope clarification; concrete cases remain under test | No doctrine change implied |
+| Definition-level LLM scope | Resolved: the definition is technology-neutral and not LLM-exclusive | No doctrine change implied |
+| Concrete pre-LLM / low-consequence classification | Under validation; treat examples case by case | No historical or prevalence claim implied |
 | Proportionality | Accepted; surface earlier in the paper | Consistent with existing separation of consequentiality, severity, and control adequacy |
 | STAMP/STPA positioning | Accepted as an early attribution/comparison correction; full verdict deferred | No novelty claim or normative change |
 
 ## Remaining questions
 
 1. Is **Explicitly Authored Software** the best durable opposite-side term, or should the paper ultimately use only a descriptive responsibility-level contrast?
-2. Which pre-LLM systems satisfy the category test under concrete causal analysis, and which only contain probabilistic components without transferring a Consequential Runtime Responsibility?
-3. What does the four-horizon model add, if anything, beyond a competent STAMP/STPA application to the same socio-technical control structure?
-4. What does the four-horizon map lose or distort when reverse-mapped from STAMP/STPA, Simplex/runtime assurance, production ML engineering, management systems, and mature internal operating compositions?
+2. Which pre-LLM and intentionally low-consequence systems satisfy the category test under concrete causal analysis, and which only contain probabilistic components without transferring a Consequential Runtime Responsibility?
+3. What historical or prevalence claims about such systems can be supported independently of the technology-neutral definition itself?
+4. What does the four-horizon model add, if anything, beyond a competent STAMP/STPA application to the same socio-technical control structure?
+5. What does the four-horizon map lose or distort when reverse-mapped from STAMP/STPA, Simplex/runtime assurance, production ML engineering, management systems, and mature internal operating compositions?
 
 ## Research-state reconciliation
 
-This review reopens terminology and comparative-contribution questions while clarifying category scope and proportionality. The owning paper surfaces are revised together, the active research register records the open items, and source-to-framework traceability is updated where the review changes the relationship between research wording and canonical framework terminology.
+This review reopens terminology and comparative-contribution questions, resolves the definition-level non-LLM-exclusivity point, and leaves concrete historical/low-consequence classification under validation. The owning paper surfaces are revised together, the active research register records the distinct lifecycle states, and source-to-framework traceability is updated where the review changes the relationship between research wording and canonical framework terminology.
