@@ -23,3 +23,4 @@ t=t.replace('assert.match(m,/A1 --> A2 --> A3/);assert.match(m,/B1 --> B2 --> J1
 t=t.replace('assert.match(bp,/outer row subgraph `ROW3` with `direction LR`/);','assert.match(bp,/outer row subgraph `ROW3` with `direction LR`/);assert.match(bp,/columns must remain disconnected at node level/);',1)
 test.write_text(t,encoding='utf-8')
 print('Removed Figure 3 cross-column edge and guarded Mermaid subgraph direction.')
+# trigger
