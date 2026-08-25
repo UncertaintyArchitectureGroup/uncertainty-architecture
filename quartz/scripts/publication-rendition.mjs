@@ -224,20 +224,35 @@ export function compactInlineSvg(svg) {
 }
 
 export function locateCanonicalFigure3(content) {
-  const pattern = /!\[Figure 3 — The controlled-object shift for the motivating class\]\(\.\.\/assets\/thinking-systems-figure-3\.svg\)\r?\n(?:\r?\n<!-- Figure 3 editable semantic source: \.\.\/assets\/thinking-systems-figure-3\.mmd -->)?\r?\n\r?\n(\*\*Figure 3 —[^\n]*)(?=\n\n|$)/;
-  const match = pattern.exec(content);
-  if (!match) return null;
-  const captionStart = match.index + match[0].lastIndexOf(match[1]);
-  return {
-    start: match.index,
-    end: captionStart + match[1].length,
-    caption: match[1],
-  };
+  const blockPattern = /```mermaid\r?\n([\s\S]*?)\r?\n```/g;
+  let match;
+  while ((match = blockPattern.exec(content)) !== null) {
+    const mermaid = match[1];
+    if (
+      !mermaid.includes('subgraph ROW3[" "]') ||
+      !mermaid.includes('subgraph A["Explicitly Authored Software"]') ||
+      !mermaid.includes('subgraph B["Motivating runtime-judgment class"]')
+    ) {
+      continue;
+    }
+    const tail = content.slice(blockPattern.lastIndex);
+    const captionMatch = /^\s*(\*\*Figure 3 —[^\n]*)(?=\n\n|$)/.exec(tail);
+    if (!captionMatch) return null;
+    const captionStart = blockPattern.lastIndex + captionMatch.index + captionMatch[0].indexOf(captionMatch[1]);
+    return {
+      start: match.index,
+      end: captionStart + captionMatch[1].length,
+      mermaid,
+      caption: captionMatch[1],
+    };
+  }
+  return null;
 }
 
 export function renderFigure3(content) {
   const located = locateCanonicalFigure3(content);
   if (!located) return { content, rendered: false };
+  assertFigure3SemanticSource(located.mermaid);
   const svg = compactInlineSvg(buildFigure3ControlledObjectSvg());
   const caption = located.caption.replace(
     /^\*\*(Figure 3 — ?.*?\.)\*\*/,
