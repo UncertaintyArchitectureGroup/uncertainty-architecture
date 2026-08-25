@@ -52,8 +52,8 @@ function curve(d, { color = "#496574", marker = "ua3-arrow" } = {}) {
 }
 
 export const figure3SemanticMarkers = Object.freeze([
-  "Primarily explicitly authored consequential behavior",
-  "Motivating class — changed responsibility structure",
+  "Explicitly Authored Software — consequential mapping authored before release",
+  "Motivating runtime-judgment class — part of mapping completed at runtime",
   "Situation and operating conditions",
   "Explicitly authored consequential",
   "Explicitly authored responsibilities",
