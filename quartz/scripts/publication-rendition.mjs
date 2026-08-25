@@ -230,9 +230,9 @@ export function locateCanonicalFigure3(content) {
     const mermaid = match[1];
     if (
       !mermaid.includes(
-        "Primarily explicitly authored consequential behavior",
+        "Explicitly Authored Software — consequential mapping authored before release",
       ) ||
-      !mermaid.includes("Motivating class — changed responsibility structure")
+      !mermaid.includes("Motivating runtime-judgment class — part of mapping completed at runtime")
     ) {
       continue;
     }

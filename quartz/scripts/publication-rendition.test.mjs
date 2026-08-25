@@ -290,7 +290,7 @@ test("Figure 8 PDF verification tolerates Poppler glyph spacing and wrapped capt
     source_path: "content/research/notes/thinking-systems-publication-draft.md",
     figure_8_split_for_readability: true,
     figure_8_source_fingerprint:
-      "0d97647ea773cb2e48c5c4394a634e21dab267abad475905347a9d00bda18047",
+      "9564729a771d2b0e56ce6600420709efefa032d8b2494159fd05aac6fb19e9a6",
     figure_8_readability: {
       panels: {
         A: {
