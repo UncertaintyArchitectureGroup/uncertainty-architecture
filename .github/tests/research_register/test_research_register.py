@@ -25,9 +25,40 @@ def write(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def block(items: List[Dict[str, object]]) -> str:
-    return "# Active Research Register\n\n<!-- ua-research-register\n{}\n-->\n".format(
-        json.dumps({"version": 1, "items": items}, indent=2)
+def human_status(status: str) -> str:
+    return {
+        "active": "Active",
+        "candidate": "Candidate",
+        "needs-resolution": "Needs Resolution",
+        "research-finding": "Research Finding",
+        "proposed-for-framework-review": "Proposed for Framework Review",
+        "superseded": "Superseded",
+        "rejected": "Rejected",
+    }.get(status, status)
+
+
+def document(items: List[Dict[str, object]]) -> str:
+    rows = [
+        "| ID | Item | Class | Origin | Status | Detailed owner / provenance | Next decision |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for item in items:
+        rows.append(
+            "| `{}` | {} | {} | fixture | {} | fixture | fixture |".format(
+                item["id"],
+                item["title"],
+                item["item_class"],
+                human_status(str(item["status"])),
+            )
+        )
+    return (
+        "# Active Research Register\n\n"
+        "## Current material items\n\n"
+        + "\n".join(rows)
+        + "\n\n## Machine-readable register\n\n"
+        "<!-- ua-research-register\n{}\n-->\n".format(
+            json.dumps({"version": 1, "items": items}, indent=2)
+        )
     )
 
 
@@ -48,17 +79,14 @@ def run_case(name: str, mutate, expected_fragment: str = "") -> str:
     validator = load_validator()
     with tempfile.TemporaryDirectory(prefix="ua-research-register-") as temporary:
         root = Path(temporary)
-        item = valid_item()
-        items = [item]
-        register_text = block(items)
-        write(root / "content/research/research-register.md", register_text)
-        write(root / "content/research/notes/provenance.md", "# Provenance\n")
+        items = [valid_item()]
+        write(root / "content/research/research-register.md", document(items))
+        write(root / "content/research/notes/provenance.md", "# Provenance\n\nRegister item: `TS-TERM-001`.\n")
         write(root / "content/research/notes/README.md", "- [provenance.md](provenance.md)\n")
         write(root / "00-doctrine/glossary.md", "# Glossary\n")
 
         mutate(root, items)
-        if items != [item] or (root / "content/research/research-register.md").read_text(encoding="utf-8") == register_text:
-            write(root / "content/research/research-register.md", block(items))
+        write(root / "content/research/research-register.md", document(items))
 
         findings = validator.validate(
             root,
@@ -97,9 +125,34 @@ def main() -> int:
     failures.append(run_case("external provenance must be indexed", unindexed, "provenance record is not indexed"))
 
     def outside_notes(root: Path, items: List[Dict[str, object]]) -> None:
-        write(root / "content/research/provenance.md", "# Provenance\n")
+        write(root / "content/research/provenance.md", "# Provenance\nTS-TERM-001\n")
         items[0]["provenance_record"] = "content/research/provenance.md"
     failures.append(run_case("external provenance must use notes", outside_notes, "external origin must use a bounded provenance record"))
+
+    def missing_id_in_provenance(root: Path, items: List[Dict[str, object]]) -> None:
+        write(root / "content/research/notes/provenance.md", "# Provenance without stable ID\n")
+    failures.append(run_case("external provenance must reference stable ID", missing_id_in_provenance, "does not reference its stable research-item ID"))
+
+    def human_status_drift(root: Path, items: List[Dict[str, object]]) -> None:
+        path = root / "content/research/research-register.md"
+        text = path.read_text(encoding="utf-8")
+        text = text.replace("| Active |", "| Candidate |", 1)
+        write(path, text)
+    # This mutation must run after document regeneration, so exercise validator directly below.
+    validator = load_validator()
+    with tempfile.TemporaryDirectory(prefix="ua-research-register-human-") as temporary:
+        root = Path(temporary)
+        items = [valid_item()]
+        write(root / "content/research/research-register.md", document(items).replace("| Active |", "| Candidate |", 1))
+        write(root / "content/research/notes/provenance.md", "TS-TERM-001\n")
+        write(root / "content/research/notes/README.md", "- [provenance.md](provenance.md)\n")
+        write(root / "00-doctrine/glossary.md", "# Glossary\n")
+        findings = validator.validate(root, root / "content/research/research-register.md", root / "content/research/notes/README.md")
+        messages = "\n".join(f.message for f in findings)
+        if "status differs between human table" not in messages:
+            failures.append("human-readable status drift rejected: expected synchronization error, got {!r}".format(messages))
+        else:
+            print("PASS: human-readable status drift rejected")
 
     failures = [failure for failure in failures if failure]
     if failures:
