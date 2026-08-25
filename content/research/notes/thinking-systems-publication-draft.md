@@ -149,7 +149,7 @@ Broader labels remain useful, but they answer different questions.
 | **LLM application**                                                                                                          | Use of a particular model technology                                                             | Technology choice does not say what consequential responsibility the model carries                                                  |
 | **Agentic system**                                                                                                           | Terminology varies; commonly emphasizes agency, tool use, autonomous action, or orchestration    | Agency, autonomy, and authority are separate dimensions from the category test                                                      |
 | **Autonomous system**                                                                                                        | Degree of independent operation                                                                  | Autonomy changes control demand but does not establish whether a consequential responsibility depends partly on Model Judgment      |
-| **Thinking System (this article)**                                                                                           | A Consequential Runtime Responsibility depends partly on probabilistic Model Judgment            | Directly identifies the controlled-object change examined in the rest of the article                                                |
+| **Thinking System (this article)**                                                                                           | A Consequential Runtime Responsibility depends partly on probabilistic Model Judgment            | Identifies the responsibility boundary under test; the controlled-object/release-contract shift is developed for the motivating runtime-judgment class while broader scope remains under validation |
 
 This is a narrow analytical comparison, not a judgment that broader AI-system concepts, NIST AI RMF, ISO standards, or agentic terminology are technically shallow or operationally incomplete. **Thinking System** is not proposed as a replacement for _AI system_; it names the responsibility boundary relevant to the engineering argument developed here.
 
@@ -193,7 +193,7 @@ flowchart LR
         A1 --> A2 --> A3
     end
 
-    subgraph B["Thinking System — changed responsibility structure"]
+    subgraph B["Motivating class — changed responsibility structure"]
         direction TB
         B1["Situation and operating conditions"]
         B2["Explicitly authored responsibilities<br/>before, between, and after Judgment Nodes"]
@@ -209,7 +209,7 @@ flowchart LR
     class J1 judgment;
 ```
 
-**Figure 3 — The controlled-object shift.** Explicitly authored responsibilities remain part of the system while one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment, so part of the consequential mapping is completed at runtime. The parallel paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous.
+**Figure 3 — The controlled-object shift for the motivating class.** Explicitly authored responsibilities remain part of the system while Model Judgment leaves part of a Consequential Runtime Responsibility unresolved until operation, so part of the consequential mapping is completed at runtime. The figure does not resolve whether fixed learned probabilistic functions with a release-time-determined mapping belong to the broader Thinking-System category. The parallel paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous.
 
 Model Judgment can enter a system through several functional placements.
 
