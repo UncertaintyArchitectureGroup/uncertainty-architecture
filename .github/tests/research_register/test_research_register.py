@@ -139,7 +139,7 @@ def main() -> int:
     def transition_missing_id(root: Path, items: List[Dict[str, object]]) -> None:
         write(root / "content/research/notes/review.md", "# Review without item identity\n")
         write(root / "content/research/notes/README.md", "- [provenance.md](provenance.md)\n- [review.md](review.md)\n")
-        items[0]["transition_record"] = "content/research/notes/review.md"
+        items[0]["transition_records"] = ["content/research/notes/review.md"]
     failures.append(run_case("transition provenance must reference stable ID", transition_missing_id, "transition record does not reference its stable research-item ID"))
 
     validator = load_validator()

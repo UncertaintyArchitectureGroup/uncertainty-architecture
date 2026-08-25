@@ -80,7 +80,7 @@ See the [Research Notes index](notes/README.md).
 
 ### Active research register
 
-The [`Active Research Register`](research-register.md) assigns stable IDs to material terms, hypotheses, comparison questions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs that remain relevant across research documents or workstreams. It records origin, epistemic status, detailed owner, provenance record, and next decision.
+The [`Research State Register`](research-register.md) assigns stable IDs to material terms, hypotheses, comparison questions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs that remain relevant across research documents or workstreams. It records origin, epistemic status, detailed owner, provenance record, and next decision.
 
 It is not a backlog and not a second framework ledger. Routine editing questions and local observations remain in their owning documents unless cross-document identity or provenance is materially useful.
 
@@ -88,7 +88,7 @@ It is not a backlog and not a second framework ledger. Routine editing questions
 
 [`Research-to-Framework Traceability`](framework-traceability.md) is the controlled map from research findings to current or possible Doctrine, Pattern, AI Control Plane, Reference Architecture, Failure Mode, practical Artifact, responsibility, process, or technical reference components.
 
-The distinction is deliberate: the Active Research Register answers **what material research items are currently in play?**; framework traceability answers **what material source-to-framework decision has been made or remains unresolved?**
+The distinction is deliberate: the Research State Register answers **what material research items are currently in play?**; framework traceability answers **what material source-to-framework decision has been made or remains unresolved?**
 
 ## Review model
 
@@ -116,7 +116,7 @@ Research is not a one-time phase that begins only after all framework concepts a
 When a framework change, worked application, material external review/dialogue, or new evidence introduces, resolves, narrows, rejects, supersedes, or reopens a material research item:
 
 1. update its owning source-intake, provenance note, working brief, analysis, blueprint, or synthesis;
-2. reconcile the [`Active Research Register`](research-register.md) when the item has cross-document identity or provenance/state that must survive the owning paper;
+2. reconcile the [`Research State Register`](research-register.md) when the item has cross-document identity or provenance/state that must survive the owning paper;
 3. update [`framework-traceability.md`](framework-traceability.md) only when the item's source-to-framework relationship materially changes;
 4. update local navigation or the research index when the current research direction or discoverability materially changes.
 
@@ -139,7 +139,7 @@ These templates are optional working tools. Their Quartz `draft: true` field con
 - **Superseded** — replaced by a later formulation.
 - **Rejected** — considered and intentionally not adopted.
 
-See the [Active Research Register](research-register.md) for cross-document research state and [Research-to-Framework Traceability](framework-traceability.md) for material framework decisions.
+See the [Research State Register](research-register.md) for cross-document research state and [Research-to-Framework Traceability](framework-traceability.md) for material framework decisions.
 
 ## Current research direction
 

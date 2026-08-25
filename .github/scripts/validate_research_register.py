@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the canonical Active Research Register and provenance links."""
+"""Validate the canonical Research State Register and provenance links."""
 
 import argparse
 import json
@@ -127,7 +127,7 @@ def validate(
 ) -> List[Finding]:
     findings: List[Finding] = []
     if not register_path.is_file():
-        return [Finding("error", "Active Research Register is missing: {}".format(register_path))]
+        return [Finding("error", "Research State Register is missing: {}".format(register_path))]
 
     try:
         register_text = register_path.read_text(encoding="utf-8")
@@ -185,7 +185,7 @@ def validate(
             findings.append(Finding("error", "{} uses uncontrolled origin_kind {!r}".format(label, origin)))
 
         resolved_paths: Dict[str, Path] = {}
-        for field in ("provenance_record", "owning_record", "transition_record", "framework_destination"):
+        for field in ("provenance_record", "owning_record", "framework_destination"):
             relative = item.get(field)
             if not isinstance(relative, str) or not relative.strip():
                 continue
@@ -197,19 +197,31 @@ def validate(
             else:
                 resolved_paths[field] = path
 
-        transition = item.get("transition_record")
-        if isinstance(transition, str) and transition.strip():
-            transition_path = resolved_paths.get("transition_record")
+        transitions = item.get("transition_records", [])
+        if transitions is not None and not isinstance(transitions, list):
+            findings.append(Finding("error", "{} transition_records must be a list when present".format(label)))
+            transitions = []
+        for transition in transitions:
+            if not isinstance(transition, str) or not transition.strip():
+                findings.append(Finding("error", "{} transition_records contains an empty or non-string path".format(label)))
+                continue
+            transition_path = repository_path(root, transition)
+            if transition_path is None:
+                findings.append(Finding("error", "{} transition record escapes repository: {!r}".format(label, transition)))
+                continue
+            if not transition_path.is_file():
+                findings.append(Finding("error", "{} transition record does not exist: {!r}".format(label, transition)))
+                continue
             if not transition.startswith("content/research/notes/"):
-                findings.append(Finding("error", "{} transition_record must use a bounded research note under content/research/notes/".format(label)))
-            else:
-                basename = Path(transition).name
-                if basename and basename not in notes_index:
-                    findings.append(Finding("error", "{} transition record is not indexed in content/research/notes/README.md".format(label)))
-                if transition_path is not None and isinstance(item_id, str):
-                    transition_text = transition_path.read_text(encoding="utf-8")
-                    if item_id not in transition_text:
-                        findings.append(Finding("error", "{} transition record does not reference its stable research-item ID".format(label)))
+                findings.append(Finding("error", "{} transition record must use a bounded research note under content/research/notes/".format(label)))
+                continue
+            basename = Path(transition).name
+            if basename and basename not in notes_index:
+                findings.append(Finding("error", "{} transition record is not indexed in content/research/notes/README.md".format(label)))
+            if isinstance(item_id, str):
+                transition_text = transition_path.read_text(encoding="utf-8")
+                if item_id not in transition_text:
+                    findings.append(Finding("error", "{} transition record does not reference its stable research-item ID".format(label)))
 
         provenance = item.get("provenance_record")
         if isinstance(origin, str) and origin in EXTERNAL_ORIGINS and isinstance(provenance, str):

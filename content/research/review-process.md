@@ -95,7 +95,7 @@ A publication adaptation is not a new authority-bearing source. It remains resea
 
 ## Active research item register
 
-The repository maintains one canonical [`Active Research Register`](research-register.md) for **research concerns that require independent identity and lifecycle across research documents or workstreams**, including selected terms, hypotheses, comparison propositions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs.
+The repository maintains one canonical [`Research State Register`](research-register.md) for **research concerns that require independent identity and lifecycle across research documents or workstreams**, including selected terms, hypotheses, comparison propositions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs.
 
 The register exists because a long paper or blueprint is not a sufficient cross-document state ledger. It should remain possible to answer, without reconstructing old pull requests or private conversations:
 
@@ -129,9 +129,9 @@ Private correspondence does not need to be reproduced verbatim.
 
 ### Register versus source-to-framework traceability
 
-The Active Research Register and [`framework-traceability.md`](framework-traceability.md) are complementary, not duplicate ledgers:
+The Research State Register and [`framework-traceability.md`](framework-traceability.md) are complementary, not duplicate ledgers:
 
-- the **Active Research Register** tracks cross-document research-item identity, provenance, research lifecycle state, owner, and next decision;
+- the **Research State Register** tracks cross-document research-item identity, provenance, research lifecycle state, owner, and next decision;
 - **Research-to-Framework Traceability** records material decisions about how research influences canonical or candidate framework components and therefore owns framework disposition.
 
 A research item may remain entirely inside research and therefore require no new framework-traceability row. Once its relationship to canonical terminology, doctrine, patterns, control capabilities, artifacts, failure modes, or specification meaning materially changes, update framework traceability in the same reconciliation.
@@ -187,7 +187,7 @@ living blueprint + long-form manuscript
 → collect critique, substitutions, counterexamples, and provenance corrections
 → classify only material feedback as research input
 → preserve a bounded provenance/review record when origin or evidence boundary would otherwise be lost
-→ reconcile material items in the Active Research Register
+→ reconcile material items in the Research State Register
 → reconcile material changes into the owning blueprint/manuscript or other research record
 → update framework traceability only when the source-to-framework relationship materially changes
 → continue or revise the long-form work
@@ -203,7 +203,7 @@ One **content edition** may have several platform **renditions**. For example, e
 External feedback should be triaged by effect rather than prominence of the reviewer:
 
 - **editorial/distribution feedback** may improve the adaptation without changing research state;
-- **conceptual critique** may narrow, reopen, or reject a claim and must be reconciled with the owning research record and Active Research Register when the item is material across documents;
+- **conceptual critique** may narrow, reopen, or reject a claim and must be reconciled with the owning research record and Research State Register when the item is material across documents;
 - **substitution evidence** may show that an existing method, platform, standard, or internal process already carries a relationship more simply and should change the remaining comparison or contribution claim;
 - **provenance correction** must be repaired wherever the affected attribution appears and, when material, in the provenance note/register item;
 - **endorsement or disagreement alone** is not framework evidence.
@@ -261,7 +261,7 @@ A repository change requires research-state reconciliation when it does one or m
 When a trigger applies, review and update only the records whose state actually changed:
 
 1. the owning source-intake, analysis, synthesis, provenance, or research note;
-2. the [`Active Research Register`](research-register.md) when an independently tracked item is introduced or its research lifecycle/provenance state changes;
+2. the [`Research State Register`](research-register.md) when an independently tracked item is introduced or its research lifecycle/provenance state changes;
 3. [`framework-traceability.md`](framework-traceability.md) when the decision changes an auditable source-to-framework relationship;
 4. open questions, maturity, or translation status in affected briefs and working notes;
 5. [`index.md`](index.md) or a local research index when the current research direction or navigation materially changes;
@@ -278,7 +278,7 @@ Question open
 → remaining uncertainty stated
 ```
 
-Do not use the Research Track as a session log or duplicate pull-request history. Routine edits that do not change research state require no research record update. Do not create another source-to-framework traceability ledger; use the Active Research Register for open epistemic state and `framework-traceability.md` for framework decisions.
+Do not use the Research Track as a session log or duplicate pull-request history. Routine edits that do not change research state require no research record update. Do not create another source-to-framework traceability ledger; use the Research State Register for open epistemic state and `framework-traceability.md` for framework decisions.
 
 ## Changes requiring deliberate framework review
 

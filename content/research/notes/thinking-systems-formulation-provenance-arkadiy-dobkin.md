@@ -52,6 +52,10 @@ The phrase is now used by UA as the current system-category term, with the canon
 
 **Register item:** `TS-TERM-001`.
 
+## Pre-publication attribution confirmation
+
+Before release of the standalone publication adaptation, Dobkin reviewed the planned attribution and publication text. He indicated that he was comfortable with both and did not want additional review time to delay publication, while reserving the possibility of later substantive critique. He also suggested a cleaner editorial placement for the credit in the article's Acknowledgements. This updates the existing formulation-provenance record only; it does not create a new research hypothesis, constitute substantive validation, or imply endorsement.
+
 ## Why this record exists
 
 Dialogue provenance should not live only in acknowledgments or mutable article prose. When an external exchange materially introduces a term, framing, challenge, counterexample, or research question, the Research Track should preserve:

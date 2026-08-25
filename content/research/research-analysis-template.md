@@ -83,7 +83,7 @@ For each claim:
 
 Review historical system-category terms against **Thinking Systems**. Also review AI Control Plane terminology, actuator and constraint distinctions, controllers, and specialized role names where relevant.
 
-If a term is materially under evaluation across documents or its provenance matters, reconcile it with the [`Active Research Register`](research-register.md) rather than leaving its state only in this analysis.
+If a term is materially under evaluation across documents or its provenance matters, reconcile it with the [`Research State Register`](research-register.md) rather than leaving its state only in this analysis.
 
 ## Methodology impact
 
@@ -105,7 +105,7 @@ List conclusions that should not be promoted into the framework.
 |---|---|---|---|---|---|---|
 | [Existing ID / assign only if independently trackable] | [Finding] | [Term / doctrine distinction / hypothesis / comparison / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / boundary case / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | [Open / Under Validation / Resolved / Superseded / Rejected] | [No framework effect / Research Finding / Candidate / Needs Resolution / Proposed for Framework Review / Active / Superseded / Rejected] | [Validation, definition, conflict resolution, worked application, comparison, or separate review] |
 
-The **research lifecycle state** above belongs to the Active Research Register when the item needs cross-document identity. **Framework disposition** belongs to `framework-traceability.md` or the applicable status-bearing framework source; do not use `Active` as a research-lifecycle synonym.
+The **research lifecycle state** above belongs to the Research State Register when the item needs cross-document identity. **Framework disposition** belongs to `framework-traceability.md` or the applicable status-bearing framework source; do not use `Active` as a research-lifecycle synonym.
 
 Lifecycle and operating concerns should be placed in the module that owns their architectural meaning. Do not assume they require a separate top-level repository module.
 
@@ -117,13 +117,13 @@ If a material item came through dialogue, external review, private correspondenc
 
 - the source or reviewed artifact;
 - the item's original source, when different from the source that later changed its state;
-- the latest material transition source (review, evidence, dialogue, incident, or worked application), when applicable;
+- the material transition source(s) (review, evidence, dialogue, incident, or worked application), when applicable;
 - whether provenance is public, maintainer-attested, or otherwise bounded;
 - what entered the research;
 - what did not transfer by implication, such as endorsement, authorship, framework authority, or validation;
 - whether a bounded provenance/review note is required under `content/research/notes/`.
 
-Do not rewrite an item's origin when a later reviewer merely reopens, sharpens, narrows, or resolves it. Preserve origin provenance and transition provenance separately when that distinction matters.
+Do not rewrite an item's origin when a later reviewer merely reopens, sharpens, narrows, or resolves it. Preserve origin provenance and one or more transition-provenance records separately when that distinction matters.
 
 ## SMB surface vs technical depth
 

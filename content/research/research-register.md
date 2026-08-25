@@ -1,5 +1,5 @@
 ---
-title: Active Research Register
+title: Research State Register
 artifact_type: research-index
 status: research
 maturity: active
@@ -17,13 +17,13 @@ tags:
   - ua/topic/thinking-systems
   - ua/topic/terminology
 canonical_for:
-  - active-research-register
+  - research-state-register
 created: 2026-08-25
 updated: 2026-08-25
 license: CC-BY-4.0
 ---
 
-# Active Research Register
+# Research State Register
 
 ## Purpose
 
@@ -110,9 +110,12 @@ The block below is validated in CI. Human-readable rows above must express the s
       "status": "under-validation",
       "origin_kind": "repository-source",
       "provenance_record": "00-doctrine/glossary.md",
-      "transition_record": "content/research/notes/thinking-systems-release-contract-scope-review.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Test whether fixed learned probabilistic functions and runtime judgment processes belong to one category without weakening the release-contract distinction; narrow or generalize the definition/thesis if necessary."
+      "next_step": "Test whether fixed learned probabilistic functions and runtime judgment processes belong to one category without weakening the release-contract distinction; narrow or generalize the definition/thesis if necessary.",
+      "transition_records": [
+        "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
+        "content/research/notes/thinking-systems-release-contract-scope-review.md"
+      ]
     },
     {
       "id": "TS-HIST-001",
@@ -141,9 +144,11 @@ The block below is validated in CI. Human-readable rows above must express the s
       "status": "resolved",
       "origin_kind": "repository-source",
       "provenance_record": "00-doctrine/glossary.md",
-      "transition_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Keep the resolved distinction visible in publication prose; validation of the illustrative low-consequence case remains under TS-LOW-001."
+      "next_step": "Keep the resolved distinction visible in publication prose; validation of the illustrative low-consequence case remains under TS-LOW-001.",
+      "transition_records": [
+        "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md"
+      ]
     },
     {
       "id": "TS-LIFE-001",

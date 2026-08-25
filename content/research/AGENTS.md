@@ -55,7 +55,7 @@ The detailed lifecycle, feedback classification, publication-state transition, a
 
 ## Material research item protocol
 
-Long-form research must not rely on the paper itself as the only memory of what is being investigated. When a term, hypothesis, comparison proposition, candidate process/artifact, counterexample, or externally introduced framing becomes material to the research, contributors MUST reconcile it with the canonical [`Active Research Register`](research-register.md).
+Long-form research must not rely on the paper itself as the only memory of what is being investigated. When a term, hypothesis, comparison proposition, candidate process/artifact, counterexample, or externally introduced framing becomes material to the research, contributors MUST reconcile it with the canonical [`Research State Register`](research-register.md).
 
 Use this sequence:
 
@@ -65,7 +65,7 @@ source / dialogue / review / observation
 → preserve a provenance note when origin or evidentiary boundary would otherwise be lost
 → assign or reuse a stable research-item ID
 → identify the owning analysis / blueprint / brief / synthesis
-→ record research lifecycle state and next decision in the Active Research Register
+→ record research lifecycle state and next decision in the Research State Register
 → update framework-traceability.md only when the source-to-framework relationship materially changes
 → require deliberate framework review before normative promotion
 ```
@@ -117,7 +117,7 @@ Every substantial drafting iteration MUST follow this sequence:
 
 ```text
 Read the complete editorial blueprint
-→ read the Active Research Register entries relevant to the work
+→ read the Research State Register entries relevant to the work
 → select the next coherent section block
 → read the complete target manuscript
 → inspect terminology, claims, transitions, examples, and figures already established
@@ -141,7 +141,7 @@ reread the current long-form manuscript and blueprint
 → compare every material claim against the owning long-form sources
 → reconcile any conceptual change back into the owning pair
 → review provenance, maturity boundary, links, figures, and external-feedback invitation
-→ reconcile any new material review/provenance items with the Active Research Register
+→ reconcile any new material review/provenance items with the Research State Register
 ```
 
 ## Cumulative argument rule
@@ -153,7 +153,7 @@ A new section must be based on:
 - terminology and distinctions already introduced;
 - the logical need created by the preceding section;
 - the repository sources that own the relevant meaning;
-- material open items in the Active Research Register that constrain the section.
+- material open items in the Research State Register that constrain the section.
 
 Do not treat each chapter as a standalone article. Do not restart the framework explanation from zero. Extend the existing argument.
 
@@ -233,7 +233,7 @@ Before completing an article-writing session or PR:
 1. reread the complete target manuscript;
 2. reread and update the complete blueprint;
 3. when a publication adaptation changed, compare its material claims and provenance against the owning long-form pair;
-4. review the Active Research Register for terms, hypotheses, comparisons, candidate artifacts/processes, counterexamples, and external inputs affected by the work;
+4. review the Research State Register for terms, hypotheses, comparisons, candidate artifacts/processes, counterexamples, and external inputs affected by the work;
 5. create or update bounded provenance notes for material external review/dialogue inputs whose origin or evidence boundary would otherwise be lost;
 6. reconcile any changed research-item status and update `framework-traceability.md` when the source-to-framework relationship changed;
 7. confirm the target title, H1, abstract, section names, and final framing are consistent;
