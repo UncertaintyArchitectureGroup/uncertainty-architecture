@@ -1,9 +1,11 @@
 name: PR99 final semantic synchronization
 
 on:
-  push:
+  pull_request:
     branches:
-      - research/maxi-review-category-positioning
+      - main
+    types:
+      - synchronize
     paths:
       - .github/workflows/pr99-final-semantic-sync.yml
 
@@ -12,6 +14,7 @@ permissions:
 
 jobs:
   patch:
+    if: github.event.pull_request.number == 99
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
