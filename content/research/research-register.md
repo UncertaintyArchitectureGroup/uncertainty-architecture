@@ -55,7 +55,10 @@ The register reuses the Research Track vocabulary:
 | `TS-TERM-002` | **Explicitly Authored Software** | Terminology candidate | Maximiliano Armesto pre-publication review identified topology ambiguity in `Linear Software` | Needs Resolution | [`thinking-systems-pre-publication-review-maximiliano-armesto.md`](notes/thinking-systems-pre-publication-review-maximiliano-armesto.md); article blueprint owns the current paper-level test | Test whether the label is clearer and durable enough for separate framework terminology review; do not rename the glossary by implication |
 | `TS-SCOPE-001` | Pre-LLM applicability of the Thinking-System definition | Category-boundary hypothesis / classification test | Maximiliano Armesto review plus current technology-neutral definition | Needs Resolution | Same review record and article blueprint | Preserve the definition-level implication, but test concrete pre-LLM and low-consequence cases and separate applicability from historical prevalence claims |
 | `TS-PROP-001` | Category membership, consequence severity, and required control depth are distinct | Proportionality finding | Maximiliano Armesto review sharpened an existing UA distinction | Active | Same review record; current glossary/doctrine already separate consequentiality from severity and control adequacy | Keep the distinction visible early and validate whether low-consequence examples communicate it without scope expansion |
+| `TS-LIFE-001` | Four-horizon lifecycle ownership and authorization refinement | Lifecycle / process hypothesis | Internal article synthesis against current Nested Control Lifecycle and project/delivery patterns | Needs Resolution | [`framework-traceability.md`](framework-traceability.md) conflict/evolution register; article blueprint owns the detailed hypothesis | Validate assessment eligibility, Project technical/design authority, Organization business/research authority, research-only versus production-capable Project Authorization, Business-Authorization coverage, and scoped-authorization semantics before any status-bearing lifecycle change |
+| `TS-CARRIER-001` | Material-relationship carrier sufficiency and proportional application | Artifact / process hypothesis | Article §5 blueprint synthesis | Candidate | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Complete Article §5 mapping and test whether existing records/tools can carry each material relationship without UA-specific duplicate artifacts or semantic loss |
 | `TS-COMP-001` | Four-horizon model relative to STAMP/STPA | Comparative hypothesis | Maximiliano Armesto review | Needs Resolution | Same review record; planned Article §6 landscape/substitution analysis | Perform bidirectional mapping and determine whether the four-horizon model adds useful lifecycle-decision specialization, merely renames existing semantics, or loses material relationships |
+| `TS-SUB-001` | Semantic substitution and reverse-mapping test for existing methods/compositions | Comparative method hypothesis | Article §6 blueprint synthesis | Candidate | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Test whether equivalent-or-stronger semantics can substitute for UA relationships and whether reverse mapping exposes relationships the UA-derived map omitted or distorted |
 
 ## Machine-readable register
 
@@ -106,6 +109,26 @@ The block below is validated in CI. Human-readable rows above must express the s
       "next_step": "Keep proportionality visible early and validate the low-consequence example during publication review."
     },
     {
+      "id": "TS-LIFE-001",
+      "title": "Four-horizon lifecycle ownership and authorization refinement",
+      "item_class": "process",
+      "status": "needs-resolution",
+      "origin_kind": "internal-synthesis",
+      "provenance_record": "content/research/framework-traceability.md",
+      "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
+      "next_step": "Validate the lifecycle ownership and authorization refinement before any status-bearing lifecycle change."
+    },
+    {
+      "id": "TS-CARRIER-001",
+      "title": "Material-relationship carrier sufficiency and proportional application",
+      "item_class": "artifact",
+      "status": "candidate",
+      "origin_kind": "internal-synthesis",
+      "provenance_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
+      "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
+      "next_step": "Complete Article 5 mapping and test the lightest credible carriers without semantic loss or duplicate UA-specific records."
+    },
+    {
       "id": "TS-COMP-001",
       "title": "Four-horizon model relative to STAMP/STPA",
       "item_class": "comparison",
@@ -114,6 +137,16 @@ The block below is validated in CI. Human-readable rows above must express the s
       "provenance_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
       "next_step": "Perform the planned bidirectional STAMP/STPA mapping before making a contribution or substitution verdict."
+    },
+    {
+      "id": "TS-SUB-001",
+      "title": "Semantic substitution and reverse-mapping test for existing methods/compositions",
+      "item_class": "comparison",
+      "status": "candidate",
+      "origin_kind": "internal-synthesis",
+      "provenance_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
+      "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
+      "next_step": "Test equivalent-or-stronger semantic substitution and reverse mapping against the derived UA map."
     }
   ]
 }
