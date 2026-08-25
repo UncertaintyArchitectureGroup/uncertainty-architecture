@@ -17,7 +17,7 @@ tags:
 canonical_for:
   - research-track
 created: 2026-07-24
-updated: 2026-08-17
+updated: 2026-08-25
 license: CC-BY-4.0
 ---
 
@@ -42,7 +42,9 @@ UA did not begin as a finished standard. It evolved through architectural, opera
 `content/research/` is the only active research namespace in the repository.
 
 - completed or normalized publications belong in [`publications/`](publications/);
-- bounded working briefs, source-intake records, observations, publication adaptations, and worked-application notes belong in [`notes/`](notes/);
+- bounded working briefs, source-intake records, observations, provenance/review notes, publication adaptations, and worked-application notes belong in [`notes/`](notes/);
+- the canonical cross-document inventory of material research items currently in play is [`research-register.md`](research-register.md);
+- material source-to-framework decisions belong in [`framework-traceability.md`](framework-traceability.md);
 - preserved unnormalized source snapshots belong in [`content/raw/`](../raw/);
 - public milestones, talks, discussions, and superseded project-process records belong in [`content/history/`](../history/).
 
@@ -72,13 +74,21 @@ Focused analysis of one or more sources that may record the research question, k
 
 ### Research notes
 
-Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, worked applications, publication adaptations, emerging questions, or source-intake gaps.
+Bounded working material derived from presentations, talks, working sessions, operational observations, external critique, dialogue provenance, worked applications, publication adaptations, emerging questions, or source-intake gaps.
 
 See the [Research Notes index](notes/README.md).
 
+### Active research register
+
+The [`Research State Register`](research-register.md) assigns stable IDs to material terms, hypotheses, comparison questions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs that remain relevant across research documents or workstreams. It records origin, epistemic status, detailed owner, provenance record, and next decision.
+
+It is not a backlog and not a second framework ledger. Routine editing questions and local observations remain in their owning documents unless cross-document identity or provenance is materially useful.
+
 ### Framework traceability
 
-A controlled map from research findings to current or possible Doctrine, Pattern, AI Control Plane, Reference Architecture, Failure Mode, practical Artifact, responsibility, process, or technical reference components.
+[`Research-to-Framework Traceability`](framework-traceability.md) is the controlled map from research findings to current or possible Doctrine, Pattern, AI Control Plane, Reference Architecture, Failure Mode, practical Artifact, responsibility, process, or technical reference components.
+
+The distinction is deliberate: the Research State Register answers **what material research items are currently in play?**; framework traceability answers **what material source-to-framework decision has been made or remains unresolved?**
 
 ## Review model
 
@@ -90,9 +100,10 @@ Depending on the question and impact, a change may contain one or more of:
 2. a source-specific analysis;
 3. a multi-source synthesis;
 4. a terminology or contradiction review;
-5. a traceability update;
-6. a framework-candidate note;
-7. a bounded publication adaptation, worked-application, or operational observation note.
+5. an active research-register delta for a material cross-document item;
+6. a traceability update when a source-to-framework relationship changes;
+7. a framework-candidate note;
+8. a bounded publication adaptation, provenance/review record, worked-application, or operational observation note.
 
 Research changes do **not** automatically rewrite the framework. Normative changes are proposed separately after the relevant evidence has been synthesized and reviewed.
 
@@ -102,9 +113,14 @@ See [Research Review Process](review-process.md).
 
 Research is not a one-time phase that begins only after all framework concepts are merged. It operates as a feedback loop with specification work and practical application.
 
-When a framework change, worked application, or classified material external review resolves, narrows, rejects, supersedes, or reopens a research question, update the affected source-intake note, working brief, analysis, or [`framework-traceability.md`](framework-traceability.md).
+When a framework change, worked application, material external review/dialogue, or new evidence introduces, resolves, narrows, rejects, supersedes, or reopens a material research item:
 
-Do not record every editing session. Research records should capture meaningful changes in evidence, interpretation, question state, or framework destination.
+1. update its owning source-intake, provenance note, working brief, analysis, blueprint, or synthesis;
+2. reconcile the [`Research State Register`](research-register.md) when the item has cross-document identity or provenance/state that must survive the owning paper;
+3. update [`framework-traceability.md`](framework-traceability.md) only when the item's source-to-framework relationship materially changes;
+4. update local navigation or the research index when the current research direction or discoverability materially changes.
+
+Do not record every editing session. Research records should capture meaningful changes in evidence, interpretation, provenance, question state, or framework destination.
 
 ## Review templates
 
@@ -116,14 +132,14 @@ These templates are optional working tools. Their Quartz `draft: true` field con
 ## Status vocabulary
 
 - **Research Finding** — a conclusion preserved from research material.
-- **Candidate** — potentially suitable for translation into a framework component.
-- **Needs Resolution** — terminology, scope, evidence, or conflict must be resolved first.
+- **Candidate** — potentially suitable for translation into a framework component or further material testing.
+- **Needs Resolution** — terminology, scope, evidence, comparison, or conflict must be resolved first.
 - **Proposed for Framework Review** — mature enough for a separate, deliberate normative proposal and visible review.
 - **Active** — accepted into the current framework boundary, subject to the status of the owning document.
 - **Superseded** — replaced by a later formulation.
 - **Rejected** — considered and intentionally not adopted.
 
-See [Research-to-Framework Traceability](framework-traceability.md).
+See the [Research State Register](research-register.md) for cross-document research state and [Research-to-Framework Traceability](framework-traceability.md) for material framework decisions.
 
 ## Current research direction
 
@@ -149,6 +165,8 @@ The presentation and publication corpus have now produced explicit framework dec
 - versioned project-baseline inheritance into the [`Thinking System Review`](../../01-patterns/thinking-system-review.md).
 
 Those decisions and their source qualifications are recorded in [`framework-traceability.md`](framework-traceability.md). Unreviewed parts of the presentation and publications are not promoted by implication.
+
+Material research items that remain explicitly in play—including terminology alternatives, category-boundary tests, and systematic comparison questions—are tracked in [`research-register.md`](research-register.md) rather than being left only inside the current article blueprint.
 
 The project-level decision surface is now active at draft-framework level. The next research and application questions concern whether the connected project and delivery reviews are proportionate, understandable, non-duplicative, and economically useful in practice:
 
@@ -181,7 +199,7 @@ Publication adaptations are deliberately treated as **distribution surfaces of t
 
 UA is a synthesis and specification effort, not a claim that its underlying engineering primitives were invented here. UA also does not claim coinage of the phrase **Thinking Systems**; it defines a specific engineering category under that name. Current research should distinguish established foundations from UA-specific composition and should prefer primary sources when describing those foundations.
 
-For the current Thinking Systems research line, the **maintainer-reported provenance** is that the formulation **“Thinking Systems”** entered the work through Vitalii Oborskyi's exchange with **Arkadiy Dobkin**, in the context of discussion prompted by Dobkin's public *From Fall to Rise* LinkedIn post. This is an author-attested record of dialogue provenance: the public post anchors the surrounding discussion context but is not presented as independent evidence that the phrase itself appeared in the post. The provenance concerns the formulation and research prompt, not authorship of the UA-specific definition, the Consequential Runtime Responsibility boundary, the control-capability model, or the resulting paper. Acknowledgment of the exchange does not imply Dobkin's endorsement or agreement with UA.
+For the current Thinking Systems research line, the **maintainer-reported provenance** is that the formulation **“Thinking Systems”** entered the work through Vitalii Oborskyi's exchange with **Arkadiy Dobkin**, in the context of discussion prompted by Dobkin's public *From Fall to Rise* LinkedIn post. This author-attested dialogue provenance is now preserved in a dedicated [`Formulation Provenance`](notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) record: the public post anchors the surrounding discussion context but is not presented as independent evidence that the phrase itself appeared in the post. The provenance concerns the formulation and research prompt, not authorship of the UA-specific definition, the Consequential Runtime Responsibility boundary, the control-capability model, or the resulting paper. Acknowledgment of the exchange does not imply Dobkin's endorsement or agreement with UA.
 
 Relevant antecedents and adjacent traditions include:
 
@@ -213,7 +231,7 @@ Current UA terminology uses **Thinking Systems** as defined in the [canonical gl
 
 Historical publications used **Behavioral Software** and **Behavioral Applications**. Current framework documents may identify the migration on first use, but should use **Thinking Systems** thereafter.
 
-Fixed or dynamic orchestration does not determine whether software is Linear Software or a Thinking System; Model Judgment may appear in either topology, while Thinking-System classification depends on whether at least one Consequential Runtime Responsibility depends partly on probabilistic Model Judgment. Agentic terminology raises additional questions about autonomy and delegated authority and remains an open research topic rather than a synonym for Thinking Systems.
+Fixed or dynamic orchestration does not determine whether software is Linear Software or a Thinking System; Model Judgment may appear in either topology, while Thinking-System classification depends on whether at least one Consequential Runtime Responsibility depends partly on probabilistic Model Judgment. **Explicitly Authored Software** is currently only a paper-level terminology candidate tracked as `TS-TERM-002`; it does not replace the glossary term by implication. Agentic terminology raises additional questions about autonomy and delegated authority and remains an open research topic rather than a synonym for Thinking Systems.
 
 Historical publications and raw sources retain their original language for provenance.
 

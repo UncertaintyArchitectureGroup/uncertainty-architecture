@@ -53,12 +53,71 @@ The detailed lifecycle, feedback classification, publication-state transition, a
 - treat equivalent Medium, LinkedIn, website, or other platform copies as **renditions of one content edition** when only formatting, image substitution, or platform mechanics differ; use one principal `canonical_url` and `additional_publication_urls` for equivalent renditions, and preserve a separate repository edition only when the substantive text materially diverges;
 - immediately after actual publication, preserve the exact published content edition under `content/research/publications/`, record publication URLs and an immutable source identity such as the source commit SHA or content digest, and do so **before** feedback-driven reconciliation; later substantive changes require a new edition or explicit material-transformation record.
 
+## Material research item protocol
+
+Long-form research must not rely on the paper itself as the only memory of what is being investigated. When a term, hypothesis, comparison proposition, candidate process/artifact, counterexample, or externally introduced framing becomes material to the research, contributors MUST reconcile it with the canonical [`Research State Register`](research-register.md).
+
+Use this sequence:
+
+```text
+source / dialogue / review / observation
+→ decide whether the item is materially research-bearing
+→ preserve a provenance note when origin or evidentiary boundary would otherwise be lost
+→ assign or reuse a stable research-item ID
+→ identify the owning analysis / blueprint / brief / synthesis
+→ record research lifecycle state and next decision in the Research State Register
+→ update framework-traceability.md only when the source-to-framework relationship materially changes
+→ require deliberate framework review before normative promotion
+```
+
+### What should be registered
+
+Register an item when at least one of these is true:
+
+- its provenance matters to attribution or intellectual history;
+- it is a named term or replacement term under evaluation;
+- it is a hypothesis whose acceptance or rejection would materially change the paper or framework;
+- it is a comparison/substitution question against an existing method, standard, platform, or practice;
+- it is a candidate process, artifact, control capability, responsibility, or operating mechanism being tested for possible adoption;
+- it is a counterexample or boundary case that can falsify or materially narrow a claim;
+- an external review, dialogue, worked application, or incident reopened, narrowed, rejected, or materially clarified it.
+
+Do **not** register every noun, paragraph, citation, routine editing question, or implementation detail. Create a separate ID only when the concern needs independent cross-document tracking because its provenance, owner, research lifecycle state, next decision, or later evidence can change independently of its parent question. Subclaims that share those properties stay under the parent research item. The register is an epistemic control surface, not a backlog or session log.
+
+### Provenance discipline
+
+When the material item comes through an external review, dialogue, private exchange, talk, or other source whose context would otherwise disappear, preserve a bounded research note under `content/research/notes/` that states:
+
+- what artifact or question was reviewed or discussed;
+- who or what introduced the item, when known and appropriate to record;
+- whether provenance is public, maintainer-attested, or otherwise bounded;
+- what entered the research;
+- what did **not** transfer with it—for example authorship, endorsement, framework authority, or empirical validation;
+- the research disposition and remaining questions;
+- related research-item IDs.
+
+Do not publish private correspondence verbatim merely to prove provenance.
+
+**Origin versus transition provenance.** Record where a research item first entered the work separately from later evidence, dialogue, or review that reopens, narrows, sharpens, or resolves it. A later reviewer who materially changes an existing hypothesis is a transition source, not retroactively the origin of that hypothesis. Preserve both when the distinction matters. Preserve the material research effect and evidence boundary proportionately.
+
+### Register versus framework traceability
+
+The two records have different jobs:
+
+- [`research-register.md`](research-register.md) tracks cross-document research-item identity, provenance, **research lifecycle state**, owner, and next decision across papers and workstreams;
+- [`framework-traceability.md`](framework-traceability.md) remains the canonical ledger of **material source-to-framework decisions and framework disposition**.
+
+Do not use framework states such as `Active` as research-lifecycle states. A research item can be `Resolved` while its framework result is `Active`, or remain `Under Validation` while the related framework concept is already active and only a narrower refinement is being tested.
+
+A research item can exist in the register without a framework-traceability entry when no framework relationship has changed yet. When a research item changes canonical terminology, doctrine, patterns, control capabilities, failure modes, artifacts, or other specification meaning, update framework traceability in the same research-state reconciliation.
+
 ## Mandatory drafting iteration
 
 Every substantial drafting iteration MUST follow this sequence:
 
 ```text
 Read the complete editorial blueprint
+→ read the Research State Register entries relevant to the work
 → select the next coherent section block
 → read the complete target manuscript
 → inspect terminology, claims, transitions, examples, and figures already established
@@ -68,9 +127,10 @@ Read the complete editorial blueprint
 → repair contradictions, repetition, weak transitions, numbering, and premature conclusions
 → return to the editorial blueprint
 → update its section design, figures, writing notes, rejected formulations, source needs, and unresolved risks
+→ reconcile material research-item state and provenance
 ```
 
-A drafting iteration is incomplete until both documents are reconciled.
+A drafting iteration is incomplete until both documents and any materially changed research-item state are reconciled.
 
 For a publication adaptation, add one bounded distribution pass after the owning pair is coherent:
 
@@ -81,6 +141,7 @@ reread the current long-form manuscript and blueprint
 → compare every material claim against the owning long-form sources
 → reconcile any conceptual change back into the owning pair
 → review provenance, maturity boundary, links, figures, and external-feedback invitation
+→ reconcile any new material review/provenance items with the Research State Register
 ```
 
 ## Cumulative argument rule
@@ -91,7 +152,8 @@ A new section must be based on:
 - all previously accepted manuscript sections;
 - terminology and distinctions already introduced;
 - the logical need created by the preceding section;
-- the repository sources that own the relevant meaning.
+- the repository sources that own the relevant meaning;
+- material open items in the Research State Register that constrain the section.
 
 Do not treat each chapter as a standalone article. Do not restart the framework explanation from zero. Extend the existing argument.
 
@@ -112,9 +174,10 @@ The editorial blueprint should preserve, for every section where relevant:
 - transition into the next section;
 - closing claim;
 - word budget or expected depth;
-- known objections, risks, rejected formulations, and unresolved decisions discovered during drafting.
+- known objections, risks, rejected formulations, and unresolved decisions discovered during drafting;
+- stable research-item IDs for material terms, hypotheses, comparison questions, or candidate artifacts/processes when those items are tracked outside the paper.
 
-Do not replace detailed section design with one-line summaries after the corresponding prose exists. The blueprint is the recoverable memory of the publication design.
+Do not replace detailed section design with one-line summaries after the corresponding prose exists. The blueprint is the recoverable memory of the publication design, but it is not the sole provenance/state ledger for cross-document research items.
 
 ## Manuscript integrity
 
@@ -170,12 +233,15 @@ Before completing an article-writing session or PR:
 1. reread the complete target manuscript;
 2. reread and update the complete blueprint;
 3. when a publication adaptation changed, compare its material claims and provenance against the owning long-form pair;
-4. confirm the target title, H1, abstract, section names, and final framing are consistent;
-5. confirm internal drafting notes did not leak into publication prose;
-6. confirm figures form one coherent visual sequence;
-7. confirm new claims follow repository authority and external evidence rules;
-8. confirm attribution distinguishes dialogue/provenance from authorship, endorsement, and framework authority;
-9. confirm the PR description names all publication surfaces that materially changed;
-10. confirm the machine-readable change contract includes every changed owning path;
-11. run the applicable metadata, link, Mermaid, build, and change-coupling checks;
-12. report what remains unresolved and whether the PR remains Draft.
+4. review the Research State Register for terms, hypotheses, comparisons, candidate artifacts/processes, counterexamples, and external inputs affected by the work;
+5. create or update bounded provenance notes for material external review/dialogue inputs whose origin or evidence boundary would otherwise be lost;
+6. reconcile any changed research-item status and update `framework-traceability.md` when the source-to-framework relationship changed;
+7. confirm the target title, H1, abstract, section names, and final framing are consistent;
+8. confirm internal drafting notes did not leak into publication prose;
+9. confirm figures form one coherent visual sequence;
+10. confirm new claims follow repository authority and external evidence rules;
+11. confirm attribution distinguishes dialogue/provenance from authorship, endorsement, and framework authority;
+12. confirm the PR description names all publication and research-state surfaces that materially changed;
+13. confirm the machine-readable change contract includes every changed owning path and declares research-state/traceability effects honestly;
+14. run the applicable metadata, research-register, link, Mermaid, build, and change-coupling checks;
+15. report what remains unresolved and whether the PR remains Draft.

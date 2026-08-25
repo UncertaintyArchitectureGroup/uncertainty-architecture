@@ -64,7 +64,7 @@ Identify where the source rejects, narrows, or changes an earlier position.
 
 ### Tensions with later UA work
 
-Identify where later sources, worked applications, incidents, or current framework decisions modify this source.
+Identify where later sources, worked applications, incidents, external reviews, or current framework decisions modify this source.
 
 ## Over-strong or ambiguous claims
 
@@ -77,11 +77,13 @@ For each claim:
 
 ## Terminology review
 
-| Source term | Meaning in the source | Current interpretation | Decision candidate |
-|---|---|---|---|
-| [Term] | [Meaning] | [Current meaning] | [Retain / narrow / rename / supersede / unresolved] |
+| Research item ID | Source term | Meaning in the source | Current interpretation | Decision candidate |
+|---|---|---|---|---|
+| [Existing ID / assign if material] | [Term] | [Meaning] | [Current meaning] | [Retain / narrow / rename / supersede / unresolved] |
 
 Review historical system-category terms against **Thinking Systems**. Also review AI Control Plane terminology, actuator and constraint distinctions, controllers, and specialized role names where relevant.
+
+If a term is materially under evaluation across documents or its provenance matters, reconcile it with the [`Research State Register`](research-register.md) rather than leaving its state only in this analysis.
 
 ## Methodology impact
 
@@ -99,11 +101,29 @@ List conclusions that should not be promoted into the framework.
 
 ## Extracted entities and framework candidates
 
-| Finding or extracted entity | Entity class | Candidate owner | Current status | Work required |
-|---|---|---|---|---|
-| [Finding] | [Term / doctrine distinction / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | [Research Finding / Candidate / Needs Resolution / Proposed for Framework Review] | [Validation, definition, conflict resolution, worked application, or separate review] |
+| Research item ID | Finding or extracted entity | Entity class | Candidate owner | Research lifecycle state | Framework disposition / candidate state | Work required |
+|---|---|---|---|---|---|---|
+| [Existing ID / assign only if independently trackable] | [Finding] | [Term / doctrine distinction / hypothesis / comparison / pattern / artifact / control capability / evidence / responsibility / process / failure mode / reference-architecture element / technical reference artifact / boundary case / contextual threshold] | [Glossary / Doctrine / Patterns / AI Control Plane / Reference Architectures / Failure Modes / Research] | [Open / Under Validation / Resolved / Superseded / Rejected] | [No framework effect / Research Finding / Candidate / Needs Resolution / Proposed for Framework Review / Active / Superseded / Rejected] | [Validation, definition, conflict resolution, worked application, comparison, or separate review] |
+
+The **research lifecycle state** above belongs to the Research State Register when the item needs cross-document identity. **Framework disposition** belongs to `framework-traceability.md` or the applicable status-bearing framework source; do not use `Active` as a research-lifecycle synonym.
 
 Lifecycle and operating concerns should be placed in the module that owns their architectural meaning. Do not assume they require a separate top-level repository module.
+
+Assign a stable research-item ID only when the concern needs independent cross-document lifecycle or provenance tracking—for example because it has distinct provenance, owner, lifecycle state, next decision, or can change independently of a parent hypothesis. Subclaims that share those properties should remain under the parent research item rather than becoming separate register rows.
+
+## Provenance-bearing inputs
+
+If a material item came through dialogue, external review, private correspondence, a talk, worked application, incident, or other source whose context may disappear, state:
+
+- the source or reviewed artifact;
+- the item's original source, when different from the source that later changed its state;
+- the material transition source(s) (review, evidence, dialogue, incident, or worked application), when applicable;
+- whether provenance is public, maintainer-attested, or otherwise bounded;
+- what entered the research;
+- what did not transfer by implication, such as endorsement, authorship, framework authority, or validation;
+- whether a bounded provenance/review note is required under `content/research/notes/`.
+
+Do not rewrite an item's origin when a later reviewer merely reopens, sharpens, narrows, or resolves it. Preserve origin provenance and one or more transition-provenance records separately when that distinction matters.
 
 ## SMB surface vs technical depth
 
@@ -123,18 +143,21 @@ What should remain in advanced patterns, rationale, research, failure modes, con
 
 List only records whose state changes:
 
-- source-intake, working note, analysis, or synthesis;
-- `framework-traceability.md`;
+- source-intake, working note, analysis, synthesis, or provenance record;
+- `research-register.md` when an independently tracked item's research lifecycle or provenance changes;
+- `framework-traceability.md` when the source-to-framework relationship or framework disposition changes;
 - open-question or maturity status;
 - research index or local navigation;
 - no research-state change.
 
-Do not create a second traceability ledger or a session log.
+Do not create another source-to-framework traceability ledger or a session log.
 
 ## Review outcome
 
 - **Research record:** [Accepted / changes requested]
-- **Framework candidates:** [List]
+- **Research items introduced or changed:** [IDs / none]
+- **Research lifecycle transitions:** [ID: old → new / none]
+- **Framework candidates or disposition changes:** [List / none]
 - **Superseded concepts:** [List]
 - **Separate framework work required:** [List]
 - **Terminology decisions deferred:** [List]
