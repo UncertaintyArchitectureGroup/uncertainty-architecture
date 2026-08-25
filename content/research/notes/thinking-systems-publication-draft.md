@@ -203,7 +203,6 @@ flowchart TB
             B3["Consequential output, action,<br/>or downstream state"]
             B1 --> B2 --> J1 --> B4 --> B3
         end
-        A2 ~~~ J1
     end
     classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
     class J1 judgment;
