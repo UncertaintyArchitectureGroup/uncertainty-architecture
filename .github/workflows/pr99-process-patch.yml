@@ -1,0 +1,85 @@
+name: PR99 bounded research-process patch
+
+on:
+  push:
+    branches:
+      - research/maxi-review-category-positioning
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
+      - name: Apply assert-checked process replacements
+        shell: python
+        run: |
+          from pathlib import Path
+
+          replacements = {
+              "content/research/AGENTS.md": [
+                  (
+                      "→ record current status and next decision in the Active Research Register",
+                      "→ record research lifecycle state and next decision in the Active Research Register"
+                  ),
+                  (
+                      "Do **not** register every noun, paragraph, citation, routine editing question, or implementation detail. The register is an epistemic control surface, not a backlog or session log.",
+                      "Do **not** register every noun, paragraph, citation, routine editing question, or implementation detail. Create a separate ID only when the concern needs independent cross-document tracking because its provenance, owner, research lifecycle state, next decision, or later evidence can change independently of its parent question. Subclaims that share those properties stay under the parent research item. The register is an epistemic control surface, not a backlog or session log."
+                  ),
+                  (
+                      "- [`research-register.md`](research-register.md) tracks **material research items currently in play**, their provenance, current epistemic status, owner, and next decision across papers and workstreams;\n- [`framework-traceability.md`](framework-traceability.md) remains the canonical ledger of **material source-to-framework decisions**.",
+                      "- [`research-register.md`](research-register.md) tracks cross-document research-item identity, provenance, **research lifecycle state**, owner, and next decision across papers and workstreams;\n- [`framework-traceability.md`](framework-traceability.md) remains the canonical ledger of **material source-to-framework decisions and framework disposition**.\n\nDo not use framework states such as `Active` as research-lifecycle states. A research item can be `Resolved` while its framework result is `Active`, or remain `Under Validation` while the related framework concept is already active and only a narrower refinement is being tested."
+                  ),
+              ],
+              "content/research/review-process.md": [
+                  (
+                      "The repository maintains one canonical [`Active Research Register`](research-register.md) for **material terms, hypotheses, comparison propositions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs that remain relevant across research documents or workstreams**.",
+                      "The repository maintains one canonical [`Active Research Register`](research-register.md) for **research concerns that require independent identity and lifecycle across research documents or workstreams**, including selected terms, hypotheses, comparison propositions, candidate artifacts/processes, boundary cases, and provenance-bearing external inputs."
+                  ),
+                  (
+                      "- its current epistemic status;",
+                      "- its current research lifecycle state, kept separate from framework disposition;"
+                  ),
+                  (
+                      "Register only material items. A citation, sentence-level editing question, ordinary implementation detail, or every noun in a source does not deserve an ID merely because it exists.",
+                      "Register only concerns that need independent cross-document identity. A citation, sentence-level editing question, ordinary implementation detail, validation subclaim, or every noun in a source does not deserve an ID merely because it exists. A separate ID is justified when provenance, owner, research lifecycle state, next decision, or later evidence can change independently of the parent question; otherwise keep the subclaim in the owning analysis, blueprint, brief, or validation program."
+                  ),
+                  (
+                      "Material items receive a stable research-item ID when cross-document identity or provenance is useful. IDs survive wording changes. If a term or hypothesis is superseded, preserve the old ID/status rather than silently recycling it for a different idea.",
+                      "Material items receive a stable research-item ID when independent cross-document identity or provenance is useful. IDs survive wording changes. Register lifecycle state uses `Open`, `Under Validation`, `Resolved`, `Superseded`, or `Rejected`; these states describe research progression, not framework acceptance. If a term or hypothesis is superseded, preserve the old ID/state rather than silently recycling it for a different idea."
+                  ),
+                  (
+                      "- the **Active Research Register** tracks material research items currently in play and their epistemic/provenance state;\n- **Research-to-Framework Traceability** records material decisions about how research influences canonical or candidate framework components.",
+                      "- the **Active Research Register** tracks cross-document research-item identity, provenance, research lifecycle state, owner, and next decision;\n- **Research-to-Framework Traceability** records material decisions about how research influences canonical or candidate framework components and therefore owns framework disposition."
+                  ),
+                  (
+                      "2. the [`Active Research Register`](research-register.md) when a material item is introduced or its epistemic/provenance state changes;",
+                      "2. the [`Active Research Register`](research-register.md) when an independently tracked item is introduced or its research lifecycle/provenance state changes;"
+                  ),
+              ],
+          }
+
+          for path_str, pairs in replacements.items():
+              path = Path(path_str)
+              text = path.read_text(encoding="utf-8")
+              for old, new in pairs:
+                  count = text.count(old)
+                  if count != 1:
+                      raise SystemExit(f"{path_str}: expected exactly one occurrence, found {count}: {old[:120]!r}")
+                  text = text.replace(old, new, 1)
+              path.write_text(text, encoding="utf-8")
+
+          Path(".github/workflows/pr99-process-patch.yml").unlink()
+      - name: Commit bounded process correction
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "research: separate lifecycle state from framework disposition"
+          git push origin HEAD:${GITHUB_REF_NAME}
