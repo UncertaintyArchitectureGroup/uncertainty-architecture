@@ -47,10 +47,6 @@ function arrow(
   return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="2.4" marker-end="url(#${marker})"/>`;
 }
 
-function curve(d, { color = "#496574", marker = "ua3-arrow" } = {}) {
-  return `<path d="${d}" fill="none" stroke="${color}" stroke-width="2.4" marker-end="url(#${marker})"/>`;
-}
-
 export const figure3SemanticMarkers = Object.freeze([
   "Explicitly Authored Software",
   "Motivating runtime-judgment class",
