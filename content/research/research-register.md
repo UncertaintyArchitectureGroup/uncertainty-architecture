@@ -53,7 +53,7 @@ The register reuses the Research Track vocabulary:
 |---|---|---|---|---|---|---|
 | `TS-TERM-001` | **Thinking Systems** formulation provenance | Term / provenance | External dialogue with Arkadiy Dobkin | Active | [`thinking-systems-formulation-provenance-arkadiy-dobkin.md`](notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md); canonical meaning remains in the glossary | Preserve formulation provenance separately from authorship, endorsement, and definition authority |
 | `TS-TERM-002` | **Explicitly Authored Software** | Terminology candidate | Maximiliano Armesto pre-publication review identified topology ambiguity in `Linear Software` | Needs Resolution | [`thinking-systems-pre-publication-review-maximiliano-armesto.md`](notes/thinking-systems-pre-publication-review-maximiliano-armesto.md); article blueprint owns the current paper-level test | Test whether the label is clearer and durable enough for separate framework terminology review; do not rename the glossary by implication |
-| `TS-SCOPE-001` | Pre-LLM applicability of the Thinking-System definition | Category-boundary hypothesis / classification test | Maximiliano Armesto review plus current technology-neutral definition | Candidate | Same review record and article blueprint | Test concrete pre-LLM and low-consequence cases; distinguish definition-level applicability from historical prevalence claims |
+| `TS-SCOPE-001` | Pre-LLM applicability of the Thinking-System definition | Category-boundary hypothesis / classification test | Maximiliano Armesto review plus current technology-neutral definition | Needs Resolution | Same review record and article blueprint | Preserve the definition-level implication, but test concrete pre-LLM and low-consequence cases and separate applicability from historical prevalence claims |
 | `TS-PROP-001` | Category membership, consequence severity, and required control depth are distinct | Proportionality finding | Maximiliano Armesto review sharpened an existing UA distinction | Active | Same review record; current glossary/doctrine already separate consequentiality from severity and control adequacy | Keep the distinction visible early and validate whether low-consequence examples communicate it without scope expansion |
 | `TS-COMP-001` | Four-horizon model relative to STAMP/STPA | Comparative hypothesis | Maximiliano Armesto review | Needs Resolution | Same review record; planned Article §6 landscape/substitution analysis | Perform bidirectional mapping and determine whether the four-horizon model adds useful lifecycle-decision specialization, merely renames existing semantics, or loses material relationships |
 
@@ -89,11 +89,11 @@ The block below is validated in CI. Human-readable rows above must express the s
       "id": "TS-SCOPE-001",
       "title": "Pre-LLM applicability of the Thinking-System definition",
       "item_class": "hypothesis",
-      "status": "candidate",
+      "status": "needs-resolution",
       "origin_kind": "external-review",
       "provenance_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Test concrete pre-LLM and low-consequence cases and separate category applicability from historical prevalence."
+      "next_step": "Preserve the definition-level implication, test concrete pre-LLM and low-consequence cases, and separate category applicability from historical prevalence."
     },
     {
       "id": "TS-PROP-001",
