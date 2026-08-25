@@ -229,20 +229,16 @@ export function locateCanonicalFigure3(content) {
   while ((match = blockPattern.exec(content)) !== null) {
     const mermaid = match[1];
     if (
-      !mermaid.includes(
-        "Primarily explicitly authored consequential behavior",
-      ) ||
-      !mermaid.includes("Thinking System — changed responsibility structure")
+      !mermaid.includes('subgraph ROW3[" "]') ||
+      !mermaid.includes('subgraph A["Explicitly Authored Software"]') ||
+      !mermaid.includes('subgraph B["Motivating runtime-judgment class"]')
     ) {
       continue;
     }
     const tail = content.slice(blockPattern.lastIndex);
     const captionMatch = /^\s*(\*\*Figure 3 —[^\n]*)(?=\n\n|$)/.exec(tail);
     if (!captionMatch) return null;
-    const captionStart =
-      blockPattern.lastIndex +
-      captionMatch.index +
-      captionMatch[0].indexOf(captionMatch[1]);
+    const captionStart = blockPattern.lastIndex + captionMatch.index + captionMatch[0].indexOf(captionMatch[1]);
     return {
       start: match.index,
       end: captionStart + captionMatch[1].length,

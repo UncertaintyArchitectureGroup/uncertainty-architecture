@@ -196,7 +196,7 @@ export const figure8RenditionSemanticMarkers = Object.freeze({
     "Exogenous Organizational change",
   ]),
   B: Object.freeze([
-    "Capability functions — how control becomes operational",
+    "Capability functions — one control architecture, not a sequence",
     "Actuators and corrective action",
     "Constraints and realizations",
     "Sensors and evidence",
@@ -296,20 +296,22 @@ ${textBlock(700, 906, ["Solid arrows carry authorization forward. Dashed arrows 
 </svg>`;
 }
 function capabilityBox(y, title, subtitle) {
-  return `${box(210, y, 650, 105, { fill: "#e8f5e9", stroke: "#2e7d32" })}${textBlock(535, y + 34, [title], { size: 22, weight: 700, fill: "#1b5e20" })}${textBlock(535, y + 65, [subtitle], { size: 17, fill: "#2d5d39" })}`;
+  return `${box(175, y, 650, 105, { fill: "#e8f5e9", stroke: "#2e7d32" })}${textBlock(500, y + 34, [title], { size: 22, weight: 700, fill: "#1b5e20" })}${textBlock(500, y + 65, [subtitle], { size: 17, fill: "#2d5d39" })}`;
 }
 
 export function buildFigure8CapabilitySvg() {
-  const railYs = [158, 313, 468, 623];
-  const rail = `<line x1="120" y1="158" x2="120" y2="623" stroke="#7f949d" stroke-width="2"/>${railYs.map((y) => `<circle cx="120" cy="${y}" r="7" fill="#ffffff" stroke="#597887" stroke-width="2"/><line x1="127" y1="${y}" x2="195" y2="${y}" stroke="#7f949d" stroke-width="2"/>`).join("")}`;
+  const connector = (y1, y2) => `<line x1="500" y1="${y1}" x2="500" y2="${y2}" stroke="#4f8a5b" stroke-width="3"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 870" style="width:100%;height:auto;max-width:none">
-${textBlock(500, 45, ["Capability functions — how control becomes operational"], { size: 25, weight: 700, fill: "#1d4327" })}
-${rail}
-${capabilityBox(105, "Actuators and corrective action", "execute authorized change")}
-${capabilityBox(260, "Constraints and realizations", "define and operationalize boundaries")}
-${capabilityBox(415, "Sensors and evidence", "observe behavior, conditions, and control state")}
-${capabilityBox(570, "Controllers / decision functions", "interpret evidence and select bounded response")}
-${textBlock(500, 750, ["All four capability families may appear at every decision horizon."], { size: 20, weight: 700, fill: "#1b5e20" })}
+${textBlock(500, 45, ["Capability functions — one control architecture, not a sequence"], { size: 25, weight: 700, fill: "#1d4327" })}
+${capabilityBox(105, "Controllers / decision functions", "interpret evidence and select bounded response")}
+${connector(210, 250)}
+${capabilityBox(250, "Sensors and evidence", "observe behavior, conditions, and control state")}
+${connector(355, 395)}
+${capabilityBox(395, "Constraints and realizations", "define and operationalize boundaries")}
+${connector(500, 540)}
+${capabilityBox(540, "Actuators and corrective action", "execute authorized change")}
+${textBlock(500, 710, ["Non-directional lines show one control architecture; they do not encode execution order."], { size: 17, weight: 700, fill: "#1b5e20" })}
+${textBlock(500, 750, ["All four capability families may appear at every decision horizon."], { size: 18, weight: 700, fill: "#1b5e20" })}
 ${textBlock(500, 790, ["Decision horizons answer where a decision is owned; capability families answer how control becomes operational."], { size: 16, fill: "#365f40" })}
 ${textBlock(500, 825, ["There is no one-to-one mapping. The vertical ordering is a reading aid, not an execution pipeline."], { size: 16, weight: 600, fill: "#365f40" })}
 </svg>`;

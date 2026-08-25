@@ -11,57 +11,61 @@ import {
 } from "./publication-rendition.mjs";
 
 const canonicalFigure3 = `\`\`\`mermaid
-flowchart LR
-    subgraph A["Primarily explicitly authored consequential behavior"]
-        A1["Situation and operating conditions"]
-        A2["Explicitly authored consequential responsibilities"]
-        A3["Consequential output, action, or downstream state"]
-        A1 --> A2 --> A3
+flowchart TB
+    subgraph ROW3[" "]
+        direction LR
+        subgraph A["Explicitly Authored Software"]
+            direction TB
+            A1["Situation and operating conditions"]
+            A2["Explicitly authored consequential responsibilities"]
+            A3["Consequential output, action, or downstream state"]
+            A1 --> A2 --> A3
+        end
+        subgraph B["Motivating runtime-judgment class"]
+            direction TB
+            B1["Situation and operating conditions"]
+            B2["Explicitly authored responsibilities before, between, and after Judgment Nodes"]
+            J1["One or more Judgment Nodes probabilistic Model Judgment"]
+            B3["Consequential output, action, or downstream state"]
+            B1 --> B2 --> B3
+            B1 --> J1 --> B3
+        end
     end
-    subgraph B["Thinking System — changed responsibility structure"]
-        B1["Situation and operating conditions"]
-        B2["Explicitly authored responsibilities before, between, and after Judgment Nodes"]
-        J1["One or more Judgment Nodes probabilistic Model Judgment"]
-        B3["Consequential output, action, or downstream state"]
-        B1 --> B2 --> B3
-        B1 --> J1 --> B3
-    end
+    A -. "responsibility-structure comparison" .- B
+    style ROW3 fill:transparent,stroke:transparent
 \`\`\`
 
-**Figure 3 — The controlled-object shift.** Canonical caption.`;
+**Figure 3 — The controlled-object shift for the motivating class.** Canonical caption.`;
 
-test("Figure 3 publication rendition is a side-by-side Linear Software comparison", () => {
+test("Figure 3 publication rendition is a side-by-side motivating-class comparison", () => {
   const result = renderFigure3(canonicalFigure3);
   assert.equal(result.rendered, true);
   assert.match(result.content, /data-ua-figure3-rendition="side-by-side"/);
   assert.match(result.content, /data-ua-flow="top-down"/);
-  assert.match(result.content, /Linear Software/);
-  assert.match(result.content, /Thinking System/);
+  assert.match(result.content, /Explicitly Authored Software/);
+  assert.match(result.content, /Motivating runtime-judgment class/);
   assert.match(result.content, /Consequential mapping authored before release/);
   assert.match(
     result.content,
     /Part of the consequential mapping completed at runtime/,
   );
-  assert.match(result.content, /One or more/);
-  assert.match(result.content, /Judgment Nodes/);
-  assert.match(result.content, /before \/ between Judgment Nodes/);
-  assert.match(result.content, /after Judgment Nodes/);
   assert.doesNotMatch(result.content, /```mermaid/);
   assert.match(
     result.content,
-    /<strong>Figure 3 — The controlled-object shift\.<\/strong>/,
+    /<strong>Figure 3 — The controlled-object shift for the motivating class\.<\/strong>/,
   );
-  assert.doesNotMatch(result.content, /\*\*Figure 3/);
 });
 
-test("Figure 3 semantic guard rejects a materially incomplete source", () => {
+test("Figure 3 semantic guard remains coupled to the canonical Mermaid", () => {
+  const mermaid = canonicalFigure3.match(/```mermaid\n([\s\S]*?)\n```/)[1];
+  assert.doesNotThrow(() => assertFigure3SemanticSource(mermaid));
   const svg = buildFigure3ControlledObjectSvg();
-  assert.match(svg, /Linear Software/);
-  assert.match(svg, /Thinking System/);
+  assert.match(svg, /Explicitly Authored Software/);
+  assert.match(svg, /Motivating runtime-judgment class/);
   assert.throws(
     () =>
       assertFigure3SemanticSource(
-        canonicalFigure3.replace("probabilistic Model Judgment", "removed"),
+        mermaid.replace("probabilistic Model Judgment", "removed"),
       ),
     /publication comparison requires review/,
   );
