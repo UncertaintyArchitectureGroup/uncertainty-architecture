@@ -63,7 +63,7 @@ Traditional credit scoring, summarization, or code-completion systems are theref
 - `TS-SCOPE-001` — **Resolved:** the definition-level implication that Thinking-System membership is not restricted to LLMs;
 - `TS-CASE-001` — **Under Validation:** which concrete pre-LLM and low-consequence systems actually satisfy the category test, and what historical/prevalence claims are supportable.
 
-The first follows from the current definition. The second still requires case-specific causal analysis and, for historical/prevalence claims, supporting evidence.
+The split is intentional under the Active Research Register's identity/granularity rule: the definition-level scope point and the concrete classification/evidence question now have different lifecycle states and different next decisions. The first follows from the current definition. The second still requires case-specific causal analysis and, for historical/prevalence claims, supporting evidence.
 
 ### 3. Category membership must be separated from control depth
 
