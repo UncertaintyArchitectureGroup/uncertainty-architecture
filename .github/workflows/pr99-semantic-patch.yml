@@ -1,0 +1,102 @@
+name: PR99 bounded semantic patch
+
+on:
+  push:
+    branches:
+      - research/maxi-review-category-positioning
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
+      - name: Apply assert-checked semantic replacements
+        shell: python
+        run: |
+          from pathlib import Path
+
+          replacements = {
+              "content/research/notes/open-engineering-specification-article-draft.md": [
+                  (
+                      "The class of systems identified here predates LLMs; general-purpose generative models have made model-mediated interpretation, generation, routing, planning, and action selection much easier to embed across ordinary software.",
+                      "The definition is technology-neutral and therefore not LLM-exclusive; whether particular pre-LLM systems satisfy it remains a case-specific historical classification question. General-purpose generative models have made model-mediated interpretation, generation, routing, planning, and action selection much easier to embed across ordinary software."
+                  ),
+                  (
+                      "It does not claim that such systems began with LLMs; LLMs and other general-purpose models have made the pattern substantially more prevalent.",
+                      "The category definition is not LLM-exclusive; this figure does not establish which earlier systems satisfy the category or how prevalent they were. LLMs and other general-purpose models make the pattern substantially easier to instantiate across ordinary software."
+                  ),
+                  (
+                      "Systems that meet the Thinking-System definition predate LLMs. A traditional credit-scoring model can meet the definition when approval, pricing, routing, or review materially depends on its probabilistic output; a document summarizer or code-completion suggestion can meet it when Output Mediation materially affects what a person understands, approves, or does next. The category test follows consequential responsibility rather than model generation. LLMs are the practical trigger for this paper because they make model-mediated interpretation, synthesis, generation, routing, planning, and action selection general-purpose and easy to embed across ordinary software.",
+                      "The Thinking-System definition is technology-neutral rather than LLM-specific. A traditional credit-scoring model is a candidate boundary case when approval, pricing, routing, or review materially depends on its probabilistic output; a document summarizer or code-completion suggestion is likewise a candidate when Output Mediation materially affects what a person understands, approves, or does next. Whether a particular historical system qualifies depends on the causal role its probabilistic output actually played in a Consequential Runtime Responsibility. The category test follows consequential responsibility rather than model generation. LLMs are the practical trigger for this paper because they make model-mediated interpretation, synthesis, generation, routing, planning, and action selection general-purpose and easy to embed across ordinary software."
+                  ),
+              ],
+              "content/research/notes/thinking-systems-publication-draft.md": [
+                  (
+                      "This transition does not claim that model-mediated consequential systems began with LLMs; LLMs and other general-purpose models have made the pattern substantially more prevalent.",
+                      "The category definition is not LLM-exclusive; this transition does not establish which earlier systems satisfy the category or how prevalent they were. LLMs and other general-purpose models make the pattern substantially easier to instantiate across ordinary software."
+                  ),
+                  (
+                      "Systems that meet the Thinking-System definition predate LLMs. A traditional credit-scoring model can meet the definition when approval, pricing, routing, or review materially depends on its probabilistic output; a document summarizer or code-completion suggestion can meet it when Output Mediation materially affects what a person understands, approves, or does next. LLMs are the practical trigger for this article because they make model-mediated interpretation, synthesis, generation, routing, planning, and action selection general-purpose and easy to embed across ordinary software.",
+                      "The Thinking-System definition is technology-neutral rather than LLM-specific. A traditional credit-scoring model is a candidate boundary case when approval, pricing, routing, or review materially depends on its probabilistic output; a document summarizer or code-completion suggestion is likewise a candidate when Output Mediation materially affects what a person understands, approves, or does next. Whether a particular historical system qualifies depends on the causal role its probabilistic output actually played in a Consequential Runtime Responsibility. LLMs are the practical trigger for this article because they make model-mediated interpretation, synthesis, generation, routing, planning, and action selection general-purpose and easy to embed across ordinary software."
+                  ),
+                  (
+                      "highlighted that systems meeting the definition predate LLMs and that proportionality should appear earlier",
+                      "highlighted that the definition is not LLM-exclusive, that concrete earlier systems require case-specific classification, and that proportionality should appear earlier"
+                  ),
+              ],
+              "content/research/notes/open-engineering-specification-article-blueprint.md": [
+                  (
+                      "defines Thinking Systems and states that systems meeting the definition predate LLMs;",
+                      "defines Thinking Systems and states that the definition is not LLM-exclusive while treating concrete pre-LLM systems as boundary cases requiring case-specific classification;"
+                  ),
+                  (
+                      "state directly that systems meeting the definition predate LLMs and that general-purpose LLMs are the practical trigger and amplifier for the current engineering problem rather than its historical origin;",
+                      "state directly that the definition is not LLM-exclusive; treat concrete earlier systems as case-specific boundary tests, while explaining that general-purpose LLMs are the practical trigger and amplifier for the current engineering problem rather than proof of its historical origin;"
+                  ),
+                  (
+                      "systems meeting the Thinking-System definition predate LLMs; general-purpose LLMs make model-mediated interpretation, synthesis, generation, routing, planning, and action selection much easier to embed across ordinary software",
+                      "the Thinking-System definition is not LLM-exclusive; concrete earlier systems remain case-specific classification tests, while general-purpose LLMs make model-mediated interpretation, synthesis, generation, routing, planning, and action selection much easier to embed across ordinary software"
+                  ),
+                  (
+                      "Thinking Systems are software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. Systems meeting the Thinking-System definition predate LLMs; general-purpose LLMs are the practical trigger for this paper because they make model-mediated judgment widely available across ordinary software.",
+                      "Thinking Systems are software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. The definition is technology-neutral and therefore not LLM-exclusive; concrete pre-LLM systems remain case-specific classification questions. General-purpose LLMs are the practical trigger for this paper because they make model-mediated judgment widely available across ordinary software."
+                  ),
+                  (
+                      "State explicitly that systems meeting this definition predate LLMs. Traditional probabilistic systems may qualify when a Consequential Runtime Responsibility materially depends on their output; general-purpose LLMs make this responsibility pattern more accessible, widespread, and semantically broad rather than creating it from nothing.",
+                      "State explicitly that this definition is not LLM-exclusive. Traditional probabilistic systems are candidate historical cases when a Consequential Runtime Responsibility materially depends on their output; classify concrete systems case by case rather than treating category applicability or historical prevalence as already established. General-purpose LLMs make this responsibility pattern more accessible and semantically broad."
+                  ),
+              ],
+              "CHANGELOG.md": [
+                  (
+                      "stated that the Thinking-System category predates LLMs and that general-purpose LLMs make model-mediated judgment substantially easier to embed across ordinary software;",
+                      "stated that the Thinking-System definition is not LLM-exclusive while concrete pre-LLM systems remain case-specific classification tests, and that general-purpose LLMs make model-mediated judgment substantially easier to embed across ordinary software;"
+                  ),
+              ],
+          }
+
+          for path_str, pairs in replacements.items():
+              path = Path(path_str)
+              text = path.read_text(encoding="utf-8")
+              for old, new in pairs:
+                  count = text.count(old)
+                  if count != 1:
+                      raise SystemExit(f"{path_str}: expected exactly one occurrence, found {count}: {old[:100]!r}")
+                  text = text.replace(old, new, 1)
+              path.write_text(text, encoding="utf-8")
+
+          workflow = Path(".github/workflows/pr99-semantic-patch.yml")
+          workflow.unlink()
+      - name: Commit bounded semantic correction
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "research: separate definition scope from historical examples"
+          git push origin HEAD:${GITHUB_REF_NAME}
