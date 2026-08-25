@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: metadata-integrity-${{ github.workflow }}-${{ github.ref }}
@@ -19,11 +19,13 @@ jobs:
     name: Metadata / frontmatter and controlled values
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+
       - name: Validate frontmatter and controlled values
         working-directory: 01-patterns
         run: python3 ../.github/scripts/validate_metadata.py --mode metadata
@@ -32,11 +34,13 @@ jobs:
     name: Metadata / canonical ownership
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+
       - name: Validate canonical ownership
         working-directory: 02-ai-control-plane
         run: python3 ../.github/scripts/validate_metadata.py --mode canonical
@@ -45,11 +49,13 @@ jobs:
     name: Content / glossary and terminology
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+
       - name: Validate protected glossary entries and report terminology warnings
         working-directory: 00-doctrine
         run: python3 ../.github/scripts/validate_metadata.py --mode terminology
@@ -58,11 +64,13 @@ jobs:
     name: Research / state and provenance register
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+
       - name: Validate research state register
         run: python3 .github/scripts/validate_research_register.py
 
@@ -70,38 +78,16 @@ jobs:
     name: Policy / metadata self-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+
     steps:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+
       - name: Run metadata regression fixtures
         working-directory: 03-reference-architectures
         run: python3 ../.github/tests/metadata_contract/test_metadata.py
+
       - name: Run research-register regression fixtures
         run: python3 .github/tests/research_register/test_research_register.py
-
-  restore-known-good-figure3:
-    name: Research / restore known-good Figure 3
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'research/repair-diagram-layout-contracts'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - name: Check out PR head
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: ${{ github.head_ref }}
-          persist-credentials: true
-      - name: Restore PR 56 Figure 3 structure
-        run: python3 .github/scripts/pr101_restore_good_figure3.py
-      - name: Commit restoration
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/research/notes/open-engineering-specification-article-blueprint.md \
-                  content/research/notes/open-engineering-specification-article-draft.md \
-                  content/research/notes/thinking-systems-publication-draft.md \
-                  quartz/scripts/research-diagram-layout.test.mjs
-          git diff --cached --check
-          git commit -m "research: restore known-good Figure 3 layout"
-          git push origin HEAD:${{ github.head_ref }}
