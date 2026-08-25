@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the canonical Active Research Register and provenance links."""
+"""Validate the canonical Research Item Register and provenance links."""
 
 import argparse
 import json
@@ -30,11 +30,9 @@ ALLOWED_CLASSES: Set[str] = {
     "provenance",
 }
 ALLOWED_STATUSES: Set[str] = {
-    "research-finding",
-    "candidate",
-    "needs-resolution",
-    "proposed-for-framework-review",
-    "active",
+    "open",
+    "under-validation",
+    "resolved",
     "superseded",
     "rejected",
 }
@@ -129,7 +127,7 @@ def validate(
 ) -> List[Finding]:
     findings: List[Finding] = []
     if not register_path.is_file():
-        return [Finding("error", "Active Research Register is missing: {}".format(register_path))]
+        return [Finding("error", "Research Item Register is missing: {}".format(register_path))]
 
     try:
         register_text = register_path.read_text(encoding="utf-8")
@@ -178,7 +176,7 @@ def validate(
         status = item.get("status")
         if isinstance(status, str):
             if status not in ALLOWED_STATUSES:
-                findings.append(Finding("error", "{} uses uncontrolled status {!r}".format(label, status)))
+                findings.append(Finding("error", "{} uses uncontrolled research lifecycle state {!r}".format(label, status)))
             if isinstance(item_id, str):
                 machine_statuses[item_id] = status
 
@@ -222,7 +220,7 @@ def validate(
         findings.append(Finding("error", "human-readable research items missing from machine block: {}".format(", ".join(extra_in_table))))
     for item_id in sorted(machine_ids & table_ids):
         if table_rows[item_id] != machine_statuses[item_id]:
-            findings.append(Finding("error", "{} status differs between human table ({}) and machine block ({})".format(item_id, table_rows[item_id], machine_statuses[item_id])))
+            findings.append(Finding("error", "{} research lifecycle state differs between human table ({}) and machine block ({})".format(item_id, table_rows[item_id], machine_statuses[item_id])))
 
     return findings
 
