@@ -220,29 +220,25 @@ That changes both failure analysis and reassessment. Unexpected behavior is no l
 The architectural difference can be shown without pretending that conventional software consists of one linear function or that every Thinking System follows one pipeline.
 
 ```mermaid
-flowchart TB
-    subgraph ROW3[" "]
-        direction LR
-        subgraph A["Explicitly Authored Software — consequential mapping authored before release"]
-            direction TB
-            A1["Situation and operating conditions"]
-            A2["Explicitly authored consequential<br/>responsibilities"]
-            A3["Consequential output, action,<br/>or downstream state"]
-            A1 --> A2 --> A3
-        end
-        subgraph B["Motivating runtime-judgment class — part of mapping completed at runtime"]
-            direction TB
-            B1["Situation and operating conditions"]
-            B2["Explicitly authored responsibilities<br/>before and between Judgment Nodes"]
-            J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
-            B4["Explicitly authored responsibilities<br/>after Judgment Nodes"]
-            B3["Consequential output, action,<br/>or downstream state"]
-            B1 --> B2 --> J1 --> B4 --> B3
-        end
+flowchart LR
+    subgraph A["Explicitly Authored Software — consequential mapping authored before release"]
+        direction TB
+        A1["Situation and operating conditions"]
+        A2["Explicitly authored consequential<br/>responsibilities"]
+        A3["Consequential output, action,<br/>or downstream state"]
+        A1 --> A2 --> A3
+    end
+    subgraph B["Motivating runtime-judgment class — part of mapping completed at runtime"]
+        direction TB
+        B1["Situation and operating conditions"]
+        B2["Explicitly authored responsibilities<br/>before and between Judgment Nodes"]
+        J1["One or more Judgment Nodes<br/>probabilistic Model Judgment"]
+        B4["Explicitly authored responsibilities<br/>after Judgment Nodes"]
+        B3["Consequential output, action,<br/>or downstream state"]
+        B1 --> B2 --> J1 --> B4 --> B3
     end
     classDef judgment fill:#ffcdd2,stroke:#b71c1c,stroke-width:3px,color:#6a0000;
     class J1 judgment;
-    style ROW3 fill:transparent,stroke:transparent
 ```
 
 **Figure 3 — The controlled-object shift for the motivating class.** On the left, Consequential Runtime Responsibilities are fulfilled through explicitly authored logic. On the right, the motivating runtime-judgment class retains explicitly authored responsibilities while Model Judgment leaves part of a Consequential Runtime Responsibility unresolved until operation, so part of the consequential mapping is completed at runtime. The figure does not resolve whether fixed learned probabilistic functions with a release-time-determined mapping belong to the broader Thinking-System category. The vertical paths are schematic responsibility relationships, not a prescribed execution topology. Red marks only the Judgment Node where the responsibility structure changes; it does not imply that the whole system is probabilistic, unsafe, or erroneous. The figure is descriptive of the motivating class under the release-contract deduction, not a resolution of the broader category boundary or a prescribed control architecture. The deterministic boundaries, evidence, authority, and corrective mechanisms required for controlled production use are derived in the sections that follow.
