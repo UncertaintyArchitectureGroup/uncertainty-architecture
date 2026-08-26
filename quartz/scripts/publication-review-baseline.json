@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "publication_source": "content/research/notes/thinking-systems-publication-draft.md",
+  "golden_reference": {
+    "label": "Thinking Systems Visual Review v3",
+    "pull_request": 95,
+    "review_merge_preview_sha": "b6e309e3b0dabb1415f58d13a7e0a52181a37c61",
+    "pr_head_sha": "806badbbd612094fcb6e4f0d46bd9adbbee3f110",
+    "pdf_pages": 26
+  },
+  "review_contract": {
+    "markdown_is_source_of_truth": true,
+    "generated_pdf_is_ci_artifact": true,
+    "compare_against_golden_for": [
+      "title-page and publication metadata",
+      "continuous article flow and page breaks",
+      "figure scale and caption placement",
+      "Figure 3 side-by-side controlled-object comparison",
+      "Figure 8 decision-ownership and capability-family renditions",
+      "tables, callouts, TOC, links, and page furniture"
+    ]
+  }
+}
