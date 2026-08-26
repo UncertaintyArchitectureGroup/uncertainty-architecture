@@ -64,6 +64,27 @@ def markdown_link_targets(text: str) -> Set[str]:
     return targets
 
 
+def compact_json_text(text: str) -> Optional[str]:
+    """Return canonical compact JSON, or None when text is not JSON."""
+    try:
+        return json.dumps(json.loads(text), ensure_ascii=False, separators=(",", ":"))
+    except json.JSONDecodeError:
+        return None
+
+
+def protected_text_present(path: Path, text: str, marker: str) -> bool:
+    """Check literal markers, ignoring insignificant formatting for JSON files."""
+    if marker in text:
+        return True
+    if path.suffix.lower() != ".json":
+        return False
+    compact = compact_json_text(text)
+    if compact is None:
+        return False
+    marker_compact = re.sub(r"\s+", "", marker)
+    return marker_compact in compact
+
+
 def validate_top_level(root: Path, contract: Dict[str, object], errors: List[str]) -> None:
     allowed = contract["allowed_top_level"]
     allowed_directories = set(allowed["directories"])
@@ -134,7 +155,7 @@ def validate_critical_files(root: Path, contract: Dict[str, object], errors: Lis
             if heading not in lines:
                 errors.append("{}: missing required heading {!r}".format(relative, heading))
         for marker in rule.get("required_text", []):
-            if marker not in text:
+            if not protected_text_present(path, text, marker):
                 errors.append("{}: missing protected text {!r}".format(relative, marker))
         targets = markdown_link_targets(text)
         for target in rule.get("required_links", []):
