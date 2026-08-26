@@ -12,6 +12,7 @@ const publicationRoot = path.join(
   "thinking-systems",
 );
 const renditionRoot = path.join(publicationRoot, "renditions");
+const pngDataUriPrefix = "data:image/png;base64";
 
 function isInside(root, candidate) {
   const relative = path.relative(root, candidate);
@@ -42,7 +43,9 @@ export async function embedLocalImages(html, articlePath, allowedRoot = publicat
     }
     const bytes = await readFile(resolved);
     if (bytes.length === 0) throw new Error(`Copy-ready image is empty: ${source}`);
-    const dataUri = `data:${mimeTypeFor(resolved)};base64,${bytes.toString("base64")}`;
+    const mimeType = mimeTypeFor(resolved);
+    const prefix = mimeType === "image/png" ? pngDataUriPrefix : `data:${mimeType};base64`;
+    const dataUri = `${prefix},${bytes.toString("base64")}`;
     output = output.replace(full, `<img${before}src="${dataUri}"${after}>`);
     embedded += 1;
   }
