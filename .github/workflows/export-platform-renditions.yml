@@ -10,9 +10,11 @@ on:
       - "quartz/scripts/publication-figure3.mjs"
       - "quartz/scripts/publication-figure8.mjs"
       - "quartz/scripts/render-platform-renditions.mjs"
+      - "quartz/scripts/render-platform-furniture.mjs"
       - "quartz/scripts/render-copy-ready.mjs"
       - "quartz/scripts/platform-rendition.test.mjs"
-      - "quartz/scripts/render-copy-ready.test.mjs"
+      - "quartz/scripts/platform-furniture.test.mjs"
+      - "quartz/scripts/copy-ready.test.mjs"
       - "quartz/PLATFORM-RENDITIONS.md"
       - "content/research/notes/thinking-systems-publication-draft.md"
       - "content/research/notes/thinking-systems-linkedin-launch-post.md"
@@ -28,9 +30,11 @@ on:
       - "quartz/scripts/publication-figure3.mjs"
       - "quartz/scripts/publication-figure8.mjs"
       - "quartz/scripts/render-platform-renditions.mjs"
+      - "quartz/scripts/render-platform-furniture.mjs"
       - "quartz/scripts/render-copy-ready.mjs"
       - "quartz/scripts/platform-rendition.test.mjs"
-      - "quartz/scripts/render-copy-ready.test.mjs"
+      - "quartz/scripts/platform-furniture.test.mjs"
+      - "quartz/scripts/copy-ready.test.mjs"
       - "quartz/PLATFORM-RENDITIONS.md"
       - "content/research/notes/thinking-systems-publication-draft.md"
       - "content/research/notes/thinking-systems-linkedin-launch-post.md"
@@ -66,7 +70,7 @@ jobs:
       - name: Install Chromium and browser dependencies
         run: ./node_modules/.bin/playwright install --with-deps chromium
       - name: Run platform rendition regression tests
-        run: node --test quartz/scripts/platform-rendition.test.mjs quartz/scripts/render-copy-ready.test.mjs
+        run: node --test quartz/scripts/platform-rendition.test.mjs quartz/scripts/platform-furniture.test.mjs quartz/scripts/copy-ready.test.mjs
       - name: Render platform bundle
         env:
           UA_PDF_REPOSITORY_REF: ${{ github.sha }}
