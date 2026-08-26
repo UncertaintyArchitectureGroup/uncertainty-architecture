@@ -64,14 +64,6 @@ def markdown_link_targets(text: str) -> Set[str]:
     return targets
 
 
-def compact_json_text(text: str) -> Optional[str]:
-    """Return canonical compact JSON, or None when text is not JSON."""
-    try:
-        return json.dumps(json.loads(text), ensure_ascii=False, separators=(",", ":"))
-    except json.JSONDecodeError:
-        return None
-
-
 def find_json_values(value: object, key: str) -> List[object]:
     found: List[object] = []
     if isinstance(value, dict):
@@ -96,10 +88,12 @@ def command_chain_is_subsequence(expected: str, actual: str) -> bool:
 
 
 def protected_text_present(path: Path, text: str, marker: str) -> bool:
-    """Check literal markers while ignoring insignificant JSON formatting.
+    """Check protected text, using structural matching for JSON fragments.
 
-    For JSON command-chain values, the protected sequence may gain additional
-    intermediate steps as long as every protected command remains in order.
+    JSON markers of the form ``"key": value`` are matched by parsed key/value,
+    so harmless pretty-printing changes cannot break the repository contract.
+    For command-chain strings, protected commands may gain intermediate steps
+    while every protected command must remain present and in the same order.
     """
     if marker in text:
         return True
@@ -109,10 +103,6 @@ def protected_text_present(path: Path, text: str, marker: str) -> bool:
         parsed = json.loads(text)
     except json.JSONDecodeError:
         return False
-    compact = json.dumps(parsed, ensure_ascii=False, separators=(",", ":"))
-    marker_compact = re.sub(r"\s+", "", marker)
-    if marker_compact in compact:
-        return True
     try:
         marker_object = json.loads("{" + marker + "}")
     except json.JSONDecodeError:
@@ -120,12 +110,15 @@ def protected_text_present(path: Path, text: str, marker: str) -> bool:
     if len(marker_object) != 1:
         return False
     key, expected = next(iter(marker_object.items()))
-    if not isinstance(expected, str) or "&&" not in expected:
-        return False
-    return any(
-        isinstance(actual, str) and command_chain_is_subsequence(expected, actual)
-        for actual in find_json_values(parsed, key)
-    )
+    actual_values = find_json_values(parsed, key)
+    if any(actual == expected for actual in actual_values):
+        return True
+    if isinstance(expected, str) and "&&" in expected:
+        return any(
+            isinstance(actual, str) and command_chain_is_subsequence(expected, actual)
+            for actual in actual_values
+        )
+    return False
 
 
 def validate_top_level(root: Path, contract: Dict[str, object], errors: List[str]) -> None:
