@@ -34,6 +34,7 @@ REQUIRED_CASE_NAMES: Set[str] = {
     "metadata workflow job deletion is rejected",
     "PDF export regression step deletion is rejected",
     "manual publication export workflow deletion is rejected",
+    "platform rendition workflow deletion is rejected",
     "explicit generic PDF entrypoint deletion is rejected",
     "curated working-paper command deletion is rejected",
     "manual PDF workflow default article deletion is rejected",

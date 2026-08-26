@@ -174,6 +174,7 @@ A new top-level Operating Model module is not planned at this stage.
 - deterministic validation of stable Research State Register IDs, controlled item classes/statuses/origins, repository paths, and indexed provenance records for external review/dialogue inputs;
 - Quartz production builds and rendering of maintained Mermaid blocks;
 - deployment-independent Quartz-to-PDF rendering from canonical Markdown, with draft-only temporary builds, strict provenance manifests, coherent PDF/manifest rollback, visual verification, and explicit standalone-article versus long-form working-paper outputs;
+- reproducible Medium and LinkedIn rendition packages generated from one committed content edition, with reviewed publication assets, platform-safe copy packages, alt text, canonical-link guidance, SEO metadata, launch-post validation, and provenance/readiness manifests;
 - actionlint and zizmor checks for GitHub Actions workflows;
 - full-SHA action references, version comments, and sha256 container digests enforced by a machine-readable contract;
 - weekly Dependabot updates for npm and GitHub Actions;

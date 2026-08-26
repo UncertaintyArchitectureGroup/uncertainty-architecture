@@ -25,7 +25,10 @@
     "check": "tsc --noEmit && npx prettier . --check",
     "format": "npx prettier . --write",
     "test": "tsx --test",
-    "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1"
+    "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
+    "publication:platforms": "node quartz/scripts/render-platform-renditions.mjs",
+    "publication:copy-ready": "node quartz/scripts/render-copy-ready.mjs",
+    "publication:bundle": "npm run publication:assets && npm run publication:platforms && npm run publication:copy-ready"
   },
   "engines": {
     "npm": ">=10.9.2",

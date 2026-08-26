@@ -1,0 +1,86 @@
+name: Export platform renditions
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/export-platform-renditions.yml"
+      - "package.json"
+      - "quartz/publication/**"
+      - "quartz/scripts/render-publication-assets.mjs"
+      - "quartz/scripts/publication-figure3.mjs"
+      - "quartz/scripts/publication-figure8.mjs"
+      - "quartz/scripts/render-platform-renditions.mjs"
+      - "quartz/scripts/render-copy-ready.mjs"
+      - "quartz/scripts/platform-rendition.test.mjs"
+      - "quartz/scripts/render-copy-ready.test.mjs"
+      - "quartz/PLATFORM-RENDITIONS.md"
+      - "content/research/notes/thinking-systems-publication-draft.md"
+      - "content/research/notes/thinking-systems-linkedin-launch-post.md"
+      - "content/research/notes/thinking-systems-platform-renditions.md"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/export-platform-renditions.yml"
+      - "package.json"
+      - "quartz/publication/**"
+      - "quartz/scripts/render-publication-assets.mjs"
+      - "quartz/scripts/publication-figure3.mjs"
+      - "quartz/scripts/publication-figure8.mjs"
+      - "quartz/scripts/render-platform-renditions.mjs"
+      - "quartz/scripts/render-copy-ready.mjs"
+      - "quartz/scripts/platform-rendition.test.mjs"
+      - "quartz/scripts/render-copy-ready.test.mjs"
+      - "quartz/PLATFORM-RENDITIONS.md"
+      - "content/research/notes/thinking-systems-publication-draft.md"
+      - "content/research/notes/thinking-systems-linkedin-launch-post.md"
+      - "content/research/notes/thinking-systems-platform-renditions.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: platform-renditions-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render / Medium and LinkedIn packages
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: "22"
+          cache: npm
+          package-manager-cache: false
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Install Chromium and browser dependencies
+        run: ./node_modules/.bin/playwright install --with-deps chromium
+      - name: Run platform rendition regression tests
+        run: node --test quartz/scripts/platform-rendition.test.mjs quartz/scripts/render-copy-ready.test.mjs
+      - name: Render platform bundle
+        env:
+          UA_PDF_REPOSITORY_REF: ${{ github.sha }}
+        run: npm run publication:bundle
+      - name: Upload platform bundle
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: thinking-systems-platform-renditions
+          path: |
+            dist/publication/thinking-systems/assets.manifest.json
+            dist/publication/thinking-systems/cover-linkedin-article.png
+            dist/publication/thinking-systems/social-preview.png
+            dist/publication/thinking-systems/medium-hero.png
+            dist/publication/thinking-systems/figures/png/**
+            dist/publication/thinking-systems/renditions/**
+          if-no-files-found: error
+          retention-days: 14

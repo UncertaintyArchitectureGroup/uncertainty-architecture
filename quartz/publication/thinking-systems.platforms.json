@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "publication_id": "thinking-systems",
+  "source": "content/research/notes/thinking-systems-publication-draft.md",
+  "output_root": "dist/publication/thinking-systems",
+  "launch_post_source": "content/research/notes/thinking-systems-linkedin-launch-post.md",
+  "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+  "medium": {
+    "title": "Thinking Systems: When the Controlled Object Changes",
+    "subtitle": "Why probabilistic Model Judgment changes the engineering object — and why software architecture alone may no longer be enough.",
+    "publication_note": "This is a publication-facing rendition of a bounded Uncertainty Architecture research article. The larger working paper remains under development, and criticism of this argument may still change the larger research.",
+    "image_min_width": 1192,
+    "image_max_bytes": 26214400,
+    "hero": {
+      "file": "medium-hero.png",
+      "width": 1600,
+      "height": 840
+    },
+    "canonical_required_before_publish": true
+  },
+  "linkedin": {
+    "title": "Thinking Systems: When the Controlled Object Changes",
+    "subtitle": "Why probabilistic Model Judgment changes the engineering object — and why control becomes socio-technical.",
+    "publication_note": "This article is a platform rendition of the current bounded Uncertainty Architecture research article. It preserves the content edition while the larger working paper remains open to criticism and revision.",
+    "article_max_characters": 125000,
+    "post_max_characters": 3000,
+    "post_target_max_characters": 2900,
+    "seo_title": "Thinking Systems: When the Controlled Object Changes",
+    "seo_title_max_characters": 60,
+    "seo_description": "Why probabilistic Model Judgment changes the engineering object—and why bounded control must span software, delivery, humans, and organizational authority.",
+    "seo_description_min_characters": 140,
+    "seo_description_max_characters": 160,
+    "cover": {
+      "file": "cover-linkedin-article.png",
+      "width": 2000,
+      "height": 600,
+      "max_bytes": 10485760
+    },
+    "social_preview": {
+      "file": "social-preview.png",
+      "width": 1200,
+      "height": 627
+    },
+    "mentions": [
+      "Arkadiy Dobkin",
+      "Christophe Kolb",
+      "Maximiliano Armesto",
+      "Jan Rosen"
+    ],
+    "post_url_mention_reserve_characters": 120
+  },
+  "resources": [
+    {
+      "label": "Uncertainty Architecture repository",
+      "path": ""
+    },
+    {
+      "label": "Standalone repository article source",
+      "path": "content/research/notes/thinking-systems-publication-draft.md"
+    },
+    {
+      "label": "Living long-form working paper",
+      "path": "content/research/notes/open-engineering-specification-article-draft.md"
+    }
+  ],
+  "figures": {
+    "01": {
+      "alt": "Four connected boxes show plan-driven engineering, iterative delivery, modern operations, and Thinking-System engineering as responses to uncertainty moving closer to runtime and into the controlled object."
+    },
+    "02": {
+      "alt": "A decision tree asks whether any Consequential Runtime Responsibility depends partly on probabilistic Model Judgment; orchestration topology, autonomy, and delegated authority are shown as independent dimensions."
+    },
+    "03": {
+      "alt": "Side-by-side top-down responsibility structures compare Explicitly Authored Software with the motivating runtime-judgment class, where explicitly authored responsibilities remain while one or more Judgment Nodes leave part of a consequential responsibility unresolved until operation."
+    },
+    "04": {
+      "alt": "Model Judgment branches into three non-sequential functional placements: Input Interpretation, Decision Logic, and Output Mediation."
+    },
+    "05": {
+      "alt": "Product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty converge on one controlled system."
+    },
+    "06": {
+      "alt": "A closed feedback loop connects the controlled process to Sensors, a Controller or decision function, an authorized Actuator, and changed operation."
+    },
+    "07": {
+      "alt": "A complete bounded control architecture adds authoritative Constraints and realizations to Sensors, Controllers, Actuators, and the controlled process."
+    },
+    "08a": {
+      "alt": "The decision-ownership model separates the normal authorization path, reserved or changed Organizational basis decisions, and reassessment evidence across Organization, Project or Architecture, Delivery, and Runtime."
+    },
+    "08b": {
+      "alt": "The capability-family model lists Actuators, Constraints and realizations, Sensors and evidence, and Controllers or decision functions as orthogonal to every decision horizon."
+    }
+  },
+  "official_sources": {
+    "linkedin_article_limits": "https://www.linkedin.com/help/linkedin/answer/a522483",
+    "linkedin_article_images": "https://www.linkedin.com/help/linkedin/answer/a522463",
+    "linkedin_rich_media": "https://www.linkedin.com/help/linkedin/answer/a518895",
+    "linkedin_seo": "https://www.linkedin.com/help/linkedin/answer/a6244140",
+    "linkedin_link_preview": "https://www.linkedin.com/help/linkedin/answer/a566445/customizing-an-image-and-title-when-posting-a-url-on-your-linkedin-page?lang=en",
+    "medium_images": "https://help.medium.com/hc/en-us/articles/215679797-Using-images",
+    "medium_import": "https://help.medium.com/hc/en-us/articles/214550207-Importing-a-post-to-Medium",
+    "medium_canonical": "https://help.medium.com/hc/en-us/articles/360033930293-Set-a-canonical-link"
+  }
+}
