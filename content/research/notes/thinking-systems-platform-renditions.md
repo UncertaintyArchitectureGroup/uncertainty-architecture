@@ -52,6 +52,8 @@ canonical article Markdown
 → provenance and readiness manifest
 ```
 
+`npm run publication:bundle` generates the reviewed assets, the normal Medium/LinkedIn renditions, and the self-contained copy-ready HTML in one pipeline run.
+
 The generated package contains normal review HTML, copy-ready self-contained HTML, Markdown, and plain-text versions; image upload placeholders; curated alt text; SEO metadata; canonical-link guidance; and platform-specific publishing checklists.
 
 The `copy-ready.html` files are distribution conveniences only. They embed the already reviewed platform PNGs as inline `data:` URIs and expose a **Copy article** action so the operator can download and open one HTML file without keeping a neighboring image folder. The LinkedIn cover remains a separate platform upload. The Medium copy-ready rendition includes the generated hero together with all article figures. Because native editors may sanitize clipboard images, the normal PNG bundle and Markdown image-placement guide remain the fallback path.
