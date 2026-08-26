@@ -72,17 +72,60 @@ def compact_json_text(text: str) -> Optional[str]:
         return None
 
 
+def find_json_values(value: object, key: str) -> List[object]:
+    found: List[object] = []
+    if isinstance(value, dict):
+        for current_key, current_value in value.items():
+            if current_key == key:
+                found.append(current_value)
+            found.extend(find_json_values(current_value, key))
+    elif isinstance(value, list):
+        for item in value:
+            found.extend(find_json_values(item, key))
+    return found
+
+
+def command_chain_is_subsequence(expected: str, actual: str) -> bool:
+    expected_steps = [step.strip() for step in expected.split("&&")]
+    actual_steps = [step.strip() for step in actual.split("&&")]
+    cursor = 0
+    for step in actual_steps:
+        if cursor < len(expected_steps) and step == expected_steps[cursor]:
+            cursor += 1
+    return cursor == len(expected_steps)
+
+
 def protected_text_present(path: Path, text: str, marker: str) -> bool:
-    """Check literal markers, ignoring insignificant formatting for JSON files."""
+    """Check literal markers while ignoring insignificant JSON formatting.
+
+    For JSON command-chain values, the protected sequence may gain additional
+    intermediate steps as long as every protected command remains in order.
+    """
     if marker in text:
         return True
     if path.suffix.lower() != ".json":
         return False
-    compact = compact_json_text(text)
-    if compact is None:
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
         return False
+    compact = json.dumps(parsed, ensure_ascii=False, separators=(",", ":"))
     marker_compact = re.sub(r"\s+", "", marker)
-    return marker_compact in compact
+    if marker_compact in compact:
+        return True
+    try:
+        marker_object = json.loads("{" + marker + "}")
+    except json.JSONDecodeError:
+        return False
+    if len(marker_object) != 1:
+        return False
+    key, expected = next(iter(marker_object.items()))
+    if not isinstance(expected, str) or "&&" not in expected:
+        return False
+    return any(
+        isinstance(actual, str) and command_chain_is_subsequence(expected, actual)
+        for actual in find_json_values(parsed, key)
+    )
 
 
 def validate_top_level(root: Path, contract: Dict[str, object], errors: List[str]) -> None:
