@@ -19,7 +19,7 @@ tags:
 canonical_for:
   - research-state-register
 created: 2026-08-25
-updated: 2026-08-25
+updated: 2026-08-26
 license: CC-BY-4.0
 ---
 
@@ -70,7 +70,7 @@ Do **not** split every subclaim into its own ID. Subclaims that share provenance
 | `TS-LOW-001` | Intentionally low-consequence Thinking-System boundary case | Proportionality/category-boundary test | Maximiliano Armesto review requested a deliberately low-consequence case | Under Validation | Same external-review record and article blueprint | Validate a low-consequence case independently of historical classification so the paper can show category membership ≠ severity ≠ control depth without assuming the example qualifies |
 | `TS-PROP-001` | Category membership, consequence severity, and required control depth are distinct | Proportionality finding | Existing UA separation of consequentiality, severity, and control adequacy; sharpened by Maximiliano Armesto review | Resolved | Current glossary/doctrine support the distinction; review record preserves the later sharpening | Keep the resolved distinction visible in publication prose; validation of the illustrative low-consequence case remains under `TS-LOW-001` |
 | `TS-LIFE-001` | Four-horizon lifecycle ownership and authorization refinement | Lifecycle / process hypothesis | Internal article synthesis against current Nested Control Lifecycle and project/delivery patterns | Under Validation | [`framework-traceability.md`](framework-traceability.md) conflict/evolution register; article blueprint owns the detailed hypothesis | Validate assessment eligibility, Project technical/design authority, Organization business/research authority, research-only versus production-capable Project Authorization, Business-Authorization coverage, and scoped-authorization semantics before any status-bearing lifecycle change |
-| `TS-CARRIER-001` | Material-relationship carrier sufficiency and proportional application | Artifact / process hypothesis | Article §5 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Complete Article §5 mapping and test whether existing records/tools can carry each material relationship without UA-specific duplicate artifacts or semantic loss |
+| `TS-CARRIER-001` | Material-relationship carrier sufficiency and proportional application | Artifact / process hypothesis | Article §5 blueprint synthesis | Under Validation | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) and Article §5 in the living manuscript | Test the integrated carrier-sufficiency hypothesis and `support-resolution-canonical-material-map / v12` against serious existing carrier compositions and Article §6 reverse mapping; revise the map before any whole-object substitution verdict if material semantics are missing or distorted |
 | `TS-COMP-001` | Four-horizon model relative to STAMP/STPA | Comparative hypothesis | Maximiliano Armesto review | Under Validation | Same review record; planned Article §6 landscape/substitution analysis | Perform bidirectional mapping and determine whether the four-horizon model adds useful lifecycle-decision specialization, merely renames existing semantics, or loses material relationships |
 | `TS-SUB-001` | Semantic substitution and reverse-mapping test for existing methods/compositions | Comparative method hypothesis | Article §6 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Test whether equivalent-or-stronger semantics can substitute for UA relationships and whether reverse mapping exposes relationships the UA-derived map omitted or distorted |
 
@@ -164,11 +164,11 @@ The block below is validated in CI. Human-readable rows above must express the s
       "id": "TS-CARRIER-001",
       "title": "Material-relationship carrier sufficiency and proportional application",
       "item_class": "artifact",
-      "status": "open",
+      "status": "under-validation",
       "origin_kind": "internal-synthesis",
       "provenance_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Complete Article 5 mapping and test the lightest credible carriers without semantic loss or duplicate UA-specific records."
+      "next_step": "Test the integrated Article 5 carrier-sufficiency hypothesis and support-resolution-canonical-material-map / v12 against serious existing carrier compositions and Article 6 reverse mapping; revise the map before any whole-object substitution verdict if material semantics are missing or distorted."
     },
     {
       "id": "TS-COMP-001",

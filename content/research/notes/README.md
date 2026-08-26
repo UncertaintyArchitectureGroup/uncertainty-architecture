@@ -12,7 +12,7 @@ tags:
   - ua/type/research-index
   - ua/status/research
   - ua/topic/provenance
-updated: 2026-08-25
+updated: 2026-08-26
 license: CC-BY-4.0
 ---
 
@@ -36,7 +36,7 @@ Material terms, hypotheses, comparison questions, candidate artifacts/processes,
 - [`metrics-brief.md`](metrics-brief.md) — planning brief for decision-useful evidence, misleading metrics, sampling, drift signals, and context-derived thresholds.
 - [`on-device-cloud-source-intake.md`](on-device-cloud-source-intake.md) — traceability record for a full author-provided source that remains pending raw preservation and normalization.
 - [`open-engineering-specification-article-blueprint.md`](open-engineering-specification-article-blueprint.md) — active living editorial contract for the long-form public synthesis paper. It preserves the complete argument, section responsibilities, running-example contract, figure plan, source plan, maturity boundaries, and unresolved editorial decisions while remaining non-normative research material.
-- [`open-engineering-specification-article-draft.md`](open-engineering-specification-article-draft.md) — active long-form target manuscript governed by the blueprint. The current merged paper establishes the core argument through Article §4 while later research remains intentionally open; Draft PRs may continue the long-form work independently of publication adaptations.
+- [`open-engineering-specification-article-draft.md`](open-engineering-specification-article-draft.md) — active long-form target manuscript governed by the blueprint. The current draft establishes the core argument through Article §4 and adds Article §5 as the paper-level carrier-sufficiency/proportional-application hypothesis; the complete `support-resolution-canonical-material-map / v12` remains an unfrozen research object owned by the blueprint for later Article §6 reverse-mapping and substitution tests.
 - [`thinking-systems-formulation-provenance-arkadiy-dobkin.md`](thinking-systems-formulation-provenance-arkadiy-dobkin.md) — maintainer-attested provenance record for the formulation **Thinking Systems** entering the research through Vitalii Oborskyi's exchange with Arkadiy Dobkin following discussion around Dobkin's public *From Fall to Rise* post. It separates phrase provenance from the later UA definition, authorship, endorsement, and framework authority.
 - [`thinking-systems-pre-publication-review-maximiliano-armesto.md`](thinking-systems-pre-publication-review-maximiliano-armesto.md) — material external-review record for Maximiliano Armesto's pre-publication critique of the standalone Thinking Systems draft. It records the terminology, pre-LLM scope, proportionality, and STAMP/STPA findings, their dispositions, and the questions that remain unresolved without publishing private correspondence verbatim.
 - [`thinking-systems-release-contract-scope-review.md`](thinking-systems-release-contract-scope-review.md) — internal consistency review that reopens whether the current technology-neutral Thinking-System wording coheres with the paper's release-contract thesis across fixed learned probabilistic functions and runtime judgment processes; it tracks `TS-SCOPE-001` without treating the issue as external evidence.
