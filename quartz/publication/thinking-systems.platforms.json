@@ -5,17 +5,70 @@
   "output_root": "dist/publication/thinking-systems",
   "launch_post_source": "content/research/notes/thinking-systems-linkedin-launch-post.md",
   "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+  "author_furniture": {
+    "heading": "About the author",
+    "name": "Vitalii Oborskyi",
+    "bio": "Vitalii Oborskyi is the creator and principal author of Uncertainty Architecture, an open engineering specification and research program for systems in which probabilistic model judgment can materially influence runtime behavior. He is Head of Delivery & Operations at Developex and has more than two decades of experience across software engineering, delivery, and engineering governance. His current work focuses on non-deterministic systems, AI governance, socio-technical control architectures, and the changing mechanics of software delivery.",
+    "linkedin_profile": "https://www.linkedin.com/in/vitaliioborskyi/",
+    "medium_profile": "https://medium.com/@undersmoker"
+  },
+  "research_path": {
+    "heading": "Continue exploring Uncertainty Architecture",
+    "intro": "A suggested path through the earlier work that led to this argument:",
+    "items": [
+      {
+        "stage": "Practical precursor",
+        "title": "Architecting Uncertainty: A Modern Guide to LLM-Based Software",
+        "description": "An earlier hands-on architecture guide covering prompts, agents, orchestration, RAG, validation, monitoring, and operational discipline.",
+        "linkedin_url": "https://www.linkedin.com/pulse/architecting-uncertainty-modern-guide-llm-based-vitalii-oborskyi-0qecf/",
+        "medium_url": "https://medium.com/data-science-collective/architecting-uncertainty-a-modern-guide-to-llm-based-software-504695a82567"
+      },
+      {
+        "stage": "Early UA framework",
+        "title": "Uncertainty Architecture: A Modern Approach to Designing LLM Applications",
+        "description": "The early framework formulation: uncertainty as an architectural constant, with versioning, evaluation gates, control surfaces, and operating discipline around LLM systems.",
+        "linkedin_url": "https://www.linkedin.com/pulse/uncertainty-architecture-modern-approach-designing-llm-oborskyi-keqbf/",
+        "medium_url": "https://medium.com/towards-artificial-intelligence/uncertainty-architecture-a-modern-approach-to-designing-llm-applications-2fe196188fac"
+      },
+      {
+        "stage": "Control-theory reframing",
+        "title": "Uncertainty Architecture: Why AI Governance Is Actually Control Theory",
+        "description": "The shift from treating governance as policy around a model to treating reliability as a feedback-and-control problem around a socio-technical system.",
+        "linkedin_url": "https://www.linkedin.com/pulse/uncertainty-architecture-why-ai-governance-actually-control-oborskyi-oqhpf/",
+        "medium_url": "https://pub.towardsai.net/uncertainty-architecture-why-ai-governance-is-actually-control-theory-511f3e73ed6e"
+      },
+      {
+        "stage": "Verification consequence",
+        "title": "AI, the Externalization of Reasoning, and the Verification Crisis",
+        "description": "Why delegating reasoning-like work can move the bottleneck from generation to comprehension, verification, correction, and ownership.",
+        "linkedin_url": "https://www.linkedin.com/pulse/ai-externalization-reasoning-verification-crisis-vitalii-oborskyi-ihzwe",
+        "medium_url": "https://medium.com/agileinsider/ai-the-externalization-of-reasoning-and-the-verification-crisis-4f5046f9f0d0"
+      },
+      {
+        "stage": "Control-loop critique",
+        "title": "Reinventing Control Theory One Feature at a Time: The Fallacy of Agentic Loops",
+        "description": "Why recursive agents, evaluators, hooks, and self-correction loops are useful fragments but do not by themselves constitute a complete bounded control architecture.",
+        "linkedin_url": "https://www.linkedin.com/pulse/reinventing-control-theory-one-feature-time-fallacy-agentic-oborskyi-vkwve",
+        "medium_url": null
+      },
+      {
+        "stage": "Technical application",
+        "title": "Uncertainty Architecture: Beyond Embeddings — Neuro-Symbolic Verification of Semantic Drift in LLMs",
+        "description": "A bounded technical example of treating semantic drift as an evidence-and-control problem rather than relying on similarity scores or model judgment alone.",
+        "linkedin_url": "https://www.linkedin.com/pulse/uncertainty-architecture-beyond-embeddings-semantic-oborskyi-1seuf",
+        "medium_url": null
+      }
+    ],
+    "linkedin_all_articles_url": "https://www.linkedin.com/in/vitaliioborskyi/recent-activity/articles/",
+    "medium_all_articles_url": "https://medium.com/@undersmoker"
+  },
   "medium": {
     "title": "Thinking Systems: When the Controlled Object Changes",
     "subtitle": "Why probabilistic Model Judgment changes the engineering object — and why software architecture alone may no longer be enough.",
     "publication_note": "This is a publication-facing rendition of a bounded Uncertainty Architecture research article. The larger working paper remains under development, and criticism of this argument may still change the larger research.",
     "image_min_width": 1192,
     "image_max_bytes": 26214400,
-    "hero": {
-      "file": "medium-hero.png",
-      "width": 1600,
-      "height": 840
-    },
+    "hero": {"file": "medium-hero.png", "width": 1600, "height": 840},
     "canonical_required_before_publish": true
   },
   "linkedin": {
@@ -30,67 +83,26 @@
     "seo_description": "Why probabilistic Model Judgment changes the engineering object—and why bounded control must span software, delivery, humans, and organizational authority.",
     "seo_description_min_characters": 140,
     "seo_description_max_characters": 160,
-    "cover": {
-      "file": "cover-linkedin-article.png",
-      "width": 2000,
-      "height": 600,
-      "max_bytes": 10485760
-    },
-    "social_preview": {
-      "file": "social-preview.png",
-      "width": 1200,
-      "height": 627
-    },
-    "mentions": [
-      "Arkadiy Dobkin",
-      "Christophe Kolb",
-      "Maximiliano Armesto",
-      "Jan Rosen"
-    ],
+    "cover": {"file": "cover-linkedin-article.png", "width": 2000, "height": 600, "max_bytes": 10485760},
+    "social_preview": {"file": "social-preview.png", "width": 1200, "height": 627},
+    "mentions": ["Arkadiy Dobkin", "Christophe Kolb", "Maximiliano Armesto", "Jan Rosen"],
     "post_url_mention_reserve_characters": 120
   },
   "resources": [
-    {
-      "label": "Uncertainty Architecture repository",
-      "path": ""
-    },
-    {
-      "label": "Standalone repository article source",
-      "path": "content/research/notes/thinking-systems-publication-draft.md"
-    },
-    {
-      "label": "Living long-form working paper",
-      "path": "content/research/notes/open-engineering-specification-article-draft.md"
-    }
+    {"label": "Uncertainty Architecture repository", "path": ""},
+    {"label": "Standalone repository article source", "path": "content/research/notes/thinking-systems-publication-draft.md"},
+    {"label": "Living long-form working paper", "path": "content/research/notes/open-engineering-specification-article-draft.md"}
   ],
   "figures": {
-    "01": {
-      "alt": "Four connected boxes show plan-driven engineering, iterative delivery, modern operations, and Thinking-System engineering as responses to uncertainty moving closer to runtime and into the controlled object."
-    },
-    "02": {
-      "alt": "A decision tree asks whether any Consequential Runtime Responsibility depends partly on probabilistic Model Judgment; orchestration topology, autonomy, and delegated authority are shown as independent dimensions."
-    },
-    "03": {
-      "alt": "Side-by-side top-down responsibility structures compare Explicitly Authored Software with the motivating runtime-judgment class, where explicitly authored responsibilities remain while one or more Judgment Nodes leave part of a consequential responsibility unresolved until operation."
-    },
-    "04": {
-      "alt": "Model Judgment branches into three non-sequential functional placements: Input Interpretation, Decision Logic, and Output Mediation."
-    },
-    "05": {
-      "alt": "Product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty converge on one controlled system."
-    },
-    "06": {
-      "alt": "A closed feedback loop connects the controlled process to Sensors, a Controller or decision function, an authorized Actuator, and changed operation."
-    },
-    "07": {
-      "alt": "A complete bounded control architecture adds authoritative Constraints and realizations to Sensors, Controllers, Actuators, and the controlled process."
-    },
-    "08a": {
-      "alt": "The decision-ownership model separates the normal authorization path, reserved or changed Organizational basis decisions, and reassessment evidence across Organization, Project or Architecture, Delivery, and Runtime."
-    },
-    "08b": {
-      "alt": "The capability-family model lists Actuators, Constraints and realizations, Sensors and evidence, and Controllers or decision functions as orthogonal to every decision horizon."
-    }
+    "01": {"alt": "Four connected boxes show plan-driven engineering, iterative delivery, modern operations, and Thinking-System engineering as responses to uncertainty moving closer to runtime and into the controlled object."},
+    "02": {"alt": "A decision tree asks whether any Consequential Runtime Responsibility depends partly on probabilistic Model Judgment; orchestration topology, autonomy, and delegated authority are shown as independent dimensions."},
+    "03": {"alt": "Side-by-side top-down responsibility structures compare Explicitly Authored Software with the motivating runtime-judgment class, where explicitly authored responsibilities remain while one or more Judgment Nodes leave part of a consequential responsibility unresolved until operation."},
+    "04": {"alt": "Model Judgment branches into three non-sequential functional placements: Input Interpretation, Decision Logic, and Output Mediation."},
+    "05": {"alt": "Product and requirement uncertainty, environment and operational uncertainty, and runtime-judgment uncertainty converge on one controlled system."},
+    "06": {"alt": "A closed feedback loop connects the controlled process to Sensors, a Controller or decision function, an authorized Actuator, and changed operation."},
+    "07": {"alt": "A complete bounded control architecture adds authoritative Constraints and realizations to Sensors, Controllers, Actuators, and the controlled process."},
+    "08a": {"alt": "The decision-ownership model separates the normal authorization path, reserved or changed Organizational basis decisions, and reassessment evidence across Organization, Project or Architecture, Delivery, and Runtime."},
+    "08b": {"alt": "The capability-family model lists Actuators, Constraints and realizations, Sensors and evidence, and Controllers or decision functions as orthogonal to every decision horizon."}
   },
   "official_sources": {
     "linkedin_article_limits": "https://www.linkedin.com/help/linkedin/answer/a522483",
