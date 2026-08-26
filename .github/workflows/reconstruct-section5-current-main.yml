@@ -1,0 +1,31 @@
+name: Reconstruct Section 5 on current main
+
+on:
+  push:
+    branches:
+      - research/article-section5-current-main
+    paths:
+      - ".github/workflows/reconstruct-section5-current-main.yml"
+      - ".github/scripts/reconstruct-section5-current-main.py"
+
+permissions:
+  contents: write
+
+jobs:
+  reconstruct:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Apply bounded reconstruction
+        run: python .github/scripts/reconstruct-section5-current-main.py
+      - name: Remove one-shot transport
+        run: rm .github/scripts/reconstruct-section5-current-main.py .github/workflows/reconstruct-section5-current-main.yml
+      - name: Commit reconstructed research surfaces
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "research: reconstruct Article Section 5 on current main"
+          git push
