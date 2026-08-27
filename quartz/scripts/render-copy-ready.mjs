@@ -67,7 +67,7 @@ export function buildCopyReadyDocument(html, platformName) {
   }
 
   const platformLabel = platformName === "linkedin" ? "LinkedIn" : "Medium";
-  const toolbar = `<div class="copy-ready-toolbar" role="region" aria-label="Copy-ready controls"><strong>${platformLabel} copy-ready article</strong><span>All inline article images are embedded in this one HTML file.</span><button id="copy-article" type="button">Copy article</button><span id="copy-status" aria-live="polite"></span></div>`;
+  const toolbar = `<div class="copy-ready-toolbar" role="region" aria-label="Copy-ready controls"><strong>${platformLabel} copy-ready article</strong><span>All inline article images are embedded in this one HTML file. On iPad or when browser clipboard access is blocked, use Select article and then tap Copy in the system menu.</span><button id="copy-article" type="button">Copy article</button><button id="select-article" type="button">Select article</button><span id="copy-status" aria-live="polite"></span></div>`;
   value = value.replace("<body>", `<body>${toolbar}`);
   value = value.replace(
     "</style>",
@@ -75,9 +75,20 @@ export function buildCopyReadyDocument(html, platformName) {
   );
   const script = `<script>
 (function(){
-  const button=document.getElementById('copy-article');
+  const copyButton=document.getElementById('copy-article');
+  const selectButton=document.getElementById('select-article');
   const status=document.getElementById('copy-status');
   const surface=document.getElementById('copy-surface');
+
+  function selectArticle(message='Article selected — tap Copy in the system menu.'){
+    const selection=window.getSelection();
+    const range=document.createRange();
+    range.selectNodeContents(surface);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    status.textContent=message;
+  }
+
   async function copyArticle(){
     status.textContent='';
     try{
@@ -89,16 +100,11 @@ export function buildCopyReadyDocument(html, platformName) {
         return;
       }
     }catch(error){}
-    const selection=window.getSelection();
-    const range=document.createRange();
-    range.selectNodeContents(surface);
-    selection.removeAllRanges();
-    selection.addRange(range);
-    const ok=document.execCommand('copy');
-    selection.removeAllRanges();
-    status.textContent=ok?'Copied':'Select the article manually and copy';
+    selectArticle('Automatic copy is unavailable. Article selected — tap Copy in the system menu.');
   }
-  button.addEventListener('click',copyArticle);
+
+  copyButton.addEventListener('click',copyArticle);
+  selectButton.addEventListener('click',()=>selectArticle());
 })();
 </script>`;
   value = value.replace("</body>", `${script}</body>`);
@@ -130,7 +136,7 @@ async function main() {
   const medium = await writeCopyReady("medium");
   const linkedin = await writeCopyReady("linkedin");
 
-  const readme = `# Copy-ready platform articles\n\nOpen the platform-specific \`copy-ready.html\` locally in a browser and use **Copy article**. The HTML is self-contained: inline article images are embedded as data URIs, so no image folder is required for the primary copy/paste path.\n\n- LinkedIn: \`linkedin/copy-ready.html\` embeds ${linkedin.embedded} article figures. The LinkedIn cover remains a separate platform upload.\n- Medium: \`medium/copy-ready.html\` embeds the hero plus ${medium.embedded - 1} article figures.\n- Keep the generated PNG files as fallback because LinkedIn or Medium may sanitize embedded images during paste. If an image is dropped, use the normal \`article.md\` placement guide and upload the matching PNG.\n\nThis convenience artifact is a distribution rendition only; canonical content remains the repository Markdown source.\n`;
+  const readme = `# Copy-ready platform articles\n\nOpen the platform-specific \`copy-ready.html\` locally in a browser. Use **Copy article** when browser clipboard access is available. On iPad, local-file clipboard access may be blocked; use **Select article**, then tap **Copy** in the system selection menu. The selection is intentionally left active so the manual copy path remains usable.\n\nThe HTML is self-contained: inline article images are embedded as data URIs, so no image folder is required for the primary copy/paste path.\n\n- LinkedIn: \`linkedin/copy-ready.html\` embeds ${linkedin.embedded} article figures. The LinkedIn cover remains a separate platform upload.\n- Medium: \`medium/copy-ready.html\` embeds the hero plus ${medium.embedded - 1} article figures.\n- Keep the generated PNG files as fallback because LinkedIn or Medium may sanitize embedded images during paste. If an image is dropped, use the normal \`article.md\` placement guide and upload the matching PNG.\n\nThis convenience artifact is a distribution rendition only; canonical content remains the repository Markdown source.\n`;
   const readmePath = path.join(renditionRoot, "copy-ready-readme.md");
   await writeFile(readmePath, readme, "utf8");
 
@@ -139,6 +145,8 @@ async function main() {
   manifest.copy_ready = {
     self_contained_html: true,
     clipboard_behavior: "best-effort-platform-dependent",
+    selection_fallback: true,
+    selection_fallback_preserves_selection: true,
     linkedin_embedded_article_images: linkedin.embedded,
     medium_embedded_article_images: medium.embedded,
     linkedin_cover_separate: true,
