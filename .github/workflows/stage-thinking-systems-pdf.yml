@@ -1,0 +1,58 @@
+name: Stage Thinking Systems PDF artifact
+
+on:
+  push:
+    branches:
+      - publishing/add-thinking-systems-pdf
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-stage:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: '22'
+          cache: npm
+          package-manager-cache: false
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Install Chromium and PDF inspection tools
+        shell: bash
+        run: |
+          ./node_modules/.bin/playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+      - name: Render and verify Thinking Systems publication PDF
+        env:
+          UA_PDF_REPOSITORY_REF: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run pdf:verify:figure8
+          npm run pdf:article
+          pdf_path="dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf"
+          npm run pdf:verify -- "$pdf_path" --require-manifest
+      - name: Stage publication PDF in repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p content/research/publications
+          cp dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf \
+            content/research/publications/thinking-systems-when-the-controlled-object-changes.pdf
+          git rm .github/workflows/stage-thinking-systems-pdf.yml
+          git add content/research/publications/thinking-systems-when-the-controlled-object-changes.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "publishing: add Thinking Systems PDF artifact"
+          git push origin HEAD:publishing/add-thinking-systems-pdf
