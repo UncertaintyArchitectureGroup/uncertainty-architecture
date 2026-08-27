@@ -27,6 +27,15 @@ function mimeTypeFor(filePath) {
   throw new Error(`Unsupported copy-ready image type: ${extension || "none"}`);
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 export async function embedLocalImages(html, articlePath, allowedRoot = publicationRoot) {
   const pattern = /<img\b([^>]*?)\bsrc="([^"]+)"([^>]*)>/gi;
   const matches = [...html.matchAll(pattern)];
@@ -53,7 +62,36 @@ export async function embedLocalImages(html, articlePath, allowedRoot = publicat
   return { html: output, embedded };
 }
 
-export function buildCopyReadyDocument(html, platformName) {
+export function appendHeadingLinkFallbacks(html) {
+  const headingPattern = /<(h[1-6])([^>]*)>([\s\S]*?)<\/\1>/gi;
+  let fallbacks = 0;
+  const output = html.replace(
+    headingPattern,
+    (full, tag, attributes, inner) => {
+      const links = [];
+      const seen = new Set();
+      const linkPattern = /<a\s+[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/gi;
+      for (const match of inner.matchAll(linkPattern)) {
+        const target = match[1];
+        if (!/^(?:https?:\/\/)/i.test(target) || seen.has(target)) continue;
+        seen.add(target);
+        links.push(target);
+      }
+      if (links.length === 0) return full;
+      fallbacks += links.length;
+      const visibleLinks = links
+        .map(
+          (target) =>
+            `<p class="heading-link-fallback"><a href="${escapeHtml(target)}">${escapeHtml(target)}</a></p>`,
+        )
+        .join("");
+      return `${full}${visibleLinks}`;
+    },
+  );
+  return { html: output, fallbacks };
+}
+
+export function buildCopyReadyDocument(html) {
   let value = html
     .replace(
       /<figcaption><strong>Upload file:<\/strong>[\s\S]*?<\/figcaption>/gi,
@@ -66,48 +104,10 @@ export function buildCopyReadyDocument(html, platformName) {
     throw new Error("Copy-ready source is missing the article <main> element");
   }
 
-  const platformLabel = platformName === "linkedin" ? "LinkedIn" : "Medium";
-  const toolbar = `<div class="copy-ready-toolbar" role="region" aria-label="Copy-ready controls"><strong>${platformLabel} copy-ready article</strong><span>All inline article images are embedded in this one HTML file. On iPad or when browser clipboard access is blocked, use Select article and then tap Copy in the system menu.</span><button id="copy-article" type="button">Copy article</button><button id="select-article" type="button">Select article</button><span id="copy-status" aria-live="polite"></span></div>`;
-  value = value.replace("<body>", `<body>${toolbar}`);
   value = value.replace(
     "</style>",
-    ".copy-ready-toolbar{position:sticky;top:0;z-index:10;display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 16px;background:#111827;color:white;font-family:Arial,sans-serif}.copy-ready-toolbar button{padding:8px 14px;border:0;border-radius:6px;font-weight:700;cursor:pointer}.copy-ready-toolbar span{font-size:13px}.copy-ready-toolbar #copy-status{font-weight:700;color:#bbf7d0}\n</style>",
+    ".heading-link-fallback{margin:.15em 0 1em;font-size:.92em;overflow-wrap:anywhere}.heading-link-fallback a{color:inherit;text-decoration:underline}\n</style>",
   );
-  const script = `<script>
-(function(){
-  const copyButton=document.getElementById('copy-article');
-  const selectButton=document.getElementById('select-article');
-  const status=document.getElementById('copy-status');
-  const surface=document.getElementById('copy-surface');
-
-  function selectArticle(message='Article selected — tap Copy in the system menu.'){
-    const selection=window.getSelection();
-    const range=document.createRange();
-    range.selectNodeContents(surface);
-    selection.removeAllRanges();
-    selection.addRange(range);
-    status.textContent=message;
-  }
-
-  async function copyArticle(){
-    status.textContent='';
-    try{
-      if(navigator.clipboard && window.ClipboardItem){
-        const htmlBlob=new Blob([surface.innerHTML],{type:'text/html'});
-        const textBlob=new Blob([surface.innerText],{type:'text/plain'});
-        await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
-        status.textContent='Copied';
-        return;
-      }
-    }catch(error){}
-    selectArticle('Automatic copy is unavailable. Article selected — tap Copy in the system menu.');
-  }
-
-  copyButton.addEventListener('click',copyArticle);
-  selectButton.addEventListener('click',()=>selectArticle());
-})();
-</script>`;
-  value = value.replace("</body>", `${script}</body>`);
   return value;
 }
 
@@ -116,7 +116,8 @@ async function writeCopyReady(platformName) {
   const articlePath = path.join(platformDir, "article.html");
   const source = await readFile(articlePath, "utf8");
   const embedded = await embedLocalImages(source, articlePath);
-  const copyReady = buildCopyReadyDocument(embedded.html, platformName);
+  const headingLinks = appendHeadingLinkFallbacks(embedded.html);
+  const copyReady = buildCopyReadyDocument(headingLinks.html);
   const target = path.join(platformDir, "copy-ready.html");
   await writeFile(target, `${copyReady}\n`, "utf8");
 
@@ -129,14 +130,19 @@ async function writeCopyReady(platformName) {
   if ((copyReady.match(/src="data:image\//g) || []).length !== expected) {
     throw new Error(`${platformName} copy-ready HTML still has non-embedded article images`);
   }
-  return { target, embedded: embedded.embedded, sha256: sha256(Buffer.from(`${copyReady}\n`)) };
+  return {
+    target,
+    embedded: embedded.embedded,
+    headingLinkFallbacks: headingLinks.fallbacks,
+    sha256: sha256(Buffer.from(`${copyReady}\n`)),
+  };
 }
 
 async function main() {
   const medium = await writeCopyReady("medium");
   const linkedin = await writeCopyReady("linkedin");
 
-  const readme = `# Copy-ready platform articles\n\nOpen the platform-specific \`copy-ready.html\` locally in a browser. Use **Copy article** when browser clipboard access is available. On iPad, local-file clipboard access may be blocked; use **Select article**, then tap **Copy** in the system selection menu. The selection is intentionally left active so the manual copy path remains usable.\n\nThe HTML is self-contained: inline article images are embedded as data URIs, so no image folder is required for the primary copy/paste path.\n\n- LinkedIn: \`linkedin/copy-ready.html\` embeds ${linkedin.embedded} article figures. The LinkedIn cover remains a separate platform upload.\n- Medium: \`medium/copy-ready.html\` embeds the hero plus ${medium.embedded - 1} article figures.\n- Keep the generated PNG files as fallback because LinkedIn or Medium may sanitize embedded images during paste. If an image is dropped, use the normal \`article.md\` placement guide and upload the matching PNG.\n\nThis convenience artifact is a distribution rendition only; canonical content remains the repository Markdown source.\n`;
+  const readme = `# Copy-ready platform articles\n\nOpen the platform-specific \`copy-ready.html\` locally in a browser, use **Select All**, then **Copy**, and paste into the native LinkedIn or Medium editor. The copy-ready page intentionally has no JavaScript copy controls because local-file clipboard APIs are not reliable across iPadOS and other browsers.\n\nThe HTML is self-contained: inline article images are embedded as data URIs, so no image folder is required for the primary copy/paste path. Hyperlinks inside headings receive an additional visible URL immediately below the heading because LinkedIn and Medium may drop heading hyperlinks during rich-text paste.\n\n- LinkedIn: \`linkedin/copy-ready.html\` embeds ${linkedin.embedded} article figures and materializes ${linkedin.headingLinkFallbacks} heading-link fallbacks. The LinkedIn cover remains a separate platform upload.\n- Medium: \`medium/copy-ready.html\` embeds the hero plus ${medium.embedded - 1} article figures and materializes ${medium.headingLinkFallbacks} heading-link fallbacks.\n- Keep the generated PNG files as fallback because LinkedIn or Medium may sanitize embedded images during paste. If an image is dropped, use the normal \`article.md\` placement guide and upload the matching PNG.\n\nThis convenience artifact is a distribution rendition only; canonical content remains the repository Markdown source.\n`;
   const readmePath = path.join(renditionRoot, "copy-ready-readme.md");
   await writeFile(readmePath, readme, "utf8");
 
@@ -144,9 +150,11 @@ async function main() {
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   manifest.copy_ready = {
     self_contained_html: true,
-    clipboard_behavior: "best-effort-platform-dependent",
-    selection_fallback: true,
-    selection_fallback_preserves_selection: true,
+    clipboard_behavior: "manual-select-all-copy",
+    javascript_copy_controls: false,
+    heading_link_fallbacks: true,
+    linkedin_heading_link_fallbacks: linkedin.headingLinkFallbacks,
+    medium_heading_link_fallbacks: medium.headingLinkFallbacks,
     linkedin_embedded_article_images: linkedin.embedded,
     medium_embedded_article_images: medium.embedded,
     linkedin_cover_separate: true,
@@ -157,8 +165,8 @@ async function main() {
   manifest.outputs["copy-ready-readme.md"] = sha256(Buffer.from(readme));
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 
-  console.log(`Copy-ready LinkedIn HTML: ${path.relative(repoRoot, linkedin.target)} (${linkedin.embedded} embedded images)`);
-  console.log(`Copy-ready Medium HTML: ${path.relative(repoRoot, medium.target)} (${medium.embedded} embedded images)`);
+  console.log(`Copy-ready LinkedIn HTML: ${path.relative(repoRoot, linkedin.target)} (${linkedin.embedded} embedded images, ${linkedin.headingLinkFallbacks} heading-link fallbacks)`);
+  console.log(`Copy-ready Medium HTML: ${path.relative(repoRoot, medium.target)} (${medium.embedded} embedded images, ${medium.headingLinkFallbacks} heading-link fallbacks)`);
 }
 
 const isEntryPoint =
