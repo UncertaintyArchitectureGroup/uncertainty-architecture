@@ -2,17 +2,19 @@ name: PR93 one-shot substantive fixup
 
 # One-shot branch maintenance workflow; removes itself after a successful fixup.
 on:
-  push:
+  pull_request:
     branches:
-      - publishing/linkedin-medium-renditions
+      - main
     paths:
       - ".github/workflows/pr93-fixup.yml"
+      - ".github/scripts/pr93_fixup.py"
 
 permissions:
   contents: write
 
 jobs:
   fixup:
+    if: github.head_ref == 'publishing/linkedin-medium-renditions'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
