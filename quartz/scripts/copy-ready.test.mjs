@@ -44,13 +44,29 @@ test("copy-ready embedding rejects images outside the publication root", async (
   }
 });
 
-test("copy-ready materializes URLs below every linked heading", () => {
-  const source = '<main><h3><a href="https://www.iso.org/standard/79016.html">AI-based system (ISO/IEC TR 29119-11)</a></h3><p>Body</p><h3><a href="https://www.nist.gov/example">AI system (NIST AI RMF)</a></h3><h2>Unlinked heading</h2></main>';
+test("linked heading receives a visible fallback while ordinary body links are untouched", () => {
+  const source = '<main><h3><a href="https://www.iso.org/standard/79016.html">AI-based system (ISO/IEC TR 29119-11)</a></h3><p>See <a href="https://example.com/body">the body source</a>.</p><h2>Unlinked heading</h2></main>';
   const result = appendHeadingLinkFallbacks(source);
-  assert.equal(result.fallbacks, 2);
-  assert.match(result.html, /heading-link-fallback[\s\S]*https:\/\/www\.iso\.org\/standard\/79016\.html/);
-  assert.match(result.html, /heading-link-fallback[\s\S]*https:\/\/www\.nist\.gov\/example/);
+  assert.equal(result.fallbacks, 1);
+  assert.match(
+    result.html,
+    /<h3><a href="https:\/\/www\.iso\.org\/standard\/79016\.html">AI-based system \(ISO\/IEC TR 29119-11\)<\/a><\/h3><p class="heading-link-fallback"><a href="https:\/\/www\.iso\.org\/standard\/79016\.html">https:\/\/www\.iso\.org\/standard\/79016\.html<\/a><\/p>/,
+  );
+  assert.equal((result.html.match(/https:\/\/example\.com\/body/g) || []).length, 1);
   assert.doesNotMatch(result.html, /<h2>Unlinked heading<\/h2><p class="heading-link-fallback">/);
+});
+
+test("multiple linked headings and multiple links in one heading preserve every distinct URL deterministically", () => {
+  const source = '<main><h2><a href="https://example.com/a">A</a> and <a href="https://example.com/b">B</a> plus <a href="https://example.com/a">A again</a></h2><p>Body</p><h4><a href="https://example.com/c">C</a></h4></main>';
+  const result = appendHeadingLinkFallbacks(source);
+  assert.equal(result.fallbacks, 3);
+  const aFallback = '<p class="heading-link-fallback"><a href="https://example.com/a">https://example.com/a</a></p>';
+  const bFallback = '<p class="heading-link-fallback"><a href="https://example.com/b">https://example.com/b</a></p>';
+  const cFallback = '<p class="heading-link-fallback"><a href="https://example.com/c">https://example.com/c</a></p>';
+  assert.equal((result.html.match(/heading-link-fallback/g) || []).length, 3);
+  assert.ok(result.html.indexOf(aFallback) < result.html.indexOf(bFallback));
+  assert.ok(result.html.indexOf(bFallback) < result.html.indexOf(cFallback));
+  assert.equal((result.html.match(/https:\/\/example\.com\/a<\/a><\/p>/g) || []).length, 1);
 });
 
 test("copy-ready document uses manual select-all copy and excludes helper furniture", () => {
