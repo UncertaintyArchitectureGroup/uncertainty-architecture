@@ -86,6 +86,15 @@ function parseMarkdown(markdown) {
   return unified().use(remarkParse).parse(String(markdown));
 }
 
+function hasImmediateMarkdownFallback(tail, fallback) {
+  return (
+    tail === `\n\n${fallback}` ||
+    tail.startsWith(`\n\n${fallback}\n`) ||
+    tail === `\r\n\r\n${fallback}` ||
+    tail.startsWith(`\r\n\r\n${fallback}\r\n`)
+  );
+}
+
 export function inspectMarkdownHeadingLinks(markdown) {
   const source = String(markdown);
   const tree = parseMarkdown(source);
@@ -101,10 +110,13 @@ export function inspectMarkdownHeadingLinks(markdown) {
     }
     const fallback = markdownFallback(urls);
     const tail = source.slice(end);
-    const protectedAlready = new RegExp(
-      `^\\r?\\n\\r?\\n${fallback.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}(?:\\r?\\n|$)`,
-    ).test(tail);
-    entries.push({ depth: node.depth, urls, end, fallback, protected: protectedAlready });
+    entries.push({
+      depth: node.depth,
+      urls,
+      end,
+      fallback,
+      protected: hasImmediateMarkdownFallback(tail, fallback),
+    });
   });
   return entries;
 }
