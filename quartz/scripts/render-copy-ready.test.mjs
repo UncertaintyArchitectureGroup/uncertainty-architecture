@@ -5,6 +5,7 @@ import path from "node:path";
 import test from "node:test";
 
 import {
+  appendHeadingLinkFallbacks,
   buildCopyReadyDocument,
   embedLocalImages,
 } from "./render-copy-ready.mjs";
@@ -29,28 +30,40 @@ test("copy-ready HTML embeds local images as data URIs", async () => {
   }
 });
 
+test("copy-ready heading links receive visible URL fallbacks", () => {
+  const source = '<main><h3><a href="https://example.com/iso">AI-based system</a></h3><p>Body</p><h2>Plain heading</h2><h4><a href="https://example.com/a">A</a> and <a href="https://example.com/b">B</a></h4></main>';
+  const result = appendHeadingLinkFallbacks(source);
+  assert.equal(result.fallbacks, 3);
+  assert.match(
+    result.html,
+    /<h3><a href="https:\/\/example\.com\/iso">AI-based system<\/a><\/h3><p class="heading-link-fallback"><a href="https:\/\/example\.com\/iso">https:\/\/example\.com\/iso<\/a><\/p>/,
+  );
+  assert.match(result.html, /https:\/\/example\.com\/a/);
+  assert.match(result.html, /https:\/\/example\.com\/b/);
+  assert.doesNotMatch(
+    result.html,
+    /<h2>Plain heading<\/h2><p class="heading-link-fallback">/,
+  );
+});
+
 test("copy-ready document exposes one article-only copy surface", () => {
   const source = `<!doctype html><html><head><style>body{color:black}</style></head><body><main><h1>Thinking Systems</h1><figure><img src="data:image/png;base64,AAAA"/><figcaption><strong>Upload file:</strong> figure-1.png</figcaption></figure><p>Body</p><p class="provenance">Generated from source commit abc</p></main></body></html>`;
-  const output = buildCopyReadyDocument(source, "linkedin");
+  const output = buildCopyReadyDocument(source);
   assert.match(output, /id="copy-surface"/);
-  assert.match(output, /id="copy-article"/);
-  assert.match(output, /id="select-article"/);
-  assert.match(output, /navigator\.clipboard/);
-  assert.match(output, /function selectArticle/);
-  assert.match(output, /Article selected — tap Copy in the system menu/);
-  assert.doesNotMatch(output, /document\.execCommand\('copy'\)/);
+  assert.doesNotMatch(output, /id="copy-article"/);
+  assert.doesNotMatch(output, /id="select-article"/);
+  assert.doesNotMatch(output, /navigator\.clipboard/);
+  assert.doesNotMatch(output, /<script>/);
   assert.doesNotMatch(output, /Upload file:/);
   assert.doesNotMatch(output, /class="provenance"/);
   assert.match(output, /data:image\/png;base64,AAAA/);
 });
 
-test("copy-ready document keeps toolbar outside copied article", () => {
+test("copy-ready document has no helper toolbar in manual select-all mode", () => {
   const source = '<!doctype html><html><head><style></style></head><body><main><p>Article</p></main></body></html>';
-  const output = buildCopyReadyDocument(source, "medium");
-  const toolbarIndex = output.indexOf("copy-ready-toolbar");
-  const surfaceIndex = output.indexOf('id="copy-surface"');
-  assert.ok(toolbarIndex >= 0 && surfaceIndex > toolbarIndex);
-  assert.match(output, /Medium copy-ready article/);
-  assert.match(output, /Select article/);
-  assert.match(output, /On iPad or when browser clipboard access is blocked/);
+  const output = buildCopyReadyDocument(source);
+  assert.doesNotMatch(output, /copy-ready-toolbar/);
+  assert.doesNotMatch(output, /Copy article/);
+  assert.doesNotMatch(output, /Select article/);
+  assert.match(output, /id="copy-surface"/);
 });
