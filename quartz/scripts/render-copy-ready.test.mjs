@@ -29,7 +29,7 @@ test("copy-ready HTML embeds local images as data URIs", async () => {
   }
 });
 
-test("copy-ready document exposes automatic copy and persistent selection fallback", () => {
+test("copy-ready document exposes one article-only copy surface", () => {
   const source = `<!doctype html><html><head><style>body{color:black}</style></head><body><main><h1>Thinking Systems</h1><figure><img src="data:image/png;base64,AAAA"/><figcaption><strong>Upload file:</strong> figure-1.png</figcaption></figure><p>Body</p><p class="provenance">Generated from source commit abc</p></main></body></html>`;
   const output = buildCopyReadyDocument(source, "linkedin");
   assert.match(output, /id="copy-surface"/);
@@ -39,7 +39,6 @@ test("copy-ready document exposes automatic copy and persistent selection fallba
   assert.match(output, /function selectArticle/);
   assert.match(output, /Article selected — tap Copy in the system menu/);
   assert.doesNotMatch(output, /document\.execCommand\('copy'\)/);
-  assert.doesNotMatch(output, /selection\.removeAllRanges\(\);\s*status\.textContent='Copied'/);
   assert.doesNotMatch(output, /Upload file:/);
   assert.doesNotMatch(output, /class="provenance"/);
   assert.match(output, /data:image\/png;base64,AAAA/);
