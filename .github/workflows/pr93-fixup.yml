@@ -1,6 +1,6 @@
 name: PR93 one-shot substantive fixup
 
-# One-shot branch maintenance workflow; removes itself after a successful fixup.
+# One-shot branch maintenance workflow; connector removes it after a successful fixup.
 on:
   pull_request:
     branches:
@@ -32,7 +32,10 @@ jobs:
           git fetch origin main
           git merge --no-edit origin/main
           python3 .github/scripts/pr93_fixup.py
-          rm .github/scripts/pr93_fixup.py .github/workflows/pr93-fixup.yml
+          # GITHUB_TOKEN cannot update workflow files. Keep those two files unchanged
+          # in this bot push; the connector applies/removes them immediately after.
+          git checkout HEAD -- .github/workflows/export-platform-renditions.yml
+          rm .github/scripts/pr93_fixup.py
           git add -A
           git commit -m "fix: harden Thinking Systems publication package"
           git push origin HEAD:publishing/linkedin-medium-renditions
