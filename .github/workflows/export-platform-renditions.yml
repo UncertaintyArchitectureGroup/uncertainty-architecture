@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     env:
-      UA_PDF_REPOSITORY_REF: ${{ github.sha }}
+      UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Check out exact publication source commit
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -69,6 +69,7 @@ jobs:
           quartz/scripts/copy-ready.test.mjs
           quartz/scripts/render-copy-ready.test.mjs
           quartz/scripts/publication-assets.test.mjs
+          quartz/scripts/verify-publication-package.test.mjs
       - name: Verify Figure 8 publication contract
         run: npm run pdf:verify:figure8
       - name: Render and verify standalone article PDF
@@ -82,6 +83,10 @@ jobs:
         env:
           UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}
         run: npm run publication:bundle
+      - name: Verify complete publication package
+        env:
+          UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: npm run publication:verify-package
       - name: Upload complete publication package
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
