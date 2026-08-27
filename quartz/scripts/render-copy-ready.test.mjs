@@ -59,7 +59,7 @@ test("copy-ready document exposes one article-only copy surface", () => {
   assert.match(output, /data:image\/png;base64,AAAA/);
 });
 
-test("copy-ready document has no helper toolbar in manual select-all mode", () => {
+test("copy-ready document keeps toolbar outside copied article by removing helper toolbar entirely", () => {
   const source = '<!doctype html><html><head><style></style></head><body><main><p>Article</p></main></body></html>';
   const output = buildCopyReadyDocument(source);
   assert.doesNotMatch(output, /copy-ready-toolbar/);
