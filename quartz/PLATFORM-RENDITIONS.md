@@ -11,7 +11,10 @@ npm run publication:protect-links
 npm run publication:furniture
 npm run publication:copy-ready
 
-# or the complete platform sequence
+# after the standalone PDF exists, verify the complete distribution package
+npm run publication:verify-package
+
+# or generate the complete platform sequence
 npm run publication:bundle
 ```
 
@@ -75,7 +78,7 @@ For multiple distinct links in one heading, the deterministic representation is:
 **Sources:** <https://example.com/a> · <https://example.com/b>
 ```
 
-Links are emitted in encounter order and duplicate URLs inside one heading are collapsed. Ordinary body hyperlinks are never duplicated. The same mechanism runs for LinkedIn and Medium and is generic for future articles rather than hard-coded to the current ISO/NIST examples. Copy-ready HTML preserves the already-generated fallback instead of creating a second one.
+Links are emitted in encounter order and duplicate URLs inside one heading are collapsed. Ordinary body hyperlinks are never duplicated. The same mechanism runs for LinkedIn and Medium. Markdown headings are identified through the Remark AST rather than line regexes, so ATX and Setext headings, inline links, reference links, and inline HTML anchors are handled without rewriting fenced-code examples; generated HTML receives the equivalent protection. The mechanism is generic for future articles rather than hard-coded to the current ISO/NIST examples. Copy-ready HTML preserves the already-generated fallback instead of creating a second one.
 
 No adjacent image folder is required for the primary path. LinkedIn's article cover remains a separate upload, while the Medium copy-ready file includes the generated hero plus the nine article figures. Clipboard/image sanitization remains platform-dependent, so the generated PNG files and `article.md` placement guide remain the fallback if a platform drops an embedded image during paste.
 
@@ -98,6 +101,7 @@ locked dependency install
 → heading-link protection
 → publication furniture
 → self-contained copy-ready HTML
+→ final package verification (PDF, provenance, figures, furniture, fallbacks)
 → one uploaded artifact: thinking-systems-platform-renditions
 ```
 
@@ -105,7 +109,7 @@ The artifact therefore contains the standalone verified PDF, PDF manifest/visual
 
 ## Figure contract
 
-The renderer consumes the current `publication:assets` manifest rather than inventing its own figure filenames.
+The renderer consumes the current `publication:assets` manifest rather than inventing its own figure filenames. The final package verifier rejects any platform figure whose projected minimum label falls below the 12 px no-zoom publication floor; this gate applies to Figures 1–7 as well as the Figure 8 panels.
 
 - Figures 1–7 use the current reviewed publication asset for that logical figure.
 - Figure 3 therefore uses the post-PDF-review side-by-side, top-down publication rendition rather than returning to the older Mermaid presentation.

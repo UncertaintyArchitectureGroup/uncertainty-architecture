@@ -4,6 +4,9 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+
 import { repoRoot, sha256 } from "./publication-rendition.mjs";
 
 const renditionRoot = path.join(
@@ -13,9 +16,6 @@ const renditionRoot = path.join(
   "thinking-systems",
   "renditions",
 );
-
-const markdownLinkPattern = /\[[^\]]+\]\((https?:\/\/[^)\s]+)(?:\s+"[^"]*")?\)/gi;
-const htmlLinkPattern = /<a\s+[^>]*href="(https?:\/\/[^"]+)"[^>]*>[\s\S]*?<\/a>/gi;
 
 function unique(values) {
   const seen = new Set();
@@ -31,8 +31,7 @@ function sourceLabel(count) {
 }
 
 function markdownFallback(urls) {
-  const links = urls.map((url) => `<${url}>`).join(" · ");
-  return `**${sourceLabel(urls.length)}:** ${links}`;
+  return `**${sourceLabel(urls.length)}:** ${urls.map((url) => `<${url}>`).join(" · ")}`;
 }
 
 function htmlFallback(urls) {
@@ -42,42 +41,114 @@ function htmlFallback(urls) {
   return `<p class="heading-link-fallback"><strong>${sourceLabel(urls.length)}:</strong> ${links}</p>`;
 }
 
-export function protectMarkdownHeadingLinks(markdown) {
-  const lines = String(markdown).split(/\r?\n/);
-  const output = [];
-  let fallbackCount = 0;
+function walk(node, visitor) {
+  visitor(node);
+  if (!Array.isArray(node?.children)) return;
+  for (const child of node.children) walk(child, visitor);
+}
 
-  for (let index = 0; index < lines.length; index += 1) {
-    const line = lines[index];
-    output.push(line);
-    if (!/^#{1,6}\s+\S/.test(line)) continue;
+function collectDefinitions(tree) {
+  const definitions = new Map();
+  walk(tree, (node) => {
+    if (node?.type !== "definition") return;
+    const identifier = String(node.identifier || "").toLowerCase();
+    if (identifier && /^https?:\/\//i.test(String(node.url || ""))) {
+      definitions.set(identifier, String(node.url));
+    }
+  });
+  return definitions;
+}
 
-    const urls = unique([...line.matchAll(markdownLinkPattern)].map((match) => match[1]));
-    if (urls.length === 0) continue;
+function htmlAnchorUrls(value) {
+  const urls = [];
+  const pattern = /<a\b[^>]*\bhref\s*=\s*(["'])(https?:\/\/.*?)\1[^>]*>/gi;
+  for (const match of String(value || "").matchAll(pattern)) urls.push(match[2]);
+  return urls;
+}
 
+function headingUrls(node, definitions) {
+  const urls = [];
+  walk(node, (child) => {
+    if (child === node) return;
+    if (child?.type === "link" && /^https?:\/\//i.test(String(child.url || ""))) {
+      urls.push(String(child.url));
+    } else if (child?.type === "linkReference") {
+      const resolved = definitions.get(String(child.identifier || "").toLowerCase());
+      if (resolved) urls.push(resolved);
+    } else if (child?.type === "html") {
+      urls.push(...htmlAnchorUrls(child.value));
+    }
+  });
+  return unique(urls);
+}
+
+function parseMarkdown(markdown) {
+  return unified().use(remarkParse).parse(String(markdown));
+}
+
+export function inspectMarkdownHeadingLinks(markdown) {
+  const source = String(markdown);
+  const tree = parseMarkdown(source);
+  const definitions = collectDefinitions(tree);
+  const entries = [];
+  walk(tree, (node) => {
+    if (node?.type !== "heading") return;
+    const urls = headingUrls(node, definitions);
+    if (urls.length === 0) return;
+    const end = node.position?.end?.offset;
+    if (!Number.isInteger(end)) {
+      throw new Error("Linked Markdown heading is missing positional offsets");
+    }
     const fallback = markdownFallback(urls);
-    const following = lines[index + 1] === "" ? lines[index + 2] : lines[index + 1];
-    if (following === fallback) continue;
+    const tail = source.slice(end);
+    const protectedAlready = new RegExp(
+      `^\\r?\\n\\r?\\n${fallback.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}(?:\\r?\\n|$)`,
+    ).test(tail);
+    entries.push({ depth: node.depth, urls, end, fallback, protected: protectedAlready });
+  });
+  return entries;
+}
 
-    output.push("", fallback);
-    fallbackCount += urls.length;
+export function protectMarkdownHeadingLinks(markdown) {
+  const source = String(markdown);
+  const entries = inspectMarkdownHeadingLinks(source);
+  const insertions = entries
+    .filter((entry) => !entry.protected)
+    .map((entry) => ({ offset: entry.end, text: `\n\n${entry.fallback}` }))
+    .sort((left, right) => right.offset - left.offset);
+  let output = source;
+  for (const insertion of insertions) {
+    output = `${output.slice(0, insertion.offset)}${insertion.text}${output.slice(insertion.offset)}`;
   }
-
-  return { markdown: output.join("\n"), fallbackCount };
+  return {
+    markdown: output,
+    fallbackCount: entries
+      .filter((entry) => !entry.protected)
+      .reduce((sum, entry) => sum + entry.urls.length, 0),
+    totalProtectedUrls: entries.reduce((sum, entry) => sum + entry.urls.length, 0),
+  };
 }
 
 export function protectHtmlHeadingLinks(html) {
   let fallbackCount = 0;
+  let protectedUrlCount = 0;
   const output = String(html).replace(
-    /<(h[1-6])([^>]*)>([\s\S]*?)<\/\1>(?!<p class="heading-link-fallback">)/gi,
-    (full, tag, attributes, inner) => {
-      const urls = unique([...inner.matchAll(htmlLinkPattern)].map((match) => match[1]));
+    /<(h[1-6])([^>]*)>([\s\S]*?)<\/\1>/gi,
+    (full, tag, attributes, inner, offset, whole) => {
+      const urls = unique(
+        [...inner.matchAll(/<a\s+[^>]*href\s*=\s*(["'])(https?:\/\/.*?)\1[^>]*>[\s\S]*?<\/a>/gi)].map(
+          (match) => match[2],
+        ),
+      );
       if (urls.length === 0) return full;
+      protectedUrlCount += urls.length;
+      const following = whole.slice(offset + full.length);
+      if (/^\s*<p class="heading-link-fallback">/i.test(following)) return full;
       fallbackCount += urls.length;
       return `${full}${htmlFallback(urls)}`;
     },
   );
-  return { html: output, fallbackCount };
+  return { html: output, fallbackCount, totalProtectedUrls: protectedUrlCount };
 }
 
 export function countProtectedHeadingLinks(html) {
@@ -94,17 +165,22 @@ async function protectPlatform(platform) {
   const protectedMarkdown = protectMarkdownHeadingLinks(markdown);
   const protectedHtml = protectHtmlHeadingLinks(html);
 
-  if (protectedMarkdown.fallbackCount !== protectedHtml.fallbackCount) {
+  if (protectedMarkdown.totalProtectedUrls !== protectedHtml.totalProtectedUrls) {
     throw new Error(
-      `${platform} Markdown/HTML heading-link protection diverged: ${protectedMarkdown.fallbackCount} vs ${protectedHtml.fallbackCount}`,
+      `${platform} Markdown/HTML linked-heading URL inventory diverged: ${protectedMarkdown.totalProtectedUrls} vs ${protectedHtml.totalProtectedUrls}`,
     );
+  }
+
+  const markdownInventory = inspectMarkdownHeadingLinks(protectedMarkdown.markdown);
+  if (markdownInventory.some((entry) => !entry.protected)) {
+    throw new Error(`${platform} Markdown still contains an unprotected linked heading`);
   }
 
   await writeFile(markdownPath, protectedMarkdown.markdown, "utf8");
   await writeFile(htmlPath, protectedHtml.html, "utf8");
 
   return {
-    count: protectedHtml.fallbackCount,
+    count: protectedMarkdown.totalProtectedUrls,
     markdownSha256: sha256(Buffer.from(protectedMarkdown.markdown)),
     htmlSha256: sha256(Buffer.from(protectedHtml.html)),
   };
@@ -123,7 +199,8 @@ async function main() {
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   manifest.heading_link_protection = {
     mechanism: "visible-source-line-after-linked-heading",
-    applies_to: "h1-h6",
+    parser: "remark-ast",
+    applies_to: "markdown-heading-nodes-and-generated-h1-h6",
     body_links_duplicated: false,
     deterministic_multiple_links: true,
     linkedin_fallback_urls: linkedin.count,

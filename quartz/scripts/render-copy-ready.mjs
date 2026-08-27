@@ -13,9 +13,6 @@ const publicationRoot = path.join(
 );
 const renditionRoot = path.join(publicationRoot, "renditions");
 const pngDataUriPrefix = "data:image/png;base64";
-// Legacy repository-contract compatibility markers retained until the policy
-// contract is revised separately; generated HTML no longer exposes "Copy article"
-// controls and no longer relies on "best-effort-platform-dependent" clipboard APIs.
 
 function isInside(root, candidate) {
   const relative = path.relative(root, candidate);
