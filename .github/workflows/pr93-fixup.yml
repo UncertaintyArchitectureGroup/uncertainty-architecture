@@ -1,5 +1,6 @@
 name: PR93 one-shot substantive fixup
 
+# One-shot branch maintenance workflow; removes itself after a successful fixup.
 on:
   push:
     branches:
