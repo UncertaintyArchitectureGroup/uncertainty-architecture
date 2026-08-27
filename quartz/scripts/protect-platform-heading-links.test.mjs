@@ -1,10 +1,14 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
 
 import {
   protectHtmlHeadingLinks,
   protectMarkdownHeadingLinks,
 } from "./protect-platform-heading-links.mjs";
+import { convertMarkdownTables } from "./render-platform-renditions.mjs";
+import { currentArticleSource, repoRoot } from "./publication-rendition.mjs";
 
 test("one linked Markdown heading receives one visible source line", () => {
   const result = protectMarkdownHeadingLinks(
@@ -76,4 +80,17 @@ test("protection is idempotent for already protected headings", () => {
   const htmlTwice = protectHtmlHeadingLinks(htmlOnce.html);
   assert.equal(htmlTwice.fallbackCount, 0);
   assert.equal(htmlTwice.html, htmlOnce.html);
+});
+
+test("current adapted article yields exactly the two reviewed linked headings after platform table expansion", async () => {
+  const raw = await readFile(path.join(repoRoot, currentArticleSource), "utf8");
+  const expanded = convertMarkdownTables(raw);
+  const linkedHeadings = expanded
+    .split(/\r?\n/)
+    .filter((line) => /^#{1,6}\s+.*\]\(https?:\/\//.test(line));
+
+  assert.deepEqual(linkedHeadings, [
+    "### **[AI-based system (ISO/IEC TR 29119-11)](https://www.iso.org/standard/79016.html)**",
+    "### **[AI system (NIST AI RMF)](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10)**",
+  ]);
 });
