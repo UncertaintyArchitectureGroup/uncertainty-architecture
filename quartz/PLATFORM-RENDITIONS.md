@@ -54,7 +54,11 @@ dist/publication/thinking-systems/
 
 `article.html` is the normal rich review surface with local image references. `article.md` is the explicit image-placement and alt-text guide. `article.txt` is a plain-text fallback.
 
-`copy-ready.html` is a **single self-contained local file** intended for the fastest manual publication path. The generator embeds the article PNGs as `data:` URIs, removes the internal upload-file labels and generated provenance from the copied article surface, and adds a **Copy article** control. Open the one HTML file in a browser and copy from there; no adjacent image folder is required for the primary path. LinkedIn's article cover remains a separate upload, while the Medium copy-ready file includes the generated hero plus the nine article figures. Clipboard/image sanitization remains platform-dependent, so the generated PNG files and `article.md` placement guide remain the fallback if a platform drops an embedded image during paste.
+`copy-ready.html` is a **single self-contained local file** intended for the fastest manual publication path. The generator embeds the article PNGs as `data:` URIs and removes the internal upload-file labels and generated provenance. The supported interaction is deliberately simple: open the one HTML file, use **Select All → Copy**, and paste into the native LinkedIn or Medium editor. No JavaScript copy/select controls are emitted because local-file clipboard and scripted-selection behavior is not reliable across iPadOS and other browsers.
+
+LinkedIn and Medium can also drop hyperlinks when the hyperlink is attached directly to a heading during rich-text paste. To make this failure visible and recoverable, the copy-ready postprocessor scans every `h1`–`h6`; when a heading contains an HTTP(S) hyperlink, it emits the same URL as a separate visible linked line immediately below that heading. This is a generic copy/paste compatibility transform and is not specific to the current ISO/NIST examples or to this article.
+
+No adjacent image folder is required for the primary path. LinkedIn's article cover remains a separate upload, while the Medium copy-ready file includes the generated hero plus the nine article figures. Clipboard/image sanitization remains platform-dependent, so the generated PNG files and `article.md` placement guide remain the fallback if a platform drops an embedded image during paste.
 
 The local publication asset tree keeps SVG masters for Quartz/PDF/website reuse, but the GitHub **platform rendition artifact intentionally excludes SVG**. Medium and LinkedIn upload packages contain opaque white-background PNG figures only. Mermaid figures are rasterized in Chromium rather than through librsvg/Sharp because Mermaid HTML labels live in SVG `foreignObject` nodes that non-browser rasterizers may silently drop.
 
@@ -83,7 +87,7 @@ The package is strict about source provenance. The article source must match the
 - explicit `publication_state: candidate` / `publication_ready: false` semantics for this editable-source generator;
 - principal `canonical_url` and `additional_publication_urls` when already recorded;
 - the required LinkedIn article-URL binding state for the launch post;
-- copy-ready state, embedded-image counts, and the fact that clipboard behavior is best-effort/platform-dependent.
+- copy-ready state, embedded-image counts, manual select-all/copy behavior, and heading-link fallback counts.
 
 This generator deliberately targets the editable publication draft under `content/research/notes/`, so it never claims that its output is already a frozen publication edition. Generate and review the candidate package, publish the approved external rendition, then immediately preserve the exact published content under `content/research/publications/`, record the principal canonical URL plus equivalent platform URLs and immutable source identity, and only then begin feedback-driven revision.
 
