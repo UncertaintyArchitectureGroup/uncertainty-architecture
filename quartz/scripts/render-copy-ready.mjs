@@ -70,7 +70,7 @@ export function appendHeadingLinkFallbacks(html) {
   let fallbacks = 0;
   const output = html.replace(
     headingPattern,
-    (full, tag, attributes, inner) => {
+    (full, tag, attributes, inner, offset, whole) => {
       const links = [];
       const seen = new Set();
       const linkPattern = /<a\s+[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/gi;
@@ -81,6 +81,13 @@ export function appendHeadingLinkFallbacks(html) {
         links.push(target);
       }
       if (links.length === 0) return full;
+
+      const following = whole.slice(offset + full.length);
+      if (/^<p class="heading-link-fallback">/i.test(following)) {
+        fallbacks += links.length;
+        return full;
+      }
+
       fallbacks += links.length;
       const visibleLinks = links
         .map(
@@ -145,7 +152,7 @@ async function main() {
   const medium = await writeCopyReady("medium");
   const linkedin = await writeCopyReady("linkedin");
 
-  const readme = `# Copy-ready platform articles\n\nOpen the platform-specific \`copy-ready.html\` locally in a browser, use **Select All**, then **Copy**, and paste into the native LinkedIn or Medium editor. The copy-ready page intentionally has no JavaScript copy controls because local-file clipboard APIs are not reliable across iPadOS and other browsers.\n\nThe HTML is self-contained: inline article images are embedded as data URIs, so no image folder is required for the primary copy/paste path. Hyperlinks inside headings receive an additional visible URL immediately below the heading because LinkedIn and Medium may drop heading hyperlinks during rich-text paste.\n\n- LinkedIn: \`linkedin/copy-ready.html\` embeds ${linkedin.embedded} article figures and materializes ${linkedin.headingLinkFallbacks} heading-link fallbacks. The LinkedIn cover remains a separate platform upload.\n- Medium: \`medium/copy-ready.html\` embeds the hero plus ${medium.embedded - 1} article figures and materializes ${medium.headingLinkFallbacks} heading-link fallbacks.\n- Keep the generated PNG files as fallback because LinkedIn or Medium may sanitize embedded images during paste. If an image is dropped, use the normal \`article.md\` placement guide and upload the matching PNG.\n\nThis convenience artifact is a distribution rendition only; canonical content remains the repository Markdown source.\n`;
+  const readme = `# Copy-ready platform articles\n\nOpen the platform-specific \`copy-ready.html\` locally in a browser, use **Select All**, then **Copy**, and paste into the native LinkedIn or Medium editor. The copy-ready page intentionally has no JavaScript copy controls because local-file clipboard APIs are not reliable across iPadOS and other browsers.\n\nThe HTML is self-contained: inline article images are embedded as data URIs, so no image folder is required for the primary copy/paste path. Hyperlinks inside headings receive an additional visible URL immediately below the heading because LinkedIn and Medium may drop heading hyperlinks during rich-text paste.\n\n- LinkedIn: \`linkedin/copy-ready.html\` embeds ${linkedin.embedded} article figures and preserves ${linkedin.headingLinkFallbacks} heading-link fallback URL(s). The LinkedIn cover remains a separate platform upload.\n- Medium: \`medium/copy-ready.html\` embeds the hero plus ${medium.embedded - 1} article figures and preserves ${medium.headingLinkFallbacks} heading-link fallback URL(s).\n- Keep the generated PNG files as fallback because LinkedIn or Medium may sanitize embedded images during paste. If an image is dropped, use the normal \`article.md\` placement guide and upload the matching PNG.\n\nThis convenience artifact is a distribution rendition only; canonical content remains the repository Markdown source.\n`;
   const readmePath = path.join(renditionRoot, "copy-ready-readme.md");
   await writeFile(readmePath, readme, "utf8");
 
@@ -168,8 +175,8 @@ async function main() {
   manifest.outputs["copy-ready-readme.md"] = sha256(Buffer.from(readme));
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 
-  console.log(`Copy-ready LinkedIn HTML: ${path.relative(repoRoot, linkedin.target)} (${linkedin.embedded} embedded images, ${linkedin.headingLinkFallbacks} heading-link fallbacks)`);
-  console.log(`Copy-ready Medium HTML: ${path.relative(repoRoot, medium.target)} (${medium.embedded} embedded images, ${medium.headingLinkFallbacks} heading-link fallbacks)`);
+  console.log(`Copy-ready LinkedIn HTML: ${path.relative(repoRoot, linkedin.target)} (${linkedin.embedded} embedded images, ${linkedin.headingLinkFallbacks} heading-link fallback URLs)`);
+  console.log(`Copy-ready Medium HTML: ${path.relative(repoRoot, medium.target)} (${medium.embedded} embedded images, ${medium.headingLinkFallbacks} heading-link fallback URLs)`);
 }
 
 const isEntryPoint =
