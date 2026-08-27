@@ -1,0 +1,35 @@
+name: PR93 one-shot substantive fixup
+
+on:
+  push:
+    branches:
+      - publishing/linkedin-medium-renditions
+    paths:
+      - ".github/workflows/pr93-fixup.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fixup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out PR branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: publishing/linkedin-medium-renditions
+          fetch-depth: 0
+      - name: Merge current main and apply substantive fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git merge --no-edit origin/main
+          python3 .github/scripts/pr93_fixup.py
+          rm .github/scripts/pr93_fixup.py .github/workflows/pr93-fixup.yml
+          git add -A
+          git commit -m "fix: harden Thinking Systems publication package"
+          git push origin HEAD:publishing/linkedin-medium-renditions
