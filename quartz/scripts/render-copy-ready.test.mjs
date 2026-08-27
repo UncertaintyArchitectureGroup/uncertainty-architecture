@@ -29,13 +29,17 @@ test("copy-ready HTML embeds local images as data URIs", async () => {
   }
 });
 
-test("copy-ready document exposes one article-only copy surface", () => {
+test("copy-ready document exposes automatic copy and persistent selection fallback", () => {
   const source = `<!doctype html><html><head><style>body{color:black}</style></head><body><main><h1>Thinking Systems</h1><figure><img src="data:image/png;base64,AAAA"/><figcaption><strong>Upload file:</strong> figure-1.png</figcaption></figure><p>Body</p><p class="provenance">Generated from source commit abc</p></main></body></html>`;
   const output = buildCopyReadyDocument(source, "linkedin");
   assert.match(output, /id="copy-surface"/);
   assert.match(output, /id="copy-article"/);
+  assert.match(output, /id="select-article"/);
   assert.match(output, /navigator\.clipboard/);
-  assert.match(output, /document\.execCommand\('copy'\)/);
+  assert.match(output, /function selectArticle/);
+  assert.match(output, /Article selected — tap Copy in the system menu/);
+  assert.doesNotMatch(output, /document\.execCommand\('copy'\)/);
+  assert.doesNotMatch(output, /selection\.removeAllRanges\(\);\s*status\.textContent='Copied'/);
   assert.doesNotMatch(output, /Upload file:/);
   assert.doesNotMatch(output, /class="provenance"/);
   assert.match(output, /data:image\/png;base64,AAAA/);
@@ -48,4 +52,6 @@ test("copy-ready document keeps toolbar outside copied article", () => {
   const surfaceIndex = output.indexOf('id="copy-surface"');
   assert.ok(toolbarIndex >= 0 && surfaceIndex > toolbarIndex);
   assert.match(output, /Medium copy-ready article/);
+  assert.match(output, /Select article/);
+  assert.match(output, /On iPad or when browser clipboard access is blocked/);
 });
