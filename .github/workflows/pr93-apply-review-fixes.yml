@@ -40,16 +40,25 @@ jobs:
 
           path = Path('.github/scripts/pr93_apply_review_fixes.py')
           text = path.read_text(encoding='utf-8')
-          old = 'critical["content/research/notes/thinking-systems-linkedin-launch-post.md"]["required_text"] = ['
-          new = '''launch_rule_path = "content/research/notes/thinking-systems-linkedin-launch-post.md"
+
+          launch_old = 'critical["content/research/notes/thinking-systems-linkedin-launch-post.md"]["required_text"] = ['
+          launch_new = '''launch_rule_path = "content/research/notes/thinking-systems-linkedin-launch-post.md"
           if launch_rule_path not in critical:
               launch_rule = {"path": launch_rule_path, "required_text": []}
               contract["critical_files"].append(launch_rule)
               critical[launch_rule_path] = launch_rule
           critical[launch_rule_path]["required_text"] = ['''
-          if text.count(old) != 1:
-              raise SystemExit(f'expected one launch-post contract marker, found {text.count(old)}')
-          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          if text.count(launch_old) != 1:
+              raise SystemExit(f'expected one launch-post contract marker, found {text.count(launch_old)}')
+          text = text.replace(launch_old, launch_new, 1)
+
+          subn_old = 'rendition, count = pattern.subn(new_checklist + "\\n\\nasync function main()", rendition, count=1)'
+          subn_new = 'rendition, count = pattern.subn(lambda _match: new_checklist + "\\n\\nasync function main()", rendition, count=1)'
+          if text.count(subn_old) != 1:
+              raise SystemExit(f'expected one checklist substitution marker, found {text.count(subn_old)}')
+          text = text.replace(subn_old, subn_new, 1)
+
+          path.write_text(text, encoding='utf-8')
           PY
           python3 .github/scripts/pr93_apply_review_fixes.py
           node --check quartz/scripts/render-platform-renditions.mjs
