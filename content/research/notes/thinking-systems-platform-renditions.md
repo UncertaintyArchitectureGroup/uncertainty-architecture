@@ -16,7 +16,7 @@ tags:
   - ua/topic/provenance
   - ua/topic/repository-architecture
 created: 2026-08-21
-updated: 2026-08-27
+updated: 2026-08-28
 language: en
 license: CC-BY-4.0
 draft: true
@@ -36,7 +36,7 @@ This note defines the distribution boundary for Medium and LinkedIn renditions o
 
 The editable content source remains [`thinking-systems-publication-draft.md`](thinking-systems-publication-draft.md) until an actual publication decision freezes an exact content edition under [`../publications/`](../publications/). Medium and LinkedIn outputs may change formatting, image placement, table presentation, cover metadata, platform notes, SEO fields, the launch post, and copy/paste convenience packaging. They must not silently change definitions, decision ownership, maturity caveats, attribution, or the Figure 8 relationships.
 
-The machine profile lives at [`../../../quartz/publication/thinking-systems.platforms.json`](../../../quartz/publication/thinking-systems.platforms.json). Generated files remain under `dist/publication/thinking-systems/` and are not committed.
+The machine profile lives at [`../../../quartz/publication/thinking-systems.platforms.json`](../../../quartz/publication/thinking-systems.platforms.json). Generated rendition files remain under `dist/publication/thinking-systems/` and are not committed. A bounded set of generated PNGs is additionally materialized under `thinking-systems-platform-assets/` solely so Medium copy/paste can reference ordinary immutable HTTPS image URLs; those files are distribution assets, not conceptual sources.
 
 ## Generated package
 
@@ -47,22 +47,22 @@ canonical article Markdown
 → absolute durable links
 → Medium article package
 → LinkedIn article package
-→ self-contained copy-ready HTML for each platform
+→ platform-specific copy-ready HTML
 → LinkedIn launch post
 → provenance and readiness manifest
 ```
 
-`npm run publication:bundle` generates the reviewed assets, the normal Medium/LinkedIn renditions, and the self-contained copy-ready HTML in one pipeline run.
+`npm run publication:bundle` generates the reviewed assets, the normal Medium/LinkedIn renditions, and the platform-specific copy-ready HTML in one pipeline run.
 
-The generated package contains normal review HTML, copy-ready self-contained HTML, Markdown, and plain-text versions; image upload placeholders; curated alt text; SEO metadata; canonical-link guidance; and platform-specific publishing checklists.
+The generated package contains normal review HTML, copy-ready HTML, Markdown, and plain-text versions; image upload placeholders; curated alt text; SEO metadata; canonical-link guidance; and platform-specific publishing checklists.
 
-The `copy-ready.html` files are distribution conveniences only. They embed the already reviewed platform PNGs as inline `data:` URIs so the operator can download and open one HTML file without keeping a neighboring image folder. The supported copy path is deliberately manual: **Select All → Copy → Paste**. Scripted local-file copy/select controls are not part of the contract because they are unreliable on iPadOS and can vary by browser.
+The `copy-ready.html` files are distribution conveniences only. The supported copy path is deliberately manual: **Select All → Copy → Paste**. Scripted local-file copy/select controls are not part of the contract because they are unreliable on iPadOS and can vary by browser.
+
+Image transport is intentionally platform-specific. LinkedIn copy-ready HTML embeds the nine article figures as inline `data:` URIs because that paste path preserves them in current testing; the LinkedIn cover remains a separate native upload. Medium strips that representation in practice, so Medium copy-ready HTML instead uses normal HTTPS image sources pinned to the immutable commit containing the matching materialized hero and nine figure PNGs under `thinking-systems-platform-assets/`. Generation byte-compares those committed assets against the current generated PNGs and fails if they are stale. This keeps the one-step Medium paste path without making the materialized images a second source of article meaning.
 
 A second copy/paste compatibility rule applies to linked headings. LinkedIn and Medium may preserve heading formatting but drop a hyperlink attached directly to that heading. An upstream platform transform identifies Markdown heading nodes through the Remark AST and, whenever an HTTP(S) hyperlink occurs inside a heading, emits the same URL as a separate visible linked line immediately below it before normal HTML and copy-ready packaging. The copy-ready renderer preserves that protection rather than owning a second heading parser. This rule applies generically to future platform renditions; it is not a hard-coded fix for the current ISO/IEC TR 29119-11 and NIST AI RMF examples.
 
-The complete-package verifier also enforces a 12 px projected no-zoom label floor across every generated platform figure before the artifact is accepted. The LinkedIn cover remains a separate platform upload. The Medium copy-ready rendition includes the generated hero together with all article figures. Because native editors may sanitize clipboard images, the normal PNG bundle and Markdown image-placement guide remain the fallback path.
-
-Figure 3 uses the current reviewed publication comparison and must preserve the canonical distinction between Explicitly Authored Software and the motivating runtime-judgment class; the broader Thinking-System boundary remains a research question where the canonical article leaves it open. Figure 8A and Figure 8B remain two presentation panels of one logical canonical Figure 8 and must travel together with the complete canonical caption. Copy-ready generation only embeds those reviewed assets; it does not regenerate or reinterpret figure semantics.
+Figure 3 uses the current reviewed publication comparison and must preserve the canonical distinction between Explicitly Authored Software and the motivating runtime-judgment class; the broader Thinking-System boundary remains a research question where the canonical article leaves it open. Figure 8A and Figure 8B remain two presentation panels of one logical canonical Figure 8 and must travel together with the complete canonical caption. Platform rendition generation substitutes reviewed image assets but does not change the canonical figure layout or reinterpret figure semantics.
 
 ## Publication boundary
 
