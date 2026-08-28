@@ -28,6 +28,12 @@ The machine-readable block below is validated against the actual git diff. Keep 
 - [ ] The machine-readable change contract matches the actual diff.
 - [ ] The PR description matches the actual diff and remaining review state.
 
+## Agent iteration checkpoint
+
+For AI-assisted PR work, update `ua-agent-checkpoint` after every new PR head. The checkpoint is intentionally bound to the exact head SHA and the exact blob SHA of every `AGENTS.md` file applicable to the current diff. Before updating it, re-read those instructions, the full current diff, this PR description, available maintainer corrective feedback, and the end-of-session integrity protocol. Editing the PR body does not create a new head, so it can acknowledge the completed recheck without another code commit.
+
+Dependabot PRs are excluded from this checkpoint because Dependabot cannot maintain the attestation block itself; normal maintainer review and the other repository controls still apply.
+
 ## Uncertainty and remaining review
 
 <!-- State assumptions, unresolved questions, unavailable evidence, and whether this PR should remain Draft. -->
@@ -45,5 +51,23 @@ The machine-readable block below is validated against the actual git diff. Keep 
   "glossary": "select-one",
   "roadmap": "select-one",
   "traceability": "select-one"
+}
+-->
+
+<!-- ua-agent-checkpoint
+{
+  "checkpoint_version": 1,
+  "reviewed_head_sha": "replace-with-current-40-character-head-sha",
+  "applicable_agents": [
+    {
+      "path": "AGENTS.md",
+      "blob_sha": "replace-with-current-40-character-blob-sha"
+    }
+  ],
+  "diff_recheck": "completed",
+  "pr_description_recheck": "completed",
+  "corrective_feedback_review": "completed",
+  "feedback_disposition": "none",
+  "completion_recheck": "completed"
 }
 -->
