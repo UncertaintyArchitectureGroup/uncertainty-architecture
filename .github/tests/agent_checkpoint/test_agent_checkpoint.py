@@ -253,13 +253,52 @@ def main() -> int:
             failures,
         )
 
+        run(root, "git", "mv", "content/research/note.md", "moved-note.md")
+        rename_head = commit(root, "move note out of research")
+        rename_records = validator.applicable_agent_records(root, nested_head, rename_head)
+        if not any(item["path"] == "content/research/AGENTS.md" for item in rename_records):
+            failures.append("rename out of nested scope: old research AGENTS scope was not retained")
+        else:
+            print("PASS: rename retains old nested AGENTS scope")
+        expect_valid(
+            validator,
+            root,
+            nested_head,
+            rename_head,
+            body_for(validator, root, nested_head, rename_head),
+            "rename checkpoint with old scope passes",
+            failures,
+        )
+
+        research_base_blob = validator.blob_sha_at(root, rename_head, "content/research/AGENTS.md")
+        (root / "content/research/AGENTS.md").unlink()
+        deleted_agent_head = commit(root, "delete nested agent guidance")
+        deleted_records = validator.applicable_agent_records(root, rename_head, deleted_agent_head)
+        deleted_record = next(
+            (item for item in deleted_records if item["path"] == "content/research/AGENTS.md"),
+            None,
+        )
+        if deleted_record is None or deleted_record["blob_sha"] != research_base_blob:
+            failures.append("deleted nested AGENTS: expected the governing base blob to remain applicable")
+        else:
+            print("PASS: deleted nested AGENTS uses governing base blob")
+        expect_valid(
+            validator,
+            root,
+            rename_head,
+            deleted_agent_head,
+            body_for(validator, root, rename_head, deleted_agent_head),
+            "deleted nested AGENTS checkpoint passes with base guidance",
+            failures,
+        )
+
     if failures:
         print("Agent checkpoint self-tests failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
 
-    print("Agent checkpoint self-tests passed: 10 regression fixtures.")
+    print("Agent checkpoint self-tests passed: 12 regression fixtures.")
     return 0
 
 
