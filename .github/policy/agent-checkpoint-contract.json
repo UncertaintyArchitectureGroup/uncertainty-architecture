@@ -5,7 +5,9 @@
   "checkpoint_version": 1,
   "required_fields": [
     "checkpoint_version",
+    "reviewed_base_sha",
     "reviewed_head_sha",
+    "reviewed_pr_body_sha256",
     "applicable_agents",
     "diff_recheck",
     "pr_description_recheck",
