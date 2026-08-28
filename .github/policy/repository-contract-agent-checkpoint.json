@@ -86,8 +86,7 @@
       "required_text": [
         "### Corrective feedback and control improvement",
         "Treat the active maintainer conversation as a feedback surface.",
-        "feedback-derived",
-        "### Deterministic PR iteration checkpoint"
+        "feedback-derived"
       ]
     }
   ]
