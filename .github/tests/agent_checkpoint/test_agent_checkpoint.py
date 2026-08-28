@@ -7,7 +7,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_PATH = REPOSITORY_ROOT / ".github/scripts/validate_agent_checkpoint.py"
@@ -63,14 +63,28 @@ def render_checkpoint(data: Dict[str, object]) -> str:
     return "<!-- ua-agent-checkpoint\n{}\n-->".format(json.dumps(data, indent=2))
 
 
-def body_for(validator, root: Path, base: str, head: str, **overrides) -> str:
+def body_for(
+    validator,
+    root: Path,
+    base: str,
+    head: str,
+    base_tip: Optional[str] = None,
+    merge: Optional[str] = None,
+    **overrides,
+) -> str:
+    base_tip = base_tip or base
+    merge = merge or head
     prefix = "## Summary\n\nfixture PR description\n\n"
     data: Dict[str, object] = {
         "checkpoint_version": 1,
         "reviewed_base_sha": base,
+        "reviewed_base_tip_sha": base_tip,
         "reviewed_head_sha": head,
+        "reviewed_merge_sha": merge,
         "reviewed_pr_body_sha256": "0" * 64,
-        "applicable_agents": validator.applicable_agent_records(root, base, head),
+        "applicable_agents": validator.applicable_agent_records(
+            root, base, base_tip, head, merge
+        ),
         "diff_recheck": "completed",
         "pr_description_recheck": "completed",
         "corrective_feedback_review": "completed",
@@ -89,16 +103,45 @@ def messages(findings) -> List[str]:
     return [item.message for item in findings]
 
 
-def expect_valid(validator, root: Path, base: str, head: str, body: str, name: str, failures: List[str]) -> None:
-    findings = validator.validate(root, CONTRACT_PATH, base, head, body)
+def expect_valid(
+    validator,
+    root: Path,
+    base: str,
+    head: str,
+    body: str,
+    name: str,
+    failures: List[str],
+    base_tip: Optional[str] = None,
+    merge: Optional[str] = None,
+) -> None:
+    base_tip = base_tip or base
+    merge = merge or head
+    findings = validator.validate(
+        root, CONTRACT_PATH, base, base_tip, head, merge, body
+    )
     if findings:
         failures.append("{}: expected success, got {}".format(name, messages(findings)))
     else:
         print("PASS: {}".format(name))
 
 
-def expect_error(validator, root: Path, base: str, head: str, body: str, needle: str, name: str, failures: List[str]) -> None:
-    findings = validator.validate(root, CONTRACT_PATH, base, head, body)
+def expect_error(
+    validator,
+    root: Path,
+    base: str,
+    head: str,
+    body: str,
+    needle: str,
+    name: str,
+    failures: List[str],
+    base_tip: Optional[str] = None,
+    merge: Optional[str] = None,
+) -> None:
+    base_tip = base_tip or base
+    merge = merge or head
+    findings = validator.validate(
+        root, CONTRACT_PATH, base, base_tip, head, merge, body
+    )
     if not any(needle in item.message for item in findings):
         failures.append("{}: expected error containing {!r}, got {}".format(name, needle, messages(findings)))
     else:
@@ -125,171 +168,181 @@ def main() -> int:
 
         stale_head = body_for(validator, root, base, root_head, reviewed_head_sha=base)
         expect_error(
-            validator,
-            root,
-            base,
-            root_head,
-            stale_head,
-            "reviewed_head_sha",
-            "stale head is rejected",
-            failures,
+            validator, root, base, root_head, stale_head,
+            "reviewed_head_sha", "stale head is rejected", failures,
         )
 
         stale_base = body_for(validator, root, base, root_head, reviewed_base_sha=root_head)
         expect_error(
-            validator,
-            root,
-            base,
-            root_head,
-            stale_base,
-            "reviewed_base_sha",
-            "stale base is rejected",
-            failures,
+            validator, root, base, root_head, stale_base,
+            "reviewed_base_sha", "stale diff base is rejected", failures,
         )
 
-        edited_description = valid_root.replace("fixture PR description", "description edited after checkpoint", 1)
+        stale_base_tip = body_for(
+            validator, root, base, root_head, reviewed_base_tip_sha=root_head
+        )
         expect_error(
-            validator,
-            root,
-            base,
-            root_head,
-            edited_description,
-            "reviewed_pr_body_sha256",
-            "PR description edit invalidates checkpoint",
-            failures,
+            validator, root, base, root_head, stale_base_tip,
+            "reviewed_base_tip_sha", "stale current base tip is rejected", failures,
+        )
+
+        stale_merge = body_for(
+            validator, root, base, root_head, reviewed_merge_sha=base
+        )
+        expect_error(
+            validator, root, base, root_head, stale_merge,
+            "reviewed_merge_sha", "stale merge result is rejected", failures,
+        )
+
+        edited_description = valid_root.replace(
+            "fixture PR description", "description edited after checkpoint", 1
+        )
+        expect_error(
+            validator, root, base, root_head, edited_description,
+            "reviewed_pr_body_sha256", "PR description edit invalidates checkpoint", failures,
         )
 
         expect_error(
-            validator,
-            root,
-            base,
-            root_head,
+            validator, root, base, root_head,
             "## Summary\n\nmissing checkpoint\n",
-            "exactly one ua-agent-checkpoint",
-            "missing checkpoint is rejected",
-            failures,
+            "exactly one ua-agent-checkpoint", "missing checkpoint is rejected", failures,
         )
 
         write(root, "content/research/note.md", "changed research note\n")
         nested_head = commit(root, "nested change")
         nested_valid = body_for(validator, root, base, nested_head)
         expect_valid(
-            validator,
-            root,
-            base,
-            nested_head,
-            nested_valid,
-            "nested AGENTS scope checkpoint passes",
-            failures,
+            validator, root, base, nested_head, nested_valid,
+            "nested AGENTS scope checkpoint passes", failures,
         )
 
-        root_only_records = [validator.applicable_agent_records(root, base, nested_head)[0]]
+        root_only_records = [
+            validator.applicable_agent_records(
+                root, base, base, nested_head, nested_head
+            )[0]
+        ]
         missing_nested = body_for(
-            validator,
-            root,
-            base,
-            nested_head,
+            validator, root, base, nested_head,
             applicable_agents=root_only_records,
         )
         expect_error(
-            validator,
-            root,
-            base,
-            nested_head,
-            missing_nested,
+            validator, root, base, nested_head, missing_nested,
             "applicable_agents does not match",
-            "missing nested AGENTS attestation is rejected",
-            failures,
+            "missing nested AGENTS attestation is rejected", failures,
         )
 
-        records = validator.applicable_agent_records(root, base, nested_head)
+        records = validator.applicable_agent_records(
+            root, base, base, nested_head, nested_head
+        )
         bad_records = [dict(item) for item in records]
         bad_records[-1]["blob_sha"] = "0" * 40
         stale_rules = body_for(
-            validator,
-            root,
-            base,
-            nested_head,
+            validator, root, base, nested_head,
             applicable_agents=bad_records,
         )
         expect_error(
-            validator,
-            root,
-            base,
-            nested_head,
-            stale_rules,
-            "applicable_agents does not match",
-            "stale AGENTS blob is rejected",
-            failures,
+            validator, root, base, nested_head, stale_rules,
+            "applicable_agents does not match", "stale AGENTS blob is rejected", failures,
         )
 
         bad_status = body_for(
-            validator,
-            root,
-            base,
-            nested_head,
+            validator, root, base, nested_head,
             completion_recheck="pending",
         )
         expect_error(
-            validator,
-            root,
-            base,
-            nested_head,
-            bad_status,
-            "completion_recheck",
-            "incomplete checkpoint state is rejected",
-            failures,
+            validator, root, base, nested_head, bad_status,
+            "completion_recheck", "incomplete checkpoint state is rejected", failures,
         )
 
         duplicate = nested_valid + "\n" + nested_valid
         expect_error(
-            validator,
-            root,
-            base,
-            nested_head,
-            duplicate,
-            "exactly one ua-agent-checkpoint",
-            "duplicate checkpoint is rejected",
-            failures,
+            validator, root, base, nested_head, duplicate,
+            "exactly one ua-agent-checkpoint", "duplicate checkpoint is rejected", failures,
         )
 
         run(root, "git", "mv", "content/research/note.md", "moved-note.md")
         rename_head = commit(root, "move note out of research")
-        rename_records = validator.applicable_agent_records(root, nested_head, rename_head)
+        rename_records = validator.applicable_agent_records(
+            root, nested_head, nested_head, rename_head, rename_head
+        )
         if not any(item["path"] == "content/research/AGENTS.md" for item in rename_records):
             failures.append("rename out of nested scope: old research AGENTS scope was not retained")
         else:
             print("PASS: rename retains old nested AGENTS scope")
         expect_valid(
-            validator,
-            root,
-            nested_head,
-            rename_head,
-            body_for(validator, root, nested_head, rename_head),
-            "rename checkpoint with old scope passes",
-            failures,
+            validator, root, nested_head, rename_head,
+            body_for(
+                validator, root, nested_head, rename_head,
+                base_tip=nested_head, merge=rename_head,
+            ),
+            "rename checkpoint with old scope passes", failures,
+            base_tip=nested_head, merge=rename_head,
         )
 
-        research_base_blob = validator.blob_sha_at(root, rename_head, "content/research/AGENTS.md")
+        research_base_blob = validator.blob_sha_at(
+            root, rename_head, "content/research/AGENTS.md"
+        )
         (root / "content/research/AGENTS.md").unlink()
         deleted_agent_head = commit(root, "delete nested agent guidance")
-        deleted_records = validator.applicable_agent_records(root, rename_head, deleted_agent_head)
+        deleted_records = validator.applicable_agent_records(
+            root, rename_head, rename_head, deleted_agent_head, deleted_agent_head
+        )
         deleted_record = next(
             (item for item in deleted_records if item["path"] == "content/research/AGENTS.md"),
             None,
         )
         if deleted_record is None or deleted_record["blob_sha"] != research_base_blob:
-            failures.append("deleted nested AGENTS: expected the governing base blob to remain applicable")
+            failures.append("deleted nested AGENTS: expected the governing current-base blob to remain applicable")
         else:
-            print("PASS: deleted nested AGENTS uses governing base blob")
+            print("PASS: deleted nested AGENTS uses governing current-base blob")
         expect_valid(
-            validator,
+            validator, root, rename_head, deleted_agent_head,
+            body_for(
+                validator, root, rename_head, deleted_agent_head,
+                base_tip=rename_head, merge=deleted_agent_head,
+            ),
+            "deleted nested AGENTS checkpoint passes with current-base guidance",
+            failures, base_tip=rename_head, merge=deleted_agent_head,
+        )
+
+    with tempfile.TemporaryDirectory(prefix="ua-agent-base-advance-") as temp:
+        root = Path(temp)
+        run(root, "git", "init", "-q")
+        write(root, "AGENTS.md", "root rules\n")
+        write(root, "src/item.md", "base\n")
+        base = commit(root, "base")
+
+        run(root, "git", "checkout", "-q", "-b", "feature")
+        write(root, "src/item.md", "feature change\n")
+        feature_head = commit(root, "feature")
+
+        run(root, "git", "checkout", "-q", "-b", "target", base)
+        write(root, "src/AGENTS.md", "new target rules\n")
+        base_tip = commit(root, "target adds nested rules")
+
+        run(root, "git", "checkout", "-q", "feature")
+        run(
             root,
-            rename_head,
-            deleted_agent_head,
-            body_for(validator, root, rename_head, deleted_agent_head),
-            "deleted nested AGENTS checkpoint passes with base guidance",
-            failures,
+            "git", "-c", "user.name=UA Test", "-c", "user.email=ua-test@example.invalid",
+            "merge", "--no-ff", "target", "-m", "test merge",
+        )
+        merge = run(root, "git", "rev-parse", "HEAD")
+
+        merged_records = validator.applicable_agent_records(
+            root, base, base_tip, feature_head, merge
+        )
+        if not any(item["path"] == "src/AGENTS.md" for item in merged_records):
+            failures.append("base advance: new nested AGENTS from current target was not included")
+        else:
+            print("PASS: base advance contributes new nested AGENTS from tested merge")
+        expect_valid(
+            validator, root, base, feature_head,
+            body_for(
+                validator, root, base, feature_head,
+                base_tip=base_tip, merge=merge,
+            ),
+            "base-advanced merge checkpoint passes with new nested guidance",
+            failures, base_tip=base_tip, merge=merge,
         )
 
     if failures:
@@ -298,7 +351,7 @@ def main() -> int:
             print("- {}".format(failure))
         return 1
 
-    print("Agent checkpoint self-tests passed: 12 regression fixtures.")
+    print("Agent checkpoint self-tests passed: 15 regression fixtures.")
     return 0
 
 
