@@ -1,12 +1,14 @@
 {
   "contract_version": 1,
-  "description": "Deterministic current-head checkpoint for AI-assisted pull-request iterations.",
+  "description": "Deterministic exact-state checkpoint for AI-assisted pull-request iterations.",
   "pr_checkpoint_marker": "ua-agent-checkpoint",
   "checkpoint_version": 1,
   "required_fields": [
     "checkpoint_version",
     "reviewed_base_sha",
+    "reviewed_base_tip_sha",
     "reviewed_head_sha",
+    "reviewed_merge_sha",
     "reviewed_pr_body_sha256",
     "applicable_agents",
     "diff_recheck",
