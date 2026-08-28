@@ -1,0 +1,47 @@
+name: PR93 materialize platform assets
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/pr93-materialize-platform-assets.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.head_ref == 'publishing/linkedin-medium-renditions'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out PR branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: publishing/linkedin-medium-renditions
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: "22"
+          cache: npm
+          package-manager-cache: false
+      - name: Install locked dependencies and Chromium
+        run: |
+          npm ci --ignore-scripts
+          ./node_modules/.bin/playwright install --with-deps chromium
+      - name: Render and commit platform image assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npm run publication:assets
+          target="content/research/notes/thinking-systems-platform-assets"
+          mkdir -p "$target/figures"
+          cp dist/publication/thinking-systems/medium-hero.png "$target/medium-hero.png"
+          cp dist/publication/thinking-systems/figures/png/*.png "$target/figures/"
+          git add "$target"
+          git commit -m "feat: materialize Medium-safe publication images"
+          git push origin HEAD:publishing/linkedin-medium-renditions
