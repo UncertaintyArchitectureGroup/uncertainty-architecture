@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression tests for the current-head agent checkpoint validator."""
+"""Regression tests for the exact-state agent checkpoint validator."""
 
 import importlib.util
 import json
@@ -59,10 +59,17 @@ def commit(root: Path, message: str) -> str:
     return run(root, "git", "rev-parse", "HEAD")
 
 
+def render_checkpoint(data: Dict[str, object]) -> str:
+    return "<!-- ua-agent-checkpoint\n{}\n-->".format(json.dumps(data, indent=2))
+
+
 def body_for(validator, root: Path, base: str, head: str, **overrides) -> str:
+    prefix = "## Summary\n\nfixture PR description\n\n"
     data: Dict[str, object] = {
         "checkpoint_version": 1,
+        "reviewed_base_sha": base,
         "reviewed_head_sha": head,
+        "reviewed_pr_body_sha256": "0" * 64,
         "applicable_agents": validator.applicable_agent_records(root, base, head),
         "diff_recheck": "completed",
         "pr_description_recheck": "completed",
@@ -71,7 +78,11 @@ def body_for(validator, root: Path, base: str, head: str, **overrides) -> str:
         "completion_recheck": "completed",
     }
     data.update(overrides)
-    return "<!-- ua-agent-checkpoint\n{}\n-->".format(json.dumps(data, indent=2))
+    contract = validator.load_json(CONTRACT_PATH)
+    provisional = prefix + render_checkpoint(data)
+    if "reviewed_pr_body_sha256" not in overrides:
+        data["reviewed_pr_body_sha256"] = validator.pr_body_sha256(provisional, contract)
+    return prefix + render_checkpoint(data)
 
 
 def messages(findings) -> List[str]:
@@ -112,15 +123,39 @@ def main() -> int:
         valid_root = body_for(validator, root, base, root_head)
         expect_valid(validator, root, base, root_head, valid_root, "root-only checkpoint passes", failures)
 
-        stale = body_for(validator, root, base, root_head, reviewed_head_sha=base)
+        stale_head = body_for(validator, root, base, root_head, reviewed_head_sha=base)
         expect_error(
             validator,
             root,
             base,
             root_head,
-            stale,
-            "agent checkpoint is stale",
+            stale_head,
+            "reviewed_head_sha",
             "stale head is rejected",
+            failures,
+        )
+
+        stale_base = body_for(validator, root, base, root_head, reviewed_base_sha=root_head)
+        expect_error(
+            validator,
+            root,
+            base,
+            root_head,
+            stale_base,
+            "reviewed_base_sha",
+            "stale base is rejected",
+            failures,
+        )
+
+        edited_description = valid_root.replace("fixture PR description", "description edited after checkpoint", 1)
+        expect_error(
+            validator,
+            root,
+            base,
+            root_head,
+            edited_description,
+            "reviewed_pr_body_sha256",
+            "PR description edit invalidates checkpoint",
             failures,
         )
 
@@ -129,7 +164,7 @@ def main() -> int:
             root,
             base,
             root_head,
-            "",
+            "## Summary\n\nmissing checkpoint\n",
             "exactly one ua-agent-checkpoint",
             "missing checkpoint is rejected",
             failures,
@@ -224,7 +259,7 @@ def main() -> int:
             print("- {}".format(failure))
         return 1
 
-    print("Agent checkpoint self-tests passed: 8 regression fixtures.")
+    print("Agent checkpoint self-tests passed: 10 regression fixtures.")
     return 0
 
 
