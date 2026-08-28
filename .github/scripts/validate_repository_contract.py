@@ -18,6 +18,7 @@ DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONTRACT = DEFAULT_ROOT / ".github/policy/repository-contract.json"
 DEFAULT_EXTENSIONS = (
     DEFAULT_ROOT / ".github/policy/repository-contract-change-coupling.json",
+    DEFAULT_ROOT / ".github/policy/repository-contract-agent-checkpoint.json",
 )
 LINK_PATTERN = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
@@ -62,6 +63,82 @@ def markdown_link_targets(text: str) -> Set[str]:
             target = target[1:-1]
         targets.add(target.split("#", 1)[0])
     return targets
+
+
+_MISSING = object()
+
+
+def decode_json_pointer_token(token: str) -> str:
+    return token.replace("~1", "/").replace("~0", "~")
+
+
+def resolve_json_pointer(document: object, pointer: str) -> object:
+    """Resolve an RFC 6901 JSON Pointer without recursive key matching."""
+    if pointer == "":
+        return document
+    if not pointer.startswith("/"):
+        return _MISSING
+    current = document
+    for raw_token in pointer[1:].split("/"):
+        token = decode_json_pointer_token(raw_token)
+        if isinstance(current, dict):
+            if token not in current:
+                return _MISSING
+            current = current[token]
+            continue
+        if isinstance(current, list):
+            try:
+                index = int(token)
+            except ValueError:
+                return _MISSING
+            if index < 0 or index >= len(current):
+                return _MISSING
+            current = current[index]
+            continue
+        return _MISSING
+    return current
+
+
+def validate_required_json(
+    relative: str,
+    path: Path,
+    text: str,
+    rules: Iterable[Dict[str, object]],
+    errors: List[str],
+) -> None:
+    checks = list(rules)
+    if not checks:
+        return
+    if path.suffix.lower() != ".json":
+        errors.append(
+            "{}: structured contract checks require a JSON file".format(relative)
+        )
+        return
+    try:
+        document = json.loads(text)
+    except json.JSONDecodeError as exc:
+        errors.append(
+            "{}: invalid JSON for structured contract checks: {}".format(
+                relative, exc
+            )
+        )
+        return
+
+    for check in checks:
+        pointer = check.get("pointer")
+        if not isinstance(pointer, str):
+            errors.append(
+                "{}: structured contract entry lacks a JSON pointer".format(relative)
+            )
+            continue
+        expected = check.get("equals")
+        actual = resolve_json_pointer(document, pointer)
+        if actual is _MISSING or actual != expected:
+            errors.append(
+                "{}: JSON pointer {!r} must equal {!r}".format(
+                    relative, pointer, expected
+                )
+            )
 
 
 def validate_top_level(root: Path, contract: Dict[str, object], errors: List[str]) -> None:
@@ -136,6 +213,13 @@ def validate_critical_files(root: Path, contract: Dict[str, object], errors: Lis
         for marker in rule.get("required_text", []):
             if marker not in text:
                 errors.append("{}: missing protected text {!r}".format(relative, marker))
+        validate_required_json(
+            relative,
+            path,
+            text,
+            rule.get("required_json", []),
+            errors,
+        )
         targets = markdown_link_targets(text)
         for target in rule.get("required_links", []):
             if target not in targets:
