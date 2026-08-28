@@ -135,7 +135,7 @@ The verifier checks:
 - exact-head provenance and output digests;
 - nine platform figure identities and Figure 8A/B coupling;
 - nine embedded LinkedIn images;
-- ten embedded Medium review images whose decoded bytes match the ten ordered upload PNGs;
+- ten embedded Medium review images whose decoded bytes are byte-identical to the ten ordered upload PNGs;
 - an ordered Medium upload kit with ten PNGs plus instructions;
 - explicit `medium_clipboard_images_supported: false` and `medium_manual_upload_required: true`;
 - linked-heading fallbacks, publication furniture, and absence of copy-helper/provenance leakage.
