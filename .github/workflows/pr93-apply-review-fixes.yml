@@ -61,6 +61,17 @@ jobs:
           path.write_text(text, encoding='utf-8')
           PY
           python3 .github/scripts/pr93_apply_review_fixes.py
+          python3 - <<'PY'
+          from pathlib import Path
+
+          for relative in [
+              'quartz/scripts/verify-publication-package.test.mjs',
+              'quartz/scripts/platform-rendition.test.mjs',
+              'quartz/scripts/platform-furniture.test.mjs',
+          ]:
+              path = Path(relative)
+              path.write_text(path.read_text(encoding='utf-8').rstrip() + '\n', encoding='utf-8')
+          PY
           node --check quartz/scripts/render-platform-renditions.mjs
           node --check quartz/scripts/verify-publication-package.mjs
           node --check quartz/scripts/platform-rendition.test.mjs
