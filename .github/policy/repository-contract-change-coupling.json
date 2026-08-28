@@ -573,8 +573,7 @@
         "dist/publication/thinking-systems/renditions/**",
         "UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}",
         "npm run publication:verify-package",
-        "quartz/scripts/verify-publication-package.test.mjs",
-        "dist/pdf/thinking-systems-when-the-controlled-object-changes.manifest.json"
+        "quartz/scripts/verify-publication-package.test.mjs"
       ]
     },
     {
@@ -594,7 +593,8 @@
       "path": "quartz/scripts/render-copy-ready.mjs",
       "required_text": [
         "embedLocalImages",
-        "buildCopyReadyDocument",
+        "replaceMediumImagesWithRemoteSources",
+        "immutable-raw-github-url",
         "data:image/png;base64",
         "copy-ready.html",
         "manual-select-all-copy",
@@ -652,19 +652,21 @@
     {
       "path": "quartz/scripts/verify-publication-package.mjs",
       "required_text": [
-        "assertPlatformFigureReadability",
-        "minimumPlatformLabelPx = 12",
+        "assertPlatformFigureInventory",
+        "remoteGithubImageSources",
         "publication_state === \"candidate\"",
         "publication_ready === false",
         "Figure 8A and 8B must travel together",
+        "Medium copy-ready must not use data-URI images",
         "copy-ready HTML contains obsolete copy controls"
       ]
     },
     {
       "path": "quartz/scripts/verify-publication-package.test.mjs",
       "required_text": [
-        "rejects the previously accepted unreadable Figure 7 class",
-        "accepts nine readable figures with Figure 8A and 8B coupled"
+        "platform verifier requires nine figures with Figure 8A and 8B coupled",
+        "platform verifier rejects incomplete Figure 8 coupling",
+        "remote image inventory recognizes immutable GitHub image sources"
       ]
     }
   ]
