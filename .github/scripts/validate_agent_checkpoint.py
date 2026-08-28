@@ -84,31 +84,42 @@ def blob_sha_at(root: Path, ref: str, path: str) -> str:
     return value
 
 
-def applicable_instruction_blob(root: Path, base: str, head: str, path: str) -> Optional[str]:
-    """Prefer final-head guidance; fall back to base guidance when the PR deletes it."""
-    if path_exists_at(root, head, path):
-        return blob_sha_at(root, head, path)
-    if path_exists_at(root, base, path):
-        return blob_sha_at(root, base, path)
+def applicable_instruction_blob(
+    root: Path,
+    base_tip: str,
+    merge: str,
+    path: str,
+) -> Optional[str]:
+    """Prefer tested merge-result guidance; fall back to current base guidance when the PR deletes it."""
+    if path_exists_at(root, merge, path):
+        return blob_sha_at(root, merge, path)
+    if path_exists_at(root, base_tip, path):
+        return blob_sha_at(root, base_tip, path)
     return None
 
 
-def applicable_agent_records(root: Path, base: str, head: str) -> List[Dict[str, str]]:
+def applicable_agent_records(
+    root: Path,
+    base: str,
+    base_tip: str,
+    head: str,
+    merge: str,
+) -> List[Dict[str, str]]:
     candidates = set()
-    if applicable_instruction_blob(root, base, head, "AGENTS.md") is not None:
+    if applicable_instruction_blob(root, base_tip, merge, "AGENTS.md") is not None:
         candidates.add("AGENTS.md")
 
     for changed in changed_paths(root, base, head):
         parent = PurePosixPath(changed).parent
         while str(parent) not in (".", ""):
             candidate = "{}/AGENTS.md".format(parent.as_posix())
-            if applicable_instruction_blob(root, base, head, candidate) is not None:
+            if applicable_instruction_blob(root, base_tip, merge, candidate) is not None:
                 candidates.add(candidate)
             parent = parent.parent
 
     records = []
     for path in sorted(candidates):
-        blob_sha = applicable_instruction_blob(root, base, head, path)
+        blob_sha = applicable_instruction_blob(root, base_tip, merge, path)
         if blob_sha is None:
             continue
         records.append({"path": path, "blob_sha": blob_sha})
@@ -161,7 +172,12 @@ def validate_schema(data: Dict[str, object], contract: Dict[str, object]) -> Lis
             )
         )
 
-    for field in ("reviewed_base_sha", "reviewed_head_sha"):
+    for field in (
+        "reviewed_base_sha",
+        "reviewed_base_tip_sha",
+        "reviewed_head_sha",
+        "reviewed_merge_sha",
+    ):
         value = data.get(field)
         if not isinstance(value, str) or not SHA_RE.fullmatch(value):
             findings.append(
@@ -219,7 +235,9 @@ def validate(
     root: Path,
     contract_path: Path,
     base: str,
+    base_tip: str,
     head: str,
+    merge: str,
     body: str,
 ) -> List[Finding]:
     contract = load_json(contract_path)
@@ -232,27 +250,23 @@ def validate(
     if findings:
         return findings
 
-    reviewed_base = str(data["reviewed_base_sha"])
-    if reviewed_base != base:
-        findings.append(
-            Finding(
-                "error",
-                "agent checkpoint is stale: reviewed_base_sha {} does not match current PR base {}.".format(
-                    reviewed_base, base
-                ),
+    expected_shas = {
+        "reviewed_base_sha": base,
+        "reviewed_base_tip_sha": base_tip,
+        "reviewed_head_sha": head,
+        "reviewed_merge_sha": merge,
+    }
+    for field, expected in expected_shas.items():
+        actual = str(data[field])
+        if actual != expected:
+            findings.append(
+                Finding(
+                    "error",
+                    "agent checkpoint is stale: {} {} does not match current {}.".format(
+                        field, actual, expected
+                    ),
+                )
             )
-        )
-
-    reviewed_head = str(data["reviewed_head_sha"])
-    if reviewed_head != head:
-        findings.append(
-            Finding(
-                "error",
-                "agent checkpoint is stale: reviewed_head_sha {} does not match current PR head {}.".format(
-                    reviewed_head, head
-                ),
-            )
-        )
 
     expected_body_hash = pr_body_sha256(body, contract)
     if data["reviewed_pr_body_sha256"] != expected_body_hash:
@@ -264,13 +278,13 @@ def validate(
             )
         )
 
-    expected_agents = applicable_agent_records(root, base, head)
+    expected_agents = applicable_agent_records(root, base, base_tip, head, merge)
     actual_agents = data["applicable_agents"]
     if actual_agents != expected_agents:
         findings.append(
             Finding(
                 "error",
-                "applicable_agents does not match the current diff and head. Expected: {}".format(
+                "applicable_agents does not match the current PR diff and tested merge result. Expected: {}".format(
                     json.dumps(expected_agents, sort_keys=True)
                 ),
             )
@@ -280,8 +294,18 @@ def validate(
         findings.append(
             Finding(
                 "error",
-                "Re-read the exact applicable AGENTS.md files, current diff, current PR description, "
-                "available corrective feedback, and end-of-session protocol, then refresh ua-agent-checkpoint.",
+                "Re-read the exact applicable AGENTS.md files from the tested merge state, current diff, "
+                "current PR description, available corrective feedback, and end-of-session protocol, "
+                "then refresh ua-agent-checkpoint.",
+            )
+        )
+    else:
+        print(
+            "Agent context accepted: base-tip {}, head {}, merge {}, applicable instructions {}.".format(
+                base_tip,
+                head,
+                merge,
+                json.dumps(expected_agents, sort_keys=True),
             )
         )
     return findings
@@ -291,8 +315,10 @@ def parse_args(argv: Optional[Iterable[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
-    parser.add_argument("--base", required=True)
-    parser.add_argument("--head", required=True)
+    parser.add_argument("--base", required=True, help="PR diff-base SHA supplied by GitHub")
+    parser.add_argument("--base-tip", required=True, help="Current tip SHA of the target branch")
+    parser.add_argument("--head", required=True, help="Current PR head SHA")
+    parser.add_argument("--merge", required=True, help="GitHub tested merge-result SHA")
     parser.add_argument("--pr-body-file", type=Path)
     return parser.parse_args(argv)
 
@@ -305,7 +331,15 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         else os.environ.get("PR_BODY", "")
     )
     try:
-        findings = validate(args.root.resolve(), args.contract.resolve(), args.base, args.head, body)
+        findings = validate(
+            args.root.resolve(),
+            args.contract.resolve(),
+            args.base,
+            args.base_tip,
+            args.head,
+            args.merge,
+            body,
+        )
     except ValueError as exc:
         print("Agent-checkpoint configuration error: {}".format(exc))
         return 2
