@@ -1,0 +1,44 @@
+name: PR93 apply substantive review fixes
+
+on:
+  push:
+    branches:
+      - publishing/linkedin-medium-renditions
+    paths:
+      - ".github/workflows/pr93-apply-review-fixes.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pr93-apply-review-fixes
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out PR branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: publishing/linkedin-medium-renditions
+          fetch-depth: 0
+      - name: Apply and validate review fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 .github/scripts/pr93_apply_review_fixes.py
+          node --check quartz/scripts/render-platform-renditions.mjs
+          node --check quartz/scripts/verify-publication-package.mjs
+          node --check quartz/scripts/platform-rendition.test.mjs
+          node --check quartz/scripts/verify-publication-package.test.mjs
+          python3 .github/tests/repository_contract/test_repository_contract.py
+          rm .github/scripts/pr93_apply_review_fixes.py
+          rm .github/workflows/pr93-apply-review-fixes.yml
+          git diff --check
+          git add -A
+          git commit -m "fix: align platform terminology and Medium publication contract"
+          git push origin HEAD:publishing/linkedin-medium-renditions
