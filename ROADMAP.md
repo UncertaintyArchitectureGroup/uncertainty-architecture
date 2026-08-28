@@ -68,6 +68,7 @@ The objective is to consolidate research into a coherent, bounded specification.
 - Repository-relative links, navigation routes, citation metadata, critical repository structure, compatibility markers, and the top-level namespace have deterministic validation foundations.
 - Controlled frontmatter, tag projection, active canonical ownership, and protected glossary entries have deterministic validation foundations; selected terminology drift remains advisory.
 - Pull-request declarations, notable-change companion updates, research-state traceability, and maintained-path deletion or rename decisions have a diff-aware validation foundation.
+- AI-assisted pull-request iterations have a deterministic current-head checkpoint: each new head invalidates the prior attestation until the contributor re-reads the exact applicable `AGENTS.md` blobs, rechecks the current diff and PR description, reviews available corrective feedback, and completes the end-of-session protocol.
 - The Research Track now separates active epistemic state from framework promotion: a canonical Research State Register carries material terms, hypotheses, comparison questions, candidate artifacts/processes, provenance records, status, ownership, and next decisions, while `framework-traceability.md` remains the source-to-framework decision ledger.
 - Quartz production builds, maintained Mermaid diagrams, workflow syntax and security posture, immutable action and container references, dependency updates, and dependency-risk checks have an executable repository-integrity foundation.
 
@@ -99,6 +100,7 @@ The repository integration is complete. The relevant framework documents remain 
 - [x] Establish a machine-readable repository contract protecting critical files, landing-page functions, compatibility paths, and the top-level namespace, with independent regression fixtures.
 - [x] Establish controlled frontmatter, tag-projection, active canonical-ownership, protected-glossary, and terminology-warning validation.
 - [x] Establish diff-aware changelog, glossary, roadmap, traceability, deletion, rename, and machine-readable pull-request coupling.
+- [x] Establish a deterministic current-head agent iteration checkpoint that binds each PR attestation to the exact head and applicable `AGENTS.md` blob identities, with regression coverage for stale head, stale rules, missing nested scope, missing checkpoint, and incomplete rechecks.
 - [x] Establish a cross-document Research State Register with stable material-item IDs, provenance boundaries, epistemic status, ownership, next decisions, deterministic CI validation, and regression fixtures.
 - [x] Complete automated Mermaid rendering and Quartz production-build validation.
 - [x] Establish workflow linting, security analysis, immutable action/container policy, dependency update automation, and bounded dependency-risk checks.
@@ -171,9 +173,11 @@ A new top-level Operating Model module is not planned at this stage.
 - protected glossary-entry presence and uniqueness checks;
 - non-blocking warnings for selected terminology drift, title/H1 drift, and unusually large tag sets;
 - diff-aware changelog, glossary, roadmap, research-traceability, deletion, rename, compatibility, and pull-request declaration validation;
+- a current-head agent iteration checkpoint that deterministically rejects stale PR attestations, computes applicable root/nested `AGENTS.md` scope from the actual diff, and requires exact instruction-blob identities before the checkpoint can pass;
 - deterministic validation of stable Research State Register IDs, controlled item classes/statuses/origins, repository paths, and indexed provenance records for external review/dialogue inputs;
 - Quartz production builds and rendering of maintained Mermaid blocks;
 - deployment-independent Quartz-to-PDF rendering from canonical Markdown, with draft-only temporary builds, strict provenance manifests, coherent PDF/manifest rollback, visual verification, and explicit standalone-article versus long-form working-paper outputs;
+- reproducible Medium and LinkedIn rendition packages generated from one committed content edition, with reviewed publication assets, platform-safe copy packages, alt text, canonical-link guidance, SEO metadata, launch-post validation, and provenance/readiness manifests;
 - actionlint and zizmor checks for GitHub Actions workflows;
 - full-SHA action references, version comments, and sha256 container digests enforced by a machine-readable contract;
 - weekly Dependabot updates for npm and GitHub Actions;
@@ -185,6 +189,7 @@ A new top-level Operating Model module is not planned at this stage.
 
 - diff-aware enforcement that material research-state transitions update either the Research State Register, framework traceability, or both according to the declared effect;
 - checks for stale canonical paths and relationships;
+- make the current-head agent checkpoint a required merge check through repository ruleset or equivalent branch protection, so a stale or missing checkpoint cannot be bypassed by ordinary merge flow;
 - stronger dependency-review enforcement after repository Dependency Graph enablement;
 - example Constraint, realization, prompt, policy, evaluation, and release manifests;
 - executable realization examples;
