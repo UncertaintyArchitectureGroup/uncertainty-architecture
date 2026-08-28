@@ -62,6 +62,20 @@ When documents conflict, prefer, in order:
 
 Report genuine contradictions instead of silently choosing one side.
 
+### Session bootstrap and instruction discovery
+
+At the start of every repository task, and again before a repository-changing action when the state may have changed:
+
+1. inspect the current repository tree, default branch, relevant ref, and task-specific branch, issue, pull request, review, and CI state where applicable;
+2. read this root `AGENTS.md` in full and discover any nested `AGENTS.md` files whose directory scope intersects the task;
+3. treat a nested `AGENTS.md` as a scoped supplement to this file, not as a replacement for it; for work inside or materially affecting `content/research/`, read [`content/research/AGENTS.md`](content/research/AGENTS.md) in full;
+4. identify the applicable task-specific reading path, owning sources, and relevant repository contracts before proposing or making changes;
+5. treat the current repository state as authoritative for repository facts; previous chats, summaries, pasted excerpts, and cached snapshots are supporting context only;
+6. report unavailable access or conflicting instructions instead of silently substituting assumptions; and
+7. distinguish verified current state, proposed changes, locally prepared changes, and remotely applied changes in every report.
+
+Inspecting the repository tree is not the same as reading every file. Do not claim a complete repository review unless the complete relevant content was actually read.
+
 ## 2. Repository mission and SMB default
 
 UA is an open doctrine and pattern language for engineering and operating **Thinking Systems**: software systems in which one or more **Consequential Runtime Responsibilities** depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance. Contributors MUST keep category identification separate from control adequacy: missing Constraints, evidence, decision rights, or corrective mechanisms make a Thinking System inadequately controlled; they do not make it cease to be a Thinking System.
@@ -380,6 +394,37 @@ Additional rules:
 - use a Draft pull request for substantial framework changes until review criteria are satisfied;
 - do not use an exception label as a generic bypass: each exception is category-scoped, maintainer-controlled, visible in the PR, and must be explained.
 
+### Maintainer corrections and durable improvement
+
+When a maintainer corrects an AI contributor, the contributor MUST first apply the correction to the current work and then determine whether it exposes a durable control weakness.
+
+Classify the correction as one or more of:
+
+1. a local task instruction that should remain in the current session;
+2. an execution-environment bootstrap, project-context, or tool-routing improvement, such as a ChatGPT Project instruction;
+3. a reusable cross-project agent-definition improvement, such as a custom GPT instruction;
+4. a repository-wide contributor rule owned by this root `AGENTS.md`;
+5. a subtree-specific contributor rule owned by the applicable nested `AGENTS.md`;
+6. a correction to canonical repository meaning owned by the relevant specification, glossary, doctrine, pattern, research-state record, publishing contract, or other canonical artifact; or
+7. an objectively enforceable invariant suitable for a test, validator, policy contract, pull-request check, template, or GitHub workflow.
+
+Promote a correction into durable guidance only when recurrence is likely, its applicability is broader than the current task, repetition would have material cost, or the failure could damage authority, provenance, compatibility, publication integrity, repository history, or verification evidence.
+
+Prefer one canonical descriptive owner. A rule may also have a separate enforcement owner when a canonical document or `AGENTS.md` defines the rule and deterministic automation verifies its observable part.
+
+Do not:
+
+- turn every one-off preference into permanent process;
+- place canonical UA meaning in Project instructions, reusable agent definitions, or contributor workflow files;
+- duplicate one rule across several instruction surfaces without identifying its canonical owner;
+- encode subjective editorial judgment as brittle automation;
+- create a new workflow when an existing validator, contract, or test can coherently own the check; or
+- claim that an external Project, custom agent, repository file, check, or workflow was updated when only a recommendation was produced.
+
+When authorized and tightly coupled to the current work, include the durable improvement in the same pull request. Otherwise, report it as a separate improvement candidate rather than silently expanding scope.
+
+For every material candidate, the session report MUST state the observed failure or correction, whether it is local or durable, the proposed canonical owner, the exact proposed improvement, automation feasibility, and whether it was applied, proposed, rejected, or deferred.
+
 ## 10. End-of-session integrity protocol
 
 ### Architecture and ownership
@@ -431,11 +476,13 @@ Additional rules:
 
 Summarize:
 
+- the repository ref and applicable `AGENTS.md` files inspected;
 - what changed;
 - which architectural decision was made;
 - which decision levels and capability families were affected;
 - which files own the resulting meaning;
 - which checks were performed;
+- which maintainer corrections were evaluated for durable improvement and how each candidate was routed;
 - what remains unresolved;
 - whether the PR is still Draft or ready for review.
 
