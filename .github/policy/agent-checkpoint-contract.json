@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "description": "Deterministic current-head checkpoint for AI-assisted pull-request iterations.",
+  "pr_checkpoint_marker": "ua-agent-checkpoint",
+  "checkpoint_version": 1,
+  "required_fields": [
+    "checkpoint_version",
+    "reviewed_head_sha",
+    "applicable_agents",
+    "diff_recheck",
+    "pr_description_recheck",
+    "corrective_feedback_review",
+    "feedback_disposition",
+    "completion_recheck"
+  ],
+  "controlled_values": {
+    "diff_recheck": ["completed"],
+    "pr_description_recheck": ["completed"],
+    "corrective_feedback_review": ["completed"],
+    "feedback_disposition": ["none", "local", "candidate", "approved-applied", "deferred"],
+    "completion_recheck": ["completed"]
+  }
+}
