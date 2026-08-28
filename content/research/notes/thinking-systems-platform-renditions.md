@@ -34,59 +34,76 @@ This note defines the distribution boundary for Medium and LinkedIn renditions o
 
 ## Source relationship
 
-The editable content source remains [`thinking-systems-publication-draft.md`](thinking-systems-publication-draft.md) until an actual publication decision freezes an exact content edition under [`../publications/`](../publications/). Medium and LinkedIn outputs may change formatting, image placement, table presentation, cover metadata, platform notes, SEO fields, the launch post, and copy/paste convenience packaging. They must not silently change definitions, decision ownership, maturity caveats, attribution, or the Figure 8 relationships.
+The editable content source remains [`thinking-systems-publication-draft.md`](thinking-systems-publication-draft.md) until an actual publication decision freezes an exact content edition under [`../publications/`](../publications/). Medium and LinkedIn outputs may change formatting, image placement, table presentation, cover metadata, platform notes, SEO fields, the launch post, and copy/paste convenience packaging. They must not silently change definitions, decision ownership, maturity caveats, attribution, or figure semantics.
 
-The machine profile lives at [`../../../quartz/publication/thinking-systems.platforms.json`](../../../quartz/publication/thinking-systems.platforms.json). Generated rendition files remain under `dist/publication/thinking-systems/` and are not committed. A bounded set of generated PNGs is additionally materialized under `thinking-systems-platform-assets/` solely so Medium copy/paste can reference ordinary immutable HTTPS image URLs; those files are distribution assets, not conceptual sources.
+The machine profile lives at [`../../../quartz/publication/thinking-systems.platforms.json`](../../../quartz/publication/thinking-systems.platforms.json). Generated rendition files remain under `dist/publication/thinking-systems/` and are not conceptual authorities.
 
-## Generated package
+## Generated platform package
 
 ```text
 canonical article Markdown
-→ reviewed publication SVG/PNG figures and covers
-→ platform-safe table presentation
-→ absolute durable links
-→ Medium article package
-→ LinkedIn article package
-→ platform-specific copy-ready HTML
-→ LinkedIn launch post
-→ provenance and readiness manifest
+→ reviewed platform figures and hero/cover assets
+→ platform-safe table presentation and durable links
+→ structural linked-heading URL protection
+→ publication furniture
+→ LinkedIn and Medium candidate renditions
+→ self-contained copy-ready HTML
+→ Medium ordered manual-upload kit
+→ platform manifest and final verification
 ```
 
-`npm run publication:bundle` generates the reviewed assets, the normal Medium/LinkedIn renditions, and the platform-specific copy-ready HTML in one pipeline run.
+`npm run publication:bundle` generates the platform assets and renditions. `npm run publication:verify-package` validates the completed package. PDF generation is outside this PR and remains owned by the separate repository PDF pipeline.
 
-The generated package contains normal review HTML, copy-ready HTML, Markdown, and plain-text versions; image upload placeholders; curated alt text; SEO metadata; canonical-link guidance; and platform-specific publishing checklists.
+The package contains normal review HTML, copy-ready HTML, Markdown, plain text, curated alt text, SEO metadata, canonical-link guidance, the LinkedIn launch post and checklists, and the platform assets needed for publication.
 
-The `copy-ready.html` files are distribution conveniences only. The supported copy path is deliberately manual: **Select All → Copy → Paste**. Scripted local-file copy/select controls are not part of the contract because they are unreliable on iPadOS and can vary by browser.
+## Copy and image transport
 
-Image transport is intentionally platform-specific. LinkedIn copy-ready HTML embeds the nine article figures as inline `data:` URIs because that paste path preserves them in current testing; the LinkedIn cover remains a separate native upload. Medium strips that representation in practice, so Medium copy-ready HTML instead uses normal HTTPS image sources pinned to the immutable commit containing the matching materialized hero and nine figure PNGs under `thinking-systems-platform-assets/`. Generation byte-compares those committed assets against the current generated PNGs and fails if they are stale. This keeps the one-step Medium paste path without making the materialized images a second source of article meaning.
+The supported local interaction is manual **Select All → Copy → Paste**. Scripted local-file Copy/Select controls are not part of the contract because they are unreliable on iPadOS and vary by browser.
 
-A second copy/paste compatibility rule applies to linked headings. LinkedIn and Medium may preserve heading formatting but drop a hyperlink attached directly to that heading. An upstream platform transform identifies Markdown heading nodes through the Remark AST and, whenever an HTTP(S) hyperlink occurs inside a heading, emits the same URL as a separate visible linked line immediately below it before normal HTML and copy-ready packaging. The copy-ready renderer preserves that protection rather than owning a second heading parser. This rule applies generically to future platform renditions; it is not a hard-coded fix for the current ISO/IEC TR 29119-11 and NIST AI RMF examples.
+Both `copy-ready.html` files are self-contained and display their article images through embedded `data:` URIs. This keeps the local review surface visually complete without a neighboring folder or network access.
 
-Figure 3 uses the current reviewed publication comparison and must preserve the canonical distinction between Explicitly Authored Software and the motivating runtime-judgment class; the broader Thinking-System boundary remains a research question where the canonical article leaves it open. Figure 8A and Figure 8B remain two presentation panels of one logical canonical Figure 8 and must travel together with the complete canonical caption. Platform rendition generation substitutes reviewed image assets but does not change the canonical figure layout or reinterpret figure semantics.
+Practical testing produced different platform behavior:
+
+- **LinkedIn** preserved the nine embedded article figures during paste. The LinkedIn cover remains a separate native upload.
+- **Medium** preserved the pasted rich text but dropped the clipboard images. A later attempt to replace embedded images with remote repository URLs also made the local review page lose its pictures and did not establish a reliable image-transfer path. That experiment was removed.
+
+The supported Medium path therefore separates text transfer from image upload:
+
+1. open `medium/copy-ready.html` and verify the complete article with the hero and all nine figures visible;
+2. use **Select All → Copy → Paste** for the rich text;
+3. use `medium/article.md` for the exact image positions and alt text;
+4. upload the ten ordered PNGs from `medium/upload/`.
+
+The upload kit contains the hero, Figures 1–7, Figure 8A, Figure 8B, and a short README. It is generated from the same reviewed platform assets as the rendition and remains inside the CI artifact. No duplicate transport-image tree is committed under `content/research/`.
+
+## Heading-link preservation
+
+LinkedIn and Medium may preserve heading formatting while dropping a hyperlink attached directly to a heading. An upstream transform identifies Markdown heading nodes through the Remark AST and emits every HTTP(S) heading URL as a separate visible linked line immediately below the heading before normal HTML and copy-ready packaging.
+
+The mechanism supports ATX and Setext headings, inline links, reference links, and inline HTML anchors; does not rewrite fenced-code examples; does not duplicate ordinary body links; deduplicates repeated URLs inside one heading; and is idempotent. The current adaptation has two such headings after table expansion: the ISO/IEC TR 29119-11 and NIST AI RMF references.
+
+## Figure boundary
+
+Platform packaging consumes reviewed assets without changing the canonical article argument or source layout.
+
+- Figure 3 keeps its existing reviewed publication comparison.
+- Figure 7 remains unchanged from the canonical source.
+- Figure 8A and Figure 8B remain two presentation panels of one logical Figure 8, must travel together, and share the complete canonical caption.
 
 ## Publication boundary
 
 A generated package is a **candidate distribution package**, not proof that an external publication edition already exists. The publication lifecycle follows [`../review-process.md`](../review-process.md#publication-adaptation-and-external-feedback-cycle):
 
 1. generate the candidate package from the current committed adaptation;
-2. review every image, caption, table conversion, link, platform preview, attribution boundary, and copy-ready paste result;
-3. publish the first external rendition when the candidate is approved;
+2. review the LinkedIn paste result and the Medium text-plus-manual-image workflow;
+3. publish the first approved external rendition;
 4. for LinkedIn, capture the exact native article URL and replace `{{LINKEDIN_ARTICLE_URL}}` before publishing the launch post;
 5. immediately preserve the exact externally published content edition under `content/research/publications/`;
 6. record the principal `canonical_url`, equivalent `additional_publication_urls`, and immutable published-edition identity;
 7. only then begin feedback-driven reconciliation or substantive source revision.
 
-Because this generator intentionally targets the editable note under `content/research/notes/`, it always reports `publication_state: candidate` and `publication_ready: false`. The repository publication record created after release is the durable evidence of what external readers actually received.
+Because this generator targets the editable note under `content/research/notes/`, it always reports `publication_state: candidate` and `publication_ready: false`. The repository publication record created after release is the durable evidence of what external readers actually received.
 
 ## Current platform constraints
 
-The machine profile records the current first-party constraints used by the generator, including:
-
-- LinkedIn posts: 3,000 characters; the launch source also preserves a 120-character machine-enforced reserve for the final native article URL and mention expansion; LinkedIn articles: 125,000 characters.
-- LinkedIn article cover: 2,000 × 600 pixels, up to 10 MB, JPG/static GIF/PNG.
-- LinkedIn SEO title truncation risk above 60 characters; recommended SEO description: 140–160 characters.
-- LinkedIn article editing does not currently provide native tables, so tables are expanded into readable labeled sections in that rendition.
-- Medium images: JPG/JPEG/GIF/PNG up to 25 MB; at least 1,192 px wide for all image-placement options.
-- Medium canonical URL: use import-from-URL where appropriate or set the canonical link manually.
-
-Reverify these values against the official URLs in the machine profile immediately before publication because platform behavior changes independently of the repository.
+The machine profile records the first-party constraints used by the generator, including LinkedIn post/article and cover limits, LinkedIn SEO guidance and table limitations, and Medium image and canonical-URL guidance. Reverify those values against the official references in the profile immediately before publication because platform behavior changes independently of the repository.
