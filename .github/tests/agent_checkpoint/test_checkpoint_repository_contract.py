@@ -62,7 +62,7 @@ def main() -> int:
         materialize_surface(root, extension)
         workflow = root / ".github/workflows/change-coupling.yml"
         original = workflow.read_text(encoding="utf-8")
-        marker = "name: Agent protocol / current-head checkpoint"
+        marker = "name: Agent protocol / exact-state checkpoint"
         if marker not in original:
             failures.append("mutation fixture could not find protected checkpoint job marker")
         else:
