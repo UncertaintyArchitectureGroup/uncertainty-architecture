@@ -48,7 +48,7 @@ Thinking Systems: When the Controlled Object Changes
 
 One important step came from my exchange with Arkadiy Dobkin following his From Fall to Rise post. I want to thank Arkadiy specifically for the formulation “Thinking Systems.” It gave a name to an engineering object I had already been circling around in my work on Uncertainty Architecture — and pushed me to make the boundary more precise.
 
-In the article, a Thinking System is software in which one or more consequential runtime responsibilities depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.
+In the article, a Thinking System is a software system in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment rather than being fully specified through explicitly encoded logic in advance.
 
 That leads to the central question:
 

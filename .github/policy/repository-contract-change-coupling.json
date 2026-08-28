@@ -189,6 +189,14 @@
     {
       "path": "quartz/scripts/verify-publication-package.test.mjs",
       "type": "file"
+    },
+    {
+      "path": "quartz/scripts/render-publication-assets.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/publication-assets.test.mjs",
+      "type": "file"
     }
   ],
   "critical_files": [
@@ -610,36 +618,23 @@
     {
       "path": "quartz/scripts/render-platform-renditions.mjs",
       "required_text": [
-        "convertMarkdownTables",
-        "replaceMermaidWithFigureTokens",
-        "verifyAssetManifest",
-        "figure_8_panels_must_travel_together",
-        "platform-renditions.manifest.json",
-        "asset.png_renderer !== \"chromium\"",
-        "asset.png_background !== \"#ffffff\"",
-        "asset.png_has_alpha !== false"
+        "publication_state: \"candidate\"",
+        "publication_ready: false",
+        "launch_post_article_url_binding: \"required-placeholder\"",
+        "figure_8_panels_must_travel_together: true",
+        "\"platform-renditions.manifest.json\""
       ]
     },
     {
       "path": "quartz/scripts/render-copy-ready.mjs",
       "required_text": [
-        "embedLocalImages",
-        "buildMediumUploadPlan",
-        "medium_manual_upload_required",
+        "clipboard_behavior: \"manual-select-all-copy\"",
+        "javascript_copy_controls: false",
+        "linkedin_image_strategy: \"embedded-data-uri\"",
+        "medium_image_strategy: \"embedded-data-uri-preview\"",
         "medium_clipboard_images_supported: false",
-        "embedded-data-uri-preview",
-        "medium/upload/README.md",
-        "data:image/png;base64",
-        "manual-select-all-copy",
-        "javascript_copy_controls: false"
-      ]
-    },
-    {
-      "path": "quartz/scripts/render-copy-ready.test.mjs",
-      "required_text": [
-        "copy-ready HTML embeds local images as data URIs",
-        "copy-ready document exposes one article-only copy surface",
-        "Medium upload plan is hero plus nine figures in deterministic order"
+        "medium_manual_upload_required: true",
+        "medium_upload_kit: \"medium/upload/README.md\""
       ]
     },
     {
@@ -649,59 +644,38 @@
         "\"article_max_characters\": 125000",
         "\"width\": 2000",
         "\"image_min_width\": 1192",
+        "one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment",
         "Maximiliano Armesto",
         "Jan Rosen"
       ]
     },
     {
-      "path": "quartz/scripts/render-publication-assets.mjs",
-      "required_text": [
-        "buildFigure3ControlledObjectSvg",
-        "figure.number === 3",
-        "rasterizeSvgWithChromium",
-        "png_renderer: rasterized.plan.renderer",
-        "png_background: rasterized.plan.background",
-        "svg_contains_foreign_object"
-      ]
-    },
-    {
       "path": "quartz/scripts/protect-platform-heading-links.mjs",
       "required_text": [
-        "inspectMarkdownHeadingLinks",
-        "remark-parse",
-        "linkReference",
-        "visible-source-line-after-linked-heading",
-        "body_links_duplicated: false"
-      ]
-    },
-    {
-      "path": "quartz/scripts/protect-platform-heading-links.test.mjs",
-      "required_text": [
-        "reference-style and Setext linked headings are protected structurally",
-        "fenced code that looks like a linked heading is not rewritten",
-        "current adapted article yields exactly the two reviewed linked headings"
+        "mechanism: \"visible-source-line-after-linked-heading\"",
+        "parser: \"remark-ast\"",
+        "body_links_duplicated: false",
+        "deterministic_multiple_links: true"
       ]
     },
     {
       "path": "quartz/scripts/verify-publication-package.mjs",
       "required_text": [
-        "assertPlatformFigureInventory",
-        "assertMediumUploadManifest",
-        "publication_state === \"candidate\"",
-        "publication_ready === false",
-        "Figure 8A and Figure 8B must travel together",
-        "Medium clipboard image transfer must not be claimed",
-        "medium/upload/00-medium-hero.png",
-        "copy-ready HTML contains obsolete copy controls"
+        "platformManifest.publication_state === \"candidate\"",
+        "platformManifest.publication_ready === false",
+        "manifest.copy_ready?.medium_clipboard_images_supported === false",
+        "manifest.copy_ready?.medium_manual_upload_required === true",
+        "platformManifest.figure_8_panels_must_travel_together === true",
+        "checklist.includes(\"upload/README.md\")"
       ]
     },
     {
-      "path": "quartz/scripts/verify-publication-package.test.mjs",
+      "path": "content/research/notes/thinking-systems-linkedin-launch-post.md",
       "required_text": [
-        "platform verifier requires nine figures with Figure 8A and 8B coupled",
-        "platform verifier rejects incomplete Figure 8 coupling",
-        "Medium upload manifest requires ten ordered images plus instructions",
-        "Medium upload manifest rejects any claim that clipboard images are supported"
+        "important ideas often do not appear as isolated flashes of genius",
+        "following his From Fall to Rise post",
+        "a Thinking System is a software system in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment",
+        "{{LINKEDIN_ARTICLE_URL}}"
       ]
     }
   ]

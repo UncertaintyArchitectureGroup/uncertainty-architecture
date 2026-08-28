@@ -30,6 +30,14 @@ test("publication furniture carries author identity and six-stage UA research pa
     p.author_furniture.bio,
     /creator and principal author of Uncertainty Architecture/,
   );
+  assert.match(
+    p.author_furniture.bio,
+    /systems in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment/,
+  );
+  assert.doesNotMatch(
+    p.author_furniture.bio,
+    /can materially influence runtime behavior/,
+  );
   assert.equal(p.research_path.items.length, 6);
   assert.deepEqual(
     p.research_path.items.map((item) => item.stage),

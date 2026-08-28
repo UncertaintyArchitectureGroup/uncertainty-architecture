@@ -37,6 +37,50 @@ export function countDataImages(html) {
   return (String(html).match(/src="data:image\//g) || []).length;
 }
 
+export function extractEmbeddedDataImages(html) {
+  const images = [];
+  const pattern =
+    /<img\b[^>]*\bsrc=(["'])data:([^;,"']+);base64,([^"']+)\1[^>]*>/gi;
+  for (const match of String(html).matchAll(pattern)) {
+    const bytes = Buffer.from(match[3], "base64");
+    assert(bytes.length > 0, "Embedded preview image is empty");
+    images.push({
+      mimeType: match[2].toLowerCase(),
+      bytes,
+      sha256: sha256(bytes),
+    });
+  }
+  return images;
+}
+
+export function assertMediumPreviewImageManifest(html, copyReady) {
+  const listed = copyReady?.medium_upload_assets;
+  const assets = Array.isArray(listed)
+    ? listed.filter((asset) => asset.id !== "instructions")
+    : [];
+  const embedded = extractEmbeddedDataImages(html);
+  assert(
+    assets.length === 10,
+    "Medium preview comparison requires ten ordered upload images",
+  );
+  assert(
+    embedded.length === assets.length,
+    `Medium preview contains ${embedded.length} embedded images; expected ${assets.length}`,
+  );
+  for (const [index, image] of embedded.entries()) {
+    const asset = assets[index];
+    assert(
+      image.mimeType === "image/png",
+      `Medium preview image ${index} is not PNG`,
+    );
+    assert(
+      image.sha256 === asset.sha256,
+      `Medium preview image ${index} does not match ${asset.path}`,
+    );
+  }
+  return { embedded, assets };
+}
+
 export function assertMediumUploadManifest(copyReady) {
   assert(
     copyReady?.medium_manual_upload_required === true,
@@ -185,10 +229,22 @@ async function verifyPlatform(platform, manifest, expectedImages) {
     );
   } else {
     assertMediumUploadManifest(manifest.copy_ready);
-    const uploadReadme = await readFile(
-      path.join(directory, "upload", "README.md"),
-      "utf8",
+    const preview = assertMediumPreviewImageManifest(
+      copyReady,
+      manifest.copy_ready,
     );
+    for (const [index, asset] of preview.assets.entries()) {
+      const uploadBytes = await readFile(path.join(renditionRoot, asset.path));
+      assert(
+        uploadBytes.equals(preview.embedded[index].bytes),
+        `Medium preview image ${index} is not byte-identical to ${asset.path}`,
+      );
+    }
+
+    const [uploadReadme, checklist] = await Promise.all([
+      readFile(path.join(directory, "upload", "README.md"), "utf8"),
+      readFile(path.join(directory, "publishing-checklist.md"), "utf8"),
+    ]);
     assert(
       uploadReadme.includes(
         "Medium preserves the pasted rich text but drops clipboard images",
@@ -198,6 +254,17 @@ async function verifyPlatform(platform, manifest, expectedImages) {
     assert(
       uploadReadme.includes("Figure 8A") && uploadReadme.includes("Figure 8B"),
       "Medium upload instructions lost Figure 8 coupling",
+    );
+    assert(
+      checklist.includes("copy-ready.html") &&
+        checklist.includes("upload/README.md") &&
+        checklist.includes("article.md"),
+      "Medium publishing checklist is not bound to the copy-ready and ordered-upload path",
+    );
+    assert(
+      !checklist.includes("../../medium-hero.png") &&
+        !checklist.includes("Upload every image named by an `UPLOAD IMAGE` marker"),
+      "Medium publishing checklist still exposes the obsolete generic image route",
     );
   }
 }

@@ -2,10 +2,13 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  assertMediumPreviewImageManifest,
   assertMediumUploadManifest,
   assertPlatformFigureInventory,
   countDataImages,
+  extractEmbeddedDataImages,
 } from "./verify-publication-package.mjs";
+import { sha256 } from "./publication-rendition.mjs";
 
 test("platform verifier requires nine figures with Figure 8A and 8B coupled", () => {
   const figures = Array.from(
@@ -114,5 +117,47 @@ test("Medium upload manifest rejects any claim that clipboard images are support
   assert.throws(
     () => assertMediumUploadManifest(manifest),
     /must not be claimed/,
+  );
+});
+
+function mediumPreviewFixture() {
+  const buffers = Array.from({ length: 10 }, (_, index) =>
+    Buffer.from(`medium-preview-${index}`, "utf8"),
+  );
+  const manifest = validMediumManifest();
+  const images = manifest.medium_upload_assets.filter(
+    (asset) => asset.id !== "instructions",
+  );
+  images.forEach((asset, index) => {
+    asset.sha256 = sha256(buffers[index]);
+  });
+  const html = buffers
+    .map(
+      (bytes) =>
+        `<img src="data:image/png;base64,${bytes.toString("base64")}" alt=""/>`,
+    )
+    .join("");
+  return { buffers, manifest, html };
+}
+
+test("embedded image extraction preserves Medium preview order and bytes", () => {
+  const fixture = mediumPreviewFixture();
+  const images = extractEmbeddedDataImages(fixture.html);
+  assert.equal(images.length, 10);
+  images.forEach((image, index) => {
+    assert.equal(image.mimeType, "image/png");
+    assert.ok(image.bytes.equals(fixture.buffers[index]));
+  });
+  assert.doesNotThrow(() =>
+    assertMediumPreviewImageManifest(fixture.html, fixture.manifest),
+  );
+});
+
+test("Medium preview image mismatch against the upload manifest is rejected", () => {
+  const fixture = mediumPreviewFixture();
+  fixture.manifest.medium_upload_assets[3].sha256 = "f".repeat(64);
+  assert.throws(
+    () => assertMediumPreviewImageManifest(fixture.html, fixture.manifest),
+    /does not match/,
   );
 });

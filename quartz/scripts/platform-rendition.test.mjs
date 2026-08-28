@@ -7,6 +7,7 @@ import {
   applyFigureHtmlMarkdown,
   buildAssetMap,
   buildCandidatePublicationState,
+  buildChecklist,
   buildPlatformMarkdown,
   convertMarkdownTables,
   countCharacters,
@@ -82,7 +83,35 @@ test("launch post preserves attribution and stays below the headroom target", as
   );
   assert.match(post, /Christophe Kolb, Maximiliano Armesto, Jan Rosen/);
   assert.match(post, /I need people to try to break it/);
+  assert.match(
+    post,
+    /a Thinking System is a software system in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment/,
+  );
   assert.match(post, /Read the article: \{\{LINKEDIN_ARTICLE_URL\}\}/);
+});
+
+test("Medium checklist exposes one ordered manual-upload path", () => {
+  const checklist = buildChecklist(
+    "medium",
+    {
+      medium: {},
+      official_sources: {
+        medium_images: "https://example.com/images",
+        medium_import: "https://example.com/import",
+        medium_canonical: "https://example.com/canonical",
+      },
+    },
+    { relative: "content/research/notes/article.md" },
+    "a".repeat(40),
+    false,
+  );
+  assert.match(checklist, /copy-ready\.html/);
+  assert.match(checklist, /upload\/README\.md/);
+  assert.match(checklist, /00-medium-hero\.png/);
+  assert.match(checklist, /09-figure-08b\.png/);
+  assert.match(checklist, /article\.md/);
+  assert.doesNotMatch(checklist, /\.\.\/\.\.\/medium-hero\.png/);
+  assert.doesNotMatch(checklist, /Upload every image named by/);
 });
 
 test("editable-source packages never self-certify as frozen publication editions", () => {

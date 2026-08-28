@@ -8,7 +8,7 @@
   "author_furniture": {
     "heading": "About the author",
     "name": "Vitalii Oborskyi",
-    "bio": "Vitalii Oborskyi is the creator and principal author of Uncertainty Architecture, an open engineering specification and research program for systems in which probabilistic model judgment can materially influence runtime behavior. He is Head of Delivery & Operations at Developex and has more than two decades of experience across software engineering, delivery, and engineering governance. His current work focuses on non-deterministic systems, AI governance, socio-technical control architectures, and the changing mechanics of software delivery.",
+    "bio": "Vitalii Oborskyi is the creator and principal author of Uncertainty Architecture, an open engineering specification and research program for systems in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment. He is Head of Delivery & Operations at Developex and has more than two decades of experience across software engineering, delivery, and engineering governance. His current work focuses on non-deterministic systems, AI governance, socio-technical control architectures, and the changing mechanics of software delivery.",
     "linkedin_profile": "https://www.linkedin.com/in/vitaliioborskyi/",
     "medium_profile": "https://medium.com/@undersmoker"
   },

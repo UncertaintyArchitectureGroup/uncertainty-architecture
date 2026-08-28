@@ -113,6 +113,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Fixed
 
+- Corrected the platform publication contract so public category wording matches the article definition, the Medium checklist exposes one ordered manual-upload path, and final verification proves that the ten self-contained Medium preview images are byte-identical to the ten upload-kit PNGs; repository-contract protection now focuses on stable publication invariants rather than private function names or test titles.
+
 - Fixed Medium/LinkedIn figure PNG export so Mermaid `foreignObject` labels are rasterized by Chromium onto an opaque white background; the upload artifact now excludes SVG masters and contains only platform-compatible PNG figures.
 
 - Aligned publication Figure 8 in _Thinking Systems: When the Controlled Object Changes_ with the manuscript orthogonal model by restoring assessment eligibility, Project-owned technical selection and category confirmation, category exit, the specific research/business authorization handshake, scoped research-only or production-capable Project Authorization, explicit reassessment routes, and the visually distinct capability-family axis.

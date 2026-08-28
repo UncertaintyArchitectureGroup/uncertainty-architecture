@@ -482,14 +482,13 @@ async function finalizeDirectory(stagingRoot, destinationRoot) {
   }
 }
 
-function buildChecklist(
+export function buildChecklist(
   platformName,
   profile,
   source,
   sourceCommit,
   publicationReady,
 ) {
-  const platform = profile[platformName];
   const official = profile.official_sources;
   const lines = [
     `# ${platformName === "linkedin" ? "LinkedIn" : "Medium"} Publishing Checklist`,
@@ -498,12 +497,12 @@ function buildChecklist(
     `- Source commit: \`${sourceCommit}\``,
     `- Package state: ${publicationReady ? "published edition" : "CANDIDATE — generated from the editable publication draft; publication itself comes before repository freeze"}`,
     "- Review `article.html` and the native platform preview before publishing.",
-    "- Use `article.md` as the image-placement and alt-text guide.",
-    "- Upload every image named by an `UPLOAD IMAGE` marker; do not paste Mermaid source.",
     "- Recheck links, captions, table conversion, and the Figure 8A/8B sequence.",
   ];
   if (platformName === "linkedin") {
     lines.push(
+      "- Use `article.md` as the image-placement and alt-text guide.",
+      "- Upload every image named by an `UPLOAD IMAGE` marker; do not paste Mermaid source.",
       "- Upload `../../cover-linkedin-article.png` as the article cover.",
       "- Apply `seo.json` in LinkedIn SEO settings.",
       "- Publish the native LinkedIn article first, copy its exact URL, and replace `{{LINKEDIN_ARTICLE_URL}}` in `launch-post.txt` before publishing the launch post.",
@@ -515,7 +514,11 @@ function buildChecklist(
     );
   } else {
     lines.push(
-      "- Upload `../../medium-hero.png` as the story hero.",
+      "- Open `copy-ready.html` and confirm that the Medium hero and all nine article figures are visible before copying.",
+      "- Use **Select All → Copy → Paste** to transfer the rich text; this package does not claim Medium clipboard image transfer.",
+      "- Follow `upload/README.md` and upload `00-medium-hero.png` through `09-figure-08b.png` in order.",
+      "- Use `article.md` as the exact image-placement and alt-text guide.",
+      "- Keep Figure 8A and Figure 8B together under the shared Figure 8 caption.",
       "- After the first external publication establishes the principal canonical URL, use Medium import from that URL where appropriate or set the canonical URL manually.",
       "- Confirm each uploaded figure meets the 1,192 px minimum when full placement options are needed.",
       "",
