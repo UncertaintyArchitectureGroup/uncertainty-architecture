@@ -7,8 +7,7 @@ on:
     paths:
       - ".github/workflows/pr93-apply-review-fixes.yml"
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
   group: pr93-apply-review-fixes
@@ -16,6 +15,9 @@ concurrency:
 
 jobs:
   apply:
+    name: Apply substantive review fixes
+    permissions:
+      contents: write # Required only to commit the scoped one-shot fixes back to this PR branch.
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -24,8 +26,11 @@ jobs:
         with:
           ref: publishing/linkedin-medium-renditions
           fetch-depth: 0
+          persist-credentials: false
       - name: Apply and validate review fixes
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -41,4 +46,5 @@ jobs:
           git diff --check
           git add -A
           git commit -m "fix: align platform terminology and Medium publication contract"
-          git push origin HEAD:publishing/linkedin-medium-renditions
+          auth_header="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth_header" push origin HEAD:publishing/linkedin-medium-renditions
