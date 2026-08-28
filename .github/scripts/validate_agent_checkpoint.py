@@ -50,8 +50,20 @@ def git(root: Path, args: Sequence[str], check: bool = True) -> str:
 
 
 def changed_paths(root: Path, base: str, head: str) -> List[str]:
-    output = git(root, ["diff", "--name-only", "-M", base, head])
-    return sorted({line.strip() for line in output.splitlines() if line.strip()})
+    """Return both sides of renames/copies so old and new instruction scopes are reviewed."""
+    output = git(root, ["diff", "--name-status", "-M", base, head])
+    paths = set()
+    for line in output.splitlines():
+        parts = line.split("\t")
+        if len(parts) < 2:
+            continue
+        status = parts[0]
+        if status.startswith(("R", "C")) and len(parts) >= 3:
+            paths.add(parts[1])
+            paths.add(parts[2])
+        else:
+            paths.add(parts[-1])
+    return sorted(path for path in paths if path)
 
 
 def path_exists_at(root: Path, ref: str, path: str) -> bool:
@@ -72,23 +84,35 @@ def blob_sha_at(root: Path, ref: str, path: str) -> str:
     return value
 
 
+def applicable_instruction_blob(root: Path, base: str, head: str, path: str) -> Optional[str]:
+    """Prefer final-head guidance; fall back to base guidance when the PR deletes it."""
+    if path_exists_at(root, head, path):
+        return blob_sha_at(root, head, path)
+    if path_exists_at(root, base, path):
+        return blob_sha_at(root, base, path)
+    return None
+
+
 def applicable_agent_records(root: Path, base: str, head: str) -> List[Dict[str, str]]:
     candidates = set()
-    if path_exists_at(root, head, "AGENTS.md"):
+    if applicable_instruction_blob(root, base, head, "AGENTS.md") is not None:
         candidates.add("AGENTS.md")
 
     for changed in changed_paths(root, base, head):
         parent = PurePosixPath(changed).parent
         while str(parent) not in (".", ""):
             candidate = "{}/AGENTS.md".format(parent.as_posix())
-            if path_exists_at(root, head, candidate):
+            if applicable_instruction_blob(root, base, head, candidate) is not None:
                 candidates.add(candidate)
             parent = parent.parent
 
-    return [
-        {"path": path, "blob_sha": blob_sha_at(root, head, path)}
-        for path in sorted(candidates)
-    ]
+    records = []
+    for path in sorted(candidates):
+        blob_sha = applicable_instruction_blob(root, base, head, path)
+        if blob_sha is None:
+            continue
+        records.append({"path": path, "blob_sha": blob_sha})
+    return records
 
 
 def checkpoint_regex(contract: Dict[str, object]) -> re.Pattern[str]:
