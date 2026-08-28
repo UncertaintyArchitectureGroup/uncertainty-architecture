@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Validate that a PR's agent checkpoint is bound to the exact current head and AGENTS.md scope."""
+"""Validate that a PR agent checkpoint is bound to the exact reviewed PR state."""
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -13,6 +14,7 @@ from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONTRACT = ROOT / ".github/policy/agent-checkpoint-contract.json"
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 class Finding:
@@ -94,6 +96,17 @@ def checkpoint_regex(contract: Dict[str, object]) -> re.Pattern[str]:
     return re.compile(r"<!--\s*" + marker + r"\s*(\{.*?\})\s*-->", re.DOTALL)
 
 
+def canonical_pr_body_without_checkpoint(body: str, contract: Dict[str, object]) -> str:
+    """Return the PR body state being attested, excluding the attestation itself."""
+    stripped = checkpoint_regex(contract).sub("", body or "", count=1).rstrip()
+    return stripped + "\n" if stripped else ""
+
+
+def pr_body_sha256(body: str, contract: Dict[str, object]) -> str:
+    canonical = canonical_pr_body_without_checkpoint(body, contract)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def parse_checkpoint(body: str, contract: Dict[str, object]) -> Tuple[Optional[Dict[str, object]], Optional[str]]:
     blocks = checkpoint_regex(contract).findall(body or "")
     marker = str(contract["pr_checkpoint_marker"])
@@ -124,9 +137,24 @@ def validate_schema(data: Dict[str, object], contract: Dict[str, object]) -> Lis
             )
         )
 
-    head = data.get("reviewed_head_sha")
-    if not isinstance(head, str) or not SHA_RE.fullmatch(head):
-        findings.append(Finding("error", "reviewed_head_sha must be a full lowercase 40-character commit SHA"))
+    for field in ("reviewed_base_sha", "reviewed_head_sha"):
+        value = data.get(field)
+        if not isinstance(value, str) or not SHA_RE.fullmatch(value):
+            findings.append(
+                Finding(
+                    "error",
+                    "{} must be a full lowercase 40-character commit SHA".format(field),
+                )
+            )
+
+    body_hash = data.get("reviewed_pr_body_sha256")
+    if not isinstance(body_hash, str) or not SHA256_RE.fullmatch(body_hash):
+        findings.append(
+            Finding(
+                "error",
+                "reviewed_pr_body_sha256 must be a lowercase 64-character SHA-256 digest",
+            )
+        )
 
     records = data.get("applicable_agents")
     if not isinstance(records, list) or not records:
@@ -180,26 +208,56 @@ def validate(
     if findings:
         return findings
 
-    reviewed = str(data["reviewed_head_sha"])
-    if reviewed != head:
+    reviewed_base = str(data["reviewed_base_sha"])
+    if reviewed_base != base:
         findings.append(
             Finding(
                 "error",
-                "agent checkpoint is stale: reviewed_head_sha {} does not match current PR head {}. "
-                "Re-read the current AGENTS.md scope, current diff, PR description, corrective feedback, "
-                "and end-of-session protocol, then update the checkpoint.".format(reviewed, head),
+                "agent checkpoint is stale: reviewed_base_sha {} does not match current PR base {}.".format(
+                    reviewed_base, base
+                ),
             )
         )
 
-    expected = applicable_agent_records(root, base, head)
-    actual = data["applicable_agents"]
-    if actual != expected:
+    reviewed_head = str(data["reviewed_head_sha"])
+    if reviewed_head != head:
+        findings.append(
+            Finding(
+                "error",
+                "agent checkpoint is stale: reviewed_head_sha {} does not match current PR head {}.".format(
+                    reviewed_head, head
+                ),
+            )
+        )
+
+    expected_body_hash = pr_body_sha256(body, contract)
+    if data["reviewed_pr_body_sha256"] != expected_body_hash:
+        findings.append(
+            Finding(
+                "error",
+                "agent checkpoint is stale: reviewed_pr_body_sha256 does not match the current PR description. "
+                "Expected {}.".format(expected_body_hash),
+            )
+        )
+
+    expected_agents = applicable_agent_records(root, base, head)
+    actual_agents = data["applicable_agents"]
+    if actual_agents != expected_agents:
         findings.append(
             Finding(
                 "error",
                 "applicable_agents does not match the current diff and head. Expected: {}".format(
-                    json.dumps(expected, sort_keys=True)
+                    json.dumps(expected_agents, sort_keys=True)
                 ),
+            )
+        )
+
+    if findings:
+        findings.append(
+            Finding(
+                "error",
+                "Re-read the exact applicable AGENTS.md files, current diff, current PR description, "
+                "available corrective feedback, and end-of-session protocol, then refresh ua-agent-checkpoint.",
             )
         )
     return findings
