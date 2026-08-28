@@ -29,9 +29,9 @@
       "mutation": {
         "type": "remove_text",
         "path": "README.md",
-        "text": "Sam “stunspot” Walker — Technical Co-Author"
+        "text": "Sam \u201cstunspot\u201d Walker \u2014 Technical Co-Author"
       },
-      "expected_error": "README.md: missing protected text 'Sam “stunspot” Walker — Technical Co-Author'"
+      "expected_error": "README.md: missing protected text 'Sam \u201cstunspot\u201d Walker \u2014 Technical Co-Author'"
     },
     {
       "name": "required canonical link deletion is rejected",
@@ -158,20 +158,20 @@
     {
       "name": "explicit generic PDF entrypoint deletion is rejected",
       "mutation": {
-        "type": "remove_text",
+        "type": "delete_json_pointer",
         "path": "package.json",
-        "text": "\"pdf\": \"node quartz/scripts/export-pdf.mjs\""
+        "pointer": "/scripts/pdf"
       },
-      "expected_error": "package.json: missing protected text '\"pdf\": \"node quartz/scripts/export-pdf.mjs\"'"
+      "expected_error": "package.json: JSON pointer '/scripts/pdf'"
     },
     {
       "name": "curated working-paper command deletion is rejected",
       "mutation": {
-        "type": "remove_text",
+        "type": "delete_json_pointer",
         "path": "package.json",
-        "text": "\"pdf:working-paper\": \"node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense\""
+        "pointer": "/scripts/pdf:working-paper"
       },
-      "expected_error": "package.json: missing protected text '\"pdf:working-paper\": \"node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense\"'"
+      "expected_error": "package.json: JSON pointer '/scripts/pdf:working-paper'"
     },
     {
       "name": "manual PDF workflow default article deletion is rejected",
@@ -249,7 +249,7 @@
       "mutation": {
         "type": "remove_text",
         "path": "README.md",
-        "text": "### Markus Kopko — Strategic Advisor on Governance and Alignment"
+        "text": "### Markus Kopko \u2014 Strategic Advisor on Governance and Alignment"
       },
       "expected_error": "README.md: missing required heading"
     },
@@ -371,6 +371,24 @@
         "path": ".github/workflows/export-platform-renditions.yml"
       },
       "expected_error": "Missing required file: .github/workflows/export-platform-renditions.yml"
+    },
+    {
+      "name": "package script JSON formatting is ignored",
+      "mutation": {
+        "type": "format_json_compact",
+        "path": "package.json"
+      },
+      "expected_valid": true
+    },
+    {
+      "name": "package script moved outside scripts is rejected",
+      "mutation": {
+        "type": "move_json_pointer",
+        "path": "package.json",
+        "pointer": "/scripts/publication:bundle",
+        "destination": "/publication:bundle"
+      },
+      "expected_error": "package.json: JSON pointer '/scripts/publication:bundle'"
     }
   ]
 }

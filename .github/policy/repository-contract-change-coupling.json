@@ -305,17 +305,48 @@
     },
     {
       "path": "package.json",
-      "required_text": [
-        "\"pdf\": \"node quartz/scripts/export-pdf.mjs\"",
-        "\"pdf:article\": \"node quartz/scripts/render-publication-pdf.mjs content/research/notes/thinking-systems-publication-draft.md --output dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf\"",
-        "\"pdf:working-paper\": \"node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense\"",
-        "\"pdf:verify:figure8\": \"node quartz/scripts/verify-publication-figure8.mjs\"",
-        "\"publication:platforms\": \"node quartz/scripts/render-platform-renditions.mjs\"",
-        "\"publication:copy-ready\": \"node quartz/scripts/render-copy-ready.mjs\"",
-        "\"publication:protect-links\": \"node quartz/scripts/protect-platform-heading-links.mjs\"",
-        "\"publication:furniture\": \"node quartz/scripts/render-platform-furniture.mjs\"",
-        "\"publication:verify-package\": \"node quartz/scripts/verify-publication-package.mjs\"",
-        "\"publication:bundle\": \"npm run publication:assets && npm run publication:platforms && npm run publication:protect-links && npm run publication:furniture && npm run publication:copy-ready\""
+      "required_text": [],
+      "required_json": [
+        {
+          "pointer": "/scripts/pdf",
+          "equals": "node quartz/scripts/export-pdf.mjs"
+        },
+        {
+          "pointer": "/scripts/pdf:article",
+          "equals": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/thinking-systems-publication-draft.md --output dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf"
+        },
+        {
+          "pointer": "/scripts/pdf:working-paper",
+          "equals": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense"
+        },
+        {
+          "pointer": "/scripts/pdf:verify:figure8",
+          "equals": "node quartz/scripts/verify-publication-figure8.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:platforms",
+          "equals": "node quartz/scripts/render-platform-renditions.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:protect-links",
+          "equals": "node quartz/scripts/protect-platform-heading-links.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:furniture",
+          "equals": "node quartz/scripts/render-platform-furniture.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:copy-ready",
+          "equals": "node quartz/scripts/render-copy-ready.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:bundle",
+          "equals": "npm run publication:assets && npm run publication:platforms && npm run publication:protect-links && npm run publication:furniture && npm run publication:copy-ready"
+        },
+        {
+          "pointer": "/scripts/publication:verify-package",
+          "equals": "node quartz/scripts/verify-publication-package.mjs"
+        }
       ]
     },
     {
@@ -593,10 +624,12 @@
       "path": "quartz/scripts/render-copy-ready.mjs",
       "required_text": [
         "embedLocalImages",
-        "replaceMediumImagesWithRemoteSources",
-        "immutable-raw-github-url",
+        "buildMediumUploadPlan",
+        "medium_manual_upload_required",
+        "medium_clipboard_images_supported: false",
+        "embedded-data-uri-preview",
+        "medium/upload/README.md",
         "data:image/png;base64",
-        "copy-ready.html",
         "manual-select-all-copy",
         "javascript_copy_controls: false"
       ]
@@ -606,7 +639,7 @@
       "required_text": [
         "copy-ready HTML embeds local images as data URIs",
         "copy-ready document exposes one article-only copy surface",
-        "copy-ready document keeps toolbar outside copied article"
+        "Medium upload plan is hero plus nine figures in deterministic order"
       ]
     },
     {
@@ -653,11 +686,12 @@
       "path": "quartz/scripts/verify-publication-package.mjs",
       "required_text": [
         "assertPlatformFigureInventory",
-        "remoteGithubImageSources",
+        "assertMediumUploadManifest",
         "publication_state === \"candidate\"",
         "publication_ready === false",
-        "Figure 8A and 8B must travel together",
-        "Medium copy-ready must not use data-URI images",
+        "Figure 8A and Figure 8B must travel together",
+        "Medium clipboard image transfer must not be claimed",
+        "medium/upload/00-medium-hero.png",
         "copy-ready HTML contains obsolete copy controls"
       ]
     },
@@ -666,7 +700,8 @@
       "required_text": [
         "platform verifier requires nine figures with Figure 8A and 8B coupled",
         "platform verifier rejects incomplete Figure 8 coupling",
-        "remote image inventory recognizes immutable GitHub image sources"
+        "Medium upload manifest requires ten ordered images plus instructions",
+        "Medium upload manifest rejects any claim that clipboard images are supported"
       ]
     }
   ]

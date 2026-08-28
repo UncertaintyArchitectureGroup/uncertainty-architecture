@@ -64,61 +64,80 @@ def markdown_link_targets(text: str) -> Set[str]:
     return targets
 
 
-def find_json_values(value: object, key: str) -> List[object]:
-    found: List[object] = []
-    if isinstance(value, dict):
-        for current_key, current_value in value.items():
-            if current_key == key:
-                found.append(current_value)
-            found.extend(find_json_values(current_value, key))
-    elif isinstance(value, list):
-        for item in value:
-            found.extend(find_json_values(item, key))
-    return found
+_MISSING = object()
 
 
-def command_chain_is_subsequence(expected: str, actual: str) -> bool:
-    expected_steps = [step.strip() for step in expected.split("&&")]
-    actual_steps = [step.strip() for step in actual.split("&&")]
-    cursor = 0
-    for step in actual_steps:
-        if cursor < len(expected_steps) and step == expected_steps[cursor]:
-            cursor += 1
-    return cursor == len(expected_steps)
+def decode_json_pointer_token(token: str) -> str:
+    return token.replace("~1", "/").replace("~0", "~")
 
 
-def protected_text_present(path: Path, text: str, marker: str) -> bool:
-    """Check protected text, using structural matching for JSON fragments.
+def resolve_json_pointer(document: object, pointer: str) -> object:
+    """Resolve an RFC 6901 JSON Pointer without recursive key matching."""
+    if pointer == "":
+        return document
+    if not pointer.startswith("/"):
+        return _MISSING
+    current = document
+    for raw_token in pointer[1:].split("/"):
+        token = decode_json_pointer_token(raw_token)
+        if isinstance(current, dict):
+            if token not in current:
+                return _MISSING
+            current = current[token]
+            continue
+        if isinstance(current, list):
+            try:
+                index = int(token)
+            except ValueError:
+                return _MISSING
+            if index < 0 or index >= len(current):
+                return _MISSING
+            current = current[index]
+            continue
+        return _MISSING
+    return current
 
-    JSON markers of the form ``"key": value`` are matched by parsed key/value,
-    so harmless pretty-printing changes cannot break the repository contract.
-    For command-chain strings, protected commands may gain intermediate steps
-    while every protected command must remain present and in the same order.
-    """
-    if marker in text:
-        return True
+
+def validate_required_json(
+    relative: str,
+    path: Path,
+    text: str,
+    rules: Iterable[Dict[str, object]],
+    errors: List[str],
+) -> None:
+    checks = list(rules)
+    if not checks:
+        return
     if path.suffix.lower() != ".json":
-        return False
-    try:
-        parsed = json.loads(text)
-    except json.JSONDecodeError:
-        return False
-    try:
-        marker_object = json.loads("{" + marker + "}")
-    except json.JSONDecodeError:
-        return False
-    if len(marker_object) != 1:
-        return False
-    key, expected = next(iter(marker_object.items()))
-    actual_values = find_json_values(parsed, key)
-    if any(actual == expected for actual in actual_values):
-        return True
-    if isinstance(expected, str) and "&&" in expected:
-        return any(
-            isinstance(actual, str) and command_chain_is_subsequence(expected, actual)
-            for actual in actual_values
+        errors.append(
+            "{}: structured contract checks require a JSON file".format(relative)
         )
-    return False
+        return
+    try:
+        document = json.loads(text)
+    except json.JSONDecodeError as exc:
+        errors.append(
+            "{}: invalid JSON for structured contract checks: {}".format(
+                relative, exc
+            )
+        )
+        return
+
+    for check in checks:
+        pointer = check.get("pointer")
+        if not isinstance(pointer, str):
+            errors.append(
+                "{}: structured contract entry lacks a JSON pointer".format(relative)
+            )
+            continue
+        expected = check.get("equals")
+        actual = resolve_json_pointer(document, pointer)
+        if actual is _MISSING or actual != expected:
+            errors.append(
+                "{}: JSON pointer {!r} must equal {!r}".format(
+                    relative, pointer, expected
+                )
+            )
 
 
 def validate_top_level(root: Path, contract: Dict[str, object], errors: List[str]) -> None:
@@ -191,8 +210,15 @@ def validate_critical_files(root: Path, contract: Dict[str, object], errors: Lis
             if heading not in lines:
                 errors.append("{}: missing required heading {!r}".format(relative, heading))
         for marker in rule.get("required_text", []):
-            if not protected_text_present(path, text, marker):
+            if marker not in text:
                 errors.append("{}: missing protected text {!r}".format(relative, marker))
+        validate_required_json(
+            relative,
+            path,
+            text,
+            rule.get("required_json", []),
+            errors,
+        )
         targets = markdown_link_targets(text)
         for target in rule.get("required_links", []):
             if target not in targets:

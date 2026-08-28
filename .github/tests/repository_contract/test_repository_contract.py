@@ -37,6 +37,8 @@ REQUIRED_CASE_NAMES: Set[str] = {
     "platform rendition workflow deletion is rejected",
     "explicit generic PDF entrypoint deletion is rejected",
     "curated working-paper command deletion is rejected",
+    "package script JSON formatting is ignored",
+    "package script moved outside scripts is rejected",
     "manual PDF workflow default article deletion is rejected",
     "manual PDF workflow working-paper route deletion is rejected",
     "publication path safety helper deletion is rejected",
@@ -76,6 +78,55 @@ def write_text(path: Path, text: str = "fixture\n") -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def decode_pointer_token(token: str) -> str:
+    return token.replace("~1", "/").replace("~0", "~")
+
+
+def pointer_tokens(pointer: str) -> List[str]:
+    if not pointer.startswith("/"):
+        raise ValueError("JSON pointer must start with '/': {}".format(pointer))
+    return [decode_pointer_token(token) for token in pointer[1:].split("/")]
+
+
+def get_json_pointer(document: object, pointer: str) -> object:
+    current = document
+    for token in pointer_tokens(pointer):
+        if isinstance(current, dict):
+            current = current[token]
+        elif isinstance(current, list):
+            current = current[int(token)]
+        else:
+            raise KeyError(pointer)
+    return current
+
+
+def set_json_pointer(document: object, pointer: str, value: object) -> object:
+    tokens = pointer_tokens(pointer)
+    if not isinstance(document, dict):
+        document = {}
+    current = document
+    for token in tokens[:-1]:
+        next_value = current.get(token)
+        if not isinstance(next_value, dict):
+            next_value = {}
+            current[token] = next_value
+        current = next_value
+    current[tokens[-1]] = value
+    return document
+
+
+def delete_json_pointer(document: object, pointer: str) -> object:
+    tokens = pointer_tokens(pointer)
+    current = document
+    for token in tokens[:-1]:
+        if not isinstance(current, dict) or token not in current:
+            return document
+        current = current[token]
+    if isinstance(current, dict):
+        current.pop(tokens[-1], None)
+    return document
+
+
 def materialize_rules(root: Path, rules: Dict[str, object]) -> None:
     for required in rules.get("required_paths", []):
         path = root / required["path"]
@@ -85,13 +136,28 @@ def materialize_rules(root: Path, rules: Dict[str, object]) -> None:
             write_text(path)
     for rule in rules.get("critical_files", []):
         path = root / rule["path"]
+        required_json = rule.get("required_json", [])
+        if required_json:
+            document: object = {}
+            if path.exists():
+                try:
+                    document = json.loads(path.read_text(encoding="utf-8"))
+                except json.JSONDecodeError:
+                    document = {}
+            for check in required_json:
+                document = set_json_pointer(
+                    document, str(check["pointer"]), check.get("equals")
+                )
+            write_text(path, json.dumps(document, indent=2) + "\n")
+
         existing = path.read_text(encoding="utf-8") if path.exists() else ""
         parts: List[str] = []
         parts.extend(rule.get("required_headings", []))
         parts.extend(rule.get("required_text", []))
         parts.extend("[fixture]({})".format(target) for target in rule.get("required_links", []))
-        addition = "\n\n".join(parts) + "\n"
-        write_text(path, existing + addition)
+        if parts:
+            addition = "\n\n".join(parts) + "\n"
+            write_text(path, existing + addition)
 
 
 def materialize_valid_repository(root: Path, contract: Dict[str, object], extension: Dict[str, object]) -> None:
@@ -140,6 +206,25 @@ def apply_mutation(root: Path, mutation: Dict[str, str]) -> None:
         return
     if mutation_type == "add_file":
         write_text(path)
+        return
+    if mutation_type == "format_json_compact":
+        document = json.loads(path.read_text(encoding="utf-8"))
+        path.write_text(
+            json.dumps(document, separators=(",", ":")) + "\n",
+            encoding="utf-8",
+        )
+        return
+    if mutation_type == "delete_json_pointer":
+        document = json.loads(path.read_text(encoding="utf-8"))
+        document = delete_json_pointer(document, mutation["pointer"])
+        path.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+        return
+    if mutation_type == "move_json_pointer":
+        document = json.loads(path.read_text(encoding="utf-8"))
+        value = get_json_pointer(document, mutation["pointer"])
+        document = delete_json_pointer(document, mutation["pointer"])
+        document = set_json_pointer(document, mutation["destination"], value)
+        path.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
         return
     raise ValueError("Unsupported fixture mutation: {}".format(mutation_type))
 
