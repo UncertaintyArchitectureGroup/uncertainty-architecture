@@ -66,13 +66,13 @@ Report genuine contradictions instead of silently choosing one side.
 
 At the start of every repository task, and again before a repository-changing action when the state may have changed:
 
-1. inspect the current repository tree, default branch, relevant ref, and task-specific branch, issue, pull request, review, and CI state where applicable;
+1. inspect the repository root and use targeted tree or repository search to discover applicable `AGENTS.md` files and the task-relevant subtree; resolve the default branch, relevant ref, and task-specific branch, issue, pull request, review, and CI state where applicable;
 2. read this root `AGENTS.md` in full and discover any nested `AGENTS.md` files whose directory scope intersects the task;
-3. treat a nested `AGENTS.md` as a scoped supplement to this file, not as a replacement for it; for work inside or materially affecting `content/research/`, read [`content/research/AGENTS.md`](content/research/AGENTS.md) in full;
+3. treat a nested `AGENTS.md` as a scoped supplement to this file, not as a replacement for it, and read and apply it according to the scope stated by that file; read [`content/research/AGENTS.md`](content/research/AGENTS.md) in full when the task edits files under `content/research/` or makes research-content, provenance, research-state, or publication-edition decisions. Infrastructure that only renders, validates, transports, or packages research artifacts does not activate the long-form research-drafting protocol unless it also changes research content or state;
 4. identify the applicable task-specific reading path, owning sources, and relevant repository contracts before proposing or making changes;
 5. treat the current repository state as authoritative for repository facts; previous chats, summaries, pasted excerpts, and cached snapshots are supporting context only;
 6. report unavailable access or conflicting instructions instead of silently substituting assumptions; and
-7. distinguish verified current state, proposed changes, locally prepared changes, and remotely applied changes in every report.
+7. distinguish verified current state, proposed changes, locally prepared changes, and remotely applied changes whenever reporting work state or completion.
 
 Inspecting the repository tree is not the same as reading every file. Do not claim a complete repository review unless the complete relevant content was actually read.
 
@@ -396,7 +396,7 @@ Additional rules:
 
 ### Maintainer corrections and durable improvement
 
-When a maintainer corrects an AI contributor, the contributor MUST first apply the correction to the current work and then determine whether it exposes a durable control weakness.
+When a maintainer corrects an AI contributor, the contributor MUST first reconcile the correction with the current repository state, the authority order in this file, explicit task authorization, and applicable repository contracts. Apply the correction to the current work when it is valid within those boundaries; otherwise report the conflict or required decision. Then determine whether the correction exposes a durable improvement opportunity.
 
 Classify the correction as one or more of:
 
@@ -412,6 +412,16 @@ Promote a correction into durable guidance only when recurrence is likely, its a
 
 Prefer one canonical descriptive owner. A rule may also have a separate enforcement owner when a canonical document or `AGENTS.md` defines the rule and deterministic automation verifies its observable part.
 
+The contributor MAY evaluate and propose a persistent agent-guidance improvement without prior approval. Before actually changing any persistent agent-guidance surface because of a maintainer correction — including Project Instructions, reusable/custom-agent instructions, this root `AGENTS.md`, or a nested `AGENTS.md` — the contributor MUST explain to the maintainer:
+
+- the observed recurring problem or control weakness;
+- why a durable instruction change is preferable to a local correction;
+- the proposed canonical owner;
+- the exact behavioral rule or scope change to be introduced; and
+- any expected interaction with existing repository guidance or automation.
+
+The contributor MUST obtain explicit maintainer approval for that persistent guidance change before writing it. Approval of the underlying task or local correction does not by itself authorize a new permanent agent rule. Once approved, keep the change within the explained scope; material expansion requires renewed approval.
+
 Do not:
 
 - turn every one-off preference into permanent process;
@@ -421,9 +431,9 @@ Do not:
 - create a new workflow when an existing validator, contract, or test can coherently own the check; or
 - claim that an external Project, custom agent, repository file, check, or workflow was updated when only a recommendation was produced.
 
-When authorized and tightly coupled to the current work, include the durable improvement in the same pull request. Otherwise, report it as a separate improvement candidate rather than silently expanding scope.
+When a durable improvement is repository-owned, explicitly authorized, and tightly coupled to the current work, include it in the same pull request. Changes owned by an external Project or reusable-agent configuration must be made through that authorized external surface, not represented as repository changes. Otherwise, report the exact improvement as a separate candidate rather than silently expanding scope.
 
-For every material candidate, the session report MUST state the observed failure or correction, whether it is local or durable, the proposed canonical owner, the exact proposed improvement, automation feasibility, and whether it was applied, proposed, rejected, or deferred.
+For every material candidate, the session report MUST state the observed failure or correction, whether it is local or durable, the proposed canonical owner, the exact proposed improvement, automation feasibility, required approval state when persistent agent guidance is involved, and whether it was applied, proposed, rejected, or deferred.
 
 ## 10. End-of-session integrity protocol
 
@@ -482,7 +492,7 @@ Summarize:
 - which decision levels and capability families were affected;
 - which files own the resulting meaning;
 - which checks were performed;
-- which maintainer corrections were evaluated for durable improvement and how each candidate was routed;
+- which maintainer corrections were evaluated for durable improvement, how each candidate was routed, and whether any required persistent-guidance approval was obtained;
 - what remains unresolved;
 - whether the PR is still Draft or ready for review.
 
