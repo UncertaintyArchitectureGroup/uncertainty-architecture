@@ -394,33 +394,45 @@ Additional rules:
 - use a Draft pull request for substantial framework changes until review criteria are satisfied;
 - do not use an exception label as a generic bypass: each exception is category-scoped, maintainer-controlled, visible in the PR, and must be explained.
 
-### Maintainer corrections and durable improvement
+### Corrective feedback and control improvement
 
-When a maintainer corrects an AI contributor, the contributor MUST first reconcile the correction with the current repository state, the authority order in this file, explicit task authorization, and applicable repository contracts. Apply the correction to the current work when it is valid within those boundaries; otherwise report the conflict or required decision. Then determine whether the correction exposes a durable improvement opportunity.
+Treat the active maintainer conversation as a feedback surface. The contributor MUST monitor the interaction for **corrective feedback signals** indicating that its interpretation, decision, implementation, or workflow deviated from the maintainer's intended behavior.
 
-Classify the correction as one or more of:
+Corrective signals are semantic, not phrase-matched. Examples include the maintainer explaining that the opposite behavior was intended, that the requested outcome was misunderstood, that an expected workflow or verification step was skipped, that the wrong source of truth was used, that scope was expanded or narrowed incorrectly, or that the maintainer expected the work to be approached in a materially different way.
 
-1. a local task instruction that should remain in the current session;
-2. an execution-environment bootstrap, project-context, or tool-routing improvement, such as a ChatGPT Project instruction;
-3. a reusable cross-project agent-definition improvement, such as a custom GPT instruction;
-4. a repository-wide contributor rule owned by this root `AGENTS.md`;
-5. a subtree-specific contributor rule owned by the applicable nested `AGENTS.md`;
-6. a correction to canonical repository meaning owned by the relevant specification, glossary, doctrine, pattern, research-state record, publishing contract, or other canonical artifact; or
-7. an objectively enforceable invariant suitable for a test, validator, policy contract, pull-request check, template, or GitHub workflow.
+For every material corrective signal:
 
-Promote a correction into durable guidance only when recurrence is likely, its applicability is broader than the current task, repetition would have material cost, or the failure could damage authority, provenance, compatibility, publication integrity, repository history, or verification evidence.
+1. reconcile it with the current repository state, the authority order in this file, explicit task authorization, and applicable repository contracts;
+2. correct the current work when the signal is valid within those boundaries, or report the conflict or required decision when it is not;
+3. diagnose the likely cause of the deviation rather than treating the corrected output as sufficient;
+4. determine whether the cause is local to the current task or reasonably likely to recur; and
+5. evaluate whether a durable control improvement is warranted.
 
-Prefer one canonical descriptive owner. A rule may also have a separate enforcement owner when a canonical document or `AGENTS.md` defines the rule and deterministic automation verifies its observable part.
+Related corrective signals may be accumulated across several iterations of the active work when that makes the underlying failure pattern clearer. Do not manufacture a durable rule from every isolated preference, wording choice, or conversational clarification.
 
-The contributor MAY evaluate and propose a persistent agent-guidance improvement without prior approval. Before actually changing any persistent agent-guidance surface because of a maintainer correction — including Project Instructions, reusable/custom-agent instructions, this root `AGENTS.md`, or a nested `AGENTS.md` — the contributor MUST explain to the maintainer:
+When a durable candidate exists, route it to the narrowest appropriate owner:
 
-- the observed recurring problem or control weakness;
-- why a durable instruction change is preferable to a local correction;
-- the proposed canonical owner;
-- the exact behavioral rule or scope change to be introduced; and
-- any expected interaction with existing repository guidance or automation.
+1. execution-environment bootstrap, project context, or tool routing → Project Instructions or the equivalent project-level agent configuration;
+2. behavior genuinely reusable across projects or repositories → reusable/custom-agent instructions;
+3. repository-wide contributor behavior → this root `AGENTS.md`;
+4. subtree-specific contributor behavior → the applicable nested `AGENTS.md`;
+5. project meaning, terminology, ownership, research state, publishing contract, or another canonical rule → the relevant canonical repository artifact rather than agent guidance;
+6. an objectively enforceable invariant → an existing or new test, validator, policy contract, pull-request check, template, or GitHub workflow.
 
-The contributor MUST obtain explicit maintainer approval for that persistent guidance change before writing it. Approval of the underlying task or local correction does not by itself authorize a new permanent agent rule. Once approved, keep the change within the explained scope; material expansion requires renewed approval.
+Prefer one canonical descriptive owner. A rule may also have a separate enforcement owner when deterministic automation verifies an observable subset. Prefer improving an existing owner or validator over creating a parallel instruction, document, workflow, or abstraction.
+
+Before writing a **feedback-derived** change to persistent agent guidance, the contributor MUST present the candidate to the maintainer and explain:
+
+- which corrective signal or recurring deviation exposed the candidate;
+- why the problem is reasonably likely to recur or materially worth preventing;
+- which control surface should own the improvement;
+- the exact proposed behavioral or scope change;
+- what failure mode or friction the change is expected to reduce; and
+- whether deterministic enforcement is appropriate.
+
+Apply that feedback-derived persistent-guidance improvement only after the maintainer approves the described candidate. The approval applies to the candidate that was explained; material expansion requires renewed approval.
+
+This approval step is part of the feedback-learning loop, not a general governance requirement for editing agent guidance. When the maintainer directly requests an `AGENTS.md`, Project Instruction, or other agent-guidance change as the task itself, normal task authorization applies and no additional feedback-learning approval is required merely because the target is persistent guidance.
 
 Do not:
 
@@ -431,9 +443,7 @@ Do not:
 - create a new workflow when an existing validator, contract, or test can coherently own the check; or
 - claim that an external Project, custom agent, repository file, check, or workflow was updated when only a recommendation was produced.
 
-When a durable improvement is repository-owned, explicitly authorized, and tightly coupled to the current work, include it in the same pull request. Changes owned by an external Project or reusable-agent configuration must be made through that authorized external surface, not represented as repository changes. Otherwise, report the exact improvement as a separate candidate rather than silently expanding scope.
-
-For every material candidate, the session report MUST state the observed failure or correction, whether it is local or durable, the proposed canonical owner, the exact proposed improvement, automation feasibility, required approval state when persistent agent guidance is involved, and whether it was applied, proposed, rejected, or deferred.
+For every material durable candidate considered during the task, the session report MUST state the corrective signal or failure pattern, whether it was classified as local or durable, the proposed canonical owner, the expected improvement, automation feasibility, whether maintainer approval was required and obtained, and whether the candidate was applied, proposed, rejected, or deferred.
 
 ## 10. End-of-session integrity protocol
 
@@ -492,7 +502,7 @@ Summarize:
 - which decision levels and capability families were affected;
 - which files own the resulting meaning;
 - which checks were performed;
-- which maintainer corrections were evaluated for durable improvement, how each candidate was routed, and whether any required persistent-guidance approval was obtained;
+- which corrective feedback signals were evaluated for durable control improvement, how each candidate was routed, and whether any required feedback-derived guidance approval was obtained;
 - what remains unresolved;
 - whether the PR is still Draft or ready for review.
 
