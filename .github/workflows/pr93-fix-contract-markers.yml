@@ -1,0 +1,72 @@
+name: PR93 correct stable contract markers
+
+on:
+  push:
+    branches:
+      - publishing/linkedin-medium-renditions
+    paths:
+      - ".github/workflows/pr93-fix-contract-markers.yml"
+
+permissions: {}
+
+concurrency:
+  group: pr93-fix-contract-markers
+  cancel-in-progress: false
+
+jobs:
+  correct:
+    name: Correct stable contract markers
+    permissions:
+      contents: write # Required only to commit this scoped one-shot contract correction.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out PR branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: publishing/linkedin-medium-renditions
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Correct contract markers and remove one-shot workflow
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path('.github/policy/repository-contract-change-coupling.json')
+          document = json.loads(path.read_text(encoding='utf-8'))
+          rule = next(
+              item
+              for item in document['critical_files']
+              if item['path'] == 'quartz/scripts/verify-publication-package.mjs'
+          )
+          replacements = {
+              'manifest.copy_ready?.medium_clipboard_images_supported === false':
+                  'copyReady?.medium_clipboard_images_supported === false',
+              'manifest.copy_ready?.medium_manual_upload_required === true':
+                  'copyReady?.medium_manual_upload_required === true',
+          }
+          markers = rule.get('required_text', [])
+          for old, new in replacements.items():
+              if markers.count(old) != 1:
+                  raise SystemExit(f'expected exactly one contract marker: {old!r}')
+              markers[markers.index(old)] = new
+          path.write_text(
+              json.dumps(document, indent=2, ensure_ascii=False) + '\n',
+              encoding='utf-8',
+          )
+          PY
+          python3 .github/scripts/validate_repository_contract.py
+          python3 .github/tests/repository_contract/test_repository_contract.py
+          rm .github/workflows/pr93-fix-contract-markers.yml
+          git diff --check
+          git add -A
+          git commit -m "fix: align repository contract with Medium verifier"
+          auth_header="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth_header" push origin HEAD:publishing/linkedin-medium-renditions
