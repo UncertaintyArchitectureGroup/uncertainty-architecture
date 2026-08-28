@@ -81,3 +81,6 @@ jobs:
 
       - name: Run agent checkpoint regression fixtures
         run: python3 .github/tests/agent_checkpoint/test_agent_checkpoint.py
+
+      - name: Run checkpoint repository-contract mutation fixture
+        run: python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
