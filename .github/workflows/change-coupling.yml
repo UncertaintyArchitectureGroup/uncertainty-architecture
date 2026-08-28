@@ -41,6 +41,29 @@ jobs:
           --head "$HEAD_SHA"
           --labels "$PR_LABELS"
 
+  agent-checkpoint:
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]'
+    name: Agent protocol / current-head checkpoint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate current-head agent checkpoint
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: >-
+          python3 .github/scripts/validate_agent_checkpoint.py
+          --base "$BASE_SHA"
+          --head "$HEAD_SHA"
+
   self-tests:
     name: Policy / change coupling self-tests
     runs-on: ubuntu-24.04
@@ -55,3 +78,6 @@ jobs:
       - name: Run diff-aware regression fixtures
         working-directory: 03-reference-architectures
         run: python3 ../.github/tests/change_coupling/test_change_coupling.py
+
+      - name: Run agent checkpoint regression fixtures
+        run: python3 .github/tests/agent_checkpoint/test_agent_checkpoint.py
