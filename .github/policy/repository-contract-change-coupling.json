@@ -663,8 +663,8 @@
       "required_text": [
         "platformManifest.publication_state === \"candidate\"",
         "platformManifest.publication_ready === false",
-        "manifest.copy_ready?.medium_clipboard_images_supported === false",
-        "manifest.copy_ready?.medium_manual_upload_required === true",
+        "copyReady?.medium_clipboard_images_supported === false",
+        "copyReady?.medium_manual_upload_required === true",
         "platformManifest.figure_8_panels_must_travel_together === true",
         "checklist.includes(\"upload/README.md\")"
       ]
