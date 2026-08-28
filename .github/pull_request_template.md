@@ -30,7 +30,9 @@ The machine-readable block below is validated against the actual git diff. Keep 
 
 ## Agent iteration checkpoint
 
-For AI-assisted PR work, update `ua-agent-checkpoint` after every new PR head. The checkpoint is intentionally bound to the exact head SHA and the exact blob SHA of every `AGENTS.md` file applicable to the current diff. Before updating it, re-read those instructions, the full current diff, this PR description, available maintainer corrective feedback, and the end-of-session integrity protocol. Editing the PR body does not create a new head, so it can acknowledge the completed recheck without another code commit.
+For AI-assisted PR work, update `ua-agent-checkpoint` after every change to the reviewed PR state. The checkpoint is intentionally bound to the exact base SHA, head SHA, PR-description SHA-256 (excluding the checkpoint block itself), and blob SHA of every `AGENTS.md` file applicable to the current diff. Before updating it, re-read those instructions, the full current diff, this PR description, available maintainer corrective feedback, and the end-of-session integrity protocol.
+
+A new commit, base retarget, or PR-description edit makes the prior attestation stale. Updating only the checkpoint block does not change the attested PR-description digest, so the acknowledgement can converge without another code commit or an infinite edit loop.
 
 Dependabot PRs are excluded from this checkpoint because Dependabot cannot maintain the attestation block itself; normal maintainer review and the other repository controls still apply.
 
@@ -57,7 +59,9 @@ Dependabot PRs are excluded from this checkpoint because Dependabot cannot maint
 <!-- ua-agent-checkpoint
 {
   "checkpoint_version": 1,
+  "reviewed_base_sha": "replace-with-current-40-character-base-sha",
   "reviewed_head_sha": "replace-with-current-40-character-head-sha",
+  "reviewed_pr_body_sha256": "replace-with-current-64-character-body-digest",
   "applicable_agents": [
     {
       "path": "AGENTS.md",
