@@ -5,6 +5,7 @@
     {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
     {"path": ".github/scripts/validate_agent_checkpoint.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py", "type": "file"},
+    {"path": ".github/tests/agent_checkpoint/test_checkpoint_repository_contract.py", "type": "file"},
     {"path": ".github/workflows/change-coupling.yml", "type": "file"},
     {"path": ".github/pull_request_template.md", "type": "file"},
     {"path": "AGENTS.md", "type": "file"}
@@ -44,12 +45,21 @@
       ]
     },
     {
+      "path": ".github/tests/agent_checkpoint/test_checkpoint_repository_contract.py",
+      "required_text": [
+        "checkpoint control surface satisfies repository contract",
+        "removing checkpoint job marker is blocked by repository contract",
+        "Agent-checkpoint repository-contract fixture passed."
+      ]
+    },
+    {
       "path": ".github/workflows/change-coupling.yml",
       "required_text": [
         "name: Agent protocol / current-head checkpoint",
         "Validate current-head agent checkpoint",
         "validate_agent_checkpoint.py",
-        "Run agent checkpoint regression fixtures"
+        "Run agent checkpoint regression fixtures",
+        "Run checkpoint repository-contract mutation fixture"
       ]
     },
     {
