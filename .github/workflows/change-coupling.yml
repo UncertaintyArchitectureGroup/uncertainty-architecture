@@ -43,7 +43,7 @@ jobs:
 
   agent-checkpoint:
     if: github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]'
-    name: Agent protocol / current-head checkpoint
+    name: Agent protocol / exact-state checkpoint
     runs-on: ubuntu-24.04
     timeout-minutes: 5
 
@@ -54,15 +54,20 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Validate current-head agent checkpoint
+      - name: Validate exact-state agent checkpoint
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: >-
-          python3 .github/scripts/validate_agent_checkpoint.py
-          --base "$BASE_SHA"
-          --head "$HEAD_SHA"
+          MERGE_SHA: ${{ github.sha }}
+        run: |
+          BASE_TIP_SHA="$(git rev-parse "refs/remotes/origin/$BASE_REF")"
+          python3 .github/scripts/validate_agent_checkpoint.py \
+            --base "$BASE_SHA" \
+            --base-tip "$BASE_TIP_SHA" \
+            --head "$HEAD_SHA" \
+            --merge "$MERGE_SHA"
 
   self-tests:
     name: Policy / change coupling self-tests
