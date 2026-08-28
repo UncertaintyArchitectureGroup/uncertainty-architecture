@@ -327,7 +327,7 @@ A credible realization may combine transaction permissions, an amount preconditi
 Human Authority is substantive only when the person has enough information, time, competence, capacity, independence, and power to change the outcome. An approval button attached to an overloaded queue is not a complete control path.
 
 ```mermaid
-flowchart TB
+flowchart LR
     R["Authorized intent,<br/>Requirement, and assumptions"]
     K["Constraints<br/>approved operating boundaries"]
     KR["Constraint Realizations<br/>enforce or influence the boundary"]

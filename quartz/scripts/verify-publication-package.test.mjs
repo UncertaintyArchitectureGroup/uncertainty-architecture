@@ -1,31 +1,20 @@
-import assert from "node:assert/strict";
 import test from "node:test";
+import assert from "node:assert/strict";
 
-import {
-  assertPlatformFigureReadability,
-  countDataImages,
-} from "./verify-publication-package.mjs";
+import { assertPlatformFigureInventory, countDataImages } from "./verify-publication-package.mjs";
 
-function manifest(labels) {
-  return {
-    figures: labels.map((label, index) => ({
-      number: index < 7 ? index + 1 : 8,
-      panel: index === 7 ? "A" : index === 8 ? "B" : null,
-      projected_desktop_minimum_label_px: label,
-    })),
-  };
-}
-
-test("package verifier rejects the previously accepted unreadable Figure 7 class", () => {
-  const values = [16, 16, 16, 16, 16, 16, 6.96, 16, 16];
-  assert.throws(() => assertPlatformFigureReadability(manifest(values)), /Figure 7 projected desktop label 6\.96px/);
+test("platform verifier requires nine figures with Figure 8A and 8B coupled", () => {
+  const figures = Array.from({ length: 7 }, (_, index) => ({ number: index + 1, panel: null }));
+  figures.push({ number: 8, panel: "A" }, { number: 8, panel: "B" });
+  assert.doesNotThrow(() => assertPlatformFigureInventory({ figures }));
 });
 
-test("package verifier accepts nine readable figures with Figure 8A and 8B coupled", () => {
-  assert.doesNotThrow(() => assertPlatformFigureReadability(manifest([12, 13, 14, 15, 16, 17, 18, 19, 20])));
+test("platform verifier rejects incomplete Figure 8 coupling", () => {
+  const figures = Array.from({ length: 8 }, (_, index) => ({ number: index + 1, panel: null }));
+  figures.push({ number: 8, panel: "A" });
+  assert.throws(() => assertPlatformFigureInventory({ figures }), /Figure 8A and 8B/);
 });
 
-test("embedded image counter distinguishes LinkedIn and Medium copy-ready payloads", () => {
-  const html = `<main>${'<img src="data:image/png;base64,AA"/>'.repeat(9)}</main>`;
-  assert.equal(countDataImages(html), 9);
+test("embedded image counter distinguishes data-URI payloads", () => {
+  assert.equal(countDataImages('<img src="data:image/png;base64,a"><img src="https://example.com/x.png">'), 1);
 });

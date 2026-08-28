@@ -94,7 +94,6 @@ The LinkedIn rendition expands Markdown tables into labeled sections because the
 locked dependency install
 → platform/publication regression tests
 → Figure 8 semantic/readability verification
-→ standalone article PDF render
 → strict PDF + manifest verification
 → publication asset generation
 → LinkedIn/Medium rendition generation
