@@ -34,9 +34,9 @@ concurrency:
 
 jobs:
   render:
-    name: Render / complete Thinking Systems publication package
+    name: Render / Thinking Systems platform renditions
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 30
     env:
       UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
@@ -54,13 +54,9 @@ jobs:
           package-manager-cache: false
       - name: Install locked dependencies
         run: npm ci --ignore-scripts
-      - name: Install Chromium and PDF inspection tools
-        shell: bash
-        run: |
-          ./node_modules/.bin/playwright install --with-deps chromium
-          sudo apt-get update
-          sudo apt-get install -y poppler-utils
-      - name: Run publication and platform regression tests
+      - name: Install Chromium
+        run: ./node_modules/.bin/playwright install --with-deps chromium
+      - name: Run platform regression tests
         run: >-
           node --test
           quartz/scripts/platform-rendition.test.mjs
@@ -70,31 +66,19 @@ jobs:
           quartz/scripts/render-copy-ready.test.mjs
           quartz/scripts/publication-assets.test.mjs
           quartz/scripts/verify-publication-package.test.mjs
-      - name: Verify Figure 8 publication contract
-        run: npm run pdf:verify:figure8
-      - name: Render and verify standalone article PDF
-        env:
-          UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}
-        shell: bash
-        run: |
-          npm run pdf:article
-          npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf --require-manifest
       - name: Render complete platform bundle
         env:
           UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}
         run: npm run publication:bundle
-      - name: Verify complete publication package
+      - name: Verify complete platform package
         env:
           UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}
         run: npm run publication:verify-package
-      - name: Upload complete publication package
+      - name: Upload platform rendition package
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: thinking-systems-platform-renditions
           path: |
-            dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf
-            dist/pdf/thinking-systems-when-the-controlled-object-changes.manifest.json
-            dist/pdf/visual/**
             dist/publication/thinking-systems/assets.manifest.json
             dist/publication/thinking-systems/cover-linkedin-article.png
             dist/publication/thinking-systems/social-preview.png
