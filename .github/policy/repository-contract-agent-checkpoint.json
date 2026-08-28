@@ -1,0 +1,75 @@
+{
+  "contract_version": 1,
+  "description": "Repository-contract extension protecting the deterministic AI-agent checkpoint control surface.",
+  "required_paths": [
+    {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
+    {"path": ".github/scripts/validate_agent_checkpoint.py", "type": "file"},
+    {"path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py", "type": "file"},
+    {"path": ".github/workflows/change-coupling.yml", "type": "file"},
+    {"path": ".github/pull_request_template.md", "type": "file"},
+    {"path": "AGENTS.md", "type": "file"}
+  ],
+  "critical_files": [
+    {
+      "path": ".github/policy/agent-checkpoint-contract.json",
+      "required_json": [
+        {"pointer": "/pr_checkpoint_marker", "equals": "ua-agent-checkpoint"},
+        {"pointer": "/checkpoint_version", "equals": 1},
+        {"pointer": "/controlled_values/diff_recheck", "equals": ["completed"]},
+        {"pointer": "/controlled_values/pr_description_recheck", "equals": ["completed"]},
+        {"pointer": "/controlled_values/corrective_feedback_review", "equals": ["completed"]},
+        {"pointer": "/controlled_values/feedback_disposition", "equals": ["none", "local", "candidate", "approved-applied", "deferred"]},
+        {"pointer": "/controlled_values/completion_recheck", "equals": ["completed"]}
+      ]
+    },
+    {
+      "path": ".github/scripts/validate_agent_checkpoint.py",
+      "required_text": [
+        "def applicable_agent_records",
+        "def pr_body_sha256",
+        "reviewed_base_sha",
+        "reviewed_head_sha",
+        "reviewed_pr_body_sha256",
+        "applicable_agents",
+        "Re-read the exact applicable AGENTS.md files"
+      ]
+    },
+    {
+      "path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py",
+      "required_text": [
+        "Agent checkpoint self-tests passed: 12 regression fixtures.",
+        "PR description edit invalidates checkpoint",
+        "rename retains old nested AGENTS scope",
+        "deleted nested AGENTS uses governing base blob"
+      ]
+    },
+    {
+      "path": ".github/workflows/change-coupling.yml",
+      "required_text": [
+        "name: Agent protocol / current-head checkpoint",
+        "Validate current-head agent checkpoint",
+        "validate_agent_checkpoint.py",
+        "Run agent checkpoint regression fixtures"
+      ]
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "required_text": [
+        "## Agent iteration checkpoint",
+        "<!-- ua-agent-checkpoint",
+        "\"reviewed_base_sha\"",
+        "\"reviewed_head_sha\"",
+        "\"reviewed_pr_body_sha256\"",
+        "\"applicable_agents\""
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "required_text": [
+        "### Corrective feedback and control improvement",
+        "Treat the active maintainer conversation as a feedback surface.",
+        "feedback-derived"
+      ]
+    }
+  ]
+}
