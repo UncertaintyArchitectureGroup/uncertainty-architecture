@@ -35,6 +35,22 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('.github/scripts/pr93_apply_review_fixes.py')
+          text = path.read_text(encoding='utf-8')
+          old = 'critical["content/research/notes/thinking-systems-linkedin-launch-post.md"]["required_text"] = ['
+          new = '''launch_rule_path = "content/research/notes/thinking-systems-linkedin-launch-post.md"
+          if launch_rule_path not in critical:
+              launch_rule = {"path": launch_rule_path, "required_text": []}
+              contract["critical_files"].append(launch_rule)
+              critical[launch_rule_path] = launch_rule
+          critical[launch_rule_path]["required_text"] = ['''
+          if text.count(old) != 1:
+              raise SystemExit(f'expected one launch-post contract marker, found {text.count(old)}')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
           python3 .github/scripts/pr93_apply_review_fixes.py
           node --check quartz/scripts/render-platform-renditions.mjs
           node --check quartz/scripts/verify-publication-package.mjs
