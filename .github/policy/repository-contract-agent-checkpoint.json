@@ -29,19 +29,23 @@
         "def applicable_agent_records",
         "def pr_body_sha256",
         "reviewed_base_sha",
+        "reviewed_base_tip_sha",
         "reviewed_head_sha",
+        "reviewed_merge_sha",
         "reviewed_pr_body_sha256",
         "applicable_agents",
-        "Re-read the exact applicable AGENTS.md files"
+        "tested merge result",
+        "Re-read the exact applicable AGENTS.md files from the tested merge state"
       ]
     },
     {
       "path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py",
       "required_text": [
-        "Agent checkpoint self-tests passed: 12 regression fixtures.",
+        "Agent checkpoint self-tests passed: 15 regression fixtures.",
         "PR description edit invalidates checkpoint",
         "rename retains old nested AGENTS scope",
-        "deleted nested AGENTS uses governing base blob"
+        "deleted nested AGENTS uses governing current-base blob",
+        "base advance contributes new nested AGENTS from tested merge"
       ]
     },
     {
@@ -55,9 +59,11 @@
     {
       "path": ".github/workflows/change-coupling.yml",
       "required_text": [
-        "name: Agent protocol / current-head checkpoint",
-        "Validate current-head agent checkpoint",
-        "validate_agent_checkpoint.py",
+        "name: Agent protocol / exact-state checkpoint",
+        "Validate exact-state agent checkpoint",
+        "BASE_TIP_SHA=\"$(git rev-parse \"refs/remotes/origin/$BASE_REF\")\"",
+        "--base-tip \"$BASE_TIP_SHA\"",
+        "--merge \"$MERGE_SHA\"",
         "Run agent checkpoint regression fixtures",
         "Run checkpoint repository-contract mutation fixture"
       ]
@@ -68,7 +74,9 @@
         "## Agent iteration checkpoint",
         "<!-- ua-agent-checkpoint",
         "\"reviewed_base_sha\"",
+        "\"reviewed_base_tip_sha\"",
         "\"reviewed_head_sha\"",
+        "\"reviewed_merge_sha\"",
         "\"reviewed_pr_body_sha256\"",
         "\"applicable_agents\""
       ]
@@ -78,7 +86,8 @@
       "required_text": [
         "### Corrective feedback and control improvement",
         "Treat the active maintainer conversation as a feedback surface.",
-        "feedback-derived"
+        "feedback-derived",
+        "### Deterministic PR iteration checkpoint"
       ]
     }
   ]
