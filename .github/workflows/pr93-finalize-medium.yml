@@ -37,3 +37,5 @@ jobs:
           git add -A
           git commit -m "fix: make Medium publishing path honest and reviewable"
           git push origin HEAD:publishing/linkedin-medium-renditions
+
+# Triggered after workflow registration so the one-shot cleanup can run.
