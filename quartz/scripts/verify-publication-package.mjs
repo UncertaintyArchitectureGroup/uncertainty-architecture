@@ -9,6 +9,8 @@ import { gitOutput, repoRoot, sha256 } from "./publication-rendition.mjs";
 
 const publicationRoot = path.join(repoRoot, "dist", "publication", "thinking-systems");
 const renditionRoot = path.join(publicationRoot, "renditions");
+const rawGithubPrefix =
+  "https://raw.githubusercontent.com/UncertaintyArchitectureGroup/uncertainty-architecture/";
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -22,6 +24,12 @@ export function assertPlatformFigureInventory(manifest) {
 
 export function countDataImages(html) {
   return (String(html).match(/src="data:image\//g) || []).length;
+}
+
+export function remoteGithubImageSources(html) {
+  return [...String(html).matchAll(/<img\b[^>]*\bsrc="(https:\/\/raw\.githubusercontent\.com\/UncertaintyArchitectureGroup\/uncertainty-architecture\/[^\"]+)"[^>]*>/gi)].map(
+    (match) => match[1],
+  );
 }
 
 function fallbackAnchorCount(html) {
@@ -45,7 +53,7 @@ async function verifyOutputDigests(manifest) {
   }
 }
 
-async function verifyPlatform(platform, manifest, expectedImages) {
+async function verifyPlatform(platform, manifest) {
   const directory = path.join(renditionRoot, platform);
   const [markdown, html, copyReady] = await Promise.all([
     readFile(path.join(directory, "article.md"), "utf8"),
@@ -58,7 +66,22 @@ async function verifyPlatform(platform, manifest, expectedImages) {
   assert(linkedUrls === manifest.heading_link_protection?.[`${platform}_fallback_urls`], `${platform} heading-link manifest count diverged`);
   assert(fallbackAnchorCount(html) === linkedUrls, `${platform} article HTML heading fallback count diverged`);
   assert(fallbackAnchorCount(copyReady) === linkedUrls, `${platform} copy-ready heading fallback count diverged`);
-  assert(countDataImages(copyReady) === expectedImages, `${platform} copy-ready embedded ${countDataImages(copyReady)} images; expected ${expectedImages}`);
+
+  if (platform === "linkedin") {
+    assert(countDataImages(copyReady) === 9, `LinkedIn copy-ready embedded ${countDataImages(copyReady)} images; expected 9`);
+    assert(remoteGithubImageSources(copyReady).length === 0, "LinkedIn copy-ready unexpectedly uses remote repository images");
+    assert(manifest.copy_ready?.linkedin_image_strategy === "embedded-data-uri", "LinkedIn image strategy diverged");
+  } else {
+    const remoteSources = remoteGithubImageSources(copyReady);
+    const assetCommit = manifest.copy_ready?.medium_asset_commit;
+    assert(countDataImages(copyReady) === 0, "Medium copy-ready must not use data-URI images");
+    assert(remoteSources.length === 10, `Medium copy-ready has ${remoteSources.length} remote images; expected 10`);
+    assert(/^[0-9a-f]{40}$/i.test(String(assetCommit || "")), "Medium asset commit must be a full SHA");
+    const expectedPrefix = `${rawGithubPrefix}${assetCommit}/content/research/notes/thinking-systems-platform-assets/`;
+    assert(remoteSources.every((source) => source.startsWith(expectedPrefix)), "Medium image is not pinned to the materialized asset commit");
+    assert(manifest.copy_ready?.medium_image_strategy === "immutable-raw-github-url", "Medium image strategy diverged");
+  }
+
   assertNoCopyHelpers(copyReady, platform);
   for (const marker of [
     "About the author",
@@ -85,13 +108,13 @@ async function main() {
   assert(platformManifest.source_commit === expectedCommit, `Platform provenance ${platformManifest.source_commit} does not match ${expectedCommit}`);
   assertPlatformFigureInventory(assetManifest);
   await verifyOutputDigests(platformManifest);
-  await verifyPlatform("linkedin", platformManifest, 9);
-  await verifyPlatform("medium", platformManifest, 10);
+  await verifyPlatform("linkedin", platformManifest);
+  await verifyPlatform("medium", platformManifest);
   assert(platformManifest.publication_furniture?.research_path_items === 6, "Publication furniture must contain six research-path items");
   assert(platformManifest.copy_ready?.javascript_copy_controls === false, "Copy-ready contract must explicitly disable JavaScript controls");
   assert(platformManifest.figure_8_panels_must_travel_together === true, "Figure 8 coupling contract was lost");
 
-  console.log(`Complete Thinking Systems publication package verified at ${expectedCommit}: candidate state, 9 platform figures, copy-ready HTML, linked-heading fallbacks, and publication furniture are coherent.`);
+  console.log(`Complete Thinking Systems platform package verified at ${expectedCommit}: candidate state, 9 platform figures, LinkedIn embedded images, Medium immutable remote images, linked-heading fallbacks, and publication furniture are coherent.`);
 }
 
 const isEntryPoint = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
