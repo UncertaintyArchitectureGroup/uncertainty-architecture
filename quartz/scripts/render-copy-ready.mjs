@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { readFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { gitOutput, repoRoot, sha256 } from "./publication-rendition.mjs";
+import { repoRoot, sha256 } from "./publication-rendition.mjs";
 
 const publicationRoot = path.join(
   repoRoot,
@@ -12,15 +12,14 @@ const publicationRoot = path.join(
   "thinking-systems",
 );
 const renditionRoot = path.join(publicationRoot, "renditions");
-const mediumAssetRepoPath = "content/research/notes/thinking-systems-platform-assets";
-const mediumAssetRoot = path.join(repoRoot, mediumAssetRepoPath);
-const rawGithubBase =
-  "https://raw.githubusercontent.com/UncertaintyArchitectureGroup/uncertainty-architecture";
 const pngDataUriPrefix = "data:image/png;base64";
 
 function isInside(root, candidate) {
   const relative = path.relative(root, candidate);
-  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
+  return (
+    relative === "" ||
+    (!relative.startsWith("..") && !path.isAbsolute(relative))
+  );
 }
 
 function mimeTypeFor(filePath) {
@@ -28,7 +27,9 @@ function mimeTypeFor(filePath) {
   if (extension === ".png") return "image/png";
   if (extension === ".jpg" || extension === ".jpeg") return "image/jpeg";
   if (extension === ".webp") return "image/webp";
-  throw new Error(`Unsupported copy-ready image type: ${extension || "none"}`);
+  throw new Error(
+    `Unsupported copy-ready image type: ${extension || "none"}`,
+  );
 }
 
 function escapeHtml(value) {
@@ -40,11 +41,11 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function encodedRepoPath(relativePath) {
-  return relativePath.split("/").map(encodeURIComponent).join("/");
-}
-
-export async function embedLocalImages(html, articlePath, allowedRoot = publicationRoot) {
+export async function embedLocalImages(
+  html,
+  articlePath,
+  allowedRoot = publicationRoot,
+) {
   const pattern = /<img\b([^>]*?)\bsrc="([^"]+)"([^>]*)>/gi;
   const matches = [...html.matchAll(pattern)];
   let output = html;
@@ -59,65 +60,18 @@ export async function embedLocalImages(html, articlePath, allowedRoot = publicat
       throw new Error(`Copy-ready image escapes publication root: ${source}`);
     }
     const bytes = await readFile(resolved);
-    if (bytes.length === 0) throw new Error(`Copy-ready image is empty: ${source}`);
+    if (bytes.length === 0) {
+      throw new Error(`Copy-ready image is empty: ${source}`);
+    }
     const mimeType = mimeTypeFor(resolved);
-    const prefix = mimeType === "image/png" ? pngDataUriPrefix : `data:${mimeType};base64`;
+    const prefix =
+      mimeType === "image/png" ? pngDataUriPrefix : `data:${mimeType};base64`;
     const dataUri = `${prefix},${bytes.toString("base64")}`;
     output = output.replace(full, `<img${before}src="${dataUri}"${after}>`);
     embedded += 1;
   }
 
   return { html: output, embedded };
-}
-
-export async function replaceMediumImagesWithRemoteSources(
-  html,
-  articlePath,
-  assetCommit,
-  allowedRoot = publicationRoot,
-) {
-  if (!/^[0-9a-f]{40}$/i.test(String(assetCommit))) {
-    throw new Error(`Medium asset commit is not a full SHA: ${assetCommit}`);
-  }
-
-  const pattern = /<img\b([^>]*?)\bsrc="([^"]+)"([^>]*)>/gi;
-  const matches = [...html.matchAll(pattern)];
-  let output = html;
-  let remote = 0;
-
-  for (const match of matches) {
-    const [full, before, source, after] = match;
-    if (/^(?:data:|https?:|mailto:|tel:|#)/i.test(source)) continue;
-
-    const resolved = path.resolve(path.dirname(articlePath), source);
-    if (!isInside(allowedRoot, resolved)) {
-      throw new Error(`Medium copy-ready image escapes publication root: ${source}`);
-    }
-
-    const generatedBytes = await readFile(resolved);
-    const relative = path.relative(publicationRoot, resolved).split(path.sep).join("/");
-    let assetRelative;
-    if (relative === "medium-hero.png") {
-      assetRelative = `${mediumAssetRepoPath}/medium-hero.png`;
-    } else if (relative.startsWith("figures/png/")) {
-      assetRelative = `${mediumAssetRepoPath}/figures/${path.posix.basename(relative)}`;
-    } else {
-      throw new Error(`Medium image has no materialized repository asset mapping: ${relative}`);
-    }
-
-    const committedBytes = await readFile(path.join(repoRoot, assetRelative));
-    if (!generatedBytes.equals(committedBytes)) {
-      throw new Error(
-        `Materialized Medium asset is stale: ${assetRelative}. Regenerate platform assets before publishing.`,
-      );
-    }
-
-    const remoteUrl = `${rawGithubBase}/${assetCommit}/${encodedRepoPath(assetRelative)}`;
-    output = output.replace(full, `<img${before}src="${remoteUrl}"${after}>`);
-    remote += 1;
-  }
-
-  return { html: output, remote };
 }
 
 export function appendHeadingLinkFallbacks(html) {
@@ -131,7 +85,9 @@ export function appendHeadingLinkFallbacks(html) {
       const linkPattern = /<a\s+[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/gi;
       for (const match of inner.matchAll(linkPattern)) {
         const target = match[1];
-        if (!/^(?:https?:\/\/)/i.test(target) || seen.has(target)) continue;
+        if (!/^(?:https?:\/\/)/i.test(target) || seen.has(target)) {
+          continue;
+        }
         seen.add(target);
         links.push(target);
       }
@@ -176,61 +132,142 @@ export function buildCopyReadyDocument(html) {
   return value;
 }
 
+function figureIdentity(asset) {
+  return `${String(asset.number).padStart(2, "0")}${String(
+    asset.panel || "",
+  ).toLowerCase()}`;
+}
+
+export function buildMediumUploadPlan(assetManifest) {
+  const figures = [...(assetManifest.figures || [])].sort((left, right) => {
+    if (left.number !== right.number) return left.number - right.number;
+    return String(left.panel || "").localeCompare(String(right.panel || ""));
+  });
+  if (figures.length !== 9) {
+    throw new Error(
+      `Medium upload kit requires nine article figures; received ${figures.length}`,
+    );
+  }
+
+  const entries = [
+    {
+      order: 0,
+      id: "hero",
+      label: "Medium hero",
+      source: path.join(publicationRoot, "medium-hero.png"),
+      filename: "00-medium-hero.png",
+    },
+  ];
+
+  figures.forEach((asset, index) => {
+    const id = figureIdentity(asset);
+    const panel = asset.panel ? String(asset.panel).toLowerCase() : "";
+    entries.push({
+      order: index + 1,
+      id,
+      label: `Figure ${asset.number}${asset.panel || ""}`,
+      source: path.resolve(repoRoot, asset.png_path),
+      filename: `${String(index + 1).padStart(2, "0")}-figure-${String(
+        asset.number,
+      ).padStart(2, "0")}${panel}.png`,
+    });
+  });
+
+  return entries;
+}
+
+async function writeMediumUploadKit() {
+  const assetManifestPath = path.join(publicationRoot, "assets.manifest.json");
+  const assetManifest = JSON.parse(await readFile(assetManifestPath, "utf8"));
+  const entries = buildMediumUploadPlan(assetManifest);
+  const uploadRoot = path.join(renditionRoot, "medium", "upload");
+  await rm(uploadRoot, { recursive: true, force: true });
+  await mkdir(uploadRoot, { recursive: true });
+
+  const outputs = [];
+  for (const entry of entries) {
+    if (!isInside(publicationRoot, entry.source)) {
+      throw new Error(
+        `Medium upload source escapes publication root: ${entry.source}`,
+      );
+    }
+    const target = path.join(uploadRoot, entry.filename);
+    await copyFile(entry.source, target);
+    const bytes = await readFile(target);
+    if (bytes.length === 0) {
+      throw new Error(`Medium upload asset is empty: ${entry.filename}`);
+    }
+    outputs.push({
+      order: entry.order,
+      id: entry.id,
+      label: entry.label,
+      path: `medium/upload/${entry.filename}`,
+      sha256: sha256(bytes),
+    });
+  }
+
+  const readme = `# Medium image upload order
+
+Practical iPad testing showed that Medium preserves the pasted rich text but drops clipboard images. The self-contained \`../copy-ready.html\` therefore remains the complete visual review and text-copy surface, while images must be uploaded separately.
+
+1. Open \`../copy-ready.html\`, confirm that the hero and all nine figures are visible, then use **Select All → Copy → Paste** for the article text.
+2. Use \`../article.md\` for the exact image positions and alt text.
+3. Upload these files in order:
+
+${outputs
+  .map(
+    (entry, index) =>
+      `${index + 1}. **${entry.label}** — \`${path.posix.basename(entry.path)}\``,
+  )
+  .join("\n")}
+
+Figure 8A and Figure 8B are two panels of one logical Figure 8. Both must be uploaded and kept with the shared Figure 8 caption.
+
+These files are generated from the same reviewed platform assets as the article rendition. They are distribution assets, not an additional conceptual source.
+`;
+  const readmePath = path.join(uploadRoot, "README.md");
+  await writeFile(readmePath, readme, "utf8");
+  outputs.push({
+    order: outputs.length,
+    id: "instructions",
+    label: "Medium upload instructions",
+    path: "medium/upload/README.md",
+    sha256: sha256(Buffer.from(readme)),
+  });
+
+  return { outputs, readme };
+}
+
 async function writeCopyReady(platformName) {
   const platformDir = path.join(renditionRoot, platformName);
   const articlePath = path.join(platformDir, "article.html");
   const source = await readFile(articlePath, "utf8");
-
-  let prepared;
-  let imageCount;
-  let imageStrategy;
-  let assetCommit = null;
-  if (platformName === "medium") {
-    assetCommit = await gitOutput([
-      "log",
-      "-1",
-      "--format=%H",
-      "--",
-      mediumAssetRepoPath,
-    ]);
-    const remote = await replaceMediumImagesWithRemoteSources(source, articlePath, assetCommit);
-    prepared = remote.html;
-    imageCount = remote.remote;
-    imageStrategy = "immutable-raw-github-url";
-  } else {
-    const embedded = await embedLocalImages(source, articlePath);
-    prepared = embedded.html;
-    imageCount = embedded.embedded;
-    imageStrategy = "embedded-data-uri";
-  }
-
-  const headingLinks = appendHeadingLinkFallbacks(prepared);
+  const embedded = await embedLocalImages(source, articlePath);
+  const headingLinks = appendHeadingLinkFallbacks(embedded.html);
   const copyReady = buildCopyReadyDocument(headingLinks.html);
   const target = path.join(platformDir, "copy-ready.html");
   await writeFile(target, `${copyReady}\n`, "utf8");
 
   const expected = platformName === "medium" ? 10 : 9;
-  if (imageCount !== expected) {
+  if (embedded.embedded !== expected) {
     throw new Error(
-      `${platformName} copy-ready HTML prepared ${imageCount} images; expected ${expected}`,
+      `${platformName} copy-ready HTML embedded ${embedded.embedded} images; expected ${expected}`,
     );
   }
-  if (platformName === "medium") {
-    if ((copyReady.match(/src="data:image\//g) || []).length !== 0) {
-      throw new Error("Medium copy-ready HTML must not contain data-URI images");
-    }
-    if ((copyReady.match(/src="https:\/\/raw\.githubusercontent\.com\//g) || []).length !== expected) {
-      throw new Error("Medium copy-ready HTML does not contain the expected remote image sources");
-    }
-  } else if ((copyReady.match(/src="data:image\//g) || []).length !== expected) {
-    throw new Error("LinkedIn copy-ready HTML still has non-embedded article images");
+  if ((copyReady.match(/src="data:image\//g) || []).length !== expected) {
+    throw new Error(
+      `${platformName} copy-ready HTML still has non-embedded article images`,
+    );
+  }
+  if (/raw\.githubusercontent\.com/i.test(copyReady)) {
+    throw new Error(
+      `${platformName} copy-ready HTML unexpectedly depends on remote repository images`,
+    );
   }
 
   return {
     target,
-    imageCount,
-    imageStrategy,
-    assetCommit,
+    embedded: embedded.embedded,
     headingLinkFallbacks: headingLinks.fallbacks,
     sha256: sha256(Buffer.from(`${copyReady}\n`)),
   };
@@ -239,42 +276,77 @@ async function writeCopyReady(platformName) {
 async function main() {
   const medium = await writeCopyReady("medium");
   const linkedin = await writeCopyReady("linkedin");
+  const mediumUpload = await writeMediumUploadKit();
 
-  const readme = `# Copy-ready platform articles\n\nOpen the platform-specific \`copy-ready.html\` in a browser, use **Select All**, then **Copy**, and paste into the native LinkedIn or Medium editor. The copy-ready page intentionally has no JavaScript copy controls because local-file clipboard APIs are not reliable across iPadOS and other browsers.\n\nThe two platforms need different image transport. LinkedIn keeps the nine article figures as embedded data URIs because that copy/paste path preserves them. Medium rejects or strips that representation in practice, so its copy-ready HTML uses ordinary HTTPS image URLs pinned to immutable repository assets at commit \`${medium.assetCommit}\`. Medium can then side-load those images when the rich HTML is pasted. The Medium hero and all nine article figures are materialized under \`${mediumAssetRepoPath}/\` and are byte-checked against the current generated assets before the copy-ready file is emitted.\n\n- LinkedIn: \`linkedin/copy-ready.html\` embeds ${linkedin.imageCount} article figures and preserves ${linkedin.headingLinkFallbacks} heading-link fallback URL(s). The LinkedIn cover remains a separate platform upload.\n- Medium: \`medium/copy-ready.html\` references the hero plus ${medium.imageCount - 1} article figures through immutable HTTPS URLs and preserves ${medium.headingLinkFallbacks} heading-link fallback URL(s).\n- The generated PNG files remain in the CI artifact as a manual-upload fallback if either platform changes its paste sanitizer.\n\nThis convenience artifact is a distribution rendition only; canonical content remains the repository Markdown source.\n`;
+  const readme = `# Copy-ready platform articles
+
+Open the platform-specific \`copy-ready.html\` in a browser, use **Select All**, then **Copy**, and paste into the native editor. The pages intentionally have no JavaScript copy controls because local-file clipboard APIs are not reliable across iPadOS and other browsers.
+
+Both pages are self-contained and display their article images through embedded data URIs.
+
+- **LinkedIn:** the tested paste path preserves ${linkedin.embedded} embedded article figures. The native article cover remains a separate upload.
+- **Medium:** the page displays the hero plus ${medium.embedded - 1} article figures, but practical iPad testing showed that Medium drops clipboard images while preserving the rich text. Copy the text, then upload the ten ordered PNG files from \`medium/upload/\` using \`medium/article.md\` as the exact placement and alt-text guide.
+- Both renditions preserve heading-link fallback URLs immediately below linked headings.
+
+This package is a distribution rendition only; canonical content remains the repository Markdown source.
+`;
   const readmePath = path.join(renditionRoot, "copy-ready-readme.md");
   await writeFile(readmePath, readme, "utf8");
 
-  const manifestPath = path.join(renditionRoot, "platform-renditions.manifest.json");
+  const manifestPath = path.join(
+    renditionRoot,
+    "platform-renditions.manifest.json",
+  );
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   manifest.copy_ready = {
+    self_contained_html: true,
     clipboard_behavior: "manual-select-all-copy",
     javascript_copy_controls: false,
     heading_link_fallbacks: true,
     linkedin_heading_link_fallbacks: linkedin.headingLinkFallbacks,
     medium_heading_link_fallbacks: medium.headingLinkFallbacks,
-    linkedin_article_images: linkedin.imageCount,
-    medium_article_images: medium.imageCount,
-    linkedin_image_strategy: linkedin.imageStrategy,
-    medium_image_strategy: medium.imageStrategy,
-    medium_asset_commit: medium.assetCommit,
-    medium_asset_path: mediumAssetRepoPath,
+    linkedin_article_images: linkedin.embedded,
+    medium_article_images: medium.embedded,
+    linkedin_image_strategy: "embedded-data-uri",
+    medium_image_strategy: "embedded-data-uri-preview",
+    medium_clipboard_images_supported: false,
+    medium_manual_upload_required: true,
+    medium_upload_asset_count: 10,
+    medium_upload_kit: "medium/upload/README.md",
+    medium_upload_assets: mediumUpload.outputs,
     linkedin_cover_separate: true,
     png_fallback_retained: true,
   };
   manifest.outputs["linkedin/copy-ready.html"] = linkedin.sha256;
   manifest.outputs["medium/copy-ready.html"] = medium.sha256;
   manifest.outputs["copy-ready-readme.md"] = sha256(Buffer.from(readme));
-  await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  for (const output of mediumUpload.outputs) {
+    manifest.outputs[output.path] = output.sha256;
+  }
+  await writeFile(
+    manifestPath,
+    `${JSON.stringify(manifest, null, 2)}\n`,
+    "utf8",
+  );
 
-  console.log(`Copy-ready LinkedIn HTML: ${path.relative(repoRoot, linkedin.target)} (${linkedin.imageCount} embedded images, ${linkedin.headingLinkFallbacks} heading-link fallback URLs)`);
-  console.log(`Copy-ready Medium HTML: ${path.relative(repoRoot, medium.target)} (${medium.imageCount} immutable remote images pinned to ${medium.assetCommit}, ${medium.headingLinkFallbacks} heading-link fallback URLs)`);
+  console.log(
+    `Copy-ready LinkedIn HTML: ${path.relative(repoRoot, linkedin.target)} (${linkedin.embedded} embedded images, ${linkedin.headingLinkFallbacks} heading-link fallback URLs)`,
+  );
+  console.log(
+    `Copy-ready Medium HTML: ${path.relative(repoRoot, medium.target)} (${medium.embedded} embedded review images, manual upload kit with ${mediumUpload.outputs.length - 1} PNGs, ${medium.headingLinkFallbacks} heading-link fallback URLs)`,
+  );
 }
 
 const isEntryPoint =
-  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isEntryPoint) {
   main().catch((error) => {
-    console.error(`Copy-ready rendering failed: ${error instanceof Error ? error.message : String(error)}`);
+    console.error(
+      `Copy-ready rendering failed: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
     process.exitCode = 1;
   });
 }
