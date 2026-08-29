@@ -14,8 +14,8 @@ VALIDATOR_PATH = REPOSITORY_ROOT / ".github/scripts/validate_repository_contract
 EXTENSION_PATH = REPOSITORY_ROOT / ".github/policy/repository-contract-agent-checkpoint.json"
 
 
-def load_validator():
-    spec = importlib.util.spec_from_file_location("validate_repository_contract", VALIDATOR_PATH)
+def load_validator(path: Path = VALIDATOR_PATH):
+    spec = importlib.util.spec_from_file_location("validate_repository_contract", path)
     if spec is None or spec.loader is None:
         raise RuntimeError("Unable to load repository-contract validator")
     module = importlib.util.module_from_spec(spec)
@@ -46,19 +46,19 @@ def materialize_surface(root: Path, extension) -> None:
             shutil.copy2(source, target)
 
 
-def assert_workflow_mutation_blocked(
-    validator, extension, marker: str, replacement: str,
+def assert_file_mutation_blocked(
+    validator, extension, relative_path: str, marker: str, replacement: str,
     label: str, failures: List[str],
 ) -> None:
     with tempfile.TemporaryDirectory(prefix="ua-checkpoint-contract-") as temp:
         root = Path(temp)
         materialize_surface(root, extension)
-        workflow = root / ".github/workflows/change-coupling.yml"
-        original = workflow.read_text(encoding="utf-8")
+        target = root / relative_path
+        original = target.read_text(encoding="utf-8")
         if marker not in original:
             failures.append("{}: fixture could not find protected marker {!r}".format(label, marker))
             return
-        workflow.write_text(original.replace(marker, replacement, 1), encoding="utf-8")
+        target.write_text(original.replace(marker, replacement, 1), encoding="utf-8")
         errors = validate_surface(validator, root, extension)
         if not any("missing protected text" in error and marker in error for error in errors):
             failures.append("{}: mutation did not trigger repository-contract failure: {}".format(label, errors))
@@ -77,25 +77,41 @@ def main() -> int:
     else:
         print("PASS: checkpoint control surface satisfies repository contract")
 
-    assert_workflow_mutation_blocked(
+    if any(path.name == "repository-contract-agent-checkpoint.json" for path in validator.DEFAULT_EXTENSIONS):
+        print("PASS: repository validator registers the agent-checkpoint extension")
+    else:
+        failures.append("repository validator does not register the agent-checkpoint extension")
+
+    assert_file_mutation_blocked(
         validator, extension,
+        ".github/workflows/change-coupling.yml",
         "name: Agent protocol / checked-state checkpoint",
         "name: Agent protocol / removed-checkpoint-fixture",
         "removing checkpoint job marker is blocked by repository contract",
         failures,
     )
-    assert_workflow_mutation_blocked(
+    assert_file_mutation_blocked(
         validator, extension,
-        "pull_request_review_comment:",
-        "pull_request_review_comment_removed:",
-        "removing GitHub review-comment feedback trigger is blocked",
+        ".github/workflows/change-coupling.yml",
+        "name: Agent protocol / readiness authorization",
+        "name: Agent protocol / removed-readiness-fixture",
+        "removing durable readiness-authorization job is blocked",
         failures,
     )
-    assert_workflow_mutation_blocked(
+    assert_file_mutation_blocked(
         validator, extension,
+        ".github/workflows/change-coupling.yml",
         "github.event.review.author_association",
         "github.event.review.untrusted_association",
         "removing trusted-review author boundary is blocked",
+        failures,
+    )
+    assert_file_mutation_blocked(
+        validator, extension,
+        ".github/scripts/validate_repository_contract.py",
+        "repository-contract-agent-checkpoint.json",
+        "repository-contract-agent-checkpoint.removed.json",
+        "removing checkpoint-extension registration is blocked by independent mutation assertion",
         failures,
     )
 
@@ -105,17 +121,17 @@ def main() -> int:
     else:
         failures.append("issue_comment trigger must remain outside the deterministic PR-head checkpoint workflow")
 
-    if "issues: read" not in workflow_text:
-        print("PASS: checkpoint workflow does not request unused Issues permission")
+    if "issues: read" in workflow_text and "checks: read" in workflow_text:
+        print("PASS: workflow requests only the added read surfaces needed for CODEOWNER approval and readiness evidence")
     else:
-        failures.append("checkpoint workflow retains unnecessary Issues permission")
+        failures.append("workflow lacks required read permissions for authorization comments or readiness checks")
 
     if failures:
         print("Agent-checkpoint repository-contract fixture failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent-checkpoint repository-contract fixture passed: 6 assertions.")
+    print("Agent-checkpoint repository-contract fixture passed: 8 assertions.")
     return 0
 
 
