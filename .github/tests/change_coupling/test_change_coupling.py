@@ -17,6 +17,7 @@ CASES_PATH = Path(__file__).with_name("cases.json")
 
 REQUIRED_CASE_NAMES: Set[str] = {
     "valid repository policy change with companion updates passes",
+    "repository policy paths cannot be declared maintenance",
     "missing PR contract is rejected",
     "duplicate PR contract is rejected",
     "malformed PR contract JSON is rejected",
