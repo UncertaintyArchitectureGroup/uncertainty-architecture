@@ -15,12 +15,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  # Checkout and local validators need read-only repository contents.
   contents: read
-  # The checked-state collector reads PR metadata, reviews, and inline review comments.
-  pull-requests: read
-  # The feedback watermark reads top-level PR conversation comments through the Issues API.
-  issues: read
+  pull-requests: read # Read PR metadata, reviews, and inline review comments for the checked-state context.
+  issues: read # Read top-level PR conversation comments for the trusted feedback watermark.
 
 concurrency:
   group: change-coupling-${{ github.workflow }}-${{ github.event.pull_request.number || github.event.issue.number || github.ref }}
