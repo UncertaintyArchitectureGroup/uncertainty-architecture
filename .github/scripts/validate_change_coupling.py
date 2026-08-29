@@ -167,6 +167,13 @@ def validate_coupling(
             findings.append(Finding("error", "research-state decision requires {} or maintainer exception label".format(owner)))
 
     repository_policy_changed = any(matches(path, contract["repository_policy_prefixes"]) for path in paths)
+    if repository_policy_changed and data.get("change_class") != "repository-policy":
+        findings.append(
+            Finding(
+                "error",
+                "PR-owned repository-policy paths require change_class 'repository-policy'; declaration {!r} is inconsistent with the actual diff.".format(data.get("change_class")),
+            )
+        )
     if repository_policy_changed and data.get("roadmap") != "updated" and not has_exception(labels, contract, "roadmap"):
         findings.append(Finding("error", "repository-policy baseline change requires roadmap update or maintainer exception label"))
 
