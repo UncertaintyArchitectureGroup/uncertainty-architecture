@@ -154,14 +154,6 @@ def expect_valid(validator, root: Path, context: Dict[str, object], name: str, f
         print("PASS: {}".format(name))
 
 
-def expect_warning(validator, root: Path, context: Dict[str, object], needle: str, name: str, failures: List[str]) -> None:
-    findings = validator.validate(root, CONTRACT_PATH, context)
-    if any(item.severity == "error" for item in findings) or not any(item.severity == "warning" and needle in item.message for item in findings):
-        failures.append("{}: expected warning containing {!r}, got {}".format(name, needle, messages(findings)))
-    else:
-        print("PASS: {}".format(name))
-
-
 def expect_error(validator, root: Path, context: Dict[str, object], needle: str, name: str, failures: List[str]) -> None:
     findings = validator.validate(root, CONTRACT_PATH, context)
     if not any(item.severity == "error" and needle in item.message for item in findings):
@@ -223,11 +215,11 @@ def main() -> int:
         assisted_missing = "## Summary\n\nfixture\n\n" + render_block("ua-change-contract", change_contract("used"))
         expect_error(validator, root, context_for(assisted_missing, base, base, head, head), "ua-agent-checkpoint", "assisted PR missing checkpoint is rejected", failures)
 
-        expect_warning(
+        expect_error(
             validator, root,
             context_for("No contract here.", base, base, head, head, labels=["ua-exception/pr-contract"]),
-            "maintainer PR-contract exception",
-            "PR-contract exception is honored by agent checkpoint",
+            "ua-agent-checkpoint",
+            "PR-contract exception does not bypass the agent checkpoint",
             failures,
         )
 
@@ -418,12 +410,29 @@ def main() -> int:
             failures,
         )
 
+    with tempfile.TemporaryDirectory(prefix="ua-agent-normative-class-") as temp:
+        root = Path(temp)
+        run(root, "git", "init", "-q")
+        write(root, "AGENTS.md", "root rules\n")
+        write(root, "00-doctrine/example.md", "---\nstatus: draft-normative\n---\nbase\n")
+        base = commit(root, "base")
+        write(root, "00-doctrine/example.md", "---\nstatus: informative\n---\nchanged\n")
+        head = commit(root, "attempt status downgrade")
+        weak_body = body_for(validator, root, base, base, head, head, change_class="maintenance")
+        expect_error(
+            validator, root,
+            context_for(weak_body, base, base, head, head, draft=True),
+            "protected status draft-normative",
+            "normative-status document cannot disable controls by status and class downgrade",
+            failures,
+        )
+
     if failures:
         print("Agent checkpoint self-tests failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent checkpoint self-tests passed: 25 regression assertions.")
+    print("Agent checkpoint self-tests passed: 26 regression assertions.")
     return 0
 
 
