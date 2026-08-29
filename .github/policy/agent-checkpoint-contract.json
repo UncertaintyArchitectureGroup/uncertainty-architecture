@@ -3,6 +3,10 @@
   "description": "Deterministic checked-state checkpoint for AI-assisted pull-request iterations.",
   "pr_checkpoint_marker": "ua-agent-checkpoint",
   "pr_change_contract_marker": "ua-change-contract",
+  "ready_approval_marker": "ua-agent-ready-approval",
+  "agent_none_approval_marker": "ua-agent-assistance-none",
+  "readiness_check_name": "Agent protocol / readiness authorization",
+  "maintainer_authority_path": ".github/CODEOWNERS",
   "checkpoint_version": 1,
   "required_fields": [
     "checkpoint_version",
