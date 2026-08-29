@@ -64,6 +64,18 @@ def paged_list(url: str, token: str) -> List[Dict[str, object]]:
     return items
 
 
+def paged_object_items(url: str, token: str, key: str) -> List[Dict[str, object]]:
+    items: List[Dict[str, object]] = []
+    current: Optional[str] = url
+    while current:
+        value, headers = request_json(current, token)
+        if not isinstance(value, dict) or not isinstance(value.get(key), list):
+            raise ValueError("expected object response with {!r} list from {}".format(key, current))
+        items.extend(item for item in value[key] if isinstance(item, dict))
+        current = next_link(headers.get("link", ""))
+    return items
+
+
 def body_digest(value: object) -> str:
     text = value if isinstance(value, str) else ""
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
@@ -181,7 +193,33 @@ def global_codeowners(text: str) -> Set[str]:
     return owners
 
 
-def is_codeowner_comment(item: Dict[str, object], codeowners: Set[str]) -> bool:
+def collaborator_permission(repository: str, login: str, token: str) -> str:
+    encoded_repo = "/".join(urllib.parse.quote(part, safe="") for part in repository.split("/"))
+    url = "{}/repos/{}/collaborators/{}/permission".format(
+        API_ROOT, encoded_repo, urllib.parse.quote(login, safe="")
+    )
+    value, _ = request_json(url, token)
+    if not isinstance(value, dict):
+        return ""
+    return str(value.get("role_name") or value.get("permission") or "")
+
+
+def authorized_codeowners(repository: str, owners: Set[str], token: str) -> Set[str]:
+    allowed = {"admin", "maintain", "write"}
+    authorized = {
+        login for login in owners
+        if collaborator_permission(repository, login, token) in allowed
+    }
+    if not authorized:
+        raise ValueError("target-branch global CODEOWNERS has no current write/maintain/admin maintainer")
+    return authorized
+
+
+def is_codeowner_comment(
+    item: Dict[str, object], codeowners: Set[str], trusted_associations: Iterable[str]
+) -> bool:
+    if str(item.get("author_association") or "") not in set(trusted_associations):
+        return False
     user = item.get("user")
     if not isinstance(user, dict):
         return False
@@ -219,12 +257,16 @@ def issue_comments(repository: str, pr_number: int, token: str) -> List[Dict[str
 
 
 def agent_none_approved(
-    comments: Iterable[Dict[str, object]], codeowners: Set[str], marker: str, head_sha: str
+    comments: Iterable[Dict[str, object]],
+    codeowners: Set[str],
+    trusted_associations: Iterable[str],
+    marker: str,
+    head_sha: str,
 ) -> bool:
-    """Require a CODEOWNER opt-out bound to the exact current repository head."""
+    """Require a current-authority CODEOWNER opt-out bound to the exact current head."""
     expected = {"agent_assistance": "none", "head_sha": head_sha}
     for item in comments:
-        if not is_codeowner_comment(item, codeowners):
+        if not is_codeowner_comment(item, codeowners, trusted_associations):
             continue
         for value in marker_objects(item.get("body"), marker):
             if value == expected:
@@ -235,6 +277,7 @@ def agent_none_approved(
 def readiness_approval(
     comments: Iterable[Dict[str, object]],
     codeowners: Set[str],
+    trusted_associations: Iterable[str],
     marker: str,
     head_sha: str,
     merge_sha: str,
@@ -248,7 +291,7 @@ def readiness_approval(
     if not ready_at:
         return approval_present, transition_authorized
     for item in comments:
-        if not is_codeowner_comment(item, codeowners):
+        if not is_codeowner_comment(item, codeowners, trusted_associations):
             continue
         created_at = str(item.get("created_at") or "")
         updated_at = str(item.get("updated_at") or created_at)
@@ -292,15 +335,10 @@ def readiness_check_passed(
     if not head_sha or not ready_at:
         return False
     encoded_repo = "/".join(urllib.parse.quote(part, safe="") for part in repository.split("/"))
-    checks_url = "{}/repos/{}/commits/{}/check-runs?per_page=100".format(
+    checks_url = "{}/repos/{}/commits/{}/check-runs?per_page=100&filter=all".format(
         API_ROOT, encoded_repo, urllib.parse.quote(head_sha, safe="")
     )
-    value, _ = request_json(checks_url, token)
-    if not isinstance(value, dict):
-        return False
-    for item in value.get("check_runs", []):
-        if not isinstance(item, dict):
-            continue
+    for item in paged_object_items(checks_url, token, "check_runs"):
         if str(item.get("name") or "") != check_name:
             continue
         if str(item.get("conclusion") or "") != "success":
@@ -408,7 +446,9 @@ def fetch_context(
         base_tip_sha,
         token,
     )
-    codeowners = global_codeowners(codeowners_text)
+    declared_codeowners = global_codeowners(codeowners_text)
+    codeowners = authorized_codeowners(repository, declared_codeowners, token)
+    trusted = [str(item) for item in contract.get("trusted_feedback_author_associations", [])]
     comments = issue_comments(repository, pr_number, token)
     checkpoint_marker = str(contract.get("pr_checkpoint_marker") or "ua-agent-checkpoint")
     current_checkpoint_hash = checkpoint_sha256(body, checkpoint_marker)
@@ -416,6 +456,7 @@ def fetch_context(
     ready_approval_present, ready_transition_authorized = readiness_approval(
         comments,
         codeowners,
+        trusted,
         str(contract.get("ready_approval_marker") or "ua-agent-ready-approval"),
         head_sha,
         merge_sha,
@@ -434,7 +475,6 @@ def fetch_context(
         str(contract.get("readiness_step_name") or "Record successful head-bound readiness authorization"),
     )
 
-    trusted = [str(item) for item in contract.get("trusted_feedback_author_associations", [])]
     labels = [
         str(item.get("name"))
         for item in pr.get("labels", [])
@@ -460,6 +500,7 @@ def fetch_context(
         "agent_none_approved": agent_none_approved(
             comments,
             codeowners,
+            trusted,
             str(contract.get("agent_none_approval_marker") or "ua-agent-assistance-none"),
             head_sha,
         ),
