@@ -3,10 +3,11 @@
   "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state control surface without freezing validator internals.",
   "required_paths": [
     {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
-    {"path": ".github/scripts/validate_change_coupling.py", "type": "file"},
     {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
+    {"path": ".github/policy/repository-contract-agent-checkpoint.json", "type": "file"},
     {"path": ".github/scripts/validate_agent_checkpoint.py", "type": "file"},
     {"path": ".github/scripts/fetch_agent_checkpoint_context.py", "type": "file"},
+    {"path": ".github/scripts/validate_repository_contract.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_feedback_context.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_checkpoint_repository_contract.py", "type": "file"},
@@ -27,10 +28,20 @@
       "required_json": [
         {"pointer": "/pr_checkpoint_marker", "equals": "ua-agent-checkpoint"},
         {"pointer": "/pr_change_contract_marker", "equals": "ua-change-contract"},
+        {"pointer": "/ready_approval_marker", "equals": "ua-agent-ready-approval"},
+        {"pointer": "/agent_none_approval_marker", "equals": "ua-agent-assistance-none"},
+        {"pointer": "/readiness_check_name", "equals": "Agent protocol / readiness authorization"},
+        {"pointer": "/maintainer_authority_path", "equals": ".github/CODEOWNERS"},
         {"pointer": "/checkpoint_version", "equals": 1},
         {"pointer": "/draft_required_change_classes", "equals": ["repository-policy", "draft-normative", "normative"]},
         {"pointer": "/trusted_feedback_author_associations", "equals": ["OWNER", "MEMBER", "COLLABORATOR"]},
         {"pointer": "/controlled_values/feedback_disposition", "equals": ["none", "local", "candidate", "approved-applied", "deferred"]}
+      ]
+    },
+    {
+      "path": ".github/scripts/validate_repository_contract.py",
+      "required_text": [
+        "repository-contract-agent-checkpoint.json"
       ]
     },
     {
@@ -41,8 +52,11 @@
         "converted_to_draft",
         "github.event.review.author_association",
         "github.event.comment.author_association",
+        "issues: read",
+        "checks: read",
         "name: Agent protocol / checked-state checkpoint",
-        "Collect live PR and maintainer feedback context",
+        "name: Agent protocol / readiness authorization",
+        "Collect live PR and maintainer control context",
         "Validate checked-state agent checkpoint"
       ]
     },
@@ -52,6 +66,8 @@
         "**Agent assistance:**",
         "\"agent_assistance\": \"select-one\"",
         "## Agent iteration checkpoint",
+        "ua-agent-ready-approval",
+        "ua-agent-assistance-none",
         "<!-- ua-agent-checkpoint",
         "\"reviewed_pr_body_sha256\"",
         "\"reviewed_feedback_sha256\"",
@@ -65,7 +81,10 @@
         "### Deterministic agent iteration checkpoint",
         "agent_assistance",
         "PR-owned changed paths",
-        "reviewed_feedback_sha256"
+        "reviewed_feedback_sha256",
+        "ua-agent-ready-approval",
+        "ua-agent-assistance-none",
+        "Agent protocol / readiness authorization"
       ]
     }
   ]
