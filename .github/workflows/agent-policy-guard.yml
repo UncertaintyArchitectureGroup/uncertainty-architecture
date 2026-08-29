@@ -17,7 +17,6 @@ permissions:
   pull-requests: read # Read PR metadata and candidate changed-file/content data as untrusted input.
   issues: read # Read CODEOWNER authorization comments and PR timeline state.
   statuses: write # Publish the trusted-base guard result directly on each PR head SHA.
-  metadata: read
 
 concurrency:
   group: agent-policy-guard-${{ github.event.pull_request.number || github.ref }}
