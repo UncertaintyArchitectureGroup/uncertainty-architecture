@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression tests for deterministic maintainer GitHub-feedback watermarking."""
+"""Regression tests for deterministic PR feedback and readiness context."""
 
 import importlib.util
 import sys
@@ -27,24 +27,6 @@ def main() -> int:
     module = load_module()
     failures: List[str] = []
     fixtures: Dict[str, List[Dict[str, object]]] = {
-        "issues": [
-            {
-                "id": 1,
-                "user": user("maintainer"),
-                "author_association": "OWNER",
-                "created_at": "2026-08-29T08:00:00Z",
-                "updated_at": "2026-08-29T08:00:00Z",
-                "body": "do the opposite",
-            },
-            {
-                "id": 2,
-                "user": user("visitor"),
-                "author_association": "NONE",
-                "created_at": "2026-08-29T08:01:00Z",
-                "updated_at": "2026-08-29T08:01:00Z",
-                "body": "untrusted noise",
-            },
-        ],
         "reviews": [
             {
                 "id": 3,
@@ -53,7 +35,15 @@ def main() -> int:
                 "submitted_at": "2026-08-29T08:02:00Z",
                 "state": "CHANGES_REQUESTED",
                 "body": "scope is wrong",
-            }
+            },
+            {
+                "id": 6,
+                "user": user("visitor"),
+                "author_association": "NONE",
+                "submitted_at": "2026-08-29T08:02:30Z",
+                "state": "COMMENTED",
+                "body": "untrusted review noise",
+            },
         ],
         "pull-comments": [
             {
@@ -74,13 +64,15 @@ def main() -> int:
             },
         ],
     }
+    calls: List[str] = []
 
     def fake_paged(url: str, token: str):
-        if "/issues/" in url:
-            return fixtures["issues"]
+        calls.append(url)
         if url.endswith("/reviews?per_page=100"):
             return fixtures["reviews"]
-        return fixtures["pull-comments"]
+        if url.endswith("/pulls/104/comments?per_page=100"):
+            return fixtures["pull-comments"]
+        raise AssertionError("unexpected deterministic feedback endpoint: {}".format(url))
 
     module.paged_list = fake_paged
     trusted = ["OWNER", "MEMBER", "COLLABORATOR"]
@@ -91,18 +83,23 @@ def main() -> int:
     else:
         failures.append("feedback watermark changed without input change")
 
-    fixtures["issues"][1]["body"] = "different untrusted noise"
-    if module.feedback_sha256("owner/repo", 104, "token", trusted) == first:
-        print("PASS: untrusted commenter does not change maintainer feedback watermark")
+    if all("/issues/104/comments" not in url for url in calls):
+        print("PASS: top-level PR comments are excluded from deterministic PR-head feedback")
     else:
-        failures.append("untrusted feedback changed the watermark")
+        failures.append("top-level PR comments were queried by deterministic feedback watermark")
 
-    fixtures["issues"][0]["body"] = "edited maintainer correction"
+    fixtures["reviews"][1]["body"] = "different untrusted review noise"
+    if module.feedback_sha256("owner/repo", 104, "token", trusted) == first:
+        print("PASS: untrusted reviewer does not change feedback watermark")
+    else:
+        failures.append("untrusted review changed the watermark")
+
+    fixtures["reviews"][0]["body"] = "edited maintainer correction"
     edited = module.feedback_sha256("owner/repo", 104, "token", trusted)
     if edited != first:
-        print("PASS: edited trusted feedback invalidates watermark")
+        print("PASS: edited trusted review invalidates watermark")
     else:
-        failures.append("trusted feedback edit did not change watermark")
+        failures.append("trusted review edit did not change watermark")
 
     fixtures["reviews"][0]["state"] = "DISMISSED"
     dismissed = module.feedback_sha256("owner/repo", 104, "token", trusted)
@@ -116,14 +113,36 @@ def main() -> int:
     if deleted != dismissed:
         print("PASS: deleted trusted inline feedback invalidates watermark")
     else:
-        failures.append("trusted feedback deletion did not change watermark")
+        failures.append("trusted inline feedback deletion did not change watermark")
+
+    timeline = [
+        {"event": "committed", "sha": "1" * 40},
+        {"event": "committed", "sha": "2" * 40},
+        {"event": "ready_for_review"},
+    ]
+    if module.ready_head_sha_from_timeline(timeline) == "2" * 40:
+        print("PASS: readiness binds to the latest committed head before ready transition")
+    else:
+        failures.append("ready transition did not bind to latest committed head")
+
+    timeline.append({"event": "committed", "sha": "3" * 40})
+    if module.ready_head_sha_from_timeline(timeline) == "2" * 40:
+        print("PASS: later repository commit does not inherit prior ready authorization")
+    else:
+        failures.append("new commit incorrectly inherited prior ready authorization")
+
+    timeline.append({"event": "convert_to_draft"})
+    if module.ready_head_sha_from_timeline(timeline) == "":
+        print("PASS: convert-to-draft clears ready authorization")
+    else:
+        failures.append("convert-to-draft did not clear ready authorization")
 
     if failures:
         print("Feedback-context self-tests failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Feedback-context self-tests passed: 5 regression assertions.")
+    print("Feedback-context self-tests passed: 9 regression assertions.")
     return 0
 
 
