@@ -24,7 +24,10 @@ def load_validator():
 
 
 def run(root: Path, *args: str) -> str:
-    result = subprocess.run(list(args), cwd=str(root), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
+    result = subprocess.run(
+        list(args), cwd=str(root), text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+    )
     if result.returncode != 0:
         raise RuntimeError("{} failed: {}".format(" ".join(args), result.stderr))
     return result.stdout.strip()
@@ -72,9 +75,14 @@ def context_for(
     feedback: str = "1" * 64,
     draft: bool = True,
     ready_head: str = "",
+    ready_approval_present: bool = False,
+    ready_transition_authorized: bool = False,
+    ready_check_passed: bool = False,
+    agent_none_approved: bool = False,
     action: str = "synchronize",
     event_name: str = "pull_request",
     labels=None,
+    pr_author: str = "contributor",
 ) -> Dict[str, object]:
     return {
         "body": body,
@@ -85,9 +93,14 @@ def context_for(
         "feedback_sha256": feedback,
         "draft": draft,
         "ready_head_sha": ready_head,
+        "ready_approval_present": ready_approval_present,
+        "ready_transition_authorized": ready_transition_authorized,
+        "ready_check_passed": ready_check_passed,
+        "agent_none_approved": agent_none_approved,
         "event_name": event_name,
         "event_action": action,
         "labels": list(labels or []),
+        "pr_author": pr_author,
     }
 
 
@@ -187,7 +200,25 @@ def main() -> int:
         head = commit(root, "feature")
 
         human_body = body_for(validator, root, base, base, head, head, assistance="none")
-        expect_valid(validator, root, context_for(human_body, base, base, head, head, draft=False), "human-only PR needs no agent checkpoint", failures)
+        expect_error(
+            validator, root,
+            context_for(human_body, base, base, head, head, draft=False),
+            "maintainer-controlled opt-out",
+            "human-only self-attestation cannot disable checkpoint without CODEOWNER approval",
+            failures,
+        )
+        expect_valid(
+            validator, root,
+            context_for(human_body, base, base, head, head, draft=False, agent_none_approved=True),
+            "CODEOWNER-approved human-only PR needs no agent checkpoint",
+            failures,
+        )
+        expect_valid(
+            validator, root,
+            context_for(human_body, base, base, head, head, draft=False, pr_author="dependabot[bot]"),
+            "Dependabot none path remains exempt",
+            failures,
+        )
 
         assisted_missing = "## Summary\n\nfixture\n\n" + render_block("ua-change-contract", change_contract("used"))
         expect_error(validator, root, context_for(assisted_missing, base, base, head, head), "ua-agent-checkpoint", "assisted PR missing checkpoint is rejected", failures)
@@ -224,18 +255,60 @@ def main() -> int:
             "active assisted repository-policy PR must be Draft before readiness",
             failures,
         )
+        expect_error(
+            validator, root,
+            context_for(
+                repo_policy_body, base, base, head, head,
+                draft=False, ready_head=head, action="ready_for_review",
+                ready_transition_authorized=False,
+            ),
+            "must remain Draft",
+            "author-controlled ready event without CODEOWNER checkpoint approval is rejected",
+            failures,
+        )
         expect_valid(
             validator, root,
-            context_for(repo_policy_body, base, base, head, head, draft=False, ready_head=head, event_name="pull_request_review", action="submitted"),
-            "review event on ready current head may remain non-Draft",
+            context_for(
+                repo_policy_body, base, base, head, head,
+                draft=False, ready_head=head, action="ready_for_review",
+                ready_approval_present=True, ready_transition_authorized=True,
+            ),
+            "CODEOWNER-authorized ready transition with fresh checkpoint passes",
+            failures,
+        )
+        expect_error(
+            validator, root,
+            context_for(
+                repo_policy_body, base, base, head, head,
+                draft=False, ready_head=head, action="edited",
+                ready_approval_present=True, ready_transition_authorized=True,
+                ready_check_passed=False,
+            ),
+            "must remain Draft",
+            "failed ready transition cannot be legalized later by checkpoint edit",
+            failures,
+        )
+        expect_valid(
+            validator, root,
+            context_for(
+                repo_policy_body, base, base, head, head,
+                draft=False, ready_head=head, event_name="pull_request_review", action="submitted",
+                ready_approval_present=True, ready_check_passed=True,
+            ),
+            "successful readiness check keeps same head ready during review",
             failures,
         )
         expect_error_without(
             validator, root,
-            context_for(repo_policy_body, base, base, head, head, feedback="2" * 64, draft=False, ready_head=head, event_name="pull_request_review", action="submitted"),
+            context_for(
+                repo_policy_body, base, base, head, head,
+                feedback="2" * 64, draft=False, ready_head=head,
+                event_name="pull_request_review", action="submitted",
+                ready_approval_present=True, ready_check_passed=True,
+            ),
             "reviewed_feedback_sha256",
             "must remain Draft",
-            "trusted review feedback stales checkpoint without revoking readiness",
+            "trusted review feedback stales checkpoint without revoking successful readiness",
             failures,
         )
 
@@ -244,7 +317,11 @@ def main() -> int:
         newer_body = body_for(validator, root, base, base, newer_head, newer_head, change_class="repository-policy")
         expect_error(
             validator, root,
-            context_for(newer_body, base, base, newer_head, newer_head, draft=False, ready_head=head),
+            context_for(
+                newer_body, base, base, newer_head, newer_head,
+                draft=False, ready_head=head,
+                ready_approval_present=True, ready_check_passed=False,
+            ),
             "must remain Draft",
             "new head after readiness requires Draft again",
             failures,
@@ -329,7 +406,7 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent checkpoint self-tests passed: 21 regression assertions.")
+    print("Agent checkpoint self-tests passed: 24 regression assertions.")
     return 0
 
 
