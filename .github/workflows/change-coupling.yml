@@ -2,7 +2,13 @@ name: Change coupling
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review]
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review, converted_to_draft]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+  pull_request_review_comment:
+    types: [created, edited, deleted]
+  issue_comment:
+    types: [created, edited, deleted]
   push:
     branches:
       - main
@@ -10,9 +16,11 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
+  issues: read
 
 concurrency:
-  group: change-coupling-${{ github.workflow }}-${{ github.ref }}
+  group: change-coupling-${{ github.workflow }}-${{ github.event.pull_request.number || github.event.issue.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -33,6 +41,7 @@ jobs:
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+          PR_ACTOR: ${{ github.event.pull_request.user.login }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: >-
@@ -40,36 +49,48 @@ jobs:
           --base "$BASE_SHA"
           --head "$HEAD_SHA"
           --labels "$PR_LABELS"
+          --actor "$PR_ACTOR"
 
   agent-checkpoint:
-    if: github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]'
-    name: Agent protocol / exact-state checkpoint
+    if: >-
+      (github.event_name != 'issue_comment' || github.event.issue.pull_request != null)
+      && github.event_name != 'push'
+      && github.event_name != 'workflow_dispatch'
+    name: Agent protocol / checked-state checkpoint
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+      EVENT_NAME: ${{ github.event_name }}
+      EVENT_ACTION: ${{ github.event.action }}
 
     steps:
-      - name: Check out repository
+      - name: Check out tested PR merge state
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          ref: refs/pull/${{ env.PR_NUMBER }}/merge
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Validate exact-state agent checkpoint
+      - name: Collect live PR and maintainer feedback context
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          MERGE_SHA: ${{ github.sha }}
-        run: |
-          BASE_TIP_SHA="$(git rev-parse "refs/remotes/origin/$BASE_REF")"
-          python3 .github/scripts/validate_agent_checkpoint.py \
-            --base "$BASE_SHA" \
-            --base-tip "$BASE_TIP_SHA" \
-            --head "$HEAD_SHA" \
-            --merge "$MERGE_SHA"
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 .github/scripts/fetch_agent_checkpoint_context.py
+          --repository "$GITHUB_REPOSITORY"
+          --pr-number "$PR_NUMBER"
+          --merge-sha "$(git rev-parse HEAD)"
+          --event-name "$EVENT_NAME"
+          --event-action "$EVENT_ACTION"
+          --output /tmp/ua-agent-checkpoint-context.json
+
+      - name: Validate checked-state agent checkpoint
+        run: >-
+          python3 .github/scripts/validate_agent_checkpoint.py
+          --context-file /tmp/ua-agent-checkpoint-context.json
 
   self-tests:
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     name: Policy / change coupling self-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -86,6 +107,9 @@ jobs:
 
       - name: Run agent checkpoint regression fixtures
         run: python3 .github/tests/agent_checkpoint/test_agent_checkpoint.py
+
+      - name: Run feedback-context regression fixtures
+        run: python3 .github/tests/agent_checkpoint/test_feedback_context.py
 
       - name: Run checkpoint repository-contract mutation fixture
         run: python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
