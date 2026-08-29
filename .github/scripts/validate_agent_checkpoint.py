@@ -244,7 +244,7 @@ def validate(
         return [
             Finding(
                 "error",
-                "agent_assistance 'none' is a maintainer-controlled, head-bound opt-out. A target-branch CODEOWNER must add the structured ua-agent-assistance-none approval for the current head before the checkpoint can be disabled.",
+                "agent_assistance 'none' is a maintainer-controlled opt-out bound to the current head. A target-branch CODEOWNER must add the structured ua-agent-assistance-none approval for the current head before the checkpoint can be disabled.",
             )
         ]
     if assistance != "used":
