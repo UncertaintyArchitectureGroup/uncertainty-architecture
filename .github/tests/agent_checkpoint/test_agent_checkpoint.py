@@ -7,7 +7,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_PATH = REPOSITORY_ROOT / ".github/scripts/validate_agent_checkpoint.py"
@@ -71,7 +71,10 @@ def context_for(
     merge: str,
     feedback: str = "1" * 64,
     draft: bool = True,
+    ready_head: str = "",
     action: str = "synchronize",
+    event_name: str = "pull_request",
+    labels=None,
 ) -> Dict[str, object]:
     return {
         "body": body,
@@ -81,8 +84,10 @@ def context_for(
         "merge_sha": merge,
         "feedback_sha256": feedback,
         "draft": draft,
-        "event_name": "pull_request",
+        "ready_head_sha": ready_head,
+        "event_name": event_name,
         "event_action": action,
+        "labels": list(labels or []),
     }
 
 
@@ -129,16 +134,39 @@ def messages(findings) -> List[str]:
 
 def expect_valid(validator, root: Path, context: Dict[str, object], name: str, failures: List[str]) -> None:
     findings = validator.validate(root, CONTRACT_PATH, context)
-    if findings:
-        failures.append("{}: expected success, got {}".format(name, messages(findings)))
+    errors = [item for item in findings if item.severity == "error"]
+    if errors:
+        failures.append("{}: expected no errors, got {}".format(name, messages(findings)))
+    else:
+        print("PASS: {}".format(name))
+
+
+def expect_warning(validator, root: Path, context: Dict[str, object], needle: str, name: str, failures: List[str]) -> None:
+    findings = validator.validate(root, CONTRACT_PATH, context)
+    if any(item.severity == "error" for item in findings) or not any(item.severity == "warning" and needle in item.message for item in findings):
+        failures.append("{}: expected warning containing {!r}, got {}".format(name, needle, messages(findings)))
     else:
         print("PASS: {}".format(name))
 
 
 def expect_error(validator, root: Path, context: Dict[str, object], needle: str, name: str, failures: List[str]) -> None:
     findings = validator.validate(root, CONTRACT_PATH, context)
-    if not any(needle in item.message for item in findings):
+    if not any(item.severity == "error" and needle in item.message for item in findings):
         failures.append("{}: expected error containing {!r}, got {}".format(name, needle, messages(findings)))
+    else:
+        print("PASS: {}".format(name))
+
+
+def expect_error_without(
+    validator, root: Path, context: Dict[str, object], needle: str, forbidden: str,
+    name: str, failures: List[str],
+) -> None:
+    findings = validator.validate(root, CONTRACT_PATH, context)
+    text = messages(findings)
+    if not any(item.severity == "error" and needle in item.message for item in findings):
+        failures.append("{}: expected error containing {!r}, got {}".format(name, needle, text))
+    elif any(forbidden in item.message for item in findings):
+        failures.append("{}: unexpected {!r} finding: {}".format(name, forbidden, text))
     else:
         print("PASS: {}".format(name))
 
@@ -164,6 +192,14 @@ def main() -> int:
         assisted_missing = "## Summary\n\nfixture\n\n" + render_block("ua-change-contract", change_contract("used"))
         expect_error(validator, root, context_for(assisted_missing, base, base, head, head), "ua-agent-checkpoint", "assisted PR missing checkpoint is rejected", failures)
 
+        expect_warning(
+            validator, root,
+            context_for("No contract here.", base, base, head, head, labels=["ua-exception/pr-contract"]),
+            "maintainer PR-contract exception",
+            "PR-contract exception is honored by agent checkpoint",
+            failures,
+        )
+
         valid_body = body_for(validator, root, base, base, head, head)
         valid_context = context_for(valid_body, base, base, head, head)
         expect_valid(validator, root, valid_context, "assisted root checkpoint passes", failures)
@@ -172,7 +208,7 @@ def main() -> int:
             ("reviewed_head_sha", base, "reviewed_head_sha", "stale head is rejected"),
             ("reviewed_base_tip_sha", head, "reviewed_base_tip_sha", "stale base tip is rejected"),
             ("reviewed_merge_sha", base, "reviewed_merge_sha", "stale merge is rejected"),
-            ("reviewed_feedback_sha256", "2" * 64, "reviewed_feedback_sha256", "new maintainer feedback invalidates checkpoint"),
+            ("reviewed_feedback_sha256", "2" * 64, "reviewed_feedback_sha256", "new trusted review feedback invalidates checkpoint"),
         ):
             body = body_for(validator, root, base, base, head, head, **{field: value})
             expect_error(validator, root, context_for(body, base, base, head, head), needle, name, failures)
@@ -181,8 +217,38 @@ def main() -> int:
         expect_error(validator, root, context_for(edited, base, base, head, head), "reviewed_pr_body_sha256", "PR description edit invalidates checkpoint", failures)
 
         repo_policy_body = body_for(validator, root, base, base, head, head, change_class="repository-policy")
-        expect_error(validator, root, context_for(repo_policy_body, base, base, head, head, draft=False, action="synchronize"), "must remain Draft", "active assisted repository-policy PR must be Draft", failures)
-        expect_valid(validator, root, context_for(repo_policy_body, base, base, head, head, draft=False, action="ready_for_review"), "explicit ready transition may leave Draft", failures)
+        expect_error(
+            validator, root,
+            context_for(repo_policy_body, base, base, head, head, draft=False),
+            "must remain Draft",
+            "active assisted repository-policy PR must be Draft before readiness",
+            failures,
+        )
+        expect_valid(
+            validator, root,
+            context_for(repo_policy_body, base, base, head, head, draft=False, ready_head=head, event_name="pull_request_review", action="submitted"),
+            "review event on ready current head may remain non-Draft",
+            failures,
+        )
+        expect_error_without(
+            validator, root,
+            context_for(repo_policy_body, base, base, head, head, feedback="2" * 64, draft=False, ready_head=head, event_name="pull_request_review", action="submitted"),
+            "reviewed_feedback_sha256",
+            "must remain Draft",
+            "trusted review feedback stales checkpoint without revoking readiness",
+            failures,
+        )
+
+        write(root, "README.md", "changed again\n")
+        newer_head = commit(root, "new repository iteration")
+        newer_body = body_for(validator, root, base, base, newer_head, newer_head, change_class="repository-policy")
+        expect_error(
+            validator, root,
+            context_for(newer_body, base, base, newer_head, newer_head, draft=False, ready_head=head),
+            "must remain Draft",
+            "new head after readiness requires Draft again",
+            failures,
+        )
 
         write(root, "content/research/note.md", "changed research\n")
         nested_head = commit(root, "nested")
@@ -192,8 +258,6 @@ def main() -> int:
         missing_nested = body_for(validator, root, base, base, nested_head, nested_head, applicable_agents=root_only)
         expect_error(validator, root, context_for(missing_nested, base, base, nested_head, nested_head), "applicable_agents", "missing nested AGENTS is rejected", failures)
 
-        duplicate = nested_body + "\n" + nested_body.split("<!-- ua-agent-checkpoint", 1)[1].join(["<!-- ua-agent-checkpoint", ""])
-        # A clearer duplicate is built directly from the checkpoint suffix.
         suffix = "<!-- ua-agent-checkpoint" + nested_body.split("<!-- ua-agent-checkpoint", 1)[1]
         expect_error(validator, root, context_for(nested_body + "\n" + suffix, base, base, nested_head, nested_head), "exactly one ua-agent-checkpoint", "duplicate checkpoint is rejected", failures)
 
@@ -215,8 +279,6 @@ def main() -> int:
         else:
             failures.append("deleted nested AGENTS did not retain governing base blob")
 
-    # Critical scope regression: target-only changes already merged into the feature
-    # must not become false PR-owned scope.
     with tempfile.TemporaryDirectory(prefix="ua-agent-sync-") as temp:
         root = Path(temp)
         run(root, "git", "init", "-q")
@@ -248,14 +310,10 @@ def main() -> int:
         else:
             print("PASS: synchronized target-only AGENTS does not activate")
 
-        # Unsynced feature: new target guidance under a genuinely changed feature path
-        # must enter the tested merge context.
         run(root, "git", "checkout", "-q", "target")
         write(root, "src/AGENTS.md", "new target src rules\n")
         newer_base_tip = commit(root, "target adds src rules")
         run(root, "git", "checkout", "-q", "feature")
-        feature_head = synced_head
-        # Reset feature to the pre-sync feature so the tested merge represents an advanced base.
         run(root, "git", "reset", "--hard", feature_before_sync)
         feature_head = run(root, "git", "rev-parse", "HEAD")
         run(root, "git", "-c", "user.name=UA Test", "-c", "user.email=ua-test@example.invalid", "merge", "--no-ff", "target", "-m", "tested merge")
@@ -271,7 +329,7 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent checkpoint self-tests passed: 17 regression assertions.")
+    print("Agent checkpoint self-tests passed: 21 regression assertions.")
     return 0
 
 
