@@ -1,0 +1,52 @@
+name: Agent policy guard
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review, converted_to_draft]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# This workflow is a trusted-base control surface. It never checks out or
+# executes pull-request code. On pull_request_target it runs the version from
+# the target branch, reads candidate content only through GitHub APIs, and
+# writes one head-bound status for later branch-protection/ruleset use.
+permissions:
+  contents: read
+  pull-requests: read # Read PR metadata and candidate changed-file/content data as untrusted input.
+  issues: read # Read CODEOWNER authorization comments and PR timeline state.
+  statuses: write # Publish the trusted-base guard result directly on each PR head SHA.
+  metadata: read
+
+concurrency:
+  group: agent-policy-guard-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  trusted-base:
+    name: Agent protocol / trusted-base guard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out trusted target branch only
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Validate trusted-base agent control invariants
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number || '0' }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action || '' }}
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}
+        run: >-
+          python3 .github/scripts/validate_agent_policy_guard.py
+          --repository "$GITHUB_REPOSITORY"
+          --event-name "$EVENT_NAME"
+          --event-action "$EVENT_ACTION"
+          --pr-number "$PR_NUMBER"
+          --base-branch "$BASE_BRANCH"
