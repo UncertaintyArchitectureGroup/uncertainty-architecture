@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate PR declarations and companion-file coupling against the actual git diff."""
+"""Validate PR declarations and companion-file coupling against the PR-owned git diff."""
 
 import argparse
 import json
@@ -40,14 +40,33 @@ def git(root: Path, args: Sequence[str]) -> str:
     )
     if result.returncode != 0:
         raise ValueError("git {} failed: {}".format(" ".join(args), result.stderr.strip()))
-    return result.stdout
+    return result.stdout.strip()
 
 
-def changed_entries(root: Path, base: str, head: str) -> List[Tuple[str, str, Optional[str]]]:
-    output = git(root, ["diff", "--name-status", "-M", base, head])
+def git_text_optional(root: Path, ref: str, path: str) -> Optional[str]:
+    result = subprocess.run(
+        ["git", "show", "{}:{}".format(ref, path)], cwd=str(root), text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+    )
+    return result.stdout if result.returncode == 0 else None
+
+
+def merge_base(root: Path, base_tip: str, head: str) -> str:
+    value = git(root, ["merge-base", base_tip, head])
+    if not re.fullmatch(r"[0-9a-f]{40}", value):
+        raise ValueError("unexpected merge-base SHA: {!r}".format(value))
+    return value
+
+
+def changed_entries(root: Path, base_tip: str, head: str) -> List[Tuple[str, str, Optional[str]]]:
+    """Return PR-owned changes from current-target merge-base through PR head."""
+    comparison_base = merge_base(root, base_tip, head)
+    output = git(root, ["diff", "--name-status", "-M", comparison_base, head])
     entries: List[Tuple[str, str, Optional[str]]] = []
     for raw in output.splitlines():
         parts = raw.split("\t")
+        if not parts:
+            continue
         status = parts[0]
         if status.startswith("R") and len(parts) == 3:
             entries.append(("R", parts[1], parts[2]))
@@ -67,6 +86,49 @@ def all_paths(entries: Iterable[Tuple[str, str, Optional[str]]]) -> Set[str]:
 
 def matches(path: str, prefixes: Iterable[str]) -> bool:
     return any(path == prefix or path.startswith(prefix) for prefix in prefixes)
+
+
+def frontmatter_status(text: Optional[str]) -> str:
+    if not text or not text.startswith("---"):
+        return ""
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return ""
+    for line in lines[1:]:
+        stripped = line.strip()
+        if stripped == "---":
+            break
+        if stripped.startswith("status:"):
+            return stripped.split(":", 1)[1].strip().strip("\"'")
+    return ""
+
+
+def draft_required_statuses_in_diff(
+    root: Path,
+    base_tip: str,
+    head: str,
+    entries: Iterable[Tuple[str, str, Optional[str]]],
+    contract: Dict[str, object],
+) -> Set[str]:
+    """Return protected document statuses from either side of each PR-owned change.
+
+    Reading both base and head prevents a PR from downgrading frontmatter status in
+    the same change merely to escape the high-impact Draft control.
+    """
+    protected = set(str(item) for item in contract.get("draft_required_document_statuses", []))
+    observed: Set[str] = set()
+    for kind, old, new in entries:
+        candidates: List[Tuple[str, str]] = []
+        if old.endswith(".md") and kind != "A":
+            candidates.append((base_tip, old))
+        current = new or old
+        if current.endswith(".md") and kind != "D":
+            candidates.append((head, current))
+        for ref, path in candidates:
+            status = frontmatter_status(git_text_optional(root, ref, path))
+            if status in protected:
+                observed.add(status)
+    return observed
 
 
 def parse_pr_contract(body: str) -> Tuple[Optional[Dict[str, object]], Optional[str]]:
@@ -121,8 +183,11 @@ def validate_schema(data: Dict[str, object], contract: Dict[str, object]) -> Lis
 
 
 def validate_coupling(
-    entries: List[Tuple[str, str, Optional[str]]], data: Dict[str, object], labels: Set[str],
+    entries: List[Tuple[str, str, Optional[str]]],
+    data: Dict[str, object],
+    labels: Set[str],
     contract: Dict[str, object],
+    observed_draft_statuses: Set[str],
 ) -> List[Finding]:
     findings: List[Finding] = []
     paths = all_paths(entries)
@@ -156,8 +221,25 @@ def validate_coupling(
             findings.append(Finding("error", "research-state decision requires {} or maintainer exception label".format(owner)))
 
     repository_policy_changed = any(matches(path, contract["repository_policy_prefixes"]) for path in paths)
+    if repository_policy_changed and data.get("change_class") != "repository-policy":
+        findings.append(
+            Finding(
+                "error",
+                "PR-owned repository-policy paths require change_class 'repository-policy'; declaration {!r} is inconsistent with the actual diff.".format(data.get("change_class")),
+            )
+        )
     if repository_policy_changed and data.get("roadmap") != "updated" and not has_exception(labels, contract, "roadmap"):
         findings.append(Finding("error", "repository-policy baseline change requires roadmap update or maintainer exception label"))
+
+    if observed_draft_statuses and data.get("change_class") not in {"repository-policy", "draft-normative", "normative"}:
+        findings.append(
+            Finding(
+                "error",
+                "PR-owned artifacts with protected status {} require a high-impact change_class; declaration {!r} cannot downgrade Draft controls.".format(
+                    ", ".join(sorted(observed_draft_statuses)), data.get("change_class")
+                ),
+            )
+        )
 
     protected_moves = [entry for entry in entries if entry[0] in ("D", "R") and matches(entry[1], contract["deletion_rename_prefixes"])]
     if protected_moves:
@@ -174,22 +256,39 @@ def validate_coupling(
             for changed in paths
         )
         if not intersects:
-            findings.append(Finding("error", "none of the declared owning_paths intersects the actual diff"))
+            findings.append(Finding("error", "none of the declared owning_paths intersects the PR-owned diff"))
 
     return findings
 
 
-def validate(root: Path, contract_path: Path, base: str, head: str, body: str, labels: Set[str]) -> List[Finding]:
+def validate(
+    root: Path,
+    contract_path: Path,
+    base: str,
+    head: str,
+    body: str,
+    labels: Set[str],
+    actor: str = "",
+) -> List[Finding]:
     contract = load_json(contract_path)
     data, error = parse_pr_contract(body)
     if error:
         if has_exception(labels, contract, "pr-contract"):
-            return [Finding("warning", error + "; bypassed by maintainer exception label")]
+            return [Finding("warning", error + "; change-contract validation bypassed by maintainer exception label")]
         return [Finding("error", error)]
     assert data is not None
-    findings = validate_schema(data, contract)
+
+    # Dependabot does not author repository PR templates. Treat its PRs as
+    # explicitly non-agent-assisted so the universal declaration does not
+    # break dependency updates while human PRs remain required to declare it.
+    if actor == "dependabot[bot]" and "agent_assistance" not in data:
+        data = dict(data)
+        data["agent_assistance"] = "none"
+
     entries = changed_entries(root, base, head)
-    findings.extend(validate_coupling(entries, data, labels, contract))
+    observed_draft_statuses = draft_required_statuses_in_diff(root, base, head, entries, contract)
+    findings = validate_schema(data, contract)
+    findings.extend(validate_coupling(entries, data, labels, contract, observed_draft_statuses))
     return findings
 
 
@@ -197,10 +296,11 @@ def parse_args(argv: Optional[Iterable[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
-    parser.add_argument("--base", required=True)
+    parser.add_argument("--base", required=True, help="current target-branch tip SHA/ref")
     parser.add_argument("--head", required=True)
     parser.add_argument("--pr-body-file", type=Path)
     parser.add_argument("--labels", default="")
+    parser.add_argument("--actor", default="")
     return parser.parse_args(argv)
 
 
@@ -209,7 +309,10 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
     body = args.pr_body_file.read_text(encoding="utf-8") if args.pr_body_file else os.environ.get("PR_BODY", "")
     labels = {item.strip() for item in args.labels.split(",") if item.strip()}
     try:
-        findings = validate(args.root.resolve(), args.contract.resolve(), args.base, args.head, body, labels)
+        findings = validate(
+            args.root.resolve(), args.contract.resolve(), args.base, args.head,
+            body, labels, actor=args.actor,
+        )
     except ValueError as exc:
         print("Change-coupling configuration error: {}".format(exc))
         return 2

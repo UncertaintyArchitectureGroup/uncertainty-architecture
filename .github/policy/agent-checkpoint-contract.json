@@ -1,0 +1,37 @@
+{
+  "contract_version": 1,
+  "description": "Deterministic checked-state checkpoint for AI-assisted pull-request iterations.",
+  "pr_checkpoint_marker": "ua-agent-checkpoint",
+  "pr_change_contract_marker": "ua-change-contract",
+  "ready_approval_marker": "ua-agent-ready-approval",
+  "agent_none_approval_marker": "ua-agent-assistance-none",
+  "readiness_check_name": "Agent protocol / readiness authorization",
+  "readiness_workflow_path": ".github/workflows/change-coupling.yml",
+  "readiness_step_name": "Record successful head-bound readiness authorization",
+  "maintainer_authority_path": ".github/CODEOWNERS",
+  "checkpoint_version": 1,
+  "required_fields": [
+    "checkpoint_version",
+    "reviewed_base_sha",
+    "reviewed_base_tip_sha",
+    "reviewed_head_sha",
+    "reviewed_merge_sha",
+    "reviewed_pr_body_sha256",
+    "reviewed_feedback_sha256",
+    "applicable_agents",
+    "diff_recheck",
+    "pr_description_recheck",
+    "corrective_feedback_review",
+    "feedback_disposition",
+    "completion_recheck"
+  ],
+  "controlled_values": {
+    "diff_recheck": ["completed"],
+    "pr_description_recheck": ["completed"],
+    "corrective_feedback_review": ["completed"],
+    "feedback_disposition": ["none", "local", "candidate", "approved-applied", "deferred"],
+    "completion_recheck": ["completed"]
+  },
+  "draft_required_change_classes": ["repository-policy", "draft-normative", "normative"],
+  "trusted_feedback_author_associations": ["OWNER", "MEMBER", "COLLABORATOR"]
+}

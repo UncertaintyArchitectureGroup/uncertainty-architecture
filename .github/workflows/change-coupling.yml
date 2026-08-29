@@ -2,7 +2,11 @@ name: Change coupling
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review]
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review, converted_to_draft]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+  pull_request_review_comment:
+    types: [created, edited, deleted]
   push:
     branches:
       - main
@@ -10,9 +14,12 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read # Read PR metadata, timeline, reviews, and inline review comments for checked-state validation.
+  issues: read # Read CODEOWNER authorization comments used for agent opt-out and readiness authorization.
+  checks: read # Verify the successful head-bound readiness-authorization check on later PR events.
 
 concurrency:
-  group: change-coupling-${{ github.workflow }}-${{ github.ref }}
+  group: change-coupling-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-${{ github.event_name }}-${{ github.actor }}
   cancel-in-progress: true
 
 jobs:
@@ -29,19 +36,82 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Validate PR contract and actual diff
+      - name: Validate PR contract and PR-owned diff
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_ACTOR: ${{ github.event.pull_request.user.login }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          BASE_TIP_SHA="$(git rev-parse "origin/$BASE_REF")"
+          python3 .github/scripts/validate_change_coupling.py \
+            --base "$BASE_TIP_SHA" \
+            --head "$HEAD_SHA" \
+            --labels "$PR_LABELS" \
+            --actor "$PR_ACTOR"
+
+  agent-checkpoint:
+    if: >-
+      (github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]')
+      || (
+        github.event_name == 'pull_request_review'
+        && contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.review.author_association)
+        && !endsWith(github.event.review.user.login, '[bot]')
+      )
+      || (
+        github.event_name == 'pull_request_review_comment'
+        && contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+        && !endsWith(github.event.comment.user.login, '[bot]')
+      )
+    name: Agent protocol / checked-state checkpoint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      EVENT_NAME: ${{ github.event_name }}
+      EVENT_ACTION: ${{ github.event.action }}
+
+    steps:
+      - name: Check out tested PR merge state
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: refs/pull/${{ env.PR_NUMBER }}/merge
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Collect live PR and maintainer control context
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: >-
-          python3 .github/scripts/validate_change_coupling.py
-          --base "$BASE_SHA"
-          --head "$HEAD_SHA"
-          --labels "$PR_LABELS"
+          python3 .github/scripts/fetch_agent_checkpoint_context.py
+          --repository "$GITHUB_REPOSITORY"
+          --pr-number "$PR_NUMBER"
+          --merge-sha "$(git rev-parse HEAD)"
+          --event-name "$EVENT_NAME"
+          --event-action "$EVENT_ACTION"
+          --output /tmp/ua-agent-checkpoint-context.json
+
+      - name: Validate checked-state agent checkpoint
+        run: >-
+          python3 .github/scripts/validate_agent_checkpoint.py
+          --context-file /tmp/ua-agent-checkpoint-context.json
+
+  readiness-authorization:
+    if: >-
+      github.event_name == 'pull_request'
+      && github.event.action == 'ready_for_review'
+      && github.event.pull_request.user.login != 'dependabot[bot]'
+    needs: agent-checkpoint
+    name: Agent protocol / readiness authorization
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Record successful head-bound readiness authorization
+        run: echo "Fresh checkpoint and CODEOWNER readiness approval verified for this tested merge state."
 
   self-tests:
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     name: Policy / change coupling self-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -55,3 +125,15 @@ jobs:
       - name: Run diff-aware regression fixtures
         working-directory: 03-reference-architectures
         run: python3 ../.github/tests/change_coupling/test_change_coupling.py
+
+      - name: Run agent checkpoint regression fixtures
+        run: python3 .github/tests/agent_checkpoint/test_agent_checkpoint.py
+
+      - name: Run feedback-context regression fixtures
+        run: python3 .github/tests/agent_checkpoint/test_feedback_context.py
+
+      - name: Run trusted-base guard regression fixtures
+        run: python3 .github/tests/agent_checkpoint/test_trusted_base_guard.py
+
+      - name: Run checkpoint repository-contract mutation fixture
+        run: python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py

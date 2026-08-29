@@ -1,0 +1,143 @@
+{
+  "contract_version": 1,
+  "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state and trusted-base control surfaces without freezing validator internals.",
+  "required_paths": [
+    {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
+    {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
+    {"path": ".github/policy/repository-contract-agent-checkpoint.json", "type": "file"},
+    {"path": ".github/scripts/validate_agent_checkpoint.py", "type": "file"},
+    {"path": ".github/scripts/fetch_agent_checkpoint_context.py", "type": "file"},
+    {"path": ".github/scripts/validate_agent_policy_guard.py", "type": "file"},
+    {"path": ".github/scripts/validate_repository_contract.py", "type": "file"},
+    {"path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py", "type": "file"},
+    {"path": ".github/tests/agent_checkpoint/test_feedback_context.py", "type": "file"},
+    {"path": ".github/tests/agent_checkpoint/test_trusted_base_guard.py", "type": "file"},
+    {"path": ".github/tests/agent_checkpoint/test_checkpoint_repository_contract.py", "type": "file"},
+    {"path": ".github/workflows/change-coupling.yml", "type": "file"},
+    {"path": ".github/workflows/agent-policy-guard.yml", "type": "file"},
+    {"path": ".github/pull_request_template.md", "type": "file"},
+    {"path": "AGENTS.md", "type": "file"}
+  ],
+  "critical_files": [
+    {
+      "path": ".github/policy/change-coupling-contract.json",
+      "required_json": [
+        {"pointer": "/controlled_values/agent_assistance", "equals": ["used", "none"]},
+        {"pointer": "/repository_policy_prefixes", "equals": [".github/", "AGENTS.md", "CONTRIBUTING.md", "DOCUMENT-METADATA.md"]},
+        {"pointer": "/draft_required_document_statuses", "equals": ["draft-normative", "normative"]},
+        {"pointer": "/exception_labels/ua-exception~1pr-contract", "equals": ["pr-contract"]}
+      ]
+    },
+    {
+      "path": ".github/policy/agent-checkpoint-contract.json",
+      "required_json": [
+        {"pointer": "/pr_checkpoint_marker", "equals": "ua-agent-checkpoint"},
+        {"pointer": "/pr_change_contract_marker", "equals": "ua-change-contract"},
+        {"pointer": "/ready_approval_marker", "equals": "ua-agent-ready-approval"},
+        {"pointer": "/agent_none_approval_marker", "equals": "ua-agent-assistance-none"},
+        {"pointer": "/readiness_check_name", "equals": "Agent protocol / readiness authorization"},
+        {"pointer": "/readiness_workflow_path", "equals": ".github/workflows/change-coupling.yml"},
+        {"pointer": "/readiness_step_name", "equals": "Record successful head-bound readiness authorization"},
+        {"pointer": "/maintainer_authority_path", "equals": ".github/CODEOWNERS"},
+        {"pointer": "/checkpoint_version", "equals": 1},
+        {"pointer": "/draft_required_change_classes", "equals": ["repository-policy", "draft-normative", "normative"]},
+        {"pointer": "/trusted_feedback_author_associations", "equals": ["OWNER", "MEMBER", "COLLABORATOR"]},
+        {"pointer": "/controlled_values/feedback_disposition", "equals": ["none", "local", "candidate", "approved-applied", "deferred"]}
+      ]
+    },
+    {
+      "path": ".github/scripts/validate_repository_contract.py",
+      "required_text": [
+        "repository-contract-agent-checkpoint.json"
+      ]
+    },
+    {
+      "path": ".github/scripts/fetch_agent_checkpoint_context.py",
+      "required_text": [
+        "authorized_codeowners",
+        "collaborator_permission",
+        "paged_object_items",
+        "write/maintain/admin",
+        "trusted_associations"
+      ]
+    },
+    {
+      "path": ".github/scripts/validate_agent_policy_guard.py",
+      "required_text": [
+        "Agent protocol / trusted-base guard",
+        "pull_request_target",
+        "post_status",
+        "reviewed_base_tip_sha",
+        "safe agent-assisted defaults",
+        "repository_policy_prefixes",
+        "draft_required_document_statuses"
+      ]
+    },
+    {
+      "path": ".github/workflows/change-coupling.yml",
+      "required_text": [
+        "pull_request_review:",
+        "pull_request_review_comment:",
+        "converted_to_draft",
+        "github.event.review.author_association",
+        "github.event.comment.author_association",
+        "issues: read",
+        "checks: read",
+        "name: Agent protocol / checked-state checkpoint",
+        "name: Agent protocol / readiness authorization",
+        "Record successful head-bound readiness authorization",
+        "Collect live PR and maintainer control context",
+        "Validate checked-state agent checkpoint",
+        "Run trusted-base guard regression fixtures"
+      ]
+    },
+    {
+      "path": ".github/workflows/agent-policy-guard.yml",
+      "required_text": [
+        "name: Agent policy guard",
+        "pull_request_target:",
+        "push:",
+        "statuses: write",
+        "Check out trusted target branch only",
+        "github.event.repository.default_branch",
+        "validate_agent_policy_guard.py",
+        "Agent protocol / trusted-base guard"
+      ]
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "required_text": [
+        "**Agent assistance:**",
+        "\"agent_assistance\": \"select-one\"",
+        "## Agent iteration checkpoint",
+        "ua-agent-ready-approval",
+        "ua-agent-assistance-none",
+        "\"head_sha\"",
+        "\"merge_sha\"",
+        "\"pr_body_sha256\"",
+        "<!-- ua-agent-checkpoint",
+        "\"reviewed_pr_body_sha256\"",
+        "\"reviewed_feedback_sha256\"",
+        "\"applicable_agents\""
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "required_text": [
+        "### Corrective feedback and control improvement",
+        "### Deterministic agent iteration checkpoint",
+        "agent_assistance",
+        "PR-owned changed paths",
+        "reviewed_feedback_sha256",
+        "ua-agent-ready-approval",
+        "ua-agent-assistance-none",
+        "\"head_sha\"",
+        "\"merge_sha\"",
+        "\"pr_body_sha256\"",
+        "Agent protocol / readiness authorization",
+        "Agent protocol / trusted-base guard",
+        "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>"
+      ]
+    }
+  ]
+}

@@ -9,6 +9,7 @@
       },
       "pr": {
         "change_class": "repository-policy",
+        "agent_assistance": "none",
         "owning_paths": [".github/policy/example.json"],
         "decision_levels": ["none"],
         "capability_families": ["none"],
@@ -21,6 +22,60 @@
         "traceability": "unchanged"
       },
       "expected_valid": true
+    },
+    {
+      "name": "repository policy paths cannot be declared maintenance",
+      "files": {
+        ".github/policy/example.json": "{}\n",
+        "CHANGELOG.md": "changed\n",
+        "ROADMAP.md": "changed\n"
+      },
+      "pr": {
+        "change_class": "maintenance",
+        "agent_assistance": "none",
+        "owning_paths": [".github/policy/example.json"],
+        "decision_levels": ["none"],
+        "capability_families": ["none"],
+        "terminology_impact": "unchanged",
+        "research_state": "unchanged",
+        "compatibility": "preserved",
+        "changelog": "updated",
+        "glossary": "unchanged",
+        "roadmap": "updated",
+        "traceability": "unchanged"
+      },
+      "expected_message": "require change_class 'repository-policy'"
+    },
+    {
+      "name": "agent guidance policy path cannot be declared maintenance",
+      "files": {
+        "AGENTS.md": "changed agent rules\n",
+        "CHANGELOG.md": "changed\n",
+        "ROADMAP.md": "changed\n"
+      },
+      "set_pr_field": {
+        "change_class": "maintenance",
+        "owning_paths": ["AGENTS.md"],
+        "changelog": "updated",
+        "roadmap": "updated"
+      },
+      "expected_message": "require change_class 'repository-policy'"
+    },
+    {
+      "name": "draft normative status cannot be downgraded to maintenance",
+      "base_files": {
+        "00-doctrine/status-sensitive.md": "---\nstatus: draft-normative\n---\nbase\n"
+      },
+      "files": {
+        "00-doctrine/status-sensitive.md": "---\nstatus: informative\n---\nchanged\n",
+        "CHANGELOG.md": "changed\n"
+      },
+      "set_pr_field": {
+        "change_class": "maintenance",
+        "owning_paths": ["00-doctrine/status-sensitive.md"],
+        "changelog": "updated"
+      },
+      "expected_message": "protected status draft-normative"
     },
     {
       "name": "missing PR contract is rejected",
@@ -57,6 +112,12 @@
       "files": {},
       "set_pr_field": {"change_class": "magic"},
       "expected_message": "change_class"
+    },
+    {
+      "name": "uncontrolled agent assistance is rejected",
+      "files": {},
+      "set_pr_field": {"agent_assistance": "sometimes"},
+      "expected_message": "agent_assistance"
     },
     {
       "name": "notable change without changelog is rejected",

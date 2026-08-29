@@ -17,12 +17,16 @@ CASES_PATH = Path(__file__).with_name("cases.json")
 
 REQUIRED_CASE_NAMES: Set[str] = {
     "valid repository policy change with companion updates passes",
+    "repository policy paths cannot be declared maintenance",
+    "agent guidance policy path cannot be declared maintenance",
+    "draft normative status cannot be downgraded to maintenance",
     "missing PR contract is rejected",
     "duplicate PR contract is rejected",
     "malformed PR contract JSON is rejected",
     "missing required PR field is rejected",
     "unknown PR field is rejected",
     "uncontrolled change class is rejected",
+    "uncontrolled agent assistance is rejected",
     "notable change without changelog is rejected",
     "changelog declaration without file change is rejected",
     "changed changelog without updated declaration is rejected",
@@ -75,6 +79,7 @@ def load_validator():
 def default_pr() -> Dict[str, object]:
     return {
         "change_class": "maintenance",
+        "agent_assistance": "none",
         "owning_paths": ["README.md"],
         "decision_levels": ["none"],
         "capability_families": ["none"],
@@ -192,6 +197,49 @@ def messages(findings: List[object]) -> str:
     return "\n".join(item.message for item in findings)
 
 
+def run_synced_target_scope_regression(validator, failures: List[str]) -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-change-coupling-sync-") as temp:
+        root = Path(temp)
+        run(root, "git", "init", "-q")
+        run(root, "git", "config", "user.email", "fixture@example.com")
+        run(root, "git", "config", "user.name", "Fixture")
+        write(root, "notes/item.md", "base\n")
+        write(root, ".github/policy/target-only.json", "{}\n")
+        write(root, "CHANGELOG.md", "base\n")
+        write(root, "ROADMAP.md", "base\n")
+        write(root, "00-doctrine/glossary.md", "base\n")
+        write(root, "content/research/framework-traceability.md", "base\n")
+        run(root, "git", "add", ".")
+        run(root, "git", "commit", "-qm", "base")
+        base = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=str(root), text=True).strip()
+
+        run(root, "git", "checkout", "-qb", "feature")
+        write(root, "notes/item.md", "feature\n")
+        run(root, "git", "add", ".")
+        run(root, "git", "commit", "-qm", "feature")
+
+        run(root, "git", "checkout", "-qb", "target", base)
+        write(root, ".github/policy/target-only.json", "{\"target\": true}\n")
+        run(root, "git", "add", ".")
+        run(root, "git", "commit", "-qm", "target advance")
+        base_tip = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=str(root), text=True).strip()
+
+        run(root, "git", "checkout", "-q", "feature")
+        run(root, "git", "merge", "--no-ff", "target", "-m", "sync target")
+        head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=str(root), text=True).strip()
+
+        declaration = default_pr()
+        declaration["owning_paths"] = ["notes/item.md"]
+        findings = validator.validate(
+            root, CONTRACT_PATH, base_tip, head, contract_body(declaration), set()
+        )
+        errors = [item.message for item in findings if item.severity == "error"]
+        if errors:
+            failures.append("synchronized target-only changes leaked into PR-owned change coupling: {}".format(errors))
+        else:
+            print("PASS: synchronized target-only changes are excluded from change-coupling PR scope")
+
+
 def main() -> int:
     validator = load_validator()
     cases = json.loads(CASES_PATH.read_text(encoding="utf-8"))["cases"]
@@ -204,8 +252,10 @@ def main() -> int:
                 str(item) for item in case.get("labels", [])
                 if isinstance(item, str)
             }
+            actor = str(case.get("actor", ""))
             findings = validator.validate(
-                root, CONTRACT_PATH, base, head, case_body(case), labels
+                root, CONTRACT_PATH, base, head, case_body(case), labels,
+                actor=actor,
             )
             errors = [item for item in findings if item.severity == "error"]
             text = messages(findings)
@@ -231,6 +281,8 @@ def main() -> int:
         finally:
             temporary.cleanup()
 
+    run_synced_target_scope_regression(validator, failures)
+
     if failures:
         print("Change coupling self-tests failed:")
         for failure in failures:
@@ -238,7 +290,7 @@ def main() -> int:
         return 1
 
     print(
-        "Change coupling self-tests passed: {} regression fixtures.".format(
+        "Change coupling self-tests passed: {} manifest fixtures plus synchronized-target scope regression.".format(
             len(cases)
         )
     )

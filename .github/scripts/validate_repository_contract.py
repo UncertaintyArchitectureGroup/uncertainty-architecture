@@ -18,6 +18,7 @@ DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONTRACT = DEFAULT_ROOT / ".github/policy/repository-contract.json"
 DEFAULT_EXTENSIONS = (
     DEFAULT_ROOT / ".github/policy/repository-contract-change-coupling.json",
+    DEFAULT_ROOT / ".github/policy/repository-contract-agent-checkpoint.json",
 )
 LINK_PATTERN = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
