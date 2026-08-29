@@ -1,7 +1,9 @@
 name: Agent policy guard
 
 on:
-  pull_request_target:
+  pull_request_target: # zizmor: ignore[dangerous-triggers] -- intentional base-owned policy guard; candidate code is never checked out or executed.
+    branches:
+      - main
     types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review, converted_to_draft]
   push:
     branches:
@@ -12,11 +14,7 @@ on:
 # executes pull-request code. On pull_request_target it runs the version from
 # the target branch, reads candidate content only through GitHub APIs, and
 # writes one head-bound status for later branch-protection/ruleset use.
-permissions:
-  contents: read
-  pull-requests: read # Read PR metadata and candidate changed-file/content data as untrusted input.
-  issues: read # Read CODEOWNER authorization comments and PR timeline state.
-  statuses: write # Publish the trusted-base guard result directly on each PR head SHA.
+permissions: {}
 
 concurrency:
   group: agent-policy-guard-${{ github.event.pull_request.number || github.ref }}
@@ -24,9 +22,15 @@ concurrency:
 
 jobs:
   trusted-base:
+    if: github.repository == 'UncertaintyArchitectureGroup/uncertainty-architecture'
     name: Agent protocol / trusted-base guard
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read # Read PR metadata and candidate changed-file/content data as untrusted input.
+      issues: read # Read CODEOWNER authorization comments and PR timeline state.
+      statuses: write # Publish the trusted-base guard result directly on each PR head SHA.
     steps:
       - name: Check out trusted target branch only
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
