@@ -8,10 +8,11 @@ import re
 import subprocess
 import sys
 from pathlib import Path, PurePosixPath
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONTRACT = ROOT / ".github/policy/agent-checkpoint-contract.json"
+DEFAULT_CHANGE_CONTRACT = ROOT / ".github/policy/change-coupling-contract.json"
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
@@ -149,6 +150,14 @@ def pr_body_sha256(body: str, checkpoint_marker: str) -> str:
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
+def exception_labels_for(change_contract: Dict[str, object], category: str) -> Set[str]:
+    labels: Set[str] = set()
+    for label, categories in change_contract.get("exception_labels", {}).items():
+        if isinstance(categories, list) and category in categories:
+            labels.add(str(label))
+    return labels
+
+
 def validate_checkpoint_schema(data: Dict[str, object], contract: Dict[str, object]) -> List[Finding]:
     findings: List[Finding] = []
     required = set(str(item) for item in contract["required_fields"])
@@ -205,11 +214,25 @@ def validate(
     root: Path,
     contract_path: Path,
     context: Dict[str, object],
+    change_contract_path: Path = DEFAULT_CHANGE_CONTRACT,
 ) -> List[Finding]:
     contract = load_json(contract_path)
+    change_contract = load_json(change_contract_path)
     body = str(context.get("body") or "")
+    labels = {
+        str(item) for item in context.get("labels", [])
+        if isinstance(item, str)
+    }
     change, change_error = parse_block(body, str(contract["pr_change_contract_marker"]))
     if change_error:
+        allowed_exceptions = exception_labels_for(change_contract, "pr-contract")
+        if labels.intersection(allowed_exceptions):
+            return [
+                Finding(
+                    "warning",
+                    change_error + "; agent checkpoint bypassed by the same maintainer PR-contract exception",
+                )
+            ]
         return [Finding("error", change_error)]
     assert change is not None
 
@@ -230,21 +253,23 @@ def validate(
 
     draft_required = set(str(item) for item in contract.get("draft_required_change_classes", []))
     change_class = str(change.get("change_class") or "")
-    event_action = str(context.get("event_action") or "")
     is_draft = bool(context.get("draft"))
-    if change_class in draft_required and not is_draft and event_action != "ready_for_review":
+    head = str(context.get("head_sha") or "")
+    ready_head = str(context.get("ready_head_sha") or "")
+    if change_class in draft_required and not is_draft and ready_head != head:
         findings.append(
             Finding(
                 "error",
-                "AI-assisted {} PR must remain Draft during active repository-changing iterations. "
-                "Convert the PR to Draft before continuing; only the explicit ready_for_review transition may leave Draft after a fresh checkpoint.".format(change_class),
+                "AI-assisted {} PR must remain Draft during repository-changing iterations. "
+                "The current head has not been marked ready through a GitHub ready_for_review transition; "
+                "return the PR to Draft, refresh the checkpoint, and request readiness again only after maintainer authorization.".format(change_class),
             )
         )
 
     expected_shas = {
         "reviewed_base_sha": str(context.get("diff_base_sha") or ""),
         "reviewed_base_tip_sha": str(context.get("base_tip_sha") or ""),
-        "reviewed_head_sha": str(context.get("head_sha") or ""),
+        "reviewed_head_sha": head,
         "reviewed_merge_sha": str(context.get("merge_sha") or ""),
     }
     for field, expected in expected_shas.items():
@@ -258,10 +283,9 @@ def validate(
 
     feedback_hash = str(context.get("feedback_sha256") or "")
     if checkpoint["reviewed_feedback_sha256"] != feedback_hash:
-        findings.append(Finding("error", "agent checkpoint is stale: reviewed_feedback_sha256 does not match current maintainer GitHub feedback. Expected {}.".format(feedback_hash)))
+        findings.append(Finding("error", "agent checkpoint is stale: reviewed_feedback_sha256 does not match current trusted PR review feedback. Expected {}.".format(feedback_hash)))
 
     base_tip = str(context.get("base_tip_sha") or "")
-    head = str(context.get("head_sha") or "")
     merge = str(context.get("merge_sha") or "")
     expected_agents = applicable_agent_records(root, base_tip, head, merge)
     if checkpoint["applicable_agents"] != expected_agents:
@@ -271,13 +295,13 @@ def validate(
         findings.append(
             Finding(
                 "error",
-                "Re-read the effective AGENTS.md files from the tested merge state, PR-owned diff, current PR description, external conversation corrective signals, current maintainer GitHub feedback, and end-of-session protocol, then refresh ua-agent-checkpoint.",
+                "Re-read the effective AGENTS.md files from the tested merge state, PR-owned diff, current PR description, external conversation corrective signals, trusted PR review feedback, and end-of-session protocol, then refresh ua-agent-checkpoint.",
             )
         )
     else:
         print(
-            "Agent checkpoint accepted: base-tip {}, head {}, merge {}, feedback {}, instructions {}.".format(
-                base_tip, head, merge, feedback_hash, json.dumps(expected_agents, sort_keys=True)
+            "Agent checkpoint accepted: base-tip {}, head {}, merge {}, ready-head {}, feedback {}, instructions {}.".format(
+                base_tip, head, merge, ready_head, feedback_hash, json.dumps(expected_agents, sort_keys=True)
             )
         )
     return findings
@@ -287,6 +311,7 @@ def parse_args(argv: Optional[Iterable[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
+    parser.add_argument("--change-contract", type=Path, default=DEFAULT_CHANGE_CONTRACT)
     parser.add_argument("--context-file", type=Path, required=True)
     return parser.parse_args(argv)
 
@@ -297,7 +322,10 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         context = json.loads(args.context_file.read_text(encoding="utf-8"))
         if not isinstance(context, dict):
             raise ValueError("context file must contain a JSON object")
-        findings = validate(args.root.resolve(), args.contract.resolve(), context)
+        findings = validate(
+            args.root.resolve(), args.contract.resolve(), context,
+            change_contract_path=args.change_contract.resolve(),
+        )
     except (ValueError, FileNotFoundError, json.JSONDecodeError) as exc:
         print("Agent-checkpoint configuration error: {}".format(exc))
         return 2
