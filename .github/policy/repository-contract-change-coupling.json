@@ -362,7 +362,7 @@
       "required_text": [
         "**Declare** the change in the machine-readable `ua-change-contract` block",
         "The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json).",
-        "python3 .github/scripts/validate_change_coupling.py --base <base-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>",
+        "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>",
         "Maintainer exception labels are not a universal override.",
         "Renamed or deleted maintained paths have an explicit compatibility decision."
       ]
