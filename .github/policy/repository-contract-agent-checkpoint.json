@@ -84,7 +84,8 @@
         "reviewed_feedback_sha256",
         "ua-agent-ready-approval",
         "ua-agent-assistance-none",
-        "Agent protocol / readiness authorization"
+        "Agent protocol / readiness authorization",
+        "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>"
       ]
     }
   ]
