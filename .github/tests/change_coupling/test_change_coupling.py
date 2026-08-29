@@ -44,9 +44,16 @@ REQUIRED_CASE_NAMES: Set[str] = {
 
 
 def run(root: Path, *args: str) -> None:
-    result = subprocess.run(list(args), cwd=str(root), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result = subprocess.run(
+        list(args), cwd=str(root), text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
     if result.returncode != 0:
-        raise AssertionError("command failed: {}\n{}\n{}".format(" ".join(args), result.stdout, result.stderr))
+        raise AssertionError(
+            "command failed: {}\n{}\n{}".format(
+                " ".join(args), result.stdout, result.stderr
+            )
+        )
 
 
 def write(root: Path, path: str, text: str) -> None:
@@ -56,7 +63,9 @@ def write(root: Path, path: str, text: str) -> None:
 
 
 def load_validator():
-    spec = importlib.util.spec_from_file_location("validate_change_coupling", VALIDATOR_PATH)
+    spec = importlib.util.spec_from_file_location(
+        "validate_change_coupling", VALIDATOR_PATH
+    )
     if spec is None or spec.loader is None:
         raise RuntimeError("unable to load validator")
     module = importlib.util.module_from_spec(spec)
@@ -82,12 +91,15 @@ def default_pr() -> Dict[str, object]:
 
 
 def contract_body(data: Dict[str, object]) -> str:
-    return "<!-- ua-change-contract\n{}\n-->".format(json.dumps(data, sort_keys=True))
+    return "<!-- ua-change-contract\n{}\n-->".format(
+        json.dumps(data, sort_keys=True)
+    )
 
 
 def case_body(case: Dict[str, object]) -> str:
     if "body" in case:
         return str(case["body"])
+
     data = default_pr()
     explicit = case.get("pr")
     if isinstance(explicit, dict):
@@ -101,6 +113,7 @@ def case_body(case: Dict[str, object]) -> str:
     extra = case.get("extra_pr_field")
     if isinstance(extra, dict):
         data.update(extra)
+
     body = contract_body(data)
     if case.get("body_mode") == "duplicate":
         body += "\n" + contract_body(data)
@@ -113,6 +126,7 @@ def materialize_repository(case: Dict[str, object]):
     run(root, "git", "init", "-q")
     run(root, "git", "config", "user.email", "fixture@example.com")
     run(root, "git", "config", "user.name", "Fixture")
+
     baseline = {
         "README.md": "baseline\n",
         "CHANGELOG.md": "baseline\n",
@@ -123,21 +137,28 @@ def materialize_repository(case: Dict[str, object]):
     extra_base = case.get("base_files")
     if isinstance(extra_base, dict):
         baseline.update({str(k): str(v) for k, v in extra_base.items()})
+
     for path, text in baseline.items():
         write(root, path, text)
+
     run(root, "git", "add", ".")
     run(root, "git", "commit", "-qm", "baseline")
-    base = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=str(root), text=True).strip()
+    base = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=str(root), text=True
+    ).strip()
+
     files = case.get("files")
     if isinstance(files, dict):
         for path, text in files.items():
             write(root, str(path), str(text))
+
     deletes = case.get("delete_files")
     if isinstance(deletes, list):
         for path in deletes:
             target = root / str(path)
             if target.exists():
                 target.unlink()
+
     renames = case.get("rename_files")
     if isinstance(renames, dict):
         for old, new in renames.items():
@@ -145,9 +166,12 @@ def materialize_repository(case: Dict[str, object]):
             target = root / str(new)
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
+
     run(root, "git", "add", "-A")
     run(root, "git", "commit", "--allow-empty", "-qm", "change")
-    head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=str(root), text=True).strip()
+    head = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=str(root), text=True
+    ).strip()
     return temporary, root, base, head
 
 
@@ -174,33 +198,54 @@ def main() -> int:
     validator = load_validator()
     cases = json.loads(CASES_PATH.read_text(encoding="utf-8"))["cases"]
     failures = validate_case_manifest(cases)
+
     for case in cases:
         temporary, root, base, head = materialize_repository(case)
         try:
-            labels = {str(item) for item in case.get("labels", []) if isinstance(item, str)}
+            labels = {
+                str(item) for item in case.get("labels", [])
+                if isinstance(item, str)
+            }
             actor = str(case.get("actor", ""))
-            findings = validator.validate(root, CONTRACT_PATH, base, head, case_body(case), labels, actor=actor)
+            findings = validator.validate(
+                root, CONTRACT_PATH, base, head, case_body(case), labels,
+                actor=actor,
+            )
             errors = [item for item in findings if item.severity == "error"]
             text = messages(findings)
+
             if case.get("expected_valid"):
                 if errors:
-                    failures.append("{}: expected no errors, got {}".format(case["name"], text))
+                    failures.append(
+                        "{}: expected no errors, got {}".format(case["name"], text)
+                    )
                 else:
                     print("PASS: {}".format(case["name"]))
                 continue
+
             expected = str(case.get("expected_message", ""))
             if expected not in text:
-                failures.append("{}: expected {!r}, got {}".format(case["name"], expected, text))
+                failures.append(
+                    "{}: expected {!r}, got {}".format(
+                        case["name"], expected, text
+                    )
+                )
             else:
                 print("PASS: {}".format(case["name"]))
         finally:
             temporary.cleanup()
+
     if failures:
         print("Change coupling self-tests failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Change coupling self-tests passed: {} regression fixtures.".format(len(cases)))
+
+    print(
+        "Change coupling self-tests passed: {} regression fixtures.".format(
+            len(cases)
+        )
+    )
     return 0
 
 
