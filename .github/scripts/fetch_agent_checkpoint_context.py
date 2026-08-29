@@ -94,6 +94,16 @@ def checkpoint_sha256(body: str, marker: str) -> str:
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
+def canonical_pr_body_without_checkpoint(body: str, marker: str) -> str:
+    stripped = marker_regex(marker).sub("", body or "", count=1).rstrip()
+    return stripped + "\n" if stripped else ""
+
+
+def pr_body_sha256(body: str, marker: str) -> str:
+    canonical = canonical_pr_body_without_checkpoint(body, marker)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def is_trusted_feedback(item: Dict[str, object], trusted: Iterable[str]) -> bool:
     association = str(item.get("author_association") or "")
     if association not in set(trusted):
@@ -123,7 +133,7 @@ def feedback_record(kind: str, item: Dict[str, object]) -> Dict[str, object]:
 
 
 def feedback_sha256(repository: str, pr_number: int, token: str, trusted: Iterable[str]) -> str:
-    """Hash trusted review feedback attached to the PR merge/head lifecycle."""
+    """Hash trusted review feedback attached to the PR head lifecycle."""
     encoded_repo = "/".join(urllib.parse.quote(part, safe="") for part in repository.split("/"))
     endpoints = (
         ("review", "{}/repos/{}/pulls/{}/reviews?per_page=100".format(API_ROOT, encoded_repo, pr_number)),
@@ -209,13 +219,15 @@ def issue_comments(repository: str, pr_number: int, token: str) -> List[Dict[str
 
 
 def agent_none_approved(
-    comments: Iterable[Dict[str, object]], codeowners: Set[str], marker: str
+    comments: Iterable[Dict[str, object]], codeowners: Set[str], marker: str, head_sha: str
 ) -> bool:
+    """Require a CODEOWNER opt-out bound to the exact current repository head."""
+    expected = {"agent_assistance": "none", "head_sha": head_sha}
     for item in comments:
         if not is_codeowner_comment(item, codeowners):
             continue
         for value in marker_objects(item.get("body"), marker):
-            if value == {"agent_assistance": "none"}:
+            if value == expected:
                 return True
     return False
 
@@ -225,46 +237,65 @@ def readiness_approval(
     codeowners: Set[str],
     marker: str,
     head_sha: str,
+    merge_sha: str,
     current_checkpoint_sha256: str,
+    current_pr_body_sha256: str,
     ready_at: str,
 ) -> Tuple[bool, bool]:
-    """Return (head approval still present, exact transition authorization)."""
-    head_approved = False
+    """Return (durable body/head/merge approval, exact transition authorization)."""
+    approval_present = False
     transition_authorized = False
     if not ready_at:
-        return head_approved, transition_authorized
+        return approval_present, transition_authorized
     for item in comments:
         if not is_codeowner_comment(item, codeowners):
             continue
         created_at = str(item.get("created_at") or "")
-        if not created_at or created_at > ready_at:
+        updated_at = str(item.get("updated_at") or created_at)
+        # An approval created or edited after Ready cannot authorize that Ready cycle.
+        if not created_at or created_at > ready_at or not updated_at or updated_at > ready_at:
             continue
         for value in marker_objects(item.get("body"), marker):
             if value.get("head_sha") != head_sha:
                 continue
-            head_approved = True
+            if value.get("merge_sha") != merge_sha:
+                continue
+            if value.get("pr_body_sha256") != current_pr_body_sha256:
+                continue
+            approval_present = True
             if (
                 current_checkpoint_sha256
                 and value.get("checkpoint_sha256") == current_checkpoint_sha256
             ):
                 transition_authorized = True
-    return head_approved, transition_authorized
+    return approval_present, transition_authorized
+
+
+def _run_and_job_from_details(details_url: str) -> Tuple[Optional[int], Optional[int]]:
+    match = re.search(r"/actions/runs/(\d+)/job/(\d+)(?:$|[/?#])", details_url or "")
+    if not match:
+        return None, None
+    return int(match.group(1)), int(match.group(2))
 
 
 def readiness_check_passed(
     repository: str,
-    merge_sha: str,
+    pr_number: int,
+    head_sha: str,
     ready_at: str,
     token: str,
     check_name: str,
+    workflow_path: str,
+    readiness_step_name: str,
 ) -> bool:
-    if not merge_sha or not ready_at:
+    """Verify successful readiness evidence from the exact Actions workflow/job provenance."""
+    if not head_sha or not ready_at:
         return False
     encoded_repo = "/".join(urllib.parse.quote(part, safe="") for part in repository.split("/"))
-    url = "{}/repos/{}/commits/{}/check-runs?per_page=100".format(
-        API_ROOT, encoded_repo, urllib.parse.quote(merge_sha, safe="")
+    checks_url = "{}/repos/{}/commits/{}/check-runs?per_page=100".format(
+        API_ROOT, encoded_repo, urllib.parse.quote(head_sha, safe="")
     )
-    value, _ = request_json(url, token)
+    value, _ = request_json(checks_url, token)
     if not isinstance(value, dict):
         return False
     for item in value.get("check_runs", []):
@@ -275,8 +306,54 @@ def readiness_check_passed(
         if str(item.get("conclusion") or "") != "success":
             continue
         completed_at = str(item.get("completed_at") or "")
-        if completed_at and completed_at >= ready_at:
-            return True
+        if not completed_at or completed_at < ready_at:
+            continue
+        app = item.get("app") if isinstance(item.get("app"), dict) else {}
+        if str(app.get("slug") or "") != "github-actions":
+            continue
+        run_id, job_id = _run_and_job_from_details(str(item.get("details_url") or ""))
+        if run_id is None or job_id is None:
+            continue
+
+        run_url = "{}/repos/{}/actions/runs/{}".format(API_ROOT, encoded_repo, run_id)
+        run, _ = request_json(run_url, token)
+        if not isinstance(run, dict):
+            continue
+        if str(run.get("path") or "") != workflow_path:
+            continue
+        if str(run.get("event") or "") != "pull_request":
+            continue
+        if str(run.get("head_sha") or "") != head_sha:
+            continue
+        if str(run.get("created_at") or "") < ready_at:
+            continue
+        suite = item.get("check_suite") if isinstance(item.get("check_suite"), dict) else {}
+        if int(run.get("check_suite_id") or 0) != int(suite.get("id") or 0):
+            continue
+        pull_numbers = {
+            int(pr.get("number") or 0)
+            for pr in run.get("pull_requests", [])
+            if isinstance(pr, dict)
+        }
+        if pr_number not in pull_numbers:
+            continue
+
+        job_url = "{}/repos/{}/actions/jobs/{}".format(API_ROOT, encoded_repo, job_id)
+        job, _ = request_json(job_url, token)
+        if not isinstance(job, dict):
+            continue
+        if int(job.get("run_id") or 0) != run_id:
+            continue
+        if str(job.get("name") or "") != check_name or str(job.get("conclusion") or "") != "success":
+            continue
+        steps = [step for step in job.get("steps", []) if isinstance(step, dict)]
+        if not any(
+            str(step.get("name") or "") == readiness_step_name
+            and str(step.get("conclusion") or "") == "success"
+            for step in steps
+        ):
+            continue
+        return True
     return False
 
 
@@ -333,23 +410,28 @@ def fetch_context(
     )
     codeowners = global_codeowners(codeowners_text)
     comments = issue_comments(repository, pr_number, token)
-    current_checkpoint_hash = checkpoint_sha256(
-        body, str(contract.get("pr_checkpoint_marker") or "ua-agent-checkpoint")
-    )
+    checkpoint_marker = str(contract.get("pr_checkpoint_marker") or "ua-agent-checkpoint")
+    current_checkpoint_hash = checkpoint_sha256(body, checkpoint_marker)
+    current_body_hash = pr_body_sha256(body, checkpoint_marker)
     ready_approval_present, ready_transition_authorized = readiness_approval(
         comments,
         codeowners,
         str(contract.get("ready_approval_marker") or "ua-agent-ready-approval"),
         head_sha,
+        merge_sha,
         current_checkpoint_hash,
+        current_body_hash,
         ready_at,
     )
     durable_ready_check = readiness_check_passed(
         repository,
-        merge_sha,
+        pr_number,
+        head_sha,
         ready_at,
         token,
         str(contract.get("readiness_check_name") or "Agent protocol / readiness authorization"),
+        str(contract.get("readiness_workflow_path") or ".github/workflows/change-coupling.yml"),
+        str(contract.get("readiness_step_name") or "Record successful head-bound readiness authorization"),
     )
 
     trusted = [str(item) for item in contract.get("trusted_feedback_author_associations", [])]
@@ -362,6 +444,7 @@ def fetch_context(
         "repository": repository,
         "pr_number": pr_number,
         "body": body,
+        "pr_body_sha256": current_body_hash,
         "diff_base_sha": str(base.get("sha") or ""),
         "base_ref": base_ref,
         "base_tip_sha": base_tip_sha,
@@ -378,6 +461,7 @@ def fetch_context(
             comments,
             codeowners,
             str(contract.get("agent_none_approval_marker") or "ua-agent-assistance-none"),
+            head_sha,
         ),
         "event_name": event_name,
         "event_action": event_action,
