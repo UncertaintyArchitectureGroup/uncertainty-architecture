@@ -53,12 +53,7 @@ def merge_base(root: Path, base_tip: str, head: str) -> str:
 
 
 def changed_paths(root: Path, base_tip: str, head: str) -> List[str]:
-    """Return PR-owned changed paths from current-target merge-base to head.
-
-    Both sides of renames/copies are retained so old and new instruction scopes
-    participate, while target-only changes already incorporated into the branch
-    do not become false PR scope.
-    """
+    """Return PR-owned changed paths from current-target merge-base to head."""
     comparison_base = merge_base(root, base_tip, head)
     output = git(root, ["diff", "--name-status", "-M", comparison_base, head])
     paths = set()
@@ -237,9 +232,19 @@ def validate(
     assert change is not None
 
     assistance = change.get("agent_assistance")
+    pr_author = str(context.get("pr_author") or "")
     if assistance == "none":
-        return []
+        if pr_author == "dependabot[bot]" or bool(context.get("agent_none_approved")):
+            return []
+        return [
+            Finding(
+                "error",
+                "agent_assistance 'none' is a maintainer-controlled opt-out. A target-branch CODEOWNER must add the structured ua-agent-assistance-none approval comment before the checkpoint can be disabled.",
+            )
+        ]
     if assistance != "used":
+        if pr_author == "dependabot[bot]" and assistance is None:
+            return []
         return [Finding("error", "ua-change-contract must declare agent_assistance as 'used' or 'none'")]
 
     checkpoint, checkpoint_error = parse_block(body, str(contract["pr_checkpoint_marker"]))
@@ -256,13 +261,25 @@ def validate(
     is_draft = bool(context.get("draft"))
     head = str(context.get("head_sha") or "")
     ready_head = str(context.get("ready_head_sha") or "")
-    if change_class in draft_required and not is_draft and ready_head != head:
+    event_name = str(context.get("event_name") or "")
+    event_action = str(context.get("event_action") or "")
+    transition_ready = (
+        event_name == "pull_request"
+        and event_action == "ready_for_review"
+        and ready_head == head
+        and bool(context.get("ready_transition_authorized"))
+    )
+    durable_ready = (
+        ready_head == head
+        and bool(context.get("ready_approval_present"))
+        and bool(context.get("ready_check_passed"))
+    )
+    if change_class in draft_required and not is_draft and not (transition_ready or durable_ready):
         findings.append(
             Finding(
                 "error",
                 "AI-assisted {} PR must remain Draft during repository-changing iterations. "
-                "The current head has not been marked ready through a GitHub ready_for_review transition; "
-                "return the PR to Draft, refresh the checkpoint, and request readiness again only after maintainer authorization.".format(change_class),
+                "Leaving Draft requires a target-branch CODEOWNER approval bound to the current head and fresh checkpoint, followed by a successful readiness-authorization check for the current tested merge state.".format(change_class),
             )
         )
 
@@ -295,13 +312,14 @@ def validate(
         findings.append(
             Finding(
                 "error",
-                "Re-read the effective AGENTS.md files from the tested merge state, PR-owned diff, current PR description, external conversation corrective signals, trusted PR review feedback, and end-of-session protocol, then refresh ua-agent-checkpoint.",
+                "Re-read the effective AGENTS.md files from the tested merge state, PR-owned diff, current PR description, external conversation corrective signals, trusted PR review feedback, maintainer approval evidence, and end-of-session protocol, then refresh ua-agent-checkpoint.",
             )
         )
     else:
         print(
-            "Agent checkpoint accepted: base-tip {}, head {}, merge {}, ready-head {}, feedback {}, instructions {}.".format(
-                base_tip, head, merge, ready_head, feedback_hash, json.dumps(expected_agents, sort_keys=True)
+            "Agent checkpoint accepted: base-tip {}, head {}, merge {}, ready-head {}, durable-ready {}, feedback {}, instructions {}.".format(
+                base_tip, head, merge, ready_head, durable_ready, feedback_hash,
+                json.dumps(expected_agents, sort_keys=True),
             )
         )
     return findings
