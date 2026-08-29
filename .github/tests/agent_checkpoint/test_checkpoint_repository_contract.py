@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mutation fixture for repository-contract protection of the agent checkpoint surface."""
+"""Mutation fixtures for repository-contract protection of the agent checkpoint surface."""
 
 import importlib.util
 import json
@@ -46,6 +46,23 @@ def materialize_surface(root: Path, extension) -> None:
             shutil.copy2(source, target)
 
 
+def assert_mutation_blocked(validator, extension, original_root: Path, marker: str, replacement: str, label: str, failures: List[str]) -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-checkpoint-contract-") as temp:
+        root = Path(temp)
+        materialize_surface(root, extension)
+        workflow = root / ".github/workflows/change-coupling.yml"
+        original = workflow.read_text(encoding="utf-8")
+        if marker not in original:
+            failures.append("{}: fixture could not find protected marker {!r}".format(label, marker))
+            return
+        workflow.write_text(original.replace(marker, replacement, 1), encoding="utf-8")
+        errors = validate_surface(validator, root, extension)
+        if not any("missing protected text" in error and marker in error for error in errors):
+            failures.append("{}: mutation did not trigger repository-contract failure: {}".format(label, errors))
+        else:
+            print("PASS: {}".format(label))
+
+
 def main() -> int:
     validator = load_validator()
     extension = load_extension()
@@ -57,34 +74,34 @@ def main() -> int:
     else:
         print("PASS: checkpoint control surface satisfies repository contract")
 
-    with tempfile.TemporaryDirectory(prefix="ua-checkpoint-contract-") as temp:
-        root = Path(temp)
-        materialize_surface(root, extension)
-        workflow = root / ".github/workflows/change-coupling.yml"
-        original = workflow.read_text(encoding="utf-8")
-        marker = "name: Agent protocol / exact-state checkpoint"
-        if marker not in original:
-            failures.append("mutation fixture could not find protected checkpoint job marker")
-        else:
-            workflow.write_text(
-                original.replace(marker, "name: Agent protocol / removed-checkpoint-fixture", 1),
-                encoding="utf-8",
-            )
-            errors = validate_surface(validator, root, extension)
-            if not any("missing protected text" in error and marker in error for error in errors):
-                failures.append(
-                    "removing checkpoint job marker did not trigger repository-contract failure: {}".format(errors)
-                )
-            else:
-                print("PASS: removing checkpoint job marker is blocked by repository contract")
+    assert_mutation_blocked(
+        validator, extension, REPOSITORY_ROOT,
+        "name: Agent protocol / checked-state checkpoint",
+        "name: Agent protocol / removed-checkpoint-fixture",
+        "removing checkpoint job marker is blocked by repository contract",
+        failures,
+    )
+    assert_mutation_blocked(
+        validator, extension, REPOSITORY_ROOT,
+        "pull_request_review_comment:",
+        "pull_request_review_comment_removed:",
+        "removing GitHub review-comment feedback trigger is blocked",
+        failures,
+    )
+    assert_mutation_blocked(
+        validator, extension, REPOSITORY_ROOT,
+        "issue_comment:",
+        "issue_comment_removed:",
+        "removing PR conversation feedback trigger is blocked",
+        failures,
+    )
 
     if failures:
         print("Agent-checkpoint repository-contract fixture failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-
-    print("Agent-checkpoint repository-contract fixture passed.")
+    print("Agent-checkpoint repository-contract fixture passed: 3 mutation assertions.")
     return 0
 
 
