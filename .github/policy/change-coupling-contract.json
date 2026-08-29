@@ -65,7 +65,13 @@
     "ROADMAP.md",
     "CHANGELOG.md"
   ],
-  "repository_policy_prefixes": [".github/policy/", ".github/scripts/", ".github/tests/", ".github/workflows/"],
+  "repository_policy_prefixes": [
+    ".github/",
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "DOCUMENT-METADATA.md"
+  ],
+  "draft_required_document_statuses": ["draft-normative", "normative"],
   "exception_labels": {
     "ua-exception/pr-contract": ["pr-contract"],
     "ua-exception/changelog": ["changelog"],
