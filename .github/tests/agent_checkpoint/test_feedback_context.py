@@ -117,7 +117,7 @@ def main() -> int:
 
     owners = module.global_codeowners("# owners\n* @maintainer\n/content/ @other\n")
     if owners == {"maintainer"}:
-        print("PASS: readiness authority comes from target-branch global CODEOWNER")
+        print("PASS: authorization authority comes from target-branch global CODEOWNER")
     else:
         failures.append("unexpected global CODEOWNER set: {}".format(owners))
 
@@ -128,64 +128,110 @@ def main() -> int:
     else:
         failures.append("checkpoint fingerprint is invalid or unstable")
 
-    ready_at = "2026-08-29T09:00:00Z"
     head = "a" * 40
-    approval_body = "<!-- ua-agent-ready-approval\n{\"head_sha\":\"%s\",\"checkpoint_sha256\":\"%s\"}\n-->" % (head, checkpoint_hash)
+    other_head = "b" * 40
+    none_marker = "<!-- ua-agent-assistance-none\n{\"agent_assistance\":\"none\",\"head_sha\":\"%s\"}\n-->" % head
+    none_comments = [
+        {
+            "id": 12,
+            "user": user("maintainer"),
+            "created_at": "2026-08-29T08:00:00Z",
+            "updated_at": "2026-08-29T08:00:00Z",
+            "body": none_marker,
+        }
+    ]
+    if module.agent_none_approved(none_comments, {"maintainer"}, "ua-agent-assistance-none", head):
+        print("PASS: CODEOWNER none opt-out is bound to the exact current head")
+    else:
+        failures.append("head-bound CODEOWNER none approval was not recognized")
+    if not module.agent_none_approved(none_comments, {"maintainer"}, "ua-agent-assistance-none", other_head):
+        print("PASS: new repository head invalidates prior agent-assistance-none approval")
+    else:
+        failures.append("old none approval survived a new head")
+    if not module.agent_none_approved(none_comments, {"someone-else"}, "ua-agent-assistance-none", head):
+        print("PASS: non-CODEOWNER comment cannot opt a PR out of agent checkpoint")
+    else:
+        failures.append("non-CODEOWNER disabled agent checkpoint")
+
+    ready_at = "2026-08-29T09:00:00Z"
+    merge = "c" * 40
+    body_hash = "d" * 64
+    approval_body = (
+        "<!-- ua-agent-ready-approval\n"
+        "{\"head_sha\":\"%s\",\"merge_sha\":\"%s\",\"pr_body_sha256\":\"%s\",\"checkpoint_sha256\":\"%s\"}\n"
+        "-->"
+    ) % (head, merge, body_hash, checkpoint_hash)
     comments = [
         {
             "id": 10,
             "user": user("maintainer"),
             "created_at": "2026-08-29T08:59:00Z",
+            "updated_at": "2026-08-29T08:59:00Z",
             "body": approval_body,
         },
         {
             "id": 11,
             "user": user("visitor"),
             "created_at": "2026-08-29T08:59:30Z",
+            "updated_at": "2026-08-29T08:59:30Z",
             "body": approval_body,
         },
     ]
     present, authorized = module.readiness_approval(
-        comments, {"maintainer"}, "ua-agent-ready-approval", head, checkpoint_hash, ready_at
+        comments, {"maintainer"}, "ua-agent-ready-approval",
+        head, merge, checkpoint_hash, body_hash, ready_at,
     )
     if present and authorized:
-        print("PASS: CODEOWNER approval binds ready transition to current head and checkpoint fingerprint")
+        print("PASS: CODEOWNER Ready approval binds head, merge, PR body, and checkpoint fingerprint")
     else:
         failures.append("valid CODEOWNER readiness approval was not recognized")
 
+    stale_body_present, stale_body_authorized = module.readiness_approval(
+        comments, {"maintainer"}, "ua-agent-ready-approval",
+        head, merge, checkpoint_hash, "e" * 64, ready_at,
+    )
+    if not stale_body_present and not stale_body_authorized:
+        print("PASS: substantive PR-body change invalidates durable Ready approval")
+    else:
+        failures.append("Ready approval survived a changed PR-body digest")
+
+    stale_merge_present, _ = module.readiness_approval(
+        comments, {"maintainer"}, "ua-agent-ready-approval",
+        head, "f" * 40, checkpoint_hash, body_hash, ready_at,
+    )
+    if not stale_merge_present:
+        print("PASS: changed tested-merge state invalidates Ready approval")
+    else:
+        failures.append("Ready approval survived a changed merge state")
+
     _, wrong_checkpoint = module.readiness_approval(
-        comments, {"maintainer"}, "ua-agent-ready-approval", head, "b" * 64, ready_at
+        comments, {"maintainer"}, "ua-agent-ready-approval",
+        head, merge, "1" * 64, body_hash, ready_at,
     )
     if not wrong_checkpoint:
         print("PASS: stale checkpoint fingerprint cannot authorize ready transition")
     else:
         failures.append("stale checkpoint fingerprint authorized ready transition")
 
-    late_comments = [dict(comments[0], created_at="2026-08-29T09:01:00Z")]
+    late_comments = [dict(comments[0], created_at="2026-08-29T09:01:00Z", updated_at="2026-08-29T09:01:00Z")]
     late_present, late_authorized = module.readiness_approval(
-        late_comments, {"maintainer"}, "ua-agent-ready-approval", head, checkpoint_hash, ready_at
+        late_comments, {"maintainer"}, "ua-agent-ready-approval",
+        head, merge, checkpoint_hash, body_hash, ready_at,
     )
     if not late_present and not late_authorized:
         print("PASS: approval created after ready event cannot retroactively authorize transition")
     else:
         failures.append("late approval retroactively authorized ready transition")
 
-    none_comments = [
-        {
-            "id": 12,
-            "user": user("maintainer"),
-            "created_at": "2026-08-29T08:00:00Z",
-            "body": "<!-- ua-agent-assistance-none\n{\"agent_assistance\":\"none\"}\n-->",
-        }
-    ]
-    if module.agent_none_approved(none_comments, {"maintainer"}, "ua-agent-assistance-none"):
-        print("PASS: CODEOWNER can explicitly opt a human-only PR out of agent checkpoint")
+    edited_old_comments = [dict(comments[0], updated_at="2026-08-29T09:01:00Z")]
+    edited_present, edited_authorized = module.readiness_approval(
+        edited_old_comments, {"maintainer"}, "ua-agent-ready-approval",
+        head, merge, checkpoint_hash, body_hash, ready_at,
+    )
+    if not edited_present and not edited_authorized:
+        print("PASS: pre-Ready comment edited after Ready cannot retroactively authorize transition")
     else:
-        failures.append("CODEOWNER none approval was not recognized")
-    if not module.agent_none_approved(none_comments, {"someone-else"}, "ua-agent-assistance-none"):
-        print("PASS: non-CODEOWNER comment cannot opt a PR out of agent checkpoint")
-    else:
-        failures.append("non-CODEOWNER disabled agent checkpoint")
+        failures.append("edited old comment retroactively authorized Ready")
 
     timeline = [
         {"event": "committed", "sha": "1" * 40},
@@ -214,43 +260,86 @@ def main() -> int:
 
     original_request = module.request_json
     try:
-        module.request_json = lambda url, token: (
-            {
-                "check_runs": [
-                    {
-                        "name": "Agent protocol / readiness authorization",
+        check_name = "Agent protocol / readiness authorization"
+        workflow_path = ".github/workflows/change-coupling.yml"
+        step_name = "Record successful head-bound readiness authorization"
+        run_id = 123
+        job_id = 456
+        suite_id = 77
+        requested: List[str] = []
+
+        def good_request(url: str, token: str):
+            requested.append(url)
+            if "/commits/{}/check-runs".format(head) in url:
+                return ({
+                    "check_runs": [{
+                        "name": check_name,
                         "conclusion": "success",
                         "completed_at": "2026-08-29T09:00:05Z",
-                    }
-                ]
-            },
-            {},
-        )
-        if module.readiness_check_passed(
-            "owner/repo", "c" * 40, ready_at, "token", "Agent protocol / readiness authorization"
-        ):
-            print("PASS: successful readiness check after ready event becomes durable head evidence")
-        else:
-            failures.append("successful readiness check was not recognized")
+                        "details_url": "https://github.com/owner/repo/actions/runs/{}/job/{}".format(run_id, job_id),
+                        "check_suite": {"id": suite_id},
+                        "app": {"slug": "github-actions"},
+                    }]
+                }, {})
+            if url.endswith("/actions/runs/{}".format(run_id)):
+                return ({
+                    "path": workflow_path,
+                    "event": "pull_request",
+                    "head_sha": head,
+                    "created_at": "2026-08-29T09:00:01Z",
+                    "check_suite_id": suite_id,
+                    "pull_requests": [{"number": 104}],
+                }, {})
+            if url.endswith("/actions/jobs/{}".format(job_id)):
+                return ({
+                    "run_id": run_id,
+                    "name": check_name,
+                    "conclusion": "success",
+                    "steps": [{"name": step_name, "conclusion": "success"}],
+                }, {})
+            raise AssertionError("unexpected readiness provenance URL: {}".format(url))
 
-        module.request_json = lambda url, token: (
-            {
-                "check_runs": [
-                    {
-                        "name": "Agent protocol / readiness authorization",
-                        "conclusion": "success",
-                        "completed_at": "2026-08-29T08:59:59Z",
-                    }
-                ]
-            },
-            {},
-        )
-        if not module.readiness_check_passed(
-            "owner/repo", "c" * 40, ready_at, "token", "Agent protocol / readiness authorization"
+        module.request_json = good_request
+        if module.readiness_check_passed(
+            "owner/repo", 104, head, ready_at, "token", check_name, workflow_path, step_name
         ):
-            print("PASS: old readiness check cannot satisfy a later ready transition")
+            print("PASS: durable readiness requires exact Actions workflow/run/job/step provenance")
         else:
-            failures.append("old readiness check was reused for later ready transition")
+            failures.append("valid readiness workflow provenance was not recognized")
+        if any("/commits/{}/check-runs".format(head) in url for url in requested):
+            print("PASS: readiness checks are read from the PR head SHA, not synthetic merge SHA")
+        else:
+            failures.append("readiness evidence was not queried on the PR head SHA")
+
+        def spoofed_workflow(url: str, token: str):
+            value, headers = good_request(url, token)
+            if url.endswith("/actions/runs/{}".format(run_id)) and isinstance(value, dict):
+                value = dict(value)
+                value["path"] = ".github/workflows/spoof.yml"
+            return value, headers
+
+        module.request_json = spoofed_workflow
+        if not module.readiness_check_passed(
+            "owner/repo", 104, head, ready_at, "token", check_name, workflow_path, step_name
+        ):
+            print("PASS: same-named success from another workflow cannot satisfy readiness")
+        else:
+            failures.append("same-named check from wrong workflow spoofed readiness")
+
+        def wrong_step(url: str, token: str):
+            value, headers = good_request(url, token)
+            if url.endswith("/actions/jobs/{}".format(job_id)) and isinstance(value, dict):
+                value = dict(value)
+                value["steps"] = [{"name": "Not readiness authorization", "conclusion": "success"}]
+            return value, headers
+
+        module.request_json = wrong_step
+        if not module.readiness_check_passed(
+            "owner/repo", 104, head, ready_at, "token", check_name, workflow_path, step_name
+        ):
+            print("PASS: same-named job without protected readiness step cannot satisfy readiness")
+        else:
+            failures.append("wrong job implementation spoofed readiness")
     finally:
         module.request_json = original_request
 
@@ -259,7 +348,7 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Feedback-context self-tests passed: 17 regression assertions.")
+    print("Feedback-context self-tests passed: 22 regression assertions.")
     return 0
 
 
