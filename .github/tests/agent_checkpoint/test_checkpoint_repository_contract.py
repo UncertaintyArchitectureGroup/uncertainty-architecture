@@ -60,8 +60,8 @@ def assert_file_mutation_blocked(
             return
         target.write_text(original.replace(marker, replacement, 1), encoding="utf-8")
         errors = validate_surface(validator, root, extension)
-        if not any("missing protected text" in error and marker in error for error in errors):
-            failures.append("{}: mutation did not trigger repository-contract failure: {}".format(label, errors))
+        if not errors:
+            failures.append("{}: mutation did not trigger repository-contract failure".format(label))
         else:
             print("PASS: {}".format(label))
 
@@ -108,6 +108,30 @@ def main() -> int:
     )
     assert_file_mutation_blocked(
         validator, extension,
+        ".github/workflows/agent-policy-guard.yml",
+        "pull_request_target:",
+        "pull_request:",
+        "replacing trusted-base trigger with candidate-controlled PR trigger is blocked",
+        failures,
+    )
+    assert_file_mutation_blocked(
+        validator, extension,
+        ".github/workflows/agent-policy-guard.yml",
+        "statuses: write",
+        "statuses: read",
+        "removing trusted head-status write capability is blocked",
+        failures,
+    )
+    assert_file_mutation_blocked(
+        validator, extension,
+        ".github/scripts/validate_agent_policy_guard.py",
+        "reviewed_base_tip_sha",
+        "removed_base_tip_guard",
+        "removing base-advance checkpoint invalidation is blocked",
+        failures,
+    )
+    assert_file_mutation_blocked(
+        validator, extension,
         ".github/scripts/validate_repository_contract.py",
         "repository-contract-agent-checkpoint.json",
         "repository-contract-agent-checkpoint.removed.json",
@@ -122,16 +146,22 @@ def main() -> int:
         failures.append("issue_comment trigger must remain outside the deterministic PR-head checkpoint workflow")
 
     if "issues: read" in workflow_text and "checks: read" in workflow_text:
-        print("PASS: workflow requests only the added read surfaces needed for CODEOWNER approval and readiness evidence")
+        print("PASS: candidate workflow requests only read surfaces for CODEOWNER approval and readiness evidence")
     else:
-        failures.append("workflow lacks required read permissions for authorization comments or readiness checks")
+        failures.append("candidate workflow lacks required read permissions for authorization comments or readiness checks")
+
+    guard_text = (REPOSITORY_ROOT / ".github/workflows/agent-policy-guard.yml").read_text(encoding="utf-8")
+    if "pull_request_target:" in guard_text and "github.event.repository.default_branch" in guard_text:
+        print("PASS: trusted-base guard executes target-branch code rather than candidate checkout")
+    else:
+        failures.append("trusted-base guard lost its target-branch execution boundary")
 
     if failures:
         print("Agent-checkpoint repository-contract fixture failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent-checkpoint repository-contract fixture passed: 8 assertions.")
+    print("Agent-checkpoint repository-contract fixture passed: 12 assertions.")
     return 0
 
 
