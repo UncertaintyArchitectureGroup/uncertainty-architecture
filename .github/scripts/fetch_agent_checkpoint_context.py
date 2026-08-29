@@ -96,9 +96,15 @@ def feedback_record(kind: str, item: Dict[str, object]) -> Dict[str, object]:
 
 
 def feedback_sha256(repository: str, pr_number: int, token: str, trusted: Iterable[str]) -> str:
+    """Hash feedback whose workflow events are attached to the PR merge/head lifecycle.
+
+    Top-level PR conversation comments are deliberately excluded. GitHub emits
+    `issue_comment` workflows on the default-branch ref/SHA, so those comments
+    remain a semantic feedback surface for the agent but are not represented as
+    a deterministic PR-head merge-gate signal.
+    """
     encoded_repo = "/".join(urllib.parse.quote(part, safe="") for part in repository.split("/"))
     endpoints = (
-        ("issue-comment", "{}/repos/{}/issues/{}/comments?per_page=100".format(API_ROOT, encoded_repo, pr_number)),
         ("review", "{}/repos/{}/pulls/{}/reviews?per_page=100".format(API_ROOT, encoded_repo, pr_number)),
         ("review-comment", "{}/repos/{}/pulls/{}/comments?per_page=100".format(API_ROOT, encoded_repo, pr_number)),
     )
@@ -110,6 +116,33 @@ def feedback_sha256(repository: str, pr_number: int, token: str, trusted: Iterab
     records.sort(key=lambda item: (str(item["kind"]), int(item["id"])))
     canonical = json.dumps(records, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def ready_head_sha_from_timeline(events: Iterable[Dict[str, object]]) -> str:
+    """Return the last committed PR head that was explicitly marked ready.
+
+    `ready_for_review` timeline events have no commit_id on GitHub, so readiness
+    is bound to the last `committed` event observed before the latest ready
+    transition. A later `convert_to_draft` clears readiness. A later repository
+    commit does not change the returned SHA, causing the current head to differ
+    and therefore requiring Draft again.
+    """
+    last_commit = ""
+    ready_head = ""
+    ready_active = False
+    for event in events:
+        kind = str(event.get("event") or "")
+        if kind == "committed":
+            sha = str(event.get("sha") or "")
+            if sha:
+                last_commit = sha
+        elif kind == "ready_for_review":
+            ready_head = last_commit
+            ready_active = bool(ready_head)
+        elif kind == "convert_to_draft":
+            ready_head = ""
+            ready_active = False
+    return ready_head if ready_active else ""
 
 
 def fetch_context(
@@ -149,7 +182,16 @@ def fetch_context(
             )
         )
 
+    timeline_url = "{}/repos/{}/issues/{}/timeline?per_page=100".format(
+        API_ROOT, encoded_repo, pr_number
+    )
+    timeline = paged_list(timeline_url, token)
     trusted = [str(item) for item in contract.get("trusted_feedback_author_associations", [])]
+    labels = [
+        str(item.get("name"))
+        for item in pr.get("labels", [])
+        if isinstance(item, dict) and item.get("name")
+    ]
     return {
         "repository": repository,
         "pr_number": pr_number,
@@ -160,9 +202,11 @@ def fetch_context(
         "head_sha": str(head.get("sha") or ""),
         "merge_sha": merge_sha,
         "draft": bool(pr.get("draft")),
+        "ready_head_sha": ready_head_sha_from_timeline(timeline),
         "event_name": event_name,
         "event_action": event_action,
         "feedback_sha256": feedback_sha256(repository, pr_number, token, trusted),
+        "labels": sorted(labels),
         "pr_author": str((pr.get("user") or {}).get("login") if isinstance(pr.get("user"), dict) else ""),
     }
 
@@ -201,9 +245,9 @@ def main() -> int:
         return 2
     args.output.write_text(json.dumps(context, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(
-        "Agent-checkpoint context collected: PR #{}, base-tip {}, head {}, merge {}, feedback {}.".format(
+        "Agent-checkpoint context collected: PR #{}, base-tip {}, head {}, merge {}, ready-head {}, feedback {}.".format(
             context["pr_number"], context["base_tip_sha"], context["head_sha"],
-            context["merge_sha"], context["feedback_sha256"],
+            context["merge_sha"], context["ready_head_sha"], context["feedback_sha256"],
         )
     )
     return 0
