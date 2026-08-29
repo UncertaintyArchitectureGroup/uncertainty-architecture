@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Validate that a PR agent checkpoint is bound to the exact reviewed PR state."""
+"""Validate the deterministic checked-state checkpoint for AI-assisted pull requests."""
 
 import argparse
 import hashlib
 import json
-import os
 import re
 import subprocess
 import sys
@@ -35,23 +34,32 @@ def load_json(path: Path) -> Dict[str, object]:
     return value
 
 
-def git(root: Path, args: Sequence[str], check: bool = True) -> str:
+def git(root: Path, args: Sequence[str]) -> str:
     result = subprocess.run(
-        ["git"] + list(args),
-        cwd=str(root),
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        check=False,
+        ["git"] + list(args), cwd=str(root), text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
     )
-    if check and result.returncode != 0:
+    if result.returncode != 0:
         raise ValueError("git {} failed: {}".format(" ".join(args), result.stderr.strip()))
     return result.stdout.strip()
 
 
-def changed_paths(root: Path, base: str, head: str) -> List[str]:
-    """Return both sides of renames/copies so old and new instruction scopes are reviewed."""
-    output = git(root, ["diff", "--name-status", "-M", base, head])
+def merge_base(root: Path, base_tip: str, head: str) -> str:
+    value = git(root, ["merge-base", base_tip, head])
+    if not SHA_RE.fullmatch(value):
+        raise ValueError("unexpected merge-base SHA: {!r}".format(value))
+    return value
+
+
+def changed_paths(root: Path, base_tip: str, head: str) -> List[str]:
+    """Return PR-owned changed paths from current-target merge-base to head.
+
+    Both sides of renames/copies are retained so old and new instruction scopes
+    participate, while target-only changes already incorporated into the branch
+    do not become false PR scope.
+    """
+    comparison_base = merge_base(root, base_tip, head)
+    output = git(root, ["diff", "--name-status", "-M", comparison_base, head])
     paths = set()
     for line in output.splitlines():
         parts = line.split("\t")
@@ -69,9 +77,7 @@ def changed_paths(root: Path, base: str, head: str) -> List[str]:
 def path_exists_at(root: Path, ref: str, path: str) -> bool:
     result = subprocess.run(
         ["git", "cat-file", "-e", "{}:{}".format(ref, path)],
-        cwd=str(root),
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        cwd=str(root), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         check=False,
     )
     return result.returncode == 0
@@ -84,13 +90,8 @@ def blob_sha_at(root: Path, ref: str, path: str) -> str:
     return value
 
 
-def applicable_instruction_blob(
-    root: Path,
-    base_tip: str,
-    merge: str,
-    path: str,
-) -> Optional[str]:
-    """Prefer tested merge-result guidance; fall back to current base guidance when the PR deletes it."""
+def applicable_instruction_blob(root: Path, base_tip: str, merge: str, path: str) -> Optional[str]:
+    """Prefer tested merge guidance; use current-target guidance if the PR deletes it."""
     if path_exists_at(root, merge, path):
         return blob_sha_at(root, merge, path)
     if path_exists_at(root, base_tip, path):
@@ -99,17 +100,13 @@ def applicable_instruction_blob(
 
 
 def applicable_agent_records(
-    root: Path,
-    base: str,
-    base_tip: str,
-    head: str,
-    merge: str,
+    root: Path, base_tip: str, head: str, merge: str
 ) -> List[Dict[str, str]]:
     candidates = set()
     if applicable_instruction_blob(root, base_tip, merge, "AGENTS.md") is not None:
         candidates.add("AGENTS.md")
 
-    for changed in changed_paths(root, base, head):
+    for changed in changed_paths(root, base_tip, head):
         parent = PurePosixPath(changed).parent
         while str(parent) not in (".", ""):
             candidate = "{}/AGENTS.md".format(parent.as_posix())
@@ -117,34 +114,20 @@ def applicable_agent_records(
                 candidates.add(candidate)
             parent = parent.parent
 
-    records = []
+    records: List[Dict[str, str]] = []
     for path in sorted(candidates):
-        blob_sha = applicable_instruction_blob(root, base_tip, merge, path)
-        if blob_sha is None:
-            continue
-        records.append({"path": path, "blob_sha": blob_sha})
+        sha = applicable_instruction_blob(root, base_tip, merge, path)
+        if sha is not None:
+            records.append({"path": path, "blob_sha": sha})
     return records
 
 
-def checkpoint_regex(contract: Dict[str, object]) -> re.Pattern[str]:
-    marker = re.escape(str(contract["pr_checkpoint_marker"]))
-    return re.compile(r"<!--\s*" + marker + r"\s*(\{.*?\})\s*-->", re.DOTALL)
+def marker_regex(marker: str) -> re.Pattern[str]:
+    return re.compile(r"<!--\s*" + re.escape(marker) + r"\s*(\{.*?\})\s*-->", re.DOTALL)
 
 
-def canonical_pr_body_without_checkpoint(body: str, contract: Dict[str, object]) -> str:
-    """Return the PR body state being attested, excluding the attestation itself."""
-    stripped = checkpoint_regex(contract).sub("", body or "", count=1).rstrip()
-    return stripped + "\n" if stripped else ""
-
-
-def pr_body_sha256(body: str, contract: Dict[str, object]) -> str:
-    canonical = canonical_pr_body_without_checkpoint(body, contract)
-    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
-
-
-def parse_checkpoint(body: str, contract: Dict[str, object]) -> Tuple[Optional[Dict[str, object]], Optional[str]]:
-    blocks = checkpoint_regex(contract).findall(body or "")
-    marker = str(contract["pr_checkpoint_marker"])
+def parse_block(body: str, marker: str) -> Tuple[Optional[Dict[str, object]], Optional[str]]:
+    blocks = marker_regex(marker).findall(body or "")
     if len(blocks) != 1:
         return None, "PR body must contain exactly one {} JSON block".format(marker)
     try:
@@ -156,7 +139,17 @@ def parse_checkpoint(body: str, contract: Dict[str, object]) -> Tuple[Optional[D
     return value, None
 
 
-def validate_schema(data: Dict[str, object], contract: Dict[str, object]) -> List[Finding]:
+def canonical_pr_body_without_checkpoint(body: str, checkpoint_marker: str) -> str:
+    stripped = marker_regex(checkpoint_marker).sub("", body or "", count=1).rstrip()
+    return stripped + "\n" if stripped else ""
+
+
+def pr_body_sha256(body: str, checkpoint_marker: str) -> str:
+    canonical = canonical_pr_body_without_checkpoint(body, checkpoint_marker)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def validate_checkpoint_schema(data: Dict[str, object], contract: Dict[str, object]) -> List[Finding]:
     findings: List[Finding] = []
     required = set(str(item) for item in contract["required_fields"])
     for field in sorted(required - set(data)):
@@ -165,48 +158,27 @@ def validate_schema(data: Dict[str, object], contract: Dict[str, object]) -> Lis
         findings.append(Finding("error", "agent checkpoint contains unknown field {!r}".format(field)))
 
     if data.get("checkpoint_version") != contract["checkpoint_version"]:
-        findings.append(
-            Finding(
-                "error",
-                "agent checkpoint_version must be {!r}".format(contract["checkpoint_version"]),
-            )
-        )
+        findings.append(Finding("error", "agent checkpoint_version must be {!r}".format(contract["checkpoint_version"])))
 
-    for field in (
-        "reviewed_base_sha",
-        "reviewed_base_tip_sha",
-        "reviewed_head_sha",
-        "reviewed_merge_sha",
-    ):
+    for field in ("reviewed_base_sha", "reviewed_base_tip_sha", "reviewed_head_sha", "reviewed_merge_sha"):
         value = data.get(field)
         if not isinstance(value, str) or not SHA_RE.fullmatch(value):
-            findings.append(
-                Finding(
-                    "error",
-                    "{} must be a full lowercase 40-character commit SHA".format(field),
-                )
-            )
+            findings.append(Finding("error", "{} must be a full lowercase 40-character commit SHA".format(field)))
 
-    body_hash = data.get("reviewed_pr_body_sha256")
-    if not isinstance(body_hash, str) or not SHA256_RE.fullmatch(body_hash):
-        findings.append(
-            Finding(
-                "error",
-                "reviewed_pr_body_sha256 must be a lowercase 64-character SHA-256 digest",
-            )
-        )
+    for field in ("reviewed_pr_body_sha256", "reviewed_feedback_sha256"):
+        value = data.get(field)
+        if not isinstance(value, str) or not SHA256_RE.fullmatch(value):
+            findings.append(Finding("error", "{} must be a lowercase 64-character SHA-256 digest".format(field)))
 
     records = data.get("applicable_agents")
     if not isinstance(records, list) or not records:
         findings.append(Finding("error", "applicable_agents must be a non-empty list"))
     else:
         seen = set()
-        normalized_paths = []
+        ordered: List[str] = []
         for index, record in enumerate(records):
             if not isinstance(record, dict) or set(record) != {"path", "blob_sha"}:
-                findings.append(
-                    Finding("error", "applicable_agents[{}] must contain exactly path and blob_sha".format(index))
-                )
+                findings.append(Finding("error", "applicable_agents[{}] must contain exactly path and blob_sha".format(index)))
                 continue
             path = record.get("path")
             sha = record.get("blob_sha")
@@ -216,96 +188,96 @@ def validate_schema(data: Dict[str, object], contract: Dict[str, object]) -> Lis
                 findings.append(Finding("error", "applicable_agents contains duplicate path {!r}".format(path)))
             else:
                 seen.add(path)
-                normalized_paths.append(path)
+                ordered.append(path)
             if not isinstance(sha, str) or not SHA_RE.fullmatch(sha):
                 findings.append(Finding("error", "applicable_agents[{}].blob_sha must be a full blob SHA".format(index)))
-        if normalized_paths and normalized_paths != sorted(normalized_paths):
+        if ordered and ordered != sorted(ordered):
             findings.append(Finding("error", "applicable_agents must be sorted by path"))
 
     for field, allowed in contract["controlled_values"].items():
         value = data.get(field)
         if not isinstance(value, str) or value not in set(str(item) for item in allowed):
-            findings.append(
-                Finding("error", "agent checkpoint field {!r} uses uncontrolled value {!r}".format(field, value))
-            )
+            findings.append(Finding("error", "agent checkpoint field {!r} uses uncontrolled value {!r}".format(field, value)))
     return findings
 
 
 def validate(
     root: Path,
     contract_path: Path,
-    base: str,
-    base_tip: str,
-    head: str,
-    merge: str,
-    body: str,
+    context: Dict[str, object],
 ) -> List[Finding]:
     contract = load_json(contract_path)
-    data, error = parse_checkpoint(body, contract)
-    if error:
-        return [Finding("error", error)]
-    assert data is not None
+    body = str(context.get("body") or "")
+    change, change_error = parse_block(body, str(contract["pr_change_contract_marker"]))
+    if change_error:
+        return [Finding("error", change_error)]
+    assert change is not None
 
-    findings = validate_schema(data, contract)
+    assistance = change.get("agent_assistance")
+    if assistance == "none":
+        return []
+    if assistance != "used":
+        return [Finding("error", "ua-change-contract must declare agent_assistance as 'used' or 'none'")]
+
+    checkpoint, checkpoint_error = parse_block(body, str(contract["pr_checkpoint_marker"]))
+    if checkpoint_error:
+        return [Finding("error", checkpoint_error)]
+    assert checkpoint is not None
+
+    findings = validate_checkpoint_schema(checkpoint, contract)
     if findings:
         return findings
 
+    draft_required = set(str(item) for item in contract.get("draft_required_change_classes", []))
+    change_class = str(change.get("change_class") or "")
+    event_action = str(context.get("event_action") or "")
+    is_draft = bool(context.get("draft"))
+    if change_class in draft_required and not is_draft and event_action != "ready_for_review":
+        findings.append(
+            Finding(
+                "error",
+                "AI-assisted {} PR must remain Draft during active repository-changing iterations. "
+                "Convert the PR to Draft before continuing; only the explicit ready_for_review transition may leave Draft after a fresh checkpoint.".format(change_class),
+            )
+        )
+
     expected_shas = {
-        "reviewed_base_sha": base,
-        "reviewed_base_tip_sha": base_tip,
-        "reviewed_head_sha": head,
-        "reviewed_merge_sha": merge,
+        "reviewed_base_sha": str(context.get("diff_base_sha") or ""),
+        "reviewed_base_tip_sha": str(context.get("base_tip_sha") or ""),
+        "reviewed_head_sha": str(context.get("head_sha") or ""),
+        "reviewed_merge_sha": str(context.get("merge_sha") or ""),
     }
     for field, expected in expected_shas.items():
-        actual = str(data[field])
+        actual = str(checkpoint[field])
         if actual != expected:
-            findings.append(
-                Finding(
-                    "error",
-                    "agent checkpoint is stale: {} {} does not match current {}.".format(
-                        field, actual, expected
-                    ),
-                )
-            )
+            findings.append(Finding("error", "agent checkpoint is stale: {} {} does not match current {}.".format(field, actual, expected)))
 
-    expected_body_hash = pr_body_sha256(body, contract)
-    if data["reviewed_pr_body_sha256"] != expected_body_hash:
-        findings.append(
-            Finding(
-                "error",
-                "agent checkpoint is stale: reviewed_pr_body_sha256 does not match the current PR description. "
-                "Expected {}.".format(expected_body_hash),
-            )
-        )
+    body_hash = pr_body_sha256(body, str(contract["pr_checkpoint_marker"]))
+    if checkpoint["reviewed_pr_body_sha256"] != body_hash:
+        findings.append(Finding("error", "agent checkpoint is stale: reviewed_pr_body_sha256 does not match the current PR description. Expected {}.".format(body_hash)))
 
-    expected_agents = applicable_agent_records(root, base, base_tip, head, merge)
-    actual_agents = data["applicable_agents"]
-    if actual_agents != expected_agents:
-        findings.append(
-            Finding(
-                "error",
-                "applicable_agents does not match the current PR diff and tested merge result. Expected: {}".format(
-                    json.dumps(expected_agents, sort_keys=True)
-                ),
-            )
-        )
+    feedback_hash = str(context.get("feedback_sha256") or "")
+    if checkpoint["reviewed_feedback_sha256"] != feedback_hash:
+        findings.append(Finding("error", "agent checkpoint is stale: reviewed_feedback_sha256 does not match current maintainer GitHub feedback. Expected {}.".format(feedback_hash)))
+
+    base_tip = str(context.get("base_tip_sha") or "")
+    head = str(context.get("head_sha") or "")
+    merge = str(context.get("merge_sha") or "")
+    expected_agents = applicable_agent_records(root, base_tip, head, merge)
+    if checkpoint["applicable_agents"] != expected_agents:
+        findings.append(Finding("error", "applicable_agents does not match PR-owned changed paths and the tested merge result. Expected: {}".format(json.dumps(expected_agents, sort_keys=True))))
 
     if findings:
         findings.append(
             Finding(
                 "error",
-                "Re-read the exact applicable AGENTS.md files from the tested merge state, current diff, "
-                "current PR description, available corrective feedback, and end-of-session protocol, "
-                "then refresh ua-agent-checkpoint.",
+                "Re-read the effective AGENTS.md files from the tested merge state, PR-owned diff, current PR description, external conversation corrective signals, current maintainer GitHub feedback, and end-of-session protocol, then refresh ua-agent-checkpoint.",
             )
         )
     else:
         print(
-            "Agent context accepted: base-tip {}, head {}, merge {}, applicable instructions {}.".format(
-                base_tip,
-                head,
-                merge,
-                json.dumps(expected_agents, sort_keys=True),
+            "Agent checkpoint accepted: base-tip {}, head {}, merge {}, feedback {}, instructions {}.".format(
+                base_tip, head, merge, feedback_hash, json.dumps(expected_agents, sort_keys=True)
             )
         )
     return findings
@@ -315,35 +287,20 @@ def parse_args(argv: Optional[Iterable[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
-    parser.add_argument("--base", required=True, help="PR diff-base SHA supplied by GitHub")
-    parser.add_argument("--base-tip", required=True, help="Current tip SHA of the target branch")
-    parser.add_argument("--head", required=True, help="Current PR head SHA")
-    parser.add_argument("--merge", required=True, help="GitHub tested merge-result SHA")
-    parser.add_argument("--pr-body-file", type=Path)
+    parser.add_argument("--context-file", type=Path, required=True)
     return parser.parse_args(argv)
 
 
 def main(argv: Optional[Iterable[str]] = None) -> int:
     args = parse_args(argv)
-    body = (
-        args.pr_body_file.read_text(encoding="utf-8")
-        if args.pr_body_file
-        else os.environ.get("PR_BODY", "")
-    )
     try:
-        findings = validate(
-            args.root.resolve(),
-            args.contract.resolve(),
-            args.base,
-            args.base_tip,
-            args.head,
-            args.merge,
-            body,
-        )
-    except ValueError as exc:
+        context = json.loads(args.context_file.read_text(encoding="utf-8"))
+        if not isinstance(context, dict):
+            raise ValueError("context file must contain a JSON object")
+        findings = validate(args.root.resolve(), args.contract.resolve(), context)
+    except (ValueError, FileNotFoundError, json.JSONDecodeError) as exc:
         print("Agent-checkpoint configuration error: {}".format(exc))
         return 2
-
     for finding in findings:
         print("::{}::{}".format(finding.severity, finding.message))
         print("{}: {}".format(finding.severity.upper(), finding.message))
