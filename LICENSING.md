@@ -1,3 +1,5 @@
+# Licensing
+
 This repository uses a dual-license model.
 
 Documentation, specifications, architectural doctrine, diagrams,
