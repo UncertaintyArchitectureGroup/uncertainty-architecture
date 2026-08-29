@@ -7,6 +7,7 @@
   "agent_none_approval_marker": "ua-agent-assistance-none",
   "readiness_check_name": "Agent protocol / readiness authorization",
   "readiness_workflow_path": ".github/workflows/change-coupling.yml",
+  "readiness_step_name": "Record successful head-bound readiness authorization",
   "maintainer_authority_path": ".github/CODEOWNERS",
   "checkpoint_version": 1,
   "required_fields": [
