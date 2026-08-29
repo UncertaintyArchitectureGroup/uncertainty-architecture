@@ -26,6 +26,7 @@ def user(login: str, user_type: str = "User") -> Dict[str, object]:
 def main() -> int:
     module = load_module()
     failures: List[str] = []
+    trusted = ["OWNER", "MEMBER", "COLLABORATOR"]
     fixtures: Dict[str, List[Dict[str, object]]] = {
         "reviews": [
             {
@@ -75,7 +76,6 @@ def main() -> int:
         raise AssertionError("unexpected deterministic feedback endpoint: {}".format(url))
 
     module.paged_list = fake_paged
-    trusted = ["OWNER", "MEMBER", "COLLABORATOR"]
     first = module.feedback_sha256("owner/repo", 104, "token", trusted)
     second = module.feedback_sha256("owner/repo", 104, "token", trusted)
     if first == second:
@@ -117,9 +117,20 @@ def main() -> int:
 
     owners = module.global_codeowners("# owners\n* @maintainer\n/content/ @other\n")
     if owners == {"maintainer"}:
-        print("PASS: authorization authority comes from target-branch global CODEOWNER")
+        print("PASS: authorization authority originates in target-branch global CODEOWNER")
     else:
         failures.append("unexpected global CODEOWNER set: {}".format(owners))
+
+    original_permission = module.collaborator_permission
+    try:
+        module.collaborator_permission = lambda repository, login, token: "write" if login == "maintainer" else "read"
+        authorized = module.authorized_codeowners("owner/repo", {"maintainer", "stale-owner"}, "token")
+        if authorized == {"maintainer"}:
+            print("PASS: CODEOWNER authority also requires current write/maintain/admin repository permission")
+        else:
+            failures.append("current collaborator permission was not enforced: {}".format(authorized))
+    finally:
+        module.collaborator_permission = original_permission
 
     checkpoint_body = "<!-- ua-agent-checkpoint\n{\"checkpoint_version\":1}\n-->"
     checkpoint_hash = module.checkpoint_sha256(checkpoint_body, "ua-agent-checkpoint")
@@ -135,20 +146,26 @@ def main() -> int:
         {
             "id": 12,
             "user": user("maintainer"),
+            "author_association": "OWNER",
             "created_at": "2026-08-29T08:00:00Z",
             "updated_at": "2026-08-29T08:00:00Z",
             "body": none_marker,
         }
     ]
-    if module.agent_none_approved(none_comments, {"maintainer"}, "ua-agent-assistance-none", head):
+    if module.agent_none_approved(none_comments, {"maintainer"}, trusted, "ua-agent-assistance-none", head):
         print("PASS: CODEOWNER none opt-out is bound to the exact current head")
     else:
         failures.append("head-bound CODEOWNER none approval was not recognized")
-    if not module.agent_none_approved(none_comments, {"maintainer"}, "ua-agent-assistance-none", other_head):
+    if not module.agent_none_approved(none_comments, {"maintainer"}, trusted, "ua-agent-assistance-none", other_head):
         print("PASS: new repository head invalidates prior agent-assistance-none approval")
     else:
         failures.append("old none approval survived a new head")
-    if not module.agent_none_approved(none_comments, {"someone-else"}, "ua-agent-assistance-none", head):
+    untrusted_association = [dict(none_comments[0], author_association="NONE")]
+    if not module.agent_none_approved(untrusted_association, {"maintainer"}, trusted, "ua-agent-assistance-none", head):
+        print("PASS: CODEOWNER marker also requires trusted current GitHub association")
+    else:
+        failures.append("untrusted association retained CODEOWNER control authority")
+    if not module.agent_none_approved(none_comments, {"someone-else"}, trusted, "ua-agent-assistance-none", head):
         print("PASS: non-CODEOWNER comment cannot opt a PR out of agent checkpoint")
     else:
         failures.append("non-CODEOWNER disabled agent checkpoint")
@@ -165,6 +182,7 @@ def main() -> int:
         {
             "id": 10,
             "user": user("maintainer"),
+            "author_association": "OWNER",
             "created_at": "2026-08-29T08:59:00Z",
             "updated_at": "2026-08-29T08:59:00Z",
             "body": approval_body,
@@ -172,13 +190,14 @@ def main() -> int:
         {
             "id": 11,
             "user": user("visitor"),
+            "author_association": "NONE",
             "created_at": "2026-08-29T08:59:30Z",
             "updated_at": "2026-08-29T08:59:30Z",
             "body": approval_body,
         },
     ]
     present, authorized = module.readiness_approval(
-        comments, {"maintainer"}, "ua-agent-ready-approval",
+        comments, {"maintainer"}, trusted, "ua-agent-ready-approval",
         head, merge, checkpoint_hash, body_hash, ready_at,
     )
     if present and authorized:
@@ -187,7 +206,7 @@ def main() -> int:
         failures.append("valid CODEOWNER readiness approval was not recognized")
 
     stale_body_present, stale_body_authorized = module.readiness_approval(
-        comments, {"maintainer"}, "ua-agent-ready-approval",
+        comments, {"maintainer"}, trusted, "ua-agent-ready-approval",
         head, merge, checkpoint_hash, "e" * 64, ready_at,
     )
     if not stale_body_present and not stale_body_authorized:
@@ -196,7 +215,7 @@ def main() -> int:
         failures.append("Ready approval survived a changed PR-body digest")
 
     stale_merge_present, _ = module.readiness_approval(
-        comments, {"maintainer"}, "ua-agent-ready-approval",
+        comments, {"maintainer"}, trusted, "ua-agent-ready-approval",
         head, "f" * 40, checkpoint_hash, body_hash, ready_at,
     )
     if not stale_merge_present:
@@ -205,7 +224,7 @@ def main() -> int:
         failures.append("Ready approval survived a changed merge state")
 
     _, wrong_checkpoint = module.readiness_approval(
-        comments, {"maintainer"}, "ua-agent-ready-approval",
+        comments, {"maintainer"}, trusted, "ua-agent-ready-approval",
         head, merge, "1" * 64, body_hash, ready_at,
     )
     if not wrong_checkpoint:
@@ -215,7 +234,7 @@ def main() -> int:
 
     late_comments = [dict(comments[0], created_at="2026-08-29T09:01:00Z", updated_at="2026-08-29T09:01:00Z")]
     late_present, late_authorized = module.readiness_approval(
-        late_comments, {"maintainer"}, "ua-agent-ready-approval",
+        late_comments, {"maintainer"}, trusted, "ua-agent-ready-approval",
         head, merge, checkpoint_hash, body_hash, ready_at,
     )
     if not late_present and not late_authorized:
@@ -225,7 +244,7 @@ def main() -> int:
 
     edited_old_comments = [dict(comments[0], updated_at="2026-08-29T09:01:00Z")]
     edited_present, edited_authorized = module.readiness_approval(
-        edited_old_comments, {"maintainer"}, "ua-agent-ready-approval",
+        edited_old_comments, {"maintainer"}, trusted, "ua-agent-ready-approval",
         head, merge, checkpoint_hash, body_hash, ready_at,
     )
     if not edited_present and not edited_authorized:
@@ -268,19 +287,20 @@ def main() -> int:
         suite_id = 77
         requested: List[str] = []
 
+        def good_check():
+            return {
+                "name": check_name,
+                "conclusion": "success",
+                "completed_at": "2026-08-29T09:00:05Z",
+                "details_url": "https://github.com/owner/repo/actions/runs/{}/job/{}".format(run_id, job_id),
+                "check_suite": {"id": suite_id},
+                "app": {"slug": "github-actions"},
+            }
+
         def good_request(url: str, token: str):
             requested.append(url)
             if "/commits/{}/check-runs".format(head) in url:
-                return ({
-                    "check_runs": [{
-                        "name": check_name,
-                        "conclusion": "success",
-                        "completed_at": "2026-08-29T09:00:05Z",
-                        "details_url": "https://github.com/owner/repo/actions/runs/{}/job/{}".format(run_id, job_id),
-                        "check_suite": {"id": suite_id},
-                        "app": {"slug": "github-actions"},
-                    }]
-                }, {})
+                return ({"check_runs": [good_check()]}, {})
             if url.endswith("/actions/runs/{}".format(run_id)):
                 return ({
                     "path": workflow_path,
@@ -340,6 +360,23 @@ def main() -> int:
             print("PASS: same-named job without protected readiness step cannot satisfy readiness")
         else:
             failures.append("wrong job implementation spoofed readiness")
+
+        page_two = "https://api.github.com/repos/owner/repo/commits/{}/check-runs?per_page=100&filter=all&page=2".format(head)
+
+        def paginated_request(url: str, token: str):
+            if "/commits/{}/check-runs".format(head) in url and "page=2" not in url:
+                return ({"check_runs": []}, {"link": '<{}>; rel="next"'.format(page_two)})
+            if url == page_two:
+                return ({"check_runs": [good_check()]}, {})
+            return good_request(url, token)
+
+        module.request_json = paginated_request
+        if module.readiness_check_passed(
+            "owner/repo", 104, head, ready_at, "token", check_name, workflow_path, step_name
+        ):
+            print("PASS: readiness evidence remains discoverable beyond the first 100 check-runs")
+        else:
+            failures.append("paginated readiness evidence was not discovered")
     finally:
         module.request_json = original_request
 
@@ -348,7 +385,7 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Feedback-context self-tests passed: 22 regression assertions.")
+    print("Feedback-context self-tests passed: 25 regression assertions.")
     return 0
 
 
