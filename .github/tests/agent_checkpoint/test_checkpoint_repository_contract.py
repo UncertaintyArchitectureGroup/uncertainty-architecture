@@ -46,7 +46,10 @@ def materialize_surface(root: Path, extension) -> None:
             shutil.copy2(source, target)
 
 
-def assert_mutation_blocked(validator, extension, original_root: Path, marker: str, replacement: str, label: str, failures: List[str]) -> None:
+def assert_workflow_mutation_blocked(
+    validator, extension, marker: str, replacement: str,
+    label: str, failures: List[str],
+) -> None:
     with tempfile.TemporaryDirectory(prefix="ua-checkpoint-contract-") as temp:
         root = Path(temp)
         materialize_surface(root, extension)
@@ -74,34 +77,45 @@ def main() -> int:
     else:
         print("PASS: checkpoint control surface satisfies repository contract")
 
-    assert_mutation_blocked(
-        validator, extension, REPOSITORY_ROOT,
+    assert_workflow_mutation_blocked(
+        validator, extension,
         "name: Agent protocol / checked-state checkpoint",
         "name: Agent protocol / removed-checkpoint-fixture",
         "removing checkpoint job marker is blocked by repository contract",
         failures,
     )
-    assert_mutation_blocked(
-        validator, extension, REPOSITORY_ROOT,
+    assert_workflow_mutation_blocked(
+        validator, extension,
         "pull_request_review_comment:",
         "pull_request_review_comment_removed:",
         "removing GitHub review-comment feedback trigger is blocked",
         failures,
     )
-    assert_mutation_blocked(
-        validator, extension, REPOSITORY_ROOT,
-        "issue_comment:",
-        "issue_comment_removed:",
-        "removing PR conversation feedback trigger is blocked",
+    assert_workflow_mutation_blocked(
+        validator, extension,
+        "github.event.review.author_association",
+        "github.event.review.untrusted_association",
+        "removing trusted-review author boundary is blocked",
         failures,
     )
+
+    workflow_text = (REPOSITORY_ROOT / ".github/workflows/change-coupling.yml").read_text(encoding="utf-8")
+    if "issue_comment:" not in workflow_text:
+        print("PASS: top-level issue comments do not masquerade as PR-head checkpoint events")
+    else:
+        failures.append("issue_comment trigger must remain outside the deterministic PR-head checkpoint workflow")
+
+    if "issues: read" not in workflow_text:
+        print("PASS: checkpoint workflow does not request unused Issues permission")
+    else:
+        failures.append("checkpoint workflow retains unnecessary Issues permission")
 
     if failures:
         print("Agent-checkpoint repository-contract fixture failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent-checkpoint repository-contract fixture passed: 3 mutation assertions.")
+    print("Agent-checkpoint repository-contract fixture passed: 6 assertions.")
     return 0
 
 
