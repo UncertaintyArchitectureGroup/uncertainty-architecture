@@ -179,7 +179,15 @@ def validate_coupling(
     return findings
 
 
-def validate(root: Path, contract_path: Path, base: str, head: str, body: str, labels: Set[str]) -> List[Finding]:
+def validate(
+    root: Path,
+    contract_path: Path,
+    base: str,
+    head: str,
+    body: str,
+    labels: Set[str],
+    actor: str = "",
+) -> List[Finding]:
     contract = load_json(contract_path)
     data, error = parse_pr_contract(body)
     if error:
@@ -187,6 +195,14 @@ def validate(root: Path, contract_path: Path, base: str, head: str, body: str, l
             return [Finding("warning", error + "; bypassed by maintainer exception label")]
         return [Finding("error", error)]
     assert data is not None
+
+    # Dependabot does not author repository PR templates. Treat its PRs as
+    # explicitly non-agent-assisted so the universal declaration does not
+    # break dependency updates while human PRs remain required to declare it.
+    if actor == "dependabot[bot]" and "agent_assistance" not in data:
+        data = dict(data)
+        data["agent_assistance"] = "none"
+
     findings = validate_schema(data, contract)
     entries = changed_entries(root, base, head)
     findings.extend(validate_coupling(entries, data, labels, contract))
@@ -201,6 +217,7 @@ def parse_args(argv: Optional[Iterable[str]] = None) -> argparse.Namespace:
     parser.add_argument("--head", required=True)
     parser.add_argument("--pr-body-file", type=Path)
     parser.add_argument("--labels", default="")
+    parser.add_argument("--actor", default="")
     return parser.parse_args(argv)
 
 
@@ -209,7 +226,10 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
     body = args.pr_body_file.read_text(encoding="utf-8") if args.pr_body_file else os.environ.get("PR_BODY", "")
     labels = {item.strip() for item in args.labels.split(",") if item.strip()}
     try:
-        findings = validate(args.root.resolve(), args.contract.resolve(), args.base, args.head, body, labels)
+        findings = validate(
+            args.root.resolve(), args.contract.resolve(), args.base, args.head,
+            body, labels, actor=args.actor,
+        )
     except ValueError as exc:
         print("Change-coupling configuration error: {}".format(exc))
         return 2
