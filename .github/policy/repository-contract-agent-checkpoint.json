@@ -1,10 +1,12 @@
 {
   "contract_version": 1,
-  "description": "Repository-contract extension protecting the deterministic AI-agent checkpoint control surface.",
+  "description": "Repository-contract extension protecting the deterministic AI-agent checked-state control surface.",
   "required_paths": [
     {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
     {"path": ".github/scripts/validate_agent_checkpoint.py", "type": "file"},
+    {"path": ".github/scripts/fetch_agent_checkpoint_context.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py", "type": "file"},
+    {"path": ".github/tests/agent_checkpoint/test_feedback_context.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_checkpoint_repository_contract.py", "type": "file"},
     {"path": ".github/workflows/change-coupling.yml", "type": "file"},
     {"path": ".github/pull_request_template.md", "type": "file"},
@@ -15,7 +17,10 @@
       "path": ".github/policy/agent-checkpoint-contract.json",
       "required_json": [
         {"pointer": "/pr_checkpoint_marker", "equals": "ua-agent-checkpoint"},
+        {"pointer": "/pr_change_contract_marker", "equals": "ua-change-contract"},
         {"pointer": "/checkpoint_version", "equals": 1},
+        {"pointer": "/draft_required_change_classes", "equals": ["repository-policy", "draft-normative", "normative"]},
+        {"pointer": "/trusted_feedback_author_associations", "equals": ["OWNER", "MEMBER", "COLLABORATOR"]},
         {"pointer": "/controlled_values/diff_recheck", "equals": ["completed"]},
         {"pointer": "/controlled_values/pr_description_recheck", "equals": ["completed"]},
         {"pointer": "/controlled_values/corrective_feedback_review", "equals": ["completed"]},
@@ -26,26 +31,50 @@
     {
       "path": ".github/scripts/validate_agent_checkpoint.py",
       "required_text": [
+        "def merge_base",
         "def applicable_agent_records",
         "def pr_body_sha256",
+        "agent_assistance",
         "reviewed_base_sha",
         "reviewed_base_tip_sha",
         "reviewed_head_sha",
         "reviewed_merge_sha",
         "reviewed_pr_body_sha256",
-        "applicable_agents",
-        "tested merge result",
-        "Re-read the exact applicable AGENTS.md files from the tested merge state"
+        "reviewed_feedback_sha256",
+        "must remain Draft",
+        "PR-owned changed paths"
+      ]
+    },
+    {
+      "path": ".github/scripts/fetch_agent_checkpoint_context.py",
+      "required_text": [
+        "issues/{}/comments?per_page=100",
+        "pulls/{}/reviews?per_page=100",
+        "pulls/{}/comments?per_page=100",
+        "trusted_feedback_author_associations",
+        "feedback_sha256",
+        "merge_commit_sha",
+        "draft"
       ]
     },
     {
       "path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py",
       "required_text": [
-        "Agent checkpoint self-tests passed: 15 regression fixtures.",
-        "PR description edit invalidates checkpoint",
-        "rename retains old nested AGENTS scope",
-        "deleted nested AGENTS uses governing current-base blob",
-        "base advance contributes new nested AGENTS from tested merge"
+        "Agent checkpoint self-tests passed: 17 regression assertions.",
+        "human-only PR needs no agent checkpoint",
+        "active assisted repository-policy PR must be Draft",
+        "new maintainer feedback invalidates checkpoint",
+        "synchronized target-only changes are excluded from PR-owned scope",
+        "advanced target contributes new nested AGENTS to tested merge"
+      ]
+    },
+    {
+      "path": ".github/tests/agent_checkpoint/test_feedback_context.py",
+      "required_text": [
+        "feedback watermark is deterministic",
+        "untrusted commenter does not change maintainer feedback watermark",
+        "edited trusted feedback invalidates watermark",
+        "Feedback-context self-tests passed: 5 regression assertions."
       ]
     },
     {
@@ -53,31 +82,41 @@
       "required_text": [
         "checkpoint control surface satisfies repository contract",
         "removing checkpoint job marker is blocked by repository contract",
-        "Agent-checkpoint repository-contract fixture passed."
+        "removing GitHub review-comment feedback trigger is blocked",
+        "removing PR conversation feedback trigger is blocked",
+        "Agent-checkpoint repository-contract fixture passed: 3 mutation assertions."
       ]
     },
     {
       "path": ".github/workflows/change-coupling.yml",
       "required_text": [
-        "name: Agent protocol / exact-state checkpoint",
-        "Validate exact-state agent checkpoint",
-        "BASE_TIP_SHA=\"$(git rev-parse \"refs/remotes/origin/$BASE_REF\")\"",
-        "--base-tip \"$BASE_TIP_SHA\"",
-        "--merge \"$MERGE_SHA\"",
+        "pull_request_review:",
+        "pull_request_review_comment:",
+        "issue_comment:",
+        "converted_to_draft",
+        "name: Agent protocol / checked-state checkpoint",
+        "Collect live PR and maintainer feedback context",
+        "fetch_agent_checkpoint_context.py",
+        "Validate checked-state agent checkpoint",
         "Run agent checkpoint regression fixtures",
+        "Run feedback-context regression fixtures",
         "Run checkpoint repository-contract mutation fixture"
       ]
     },
     {
       "path": ".github/pull_request_template.md",
       "required_text": [
+        "**Agent assistance:**",
+        "\"agent_assistance\": \"select-one\"",
         "## Agent iteration checkpoint",
+        "remain **Draft**",
         "<!-- ua-agent-checkpoint",
         "\"reviewed_base_sha\"",
         "\"reviewed_base_tip_sha\"",
         "\"reviewed_head_sha\"",
         "\"reviewed_merge_sha\"",
         "\"reviewed_pr_body_sha256\"",
+        "\"reviewed_feedback_sha256\"",
         "\"applicable_agents\""
       ]
     },
@@ -86,7 +125,12 @@
       "required_text": [
         "### Corrective feedback and control improvement",
         "Treat the active maintainer conversation as a feedback surface.",
-        "feedback-derived"
+        "feedback-derived",
+        "### Deterministic agent iteration checkpoint",
+        "agent_assistance",
+        "PR-owned changed paths",
+        "must remain Draft",
+        "reviewed_feedback_sha256"
       ]
     }
   ]
