@@ -4,6 +4,7 @@
   "pr_contract_marker": "ua-change-contract",
   "required_pr_fields": [
     "change_class",
+    "agent_assistance",
     "owning_paths",
     "decision_levels",
     "capability_families",
@@ -17,6 +18,7 @@
   ],
   "controlled_values": {
     "change_class": ["maintenance", "repository-policy", "research", "draft-normative", "normative", "reference", "history", "publishing"],
+    "agent_assistance": ["used", "none"],
     "decision_levels": ["organization", "project", "delivery", "runtime", "none"],
     "capability_families": ["constraints", "sensors", "controllers", "actuators", "none"],
     "terminology_impact": ["updated", "unchanged", "not-applicable"],
