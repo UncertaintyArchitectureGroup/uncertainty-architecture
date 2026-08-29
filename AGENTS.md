@@ -376,7 +376,7 @@ For repository-changing work:
 8. **Make** the smallest coherent change on a branch.
 9. **Cross-reference** affected doctrine, patterns, capabilities, failure modes, and research.
 10. **Update** glossary, roadmap, changelog, or traceability where genuinely required.
-11. **Declare** the change in the machine-readable `ua-change-contract` block and ensure its owning paths and companion-update fields match the actual diff.
+11. **Declare** the change in the machine-readable `ua-change-contract` block and ensure its owning paths and companion-update fields match the PR-owned diff.
 12. **Audit** terminology, links, diagrams, metadata, compatibility, mixed-strength records, duplicate artifacts, and deletion or rename consequences.
 13. **Run** the applicable repository, metadata, navigation, and change-coupling validators and regression suites.
 14. **Report** uncertainty, assumptions, unresolved decisions, exception use, and unavailable automated checks.
@@ -392,7 +392,8 @@ Additional rules:
 - preserve unresolved alternatives where evidence is incomplete;
 - treat path renames and deletions as compatibility decisions, not cosmetic cleanup;
 - use a Draft pull request for substantial framework changes until review criteria are satisfied;
-- AI-assisted `repository-policy`, `draft-normative`, and `normative` pull requests MUST remain Draft while repository-changing work is active; after the current head has passed a fresh checkpoint, an AI contributor MUST NOT mark it ready for review without explicit maintainer instruction; review or feedback on that same ready head does not itself revoke readiness, but any later repository commit/head change requires returning it to Draft before the new repository-changing iteration can pass;
+- AI-assisted `repository-policy`, `draft-normative`, and `normative` pull requests MUST remain Draft while repository-changing work is active; leaving Draft requires the CODEOWNER-controlled readiness protocol below, and any later repository head or tested-merge state requires a fresh authorization cycle;
+- `agent_assistance: none` is a maintainer-controlled opt-out, not a self-attested bypass; except for Dependabot compatibility, a target-branch global CODEOWNER must explicitly authorize the opt-out through the structured `ua-agent-assistance-none` marker below;
 - do not use an exception label as a generic bypass: each exception is category-scoped, maintainer-controlled, visible in the PR, and must be explained.
 
 ### Corrective feedback and control improvement
@@ -450,7 +451,15 @@ For every material durable candidate considered during the task, the session rep
 
 This section is the canonical human-readable owner of the repository's deterministic AI-agent checked-state protocol. Machine-readable policy, validators, pull-request template fields, and GitHub Actions enforce observable parts of this protocol; they do not redefine it.
 
-Every human-authored pull request MUST declare `agent_assistance` in its `ua-change-contract` as either `used` or `none`. `none` leaves the agent checkpoint inactive. Dependabot is treated as `none` when its generated PR body predates the declaration field. Existing open human-authored PRs created before this field was introduced are a deliberate compatibility migration: they MUST add `agent_assistance` on their next maintained iteration rather than being silently grandfathered.
+Every human-authored pull request MUST declare `agent_assistance` in its `ua-change-contract` as either `used` or `none`. The declaration makes applicability explicit but does not let the PR author disable the control loop unilaterally. Except for Dependabot compatibility, `agent_assistance: none` becomes effective only after a **target-branch global CODEOWNER** adds this structured top-level PR Conversation comment:
+
+```text
+<!-- ua-agent-assistance-none
+{"agent_assistance":"none"}
+-->
+```
+
+The maintainer authority source is the global `* @user` ownership declared by the current target branch's `.github/CODEOWNERS`, not a CODEOWNERS file modified by the pull request. Existing open human-authored PRs created before `agent_assistance` was introduced are a deliberate compatibility migration: they MUST add the field on their next maintained iteration rather than being silently grandfathered.
 
 When `agent_assistance` is `used`, the contributor MUST maintain exactly one `ua-agent-checkpoint` block. A valid checkpoint attests that the contributor re-ran the review loop against the checked PR state and is bound to:
 
@@ -462,21 +471,42 @@ When `agent_assistance` is `used`, the contributor MUST maintain exactly one `ua
 - `reviewed_feedback_sha256`, computed from trusted PR review and inline-review feedback; and
 - the exact blob SHA of every applicable root or nested `AGENTS.md` file in the tested merge state.
 
-Applicable instruction scope MUST be derived from **PR-owned changed paths**, not from every commit that happens to exist in the feature branch. Compute PR-owned paths from the merge-base of the current target tip and PR head through the PR head. Preserve both sides of renames/copies. This prevents target-only changes already synchronized into the feature branch from falsely activating nested agent rules. Resolve applicable `AGENTS.md` files against the tested merge result; when the PR deletes scoped guidance, retain the governing version from the current target branch for review.
+Applicable instruction scope and change-coupling scope MUST use the same definition of **PR-owned changed paths**. Compute both from the merge-base of the current target tip and PR head through the PR head. Preserve both sides of renames/copies. This prevents target-only changes already synchronized into the feature branch from becoming false PR scope in either the agent checkpoint or companion-update validator. Resolve applicable `AGENTS.md` files against the tested merge result; when the PR deletes scoped guidance, retain the governing version from the current target branch for review.
 
-Trusted GitHub maintainer feedback is an observable supplement to the external conversation feedback surface. The deterministic `reviewed_feedback_sha256` watermark includes submitted/edited/dismissed reviews and inline review comments authored with GitHub `OWNER`, `MEMBER`, or `COLLABORATOR` association, excluding bots. Those event types are attached to the PR merge/head lifecycle and therefore can invalidate the PR-head checkpoint. Top-level PR conversation comments remain part of the semantic feedback surface but are deliberately excluded from the deterministic watermark and workflow trigger because GitHub emits `issue_comment` workflows on the default-branch ref/SHA; the agent MUST reconsider relevant top-level comments at the next checkpoint rather than representing them as an immediate PR-head merge gate.
+Trusted GitHub maintainer feedback is an observable supplement to the external conversation feedback surface. The deterministic `reviewed_feedback_sha256` watermark includes submitted/edited/dismissed reviews and inline review comments authored with GitHub `OWNER`, `MEMBER`, or `COLLABORATOR` association, excluding bots. Those event types are attached to the PR merge/head lifecycle and therefore can invalidate the PR-head checkpoint. Ordinary top-level PR Conversation comments remain part of the semantic feedback surface but are deliberately excluded from the feedback watermark and `issue_comment` workflow trigger because GitHub emits those workflows on the default-branch ref/SHA. The two structured CODEOWNER control markers above and below are nevertheless read from the PR Conversation during ordinary PR-head checkpoint events.
 
-Before refreshing a checkpoint, the contributor MUST re-read the effective applicable `AGENTS.md` files, the complete PR-owned diff, the current PR description, available external corrective feedback, current trusted PR review/inline-review feedback, relevant top-level PR conversation feedback, and this end-of-session protocol. It MUST then classify any material corrective signal as local or durable, route justified durable candidates to the proper owner, and update the checkpoint disposition truthfully.
+Before refreshing a checkpoint, the contributor MUST re-read the effective applicable `AGENTS.md` files, the complete PR-owned diff, the current PR description, available external corrective feedback, current trusted PR review/inline-review feedback, relevant top-level PR Conversation feedback, and this end-of-session protocol. It MUST then classify any material corrective signal as local or durable, route justified durable candidates to the proper owner, and update the checkpoint disposition truthfully.
 
-For AI-assisted `repository-policy`, `draft-normative`, and `normative` changes, the PR must remain Draft while repository-changing work is active. A `ready_for_review` transition records the then-current repository head as ready; an AI contributor may initiate that transition only after explicit maintainer instruction and a fresh checkpoint. Review, inline-review-comment, label, or checkpoint-only PR-description activity on that same head may make the checkpoint stale without revoking the head's ready status. Any later repository commit/head change does revoke that readiness for enforcement purposes and requires returning the PR to Draft before the new head can pass. The validator derives this state from GitHub's PR timeline rather than from the triggering event name alone.
+#### Ready-for-review authorization
 
-The checkpoint is intentionally a **checked-state** control, not proof that the model understood the prose. Deterministic validation can prove identities, scope derivation, state freshness, feedback-watermark freshness, current-head readiness/Draft state, and completed declarations. Semantic understanding, classification of external or top-level conversational corrective signals, and the quality of a durable-improvement proposal remain Model Judgment subject to maintainer review.
+For AI-assisted `repository-policy`, `draft-normative`, and `normative` changes, the PR MUST remain Draft while repository-changing work is active. Ready is a two-stage control and a bare `ready_for_review` event is not proof of maintainer authorization.
 
-The existing `Change coupling` workflow owns PR-head enforcement. It listens to PR changes, trusted reviews, and trusted inline-review-comment events. Untrusted review/comment actors do not enter the checkpoint job, and workflow concurrency is partitioned by event type and actor so an untrusted event cannot cancel an active repository-state checkpoint. Top-level `issue_comment` events are intentionally outside this deterministic PR-head workflow for the ref/SHA reason above. Do not add a separate write-capable feedback workflow unless an independent security review establishes the required trust, token, and status-write boundary.
+First establish a fresh checkpoint for the current head. Then a target-branch global CODEOWNER MUST add a structured approval comment bound to that exact head and the canonical SHA-256 fingerprint of the current `ua-agent-checkpoint` JSON:
+
+```text
+<!-- ua-agent-ready-approval
+{
+  "head_sha":"<current-head-sha>",
+  "checkpoint_sha256":"<canonical-checkpoint-sha256>"
+}
+-->
+```
+
+Only after that evidence exists may the AI contributor initiate `ready_for_review`, and only after explicit maintainer instruction to do so. The `ready_for_review` workflow run MUST itself pass the checked-state validation against the same head and checkpoint fingerprint. Only then may the separate **Agent protocol / readiness authorization** job succeed. That successful GitHub check, attached to the tested merge state and completed after the Ready transition, is the durable evidence that the current head passed an authorized readiness transition.
+
+A failed or premature Ready transition MUST NOT be legalized retroactively by editing the checkpoint or adding approval later. On later PR events, non-Draft state is valid only when the current head still has the matching CODEOWNER approval and the current tested merge state has a successful `Agent protocol / readiness authorization` check from the current Ready cycle. Review or inline-review feedback on that same authorized head may make the checkpoint stale without revoking readiness; a later repository commit/head, changed tested-merge state, return to Draft followed by a new Ready cycle, or removal of the matching approval requires fresh readiness authorization.
+
+The checkpoint and authorization surfaces reduce self-attested bypasses, but GitHub cannot cryptographically distinguish a human action from an AI action performed through the same authenticated GitHub principal. Do not claim stronger identity separation than the available GitHub evidence supports.
+
+The checkpoint is intentionally a **checked-state** control, not proof that the model understood the prose. Deterministic validation can prove identities, scope derivation, state freshness, feedback-watermark freshness, CODEOWNER control evidence, current-head readiness/Draft state, and completed declarations. Semantic understanding, classification of external or ordinary top-level conversational corrective signals, and the quality of a durable-improvement proposal remain Model Judgment subject to maintainer review.
+
+The existing `Change coupling` workflow owns PR-head enforcement. It listens to PR changes, trusted reviews, and trusted inline-review-comment events. Untrusted review/comment actors do not enter the checkpoint job, and workflow concurrency is partitioned by event type and actor so an untrusted event cannot cancel an active repository-state checkpoint. Top-level `issue_comment` events remain outside this deterministic PR-head workflow. The workflow uses read-only Issues access to read structured CODEOWNER authorization comments and read-only Checks access to verify durable readiness evidence; it does not grant PR-controlled code a write token for these control surfaces.
 
 The existing `ua-exception/pr-contract` maintainer escape remains coherent across controls: when that label legitimately bypasses a missing PR contract, the agent checkpoint MUST honor the same narrow exception rather than reintroducing the requirement through a second job.
 
-Checkpoint regression tests and repository-contract protection are part of this control surface. Run at minimum:
+Checkpoint regression tests and repository-contract protection are part of this control surface. The repository contract MUST protect registration of `repository-contract-agent-checkpoint.json` itself; mutation coverage MUST fail if that extension is removed from `validate_repository_contract.py`, rather than testing the extension only by loading it directly.
+
+Run at minimum:
 
 ```bash
 python3 .github/tests/agent_checkpoint/test_agent_checkpoint.py
@@ -484,7 +514,7 @@ python3 .github/tests/agent_checkpoint/test_feedback_context.py
 python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
 ```
 
-The live GitHub Actions run remains authoritative for PR-state, tested-merge, current-head readiness, and trusted PR-review feedback checks because those inputs do not exist in an ordinary local checkout.
+The live GitHub Actions run remains authoritative for PR-state, tested-merge, current-target CODEOWNER evidence, readiness-check history, and trusted PR-review feedback because those inputs do not exist in an ordinary local checkout.
 
 ## 10. End-of-session integrity protocol
 
@@ -529,9 +559,11 @@ The live GitHub Actions run remains authoritative for PR-state, tested-merge, cu
 - Research provenance does not claim unavailable source formats or unverified review actions.
 - `CHANGELOG.md` is updated for notable changes.
 - Glossary, roadmap, and research traceability declarations match the actual companion-file diff.
-- The `ua-change-contract` block is present exactly once, uses controlled values, declares `agent_assistance`, and names an owning path that intersects the diff.
+- The `ua-change-contract` block is present exactly once, uses controlled values, declares `agent_assistance`, and names an owning path that intersects the PR-owned diff.
+- `agent_assistance: none` is accepted only with target-branch global CODEOWNER `ua-agent-assistance-none` evidence, except for the explicit Dependabot compatibility path.
 - When `agent_assistance` is `used`, the `ua-agent-checkpoint` is current for the checked PR state, trusted PR-review feedback, and applicable instruction blobs.
-- AI-assisted `repository-policy`, `draft-normative`, and `normative` work is Draft while repository-changing work is active; a non-Draft PR is acceptable only when GitHub timeline evidence shows that the current head was explicitly marked ready and no later repository head has replaced it.
+- AI-assisted `repository-policy`, `draft-normative`, and `normative` work remains Draft during repository-changing iterations; a non-Draft current head requires matching CODEOWNER `ua-agent-ready-approval` evidence and a successful `Agent protocol / readiness authorization` check for the current tested merge state.
+- Both change coupling and agent checkpoint reason over the same PR-owned `merge-base(current target tip, head) → head` diff.
 - Any maintainer exception label is category-scoped and explained in the PR body, and a shared exception is applied consistently across validators.
 - PR description matches the actual diff and remaining review state.
 
@@ -546,9 +578,9 @@ Summarize:
 - which files own the resulting meaning;
 - which checks were performed;
 - which corrective feedback signals were evaluated for durable control improvement, how each candidate was routed, and whether any required feedback-derived guidance approval was obtained;
-- the `agent_assistance` declaration, checkpoint disposition, and current Draft/readiness state where a pull request exists;
+- the `agent_assistance` declaration and any CODEOWNER opt-out evidence, checkpoint disposition, and current Draft/readiness authorization state where a pull request exists;
 - what remains unresolved;
-- whether the PR is still Draft or maintainer-authorized as ready for review.
+- whether the PR is still Draft or has completed the maintainer-authorized readiness protocol.
 
 ## 11. Repository contract checks
 
@@ -556,9 +588,9 @@ The machine-readable repository contract lives at [`.github/policy/repository-co
 
 The metadata and canonical-ownership policy lives at [`.github/policy/metadata-contract.json`](.github/policy/metadata-contract.json). Its owning human-readable convention is [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md).
 
-The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json). It validates the pull request's machine-readable declaration against the actual git diff, including changelog, glossary, roadmap, research traceability, compatibility, deletion, rename decisions, and the explicit `agent_assistance` declaration.
+The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json). It validates the pull request's machine-readable declaration against the PR-owned diff derived from the merge-base of the **current target-branch tip** and PR head through the PR head, including changelog, glossary, roadmap, research traceability, compatibility, deletion, rename decisions, and the explicit `agent_assistance` declaration.
 
-The deterministic AI-agent checkpoint policy lives at [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json). Its canonical descriptive owner is the `Deterministic agent iteration checkpoint` section above. [`.github/scripts/validate_agent_checkpoint.py`](.github/scripts/validate_agent_checkpoint.py) validates the checked-state attestation; [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) collects live PR, target-branch, Draft/current-head readiness, tested-merge, and trusted PR-review feedback context. [`.github/policy/repository-contract-agent-checkpoint.json`](.github/policy/repository-contract-agent-checkpoint.json) protects stable observable wiring and contract values without freezing private validator function names or regression-test titles.
+The deterministic AI-agent checkpoint policy lives at [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json). Its canonical descriptive owner is the `Deterministic agent iteration checkpoint` section above. [`.github/scripts/validate_agent_checkpoint.py`](.github/scripts/validate_agent_checkpoint.py) validates the checked-state attestation; [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) collects live PR, target-branch, Draft/readiness, tested-merge, target-branch CODEOWNER authorization, readiness-check history, and trusted PR-review context. [`.github/policy/repository-contract-agent-checkpoint.json`](.github/policy/repository-contract-agent-checkpoint.json) protects stable observable wiring and contract values, including registration of the extension itself, without freezing private validator function names or regression-test titles.
 
 Before pushing a repository-policy change or any change that affects protected structure, metadata, canonical ownership, terminology, companion documents, or maintained paths, run:
 
@@ -567,16 +599,16 @@ python3 .github/scripts/validate_repository_contract.py
 python3 .github/tests/repository_contract/test_repository_contract.py
 python3 .github/scripts/validate_metadata.py --mode all
 python3 .github/tests/metadata_contract/test_metadata.py
-python3 .github/scripts/validate_change_coupling.py --base <base-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>
+python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>
 python3 .github/tests/change_coupling/test_change_coupling.py
 python3 .github/tests/agent_checkpoint/test_agent_checkpoint.py
 python3 .github/tests/agent_checkpoint/test_feedback_context.py
 python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
 ```
 
-The change-coupling validator requires a real base/head diff and the pull-request declaration. GitHub Actions supplies the pull-request body, labels, actor, and commit SHAs automatically.
+The change-coupling validator requires the current target tip, the PR head, and the pull-request declaration. GitHub Actions resolves the current target tip and supplies the pull-request body, labels, actor, and head SHA automatically. Do not substitute the historical PR `base.sha` when determining PR-owned scope after the target branch has advanced.
 
-The `ua-change-contract` block must appear exactly once in the PR body. Required fields use controlled values from the policy. `owning_paths` must intersect the actual diff. A notable change requires `CHANGELOG.md`; terminology, roadmap, and research-state decisions must reconcile their owning companion files when applicable. Deleting or renaming maintained material requires an explicit compatibility decision and changelog treatment.
+The `ua-change-contract` block must appear exactly once in the PR body. Required fields use controlled values from the policy. `owning_paths` must intersect the PR-owned diff. A notable change requires `CHANGELOG.md`; terminology, roadmap, and research-state decisions must reconcile their owning companion files when applicable. Deleting or renaming maintained material requires an explicit compatibility decision and changelog treatment.
 
 Maintainer exception labels are not a universal override. Each label bypasses only its declared category, repository label permissions determine who may apply it, and the reason must remain visible in the PR body. When more than one validator depends on the same prerequisite, a declared exception for that prerequisite must be reconciled consistently rather than being silently negated by a second check.
 
