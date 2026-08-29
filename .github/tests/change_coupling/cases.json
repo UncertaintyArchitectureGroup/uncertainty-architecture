@@ -47,6 +47,37 @@
       "expected_message": "require change_class 'repository-policy'"
     },
     {
+      "name": "agent guidance policy path cannot be declared maintenance",
+      "files": {
+        "AGENTS.md": "changed agent rules\n",
+        "CHANGELOG.md": "changed\n",
+        "ROADMAP.md": "changed\n"
+      },
+      "set_pr_field": {
+        "change_class": "maintenance",
+        "owning_paths": ["AGENTS.md"],
+        "changelog": "updated",
+        "roadmap": "updated"
+      },
+      "expected_message": "require change_class 'repository-policy'"
+    },
+    {
+      "name": "draft normative status cannot be downgraded to maintenance",
+      "base_files": {
+        "00-doctrine/status-sensitive.md": "---\nstatus: draft-normative\n---\nbase\n"
+      },
+      "files": {
+        "00-doctrine/status-sensitive.md": "---\nstatus: informative\n---\nchanged\n",
+        "CHANGELOG.md": "changed\n"
+      },
+      "set_pr_field": {
+        "change_class": "maintenance",
+        "owning_paths": ["00-doctrine/status-sensitive.md"],
+        "changelog": "updated"
+      },
+      "expected_message": "protected status draft-normative"
+    },
+    {
       "name": "missing PR contract is rejected",
       "body": "No contract here.",
       "files": {},
