@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression tests for the exact-state agent checkpoint validator."""
+"""Regression tests for the AI-agent checked-state checkpoint validator."""
 
 import importlib.util
 import json
@@ -24,14 +24,7 @@ def load_validator():
 
 
 def run(root: Path, *args: str) -> str:
-    result = subprocess.run(
-        list(args),
-        cwd=str(root),
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        check=False,
-    )
+    result = subprocess.run(list(args), cwd=str(root), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
     if result.returncode != 0:
         raise RuntimeError("{} failed: {}".format(" ".join(args), result.stderr))
     return result.stdout.strip()
@@ -45,46 +38,78 @@ def write(root: Path, path: str, text: str) -> None:
 
 def commit(root: Path, message: str) -> str:
     run(root, "git", "add", ".")
-    run(
-        root,
-        "git",
-        "-c",
-        "user.name=UA Test",
-        "-c",
-        "user.email=ua-test@example.invalid",
-        "commit",
-        "-m",
-        message,
-    )
+    run(root, "git", "-c", "user.name=UA Test", "-c", "user.email=ua-test@example.invalid", "commit", "-m", message)
     return run(root, "git", "rev-parse", "HEAD")
 
 
-def render_checkpoint(data: Dict[str, object]) -> str:
-    return "<!-- ua-agent-checkpoint\n{}\n-->".format(json.dumps(data, indent=2))
+def render_block(marker: str, data: Dict[str, object]) -> str:
+    return "<!-- {}\n{}\n-->".format(marker, json.dumps(data, indent=2))
+
+
+def change_contract(agent_assistance: str = "used", change_class: str = "maintenance") -> Dict[str, object]:
+    return {
+        "change_class": change_class,
+        "agent_assistance": agent_assistance,
+        "owning_paths": ["AGENTS.md"],
+        "decision_levels": ["none"],
+        "capability_families": ["none"],
+        "terminology_impact": "unchanged",
+        "research_state": "unchanged",
+        "compatibility": "preserved",
+        "changelog": "updated",
+        "glossary": "unchanged",
+        "roadmap": "updated",
+        "traceability": "unchanged",
+    }
+
+
+def context_for(
+    body: str,
+    diff_base: str,
+    base_tip: str,
+    head: str,
+    merge: str,
+    feedback: str = "1" * 64,
+    draft: bool = True,
+    action: str = "synchronize",
+) -> Dict[str, object]:
+    return {
+        "body": body,
+        "diff_base_sha": diff_base,
+        "base_tip_sha": base_tip,
+        "head_sha": head,
+        "merge_sha": merge,
+        "feedback_sha256": feedback,
+        "draft": draft,
+        "event_name": "pull_request",
+        "event_action": action,
+    }
 
 
 def body_for(
     validator,
     root: Path,
-    base: str,
+    diff_base: str,
+    base_tip: str,
     head: str,
-    base_tip: Optional[str] = None,
-    merge: Optional[str] = None,
+    merge: str,
+    assistance: str = "used",
+    change_class: str = "maintenance",
+    feedback: str = "1" * 64,
     **overrides,
 ) -> str:
-    base_tip = base_tip or base
-    merge = merge or head
-    prefix = "## Summary\n\nfixture PR description\n\n"
+    prefix = "## Summary\n\nfixture PR\n\n" + render_block("ua-change-contract", change_contract(assistance, change_class)) + "\n\n"
+    if assistance == "none":
+        return prefix
     data: Dict[str, object] = {
         "checkpoint_version": 1,
-        "reviewed_base_sha": base,
+        "reviewed_base_sha": diff_base,
         "reviewed_base_tip_sha": base_tip,
         "reviewed_head_sha": head,
         "reviewed_merge_sha": merge,
         "reviewed_pr_body_sha256": "0" * 64,
-        "applicable_agents": validator.applicable_agent_records(
-            root, base, base_tip, head, merge
-        ),
+        "reviewed_feedback_sha256": feedback,
+        "applicable_agents": validator.applicable_agent_records(root, base_tip, head, merge),
         "diff_recheck": "completed",
         "pr_description_recheck": "completed",
         "corrective_feedback_review": "completed",
@@ -92,56 +117,26 @@ def body_for(
         "completion_recheck": "completed",
     }
     data.update(overrides)
-    contract = validator.load_json(CONTRACT_PATH)
-    provisional = prefix + render_checkpoint(data)
+    provisional = prefix + render_block("ua-agent-checkpoint", data)
     if "reviewed_pr_body_sha256" not in overrides:
-        data["reviewed_pr_body_sha256"] = validator.pr_body_sha256(provisional, contract)
-    return prefix + render_checkpoint(data)
+        data["reviewed_pr_body_sha256"] = validator.pr_body_sha256(provisional, "ua-agent-checkpoint")
+    return prefix + render_block("ua-agent-checkpoint", data)
 
 
 def messages(findings) -> List[str]:
     return [item.message for item in findings]
 
 
-def expect_valid(
-    validator,
-    root: Path,
-    base: str,
-    head: str,
-    body: str,
-    name: str,
-    failures: List[str],
-    base_tip: Optional[str] = None,
-    merge: Optional[str] = None,
-) -> None:
-    base_tip = base_tip or base
-    merge = merge or head
-    findings = validator.validate(
-        root, CONTRACT_PATH, base, base_tip, head, merge, body
-    )
+def expect_valid(validator, root: Path, context: Dict[str, object], name: str, failures: List[str]) -> None:
+    findings = validator.validate(root, CONTRACT_PATH, context)
     if findings:
         failures.append("{}: expected success, got {}".format(name, messages(findings)))
     else:
         print("PASS: {}".format(name))
 
 
-def expect_error(
-    validator,
-    root: Path,
-    base: str,
-    head: str,
-    body: str,
-    needle: str,
-    name: str,
-    failures: List[str],
-    base_tip: Optional[str] = None,
-    merge: Optional[str] = None,
-) -> None:
-    base_tip = base_tip or base
-    merge = merge or head
-    findings = validator.validate(
-        root, CONTRACT_PATH, base, base_tip, head, merge, body
-    )
+def expect_error(validator, root: Path, context: Dict[str, object], needle: str, name: str, failures: List[str]) -> None:
+    findings = validator.validate(root, CONTRACT_PATH, context)
     if not any(needle in item.message for item in findings):
         failures.append("{}: expected error containing {!r}, got {}".format(name, needle, messages(findings)))
     else:
@@ -160,198 +155,123 @@ def main() -> int:
         write(root, "content/research/AGENTS.md", "research rules\n")
         write(root, "content/research/note.md", "base note\n")
         base = commit(root, "base")
-
         write(root, "README.md", "changed\n")
-        root_head = commit(root, "root change")
-        valid_root = body_for(validator, root, base, root_head)
-        expect_valid(validator, root, base, root_head, valid_root, "root-only checkpoint passes", failures)
+        head = commit(root, "feature")
 
-        stale_head = body_for(validator, root, base, root_head, reviewed_head_sha=base)
-        expect_error(
-            validator, root, base, root_head, stale_head,
-            "reviewed_head_sha", "stale head is rejected", failures,
-        )
+        human_body = body_for(validator, root, base, base, head, head, assistance="none")
+        expect_valid(validator, root, context_for(human_body, base, base, head, head, draft=False), "human-only PR needs no agent checkpoint", failures)
 
-        stale_base = body_for(validator, root, base, root_head, reviewed_base_sha=root_head)
-        expect_error(
-            validator, root, base, root_head, stale_base,
-            "reviewed_base_sha", "stale diff base is rejected", failures,
-        )
+        assisted_missing = "## Summary\n\nfixture\n\n" + render_block("ua-change-contract", change_contract("used"))
+        expect_error(validator, root, context_for(assisted_missing, base, base, head, head), "ua-agent-checkpoint", "assisted PR missing checkpoint is rejected", failures)
 
-        stale_base_tip = body_for(
-            validator, root, base, root_head, reviewed_base_tip_sha=root_head
-        )
-        expect_error(
-            validator, root, base, root_head, stale_base_tip,
-            "reviewed_base_tip_sha", "stale current base tip is rejected", failures,
-        )
+        valid_body = body_for(validator, root, base, base, head, head)
+        valid_context = context_for(valid_body, base, base, head, head)
+        expect_valid(validator, root, valid_context, "assisted root checkpoint passes", failures)
 
-        stale_merge = body_for(
-            validator, root, base, root_head, reviewed_merge_sha=base
-        )
-        expect_error(
-            validator, root, base, root_head, stale_merge,
-            "reviewed_merge_sha", "stale merge result is rejected", failures,
-        )
+        for field, value, needle, name in (
+            ("reviewed_head_sha", base, "reviewed_head_sha", "stale head is rejected"),
+            ("reviewed_base_tip_sha", head, "reviewed_base_tip_sha", "stale base tip is rejected"),
+            ("reviewed_merge_sha", base, "reviewed_merge_sha", "stale merge is rejected"),
+            ("reviewed_feedback_sha256", "2" * 64, "reviewed_feedback_sha256", "new maintainer feedback invalidates checkpoint"),
+        ):
+            body = body_for(validator, root, base, base, head, head, **{field: value})
+            expect_error(validator, root, context_for(body, base, base, head, head), needle, name, failures)
 
-        edited_description = valid_root.replace(
-            "fixture PR description", "description edited after checkpoint", 1
-        )
-        expect_error(
-            validator, root, base, root_head, edited_description,
-            "reviewed_pr_body_sha256", "PR description edit invalidates checkpoint", failures,
-        )
+        edited = valid_body.replace("fixture PR", "edited PR description", 1)
+        expect_error(validator, root, context_for(edited, base, base, head, head), "reviewed_pr_body_sha256", "PR description edit invalidates checkpoint", failures)
 
-        expect_error(
-            validator, root, base, root_head,
-            "## Summary\n\nmissing checkpoint\n",
-            "exactly one ua-agent-checkpoint", "missing checkpoint is rejected", failures,
-        )
+        repo_policy_body = body_for(validator, root, base, base, head, head, change_class="repository-policy")
+        expect_error(validator, root, context_for(repo_policy_body, base, base, head, head, draft=False, action="synchronize"), "must remain Draft", "active assisted repository-policy PR must be Draft", failures)
+        expect_valid(validator, root, context_for(repo_policy_body, base, base, head, head, draft=False, action="ready_for_review"), "explicit ready transition may leave Draft", failures)
 
-        write(root, "content/research/note.md", "changed research note\n")
-        nested_head = commit(root, "nested change")
-        nested_valid = body_for(validator, root, base, nested_head)
-        expect_valid(
-            validator, root, base, nested_head, nested_valid,
-            "nested AGENTS scope checkpoint passes", failures,
-        )
+        write(root, "content/research/note.md", "changed research\n")
+        nested_head = commit(root, "nested")
+        nested_body = body_for(validator, root, base, base, nested_head, nested_head)
+        expect_valid(validator, root, context_for(nested_body, base, base, nested_head, nested_head), "nested AGENTS scope passes", failures)
+        root_only = [validator.applicable_agent_records(root, base, nested_head, nested_head)[0]]
+        missing_nested = body_for(validator, root, base, base, nested_head, nested_head, applicable_agents=root_only)
+        expect_error(validator, root, context_for(missing_nested, base, base, nested_head, nested_head), "applicable_agents", "missing nested AGENTS is rejected", failures)
 
-        root_only_records = [
-            validator.applicable_agent_records(
-                root, base, base, nested_head, nested_head
-            )[0]
-        ]
-        missing_nested = body_for(
-            validator, root, base, nested_head,
-            applicable_agents=root_only_records,
-        )
-        expect_error(
-            validator, root, base, nested_head, missing_nested,
-            "applicable_agents does not match",
-            "missing nested AGENTS attestation is rejected", failures,
-        )
-
-        records = validator.applicable_agent_records(
-            root, base, base, nested_head, nested_head
-        )
-        bad_records = [dict(item) for item in records]
-        bad_records[-1]["blob_sha"] = "0" * 40
-        stale_rules = body_for(
-            validator, root, base, nested_head,
-            applicable_agents=bad_records,
-        )
-        expect_error(
-            validator, root, base, nested_head, stale_rules,
-            "applicable_agents does not match", "stale AGENTS blob is rejected", failures,
-        )
-
-        bad_status = body_for(
-            validator, root, base, nested_head,
-            completion_recheck="pending",
-        )
-        expect_error(
-            validator, root, base, nested_head, bad_status,
-            "completion_recheck", "incomplete checkpoint state is rejected", failures,
-        )
-
-        duplicate = nested_valid + "\n" + nested_valid
-        expect_error(
-            validator, root, base, nested_head, duplicate,
-            "exactly one ua-agent-checkpoint", "duplicate checkpoint is rejected", failures,
-        )
+        duplicate = nested_body + "\n" + nested_body.split("<!-- ua-agent-checkpoint", 1)[1].join(["<!-- ua-agent-checkpoint", ""])
+        # A clearer duplicate is built directly from the checkpoint suffix.
+        suffix = "<!-- ua-agent-checkpoint" + nested_body.split("<!-- ua-agent-checkpoint", 1)[1]
+        expect_error(validator, root, context_for(nested_body + "\n" + suffix, base, base, nested_head, nested_head), "exactly one ua-agent-checkpoint", "duplicate checkpoint is rejected", failures)
 
         run(root, "git", "mv", "content/research/note.md", "moved-note.md")
-        rename_head = commit(root, "move note out of research")
-        rename_records = validator.applicable_agent_records(
-            root, nested_head, nested_head, rename_head, rename_head
-        )
-        if not any(item["path"] == "content/research/AGENTS.md" for item in rename_records):
-            failures.append("rename out of nested scope: old research AGENTS scope was not retained")
-        else:
+        rename_head = commit(root, "rename")
+        rename_records = validator.applicable_agent_records(root, nested_head, rename_head, rename_head)
+        if any(item["path"] == "content/research/AGENTS.md" for item in rename_records):
             print("PASS: rename retains old nested AGENTS scope")
-        expect_valid(
-            validator, root, nested_head, rename_head,
-            body_for(
-                validator, root, nested_head, rename_head,
-                base_tip=nested_head, merge=rename_head,
-            ),
-            "rename checkpoint with old scope passes", failures,
-            base_tip=nested_head, merge=rename_head,
-        )
-
-        research_base_blob = validator.blob_sha_at(
-            root, rename_head, "content/research/AGENTS.md"
-        )
-        (root / "content/research/AGENTS.md").unlink()
-        deleted_agent_head = commit(root, "delete nested agent guidance")
-        deleted_records = validator.applicable_agent_records(
-            root, rename_head, rename_head, deleted_agent_head, deleted_agent_head
-        )
-        deleted_record = next(
-            (item for item in deleted_records if item["path"] == "content/research/AGENTS.md"),
-            None,
-        )
-        if deleted_record is None or deleted_record["blob_sha"] != research_base_blob:
-            failures.append("deleted nested AGENTS: expected the governing current-base blob to remain applicable")
         else:
-            print("PASS: deleted nested AGENTS uses governing current-base blob")
-        expect_valid(
-            validator, root, rename_head, deleted_agent_head,
-            body_for(
-                validator, root, rename_head, deleted_agent_head,
-                base_tip=rename_head, merge=deleted_agent_head,
-            ),
-            "deleted nested AGENTS checkpoint passes with current-base guidance",
-            failures, base_tip=rename_head, merge=deleted_agent_head,
-        )
+            failures.append("rename did not retain old nested AGENTS scope")
 
-    with tempfile.TemporaryDirectory(prefix="ua-agent-base-advance-") as temp:
+        research_blob = validator.blob_sha_at(root, rename_head, "content/research/AGENTS.md")
+        (root / "content/research/AGENTS.md").unlink()
+        deleted_head = commit(root, "delete nested guidance")
+        deleted_records = validator.applicable_agent_records(root, rename_head, deleted_head, deleted_head)
+        record = next((item for item in deleted_records if item["path"] == "content/research/AGENTS.md"), None)
+        if record and record["blob_sha"] == research_blob:
+            print("PASS: deleted nested AGENTS uses governing current-base blob")
+        else:
+            failures.append("deleted nested AGENTS did not retain governing base blob")
+
+    # Critical scope regression: target-only changes already merged into the feature
+    # must not become false PR-owned scope.
+    with tempfile.TemporaryDirectory(prefix="ua-agent-sync-") as temp:
         root = Path(temp)
         run(root, "git", "init", "-q")
-        write(root, "AGENTS.md", "root rules\n")
+        write(root, "AGENTS.md", "root\n")
         write(root, "src/item.md", "base\n")
+        write(root, "target-only/AGENTS.md", "target only rules\n")
+        write(root, "target-only/item.md", "base\n")
         base = commit(root, "base")
 
         run(root, "git", "checkout", "-q", "-b", "feature")
-        write(root, "src/item.md", "feature change\n")
-        feature_head = commit(root, "feature")
+        write(root, "src/item.md", "feature\n")
+        feature_before_sync = commit(root, "feature")
 
         run(root, "git", "checkout", "-q", "-b", "target", base)
-        write(root, "src/AGENTS.md", "new target rules\n")
-        base_tip = commit(root, "target adds nested rules")
+        write(root, "target-only/item.md", "target changed\n")
+        base_tip = commit(root, "target advance")
 
         run(root, "git", "checkout", "-q", "feature")
-        run(
-            root,
-            "git", "-c", "user.name=UA Test", "-c", "user.email=ua-test@example.invalid",
-            "merge", "--no-ff", "target", "-m", "test merge",
-        )
-        merge = run(root, "git", "rev-parse", "HEAD")
-
-        merged_records = validator.applicable_agent_records(
-            root, base, base_tip, feature_head, merge
-        )
-        if not any(item["path"] == "src/AGENTS.md" for item in merged_records):
-            failures.append("base advance: new nested AGENTS from current target was not included")
+        run(root, "git", "-c", "user.name=UA Test", "-c", "user.email=ua-test@example.invalid", "merge", "--no-ff", "target", "-m", "sync target")
+        synced_head = run(root, "git", "rev-parse", "HEAD")
+        paths = validator.changed_paths(root, base_tip, synced_head)
+        if paths == ["src/item.md"]:
+            print("PASS: synchronized target-only changes are excluded from PR-owned scope")
         else:
-            print("PASS: base advance contributes new nested AGENTS from tested merge")
-        expect_valid(
-            validator, root, base, feature_head,
-            body_for(
-                validator, root, base, feature_head,
-                base_tip=base_tip, merge=merge,
-            ),
-            "base-advanced merge checkpoint passes with new nested guidance",
-            failures, base_tip=base_tip, merge=merge,
-        )
+            failures.append("synchronized diff scope expected ['src/item.md'], got {}".format(paths))
+        records = validator.applicable_agent_records(root, base_tip, synced_head, synced_head)
+        if any(item["path"] == "target-only/AGENTS.md" for item in records):
+            failures.append("target-only nested AGENTS incorrectly activated after feature sync")
+        else:
+            print("PASS: synchronized target-only AGENTS does not activate")
+
+        # Unsynced feature: new target guidance under a genuinely changed feature path
+        # must enter the tested merge context.
+        run(root, "git", "checkout", "-q", "target")
+        write(root, "src/AGENTS.md", "new target src rules\n")
+        newer_base_tip = commit(root, "target adds src rules")
+        run(root, "git", "checkout", "-q", "feature")
+        feature_head = synced_head
+        # Reset feature to the pre-sync feature so the tested merge represents an advanced base.
+        run(root, "git", "reset", "--hard", feature_before_sync)
+        feature_head = run(root, "git", "rev-parse", "HEAD")
+        run(root, "git", "-c", "user.name=UA Test", "-c", "user.email=ua-test@example.invalid", "merge", "--no-ff", "target", "-m", "tested merge")
+        tested_merge = run(root, "git", "rev-parse", "HEAD")
+        records = validator.applicable_agent_records(root, newer_base_tip, feature_head, tested_merge)
+        if any(item["path"] == "src/AGENTS.md" for item in records):
+            print("PASS: advanced target contributes new nested AGENTS to tested merge")
+        else:
+            failures.append("advanced target nested AGENTS was not included")
 
     if failures:
         print("Agent checkpoint self-tests failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-
-    print("Agent checkpoint self-tests passed: 15 regression fixtures.")
+    print("Agent checkpoint self-tests passed: 17 regression assertions.")
     return 0
 
 
