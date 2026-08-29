@@ -401,12 +401,29 @@ def main() -> int:
         else:
             failures.append("advanced target nested AGENTS was not included")
 
+    with tempfile.TemporaryDirectory(prefix="ua-agent-policy-class-") as temp:
+        root = Path(temp)
+        run(root, "git", "init", "-q")
+        write(root, "AGENTS.md", "root rules\n")
+        write(root, ".github/policy/example.json", "{}\n")
+        base = commit(root, "base")
+        write(root, ".github/policy/example.json", "{\"changed\": true}\n")
+        head = commit(root, "policy change")
+        weak_body = body_for(validator, root, base, base, head, head, change_class="maintenance")
+        expect_error(
+            validator, root,
+            context_for(weak_body, base, base, head, head, draft=True),
+            "require change_class 'repository-policy'",
+            "repository-policy diff cannot disable controls with maintenance declaration",
+            failures,
+        )
+
     if failures:
         print("Agent checkpoint self-tests failed:")
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent checkpoint self-tests passed: 24 regression assertions.")
+    print("Agent checkpoint self-tests passed: 25 regression assertions.")
     return 0
 
 
