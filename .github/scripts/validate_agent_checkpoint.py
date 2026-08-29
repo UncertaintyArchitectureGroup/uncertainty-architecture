@@ -45,6 +45,14 @@ def git(root: Path, args: Sequence[str]) -> str:
     return result.stdout.strip()
 
 
+def git_text_optional(root: Path, ref: str, path: str) -> Optional[str]:
+    result = subprocess.run(
+        ["git", "show", "{}:{}".format(ref, path)], cwd=str(root), text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+    )
+    return result.stdout if result.returncode == 0 else None
+
+
 def merge_base(root: Path, base_tip: str, head: str) -> str:
     value = git(root, ["merge-base", base_tip, head])
     if not SHA_RE.fullmatch(value):
@@ -52,26 +60,71 @@ def merge_base(root: Path, base_tip: str, head: str) -> str:
     return value
 
 
-def changed_paths(root: Path, base_tip: str, head: str) -> List[str]:
-    """Return PR-owned changed paths from current-target merge-base to head."""
+def changed_entries(root: Path, base_tip: str, head: str) -> List[Tuple[str, str, Optional[str]]]:
     comparison_base = merge_base(root, base_tip, head)
     output = git(root, ["diff", "--name-status", "-M", comparison_base, head])
-    paths = set()
+    entries: List[Tuple[str, str, Optional[str]]] = []
     for line in output.splitlines():
         parts = line.split("\t")
         if len(parts) < 2:
             continue
         status = parts[0]
         if status.startswith("R") and len(parts) >= 3:
-            paths.add(parts[1])
-            paths.add(parts[2])
+            entries.append(("R", parts[1], parts[2]))
         else:
-            paths.add(parts[-1])
+            entries.append((status[:1], parts[-1], None))
+    return entries
+
+
+def changed_paths(root: Path, base_tip: str, head: str) -> List[str]:
+    """Return PR-owned changed paths from current-target merge-base to head."""
+    paths = set()
+    for kind, old, new in changed_entries(root, base_tip, head):
+        paths.add(old)
+        if kind == "R" and new:
+            paths.add(new)
     return sorted(path for path in paths if path)
 
 
 def path_matches(path: str, prefixes: Iterable[str]) -> bool:
     return any(path == prefix or path.startswith(prefix) for prefix in prefixes)
+
+
+def frontmatter_status(text: Optional[str]) -> str:
+    if not text or not text.startswith("---"):
+        return ""
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return ""
+    for line in lines[1:]:
+        stripped = line.strip()
+        if stripped == "---":
+            break
+        if stripped.startswith("status:"):
+            return stripped.split(":", 1)[1].strip().strip("\"'")
+    return ""
+
+
+def draft_required_statuses_in_diff(
+    root: Path,
+    base_tip: str,
+    head: str,
+    contract: Dict[str, object],
+) -> Set[str]:
+    protected = set(str(item) for item in contract.get("draft_required_document_statuses", []))
+    observed: Set[str] = set()
+    for kind, old, new in changed_entries(root, base_tip, head):
+        candidates: List[Tuple[str, str]] = []
+        if old.endswith(".md") and kind != "A":
+            candidates.append((base_tip, old))
+        current = new or old
+        if current.endswith(".md") and kind != "D":
+            candidates.append((head, current))
+        for ref, path in candidates:
+            status = frontmatter_status(git_text_optional(root, ref, path))
+            if status in protected:
+                observed.add(status)
+    return observed
 
 
 def path_exists_at(root: Path, ref: str, path: str) -> bool:
@@ -223,42 +276,52 @@ def validate(
         if isinstance(item, str)
     }
 
+    findings: List[Finding] = []
     change, change_error = parse_block(body, str(contract["pr_change_contract_marker"]))
     if change_error:
         allowed_exceptions = exception_labels_for(change_contract, "pr-contract")
         if labels.intersection(allowed_exceptions):
-            return [
+            # The exception bypasses only the malformed/missing change-contract
+            # declaration. It does not disable the agent checkpoint, Draft
+            # inference, or trusted-base controls. Fail safe as agent-assisted.
+            findings.append(
                 Finding(
                     "warning",
-                    change_error + "; agent checkpoint bypassed by the same maintainer PR-contract exception",
+                    change_error + "; change-contract declaration bypassed, but agent checkpoint remains required with safe agent-assisted defaults",
                 )
-            ]
-        return [Finding("error", change_error)]
+            )
+            change = {"agent_assistance": "used", "change_class": "maintenance"}
+        else:
+            return [Finding("error", change_error)]
     assert change is not None
 
     assistance = change.get("agent_assistance")
     pr_author = str(context.get("pr_author") or "")
     if assistance == "none":
         if pr_author == "dependabot[bot]" or bool(context.get("agent_none_approved")):
-            return []
-        return [
+            return findings
+        findings.append(
             Finding(
                 "error",
                 "agent_assistance 'none' is a maintainer-controlled opt-out bound to the current head. A target-branch CODEOWNER must add the structured ua-agent-assistance-none approval for the current head before the checkpoint can be disabled.",
             )
-        ]
+        )
+        return findings
     if assistance != "used":
         if pr_author == "dependabot[bot]" and assistance is None:
-            return []
-        return [Finding("error", "ua-change-contract must declare agent_assistance as 'used' or 'none'")]
+            return findings
+        findings.append(Finding("error", "ua-change-contract must declare agent_assistance as 'used' or 'none'"))
+        return findings
 
     checkpoint, checkpoint_error = parse_block(body, str(contract["pr_checkpoint_marker"]))
     if checkpoint_error:
-        return [Finding("error", checkpoint_error)]
+        findings.append(Finding("error", checkpoint_error))
+        return findings
     assert checkpoint is not None
 
-    findings = validate_checkpoint_schema(checkpoint, contract)
-    if findings:
+    schema_findings = validate_checkpoint_schema(checkpoint, contract)
+    findings.extend(schema_findings)
+    if any(item.severity == "error" for item in schema_findings):
         return findings
 
     base_tip = str(context.get("base_tip_sha") or "")
@@ -271,6 +334,7 @@ def validate(
     repository_policy_changed = any(
         path_matches(path, repository_policy_prefixes) for path in owned_paths
     )
+    observed_draft_statuses = draft_required_statuses_in_diff(root, base_tip, head, change_contract)
 
     change_class = str(change.get("change_class") or "")
     if repository_policy_changed and change_class != "repository-policy":
@@ -280,9 +344,22 @@ def validate(
                 "PR-owned repository-policy paths require change_class 'repository-policy'; declaration {!r} cannot disable repository-policy controls.".format(change_class),
             )
         )
+    if observed_draft_statuses and change_class not in {"repository-policy", "draft-normative", "normative"}:
+        findings.append(
+            Finding(
+                "error",
+                "PR-owned artifacts with protected status {} require a high-impact change_class; declaration {!r} cannot downgrade Draft controls.".format(
+                    ", ".join(sorted(observed_draft_statuses)), change_class
+                ),
+            )
+        )
 
     draft_required = set(str(item) for item in contract.get("draft_required_change_classes", []))
-    effective_draft_required = change_class in draft_required or repository_policy_changed
+    effective_draft_required = (
+        change_class in draft_required
+        or repository_policy_changed
+        or bool(observed_draft_statuses)
+    )
     is_draft = bool(context.get("draft"))
     ready_head = str(context.get("ready_head_sha") or "")
     event_name = str(context.get("event_name") or "")
@@ -299,7 +376,12 @@ def validate(
         and bool(context.get("ready_check_passed"))
     )
     if effective_draft_required and not is_draft and not (transition_ready or durable_ready):
-        effective_label = "repository-policy" if repository_policy_changed else change_class
+        if repository_policy_changed:
+            effective_label = "repository-policy"
+        elif observed_draft_statuses:
+            effective_label = "/".join(sorted(observed_draft_statuses))
+        else:
+            effective_label = change_class
         findings.append(
             Finding(
                 "error",
@@ -331,7 +413,7 @@ def validate(
     if checkpoint["applicable_agents"] != expected_agents:
         findings.append(Finding("error", "applicable_agents does not match PR-owned changed paths and the tested merge result. Expected: {}".format(json.dumps(expected_agents, sort_keys=True))))
 
-    if findings:
+    if any(item.severity == "error" for item in findings):
         findings.append(
             Finding(
                 "error",
