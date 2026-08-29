@@ -56,6 +56,10 @@ jobs:
       (github.event_name != 'issue_comment' || github.event.issue.pull_request != null)
       && github.event_name != 'push'
       && github.event_name != 'workflow_dispatch'
+      && (
+        (github.event_name == 'issue_comment' && github.event.issue.user.login != 'dependabot[bot]')
+        || (github.event_name != 'issue_comment' && github.event.pull_request.user.login != 'dependabot[bot]')
+      )
     name: Agent protocol / checked-state checkpoint
     runs-on: ubuntu-24.04
     timeout-minutes: 5
