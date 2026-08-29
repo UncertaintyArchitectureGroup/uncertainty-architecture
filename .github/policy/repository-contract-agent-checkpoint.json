@@ -1,17 +1,20 @@
 {
   "contract_version": 1,
-  "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state control surface without freezing validator internals.",
+  "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state and trusted-base control surfaces without freezing validator internals.",
   "required_paths": [
     {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
     {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
     {"path": ".github/policy/repository-contract-agent-checkpoint.json", "type": "file"},
     {"path": ".github/scripts/validate_agent_checkpoint.py", "type": "file"},
     {"path": ".github/scripts/fetch_agent_checkpoint_context.py", "type": "file"},
+    {"path": ".github/scripts/validate_agent_policy_guard.py", "type": "file"},
     {"path": ".github/scripts/validate_repository_contract.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_agent_checkpoint.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_feedback_context.py", "type": "file"},
+    {"path": ".github/tests/agent_checkpoint/test_trusted_base_guard.py", "type": "file"},
     {"path": ".github/tests/agent_checkpoint/test_checkpoint_repository_contract.py", "type": "file"},
     {"path": ".github/workflows/change-coupling.yml", "type": "file"},
+    {"path": ".github/workflows/agent-policy-guard.yml", "type": "file"},
     {"path": ".github/pull_request_template.md", "type": "file"},
     {"path": "AGENTS.md", "type": "file"}
   ],
@@ -20,6 +23,8 @@
       "path": ".github/policy/change-coupling-contract.json",
       "required_json": [
         {"pointer": "/controlled_values/agent_assistance", "equals": ["used", "none"]},
+        {"pointer": "/repository_policy_prefixes", "equals": [".github/", "AGENTS.md", "CONTRIBUTING.md", "DOCUMENT-METADATA.md"]},
+        {"pointer": "/draft_required_document_statuses", "equals": ["draft-normative", "normative"]},
         {"pointer": "/exception_labels/ua-exception~1pr-contract", "equals": ["pr-contract"]}
       ]
     },
@@ -47,6 +52,28 @@
       ]
     },
     {
+      "path": ".github/scripts/fetch_agent_checkpoint_context.py",
+      "required_text": [
+        "authorized_codeowners",
+        "collaborator_permission",
+        "paged_object_items",
+        "write/maintain/admin",
+        "trusted_associations"
+      ]
+    },
+    {
+      "path": ".github/scripts/validate_agent_policy_guard.py",
+      "required_text": [
+        "Agent protocol / trusted-base guard",
+        "pull_request_target",
+        "post_status",
+        "reviewed_base_tip_sha",
+        "safe agent-assisted defaults",
+        "repository_policy_prefixes",
+        "draft_required_document_statuses"
+      ]
+    },
+    {
       "path": ".github/workflows/change-coupling.yml",
       "required_text": [
         "pull_request_review:",
@@ -60,7 +87,21 @@
         "name: Agent protocol / readiness authorization",
         "Record successful head-bound readiness authorization",
         "Collect live PR and maintainer control context",
-        "Validate checked-state agent checkpoint"
+        "Validate checked-state agent checkpoint",
+        "Run trusted-base guard regression fixtures"
+      ]
+    },
+    {
+      "path": ".github/workflows/agent-policy-guard.yml",
+      "required_text": [
+        "name: Agent policy guard",
+        "pull_request_target:",
+        "push:",
+        "statuses: write",
+        "Check out trusted target branch only",
+        "github.event.repository.default_branch",
+        "validate_agent_policy_guard.py",
+        "Agent protocol / trusted-base guard"
       ]
     },
     {
@@ -94,6 +135,7 @@
         "\"merge_sha\"",
         "\"pr_body_sha256\"",
         "Agent protocol / readiness authorization",
+        "Agent protocol / trusted-base guard",
         "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>"
       ]
     }
