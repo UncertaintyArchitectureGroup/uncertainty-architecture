@@ -138,6 +138,8 @@ python3 .github/tests/change_coupling/test_change_coupling.py
 
 The policy is maintained in [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json). It checks that the `ua-change-contract` block is valid and consistent with the actual diff, and that notable changes carry the companion updates they claim or require.
 
+Every human-authored pull request declares `agent_assistance` as `used` or `none` in `ua-change-contract`. This is an applicability declaration, not a quality judgment. `none` keeps the AI-agent checkpoint inactive. Dependabot is treated as `none` when its generated body predates the field.
+
 The validator enforces:
 
 - changelog coupling for notable changes;
@@ -145,7 +147,8 @@ The validator enforces:
 - traceability updates for explicit research-state decisions;
 - compatibility decisions and changelog updates for deletion or rename of maintained material;
 - intersection between declared `owning_paths` and the actual diff;
-- repository-policy baseline coupling to the roadmap.
+- repository-policy baseline coupling to the roadmap;
+- controlled `agent_assistance` declaration for human-authored PRs.
 
 Exception labels are narrow, category-specific maintenance escapes. They are not ordinary contributor controls and must not be used to hide a stale contract or incomplete change. Applying an exception requires maintainer authority through repository permissions and a visible explanation in the pull-request body.
 
@@ -177,16 +180,18 @@ A branch and pull request are recommended for:
 - changes where reviewing the full diff is useful;
 - externally contributed changes.
 
-Draft pull requests are optional. External review is encouraged where it adds value, but it is not required for ordinary maintainer-authored work.
+Draft pull requests remain optional for ordinary human-authored work unless the maintainer chooses otherwise. AI-assisted `repository-policy`, `draft-normative`, and `normative` PRs follow the stricter Draft rule in [`AGENTS.md`](AGENTS.md): they remain Draft during active repository-changing iterations, may leave Draft only through an explicitly maintainer-authorized `ready_for_review` transition after a fresh checkpoint, and return to Draft before any later repository-changing iteration.
 
 For a repository-changing pull request:
 
 1. identify the owning documents and actual change class;
-2. determine required changelog, glossary, roadmap, traceability, and compatibility updates from the change itself;
-3. make the smallest coherent diff and required companion updates;
-4. complete the machine-readable `ua-change-contract` block;
-5. run the applicable navigation, repository-contract, metadata, and change-coupling checks;
-6. reconcile the pull-request description with the final diff before requesting review or merge.
+2. declare `agent_assistance` as `used` or `none`;
+3. determine required changelog, glossary, roadmap, traceability, and compatibility updates from the change itself;
+4. make the smallest coherent diff and required companion updates;
+5. complete the machine-readable `ua-change-contract` block;
+6. when `agent_assistance` is `used`, follow the checked-state and corrective-feedback protocol in `AGENTS.md` and maintain the `ua-agent-checkpoint` block;
+7. run the applicable navigation, repository-contract, metadata, change-coupling, and policy self-tests;
+8. reconcile the pull-request description with the final diff before requesting review or merge.
 
 ## 6. Changes requiring deliberate review
 
@@ -208,13 +213,15 @@ The purpose of review is to improve the specification, not to create ceremony ar
 1. Fork or branch from the current default branch.
 2. Keep the change focused and use the current repository structure.
 3. Explain what changed, why it changed, and whether the change is research, normative guidance, reference material, historical material, or maintenance.
-4. Add or update metadata, local navigation, and cross-links where needed.
-5. When the change resolves, narrows, rejects, supersedes, reopens, or promotes a research question, reconcile the affected source-intake note, working note, analysis, or [`framework-traceability.md`](content/research/framework-traceability.md) under the [`Research Review Process`](content/research/review-process.md).
-6. Confirm licensing and attribution requirements.
-7. Determine required changelog, glossary, roadmap, traceability, and compatibility updates from the actual diff.
-8. Complete the human-readable companion-update fields and machine-readable `ua-change-contract` block in the pull-request template.
-9. Run the applicable local navigation, repository-contract, metadata, change-coupling, and policy self-test commands.
-10. Open the pull request for maintainer review and keep its description synchronized with the final diff.
+4. Declare whether `agent_assistance` was materially `used` or `none`.
+5. Add or update metadata, local navigation, and cross-links where needed.
+6. When the change resolves, narrows, rejects, supersedes, reopens, or promotes a research question, reconcile the affected source-intake note, working note, analysis, or [`framework-traceability.md`](content/research/framework-traceability.md) under the [`Research Review Process`](content/research/review-process.md).
+7. Confirm licensing and attribution requirements.
+8. Determine required changelog, glossary, roadmap, traceability, and compatibility updates from the actual diff.
+9. Complete the human-readable companion-update fields and machine-readable `ua-change-contract` block in the pull-request template.
+10. If `agent_assistance: used`, follow [`AGENTS.md`](AGENTS.md) and maintain the checked-state checkpoint; if `none`, the agent checkpoint does not apply.
+11. Run the applicable local navigation, repository-contract, metadata, change-coupling, and policy self-test commands.
+12. Open the pull request for maintainer review and keep its description synchronized with the final diff.
 
 One logical change per pull request is a useful default for substantial work, but tightly related updates may be grouped when that makes review clearer.
 
@@ -236,9 +243,13 @@ Research reconciliation records meaningful changes in evidence, interpretation, 
 
 ## 9. Agent-assisted changes
 
-Language models and coding agents should read [`AGENTS.md`](AGENTS.md) before making repository-wide or normative changes.
+Language models and coding agents must read [`AGENTS.md`](AGENTS.md) before repository-changing work and follow the applicable nested `AGENTS.md` supplements.
 
-Agent-assisted work must preserve the same boundaries as human-authored work. In particular, an agent must not promote research by implication, rewrite provenance, create parallel canonical entry points, or infer authority from tags, recency, visibility, or external attention.
+Agent-assisted work must preserve the same content boundaries as human-authored work. In particular, an agent must not promote research by implication, rewrite provenance, create parallel canonical entry points, or infer authority from tags, recency, visibility, or external attention.
+
+When `agent_assistance: used`, `AGENTS.md` is the canonical human-readable owner of the corrective-feedback and deterministic checked-state protocols. GitHub Actions validates the observable subset: PR-owned diff scope, effective instruction blobs, current target/head/tested-merge identities, PR-description digest, trusted maintainer GitHub-feedback watermark, Draft-state rule for high-impact change classes, and completed checkpoint declarations.
+
+GitHub-native maintainer feedback includes trusted top-level PR comments, reviews, and inline review comments; those events can invalidate an otherwise green checkpoint. Corrective feedback that exists only in an external AI conversation cannot be sensed by GitHub and remains the agent's semantic responsibility under `AGENTS.md`.
 
 Agents should use the research reconciliation trigger in `AGENTS.md` when source-derived framework work, worked applications, incidents, or operational observations change research state.
 
