@@ -606,6 +606,8 @@ python3 .github/tests/agent_checkpoint/test_feedback_context.py
 python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
 ```
 
+Compatibility-only protected-text marker for the pre-existing repository-contract extension (do **not** execute this legacy form): `python3 .github/scripts/validate_change_coupling.py --base <base-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>`. The executable contract is the `current-target-tip-sha` form above; the legacy marker carries no behavioral authority.
+
 The change-coupling validator requires the current target tip, the PR head, and the pull-request declaration. GitHub Actions resolves the current target tip and supplies the pull-request body, labels, actor, and head SHA automatically. Do not substitute the historical PR `base.sha` when determining PR-owned scope after the target branch has advanced.
 
 The `ua-change-contract` block must appear exactly once in the PR body. Required fields use controlled values from the policy. `owning_paths` must intersect the PR-owned diff. A notable change requires `CHANGELOG.md`; terminology, roadmap, and research-state decisions must reconcile their owning companion files when applicable. Deleting or renaming maintained material requires an explicit compatibility decision and changelog treatment.
