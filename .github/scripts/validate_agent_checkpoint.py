@@ -62,12 +62,16 @@ def changed_paths(root: Path, base_tip: str, head: str) -> List[str]:
         if len(parts) < 2:
             continue
         status = parts[0]
-        if status.startswith(("R", "C")) and len(parts) >= 3:
+        if status.startswith("R") and len(parts) >= 3:
             paths.add(parts[1])
             paths.add(parts[2])
         else:
             paths.add(parts[-1])
     return sorted(path for path in paths if path)
+
+
+def path_matches(path: str, prefixes: Iterable[str]) -> bool:
+    return any(path == prefix or path.startswith(prefix) for prefix in prefixes)
 
 
 def path_exists_at(root: Path, ref: str, path: str) -> bool:
@@ -218,6 +222,7 @@ def validate(
         str(item) for item in context.get("labels", [])
         if isinstance(item, str)
     }
+
     change, change_error = parse_block(body, str(contract["pr_change_contract_marker"]))
     if change_error:
         allowed_exceptions = exception_labels_for(change_contract, "pr-contract")
@@ -239,7 +244,7 @@ def validate(
         return [
             Finding(
                 "error",
-                "agent_assistance 'none' is a maintainer-controlled opt-out. A target-branch CODEOWNER must add the structured ua-agent-assistance-none approval comment before the checkpoint can be disabled.",
+                "agent_assistance 'none' is a maintainer-controlled, head-bound opt-out. A target-branch CODEOWNER must add the structured ua-agent-assistance-none approval for the current head before the checkpoint can be disabled.",
             )
         ]
     if assistance != "used":
@@ -256,10 +261,29 @@ def validate(
     if findings:
         return findings
 
-    draft_required = set(str(item) for item in contract.get("draft_required_change_classes", []))
-    change_class = str(change.get("change_class") or "")
-    is_draft = bool(context.get("draft"))
+    base_tip = str(context.get("base_tip_sha") or "")
     head = str(context.get("head_sha") or "")
+    merge = str(context.get("merge_sha") or "")
+    owned_paths = changed_paths(root, base_tip, head)
+    repository_policy_prefixes = [
+        str(item) for item in change_contract.get("repository_policy_prefixes", [])
+    ]
+    repository_policy_changed = any(
+        path_matches(path, repository_policy_prefixes) for path in owned_paths
+    )
+
+    change_class = str(change.get("change_class") or "")
+    if repository_policy_changed and change_class != "repository-policy":
+        findings.append(
+            Finding(
+                "error",
+                "PR-owned repository-policy paths require change_class 'repository-policy'; declaration {!r} cannot disable repository-policy controls.".format(change_class),
+            )
+        )
+
+    draft_required = set(str(item) for item in contract.get("draft_required_change_classes", []))
+    effective_draft_required = change_class in draft_required or repository_policy_changed
+    is_draft = bool(context.get("draft"))
     ready_head = str(context.get("ready_head_sha") or "")
     event_name = str(context.get("event_name") or "")
     event_action = str(context.get("event_action") or "")
@@ -274,20 +298,21 @@ def validate(
         and bool(context.get("ready_approval_present"))
         and bool(context.get("ready_check_passed"))
     )
-    if change_class in draft_required and not is_draft and not (transition_ready or durable_ready):
+    if effective_draft_required and not is_draft and not (transition_ready or durable_ready):
+        effective_label = "repository-policy" if repository_policy_changed else change_class
         findings.append(
             Finding(
                 "error",
                 "AI-assisted {} PR must remain Draft during repository-changing iterations. "
-                "Leaving Draft requires a target-branch CODEOWNER approval bound to the current head and fresh checkpoint, followed by a successful readiness-authorization check for the current tested merge state.".format(change_class),
+                "Leaving Draft requires a target-branch CODEOWNER approval bound to the current head, tested merge state, PR-body digest, and fresh checkpoint, followed by verified readiness-authorization workflow evidence.".format(effective_label),
             )
         )
 
     expected_shas = {
         "reviewed_base_sha": str(context.get("diff_base_sha") or ""),
-        "reviewed_base_tip_sha": str(context.get("base_tip_sha") or ""),
+        "reviewed_base_tip_sha": base_tip,
         "reviewed_head_sha": head,
-        "reviewed_merge_sha": str(context.get("merge_sha") or ""),
+        "reviewed_merge_sha": merge,
     }
     for field, expected in expected_shas.items():
         actual = str(checkpoint[field])
@@ -302,8 +327,6 @@ def validate(
     if checkpoint["reviewed_feedback_sha256"] != feedback_hash:
         findings.append(Finding("error", "agent checkpoint is stale: reviewed_feedback_sha256 does not match current trusted PR review feedback. Expected {}.".format(feedback_hash)))
 
-    base_tip = str(context.get("base_tip_sha") or "")
-    merge = str(context.get("merge_sha") or "")
     expected_agents = applicable_agent_records(root, base_tip, head, merge)
     if checkpoint["applicable_agents"] != expected_agents:
         findings.append(Finding("error", "applicable_agents does not match PR-owned changed paths and the tested merge result. Expected: {}".format(json.dumps(expected_agents, sort_keys=True))))
