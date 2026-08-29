@@ -136,9 +136,9 @@ python3 .github/scripts/validate_change_coupling.py \
 python3 .github/tests/change_coupling/test_change_coupling.py
 ```
 
-Use the current target tip for `--base`; do not substitute the historical PR `base.sha` after the target branch has advanced. The policy is maintained in [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json). It checks that the `ua-change-contract` block is valid and consistent with the PR-owned diff, and that notable changes carry the companion updates they claim or require.
+Use the current target tip for `--base`; do not substitute the historical PR `base.sha` after the target branch has advanced. The policy is maintained in [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json). It checks that the `ua-change-contract` block is valid and consistent with the PR-owned diff, and that notable changes carry the companion updates they claim or require. PR-owned repository-policy paths require `change_class: repository-policy`; a weaker declaration is rejected rather than allowing repository-policy controls to be bypassed.
 
-Every human-authored pull request declares `agent_assistance` as `used` or `none` in `ua-change-contract`. This is an applicability declaration, not a quality judgment. `none` is a maintainer-controlled opt-out, not a self-attested bypass: except for the Dependabot compatibility path, it disables the checkpoint only after a target-branch global CODEOWNER adds the structured `ua-agent-assistance-none` approval described in [`AGENTS.md`](AGENTS.md). Existing open human-authored PRs created before the field was introduced must add it on their next maintained iteration; this is an explicit compatibility migration.
+Every human-authored pull request declares `agent_assistance` as `used` or `none` in `ua-change-contract`. This is an applicability declaration, not a quality judgment. `none` is a maintainer-controlled, **head-bound** opt-out, not a self-attested bypass: except for the Dependabot compatibility path, it disables the checkpoint only after a target-branch global CODEOWNER adds the structured `ua-agent-assistance-none` approval for the exact current head described in [`AGENTS.md`](AGENTS.md). A later repository head invalidates the prior opt-out. Existing open human-authored PRs created before the field was introduced must add it on their next maintained iteration; this is an explicit compatibility migration.
 
 The validator enforces:
 
@@ -147,7 +147,7 @@ The validator enforces:
 - traceability updates for explicit research-state decisions;
 - compatibility decisions and changelog updates for deletion or rename of maintained material;
 - intersection between declared `owning_paths` and the PR-owned diff;
-- repository-policy baseline coupling to the roadmap;
+- repository-policy classification and baseline coupling to the roadmap;
 - controlled `agent_assistance` declaration for human-authored PRs.
 
 Exception labels are narrow, category-specific maintenance escapes. They are not ordinary contributor controls and must not be used to hide a stale contract or incomplete change. Applying an exception requires maintainer authority through repository permissions and a visible explanation in the pull-request body. A shared prerequisite exception, such as `ua-exception/pr-contract`, is respected consistently by checks that depend on that prerequisite rather than being silently negated by another job.
@@ -180,19 +180,19 @@ A branch and pull request are recommended for:
 - changes where reviewing the full diff is useful;
 - externally contributed changes.
 
-Draft pull requests remain optional for ordinary human-authored work unless the maintainer chooses otherwise. AI-assisted `repository-policy`, `draft-normative`, and `normative` PRs follow the stricter rule in [`AGENTS.md`](AGENTS.md): they remain Draft while repository-changing work is active. Leaving Draft requires a fresh checkpoint, a target-branch global CODEOWNER `ua-agent-ready-approval` comment bound to the exact current head and checkpoint fingerprint, and a successful **Agent protocol / readiness authorization** check produced by the subsequent `ready_for_review` run. A failed or premature Ready transition is not made valid by later checkpoint edits. Same-head review can stale the checkpoint without revoking successful readiness; a later head or tested-merge state requires a fresh authorization cycle.
+Draft pull requests remain optional for ordinary human-authored work unless the maintainer chooses otherwise. AI-assisted repository-policy work detected from PR-owned policy paths, and declared `repository-policy`, `draft-normative`, and `normative` PRs, follow the stricter rule in [`AGENTS.md`](AGENTS.md): they remain Draft while repository-changing work is active. Leaving Draft requires a fresh checkpoint and a target-branch global CODEOWNER `ua-agent-ready-approval` comment bound to the exact current **head, tested merge SHA, PR-body digest, and checkpoint fingerprint**. That approval must predate the Ready transition and must not be edited afterwards. The subsequent `ready_for_review` run must pass the checkpoint, and durable readiness is accepted only from the protected `.github/workflows/change-coupling.yml` run on the PR head with the expected **Agent protocol / readiness authorization** job and success step. A same-named check from another workflow does not count. A failed or premature Ready transition is not made valid by later checkpoint or comment edits. Same-head review feedback can stale the checkpoint without revoking successful readiness; a substantive PR-body edit, later head, changed tested-merge state, or new Ready cycle requires fresh authorization.
 
 For a repository-changing pull request:
 
-1. identify the owning documents and actual change class;
-2. declare `agent_assistance` as `used` or `none`; if `none`, obtain the CODEOWNER opt-out marker before relying on that declaration;
+1. identify the owning documents and actual change class; repository-policy paths must be classified as `repository-policy`;
+2. declare `agent_assistance` as `used` or `none`; if `none`, obtain the head-bound CODEOWNER opt-out marker before relying on that declaration;
 3. determine required changelog, glossary, roadmap, traceability, and compatibility updates from the change itself;
 4. make the smallest coherent diff and required companion updates;
 5. complete the machine-readable `ua-change-contract` block;
 6. when `agent_assistance` is `used`, follow the checked-state and corrective-feedback protocol in `AGENTS.md` and maintain the `ua-agent-checkpoint` block;
 7. run the applicable navigation, repository-contract, metadata, change-coupling, and policy self-tests;
 8. reconcile the pull-request description with the final PR-owned diff before requesting review or merge;
-9. for high-impact AI-assisted change classes, complete the CODEOWNER-bound readiness protocol before leaving Draft.
+9. for high-impact AI-assisted change classes, complete the state-bound CODEOWNER readiness protocol before leaving Draft.
 
 ## 6. Changes requiring deliberate review
 
@@ -213,14 +213,14 @@ The purpose of review is to improve the specification, not to create ceremony ar
 
 1. Fork or branch from the current default branch.
 2. Keep the change focused and use the current repository structure.
-3. Explain what changed, why it changed, and whether the change is research, normative guidance, reference material, historical material, or maintenance.
-4. Declare whether `agent_assistance` was materially `used` or `none`; `none` becomes effective only after the maintainer-controlled opt-out evidence described in `AGENTS.md`.
+3. Explain what changed, why it changed, and whether the change is research, normative guidance, reference material, historical material, maintenance, or repository policy; PR-owned policy paths must not be declared as a weaker class.
+4. Declare whether `agent_assistance` was materially `used` or `none`; `none` becomes effective only after the maintainer-controlled, head-bound opt-out evidence described in `AGENTS.md`.
 5. Add or update metadata, local navigation, and cross-links where needed.
 6. When the change resolves, narrows, rejects, supersedes, reopens, or promotes a research question, reconcile the affected source-intake note, working note, analysis, or [`framework-traceability.md`](content/research/framework-traceability.md) under the [`Research Review Process`](content/research/review-process.md).
 7. Confirm licensing and attribution requirements.
 8. Determine required changelog, glossary, roadmap, traceability, and compatibility updates from the PR-owned diff.
 9. Complete the human-readable companion-update fields and machine-readable `ua-change-contract` block in the pull-request template.
-10. If `agent_assistance: used`, follow [`AGENTS.md`](AGENTS.md) and maintain the checked-state checkpoint; if `none`, obtain the target-branch CODEOWNER opt-out marker.
+10. If `agent_assistance: used`, follow [`AGENTS.md`](AGENTS.md) and maintain the checked-state checkpoint; if `none`, obtain the target-branch CODEOWNER opt-out marker for the current head.
 11. Run the applicable local navigation, repository-contract, metadata, change-coupling, and policy self-test commands.
 12. Open the pull request for maintainer review and keep its description synchronized with the final diff.
 
@@ -248,9 +248,9 @@ Language models and coding agents must read [`AGENTS.md`](AGENTS.md) before repo
 
 Agent-assisted work must preserve the same content boundaries as human-authored work. In particular, an agent must not promote research by implication, rewrite provenance, create parallel canonical entry points, or infer authority from tags, recency, visibility, or external attention.
 
-When `agent_assistance: used`, `AGENTS.md` is the canonical human-readable owner of the corrective-feedback and deterministic checked-state protocols. GitHub Actions validates the observable subset: shared PR-owned diff scope across change coupling and checkpoint validation, effective instruction blobs, current target/head/tested-merge identities, PR-description digest, trusted review/inline-review feedback watermark, target-branch CODEOWNER control evidence, Draft/readiness authorization for high-impact change classes, and completed checkpoint declarations.
+When `agent_assistance: used`, `AGENTS.md` is the canonical human-readable owner of the corrective-feedback and deterministic checked-state protocols. GitHub Actions validates the observable subset: shared PR-owned diff scope across change coupling and checkpoint validation, diff-derived repository-policy classification, effective instruction blobs, current target/head/tested-merge identities, PR-description digest, trusted review/inline-review feedback watermark, head-bound target-branch CODEOWNER opt-out evidence, state-bound readiness approval, verified readiness workflow provenance on the PR head, Draft/readiness authorization for high-impact change classes, and completed checkpoint declarations.
 
-Trusted GitHub reviews and inline review comments can invalidate an otherwise green checkpoint on the PR merge/head lifecycle. Ordinary top-level PR Conversation comments and external AI conversation corrections remain semantic feedback rather than immediate PR-head status triggers; the two explicit CODEOWNER control markers for `agent_assistance: none` and Ready authorization are read during normal PR-head checkpoint events. GitHub cannot distinguish a human action from an AI action performed through the same authenticated GitHub principal, so the repository does not claim stronger identity separation than the evidence supports.
+Trusted GitHub reviews and inline review comments can invalidate an otherwise green checkpoint on the PR head lifecycle. Ordinary top-level PR Conversation comments and external AI conversation corrections remain semantic feedback rather than immediate PR-head status triggers; explicit CODEOWNER control markers for `agent_assistance: none` and Ready authorization are read during normal PR-head checkpoint events. GitHub cannot distinguish a human action from an AI action performed through the same authenticated GitHub principal, so the repository does not claim stronger identity separation than the evidence supports.
 
 Agents should use the research reconciliation trigger in `AGENTS.md` when source-derived framework work, worked applications, incidents, or operational observations change research state.
 
