@@ -31,6 +31,8 @@
         {"pointer": "/ready_approval_marker", "equals": "ua-agent-ready-approval"},
         {"pointer": "/agent_none_approval_marker", "equals": "ua-agent-assistance-none"},
         {"pointer": "/readiness_check_name", "equals": "Agent protocol / readiness authorization"},
+        {"pointer": "/readiness_workflow_path", "equals": ".github/workflows/change-coupling.yml"},
+        {"pointer": "/readiness_step_name", "equals": "Record successful head-bound readiness authorization"},
         {"pointer": "/maintainer_authority_path", "equals": ".github/CODEOWNERS"},
         {"pointer": "/checkpoint_version", "equals": 1},
         {"pointer": "/draft_required_change_classes", "equals": ["repository-policy", "draft-normative", "normative"]},
@@ -56,6 +58,7 @@
         "checks: read",
         "name: Agent protocol / checked-state checkpoint",
         "name: Agent protocol / readiness authorization",
+        "Record successful head-bound readiness authorization",
         "Collect live PR and maintainer control context",
         "Validate checked-state agent checkpoint"
       ]
@@ -68,6 +71,9 @@
         "## Agent iteration checkpoint",
         "ua-agent-ready-approval",
         "ua-agent-assistance-none",
+        "\"head_sha\"",
+        "\"merge_sha\"",
+        "\"pr_body_sha256\"",
         "<!-- ua-agent-checkpoint",
         "\"reviewed_pr_body_sha256\"",
         "\"reviewed_feedback_sha256\"",
@@ -84,6 +90,9 @@
         "reviewed_feedback_sha256",
         "ua-agent-ready-approval",
         "ua-agent-assistance-none",
+        "\"head_sha\"",
+        "\"merge_sha\"",
+        "\"pr_body_sha256\"",
         "Agent protocol / readiness authorization",
         "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>"
       ]
