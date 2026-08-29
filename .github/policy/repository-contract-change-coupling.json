@@ -125,6 +125,78 @@
     {
       "path": "quartz/scripts/publication-figure8.test.mjs",
       "type": "file"
+    },
+    {
+      "path": ".github/workflows/export-platform-renditions.yml",
+      "type": "file"
+    },
+    {
+      "path": "quartz/PLATFORM-RENDITIONS.md",
+      "type": "file"
+    },
+    {
+      "path": "quartz/publication/thinking-systems.platforms.json",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/render-platform-renditions.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/platform-rendition.test.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/render-copy-ready.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/render-copy-ready.test.mjs",
+      "type": "file"
+    },
+    {
+      "path": "content/research/notes/thinking-systems-linkedin-launch-post.md",
+      "type": "file"
+    },
+    {
+      "path": "content/research/notes/thinking-systems-platform-renditions.md",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/protect-platform-heading-links.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/protect-platform-heading-links.test.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/render-platform-furniture.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/platform-furniture.test.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/copy-ready.test.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/verify-publication-package.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/verify-publication-package.test.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/render-publication-assets.mjs",
+      "type": "file"
+    },
+    {
+      "path": "quartz/scripts/publication-assets.test.mjs",
+      "type": "file"
     }
   ],
   "critical_files": [
@@ -241,11 +313,48 @@
     },
     {
       "path": "package.json",
-      "required_text": [
-        "\"pdf\": \"node quartz/scripts/export-pdf.mjs\"",
-        "\"pdf:article\": \"node quartz/scripts/render-publication-pdf.mjs content/research/notes/thinking-systems-publication-draft.md --output dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf\"",
-        "\"pdf:working-paper\": \"node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense\"",
-        "\"pdf:verify:figure8\": \"node quartz/scripts/verify-publication-figure8.mjs\""
+      "required_text": [],
+      "required_json": [
+        {
+          "pointer": "/scripts/pdf",
+          "equals": "node quartz/scripts/export-pdf.mjs"
+        },
+        {
+          "pointer": "/scripts/pdf:article",
+          "equals": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/thinking-systems-publication-draft.md --output dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf"
+        },
+        {
+          "pointer": "/scripts/pdf:working-paper",
+          "equals": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense"
+        },
+        {
+          "pointer": "/scripts/pdf:verify:figure8",
+          "equals": "node quartz/scripts/verify-publication-figure8.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:platforms",
+          "equals": "node quartz/scripts/render-platform-renditions.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:protect-links",
+          "equals": "node quartz/scripts/protect-platform-heading-links.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:furniture",
+          "equals": "node quartz/scripts/render-platform-furniture.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:copy-ready",
+          "equals": "node quartz/scripts/render-copy-ready.mjs"
+        },
+        {
+          "pointer": "/scripts/publication:bundle",
+          "equals": "npm run publication:assets && npm run publication:platforms && npm run publication:protect-links && npm run publication:furniture && npm run publication:copy-ready"
+        },
+        {
+          "pointer": "/scripts/publication:verify-package",
+          "equals": "node quartz/scripts/verify-publication-package.mjs"
+        }
       ]
     },
     {
@@ -489,6 +598,84 @@
         ".ua-pdf-static-figure--8a",
         ".ua-pdf-static-figure--8b",
         "break-after: page"
+      ]
+    },
+    {
+      "path": ".github/workflows/export-platform-renditions.yml",
+      "required_text": [
+        "name: Export platform renditions",
+        "workflow_dispatch:",
+        "npm run publication:bundle",
+        "thinking-systems-platform-renditions",
+        "fetch-depth: 0",
+        "dist/publication/thinking-systems/figures/png/**",
+        "dist/publication/thinking-systems/renditions/**",
+        "UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}",
+        "npm run publication:verify-package",
+        "quartz/scripts/verify-publication-package.test.mjs"
+      ]
+    },
+    {
+      "path": "quartz/scripts/render-platform-renditions.mjs",
+      "required_text": [
+        "publication_state: \"candidate\"",
+        "publication_ready: false",
+        "launch_post_article_url_binding: \"required-placeholder\"",
+        "figure_8_panels_must_travel_together: true",
+        "\"platform-renditions.manifest.json\""
+      ]
+    },
+    {
+      "path": "quartz/scripts/render-copy-ready.mjs",
+      "required_text": [
+        "clipboard_behavior: \"manual-select-all-copy\"",
+        "javascript_copy_controls: false",
+        "linkedin_image_strategy: \"embedded-data-uri\"",
+        "medium_image_strategy: \"embedded-data-uri-preview\"",
+        "medium_clipboard_images_supported: false",
+        "medium_manual_upload_required: true",
+        "medium_upload_kit: \"medium/upload/README.md\""
+      ]
+    },
+    {
+      "path": "quartz/publication/thinking-systems.platforms.json",
+      "required_text": [
+        "\"post_max_characters\": 3000",
+        "\"article_max_characters\": 125000",
+        "\"width\": 2000",
+        "\"image_min_width\": 1192",
+        "one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment",
+        "Maximiliano Armesto",
+        "Jan Rosen"
+      ]
+    },
+    {
+      "path": "quartz/scripts/protect-platform-heading-links.mjs",
+      "required_text": [
+        "mechanism: \"visible-source-line-after-linked-heading\"",
+        "parser: \"remark-ast\"",
+        "body_links_duplicated: false",
+        "deterministic_multiple_links: true"
+      ]
+    },
+    {
+      "path": "quartz/scripts/verify-publication-package.mjs",
+      "required_text": [
+        "platformManifest.publication_state === \"candidate\"",
+        "platformManifest.publication_ready === false",
+        "copyReady?.medium_clipboard_images_supported === false",
+        "copyReady?.medium_manual_upload_required === true",
+        "platformManifest.figure_8_panels_must_travel_together === true",
+        "checklist.includes(\"upload/README.md\")"
+      ]
+    },
+    {
+      "path": "content/research/notes/thinking-systems-linkedin-launch-post.md",
+      "required_text": [
+        "important ideas often do not appear as isolated flashes of genius",
+        "following his From Fall to Rise post",
+        "a Thinking System is a software system in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment",
+        "{{LINKEDIN_ARTICLE_URL}}"
       ]
     }
   ]
