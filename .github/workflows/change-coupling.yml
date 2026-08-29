@@ -132,5 +132,8 @@ jobs:
       - name: Run feedback-context regression fixtures
         run: python3 .github/tests/agent_checkpoint/test_feedback_context.py
 
+      - name: Run trusted-base guard regression fixtures
+        run: python3 .github/tests/agent_checkpoint/test_trusted_base_guard.py
+
       - name: Run checkpoint repository-contract mutation fixture
         run: python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
