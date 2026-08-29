@@ -5,6 +5,7 @@
 ## Repository placement
 
 - **Change class:** <!-- maintenance | repository-policy | research | draft-normative | normative | reference | history | publishing -->
+- **Agent assistance:** <!-- used | none -->
 - **Owning path or module:**
 - **Decision levels affected:** <!-- organization | project | delivery | runtime | none -->
 - **Capability families affected:** <!-- constraints | sensors | controllers | actuators | none -->
@@ -17,11 +18,11 @@
 - **Research traceability:** <!-- updated | unchanged | not-applicable -->
 - **Compatibility / migration:** <!-- preserved | changed: explain | not-applicable -->
 
-The machine-readable block below is validated against the actual git diff. Keep the human-readable fields and JSON declaration consistent. Use `not-required` only when the change is genuinely outside that companion document's scope. Maintainer exception labels are narrow, visible escapes and do not replace an explanation.
+The machine-readable block below is validated against the actual git diff. Keep the human-readable fields and JSON declaration consistent. Every human-authored PR declares whether AI/agent assistance was materially used. `agent_assistance: none` does not activate the agent checkpoint. Use `not-required` only when the change is genuinely outside that companion document's scope. Maintainer exception labels are narrow, visible escapes and do not replace an explanation.
 
 ## Validation
 
-- [ ] I read the owning documents and required dependencies from `AGENTS.md`.
+- [ ] I read the owning documents and required dependencies.
 - [ ] I checked terminology, links, metadata, compatibility, and duplicate ownership.
 - [ ] I ran the relevant local validators or stated which checks were unavailable.
 - [ ] I updated `CHANGELOG.md` for a notable change, or explained why no entry is required.
@@ -30,11 +31,13 @@ The machine-readable block below is validated against the actual git diff. Keep 
 
 ## Agent iteration checkpoint
 
-For AI-assisted PR work, update `ua-agent-checkpoint` after every change to the reviewed PR state. The checkpoint is bound to the PR diff-base SHA, the current target-branch tip, the PR head, GitHub's tested merge-result SHA, the PR-description SHA-256 (excluding the checkpoint block itself), and the blob SHA of every `AGENTS.md` file applicable to the changed paths in that tested merge state.
+This section applies only when `agent_assistance` is `used`. AI-assisted `repository-policy`, `draft-normative`, and `normative` pull requests remain **Draft** during active repository-changing iterations. The explicit maintainer `ready_for_review` transition may leave Draft only after the checked-state checkpoint is current; any later commit, PR-description edit, target-base change, or relevant maintainer feedback requires a fresh checkpoint and, for those change classes, a return to Draft before continuing.
 
-Before updating it, re-read those effective instructions, the full current diff, this PR description, available maintainer corrective feedback, and the end-of-session integrity protocol. A new commit, target-branch advance observed by the checkpoint run, base retarget, changed merge result, or PR-description edit makes the prior attestation stale. Updating only the checkpoint block does not change the attested PR-description digest, so the acknowledgement can converge without another code commit or an infinite edit loop.
+The `ua-agent-checkpoint` is bound to the PR diff-base SHA, current target-branch tip, PR head, GitHub tested merge result, PR-description SHA-256 (excluding the checkpoint block itself), deterministic maintainer GitHub-feedback SHA-256, and the exact effective `AGENTS.md` blobs applicable to **PR-owned** changed paths. PR-owned paths are computed from the merge-base of the current target tip and PR head, so target-only changes already synchronized into the branch do not become false agent scope.
 
-Dependabot PRs are excluded from this checkpoint because Dependabot cannot maintain the attestation block itself; normal maintainer review and the other repository controls still apply.
+Before refreshing the checkpoint, re-read the effective instructions, the PR-owned full diff, this PR description, external maintainer corrective signals available in the active agent conversation, current trusted GitHub maintainer feedback, and the end-of-session integrity protocol. New trusted issue comments, review submissions/edits/dismissals, and inline review comments invalidate the feedback watermark. Updating only the checkpoint block does not change the attested PR-description digest, so the acknowledgement can converge without another code commit or an infinite edit loop.
+
+Dependabot is treated as `agent_assistance: none` when its generated PR body predates this declaration field.
 
 ## Uncertainty and remaining review
 
@@ -43,6 +46,7 @@ Dependabot PRs are excluded from this checkpoint because Dependabot cannot maint
 <!-- ua-change-contract
 {
   "change_class": "select-one",
+  "agent_assistance": "select-one",
   "owning_paths": [],
   "decision_levels": [],
   "capability_families": [],
@@ -64,6 +68,7 @@ Dependabot PRs are excluded from this checkpoint because Dependabot cannot maint
   "reviewed_head_sha": "replace-with-current-40-character-head-sha",
   "reviewed_merge_sha": "replace-with-current-40-character-tested-merge-sha",
   "reviewed_pr_body_sha256": "replace-with-current-64-character-body-digest",
+  "reviewed_feedback_sha256": "replace-with-current-64-character-feedback-digest",
   "applicable_agents": [
     {
       "path": "AGENTS.md",
