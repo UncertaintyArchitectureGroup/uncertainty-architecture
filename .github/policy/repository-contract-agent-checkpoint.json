@@ -2,6 +2,8 @@
   "contract_version": 1,
   "description": "Repository-contract extension protecting the deterministic AI-agent checked-state control surface.",
   "required_paths": [
+    {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
+    {"path": ".github/scripts/validate_change_coupling.py", "type": "file"},
     {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
     {"path": ".github/scripts/validate_agent_checkpoint.py", "type": "file"},
     {"path": ".github/scripts/fetch_agent_checkpoint_context.py", "type": "file"},
@@ -13,6 +15,20 @@
     {"path": "AGENTS.md", "type": "file"}
   ],
   "critical_files": [
+    {
+      "path": ".github/policy/change-coupling-contract.json",
+      "required_json": [
+        {"pointer": "/controlled_values/agent_assistance", "equals": ["used", "none"]}
+      ]
+    },
+    {
+      "path": ".github/scripts/validate_change_coupling.py",
+      "required_text": [
+        "agent_assistance",
+        "dependabot[bot]",
+        "--actor"
+      ]
+    },
     {
       "path": ".github/policy/agent-checkpoint-contract.json",
       "required_json": [
@@ -94,6 +110,7 @@
         "pull_request_review_comment:",
         "issue_comment:",
         "converted_to_draft",
+        "dependabot[bot]",
         "name: Agent protocol / checked-state checkpoint",
         "Collect live PR and maintainer feedback context",
         "fetch_agent_checkpoint_context.py",
