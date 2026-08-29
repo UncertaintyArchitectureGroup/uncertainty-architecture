@@ -1,7 +1,8 @@
 {
   "contract_version": 1,
-  "description": "Deterministic exact-state checkpoint for AI-assisted pull-request iterations.",
+  "description": "Deterministic checked-state checkpoint for AI-assisted pull-request iterations.",
   "pr_checkpoint_marker": "ua-agent-checkpoint",
+  "pr_change_contract_marker": "ua-change-contract",
   "checkpoint_version": 1,
   "required_fields": [
     "checkpoint_version",
@@ -10,6 +11,7 @@
     "reviewed_head_sha",
     "reviewed_merge_sha",
     "reviewed_pr_body_sha256",
+    "reviewed_feedback_sha256",
     "applicable_agents",
     "diff_recheck",
     "pr_description_recheck",
@@ -23,5 +25,7 @@
     "corrective_feedback_review": ["completed"],
     "feedback_disposition": ["none", "local", "candidate", "approved-applied", "deferred"],
     "completion_recheck": ["completed"]
-  }
+  },
+  "draft_required_change_classes": ["repository-policy", "draft-normative", "normative"],
+  "trusted_feedback_author_associations": ["OWNER", "MEMBER", "COLLABORATOR"]
 }
