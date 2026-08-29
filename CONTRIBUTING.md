@@ -138,7 +138,7 @@ python3 .github/tests/change_coupling/test_change_coupling.py
 
 The policy is maintained in [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json). It checks that the `ua-change-contract` block is valid and consistent with the actual diff, and that notable changes carry the companion updates they claim or require.
 
-Every human-authored pull request declares `agent_assistance` as `used` or `none` in `ua-change-contract`. This is an applicability declaration, not a quality judgment. `none` keeps the AI-agent checkpoint inactive. Dependabot is treated as `none` when its generated body predates the field.
+Every human-authored pull request declares `agent_assistance` as `used` or `none` in `ua-change-contract`. This is an applicability declaration, not a quality judgment. `none` keeps the AI-agent checkpoint inactive. Dependabot is treated as `none` when its generated body predates the field. Existing open human-authored PRs created before this field was introduced must add it on their next maintained iteration; this is an explicit compatibility migration.
 
 The validator enforces:
 
@@ -150,7 +150,7 @@ The validator enforces:
 - repository-policy baseline coupling to the roadmap;
 - controlled `agent_assistance` declaration for human-authored PRs.
 
-Exception labels are narrow, category-specific maintenance escapes. They are not ordinary contributor controls and must not be used to hide a stale contract or incomplete change. Applying an exception requires maintainer authority through repository permissions and a visible explanation in the pull-request body.
+Exception labels are narrow, category-specific maintenance escapes. They are not ordinary contributor controls and must not be used to hide a stale contract or incomplete change. Applying an exception requires maintainer authority through repository permissions and a visible explanation in the pull-request body. A shared prerequisite exception, such as `ua-exception/pr-contract`, is respected consistently by checks that depend on that prerequisite rather than being silently negated by another job.
 
 ## 4. Repository ownership and attribution
 
@@ -180,7 +180,7 @@ A branch and pull request are recommended for:
 - changes where reviewing the full diff is useful;
 - externally contributed changes.
 
-Draft pull requests remain optional for ordinary human-authored work unless the maintainer chooses otherwise. AI-assisted `repository-policy`, `draft-normative`, and `normative` PRs follow the stricter Draft rule in [`AGENTS.md`](AGENTS.md): they remain Draft during active repository-changing iterations, may leave Draft only through an explicitly maintainer-authorized `ready_for_review` transition after a fresh checkpoint, and return to Draft before any later repository-changing iteration.
+Draft pull requests remain optional for ordinary human-authored work unless the maintainer chooses otherwise. AI-assisted `repository-policy`, `draft-normative`, and `normative` PRs follow the stricter rule in [`AGENTS.md`](AGENTS.md): they remain Draft while repository-changing work is active. After a fresh checkpoint, an explicitly maintainer-authorized `ready_for_review` transition records the current head as ready. Review or feedback on that same head can stale the checkpoint without revoking readiness; any later repository commit/head change requires returning the PR to Draft before the new iteration can pass.
 
 For a repository-changing pull request:
 
@@ -247,9 +247,9 @@ Language models and coding agents must read [`AGENTS.md`](AGENTS.md) before repo
 
 Agent-assisted work must preserve the same content boundaries as human-authored work. In particular, an agent must not promote research by implication, rewrite provenance, create parallel canonical entry points, or infer authority from tags, recency, visibility, or external attention.
 
-When `agent_assistance: used`, `AGENTS.md` is the canonical human-readable owner of the corrective-feedback and deterministic checked-state protocols. GitHub Actions validates the observable subset: PR-owned diff scope, effective instruction blobs, current target/head/tested-merge identities, PR-description digest, trusted maintainer GitHub-feedback watermark, Draft-state rule for high-impact change classes, and completed checkpoint declarations.
+When `agent_assistance: used`, `AGENTS.md` is the canonical human-readable owner of the corrective-feedback and deterministic checked-state protocols. GitHub Actions validates the observable subset: PR-owned diff scope, effective instruction blobs, current target/head/tested-merge identities, PR-description digest, trusted review/inline-review feedback watermark, current-head Draft/readiness state for high-impact change classes, and completed checkpoint declarations.
 
-GitHub-native maintainer feedback includes trusted top-level PR comments, reviews, and inline review comments; those events can invalidate an otherwise green checkpoint. Corrective feedback that exists only in an external AI conversation cannot be sensed by GitHub and remains the agent's semantic responsibility under `AGENTS.md`.
+Trusted GitHub reviews and inline review comments can invalidate an otherwise green checkpoint on the PR merge/head lifecycle. Top-level PR conversation comments remain a semantic feedback surface but are not used as deterministic PR-head status triggers because GitHub emits `issue_comment` workflows on the default-branch ref/SHA. Corrective feedback that exists only in an external AI conversation likewise remains the agent's semantic responsibility under `AGENTS.md`; both must be reconsidered at the next checkpoint.
 
 Agents should use the research reconciliation trigger in `AGENTS.md` when source-derived framework work, worked applications, incidents, or operational observations change research state.
 
