@@ -44,7 +44,8 @@ Maintainers are expected to **keep the doctrine and reference architectures clea
 Instances of abusive, harassing, or otherwise unacceptable behavior should be reported by contacting:
 
 oborskyivitalii@gmail.com
-All reports will be reviewed and investigated and **kept confidential**. 
+
+All reports will be reviewed and investigated and **kept confidential**.
 Appropriate corrective action will be taken for any confirmed violation.
 
 ---
