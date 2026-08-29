@@ -9,6 +9,7 @@
       },
       "pr": {
         "change_class": "repository-policy",
+        "agent_assistance": "none",
         "owning_paths": [".github/policy/example.json"],
         "decision_levels": ["none"],
         "capability_families": ["none"],
@@ -57,6 +58,12 @@
       "files": {},
       "set_pr_field": {"change_class": "magic"},
       "expected_message": "change_class"
+    },
+    {
+      "name": "uncontrolled agent assistance is rejected",
+      "files": {},
+      "set_pr_field": {"agent_assistance": "sometimes"},
+      "expected_message": "agent_assistance"
     },
     {
       "name": "notable change without changelog is rejected",
