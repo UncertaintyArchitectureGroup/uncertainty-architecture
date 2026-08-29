@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate PR declarations and companion-file coupling against the actual git diff."""
+"""Validate PR declarations and companion-file coupling against the PR-owned git diff."""
 
 import argparse
 import json
@@ -40,14 +40,25 @@ def git(root: Path, args: Sequence[str]) -> str:
     )
     if result.returncode != 0:
         raise ValueError("git {} failed: {}".format(" ".join(args), result.stderr.strip()))
-    return result.stdout
+    return result.stdout.strip()
 
 
-def changed_entries(root: Path, base: str, head: str) -> List[Tuple[str, str, Optional[str]]]:
-    output = git(root, ["diff", "--name-status", "-M", base, head])
+def merge_base(root: Path, base_tip: str, head: str) -> str:
+    value = git(root, ["merge-base", base_tip, head])
+    if not re.fullmatch(r"[0-9a-f]{40}", value):
+        raise ValueError("unexpected merge-base SHA: {!r}".format(value))
+    return value
+
+
+def changed_entries(root: Path, base_tip: str, head: str) -> List[Tuple[str, str, Optional[str]]]:
+    """Return PR-owned changes from current-target merge-base through PR head."""
+    comparison_base = merge_base(root, base_tip, head)
+    output = git(root, ["diff", "--name-status", "-M", comparison_base, head])
     entries: List[Tuple[str, str, Optional[str]]] = []
     for raw in output.splitlines():
         parts = raw.split("\t")
+        if not parts:
+            continue
         status = parts[0]
         if status.startswith("R") and len(parts) == 3:
             entries.append(("R", parts[1], parts[2]))
@@ -174,7 +185,7 @@ def validate_coupling(
             for changed in paths
         )
         if not intersects:
-            findings.append(Finding("error", "none of the declared owning_paths intersects the actual diff"))
+            findings.append(Finding("error", "none of the declared owning_paths intersects the PR-owned diff"))
 
     return findings
 
@@ -213,7 +224,7 @@ def parse_args(argv: Optional[Iterable[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
-    parser.add_argument("--base", required=True)
+    parser.add_argument("--base", required=True, help="current target-branch tip SHA/ref")
     parser.add_argument("--head", required=True)
     parser.add_argument("--pr-body-file", type=Path)
     parser.add_argument("--labels", default="")
