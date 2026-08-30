@@ -26,9 +26,11 @@ canonical_for:
 
 This file is the repository-wide **router and control protocol for AI-assisted contributors**. It tells an agent how to discover instructions, find the canonical owner of a change, choose the required reading path, handle maintainer corrections, and complete checked repository work.
 
-It is intentionally **not** a second specification, glossary, contributor manual, or copy of validator internals. Canonical UA meaning belongs in the owning specification documents. Ordinary contribution mechanics belong in [`CONTRIBUTING.md`](CONTRIBUTING.md). Deterministic enforcement belongs in `.github/policy/`, `.github/scripts/`, `.github/tests/`, the pull-request template, and GitHub Actions.
+Do not use it as a second glossary, a second specification, or a source of new governance requirements.
 
-This file is informative operational guidance and must not override, in descending order:
+Canonical UA meaning belongs in the owning specification documents. Ordinary contribution mechanics belong in [`CONTRIBUTING.md`](CONTRIBUTING.md). Deterministic enforcement belongs in `.github/policy/`, `.github/scripts/`, `.github/tests/`, the pull-request template, and GitHub Actions.
+
+When sources conflict, prefer, in descending order:
 
 1. [`SPECIFICATION.md`](SPECIFICATION.md) for specification scope, status, conformance, and change control;
 2. explicit document status and normative language;
@@ -62,51 +64,9 @@ Inspecting a tree is not the same as reading a repository. Do not claim complete
 
 Before substantive analysis or editing, briefly report the ref/commit inspected, applicable `AGENTS.md` files, task state, owning sources, and any access limitation.
 
-## 3. Canonical ownership map
+## 3. Task-specific reading paths
 
-Use this map to **route** work. Do not copy the mapped content back into this file.
-
-| Concern | Canonical owner or starting point |
-|---|---|
-| Specification boundary and status | [`SPECIFICATION.md`](SPECIFICATION.md) |
-| Canonical terminology | [`00-doctrine/glossary.md`](00-doctrine/glossary.md) |
-| Controlled-object shift and Thinking-System category | [`00-doctrine/uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md) and glossary |
-| Decision levels, inheritance, and reassessment | [`00-doctrine/nested-control-lifecycle.md`](00-doctrine/nested-control-lifecycle.md) |
-| Constraints, Sensors, Controllers, Actuators, and bounded control | [`00-doctrine/control-loop-anatomy.md`](00-doctrine/control-loop-anatomy.md) |
-| Project viability, Project Constraint Architecture, authorization, reauthorization | [`01-patterns/project-control-architecture-and-viability-review.md`](01-patterns/project-control-architecture-and-viability-review.md) |
-| Delivery realization, DoR, DoD, Release Gate, local reassessment | [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md) |
-| Capability-specific realization guidance | [`02-ai-control-plane/`](02-ai-control-plane/) |
-| Worked compositions | [`03-reference-architectures/`](03-reference-architectures/) |
-| Reusable loss-of-control mechanisms | [`04-failure-modes/`](04-failure-modes/) |
-| Research state, synthesis, evidence, provenance | [`content/research/`](content/research/) and its scoped `AGENTS.md` |
-| Historical chronology and original source wording | [`content/history/`](content/history/) and [`content/raw/`](content/raw/) |
-| Metadata and controlled tags | [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) |
-| Ordinary contributor workflow | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
-| Repository-policy enforcement | [`.github/policy/`](.github/policy/), validators/tests, PR template, and workflows |
-| Quartz publishing / PDF / platform renditions | `quartz/` documentation, scripts, tests, and relevant workflows |
-
-For material framework changes, locate the work on both canonical axes—**decision level** and **capability family/function**—by reading the Nested Control Lifecycle and Control-Loop Capability Anatomy. Do not maintain a duplicate four-by-four framework model here.
-
-## 4. Repository-wide agent invariants
-
-Apply these rules across tasks; obtain semantic detail from the owning sources above.
-
-- One canonical concept or decision surface should have one authoritative owner. Refine the owner instead of creating a competing source.
-- Search current terminology, paths, contracts, validators, tests, and overlapping implementations before adding a new term, document, abstraction, workflow, or namespace.
-- Do not redefine glossary or doctrine concepts locally in templates, examples, reference architectures, agent guidance, or Project instructions.
-- Research provides evidence and candidates; it does not update specification meaning by implication. Promote research only through an explicit framework decision and required traceability updates.
-- Preserve attributed, raw, historical, and published source wording unless the owning provenance process explicitly authorizes transformation.
-- Metadata, tags, recency, navigation, publishing surfaces, and external attention do not create authority.
-- A lower-level artifact or implementation must not silently expand higher-level authority or weaken an inherited boundary; read the owning lifecycle/pattern when this distinction matters.
-- Prefer the smallest coherent, reviewable change. Avoid unnecessary roles, files, registers, services, committees, gates, or duplicate protocols.
-- Preserve repository-relative links, explicit status/maturity, and compatibility decisions for maintained path renames or deletions.
-- Every notable repository or specification-artifact change must update [`CHANGELOG.md`](CHANGELOG.md).
-- Do not weaken a contract or validator merely to make a failing check green. Determine whether the change is wrong, the contract is stale, or an explicit compatibility decision is required.
-- Never claim a file, test, commit, workflow, review, or PR state without verifying it.
-
-## 5. Task-specific reading paths
-
-Read only the complete sources needed for the task; a targeted path is better than loading the entire repository.
+Read only the complete sources needed for the task; targeted reading is preferable to loading unrelated repository content.
 
 | Task | Required path after bootstrap |
 |---|---|
@@ -115,31 +75,78 @@ Read only the complete sources needed for the task; a targeted path is better th
 | Edit project architecture material | controlled-object doctrine → capability anatomy → lifecycle → project pattern/template → delivery pattern → relevant Constraint/failure-mode/traceability material |
 | Edit delivery-team material | project inheritance rules → delivery pattern/template → Judgment Node Boundary → relevant Constraint/glossary/failure-mode material |
 | Edit runtime material | active project/delivery ownership rules → capability anatomy → relevant Controller/Actuator/Sensor/realization/fallback/incident material |
-| Edit AI Control Plane | capability anatomy → glossary → all affected capability areas → both review patterns → relevant references/failure modes/source intake/traceability |
+| Edit AI Control Plane | capability anatomy → glossary → affected capability areas → both review patterns → relevant references/failure modes/source intake/traceability |
 | Research or publication content | scoped research `AGENTS.md` → `content/research/index.md` → `review-process.md` → relevant Research State Register entries → traceability → owning research artifacts |
 | Repository policy, metadata, contribution flow | `CONTRIBUTING.md` → relevant `.github/policy/*` → validators/tests/workflows → metadata convention if affected → roadmap/changelog |
 | Quartz, PDF, platform rendition, or build code | `CONTRIBUTING.md` → package/config/build entry points → relevant `quartz/*.md` → owning scripts/tests/workflows; activate research protocol only if research meaning/state changes |
 
 When a task crosses rows, combine the paths without re-reading unrelated material.
 
-## 6. Editing and review workflow
+## 4. Canonical ownership and invariants
 
-For repository-changing work:
+Use this map to route work. Do not copy the mapped semantic content back into this file.
 
-1. reconstruct the current state and identify the requested outcome;
-2. identify the canonical owner and applicable scoped instructions;
-3. read the required dependencies and search for overlapping rules/implementations;
-4. classify the change and determine required changelog, glossary, roadmap, traceability, metadata, and compatibility updates;
-5. create a focused branch and make the smallest coherent change;
-6. update the owner first, then required companion/enforcement surfaces; do not create parallel meaning;
-7. review the complete PR-owned diff for semantic drift, duplicate ownership, stale links, metadata, compatibility, and unintended scope;
-8. complete the machine-readable `ua-change-contract` so it matches the actual PR-owned diff;
-9. run applicable repository-contract, metadata, navigation, change-coupling, agent-control, build, and task-specific regression checks;
-10. reconcile the PR description, current feedback, checks, and Draft/readiness state before reporting completion.
+| Concern | Canonical owner or starting point |
+|---|---|
+| Specification boundary and status | [`SPECIFICATION.md`](SPECIFICATION.md) |
+| Canonical terminology | [`00-doctrine/glossary.md`](00-doctrine/glossary.md) |
+| Controlled-object shift and Thinking-System category | [`00-doctrine/uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md) and glossary |
+| Decision levels, inheritance, reassessment | [`00-doctrine/nested-control-lifecycle.md`](00-doctrine/nested-control-lifecycle.md) |
+| Constraints, Sensors, Controllers, Actuators, bounded control | [`00-doctrine/control-loop-anatomy.md`](00-doctrine/control-loop-anatomy.md) |
+| Project viability, Project Constraint Architecture, authorization, reauthorization | [`01-patterns/project-control-architecture-and-viability-review.md`](01-patterns/project-control-architecture-and-viability-review.md) |
+| Delivery realization, DoR, DoD, Release Gate, local reassessment | [`01-patterns/thinking-system-review.md`](01-patterns/thinking-system-review.md) |
+| Capability-specific realization guidance | [`02-ai-control-plane/README.md`](02-ai-control-plane/README.md) and affected capability area |
+| Worked compositions | [`03-reference-architectures/README.md`](03-reference-architectures/README.md) |
+| Reusable loss-of-control mechanisms | [`04-failure-modes/README.md`](04-failure-modes/README.md) |
+| Research state, synthesis, evidence, provenance | [`content/research/index.md`](content/research/index.md) and scoped research guidance |
+| Historical chronology and original source wording | [`content/history/README.md`](content/history/README.md) and [`content/raw/README.md`](content/raw/README.md) |
+| Metadata and controlled tags | [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) |
+| Ordinary contributor workflow | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| Repository-policy enforcement | [`.github/policy/repository-contract.json`](.github/policy/repository-contract.json) plus sibling policy contracts, validators/tests, PR template, and workflows |
+| Quartz publishing / PDF / platform renditions | `quartz/` documentation, scripts, tests, and relevant workflows |
 
-Use a Draft pull request for AI-assisted repository-policy, `draft-normative`, or `normative` work while repository-changing iterations remain active. High-impact classification is derived from protected paths and maintained-document status, not only from the PR author's declaration.
+Repository-wide invariants:
 
-Exceptions are category-scoped maintainer controls, not generic bypasses. Explain any exception visibly and do not broaden it beyond the category defined by policy.
+- One canonical concept or decision surface should have one authoritative owner. Refine the owner instead of creating a competing source.
+- Search current terminology, paths, contracts, validators, tests, and overlapping implementations before adding a term, document, abstraction, workflow, or namespace.
+- Do not redefine glossary or doctrine concepts locally in templates, examples, reference architectures, agent guidance, or Project instructions.
+- Research provides evidence and candidates; it does not update specification meaning by implication. Promote research only through an explicit framework decision and required traceability updates.
+- Preserve attributed, raw, historical, and published source wording unless the owning provenance process explicitly authorizes transformation.
+- Metadata, tags, recency, navigation, publishing surfaces, and external attention do not create authority.
+- A lower-level artifact or implementation must not silently expand higher-level authority or weaken an inherited boundary; read the owning lifecycle/pattern when this distinction matters.
+- Prefer the smallest coherent, reviewable change. Avoid unnecessary roles, files, registers, services, committees, gates, or duplicate protocols.
+- Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).
+- Never claim a file, test, commit, workflow, review, or PR state without verifying it.
+
+For material framework changes, locate the work on both canonical axes—**decision level** and **capability family/function**—by reading the Nested Control Lifecycle and Control-Loop Capability Anatomy. This file does not maintain a duplicate four-by-four framework model.
+
+## 5. Repository placement map
+
+Use the existing namespace whose owner matches the material:
+
+- root entry points — public navigation, specification boundary, roadmap, changelog, metadata, contribution process, and this AI routing protocol;
+- `00-doctrine/` — foundational distinctions and canonical architecture meaning;
+- `01-patterns/` — reusable socio-technical responses and review patterns;
+- `02-ai-control-plane/` — capability-specific realization guidance;
+- `03-reference-architectures/` — non-prescriptive worked compositions;
+- `04-failure-modes/` — reusable loss-of-control mechanisms;
+- `content/research/` — research state, evidence, synthesis, critique, and provenance;
+- `content/history/` and `content/raw/` — chronology and preserved source wording;
+- `assets/` — maintained visual assets;
+- `quartz/` and related build configuration — publishing implementation;
+- `.github/` — deterministic repository policy and CI enforcement.
+
+Do not create a parallel namespace or new canonical record when an existing owner can be refined.
+
+## 6. Terminology and Constraint protocol
+
+Before introducing, redefining, replacing, deprecating, or narrowing a UA term, read the complete glossary, search current framework material and near-synonyms, identify the owning source, and reconcile glossary and research traceability when the canonical meaning or research disposition changes.
+
+Use **Thinking Systems** in current framework material. Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, raw sources, and provenance records.
+
+For Constraint, Constraint Realization, Hard/Soft strength, Sensor, Controller, Actuator, Human Authority, diagrams, and bounded-control semantics, read [`00-doctrine/control-loop-anatomy.md`](00-doctrine/control-loop-anatomy.md) and the affected owning pattern/capability material. Do not maintain abbreviated semantic definitions here: a shortened copy becomes a second source of truth precisely when the canonical text evolves.
+
+For project/delivery inheritance, authorization, release, and reassessment semantics, read [`00-doctrine/nested-control-lifecycle.md`](00-doctrine/nested-control-lifecycle.md) and the owning project/delivery pattern.
 
 ### Corrective feedback and control improvement
 
@@ -208,9 +215,55 @@ The separate **Agent protocol / trusted-base guard** is the target-owned enforce
 
 These controls attest checked repository state, not semantic understanding or cryptographic separation of a human from an AI acting through the same GitHub principal. Do not claim stronger guarantees than the evidence provides.
 
-## 7. Validation and repository contracts
+## 9. Editing workflow
 
-For repository-policy work, inspect the relevant contracts and run at minimum:
+For repository-changing work:
+
+1. reconstruct the current state and identify the requested outcome;
+2. identify the canonical owner and applicable scoped instructions;
+3. read the required dependencies and search for overlapping rules/implementations;
+4. classify the change and determine required changelog, glossary, roadmap, traceability, metadata, and compatibility updates;
+5. create a focused branch and make the smallest coherent change;
+6. update the owner first, then required companion/enforcement surfaces; do not create parallel meaning;
+7. review the complete PR-owned diff for semantic drift, duplicate ownership, stale links, metadata, compatibility, and unintended scope;
+8. **Declare** the change in the machine-readable `ua-change-contract` block and ensure it matches the PR-owned diff;
+9. run applicable repository-contract, metadata, navigation, change-coupling, agent-control, build, and task-specific regression checks;
+10. reconcile the PR description, current feedback, checks, and Draft/readiness state before reporting completion.
+
+Use a Draft pull request for AI-assisted repository-policy, `draft-normative`, or `normative` work while repository-changing iterations remain active. High-impact classification is derived from protected paths and maintained-document status, not only from the PR author's declaration.
+
+Maintainer exception labels are not a universal override. Each exception is category-scoped, must be visibly explained, and must not be broadened beyond the policy category it owns.
+
+Do not weaken or bypass a contract merely to make a failing check green. Determine whether the repository change is wrong, the contract is stale, or an explicit compatibility decision is required.
+
+## 10. End-of-session integrity protocol
+
+Before reporting a repository-changing task complete:
+
+1. re-read the effective instructions, final PR-owned diff, current PR description, material maintainer/GitHub feedback, and relevant owning sources;
+2. confirm one canonical owner remains for every changed concept or workflow and that this file has not become a semantic mirror of those owners;
+3. confirm required metadata, links, changelog, roadmap, glossary, traceability, compatibility, and task-specific companion updates match the actual diff;
+4. confirm tests/validators and live CI are reported accurately, including unavailable checks;
+5. confirm `ua-change-contract`, `agent_assistance`, current checkpoint disposition, Draft/readiness authorization, and trusted-base status match current PR state;
+6. report unresolved risks, assumptions, exceptions, and decisions still requiring maintainer action.
+
+Repository-integrity checks include these protected conclusions:
+
+- Metadata errors are blocking.
+- Renamed or deleted maintained paths have an explicit compatibility decision.
+- Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).
+
+The completion report must include ref/commit inspected, applicable `AGENTS.md` files, verified state and work performed, changed/owning files, tests and CI, reviews and PR state, corrective-feedback improvement disposition, `agent_assistance`/checkpoint/readiness/trusted-base state, unresolved risks, and whether work is complete, still Draft, or ready for review.
+
+## 11. Repository contract checks
+
+The machine-readable repository contract lives at [`.github/policy/repository-contract.json`](.github/policy/repository-contract.json). It protects critical repository structure and selected stable observable guidance without becoming a source of UA architectural meaning.
+
+The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json).
+
+The checked-state field contract lives at [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json), and [`.github/policy/repository-contract-agent-checkpoint.json`](.github/policy/repository-contract-agent-checkpoint.json) protects stable agent-control wiring.
+
+For repository-policy work, run at minimum:
 
 ```bash
 python3 .github/scripts/validate_repository_contract.py
@@ -225,37 +278,6 @@ python3 .github/tests/agent_checkpoint/test_trusted_base_guard.py
 python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
 ```
 
-Add navigation, link, Mermaid, build, publication, research-register, supply-chain, or other task-specific checks when the changed surface requires them. The live GitHub Actions state remains authoritative for inputs that do not exist in an ordinary checkout, including current PR state, tested-merge state, target-owned guard status, CODEOWNER authorization evidence, and trusted GitHub review context.
+Add navigation, link, Mermaid, build, publication, research-register, supply-chain, or other task-specific checks when the changed surface requires them. The live GitHub Actions state remains authoritative for current PR state, tested-merge state, target-owned guard status, CODEOWNER authorization evidence, and trusted GitHub review context.
 
-Machine-readable owners:
-
-- [`.github/policy/repository-contract.json`](.github/policy/repository-contract.json) — critical repository structure and compatibility;
-- [`.github/policy/metadata-contract.json`](.github/policy/metadata-contract.json) — metadata and canonical ownership;
-- [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json) — PR declaration and companion-file coupling;
-- [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json) — checked-state checkpoint fields and controlled values;
-- [`.github/policy/repository-contract-agent-checkpoint.json`](.github/policy/repository-contract-agent-checkpoint.json) — protected agent-control wiring.
-
-When a legitimate policy change alters a protected path, marker, value, or control invariant, update the human-readable owner first, then the machine-readable contract and regression fixture in the same PR. Do not modify enforcement merely because this guide was reorganized.
-
-## 8. End-of-session integrity protocol
-
-Before reporting a repository-changing task complete:
-
-1. re-read the effective instructions, final PR-owned diff, current PR description, material maintainer/GitHub feedback, and relevant owning sources;
-2. confirm one canonical owner remains for every changed concept or workflow and that this file has not become a semantic mirror of those owners;
-3. confirm required metadata, links, changelog, roadmap, glossary, traceability, compatibility, and task-specific companion updates match the actual diff;
-4. confirm tests/validators and live CI are reported accurately, including unavailable checks;
-5. confirm `ua-change-contract`, `agent_assistance`, current checkpoint disposition, Draft/readiness authorization, and trusted-base status match current PR state;
-6. report unresolved risks, assumptions, exceptions, and decisions still requiring maintainer action.
-
-The completion report must include:
-
-- ref and commit inspected;
-- applicable `AGENTS.md` files;
-- verified state and work performed;
-- changed and owning files;
-- tests, validators, CI, review, and PR state;
-- corrective feedback evaluated for durable improvement, proposed owner, automation feasibility, approval/disposition;
-- `agent_assistance` / checkpoint / readiness / trusted-base state where a PR exists;
-- unresolved risks or unavailable checks;
-- whether the work is complete, still Draft, or ready for review.
+When a legitimate policy change alters a protected path, marker, value, or control invariant, update the human-readable owner first, then the relevant machine-readable contract and regression fixture in the same PR. Reorganizing prose does not itself justify weakening enforcement.
