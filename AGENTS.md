@@ -259,6 +259,8 @@ The completion report must include ref/commit inspected, applicable `AGENTS.md` 
 
 The machine-readable repository contract lives at [`.github/policy/repository-contract.json`](.github/policy/repository-contract.json). It protects critical repository structure and selected stable observable guidance without becoming a source of UA architectural meaning.
 
+The metadata and canonical-ownership policy lives at [`.github/policy/metadata-contract.json`](.github/policy/metadata-contract.json); its human-readable convention remains [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md).
+
 The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json).
 
 The checked-state field contract lives at [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json), and [`.github/policy/repository-contract-agent-checkpoint.json`](.github/policy/repository-contract-agent-checkpoint.json) protects stable agent-control wiring.
