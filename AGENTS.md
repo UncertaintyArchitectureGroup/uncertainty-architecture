@@ -356,6 +356,17 @@ Confirm that runtime logic remains inside delegated authority and routes invalid
 
 Read the capability anatomy, glossary, all affected capability areas, both review patterns, reference architectures, failure modes, source intake, and traceability.
 
+### Editing code, validators, workflows, or publishing infrastructure
+
+1. read [`CONTRIBUTING.md`](CONTRIBUTING.md#code-contributions) and [`quartz/README.md`](quartz/README.md) when Quartz, publishing, site generation, or their tests are affected;
+2. identify whether each changed path is Quartz-derived core, UA-owned integration, repository policy, a regression fixture, or generated output;
+3. read the owning behavioral contract, relevant implementation, tests, package command, workflow, and machine-readable repository protection before editing;
+4. prefer configuration or an existing UA-owned extension surface over modifying Quartz-derived core when it can satisfy the requirement without duplicating behavior;
+5. document intent and non-obvious invariants rather than narrating syntax, and keep security, atomicity, provenance, compatibility, threshold, and fail-closed rationale adjacent to the code that relies on it;
+6. add or update regression coverage for every externally observable behavior or defect fix, including relevant failure and preservation paths;
+7. run the incremental code-quality validator, the applicable Quartz and publication tests, the production build, and any affected repository-policy suites documented in `quartz/README.md`; and
+8. update the owning descriptive contract, machine-readable protection, and regression fixture together when a protected code or workflow invariant changes deliberately.
+
 ### Working with research
 
 Start with [`content/research/index.md`](content/research/index.md), [`content/research/review-process.md`](content/research/review-process.md), and [`content/research/framework-traceability.md`](content/research/framework-traceability.md).
@@ -622,6 +633,10 @@ The independent trusted-base policy lives in the current target branch: [`.githu
 Before pushing a repository-policy change or any change that affects protected structure, metadata, canonical ownership, terminology, companion documents, or maintained paths, run:
 
 ```bash
+python3 .github/scripts/validate_code_quality.py --base <current-target-tip-sha> --head <head-sha>
+python3 .github/tests/code_quality/test_code_quality.py
+npm test
+npm run build
 python3 .github/scripts/validate_repository_contract.py
 python3 .github/tests/repository_contract/test_repository_contract.py
 python3 .github/scripts/validate_metadata.py --mode all

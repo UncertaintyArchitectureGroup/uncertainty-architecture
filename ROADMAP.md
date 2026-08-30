@@ -72,6 +72,7 @@ The objective is to consolidate research into a coherent, bounded specification.
 - A separate trusted-base guard is defined for the self-modification boundary: once `.github/workflows/agent-policy-guard.yml` is present on `main`, **Agent protocol / trusted-base guard** executes only target-branch code through `pull_request_target`, treats candidate files and PR text as untrusted API data, and publishes its result on the PR head. Its `push: main` path re-evaluates open PRs after target advances, so stale target-tip/tested-merge checkpoint state can be invalidated without a PR-head `synchronize` event. The bootstrap PR introducing this workflow necessarily relies on maintainer review plus candidate-side security/regression verification because the target-owned workflow does not exist until that bootstrap is merged.
 - The Research Track now separates active epistemic state from framework promotion: a canonical Research State Register carries material terms, hypotheses, comparison questions, candidate artifacts/processes, provenance records, status, ownership, and next decisions, while `framework-traceability.md` remains the source-to-framework decision ledger.
 - Quartz production builds, maintained Mermaid diagrams, workflow syntax and security posture, immutable action and container references, dependency updates, and dependency-risk checks have an executable repository-integrity foundation.
+- Repository code contributions now have an explicit clarity, comment, structure, failure, and regression-test contract; the Quartz-derived core and UA publishing boundary, execution paths, and test layers are mapped; changed repository-owned code receives incremental formatting or Python-syntax validation; and Quartz TypeScript plus UA publication regressions share stable package commands and Build Integrity coverage.
 
 ### Four-family capability baseline
 
@@ -106,6 +107,7 @@ The repository integration is complete. The relevant framework documents remain 
 - [x] Establish a cross-document Research State Register with stable material-item IDs, provenance boundaries, epistemic status, ownership, next decisions, deterministic CI validation, and regression fixtures.
 - [x] Complete automated Mermaid rendering and Quartz production-build validation.
 - [x] Establish workflow linting, security analysis, immutable action/container policy, dependency update automation, and bounded dependency-risk checks.
+- [x] Establish repository code-contribution guidance, a Quartz/publishing architecture and test map, incremental changed-code quality validation, and combined Quartz/publication regression commands in Build Integrity.
 - [ ] Build a two-level worked application tracing Constraints from organizational source through project architecture, delivery realization, runtime evidence, and reauthorization.
 - [ ] Apply both reviews to a real team or documented real system boundary.
 - [ ] Complete cross-publication synthesis and resolve remaining terminology conflicts.

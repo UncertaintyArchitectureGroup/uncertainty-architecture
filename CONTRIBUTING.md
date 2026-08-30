@@ -235,6 +235,37 @@ One logical change per pull request is a useful default for substantial work, bu
 
 Research reconciliation records meaningful changes in evidence, interpretation, question state, or framework destination. It should not duplicate pull-request history or become a session log.
 
+## Code contributions
+
+Code in this repository supports publishing, validation, repository policy, and reference implementations. It is not normative UA specification content, but defects can corrupt artifacts, weaken repository controls, or make later agent-assisted maintenance unsafe.
+
+Before changing code, identify whether the target is Quartz-derived core, UA-owned integration, a repository validator, a workflow, a test, or generated output. For Quartz and publication work, read [`quartz/README.md`](quartz/README.md) and the contract document that owns the affected behavior. Prefer configuration and UA-owned extension surfaces over edits to Quartz-derived core when they can satisfy the requirement without duplicating behavior.
+
+### Code clarity and comments
+
+- Follow the existing language, module, and formatting conventions of the affected surface. Do not mix an unrelated reformat with a behavioral change.
+- Comments explain **intent, invariants, boundaries, risks, or non-obvious workarounds**, not syntax. Do not narrate each line or restate a function name in prose.
+- Non-trivial repository-owned modules should make their purpose and important side effects discoverable near the implementation. Exported non-obvious functions should document their contract, failure behavior, and side effects when names and types are insufficient.
+- Document security boundaries, atomic-write assumptions, provenance guarantees, compatibility behavior, external-platform quirks, intentionally conservative thresholds, and fail-closed decisions next to the code that depends on them.
+- Keep comments synchronized with behavior. A stale explanation is a defect; a comment is not a substitute for a regression test.
+
+### Structure and change scope
+
+- Keep one coherent responsibility per function or module. Split code when a responsibility has an independent contract, lifecycle, failure mode, or reusable boundary; do not split merely to satisfy a line-count target.
+- Reuse existing path-safety, provenance, finalization, and publication helpers rather than creating a second implementation of the same invariant.
+- Preserve canonical Markdown as input. Generated PDFs, manifests, site output, platform renditions, and visual-review assets remain derived artifacts unless an explicit publication record says otherwise.
+- Keep external effects explicit. File writes, process execution, browser use, network assumptions, environment variables, and repository mutations should be bounded and testable.
+- Do not add a new dependency, workflow, validator, or abstraction when an existing owner can be extended coherently. When a dependency is necessary, update the lockfile and applicable supply-chain controls in the same pull request.
+
+### Errors, tests, and acceptance
+
+- Fail with actionable context that identifies the violated invariant or affected path. Publishing safety, provenance, policy, and repository-integrity checks should fail closed when required evidence is unavailable or contradictory.
+- Every defect fix requires a regression test that would fail without the fix. Every new externally observable behavior requires positive, boundary, and relevant failure-path coverage.
+- Tests should assert contracts and outcomes rather than private implementation shape. Use descriptive test names; comments in tests should explain the regression or adversarial condition, not the assertion syntax.
+- Preserve the previous valid artifact when generation or finalization fails. Use staging and atomic replacement for multi-step publication outputs when partial installation would be misleading or destructive.
+- Run the test and validator matrix documented in [`quartz/README.md`](quartz/README.md) for the affected surface. Changed repository-owned JavaScript, TypeScript, JSON, YAML, CSS, and SCSS must pass the incremental formatting check; changed Python must parse successfully.
+- Update the owning human-readable contract, machine-readable protection, and regression fixture together when an intentional change modifies a protected invariant.
+
 ## 8. Writing guidelines
 
 - Keep language clear, precise, and operational.

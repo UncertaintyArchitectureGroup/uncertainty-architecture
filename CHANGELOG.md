@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added a repository-wide code contribution contract for humans and agents, a Quartz integration architecture and test map distinguishing Quartz-derived core from UA-owned publishing infrastructure, incremental formatting and Python-syntax validation for changed repository-owned code, stable Quartz TypeScript and UA publication test commands, Build Integrity coverage, and mutation protection for the new control surfaces.
 - Added reproducible Medium and LinkedIn rendition packaging for the Thinking Systems article: copy-ready HTML/Markdown/text, deterministic table expansion, durable links, current reviewed publication figures and alt text, LinkedIn cover/SEO/launch-post checks, Medium hero/canonical guidance, and provenance/readiness manifests without creating a second conceptual source.
 
 - Added a deployment-independent Quartz-to-PDF pipeline that keeps Markdown canonical, provides generic, standalone-article, and living-working-paper exports, adds publication metadata, page numbering, conditional contents, strict provenance manifests and checksums, rollback-capable PDF/manifest finalization, fingerprint-coupled Figure 8A/8B renditions with measured PDF and desktop-PNG readability, visual verification, and manual GitHub Actions artifacts.

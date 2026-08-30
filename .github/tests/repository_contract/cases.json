@@ -112,6 +112,57 @@
       "expected_error": "AGENTS.md: missing protected text"
     },
     {
+      "name": "code contribution contract deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "CONTRIBUTING.md",
+        "text": "## Code contributions"
+      },
+      "expected_error": "CONTRIBUTING.md: missing protected text"
+    },
+    {
+      "name": "Quartz architecture map deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "quartz/README.md"
+      },
+      "expected_error": "Missing required file: quartz/README.md"
+    },
+    {
+      "name": "changed code quality validator deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": ".github/scripts/validate_code_quality.py"
+      },
+      "expected_error": "Missing required file: .github/scripts/validate_code_quality.py"
+    },
+    {
+      "name": "code quality regression suite deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": ".github/tests/code_quality/test_code_quality.py"
+      },
+      "expected_error": "Missing required file: .github/tests/code_quality/test_code_quality.py"
+    },
+    {
+      "name": "code quality workflow step deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/build-integrity.yml",
+        "text": "Code quality / changed repository-owned sources"
+      },
+      "expected_error": ".github/workflows/build-integrity.yml: missing protected text 'Code quality / changed repository-owned sources'"
+    },
+    {
+      "name": "Quartz TypeScript regression command deletion is rejected",
+      "mutation": {
+        "type": "delete_json_pointer",
+        "path": "package.json",
+        "pointer": "/scripts/test:quartz"
+      },
+      "expected_error": "package.json: JSON pointer '/scripts/test:quartz'"
+    },
+    {
       "name": "CITATION author deletion is rejected",
       "mutation": {
         "type": "remove_text",

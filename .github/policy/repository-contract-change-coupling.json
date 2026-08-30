@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "description": "Repository-contract extension protecting change-coupling, build-integrity, and supply-chain control surfaces.",
+  "description": "Repository-contract extension protecting change-coupling, code-quality, build-integrity, publishing, and supply-chain control surfaces.",
   "required_paths": [
     {
       "path": ".github/policy/change-coupling-contract.json",
@@ -43,6 +43,14 @@
       "type": "file"
     },
     {
+      "path": ".github/scripts/validate_code_quality.py",
+      "type": "file"
+    },
+    {
+      "path": ".github/tests/code_quality/test_code_quality.py",
+      "type": "file"
+    },
+    {
       "path": ".github/tests/supply_chain/cases.json",
       "type": "file"
     },
@@ -64,6 +72,14 @@
     },
     {
       "path": "quartz/PDF-EXPORT.md",
+      "type": "file"
+    },
+    {
+      "path": "quartz/README.md",
+      "type": "file"
+    },
+    {
+      "path": "CONTRIBUTING.md",
       "type": "file"
     },
     {
@@ -270,10 +286,32 @@
       ]
     },
     {
+      "path": ".github/scripts/validate_code_quality.py",
+      "required_text": [
+        "def changed_paths",
+        "def is_prettier_candidate",
+        "def validate_python_syntax",
+        "node_modules/.bin/prettier",
+        "--base",
+        "--head"
+      ]
+    },
+    {
+      "path": ".github/tests/code_quality/test_code_quality.py",
+      "required_text": [
+        "class CodeQualityTests",
+        "test_scope_selects_repository_code_without_preserved_or_prose_files",
+        "test_changed_paths_use_merge_base_and_ignore_deletions"
+      ]
+    },
+    {
       "path": ".github/workflows/build-integrity.yml",
       "required_text": [
         "name: Build integrity",
         "Build / Quartz production site",
+        "Code quality / changed repository-owned sources",
+        "Policy / code-quality self-tests",
+        "Quartz / TypeScript regression tests",
         "PDF export / regression tests",
         "Publication / current article render",
         "Install Chromium and PDF inspection tools",
@@ -286,6 +324,10 @@
         "Run supply-chain regression fixtures",
         "zizmor --pedantic",
         "fetch-depth: 0",
+        "python3 .github/scripts/validate_code_quality.py --base \"$base_ref\" --head \"$head_ref\"",
+        "python3 .github/tests/code_quality/test_code_quality.py",
+        "npm run test:quartz",
+        "npm run test:publication",
         "UA_PDF_REPOSITORY_REF: ${{ github.sha }}",
         "npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf --require-manifest",
         "npm run pdf:verify -- dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --require-manifest",
@@ -315,6 +357,22 @@
       "path": "package.json",
       "required_text": [],
       "required_json": [
+        {
+          "pointer": "/scripts/check",
+          "equals": "npm test && npm run build"
+        },
+        {
+          "pointer": "/scripts/test",
+          "equals": "npm run test:quartz && npm run test:publication"
+        },
+        {
+          "pointer": "/scripts/test:quartz",
+          "equals": "node --import tsx --test \"quartz/**/*.test.ts\""
+        },
+        {
+          "pointer": "/scripts/test:publication",
+          "equals": "node --test quartz/scripts/*.test.mjs"
+        },
         {
           "pointer": "/scripts/pdf",
           "equals": "node quartz/scripts/export-pdf.mjs"
@@ -360,11 +418,40 @@
     {
       "path": "AGENTS.md",
       "required_text": [
+        "### Editing code, validators, workflows, or publishing infrastructure",
+        "[`CONTRIBUTING.md`](CONTRIBUTING.md#code-contributions)",
+        "[`quartz/README.md`](quartz/README.md)",
+        "python3 .github/scripts/validate_code_quality.py --base <current-target-tip-sha> --head <head-sha>",
+        "python3 .github/tests/code_quality/test_code_quality.py",
         "**Declare** the change in the machine-readable `ua-change-contract` block",
         "The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json).",
         "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>",
         "Maintainer exception labels are not a universal override.",
         "Renamed or deleted maintained paths have an explicit compatibility decision."
+      ]
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "required_text": [
+        "## Code contributions",
+        "Comments explain **intent, invariants, boundaries, risks, or non-obvious workarounds**, not syntax.",
+        "Every defect fix requires a regression test that would fail without the fix.",
+        "Changed repository-owned JavaScript, TypeScript, JSON, YAML, CSS, and SCSS must pass the incremental formatting check"
+      ]
+    },
+    {
+      "path": "quartz/README.md",
+      "required_text": [
+        "# Quartz integration architecture",
+        "## Ownership boundary",
+        "## Execution architecture",
+        "## Test and validation architecture",
+        "npm run test:quartz",
+        "npm run test:publication",
+        "npm run check",
+        "validate_code_quality.py",
+        "Quartz-derived site-generation core",
+        "UA-owned PDF, publication, asset, platform-rendition, provenance, safety, and verification tooling"
       ]
     },
     {
