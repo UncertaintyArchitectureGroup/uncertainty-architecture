@@ -266,6 +266,10 @@ Before changing code, identify whether the target is Quartz-derived core, UA-own
 - Run the test and validator matrix documented in [`quartz/README.md`](quartz/README.md) for the affected surface. Changed repository-owned JavaScript, TypeScript, JSON, YAML, CSS, and SCSS must pass the incremental formatting check; changed Python must parse successfully.
 - Update the owning human-readable contract, machine-readable protection, and regression fixture together when an intentional change modifies a protected invariant.
 
+Run `npm run check:types` for compiler-level TypeScript contracts. Check committed candidate changes with `python3 .github/scripts/validate_code_quality.py --base <current-target-tip> --head HEAD`. To apply formatting to that same bounded diff, use `npm run format -- --base <current-target-tip> --head HEAD`; the format command intentionally requires explicit refs and does not rewrite the full legacy tree.
+
+The Python baseline validates syntax only; it is not a comprehensive Python formatter or linter. Follow the existing module style and use review plus focused tests for naming, structure, error handling, and behavioral quality.
+
 ## 8. Writing guidelines
 
 - Keep language clear, precise, and operational.

@@ -364,7 +364,7 @@ Read the capability anatomy, glossary, all affected capability areas, both revie
 4. prefer configuration or an existing UA-owned extension surface over modifying Quartz-derived core when it can satisfy the requirement without duplicating behavior;
 5. document intent and non-obvious invariants rather than narrating syntax, and keep security, atomicity, provenance, compatibility, threshold, and fail-closed rationale adjacent to the code that relies on it;
 6. add or update regression coverage for every externally observable behavior or defect fix, including relevant failure and preservation paths;
-7. run the incremental code-quality validator, the applicable Quartz and publication tests, the production build, and any affected repository-policy suites documented in `quartz/README.md`; and
+7. run TypeScript static analysis, the incremental code-quality validator, the applicable Quartz and publication tests, the production build, and any affected repository-policy suites documented in `quartz/README.md`; and
 8. update the owning descriptive contract, machine-readable protection, and regression fixture together when a protected code or workflow invariant changes deliberately.
 
 ### Working with research
@@ -635,6 +635,7 @@ Before pushing a repository-policy change or any change that affects protected s
 ```bash
 python3 .github/scripts/validate_code_quality.py --base <current-target-tip-sha> --head <head-sha>
 python3 .github/tests/code_quality/test_code_quality.py
+npm run check:types
 npm test
 npm run build
 python3 .github/scripts/validate_repository_contract.py

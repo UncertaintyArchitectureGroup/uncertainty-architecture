@@ -145,13 +145,31 @@
       "expected_error": "Missing required file: .github/tests/code_quality/test_code_quality.py"
     },
     {
+      "name": "NUL-safe changed path parsing deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/scripts/validate_code_quality.py",
+        "text": "def git_output_bytes"
+      },
+      "expected_error": ".github/scripts/validate_code_quality.py: missing protected text 'def git_output_bytes'"
+    },
+    {
       "name": "code quality workflow step deletion is rejected",
       "mutation": {
         "type": "remove_text",
         "path": ".github/workflows/build-integrity.yml",
-        "text": "Code quality / changed repository-owned sources"
+        "text": "Code formatting and Python syntax / changed sources"
       },
-      "expected_error": ".github/workflows/build-integrity.yml: missing protected text 'Code quality / changed repository-owned sources'"
+      "expected_error": ".github/workflows/build-integrity.yml: missing protected text 'Code formatting and Python syntax / changed sources'"
+    },
+    {
+      "name": "TypeScript static-analysis workflow step deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/build-integrity.yml",
+        "text": "TypeScript / static analysis"
+      },
+      "expected_error": ".github/workflows/build-integrity.yml: missing protected text 'TypeScript / static analysis'"
     },
     {
       "name": "Quartz TypeScript regression command deletion is rejected",
@@ -161,6 +179,49 @@
         "pointer": "/scripts/test:quartz"
       },
       "expected_error": "package.json: JSON pointer '/scripts/test:quartz'"
+    },
+    {
+      "name": "TypeScript static-analysis command deletion is rejected",
+      "mutation": {
+        "type": "delete_json_pointer",
+        "path": "package.json",
+        "pointer": "/scripts/check:types"
+      },
+      "expected_error": "package.json: JSON pointer '/scripts/check:types'"
+    },
+    {
+      "name": "bounded format command deletion is rejected",
+      "mutation": {
+        "type": "delete_json_pointer",
+        "path": "package.json",
+        "pointer": "/scripts/format"
+      },
+      "expected_error": "package.json: JSON pointer '/scripts/format'"
+    },
+    {
+      "name": "Quartz global type declarations deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "globals.d.ts"
+      },
+      "expected_error": "Missing required file: globals.d.ts"
+    },
+    {
+      "name": "Quartz SCSS and event declarations deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": "index.d.ts"
+      },
+      "expected_error": "Missing required file: index.d.ts"
+    },
+    {
+      "name": "Quartz upstream provenance baseline deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "quartz/README.md",
+        "text": "4923affa7722dfc751f1074348e6dad214fe0c08"
+      },
+      "expected_error": "quartz/README.md: missing protected text '4923affa7722dfc751f1074348e6dad214fe0c08'"
     },
     {
       "name": "CITATION author deletion is rejected",

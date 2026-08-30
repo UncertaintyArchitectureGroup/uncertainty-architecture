@@ -33,7 +33,7 @@ jobs:
           package-manager-cache: false
       - name: Install locked dependencies
         run: npm ci --ignore-scripts
-      - name: Code quality / changed repository-owned sources
+      - name: Code formatting and Python syntax / changed sources
         env:
           EVENT_NAME: ${{ github.event_name }}
           BEFORE_SHA: ${{ github.event.before }}
@@ -50,8 +50,10 @@ jobs:
             base_ref="$BEFORE_SHA"
           fi
           python3 .github/scripts/validate_code_quality.py --base "$base_ref" --head "$head_ref"
-      - name: Policy / code-quality self-tests
+      - name: Policy / changed-source self-tests
         run: python3 .github/tests/code_quality/test_code_quality.py
+      - name: TypeScript / static analysis
+        run: npm run check:types
       - name: Quartz / TypeScript regression tests
         run: npm run test:quartz
       - name: PDF export / regression tests

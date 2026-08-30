@@ -83,6 +83,14 @@
       "type": "file"
     },
     {
+      "path": "globals.d.ts",
+      "type": "file"
+    },
+    {
+      "path": "index.d.ts",
+      "type": "file"
+    },
+    {
       "path": "quartz/scripts/export-pdf.mjs",
       "type": "file"
     },
@@ -288,10 +296,14 @@
     {
       "path": ".github/scripts/validate_code_quality.py",
       "required_text": [
+        "def git_output_bytes",
         "def changed_paths",
         "def is_prettier_candidate",
         "def validate_python_syntax",
+        "os.fsdecode",
+        "\"-z\"",
         "node_modules/.bin/prettier",
+        "\"--write\"",
         "--base",
         "--head"
       ]
@@ -301,7 +313,10 @@
       "required_text": [
         "class CodeQualityTests",
         "test_scope_selects_repository_code_without_preserved_or_prose_files",
-        "test_changed_paths_use_merge_base_and_ignore_deletions"
+        "test_changed_paths_use_merge_base_and_ignore_deletions",
+        "test_changed_paths_are_nul_safe_for_unicode_newline_and_rename",
+        "test_prettier_failure_is_blocking_and_write_mode_is_forwarded",
+        "test_missing_prettier_is_configuration_failure"
       ]
     },
     {
@@ -309,8 +324,9 @@
       "required_text": [
         "name: Build integrity",
         "Build / Quartz production site",
-        "Code quality / changed repository-owned sources",
-        "Policy / code-quality self-tests",
+        "Code formatting and Python syntax / changed sources",
+        "Policy / changed-source self-tests",
+        "TypeScript / static analysis",
         "Quartz / TypeScript regression tests",
         "PDF export / regression tests",
         "Publication / current article render",
@@ -326,6 +342,7 @@
         "fetch-depth: 0",
         "python3 .github/scripts/validate_code_quality.py --base \"$base_ref\" --head \"$head_ref\"",
         "python3 .github/tests/code_quality/test_code_quality.py",
+        "npm run check:types",
         "npm run test:quartz",
         "npm run test:publication",
         "UA_PDF_REPOSITORY_REF: ${{ github.sha }}",
@@ -359,7 +376,15 @@
       "required_json": [
         {
           "pointer": "/scripts/check",
-          "equals": "npm test && npm run build"
+          "equals": "npm run check:types && npm test && npm run build"
+        },
+        {
+          "pointer": "/scripts/check:types",
+          "equals": "tsc --noEmit --incremental false"
+        },
+        {
+          "pointer": "/scripts/format",
+          "equals": "python3 .github/scripts/validate_code_quality.py --write"
         },
         {
           "pointer": "/scripts/test",
@@ -423,6 +448,7 @@
         "[`quartz/README.md`](quartz/README.md)",
         "python3 .github/scripts/validate_code_quality.py --base <current-target-tip-sha> --head <head-sha>",
         "python3 .github/tests/code_quality/test_code_quality.py",
+        "npm run check:types",
         "**Declare** the change in the machine-readable `ua-change-contract` block",
         "The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json).",
         "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>",
@@ -436,22 +462,47 @@
         "## Code contributions",
         "Comments explain **intent, invariants, boundaries, risks, or non-obvious workarounds**, not syntax.",
         "Every defect fix requires a regression test that would fail without the fix.",
-        "Changed repository-owned JavaScript, TypeScript, JSON, YAML, CSS, and SCSS must pass the incremental formatting check"
+        "Changed repository-owned JavaScript, TypeScript, JSON, YAML, CSS, and SCSS must pass the incremental formatting check",
+        "npm run format -- --base <current-target-tip> --head HEAD",
+        "The Python baseline validates syntax only"
       ]
     },
     {
       "path": "quartz/README.md",
       "required_text": [
         "# Quartz integration architecture",
+        "## Upstream provenance and local delta",
+        "4923affa7722dfc751f1074348e6dad214fe0c08",
         "## Ownership boundary",
         "## Execution architecture",
         "## Test and validation architecture",
         "npm run test:quartz",
         "npm run test:publication",
+        "npm run check:types",
         "npm run check",
+        "npm run format -- --base <current-target-tip> --head HEAD",
         "validate_code_quality.py",
         "Quartz-derived site-generation core",
         "UA-owned PDF, publication, asset, platform-rendition, provenance, safety, and verification tooling"
+      ]
+    },
+    {
+      "path": "globals.d.ts",
+      "required_text": [
+        "interface Document",
+        "interface Window",
+        "spaNavigate",
+        "addCleanup"
+      ]
+    },
+    {
+      "path": "index.d.ts",
+      "required_text": [
+        "declare module \"*.scss\"",
+        "interface CustomEventMap",
+        "readermodechange",
+        "type ContentIndex",
+        "fetchData"
       ]
     },
     {

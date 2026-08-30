@@ -89,8 +89,37 @@ class CodeQualityTests(unittest.TestCase):
 
             self.assertEqual(status, 0)
             self.assertEqual(calls[0][0][0], str(executable))
+            self.assertEqual(calls[0][0][1], "--check")
             self.assertEqual(calls[0][0][-2:], ["package.json", "quartz/scripts/example.mjs"])
             self.assertEqual(calls[0][1]["cwd"], str(root))
+
+    def test_prettier_failure_is_blocking_and_write_mode_is_forwarded(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            executable = root / "node_modules/.bin/prettier"
+            executable.parent.mkdir(parents=True)
+            executable.write_text("fixture\n", encoding="utf-8")
+            calls = []
+
+            def runner(arguments, **options):
+                calls.append((arguments, options))
+                return subprocess.CompletedProcess(arguments, 1)
+
+            status = self.validator.run_prettier(
+                root,
+                ["package.json"],
+                runner=runner,
+                write=True,
+            )
+
+            self.assertEqual(status, 1)
+            self.assertEqual(calls[0][0][1], "--write")
+
+    def test_missing_prettier_is_configuration_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            status = self.validator.run_prettier(Path(directory), ["package.json"])
+
+            self.assertEqual(status, 2)
 
     def test_changed_paths_use_merge_base_and_ignore_deletions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -130,6 +159,35 @@ class CodeQualityTests(unittest.TestCase):
                     "content/note.md",
                     "quartz/scripts/example.mjs",
                 ],
+            )
+
+    def test_changed_paths_are_nul_safe_for_unicode_newline_and_rename(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            git(root, "init", "--initial-branch=main")
+            git(root, "config", "user.email", "fixture@example.invalid")
+            git(root, "config", "user.name", "Fixture")
+
+            original = root / "quartz/original.ts"
+            original.parent.mkdir(parents=True)
+            original.write_text("export const value = 1\n", encoding="utf-8")
+            git(root, "add", ".")
+            git(root, "commit", "-m", "base")
+            base = git(root, "rev-parse", "HEAD")
+
+            renamed = root / "quartz/renamed\nтест.ts"
+            original.rename(renamed)
+            spaced = root / "quartz/space name.ts"
+            spaced.write_text("export const value = 2\n", encoding="utf-8")
+            git(root, "add", "-A")
+            git(root, "commit", "-m", "head")
+            head = git(root, "rev-parse", "HEAD")
+
+            paths = self.validator.changed_paths(root, base, head)
+
+            self.assertEqual(
+                paths,
+                ["quartz/renamed\nтест.ts", "quartz/space name.ts"],
             )
 
 

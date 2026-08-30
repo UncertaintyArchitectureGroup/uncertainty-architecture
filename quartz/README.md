@@ -4,6 +4,31 @@ This directory contains the Quartz-derived site generator and the UA-owned publi
 
 The repository is a maintained Quartz fork rather than an automatically synchronized vendor subtree. Package metadata preserves the upstream Quartz origin, but files under `quartz/` must not be assumed to be unchanged upstream code. Keep changes narrow so a future Quartz comparison or upgrade remains reviewable.
 
+## Upstream provenance and local delta
+
+The comparison baseline is the official [`jackyzha0/quartz`](https://github.com/jackyzha0/quartz) repository at tag `v4.5.2`, commit `4923affa7722dfc751f1074348e6dad214fe0c08`. The package version alone is not sufficient provenance: this exact commit is the reference for reviewing local changes and evaluating a future upgrade. This repository is not automatically synchronized with upstream.
+
+The maintained local delta is grouped as follows:
+
+| Delta group | Adapted or repository-owned surfaces |
+|---|---|
+| Root integration and compatibility | `package.json`, `package-lock.json`, `quartz.config.ts`, `quartz.layout.ts`, `tsconfig.json`, `globals.d.ts`, and `index.d.ts` |
+| Quartz build and configuration | `quartz/build.ts`, `quartz/cfg.ts`, and `quartz/cli/helpers.js` |
+| Components and browser behavior | `quartz/components/renderPage.tsx`; Explorer, Mermaid, Search, and SPA scripts; `search.test.ts`; and the corresponding Darkmode, Explorer, Mermaid, Reader mode, and Search styles |
+| Parsing, emission, and links | `componentResources.ts` plus the Citations, Frontmatter, LaTeX, Links, Obsidian callout, and OxHugo transformers |
+| Localization, resources, and shared presentation | the locale index; Hebrew, Italian, Kazakh, and Vietnamese locale files; `quartz/util/resources.tsx`; and base, callout, and custom styles |
+| UA publication integration | `quartz/scripts/`, `quartz/publication/`, `PDF-EXPORT.md`, and `PLATFORM-RENDITIONS.md` |
+
+The upstream `globals.d.ts` and `index.d.ts` files are required TypeScript and browser/SCSS compatibility declarations. Preserve them unless an upgrade supplies a demonstrably equivalent replacement and `npm run check:types` passes. Upstream documentation, funding, issue templates, preview/deployment workflows, and Docker packaging are intentionally outside the imported generator surface; local repository policy and publishing workflows own those responsibilities.
+
+For a Quartz upgrade:
+
+1. Record the proposed upstream tag and full commit SHA before changing files.
+2. Compare that commit with the current baseline and classify every locally adapted path above as retained, ported, superseded, or removed.
+3. Port local behavior onto the new upstream files instead of replacing the fork wholesale; preserve UA configuration, path safety, provenance, atomic finalization, publication contracts, and compatibility declarations.
+4. Update this baseline and delta inventory in the same change.
+5. Run `npm run check:types`, `npm test`, `npm run build`, the changed-code validator, repository-policy suites, and publication integration for every affected rendering path.
+
 ## Ownership boundary
 
 | Surface | Current responsibility | Default change rule |
@@ -63,18 +88,20 @@ Tests are layered by the contract they can prove. A green unit suite does not re
 
 | Layer | Command or owner | Covers |
 |---|---|---|
+| TypeScript static analysis | `npm run check:types` | Compiler-level contracts across the Quartz core, UA integration, browser globals, and SCSS module declarations |
 | Quartz TypeScript regressions | `npm run test:quartz` | Search tokenization, file trie behavior, path transforms, and other Quartz-core unit behavior |
 | UA publication regressions | `npm run test:publication` | PDF containment/finalization, provenance, Figure 3/8 semantics, platform assets, renditions, links, furniture, and package verification |
 | Combined JavaScript/TypeScript suite | `npm test` | Runs both test groups above |
 | Production site build | `npm run build` | Quartz configuration, parsing, plugin composition, and site emission against maintained content |
-| Local executable baseline | `npm run check` | Runs the combined test suite and production build without rewriting the repository |
+| Local executable baseline | `npm run check` | Runs TypeScript static analysis, the combined test suite, and the production build without rewriting the repository |
 | Changed-code quality | `python3 .github/scripts/validate_code_quality.py --base <current-target-tip> --head HEAD` | Incremental Prettier conformance for changed repository-owned web/config sources and syntax validation for changed Python |
-| Code-quality regression fixtures | `python3 .github/tests/code_quality/test_code_quality.py` | File-scope selection, diff behavior, formatter invocation, and Python syntax failure behavior |
+| Changed-code formatting | `npm run format -- --base <current-target-tip> --head HEAD` | Writes Prettier output only to selected committed candidate paths; it never formats the legacy tree by default |
+| Code-quality regression fixtures | `python3 .github/tests/code_quality/test_code_quality.py` | File-scope selection, NUL-safe diff behavior, formatter success/failure/configuration behavior, and Python syntax failure behavior |
 | Repository-policy suites | Commands in root `AGENTS.md` | Structure, metadata, change coupling, agent checkpoint, trusted-base, research register, links, Mermaid, and supply-chain policy |
 | Publication integration | `Build Integrity` and manual export workflows | Chromium/Poppler rendering, strict manifests, visual artifacts, current article/working-paper paths, and upload packaging |
 | Workflow analysis | `actionlint`, `zizmor`, and the supply-chain validator | Workflow syntax, permissions/security findings, immutable action references, and container digests |
 
-`Build Integrity` runs the incremental changed-code validator, its regression fixtures, both JavaScript/TypeScript test groups, the Quartz production build, maintained Mermaid rendering, and workflow-policy analysis. Publication-impact detection adds the Chromium/Poppler render path when relevant. Manual export workflows create downloadable review artifacts; they do not publish a website or change research state.
+`Build Integrity` runs the incremental changed-code validator, its regression fixtures, TypeScript static analysis, both JavaScript/TypeScript test groups, the Quartz production build, maintained Mermaid rendering, and workflow-policy analysis. Publication-impact detection adds the Chromium/Poppler render path when relevant. Manual export workflows create downloadable review artifacts; they do not publish a website or change research state.
 
 ## Change protocol
 

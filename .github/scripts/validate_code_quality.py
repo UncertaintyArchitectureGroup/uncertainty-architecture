@@ -8,6 +8,7 @@ the PR-owned diff and validates Python syntax without adding a runtime dependenc
 """
 
 import argparse
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -44,23 +45,28 @@ EXCLUDED_PATHS = {"package-lock.json", "quartz/util/emojimap.json"}
 Runner = Callable[..., subprocess.CompletedProcess]
 
 
-def git_output(root: Path, arguments: Sequence[str]) -> str:
-    """Run one read-only git query and return UTF-8 output."""
+def git_output_bytes(root: Path, arguments: Sequence[str]) -> bytes:
+    """Run one read-only git query without lossy path decoding or line splitting."""
     completed = subprocess.run(
         ["git", *arguments],
         cwd=str(root),
         check=False,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        text=True,
     )
     if completed.returncode != 0:
         raise ValueError(
             "git {} failed: {}".format(
-                " ".join(arguments), completed.stderr.strip() or "unknown error"
+                " ".join(arguments),
+                os.fsdecode(completed.stderr).strip() or "unknown error",
             )
         )
     return completed.stdout
+
+
+def git_output(root: Path, arguments: Sequence[str]) -> str:
+    """Run one read-only git query whose output is not a collection of paths."""
+    return os.fsdecode(git_output_bytes(root, arguments))
 
 
 def changed_paths(root: Path, base: str, head: str) -> List[str]:
@@ -68,18 +74,19 @@ def changed_paths(root: Path, base: str, head: str) -> List[str]:
     merge_base = git_output(root, ["merge-base", base, head]).strip()
     if not merge_base:
         raise ValueError("git merge-base returned no commit")
-    output = git_output(
+    output = git_output_bytes(
         root,
         [
             "diff",
             "--name-only",
+            "-z",
             "--diff-filter=ACMR",
             "--find-renames",
             merge_base,
             head,
         ],
     )
-    return sorted({line.strip() for line in output.splitlines() if line.strip()})
+    return sorted({os.fsdecode(raw_path) for raw_path in output.split(b"\0") if raw_path})
 
 
 def is_prettier_candidate(relative: str) -> bool:
@@ -129,6 +136,7 @@ def run_prettier(
     root: Path,
     paths: Sequence[str],
     runner: Runner = subprocess.run,
+    write: bool = False,
 ) -> int:
     """Run the locked local Prettier binary for the selected changed files."""
     if not paths:
@@ -140,15 +148,16 @@ def run_prettier(
             file=sys.stderr,
         )
         return 2
+    mode = "--write" if write else "--check"
     completed = runner(
-        [str(executable), "--check", "--ignore-unknown", *paths],
+        [str(executable), mode, "--ignore-unknown", *paths],
         cwd=str(root),
         check=False,
     )
     return int(completed.returncode)
 
 
-def validate(root: Path, base: str, head: str) -> int:
+def validate(root: Path, base: str, head: str, write: bool = False) -> int:
     """Validate the incremental code-quality contract for one git diff."""
     try:
         paths = existing_paths(root, changed_paths(root, base, head))
@@ -163,13 +172,14 @@ def validate(root: Path, base: str, head: str) -> int:
     for error in python_errors:
         print("Python syntax error: {}".format(error), file=sys.stderr)
 
-    prettier_status = run_prettier(root, prettier_paths)
+    prettier_status = run_prettier(root, prettier_paths, write=write)
     if python_errors or prettier_status:
         return 1
 
     print(
-        "Changed-code quality validation passed "
+        "Changed-code {} passed "
         "({} formatted files, {} Python files).".format(
+            "formatting" if write else "quality validation",
             len(prettier_paths), len(python_paths)
         )
     )
@@ -181,6 +191,11 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     parser.add_argument("--base", required=True, help="Current target tip or other base ref")
     parser.add_argument("--head", required=True, help="Candidate head ref")
     parser.add_argument(
+        "--write",
+        action="store_true",
+        help="Format selected changed files instead of checking them",
+    )
+    parser.add_argument(
         "--root",
         type=Path,
         default=ROOT,
@@ -191,7 +206,7 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
 
 def main(argv: Sequence[str] = sys.argv[1:]) -> int:
     args = parse_args(argv)
-    return validate(args.root.resolve(), args.base, args.head)
+    return validate(args.root.resolve(), args.base, args.head, write=args.write)
 
 
 if __name__ == "__main__":
