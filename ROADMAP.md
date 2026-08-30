@@ -55,6 +55,7 @@ The objective is to consolidate research into a coherent, bounded specification.
 
 - Research, history, and raw-source namespaces are separated.
 - Specification boundary, status model, metadata, glossary, roadmap, changelog, and AI-contributor guidance exist.
+- Root `AGENTS.md` is intentionally a compact AI routing/control surface: it points agents to canonical doctrine, contribution, research, publishing, and machine-policy owners instead of restating their semantic or implementation detail; nested `AGENTS.md` files carry only genuinely scoped workflow rules.
 - **Thinking Systems** is the current system-category term; category membership is based on whether at least one **Consequential Runtime Responsibility** depends partly on probabilistic Model Judgment and is distinct from control completeness or production readiness.
 - Requirements, Operating Envelopes, Correctness, Bugs, and diagnostic sources are defined.
 - Model Judgment Placement distinguishes Input Interpretation, Decision Logic, and Output Mediation without prescribing a pipeline.
