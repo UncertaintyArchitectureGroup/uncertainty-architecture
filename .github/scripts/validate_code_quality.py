@@ -30,6 +30,7 @@ PRETTIER_SUFFIXES = {
     ".yml",
 }
 ROOT_CODE_FILES = {
+    ".prettierrc",
     "package.json",
     "quartz.config.ts",
     "quartz.layout.ts",
@@ -93,10 +94,12 @@ def is_prettier_candidate(relative: str) -> bool:
     """Select maintained web/config source that uses the repository Prettier baseline."""
     if relative in EXCLUDED_PATHS:
         return False
+    if relative in ROOT_CODE_FILES:
+        return True
     path = Path(relative)
     if path.suffix.lower() not in PRETTIER_SUFFIXES:
         return False
-    return relative in ROOT_CODE_FILES or relative.startswith(PRETTIER_PREFIXES)
+    return relative.startswith(PRETTIER_PREFIXES)
 
 
 def is_python_candidate(relative: str) -> bool:
@@ -105,16 +108,32 @@ def is_python_candidate(relative: str) -> bool:
 
 
 def existing_paths(root: Path, paths: Iterable[str]) -> List[str]:
-    """Drop deleted or non-file paths after resolving them inside the repository."""
+    """Select regular, unaliased files resolved inside the repository."""
     selected: List[str] = []
     resolved_root = root.resolve()
     for relative in paths:
-        candidate = (resolved_root / relative).resolve()
+        relative_path = Path(relative)
+        if relative_path.is_absolute() or ".." in relative_path.parts:
+            raise ValueError("Changed path escapes repository: {}".format(relative))
+
+        source = resolved_root
+        for part in relative_path.parts:
+            source /= part
+            if source.is_symlink():
+                raise ValueError(
+                    "Changed path uses a symbolic-link alias: {}".format(relative)
+                )
+
+        candidate = source.resolve()
         try:
             candidate.relative_to(resolved_root)
         except ValueError:
             raise ValueError("Changed path escapes repository: {}".format(relative))
         if candidate.is_file():
+            if candidate.stat().st_nlink > 1:
+                raise ValueError(
+                    "Changed path uses a hard-link alias: {}".format(relative)
+                )
             selected.append(relative)
     return selected
 
@@ -148,9 +167,33 @@ def run_prettier(
             file=sys.stderr,
         )
         return 2
+    config = root / ".prettierrc"
+    ignore = root / ".prettierignore"
+    if not config.is_file() or not ignore.is_file():
+        missing = [
+            str(path.relative_to(root))
+            for path in (config, ignore)
+            if not path.is_file()
+        ]
+        print(
+            "Prettier configuration is incomplete; missing {}.".format(
+                ", ".join(missing)
+            ),
+            file=sys.stderr,
+        )
+        return 2
     mode = "--write" if write else "--check"
     completed = runner(
-        [str(executable), mode, "--ignore-unknown", *paths],
+        [
+            str(executable),
+            mode,
+            "--config",
+            str(config),
+            "--ignore-path",
+            str(ignore),
+            "--ignore-unknown",
+            *paths,
+        ],
         cwd=str(root),
         check=False,
     )
@@ -173,6 +216,8 @@ def validate(root: Path, base: str, head: str, write: bool = False) -> int:
         print("Python syntax error: {}".format(error), file=sys.stderr)
 
     prettier_status = run_prettier(root, prettier_paths, write=write)
+    if prettier_status == 2:
+        return 2
     if python_errors or prettier_status:
         return 1
 

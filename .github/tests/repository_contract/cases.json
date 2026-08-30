@@ -145,13 +145,73 @@
       "expected_error": "Missing required file: .github/tests/code_quality/test_code_quality.py"
     },
     {
-      "name": "NUL-safe changed path parsing deletion is rejected",
+      "name": "NUL-safe changed path regression deletion is rejected",
       "mutation": {
         "type": "remove_text",
-        "path": ".github/scripts/validate_code_quality.py",
-        "text": "def git_output_bytes"
+        "path": ".github/tests/code_quality/test_code_quality.py",
+        "text": "test_changed_paths_are_nul_safe_for_unicode_newline_and_rename"
       },
-      "expected_error": ".github/scripts/validate_code_quality.py: missing protected text 'def git_output_bytes'"
+      "expected_error": ".github/tests/code_quality/test_code_quality.py: missing protected text 'test_changed_paths_are_nul_safe_for_unicode_newline_and_rename'"
+    },
+    {
+      "name": "formatter alias-safety regression deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/tests/code_quality/test_code_quality.py",
+        "text": "test_existing_paths_reject_symbolic_and_hard_link_aliases"
+      },
+      "expected_error": ".github/tests/code_quality/test_code_quality.py: missing protected text 'test_existing_paths_reject_symbolic_and_hard_link_aliases'"
+    },
+    {
+      "name": "Prettier baseline deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": ".prettierrc"
+      },
+      "expected_error": "Missing required file: .prettierrc"
+    },
+    {
+      "name": "Prettier generated-output ignore deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".prettierignore",
+        "text": "public"
+      },
+      "expected_error": ".prettierignore: missing protected text 'public'"
+    },
+    {
+      "name": "Prettier semicolon baseline drift is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".prettierrc",
+        "text": "\"semi\": false"
+      },
+      "expected_error": ".prettierrc: missing protected text '\"semi\": false'"
+    },
+    {
+      "name": "publication-impact detector deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": ".github/scripts/detect_publication_impact.py"
+      },
+      "expected_error": "Missing required file: .github/scripts/detect_publication_impact.py"
+    },
+    {
+      "name": "publication-impact regression suite deletion is rejected",
+      "mutation": {
+        "type": "delete_path",
+        "path": ".github/tests/publication_impact/test_publication_impact.py"
+      },
+      "expected_error": "Missing required file: .github/tests/publication_impact/test_publication_impact.py"
+    },
+    {
+      "name": "publication-impact workflow routing deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": ".github/workflows/build-integrity.yml",
+        "text": "python3 .github/scripts/detect_publication_impact.py"
+      },
+      "expected_error": ".github/workflows/build-integrity.yml: missing protected text 'python3 .github/scripts/detect_publication_impact.py'"
     },
     {
       "name": "code quality workflow step deletion is rejected",

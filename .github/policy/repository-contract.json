@@ -15,6 +15,8 @@
     ],
     "files": [
       ".gitignore",
+      ".prettierignore",
+      ".prettierrc",
       "AGENTS.md",
       "CHANGELOG.md",
       "CITATION.cff",
@@ -44,21 +46,12 @@
     { "path": ".github/pull_request_template.md", "type": "file" },
     { "path": ".github/scripts/validate_metadata.py", "type": "file" },
     { "path": ".github/scripts/validate_navigation.py", "type": "file" },
-    {
-      "path": ".github/scripts/validate_repository_contract.py",
-      "type": "file"
-    },
+    { "path": ".github/scripts/validate_repository_contract.py", "type": "file" },
     { "path": ".github/tests/metadata_contract/README.md", "type": "file" },
     { "path": ".github/tests/metadata_contract/cases.json", "type": "file" },
-    {
-      "path": ".github/tests/metadata_contract/test_metadata.py",
-      "type": "file"
-    },
+    { "path": ".github/tests/metadata_contract/test_metadata.py", "type": "file" },
     { "path": ".github/tests/repository_contract/cases.json", "type": "file" },
-    {
-      "path": ".github/tests/repository_contract/test_repository_contract.py",
-      "type": "file"
-    },
+    { "path": ".github/tests/repository_contract/test_repository_contract.py", "type": "file" },
     { "path": ".github/workflows/link-integrity.yml", "type": "file" },
     { "path": ".github/workflows/metadata-integrity.yml", "type": "file" },
     { "path": ".github/workflows/repository-contract.yml", "type": "file" },
@@ -68,14 +61,8 @@
     { "path": "00-doctrine/glossary.md", "type": "file" },
     { "path": "00-doctrine/model-judgment-placement.md", "type": "file" },
     { "path": "00-doctrine/nested-control-lifecycle.md", "type": "file" },
-    {
-      "path": "00-doctrine/requirements-correctness-and-bugs.md",
-      "type": "file"
-    },
-    {
-      "path": "00-doctrine/uncertainty-in-the-controlled-object.md",
-      "type": "file"
-    },
+    { "path": "00-doctrine/requirements-correctness-and-bugs.md", "type": "file" },
+    { "path": "00-doctrine/uncertainty-in-the-controlled-object.md", "type": "file" },
     { "path": "01-patterns", "type": "directory" },
     { "path": "01-patterns/README.md", "type": "file" },
     { "path": "01-patterns/judgment-node-boundary.md", "type": "file" },
@@ -83,14 +70,8 @@
       "path": "01-patterns/project-control-architecture-and-viability-review-template.md",
       "type": "file"
     },
-    {
-      "path": "01-patterns/project-control-architecture-and-viability-review.md",
-      "type": "file"
-    },
-    {
-      "path": "01-patterns/thinking-system-review-template.md",
-      "type": "file"
-    },
+    { "path": "01-patterns/project-control-architecture-and-viability-review.md", "type": "file" },
+    { "path": "01-patterns/thinking-system-review-template.md", "type": "file" },
     { "path": "01-patterns/thinking-system-review.md", "type": "file" },
     { "path": "02-ai-control-plane", "type": "directory" },
     { "path": "02-ai-control-plane/00-actuators/README.md", "type": "file" },
@@ -411,10 +392,7 @@
         "Topic tags are a deliberate projection of the most useful declared topics.",
         "Warnings are visible in GitHub Actions but do not fail the workflow by default."
       ],
-      "required_links": [
-        "SPECIFICATION.md",
-        ".github/policy/metadata-contract.json"
-      ]
+      "required_links": ["SPECIFICATION.md", ".github/policy/metadata-contract.json"]
     },
     {
       "path": "ROADMAP.md",
@@ -452,11 +430,7 @@
         "Automated agents may prepare and validate changes, but they must not merge, force-push, delete branches, rewrite history, or make unscoped normative decisions without explicit human instruction.",
         "Do not move directly from source wording into normative specification."
       ],
-      "required_links": [
-        "../../AGENTS.md",
-        "framework-traceability.md",
-        "../../CHANGELOG.md"
-      ]
+      "required_links": ["../../AGENTS.md", "framework-traceability.md", "../../CHANGELOG.md"]
     },
     {
       "path": "LICENSING.md",

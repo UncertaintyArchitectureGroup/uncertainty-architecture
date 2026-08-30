@@ -12,7 +12,7 @@ The maintained local delta is grouped as follows:
 
 | Delta group | Adapted or repository-owned surfaces |
 |---|---|
-| Root integration and compatibility | `package.json`, `package-lock.json`, `quartz.config.ts`, `quartz.layout.ts`, `tsconfig.json`, `globals.d.ts`, and `index.d.ts` |
+| Root integration and compatibility | `.gitignore`, `.prettierignore`, `.prettierrc`, `package.json`, `package-lock.json`, `quartz.config.ts`, `quartz.layout.ts`, `tsconfig.json`, `vercel.json`, `globals.d.ts`, and `index.d.ts` |
 | Quartz build and configuration | `quartz/build.ts`, `quartz/cfg.ts`, and `quartz/cli/helpers.js` |
 | Components and browser behavior | `quartz/components/renderPage.tsx`; Explorer, Mermaid, Search, and SPA scripts; `search.test.ts`; and the corresponding Darkmode, Explorer, Mermaid, Reader mode, and Search styles |
 | Parsing, emission, and links | `componentResources.ts` plus the Citations, Frontmatter, LaTeX, Links, Obsidian callout, and OxHugo transformers |
@@ -20,6 +20,17 @@ The maintained local delta is grouped as follows:
 | UA publication integration | `quartz/scripts/`, `quartz/publication/`, `PDF-EXPORT.md`, and `PLATFORM-RENDITIONS.md` |
 
 The upstream `globals.d.ts` and `index.d.ts` files are required TypeScript and browser/SCSS compatibility declarations. Preserve them unless an upgrade supplies a demonstrably equivalent replacement and `npm run check:types` passes. Upstream documentation, funding, issue templates, preview/deployment workflows, and Docker packaging are intentionally outside the imported generator surface; local repository policy and publishing workflows own those responsibilities.
+
+The upstream `.prettierrc` is the formatting baseline for the maintained fork, and `.prettierignore` excludes generated output, installed dependencies, and the Quartz cache. The changed-code validator passes both files explicitly to the locked local Prettier binary so a missing configuration fails closed instead of silently selecting tool defaults. The upstream `.gitattributes`, `.npmrc`, and `.node-version` are not currently imported: Node selection is owned by `package.json` plus the pinned CI setup, while no equivalent repository-wide Git EOL or npm `engine-strict` file is declared. A future upgrade must review those differences explicitly rather than assuming root tooling matches upstream.
+
+Reproduce the root-and-generator delta inventory from the repository root with:
+
+```bash
+git diff --name-status 4923affa7722dfc751f1074348e6dad214fe0c08 HEAD -- \
+  .gitattributes .gitignore .node-version .npmrc .prettierignore .prettierrc \
+  globals.d.ts index.d.ts package-lock.json package.json quartz.config.ts \
+  quartz.layout.ts tsconfig.json vercel.json quartz/
+```
 
 For a Quartz upgrade:
 
@@ -97,11 +108,12 @@ Tests are layered by the contract they can prove. A green unit suite does not re
 | Changed-code quality | `python3 .github/scripts/validate_code_quality.py --base <current-target-tip> --head HEAD` | Incremental Prettier conformance for changed repository-owned web/config sources and syntax validation for changed Python |
 | Changed-code formatting | `npm run format -- --base <current-target-tip> --head HEAD` | Writes Prettier output only to selected committed candidate paths; it never formats the legacy tree by default |
 | Code-quality regression fixtures | `python3 .github/tests/code_quality/test_code_quality.py` | File-scope selection, NUL-safe diff behavior, formatter success/failure/configuration behavior, and Python syntax failure behavior |
+| Publication-impact regression fixtures | `python3 .github/tests/publication_impact/test_publication_impact.py` | Renderer/configuration path coverage, non-impacting changes, and NUL-safe rename handling that preserves both path sides |
 | Repository-policy suites | Commands in root `AGENTS.md` | Structure, metadata, change coupling, agent checkpoint, trusted-base, research register, links, Mermaid, and supply-chain policy |
 | Publication integration | `Build Integrity` and manual export workflows | Chromium/Poppler rendering, strict manifests, visual artifacts, current article/working-paper paths, and upload packaging |
 | Workflow analysis | `actionlint`, `zizmor`, and the supply-chain validator | Workflow syntax, permissions/security findings, immutable action references, and container digests |
 
-`Build Integrity` runs the incremental changed-code validator, its regression fixtures, TypeScript static analysis, both JavaScript/TypeScript test groups, the Quartz production build, maintained Mermaid rendering, and workflow-policy analysis. Publication-impact detection adds the Chromium/Poppler render path when relevant. Manual export workflows create downloadable review artifacts; they do not publish a website or change research state.
+`Build Integrity` runs the incremental changed-code validator, its regression fixtures, publication-impact fixtures, TypeScript static analysis, both JavaScript/TypeScript test groups, the Quartz production build, maintained Mermaid rendering, and workflow-policy analysis. Publication-impact detection treats every `quartz/` change plus root renderer configuration, publication sources, and publication assets as requiring the Chromium/Poppler render path. Manual export workflows create downloadable review artifacts; they do not publish a website or change research state.
 
 ## Change protocol
 

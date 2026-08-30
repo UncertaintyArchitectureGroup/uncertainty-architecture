@@ -2,6 +2,7 @@
 """Regression tests for incremental repository code-quality validation."""
 
 import importlib.util
+import os
 import subprocess
 import tempfile
 import unittest
@@ -32,6 +33,15 @@ def git(root: Path, *arguments: str) -> str:
     return completed.stdout.strip()
 
 
+def materialize_prettier_fixture(root: Path) -> Path:
+    executable = root / "node_modules/.bin/prettier"
+    executable.parent.mkdir(parents=True)
+    executable.write_text("fixture\n", encoding="utf-8")
+    (root / ".prettierrc").write_text("{}\n", encoding="utf-8")
+    (root / ".prettierignore").write_text("node_modules\n", encoding="utf-8")
+    return executable
+
+
 class CodeQualityTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -42,6 +52,7 @@ class CodeQualityTests(unittest.TestCase):
         self.assertTrue(
             self.validator.is_prettier_candidate(".github/workflows/build-integrity.yml")
         )
+        self.assertTrue(self.validator.is_prettier_candidate(".prettierrc"))
         self.assertTrue(self.validator.is_prettier_candidate("package.json"))
         self.assertFalse(self.validator.is_prettier_candidate("package-lock.json"))
         self.assertFalse(self.validator.is_prettier_candidate("quartz/util/emojimap.json"))
@@ -72,9 +83,7 @@ class CodeQualityTests(unittest.TestCase):
     def test_prettier_uses_locked_binary_and_selected_paths(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            executable = root / "node_modules/.bin/prettier"
-            executable.parent.mkdir(parents=True)
-            executable.write_text("fixture\n", encoding="utf-8")
+            executable = materialize_prettier_fixture(root)
             calls = []
 
             def runner(arguments, **options):
@@ -90,15 +99,22 @@ class CodeQualityTests(unittest.TestCase):
             self.assertEqual(status, 0)
             self.assertEqual(calls[0][0][0], str(executable))
             self.assertEqual(calls[0][0][1], "--check")
+            self.assertEqual(
+                calls[0][0][2:6],
+                [
+                    "--config",
+                    str(root / ".prettierrc"),
+                    "--ignore-path",
+                    str(root / ".prettierignore"),
+                ],
+            )
             self.assertEqual(calls[0][0][-2:], ["package.json", "quartz/scripts/example.mjs"])
             self.assertEqual(calls[0][1]["cwd"], str(root))
 
     def test_prettier_failure_is_blocking_and_write_mode_is_forwarded(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            executable = root / "node_modules/.bin/prettier"
-            executable.parent.mkdir(parents=True)
-            executable.write_text("fixture\n", encoding="utf-8")
+            materialize_prettier_fixture(root)
             calls = []
 
             def runner(arguments, **options):
@@ -120,6 +136,34 @@ class CodeQualityTests(unittest.TestCase):
             status = self.validator.run_prettier(Path(directory), ["package.json"])
 
             self.assertEqual(status, 2)
+
+    def test_missing_prettier_configuration_is_configuration_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            executable = root / "node_modules/.bin/prettier"
+            executable.parent.mkdir(parents=True)
+            executable.write_text("fixture\n", encoding="utf-8")
+
+            status = self.validator.run_prettier(root, ["package.json"])
+
+            self.assertEqual(status, 2)
+
+    def test_existing_paths_reject_symbolic_and_hard_link_aliases(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "quartz/source.ts"
+            source.parent.mkdir(parents=True)
+            source.write_text("export const value = 1\n", encoding="utf-8")
+
+            symbolic_alias = root / "quartz/symbolic.ts"
+            symbolic_alias.symlink_to(source.name)
+            with self.assertRaisesRegex(ValueError, "symbolic-link alias"):
+                self.validator.existing_paths(root, ["quartz/symbolic.ts"])
+
+            hard_alias = root / "quartz/hard.ts"
+            os.link(source, hard_alias)
+            with self.assertRaisesRegex(ValueError, "hard-link alias"):
+                self.validator.existing_paths(root, ["quartz/hard.ts"])
 
     def test_changed_paths_use_merge_base_and_ignore_deletions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

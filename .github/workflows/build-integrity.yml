@@ -52,6 +52,8 @@ jobs:
           python3 .github/scripts/validate_code_quality.py --base "$base_ref" --head "$head_ref"
       - name: Policy / changed-source self-tests
         run: python3 .github/tests/code_quality/test_code_quality.py
+      - name: Policy / publication-impact self-tests
+        run: python3 .github/tests/publication_impact/test_publication_impact.py
       - name: TypeScript / static analysis
         run: npm run check:types
       - name: Quartz / TypeScript regression tests
@@ -89,23 +91,11 @@ jobs:
             exit 0
           fi
 
-          required=false
-          while IFS= read -r changed_path; do
-            case "$changed_path" in
-              .github/policy/repository-contract-change-coupling.json|\
-              .github/tests/repository_contract/*|\
-              .github/workflows/build-integrity.yml|\
-              .github/workflows/export-research-pdf.yml|\
-              package.json|package-lock.json|quartz.config.ts|\
-              quartz/PDF-EXPORT.md|quartz/scripts/*|quartz/styles/custom.scss|\
-              content/research/notes/thinking-systems-publication-draft.md|\
-              content/research/notes/open-engineering-specification-article-draft.md|\
-              content/research/publications/*)
-                required=true
-                break
-                ;;
-            esac
-          done < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          required="$(
+            python3 .github/scripts/detect_publication_impact.py \
+              --base "$BASE_SHA" \
+              --head "$HEAD_SHA"
+          )"
           echo "required=$required" >> "$GITHUB_OUTPUT"
 
   publication-render:
