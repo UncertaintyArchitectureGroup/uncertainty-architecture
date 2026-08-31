@@ -55,6 +55,12 @@ class CodeQualityTests(unittest.TestCase):
         self.assertFalse(self.validator.is_prettier_candidate("content/research/note.md"))
         self.assertTrue(self.validator.is_python_candidate(".github/scripts/validate_example.py"))
         self.assertFalse(self.validator.is_python_candidate("content/raw/example.py"))
+        self.assertEqual(
+            self.validator.selected_code_paths(
+                ["content/research/note.md", "quartz/scripts/export.mjs", ".github/tests/test.py"]
+            ),
+            [".github/tests/test.py", "quartz/scripts/export.mjs"],
+        )
 
     def test_python_syntax_reports_invalid_changed_source(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -124,6 +130,25 @@ class CodeQualityTests(unittest.TestCase):
             (parent_target / "nested.ts").write_text("export {}\n", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "symbolic-link alias"):
                 self.validator.existing_paths(root, ["alias/nested.ts"])
+
+    def test_unrelated_prose_symlink_is_outside_code_quality_scope(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            git(root, "init", "--initial-branch=main")
+            git(root, "config", "user.email", "fixture@example.invalid")
+            git(root, "config", "user.name", "Fixture")
+            target = root / "note-target.md"
+            target.write_text("base\n", encoding="utf-8")
+            git(root, "add", ".")
+            git(root, "commit", "-m", "base")
+            base = git(root, "rev-parse", "HEAD")
+            prose = root / "content/research/note.md"
+            prose.parent.mkdir(parents=True)
+            prose.symlink_to(Path("../../note-target.md"))
+            git(root, "add", "-A")
+            git(root, "commit", "-m", "head")
+            head = git(root, "rev-parse", "HEAD")
+            self.assertEqual(self.validator.validate(root, base, head), 0)
 
     def test_changed_paths_use_merge_base_and_ignore_deletions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
