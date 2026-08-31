@@ -101,7 +101,7 @@
     },
     {
       "path": "LICENSE-CODE.md",
-      "git_blob_sha1": "7a4a3ea2424c095993079009c1476e775f681e8",
+      "git_blob_sha1": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835",
       "purpose": "Protect the exact Apache License 2.0 legal text."
     }
   ],
