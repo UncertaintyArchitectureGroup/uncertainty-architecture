@@ -18,11 +18,12 @@ Current local responsibilities are grouped rather than treated as one undifferen
 | `quartz/types/` | upstream-compatible browser, event, and SCSS declarations required by the maintained fork |
 | `.github/config/prettier.json` and `.github/config/prettierignore` | explicit formatter baseline used by bounded code-quality validation |
 
-Reproduce the relevant root-and-generator delta inventory with:
+Reproduce the maintained fork and integration delta inventory with:
 
 ```bash
 git diff --name-status 4923affa7722dfc751f1074348e6dad214fe0c08 HEAD -- \
-  package-lock.json package.json quartz.config.ts quartz.layout.ts tsconfig.json vercel.json quartz/
+  package-lock.json package.json quartz.config.ts quartz.layout.ts tsconfig.json vercel.json quartz/ \
+  .github/config/prettier.json .github/config/prettierignore
 ```
 
 For an upgrade: record the proposed upstream tag/SHA, classify each local adaptation as retained/ported/superseded/removed, port local behavior onto the new upstream files rather than replacing the fork wholesale, update this baseline, and rerun the complete validation matrix.
