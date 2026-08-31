@@ -1,7 +1,11 @@
 import assert from "node:assert/strict"
+import { mkdtemp, rm } from "node:fs/promises"
+import { tmpdir } from "node:os"
+import path from "node:path"
 import test from "node:test"
+import { pathToFileURL } from "node:url"
+import { build } from "esbuild"
 import type { Blockquote, Root } from "mdast"
-import { ObsidianFlavoredMarkdown } from "./ofm"
 
 const calloutOnlyOptions = {
   comments: false,
@@ -19,31 +23,49 @@ const calloutOnlyOptions = {
   disableBrokenWikilinks: false,
 }
 
-test("callout classes remain a HAST class-name list", () => {
-  const plugin = ObsidianFlavoredMarkdown(calloutOnlyOptions)
-  const markdownPlugins = plugin.markdownPlugins?.({} as never) ?? []
-  assert.equal(markdownPlugins.length, 1)
+test("callout classes remain a HAST class-name list", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "ua-ofm-test-"))
+  const outfile = path.join(directory, "ofm.bundle.mjs")
+  try {
+    await build({
+      entryPoints: [path.resolve("quartz/plugins/transformers/ofm.ts")],
+      bundle: true,
+      format: "esm",
+      platform: "node",
+      packages: "external",
+      loader: { ".scss": "text" },
+      outfile,
+      logLevel: "silent",
+    })
 
-  const transformerFactory = markdownPlugins[0]
-  assert.equal(typeof transformerFactory, "function")
-  const transformer = (transformerFactory as () => (tree: Root, file: object) => void)()
+    const { ObsidianFlavoredMarkdown } = await import(pathToFileURL(outfile).href)
+    const plugin = ObsidianFlavoredMarkdown(calloutOnlyOptions)
+    const markdownPlugins = plugin.markdownPlugins?.({}) ?? []
+    assert.equal(markdownPlugins.length, 1)
 
-  const blockquote: Blockquote = {
-    type: "blockquote",
-    children: [
-      {
-        type: "paragraph",
-        children: [{ type: "text", value: "[!note] Regression" }],
-      },
-      {
-        type: "paragraph",
-        children: [{ type: "text", value: "Body" }],
-      },
-    ],
+    const transformerFactory = markdownPlugins[0]
+    assert.equal(typeof transformerFactory, "function")
+    const transformer = transformerFactory()
+
+    const blockquote: Blockquote = {
+      type: "blockquote",
+      children: [
+        {
+          type: "paragraph",
+          children: [{ type: "text", value: "[!note] Regression" }],
+        },
+        {
+          type: "paragraph",
+          children: [{ type: "text", value: "Body" }],
+        },
+      ],
+    }
+    const tree: Root = { type: "root", children: [blockquote] }
+
+    transformer(tree, { data: {} })
+
+    assert.deepEqual(blockquote.data?.hProperties?.className, ["callout", "note"])
+  } finally {
+    await rm(directory, { recursive: true, force: true })
   }
-  const tree: Root = { type: "root", children: [blockquote] }
-
-  transformer(tree, { data: {} })
-
-  assert.deepEqual(blockquote.data?.hProperties?.className, ["callout", "note"])
 })
