@@ -68,11 +68,20 @@ def assert_file_mutation_blocked(
 
 def assert_file_append_blocked(
     validator, extension, relative_path: str, appended_text: str,
-    label: str, failures: List[str],
+    expected_error: str, label: str, failures: List[str],
 ) -> None:
     with tempfile.TemporaryDirectory(prefix="ua-checkpoint-contract-") as temp:
         root = Path(temp)
         materialize_surface(root, extension)
+        baseline_errors = validate_surface(validator, root, extension)
+        if baseline_errors:
+            failures.append(
+                "{}: materialized baseline is invalid before mutation: {}".format(
+                    label, baseline_errors
+                )
+            )
+            return
+
         target = root / relative_path
         original = target.read_text(encoding="utf-8")
         target.write_text(
@@ -80,10 +89,25 @@ def assert_file_append_blocked(
             encoding="utf-8",
         )
         errors = validate_surface(validator, root, extension)
-        if not errors:
-            failures.append("{}: appended forbidden content did not trigger repository-contract failure".format(label))
+        if not any(expected_error in error for error in errors):
+            failures.append(
+                "{}: expected repository-contract error {!r}, got {}".format(
+                    label, expected_error, errors
+                )
+            )
         else:
             print("PASS: {}".format(label))
+
+
+def ready_approval_block(prefix: str) -> str:
+    return """{}
+{{
+  "head_sha": "1111111111111111111111111111111111111111",
+  "merge_sha": "2222222222222222222222222222222222222222",
+  "pr_body_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+  "checkpoint_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+}}
+-->""".format(prefix)
 
 
 def main() -> int:
@@ -102,18 +126,23 @@ def main() -> int:
     else:
         failures.append("repository validator does not register the agent-checkpoint extension")
 
+    expected_marker_error = "AGENTS.md: matches forbidden protected pattern"
     assert_file_append_blocked(
-        validator, extension,
+        validator,
+        extension,
         "AGENTS.md",
-        """<!-- ua-agent-ready-approval
-{
-  "head_sha": "1111111111111111111111111111111111111111",
-  "merge_sha": "2222222222222222222222222222222222222222",
-  "pr_body_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
-  "checkpoint_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
-}
--->""",
-        "copying an exact marker schema back into root guidance is blocked",
+        ready_approval_block("<!-- ua-agent-ready-approval"),
+        expected_marker_error,
+        "copying a canonical exact marker schema back into root guidance is blocked",
+        failures,
+    )
+    assert_file_append_blocked(
+        validator,
+        extension,
+        "AGENTS.md",
+        ready_approval_block("<!--\n  ua-agent-ready-approval   "),
+        expected_marker_error,
+        "copying a whitespace-variant parser-valid marker schema is blocked",
         failures,
     )
     assert_file_mutation_blocked(
@@ -195,7 +224,7 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent-checkpoint repository-contract fixture passed: 13 assertions.")
+    print("Agent-checkpoint repository-contract fixture passed: 14 assertions.")
     return 0
 
 
