@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state and trusted-base control surfaces while keeping exact schemas and command detail with their machine owners and out of the always-loaded router.",
+  "description": "Repository-contract extension protecting stable deterministic AI-agent checked-state and trusted-base controls while keeping canonical marker forms in the PR template, field and identifier policy in the machine contract, and executable shape/state checks in validators.",
   "required_paths": [
     {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
     {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
@@ -49,7 +49,8 @@
       "path": ".github/scripts/validate_repository_contract.py",
       "required_text": [
         "repository-contract-agent-checkpoint.json",
-        "forbidden_text"
+        "validate_forbidden_patterns",
+        "forbidden_patterns"
       ]
     },
     {
@@ -134,14 +135,14 @@
         "ua-agent-assistance-none",
         "Agent protocol / readiness authorization",
         "Agent protocol / trusted-base guard",
-        "This section owns behavioral invariants; [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure and step-by-step PR mechanics.",
-        "Exact marker schemas and field layouts belong to [`.github/pull_request_template.md`](.github/pull_request_template.md) and the machine contracts, not this always-loaded router."
+        "This section owns behavioral invariants; [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure, validation commands, and step-by-step PR mechanics.",
+        "Canonical marker forms live in [`.github/pull_request_template.md`](.github/pull_request_template.md). [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json) owns marker names, checkpoint fields and controlled values, and readiness identifiers; [`.github/scripts/validate_agent_checkpoint.py`](.github/scripts/validate_agent_checkpoint.py) and [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) enforce checkpoint and approval-object shape and state."
       ],
-      "forbidden_text": [
-        "<!-- ua-change-contract",
-        "<!-- ua-agent-checkpoint",
-        "<!-- ua-agent-assistance-none",
-        "<!-- ua-agent-ready-approval"
+      "forbidden_patterns": [
+        "(?s)<!--\\s*ua-change-contract\\s*\\{",
+        "(?s)<!--\\s*ua-agent-checkpoint\\s*\\{",
+        "(?s)<!--\\s*ua-agent-assistance-none\\s*\\{",
+        "(?s)<!--\\s*ua-agent-ready-approval\\s*\\{"
       ]
     }
   ]
