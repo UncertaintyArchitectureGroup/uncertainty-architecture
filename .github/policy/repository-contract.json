@@ -315,14 +315,14 @@
         "## 1. Purpose and authority",
         "## 4. Canonical ownership and invariants",
         "## 5. Repository placement map",
-        "## 6. Terminology and Constraint protocol",
-        "## 9. Editing workflow",
-        "## 10. End-of-session integrity protocol",
-        "## 11. Repository contract checks"
+        "## 6. Terminology and AI-control protocol",
+        "## 7. Editing workflow",
+        "## 8. End-of-session integrity protocol",
+        "## 9. Repository contract checks"
       ],
       "required_text": [
         "Do not use it as a second glossary, a second specification, or a source of new governance requirements.",
-        "Use terminology from the current glossary and owning doctrine. Preserve historical, quoted, raw, and attributed wording under the applicable provenance rules instead of normalizing it in place.",
+        "Use terminology from the current glossary and meaning from the declared owning doctrine, pattern, or capability document. Preserve historical, quoted, raw, and attributed wording under the applicable provenance rules instead of normalizing it in place.",
         "Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).",
         "Metadata errors are blocking.",
         "Do not weaken or bypass a contract merely to make a failing check green."
@@ -330,6 +330,7 @@
       "required_links": [
         "SPECIFICATION.md",
         "00-doctrine/glossary.md",
+        "CONTRIBUTING.md",
         "DOCUMENT-METADATA.md",
         "CHANGELOG.md",
         ".github/policy/metadata-contract.json",
@@ -356,7 +357,8 @@
         "Vitalii Oborskyi is the project creator and primary maintainer.",
         "Attributed work by named contributors must not be materially changed, reassigned, or presented as consensus without involving the relevant contributor where reasonably possible.",
         "A legitimate contract change must update the owning document, the contract, and an appropriate regression fixture in the same pull request.",
-        "A responsibility transfer must not leave two active documents claiming the same `canonical_for` value."
+        "A responsibility transfer must not leave two active documents claiming the same `canonical_for` value.",
+        "`AGENTS.md` owns AI-specific behavioral invariants and corrective-feedback routing. This file owns ordinary contributor procedure and step-by-step pull-request mechanics; the pull-request template and machine contracts own exact marker schemas, field layouts, and validation evidence."
       ],
       "required_links": [
         "AGENTS.md",

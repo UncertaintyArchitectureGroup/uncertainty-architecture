@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state and trusted-base control surfaces without freezing validator internals.",
+  "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state and trusted-base control surfaces while keeping exact schemas and command detail with their machine owners.",
   "required_paths": [
     {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
     {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
@@ -131,12 +131,10 @@
         "reviewed_feedback_sha256",
         "ua-agent-ready-approval",
         "ua-agent-assistance-none",
-        "\"head_sha\"",
-        "\"merge_sha\"",
-        "\"pr_body_sha256\"",
         "Agent protocol / readiness authorization",
         "Agent protocol / trusted-base guard",
-        "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>"
+        "This section owns behavioral invariants; [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure and step-by-step PR mechanics.",
+        "Exact marker schemas and field layouts belong to the PR template and machine contracts, not this always-loaded router."
       ]
     }
   ]

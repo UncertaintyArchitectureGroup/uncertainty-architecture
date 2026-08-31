@@ -30,6 +30,8 @@ REQUIRED_CASE_NAMES: Set[str] = {
     "PR contract marker deletion is rejected",
     "AI contributor coupling protocol deletion is rejected",
     "AI terminology ownership routing deletion is rejected",
+    "AI router editing heading deletion is rejected",
+    "AI contributor ownership boundary deletion is rejected",
     "CITATION author deletion is rejected",
     "link-integrity citation step deletion is rejected",
     "metadata workflow job deletion is rejected",

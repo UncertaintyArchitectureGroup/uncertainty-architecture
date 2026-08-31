@@ -84,6 +84,14 @@ def main() -> int:
 
     assert_file_mutation_blocked(
         validator, extension,
+        "AGENTS.md",
+        "Exact marker schemas and field layouts belong to the PR template and machine contracts, not this always-loaded router.",
+        "Exact marker schemas and field layouts are copied into this always-loaded router.",
+        "copying marker schemas back into root guidance is blocked",
+        failures,
+    )
+    assert_file_mutation_blocked(
+        validator, extension,
         ".github/workflows/change-coupling.yml",
         "name: Agent protocol / checked-state checkpoint",
         "name: Agent protocol / removed-checkpoint-fixture",
@@ -161,7 +169,7 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent-checkpoint repository-contract fixture passed: 12 assertions.")
+    print("Agent-checkpoint repository-contract fixture passed: 13 assertions.")
     return 0
 
 
