@@ -38,8 +38,8 @@ test("callout classes remain a HAST class-name list", async () => {
         {
           name: "quartz-inline-script-stubs",
           setup(esbuild) {
-            // Quartz's production build treats *.inline.ts imports as source-text resources.
-            // Stub only that build-time boundary so this test can exercise the real OFM transformer.
+            // Quartz's production build imports *.inline.ts modules as source-text resources.
+            // Stub only that build-time boundary so this test exercises the real OFM transformer.
             esbuild.onResolve({ filter: /\.inline$/ }, (args) => ({
               path: args.path,
               namespace: "quartz-inline-script",
