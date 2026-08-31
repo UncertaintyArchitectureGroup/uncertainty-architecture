@@ -155,6 +155,19 @@ The validator enforces:
 
 Exception labels are narrow, category-specific maintenance escapes. They are not ordinary contributor controls and must not be used to hide a stale contract or incomplete change. Applying an exception requires maintainer authority through repository permissions and a visible explanation in the pull-request body. `ua-exception/pr-contract` bypasses only the missing or malformed change-contract declaration; it does not bypass the agent checkpoint, high-impact classification, target freshness, or Draft/readiness controls, which continue with safe agent-assisted defaults.
 
+### Local AI-agent control validation
+
+Before pushing an AI-assisted repository-policy or protected normative change, run:
+
+```bash
+python3 .github/tests/agent_checkpoint/test_agent_checkpoint.py
+python3 .github/tests/agent_checkpoint/test_feedback_context.py
+python3 .github/tests/agent_checkpoint/test_trusted_base_guard.py
+python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
+```
+
+These tests validate checkpoint semantics, feedback-context freshness, trusted-base behavior, and repository-contract protection. Live GitHub Actions remains authoritative for PR state, tested merge, current target, CODEOWNER evidence, and trusted review context.
+
 ## 4. Repository ownership and attribution
 
 Vitalii Oborskyi is the project creator and primary maintainer. He retains final authority over repository scope and merges.
@@ -261,7 +274,7 @@ Once installed on the target branch, the independent **Agent protocol / trusted-
 
 Trusted GitHub reviews and inline review comments can invalidate an otherwise green checkpoint on the PR head lifecycle. Ordinary top-level PR Conversation comments and external AI conversation corrections remain semantic feedback rather than immediate PR-head status triggers; explicit CODEOWNER control markers for `agent_assistance: none` and Ready authorization are read during normal PR-head checkpoint events. GitHub cannot distinguish a human action from an AI action performed through the same authenticated GitHub principal, so the repository does not claim stronger identity separation than the evidence supports.
 
-Agents should use the research reconciliation trigger in `AGENTS.md` when source-derived framework work, worked applications, incidents, or operational observations change research state.
+Agents should use the [`Material research item protocol`](content/research/AGENTS.md#material-research-item-protocol) when source-derived framework work, worked applications, incidents, or operational observations change research state, and follow the [`Research Review Process`](content/research/review-process.md) for disposition and traceability.
 
 ## 10. Licensing
 
