@@ -2,202 +2,55 @@
   "contract_version": 1,
   "description": "Repository-contract extension protecting change-coupling, build-integrity, and supply-chain control surfaces.",
   "required_paths": [
-    {
-      "path": ".github/policy/change-coupling-contract.json",
-      "type": "file"
-    },
-    {
-      "path": ".github/scripts/validate_change_coupling.py",
-      "type": "file"
-    },
-    {
-      "path": ".github/tests/change_coupling/README.md",
-      "type": "file"
-    },
-    {
-      "path": ".github/tests/change_coupling/cases.json",
-      "type": "file"
-    },
-    {
-      "path": ".github/tests/change_coupling/test_change_coupling.py",
-      "type": "file"
-    },
-    {
-      "path": ".github/workflows/change-coupling.yml",
-      "type": "file"
-    },
-    {
-      "path": ".github/dependabot.yml",
-      "type": "file"
-    },
-    {
-      "path": ".github/policy/supply-chain-contract.json",
-      "type": "file"
-    },
-    {
-      "path": ".github/scripts/validate_mermaid.py",
-      "type": "file"
-    },
-    {
-      "path": ".github/scripts/validate_workflow_supply_chain.py",
-      "type": "file"
-    },
-    {
-      "path": ".github/tests/supply_chain/cases.json",
-      "type": "file"
-    },
-    {
-      "path": ".github/tests/supply_chain/test_supply_chain.py",
-      "type": "file"
-    },
-    {
-      "path": ".github/workflows/build-integrity.yml",
-      "type": "file"
-    },
-    {
-      "path": ".github/workflows/dependency-review.yml",
-      "type": "file"
-    },
-    {
-      "path": ".github/workflows/export-research-pdf.yml",
-      "type": "file"
-    },
-    {
-      "path": "quartz/PDF-EXPORT.md",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/export-pdf.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/export-pdf.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-rendition.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-figure8.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/render-publication-pdf.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/verify-publication-pdf.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-path-safety.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-provenance.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-figure8-fingerprint.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-safety.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/run-publication-verify.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-finalization.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-rendition.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/verify-publication-figure8.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-figure8.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": ".github/workflows/export-platform-renditions.yml",
-      "type": "file"
-    },
-    {
-      "path": "quartz/PLATFORM-RENDITIONS.md",
-      "type": "file"
-    },
-    {
-      "path": "quartz/publication/thinking-systems.platforms.json",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/render-platform-renditions.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/platform-rendition.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/render-copy-ready.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/render-copy-ready.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "content/research/notes/thinking-systems-linkedin-launch-post.md",
-      "type": "file"
-    },
-    {
-      "path": "content/research/notes/thinking-systems-platform-renditions.md",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/protect-platform-heading-links.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/protect-platform-heading-links.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/render-platform-furniture.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/platform-furniture.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/copy-ready.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/verify-publication-package.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/verify-publication-package.test.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/render-publication-assets.mjs",
-      "type": "file"
-    },
-    {
-      "path": "quartz/scripts/publication-assets.test.mjs",
-      "type": "file"
-    }
+    {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
+    {"path": ".github/scripts/validate_change_coupling.py", "type": "file"},
+    {"path": ".github/tests/change_coupling/README.md", "type": "file"},
+    {"path": ".github/tests/change_coupling/cases.json", "type": "file"},
+    {"path": ".github/tests/change_coupling/test_change_coupling.py", "type": "file"},
+    {"path": ".github/workflows/change-coupling.yml", "type": "file"},
+    {"path": ".github/dependabot.yml", "type": "file"},
+    {"path": ".github/policy/supply-chain-contract.json", "type": "file"},
+    {"path": ".github/scripts/validate_mermaid.py", "type": "file"},
+    {"path": ".github/scripts/validate_workflow_supply_chain.py", "type": "file"},
+    {"path": ".github/tests/supply_chain/cases.json", "type": "file"},
+    {"path": ".github/tests/supply_chain/test_supply_chain.py", "type": "file"},
+    {"path": ".github/workflows/build-integrity.yml", "type": "file"},
+    {"path": ".github/workflows/dependency-review.yml", "type": "file"},
+    {"path": ".github/workflows/export-research-pdf.yml", "type": "file"},
+    {"path": "quartz/PDF-EXPORT.md", "type": "file"},
+    {"path": "quartz/scripts/export-pdf.mjs", "type": "file"},
+    {"path": "quartz/scripts/export-pdf.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-rendition.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-figure8.mjs", "type": "file"},
+    {"path": "quartz/scripts/render-publication-pdf.mjs", "type": "file"},
+    {"path": "quartz/scripts/verify-publication-pdf.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-path-safety.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-provenance.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-figure8-fingerprint.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-safety.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/run-publication-verify.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-finalization.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-rendition.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/verify-publication-figure8.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-figure8.test.mjs", "type": "file"},
+    {"path": ".github/workflows/export-platform-renditions.yml", "type": "file"},
+    {"path": "quartz/PLATFORM-RENDITIONS.md", "type": "file"},
+    {"path": "quartz/publication/thinking-systems.platforms.json", "type": "file"},
+    {"path": "quartz/scripts/render-platform-renditions.mjs", "type": "file"},
+    {"path": "quartz/scripts/platform-rendition.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/render-copy-ready.mjs", "type": "file"},
+    {"path": "quartz/scripts/render-copy-ready.test.mjs", "type": "file"},
+    {"path": "content/research/notes/thinking-systems-linkedin-launch-post.md", "type": "file"},
+    {"path": "content/research/notes/thinking-systems-platform-renditions.md", "type": "file"},
+    {"path": "quartz/scripts/protect-platform-heading-links.mjs", "type": "file"},
+    {"path": "quartz/scripts/protect-platform-heading-links.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/render-platform-furniture.mjs", "type": "file"},
+    {"path": "quartz/scripts/platform-furniture.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/copy-ready.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/verify-publication-package.mjs", "type": "file"},
+    {"path": "quartz/scripts/verify-publication-package.test.mjs", "type": "file"},
+    {"path": "quartz/scripts/render-publication-assets.mjs", "type": "file"},
+    {"path": "quartz/scripts/publication-assets.test.mjs", "type": "file"}
   ],
   "critical_files": [
     {
@@ -315,56 +168,25 @@
       "path": "package.json",
       "required_text": [],
       "required_json": [
-        {
-          "pointer": "/scripts/pdf",
-          "equals": "node quartz/scripts/export-pdf.mjs"
-        },
-        {
-          "pointer": "/scripts/pdf:article",
-          "equals": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/thinking-systems-publication-draft.md --output dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf"
-        },
-        {
-          "pointer": "/scripts/pdf:working-paper",
-          "equals": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense"
-        },
-        {
-          "pointer": "/scripts/pdf:verify:figure8",
-          "equals": "node quartz/scripts/verify-publication-figure8.mjs"
-        },
-        {
-          "pointer": "/scripts/publication:platforms",
-          "equals": "node quartz/scripts/render-platform-renditions.mjs"
-        },
-        {
-          "pointer": "/scripts/publication:protect-links",
-          "equals": "node quartz/scripts/protect-platform-heading-links.mjs"
-        },
-        {
-          "pointer": "/scripts/publication:furniture",
-          "equals": "node quartz/scripts/render-platform-furniture.mjs"
-        },
-        {
-          "pointer": "/scripts/publication:copy-ready",
-          "equals": "node quartz/scripts/render-copy-ready.mjs"
-        },
-        {
-          "pointer": "/scripts/publication:bundle",
-          "equals": "npm run publication:assets && npm run publication:platforms && npm run publication:protect-links && npm run publication:furniture && npm run publication:copy-ready"
-        },
-        {
-          "pointer": "/scripts/publication:verify-package",
-          "equals": "node quartz/scripts/verify-publication-package.mjs"
-        }
+        {"pointer": "/scripts/pdf", "equals": "node quartz/scripts/export-pdf.mjs"},
+        {"pointer": "/scripts/pdf:article", "equals": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/thinking-systems-publication-draft.md --output dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf"},
+        {"pointer": "/scripts/pdf:working-paper", "equals": "node quartz/scripts/render-publication-pdf.mjs content/research/notes/open-engineering-specification-article-draft.md --output dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --no-split-dense"},
+        {"pointer": "/scripts/pdf:verify:figure8", "equals": "node quartz/scripts/verify-publication-figure8.mjs"},
+        {"pointer": "/scripts/publication:platforms", "equals": "node quartz/scripts/render-platform-renditions.mjs"},
+        {"pointer": "/scripts/publication:protect-links", "equals": "node quartz/scripts/protect-platform-heading-links.mjs"},
+        {"pointer": "/scripts/publication:furniture", "equals": "node quartz/scripts/render-platform-furniture.mjs"},
+        {"pointer": "/scripts/publication:copy-ready", "equals": "node quartz/scripts/render-copy-ready.mjs"},
+        {"pointer": "/scripts/publication:bundle", "equals": "npm run publication:assets && npm run publication:platforms && npm run publication:protect-links && npm run publication:furniture && npm run publication:copy-ready"},
+        {"pointer": "/scripts/publication:verify-package", "equals": "node quartz/scripts/verify-publication-package.mjs"}
       ]
     },
     {
       "path": "AGENTS.md",
       "required_text": [
-        "**Declare** the change in the machine-readable `ua-change-contract` block",
-        "The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json).",
-        "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>",
+        "Follow [`CONTRIBUTING.md`](CONTRIBUTING.md) for ordinary branching, PR, companion-update, validation-command, and readiness mechanics.",
+        "keep `ua-change-contract`, checkpoint disposition, PR description, and actual PR-owned diff synchronized;",
         "Maintainer exception labels are not a universal override.",
-        "Renamed or deleted maintained paths have an explicit compatibility decision."
+        "When a legitimate policy change alters a protected path, marker, value, or control invariant, update the human-readable owner first, then the relevant machine-readable contract and regression fixture in the same PR."
       ]
     },
     {
@@ -457,226 +279,87 @@
     },
     {
       "path": "quartz/scripts/publication-path-safety.mjs",
-      "required_text": [
-        "assertSafeOutputPath",
-        "assertIndependentOutputTarget",
-        "writeFileAtomically"
-      ]
+      "required_text": ["assertSafeOutputPath", "assertIndependentOutputTarget", "writeFileAtomically"]
     },
     {
       "path": "quartz/scripts/publication-provenance.mjs",
-      "required_text": [
-        "determineSourceProvenance",
-        "dirty-preview",
-        "do not match declared source commit"
-      ]
+      "required_text": ["determineSourceProvenance", "dirty-preview", "do not match declared source commit"]
     },
     {
       "path": "quartz/scripts/publication-figure8-fingerprint.mjs",
-      "required_text": [
-        "canonicalFigure8Fingerprint",
-        "requires substantive review"
-      ]
+      "required_text": ["canonicalFigure8Fingerprint", "requires substantive review"]
     },
     {
       "path": "quartz/scripts/render-publication-pdf.mjs",
       "required_text": [
-        "writeFileAtomically",
-        "source_state",
-        "requireFigure8Split",
-        "finalizePublicationPair",
-        "verifyPublicationPair",
-        "recovery files retained",
-        "schema_version: 2",
-        "source_commit_sha",
-        "source_content_sha256",
-        "generated_date",
-        "external_publication_urls",
-        "toc_threshold_pages",
-        "figures: {",
-        "authors: selected.authors",
-        "figure_8_source_fingerprint",
-        "figure_8_readability",
-        "source_content_digest",
-        "number_of_pages"
+        "writeFileAtomically", "source_state", "requireFigure8Split", "finalizePublicationPair", "verifyPublicationPair", "recovery files retained", "schema_version: 2", "source_commit_sha", "source_content_sha256", "generated_date", "external_publication_urls", "toc_threshold_pages", "figures: {", "authors: selected.authors", "figure_8_source_fingerprint", "figure_8_readability", "source_content_digest", "number_of_pages"
       ]
     },
     {
       "path": "quartz/scripts/verify-publication-pdf.mjs",
       "required_text": [
-        "assertSafeOutputPath",
-        "writeFileAtomically",
-        "visual-verification.json",
-        "verifyPublicationManifest",
-        "verifyTitlePage",
-        "verifyClickableContents",
-        "--require-manifest",
-        "pdftohtml",
-        "source_content_sha256 does not match the canonical Markdown bytes",
-        "verifyFigure8PublicationRendition",
-        "separate_pages",
-        "panel_a_readable",
-        "panel_b_readable",
-        "figure_8: figure8"
+        "assertSafeOutputPath", "writeFileAtomically", "visual-verification.json", "verifyPublicationManifest", "verifyTitlePage", "verifyClickableContents", "--require-manifest", "pdftohtml", "source_content_sha256 does not match the canonical Markdown bytes", "verifyFigure8PublicationRendition", "separate_pages", "panel_a_readable", "panel_b_readable", "figure_8: figure8"
       ]
     },
     {
       "path": "quartz/scripts/run-publication-verify.mjs",
-      "required_text": [
-        "assertSafeOutputPath",
-        "repoRoot, visualRoot, outputDir",
-        "--require-manifest"
-      ]
+      "required_text": ["assertSafeOutputPath", "repoRoot, visualRoot, outputDir", "--require-manifest"]
     },
     {
       "path": "quartz/scripts/publication-finalization.test.mjs",
-      "required_text": [
-        "candidate checksum mismatch preserves the previous publication pair",
-        "post-install verification failure restores the previous publication pair",
-        "rollback failure retains recovery files"
-      ]
+      "required_text": ["candidate checksum mismatch preserves the previous publication pair", "post-install verification failure restores the previous publication pair", "rollback failure retains recovery files"]
     },
     {
       "path": "quartz/scripts/publication-rendition.test.mjs",
-      "required_text": [
-        "publication title page carries full author, status, license, URLs, and source commit SHA",
-        "publication manifest verifies explicit source and PDF identities",
-        "title-page and clickable-contents verification reject incomplete publication furniture",
-        "curated UA publication objects retain Vitalii Oborskyi attribution without editing research Markdown"
-      ]
+      "required_text": ["publication title page carries full author, status, license, URLs, and source commit SHA", "publication manifest verifies explicit source and PDF identities", "title-page and clickable-contents verification reject incomplete publication furniture", "curated UA publication objects retain Vitalii Oborskyi attribution without editing research Markdown"]
     },
     {
       "path": "quartz/scripts/publication-rendition.mjs",
-      "required_text": [
-        "workingPaperSource",
-        "curatedPublicationAuthors",
-        "resolvePublicationAuthors",
-        "Vitalii Oborskyi",
-        "export function buildTitlePage",
-        "Source commit SHA",
-        "export function buildToc",
-        "ua-pdf-figure8-shared-caption",
-        "figure8Fingerprint",
-        "figure8Readability",
-        "canonicalFigure8Fingerprint"
-      ]
+      "required_text": ["workingPaperSource", "curatedPublicationAuthors", "resolvePublicationAuthors", "Vitalii Oborskyi", "export function buildTitlePage", "Source commit SHA", "export function buildToc", "ua-pdf-figure8-shared-caption", "figure8Fingerprint", "figure8Readability", "canonicalFigure8Fingerprint"]
     },
     {
       "path": "quartz/scripts/publication-figure8.mjs",
-      "required_text": [
-        "figure8ReadabilityPolicy",
-        "hardFloorPt: 5",
-        "preferredMinimumPt: 6",
-        "desktopMinimumPx: 12",
-        "assertFigure8PanelReadability",
-        "assertFigure8RenditionSemantics",
-        "buildFigure8RenditionAssets"
-      ]
+      "required_text": ["figure8ReadabilityPolicy", "hardFloorPt: 5", "preferredMinimumPt: 6", "desktopMinimumPx: 12", "assertFigure8PanelReadability", "assertFigure8RenditionSemantics", "buildFigure8RenditionAssets"]
     },
     {
       "path": "quartz/scripts/verify-publication-figure8.mjs",
-      "required_text": [
-        "figure-8-publication-verification",
-        "figure-8a-decision-ownership.png",
-        "figure-8b-capability-orthogonality.png",
-        "Figure 8 publication assets verified"
-      ]
+      "required_text": ["figure-8-publication-verification", "figure-8a-decision-ownership.png", "figure-8b-capability-orthogonality.png", "Figure 8 publication assets verified"]
     },
     {
       "path": "quartz/scripts/publication-figure8.test.mjs",
-      "required_text": [
-        "Figure 8 panels meet the PDF hard floor, preferred target, and desktop no-zoom floor",
-        "Figure 8 panel builders retain the reviewed semantic projection",
-        "current article Figure 8 acceptance requires exact panels, fingerprint, and readability"
-      ]
+      "required_text": ["Figure 8 panels meet the PDF hard floor, preferred target, and desktop no-zoom floor", "Figure 8 panel builders retain the reviewed semantic projection", "current article Figure 8 acceptance requires exact panels, fingerprint, and readability"]
     },
     {
       "path": "quartz/styles/custom.scss",
-      "required_text": [
-        "@page ua-figure8b",
-        ".ua-pdf-figure8-shared-caption",
-        ".ua-pdf-static-figure--8a",
-        ".ua-pdf-static-figure--8b",
-        "break-after: page"
-      ]
+      "required_text": ["@page ua-figure8b", ".ua-pdf-figure8-shared-caption", ".ua-pdf-static-figure--8a", ".ua-pdf-static-figure--8b", "break-after: page"]
     },
     {
       "path": ".github/workflows/export-platform-renditions.yml",
-      "required_text": [
-        "name: Export platform renditions",
-        "workflow_dispatch:",
-        "npm run publication:bundle",
-        "thinking-systems-platform-renditions",
-        "fetch-depth: 0",
-        "dist/publication/thinking-systems/figures/png/**",
-        "dist/publication/thinking-systems/renditions/**",
-        "UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}",
-        "npm run publication:verify-package",
-        "quartz/scripts/verify-publication-package.test.mjs"
-      ]
+      "required_text": ["name: Export platform renditions", "workflow_dispatch:", "npm run publication:bundle", "thinking-systems-platform-renditions", "fetch-depth: 0", "dist/publication/thinking-systems/figures/png/**", "dist/publication/thinking-systems/renditions/**", "UA_PDF_REPOSITORY_REF: ${{ github.event.pull_request.head.sha || github.sha }}", "npm run publication:verify-package", "quartz/scripts/verify-publication-package.test.mjs"]
     },
     {
       "path": "quartz/scripts/render-platform-renditions.mjs",
-      "required_text": [
-        "publication_state: \"candidate\"",
-        "publication_ready: false",
-        "launch_post_article_url_binding: \"required-placeholder\"",
-        "figure_8_panels_must_travel_together: true",
-        "\"platform-renditions.manifest.json\""
-      ]
+      "required_text": ["publication_state: \"candidate\"", "publication_ready: false", "launch_post_article_url_binding: \"required-placeholder\"", "figure_8_panels_must_travel_together: true", "\"platform-renditions.manifest.json\""]
     },
     {
       "path": "quartz/scripts/render-copy-ready.mjs",
-      "required_text": [
-        "clipboard_behavior: \"manual-select-all-copy\"",
-        "javascript_copy_controls: false",
-        "linkedin_image_strategy: \"embedded-data-uri\"",
-        "medium_image_strategy: \"embedded-data-uri-preview\"",
-        "medium_clipboard_images_supported: false",
-        "medium_manual_upload_required: true",
-        "medium_upload_kit: \"medium/upload/README.md\""
-      ]
+      "required_text": ["clipboard_behavior: \"manual-select-all-copy\"", "javascript_copy_controls: false", "linkedin_image_strategy: \"embedded-data-uri\"", "medium_image_strategy: \"embedded-data-uri-preview\"", "medium_clipboard_images_supported: false", "medium_manual_upload_required: true", "medium_upload_kit: \"medium/upload/README.md\""]
     },
     {
       "path": "quartz/publication/thinking-systems.platforms.json",
-      "required_text": [
-        "\"post_max_characters\": 3000",
-        "\"article_max_characters\": 125000",
-        "\"width\": 2000",
-        "\"image_min_width\": 1192",
-        "one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment",
-        "Maximiliano Armesto",
-        "Jan Rosen"
-      ]
+      "required_text": ["\"post_max_characters\": 3000", "\"article_max_characters\": 125000", "\"width\": 2000", "\"image_min_width\": 1192", "one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment", "Maximiliano Armesto", "Jan Rosen"]
     },
     {
       "path": "quartz/scripts/protect-platform-heading-links.mjs",
-      "required_text": [
-        "mechanism: \"visible-source-line-after-linked-heading\"",
-        "parser: \"remark-ast\"",
-        "body_links_duplicated: false",
-        "deterministic_multiple_links: true"
-      ]
+      "required_text": ["mechanism: \"visible-source-line-after-linked-heading\"", "parser: \"remark-ast\"", "body_links_duplicated: false", "deterministic_multiple_links: true"]
     },
     {
       "path": "quartz/scripts/verify-publication-package.mjs",
-      "required_text": [
-        "platformManifest.publication_state === \"candidate\"",
-        "platformManifest.publication_ready === false",
-        "copyReady?.medium_clipboard_images_supported === false",
-        "copyReady?.medium_manual_upload_required === true",
-        "platformManifest.figure_8_panels_must_travel_together === true",
-        "checklist.includes(\"upload/README.md\")"
-      ]
+      "required_text": ["platformManifest.publication_state === \"candidate\"", "platformManifest.publication_ready === false", "copyReady?.medium_clipboard_images_supported === false", "copyReady?.medium_manual_upload_required === true", "platformManifest.figure_8_panels_must_travel_together === true", "checklist.includes(\"upload/README.md\")"]
     },
     {
       "path": "content/research/notes/thinking-systems-linkedin-launch-post.md",
-      "required_text": [
-        "important ideas often do not appear as isolated flashes of genius",
-        "following his From Fall to Rise post",
-        "a Thinking System is a software system in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment",
-        "{{LINKEDIN_ARTICLE_URL}}"
-      ]
+      "required_text": ["important ideas often do not appear as isolated flashes of genius", "following his From Fall to Rise post", "a Thinking System is a software system in which one or more Consequential Runtime Responsibilities depend partly on probabilistic Model Judgment", "{{LINKEDIN_ARTICLE_URL}}"]
     }
   ]
 }
