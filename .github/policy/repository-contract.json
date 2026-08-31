@@ -101,7 +101,7 @@
     },
     {
       "path": "LICENSE-CODE.md",
-      "git_blob_sha1": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835",
+      "git_blob_sha1": "7a4a3ea2424c095993079009c1476e775f681e8",
       "purpose": "Protect the exact Apache License 2.0 legal text."
     }
   ],
@@ -322,7 +322,7 @@
       ],
       "required_text": [
         "Do not use it as a second glossary, a second specification, or a source of new governance requirements.",
-        "Use **Thinking Systems** in current framework material. Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, raw sources, and provenance records.",
+        "Use terminology from the current glossary and owning doctrine. Preserve historical, quoted, raw, and attributed wording under the applicable provenance rules instead of normalizing it in place.",
         "Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).",
         "Metadata errors are blocking.",
         "Do not weaken or bypass a contract merely to make a failing check green."
