@@ -68,8 +68,19 @@ def is_python_candidate(relative: str) -> bool:
     return relative.endswith(".py") and relative.startswith(PYTHON_PREFIXES)
 
 
+def selected_code_paths(paths: Iterable[str]) -> List[str]:
+    """Return only paths that this validator can format or syntax-check."""
+    return sorted(
+        {
+            relative
+            for relative in paths
+            if is_prettier_candidate(relative) or is_python_candidate(relative)
+        }
+    )
+
+
 def existing_paths(root: Path, paths: Iterable[str]) -> List[str]:
-    """Select regular files while rejecting symbolic-link and hard-link aliases."""
+    """Select regular candidate files while rejecting aliases inside code-quality scope."""
     selected: List[str] = []
     resolved_root = root.resolve()
     for relative in paths:
@@ -139,7 +150,8 @@ def run_prettier(
 
 def validate(root: Path, base: str, head: str, write: bool = False) -> int:
     try:
-        paths = existing_paths(root, changed_paths(root, base, head))
+        changed = changed_paths(root, base, head)
+        paths = existing_paths(root, selected_code_paths(changed))
     except ValueError as exc:
         print("Code-quality validation failed: {}".format(exc), file=sys.stderr)
         return 2
