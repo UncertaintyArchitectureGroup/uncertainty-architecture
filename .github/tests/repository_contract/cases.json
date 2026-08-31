@@ -134,7 +134,7 @@
       "mutation": {
         "type": "remove_text",
         "path": "CONTRIBUTING.md",
-        "text": "`AGENTS.md` owns AI-specific behavioral invariants and corrective-feedback routing. This file owns ordinary contributor procedure and step-by-step pull-request mechanics; the pull-request template and machine contracts own exact marker schemas, field layouts, and validation evidence."
+        "text": "[`.github/pull_request_template.md`](.github/pull_request_template.md) owns canonical marker forms."
       },
       "expected_error": "CONTRIBUTING.md: missing protected text"
     },
