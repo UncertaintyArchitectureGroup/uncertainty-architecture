@@ -29,6 +29,7 @@ REQUIRED_CASE_NAMES: Set[str] = {
     "CODEOWNERS default ownership deletion is rejected",
     "PR contract marker deletion is rejected",
     "AI contributor coupling protocol deletion is rejected",
+    "AI terminology ownership routing deletion is rejected",
     "CITATION author deletion is rejected",
     "link-integrity citation step deletion is rejected",
     "metadata workflow job deletion is rejected",
