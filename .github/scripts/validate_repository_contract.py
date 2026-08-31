@@ -141,6 +141,38 @@ def validate_required_json(
             )
 
 
+def validate_forbidden_patterns(
+    relative: str,
+    text: str,
+    patterns: Iterable[object],
+    errors: List[str],
+) -> None:
+    """Reject configured regular-expression patterns in a critical text file."""
+    for raw_pattern in patterns:
+        if not isinstance(raw_pattern, str):
+            errors.append(
+                "{}: forbidden protected pattern must be a string: {!r}".format(
+                    relative, raw_pattern
+                )
+            )
+            continue
+        try:
+            pattern = re.compile(raw_pattern)
+        except re.error as exc:
+            errors.append(
+                "{}: invalid forbidden protected pattern {!r}: {}".format(
+                    relative, raw_pattern, exc
+                )
+            )
+            continue
+        if pattern.search(text):
+            errors.append(
+                "{}: matches forbidden protected pattern {!r}".format(
+                    relative, raw_pattern
+                )
+            )
+
+
 def validate_top_level(root: Path, contract: Dict[str, object], errors: List[str]) -> None:
     allowed = contract["allowed_top_level"]
     allowed_directories = set(allowed["directories"])
@@ -216,6 +248,12 @@ def validate_critical_files(root: Path, contract: Dict[str, object], errors: Lis
         for marker in rule.get("forbidden_text", []):
             if marker in text:
                 errors.append("{}: contains forbidden protected text {!r}".format(relative, marker))
+        validate_forbidden_patterns(
+            relative,
+            text,
+            rule.get("forbidden_patterns", []),
+            errors,
+        )
         validate_required_json(
             relative,
             path,
