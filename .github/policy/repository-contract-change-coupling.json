@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "description": "Repository-contract extension protecting change-coupling, code-quality, build-integrity, publishing, and supply-chain control surfaces.",
+  "description": "Repository-contract extension protecting change-coupling, build-integrity, and supply-chain control surfaces.",
   "required_paths": [
     {
       "path": ".github/policy/change-coupling-contract.json",
@@ -43,22 +43,6 @@
       "type": "file"
     },
     {
-      "path": ".github/scripts/validate_code_quality.py",
-      "type": "file"
-    },
-    {
-      "path": ".github/scripts/detect_publication_impact.py",
-      "type": "file"
-    },
-    {
-      "path": ".github/tests/code_quality/test_code_quality.py",
-      "type": "file"
-    },
-    {
-      "path": ".github/tests/publication_impact/test_publication_impact.py",
-      "type": "file"
-    },
-    {
       "path": ".github/tests/supply_chain/cases.json",
       "type": "file"
     },
@@ -80,30 +64,6 @@
     },
     {
       "path": "quartz/PDF-EXPORT.md",
-      "type": "file"
-    },
-    {
-      "path": "quartz/README.md",
-      "type": "file"
-    },
-    {
-      "path": "CONTRIBUTING.md",
-      "type": "file"
-    },
-    {
-      "path": ".prettierignore",
-      "type": "file"
-    },
-    {
-      "path": ".prettierrc",
-      "type": "file"
-    },
-    {
-      "path": "globals.d.ts",
-      "type": "file"
-    },
-    {
-      "path": "index.d.ts",
       "type": "file"
     },
     {
@@ -310,68 +270,10 @@
       ]
     },
     {
-      "path": ".github/scripts/validate_code_quality.py",
-      "required_text": [
-        "Validate changed repository-owned code without normalizing the legacy tree.",
-        "Changed path uses a symbolic-link alias:",
-        "Changed path uses a hard-link alias:",
-        "Prettier configuration is incomplete",
-        "os.fsdecode",
-        "\"-z\"",
-        "node_modules/.bin/prettier",
-        "\"--config\"",
-        "\"--ignore-path\"",
-        "\"--write\"",
-        "--base",
-        "--head"
-      ]
-    },
-    {
-      "path": ".github/tests/code_quality/test_code_quality.py",
-      "required_text": [
-        "class CodeQualityTests",
-        "test_scope_selects_repository_code_without_preserved_or_prose_files",
-        "test_changed_paths_use_merge_base_and_ignore_deletions",
-        "test_changed_paths_are_nul_safe_for_unicode_newline_and_rename",
-        "test_prettier_failure_is_blocking_and_write_mode_is_forwarded",
-        "test_missing_prettier_is_configuration_failure",
-        "test_missing_prettier_configuration_is_configuration_failure",
-        "test_existing_paths_reject_symbolic_and_hard_link_aliases"
-      ]
-    },
-    {
-      "path": ".github/scripts/detect_publication_impact.py",
-      "required_text": [
-        "PUBLICATION_EXACT_PATHS",
-        "PUBLICATION_PREFIXES",
-        "Publication-impact detection failed:",
-        "\"--name-only\"",
-        "\"-z\"",
-        "\"--no-renames\"",
-        "--base",
-        "--head"
-      ]
-    },
-    {
-      "path": ".github/tests/publication_impact/test_publication_impact.py",
-      "required_text": [
-        "class PublicationImpactTests",
-        "test_renderer_core_configuration_and_publication_sources_are_impacting",
-        "test_changed_paths_preserve_unicode_newlines_and_both_rename_sides",
-        "test_invalid_revision_fails_closed",
-        "test_unrelated_diff_does_not_require_publication_render"
-      ]
-    },
-    {
       "path": ".github/workflows/build-integrity.yml",
       "required_text": [
         "name: Build integrity",
         "Build / Quartz production site",
-        "Code formatting and Python syntax / changed sources",
-        "Policy / changed-source self-tests",
-        "Policy / publication-impact self-tests",
-        "TypeScript / static analysis",
-        "Quartz / TypeScript regression tests",
         "PDF export / regression tests",
         "Publication / current article render",
         "Install Chromium and PDF inspection tools",
@@ -384,13 +286,6 @@
         "Run supply-chain regression fixtures",
         "zizmor --pedantic",
         "fetch-depth: 0",
-        "python3 .github/scripts/validate_code_quality.py --base \"$base_ref\" --head \"$head_ref\"",
-        "python3 .github/tests/code_quality/test_code_quality.py",
-        "python3 .github/tests/publication_impact/test_publication_impact.py",
-        "python3 .github/scripts/detect_publication_impact.py",
-        "npm run check:types",
-        "npm run test:quartz",
-        "npm run test:publication",
         "UA_PDF_REPOSITORY_REF: ${{ github.sha }}",
         "npm run pdf:verify -- dist/pdf/thinking-systems-when-the-controlled-object-changes.pdf --require-manifest",
         "npm run pdf:verify -- dist/pdf/uncertainty-architecture-thinking-systems-working-paper.pdf --require-manifest",
@@ -398,20 +293,6 @@
         "Generate Figure 8 review assets",
         "npm run pdf:verify:figure8"
       ]
-    },
-    {
-      "path": ".prettierrc",
-      "required_text": [
-        "\"printWidth\": 100",
-        "\"quoteProps\": \"as-needed\"",
-        "\"trailingComma\": \"all\"",
-        "\"tabWidth\": 2",
-        "\"semi\": false"
-      ]
-    },
-    {
-      "path": ".prettierignore",
-      "required_text": ["public", "node_modules", ".quartz-cache"]
     },
     {
       "path": ".github/workflows/dependency-review.yml",
@@ -434,30 +315,6 @@
       "path": "package.json",
       "required_text": [],
       "required_json": [
-        {
-          "pointer": "/scripts/check",
-          "equals": "npm run check:types && npm test && npm run build"
-        },
-        {
-          "pointer": "/scripts/check:types",
-          "equals": "tsc --noEmit --incremental false"
-        },
-        {
-          "pointer": "/scripts/format",
-          "equals": "python3 .github/scripts/validate_code_quality.py --write"
-        },
-        {
-          "pointer": "/scripts/test",
-          "equals": "npm run test:quartz && npm run test:publication"
-        },
-        {
-          "pointer": "/scripts/test:quartz",
-          "equals": "node --import tsx --test \"quartz/**/*.test.ts\""
-        },
-        {
-          "pointer": "/scripts/test:publication",
-          "equals": "node --test quartz/scripts/*.test.mjs"
-        },
         {
           "pointer": "/scripts/pdf",
           "equals": "node quartz/scripts/export-pdf.mjs"
@@ -503,61 +360,10 @@
     {
       "path": "AGENTS.md",
       "required_text": [
-        "### Editing code, validators, workflows, or publishing infrastructure",
-        "[`CONTRIBUTING.md`](CONTRIBUTING.md#code-contributions)",
-        "[`quartz/README.md`](quartz/README.md)",
-        "python3 .github/scripts/validate_code_quality.py --base <current-target-tip-sha> --head <head-sha>",
-        "python3 .github/tests/code_quality/test_code_quality.py",
-        "npm run check:types",
-        "**Declare** the change in the machine-readable `ua-change-contract` block",
-        "The diff-aware companion-update policy lives at [`.github/policy/change-coupling-contract.json`](.github/policy/change-coupling-contract.json).",
-        "python3 .github/scripts/validate_change_coupling.py --base <current-target-tip-sha> --head <head-sha> --pr-body-file <pr-body-file> --labels <comma-separated-labels>",
+        "Follow [`CONTRIBUTING.md`](CONTRIBUTING.md) for ordinary branching, PR, companion-update, validation-command, and readiness mechanics.",
+        "keep `ua-change-contract`, checkpoint disposition, PR description, and actual PR-owned diff synchronized;",
         "Maintainer exception labels are not a universal override.",
-        "Renamed or deleted maintained paths have an explicit compatibility decision."
-      ]
-    },
-    {
-      "path": "CONTRIBUTING.md",
-      "required_text": [
-        "## Code contributions",
-        "Comments explain **intent, invariants, boundaries, risks, or non-obvious workarounds**, not syntax.",
-        "Every defect fix requires a regression test that would fail without the fix.",
-        "Changed repository-owned JavaScript, TypeScript, JSON, YAML, CSS, and SCSS must pass the incremental formatting check",
-        "npm run format -- --base <current-target-tip> --head HEAD",
-        "The Python baseline validates syntax only"
-      ]
-    },
-    {
-      "path": "quartz/README.md",
-      "required_text": [
-        "# Quartz integration architecture",
-        "## Upstream provenance and local delta",
-        "4923affa7722dfc751f1074348e6dad214fe0c08",
-        "## Ownership boundary",
-        "## Execution architecture",
-        "## Test and validation architecture",
-        "npm run test:quartz",
-        "npm run test:publication",
-        "npm run check:types",
-        "npm run check",
-        "npm run format -- --base <current-target-tip> --head HEAD",
-        "validate_code_quality.py",
-        "Quartz-derived site-generation core",
-        "UA-owned PDF, publication, asset, platform-rendition, provenance, safety, and verification tooling"
-      ]
-    },
-    {
-      "path": "globals.d.ts",
-      "required_text": ["interface Document", "interface Window", "spaNavigate", "addCleanup"]
-    },
-    {
-      "path": "index.d.ts",
-      "required_text": [
-        "declare module \"*.scss\"",
-        "interface CustomEventMap",
-        "readermodechange",
-        "type ContentIndex",
-        "fetchData"
+        "When a legitimate policy change alters a protected path, marker, value, or control invariant, update the human-readable owner first, then the relevant machine-readable contract and regression fixture in the same PR."
       ]
     },
     {
@@ -666,7 +472,10 @@
     },
     {
       "path": "quartz/scripts/publication-figure8-fingerprint.mjs",
-      "required_text": ["canonicalFigure8Fingerprint", "requires substantive review"]
+      "required_text": [
+        "canonicalFigure8Fingerprint",
+        "requires substantive review"
+      ]
     },
     {
       "path": "quartz/scripts/render-publication-pdf.mjs",

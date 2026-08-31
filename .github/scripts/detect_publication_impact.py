@@ -8,15 +8,12 @@ import sys
 from pathlib import Path
 from typing import List, Sequence
 
-
 ROOT = Path(__file__).resolve().parents[2]
 PUBLICATION_EXACT_PATHS = {
-    ".github/policy/repository-contract-change-coupling.json",
+    ".github/policy/repository-contract-code-quality.json",
     ".github/scripts/detect_publication_impact.py",
     ".github/workflows/build-integrity.yml",
     ".github/workflows/export-research-pdf.yml",
-    "globals.d.ts",
-    "index.d.ts",
     "package-lock.json",
     "package.json",
     "quartz.config.ts",
@@ -26,15 +23,19 @@ PUBLICATION_EXACT_PATHS = {
     "content/research/notes/thinking-systems-publication-draft.md",
 }
 PUBLICATION_PREFIXES = (
-    ".github/tests/publication_impact/",
     "assets/",
     "content/research/publications/",
     "quartz/",
 )
+PUBLICATION_NON_EXECUTABLE_PATHS = {
+    "quartz/AGENTS.md",
+    "quartz/README.md",
+    "quartz/PDF-EXPORT.md",
+    "quartz/PLATFORM-RENDITIONS.md",
+}
 
 
 def git_output_bytes(root: Path, arguments: Sequence[str]) -> bytes:
-    """Run a read-only git query while preserving arbitrary path bytes."""
     completed = subprocess.run(
         ["git", *arguments],
         cwd=str(root),
@@ -66,13 +67,12 @@ def changed_paths(root: Path, base: str, head: str) -> List[str]:
 
 def is_publication_impact_path(relative: str) -> bool:
     """Classify sources whose changes can alter publication render or verification."""
-    return relative in PUBLICATION_EXACT_PATHS or relative.startswith(
-        PUBLICATION_PREFIXES
-    )
+    if relative in PUBLICATION_NON_EXECUTABLE_PATHS:
+        return False
+    return relative in PUBLICATION_EXACT_PATHS or relative.startswith(PUBLICATION_PREFIXES)
 
 
 def publication_render_required(root: Path, base: str, head: str) -> bool:
-    """Return true when any PR-owned path intersects publication integration."""
     return any(is_publication_impact_path(path) for path in changed_paths(root, base, head))
 
 
@@ -80,12 +80,7 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", required=True, help="Current target tip or other base ref")
     parser.add_argument("--head", required=True, help="Candidate head ref")
-    parser.add_argument(
-        "--root",
-        type=Path,
-        default=ROOT,
-        help="Repository root (defaults to the script's repository)",
-    )
+    parser.add_argument("--root", type=Path, default=ROOT)
     return parser.parse_args(argv)
 
 

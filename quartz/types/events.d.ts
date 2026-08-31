@@ -3,7 +3,6 @@ declare module "*.scss" {
   export = content
 }
 
-// dom custom event
 interface CustomEventMap {
   prenav: CustomEvent<{}>
   nav: CustomEvent<{ url: FullSlug }>

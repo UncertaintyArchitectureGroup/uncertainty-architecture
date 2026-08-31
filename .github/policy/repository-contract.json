@@ -15,16 +15,12 @@
     ],
     "files": [
       ".gitignore",
-      ".prettierignore",
-      ".prettierrc",
       "AGENTS.md",
       "CHANGELOG.md",
       "CITATION.cff",
       "CODE_OF_CONDUCT.md",
       "CONTRIBUTING.md",
       "DOCUMENT-METADATA.md",
-      "globals.d.ts",
-      "index.d.ts",
       "LICENSE-CODE.md",
       "LICENSE-DOCS.md",
       "LICENSING.md",
@@ -40,68 +36,62 @@
     ]
   },
   "required_paths": [
-    { "path": ".github/CODEOWNERS", "type": "file" },
-    { "path": ".github/policy/metadata-contract.json", "type": "file" },
-    { "path": ".github/policy/repository-contract.json", "type": "file" },
-    { "path": ".github/pull_request_template.md", "type": "file" },
-    { "path": ".github/scripts/validate_metadata.py", "type": "file" },
-    { "path": ".github/scripts/validate_navigation.py", "type": "file" },
-    { "path": ".github/scripts/validate_repository_contract.py", "type": "file" },
-    { "path": ".github/tests/metadata_contract/README.md", "type": "file" },
-    { "path": ".github/tests/metadata_contract/cases.json", "type": "file" },
-    { "path": ".github/tests/metadata_contract/test_metadata.py", "type": "file" },
-    { "path": ".github/tests/repository_contract/cases.json", "type": "file" },
-    { "path": ".github/tests/repository_contract/test_repository_contract.py", "type": "file" },
-    { "path": ".github/workflows/link-integrity.yml", "type": "file" },
-    { "path": ".github/workflows/metadata-integrity.yml", "type": "file" },
-    { "path": ".github/workflows/repository-contract.yml", "type": "file" },
-    { "path": "00-doctrine", "type": "directory" },
-    { "path": "00-doctrine/README.md", "type": "file" },
-    { "path": "00-doctrine/control-loop-anatomy.md", "type": "file" },
-    { "path": "00-doctrine/glossary.md", "type": "file" },
-    { "path": "00-doctrine/model-judgment-placement.md", "type": "file" },
-    { "path": "00-doctrine/nested-control-lifecycle.md", "type": "file" },
-    { "path": "00-doctrine/requirements-correctness-and-bugs.md", "type": "file" },
-    { "path": "00-doctrine/uncertainty-in-the-controlled-object.md", "type": "file" },
-    { "path": "01-patterns", "type": "directory" },
-    { "path": "01-patterns/README.md", "type": "file" },
-    { "path": "01-patterns/judgment-node-boundary.md", "type": "file" },
-    {
-      "path": "01-patterns/project-control-architecture-and-viability-review-template.md",
-      "type": "file"
-    },
-    { "path": "01-patterns/project-control-architecture-and-viability-review.md", "type": "file" },
-    { "path": "01-patterns/thinking-system-review-template.md", "type": "file" },
-    { "path": "01-patterns/thinking-system-review.md", "type": "file" },
-    { "path": "02-ai-control-plane", "type": "directory" },
-    { "path": "02-ai-control-plane/00-actuators/README.md", "type": "file" },
-    { "path": "02-ai-control-plane/01-constraints/README.md", "type": "file" },
-    {
-      "path": "02-ai-control-plane/01-constraints/constraint-realization-catalog.md",
-      "type": "file"
-    },
-    { "path": "02-ai-control-plane/01-sensors/README.md", "type": "file" },
-    { "path": "02-ai-control-plane/02-controller/README.md", "type": "file" },
-    { "path": "02-ai-control-plane/02-sensors/README.md", "type": "file" },
-    { "path": "02-ai-control-plane/03-controller/README.md", "type": "file" },
-    { "path": "02-ai-control-plane/README.md", "type": "file" },
-    { "path": "03-reference-architectures", "type": "directory" },
-    { "path": "03-reference-architectures/README.md", "type": "file" },
-    { "path": "04-failure-modes", "type": "directory" },
-    { "path": "04-failure-modes/README.md", "type": "file" },
-    { "path": "CITATION.cff", "type": "file" },
-    { "path": "CODE_OF_CONDUCT.md", "type": "file" },
-    { "path": "assets", "type": "directory" },
-    { "path": "content/history", "type": "directory" },
-    { "path": "content/history/README.md", "type": "file" },
-    { "path": "content/history/external-recognition.md", "type": "file" },
-    { "path": "content/raw", "type": "directory" },
-    { "path": "content/raw/README.md", "type": "file" },
-    { "path": "content/research", "type": "directory" },
-    { "path": "content/research/framework-traceability.md", "type": "file" },
-    { "path": "content/research/index.md", "type": "file" },
-    { "path": "content/research/review-process.md", "type": "file" },
-    { "path": "quartz", "type": "directory" }
+    {"path": ".github/CODEOWNERS", "type": "file"},
+    {"path": ".github/policy/metadata-contract.json", "type": "file"},
+    {"path": ".github/policy/repository-contract.json", "type": "file"},
+    {"path": ".github/pull_request_template.md", "type": "file"},
+    {"path": ".github/scripts/validate_metadata.py", "type": "file"},
+    {"path": ".github/scripts/validate_navigation.py", "type": "file"},
+    {"path": ".github/scripts/validate_repository_contract.py", "type": "file"},
+    {"path": ".github/tests/metadata_contract/README.md", "type": "file"},
+    {"path": ".github/tests/metadata_contract/cases.json", "type": "file"},
+    {"path": ".github/tests/metadata_contract/test_metadata.py", "type": "file"},
+    {"path": ".github/tests/repository_contract/cases.json", "type": "file"},
+    {"path": ".github/tests/repository_contract/test_repository_contract.py", "type": "file"},
+    {"path": ".github/workflows/link-integrity.yml", "type": "file"},
+    {"path": ".github/workflows/metadata-integrity.yml", "type": "file"},
+    {"path": ".github/workflows/repository-contract.yml", "type": "file"},
+    {"path": "00-doctrine", "type": "directory"},
+    {"path": "00-doctrine/README.md", "type": "file"},
+    {"path": "00-doctrine/control-loop-anatomy.md", "type": "file"},
+    {"path": "00-doctrine/glossary.md", "type": "file"},
+    {"path": "00-doctrine/model-judgment-placement.md", "type": "file"},
+    {"path": "00-doctrine/nested-control-lifecycle.md", "type": "file"},
+    {"path": "00-doctrine/requirements-correctness-and-bugs.md", "type": "file"},
+    {"path": "00-doctrine/uncertainty-in-the-controlled-object.md", "type": "file"},
+    {"path": "01-patterns", "type": "directory"},
+    {"path": "01-patterns/README.md", "type": "file"},
+    {"path": "01-patterns/judgment-node-boundary.md", "type": "file"},
+    {"path": "01-patterns/project-control-architecture-and-viability-review-template.md", "type": "file"},
+    {"path": "01-patterns/project-control-architecture-and-viability-review.md", "type": "file"},
+    {"path": "01-patterns/thinking-system-review-template.md", "type": "file"},
+    {"path": "01-patterns/thinking-system-review.md", "type": "file"},
+    {"path": "02-ai-control-plane", "type": "directory"},
+    {"path": "02-ai-control-plane/00-actuators/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/01-constraints/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/01-constraints/constraint-realization-catalog.md", "type": "file"},
+    {"path": "02-ai-control-plane/01-sensors/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/02-controller/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/02-sensors/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/03-controller/README.md", "type": "file"},
+    {"path": "02-ai-control-plane/README.md", "type": "file"},
+    {"path": "03-reference-architectures", "type": "directory"},
+    {"path": "03-reference-architectures/README.md", "type": "file"},
+    {"path": "04-failure-modes", "type": "directory"},
+    {"path": "04-failure-modes/README.md", "type": "file"},
+    {"path": "CITATION.cff", "type": "file"},
+    {"path": "CODE_OF_CONDUCT.md", "type": "file"},
+    {"path": "assets", "type": "directory"},
+    {"path": "content/history", "type": "directory"},
+    {"path": "content/history/README.md", "type": "file"},
+    {"path": "content/history/external-recognition.md", "type": "file"},
+    {"path": "content/raw", "type": "directory"},
+    {"path": "content/raw/README.md", "type": "file"},
+    {"path": "content/research", "type": "directory"},
+    {"path": "content/research/framework-traceability.md", "type": "file"},
+    {"path": "content/research/index.md", "type": "file"},
+    {"path": "content/research/review-process.md", "type": "file"},
+    {"path": "quartz", "type": "directory"}
   ],
   "immutable_files": [
     {
@@ -325,14 +315,14 @@
         "## 1. Purpose and authority",
         "## 4. Canonical ownership and invariants",
         "## 5. Repository placement map",
-        "## 6. Terminology and Constraint protocol",
-        "## 9. Editing workflow",
-        "## 10. End-of-session integrity protocol",
-        "## 11. Repository contract checks"
+        "## 6. Terminology and AI-control protocol",
+        "## 7. Editing workflow",
+        "## 8. End-of-session integrity protocol",
+        "## 9. Repository contract checks"
       ],
       "required_text": [
         "Do not use it as a second glossary, a second specification, or a source of new governance requirements.",
-        "Use **Thinking Systems** in current framework material. Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, raw sources, and provenance records.",
+        "Use terminology from the current glossary and meaning from the declared owning doctrine, pattern, or capability document. Preserve historical, quoted, raw, and attributed wording under the applicable provenance rules instead of normalizing it in place.",
         "Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).",
         "Metadata errors are blocking.",
         "Do not weaken or bypass a contract merely to make a failing check green."
@@ -340,8 +330,11 @@
       "required_links": [
         "SPECIFICATION.md",
         "00-doctrine/glossary.md",
+        "CONTRIBUTING.md",
         "DOCUMENT-METADATA.md",
         "CHANGELOG.md",
+        ".github/pull_request_template.md",
+        ".github/policy/agent-checkpoint-contract.json",
         ".github/policy/metadata-contract.json",
         ".github/policy/repository-contract.json"
       ]
@@ -366,15 +359,20 @@
         "Vitalii Oborskyi is the project creator and primary maintainer.",
         "Attributed work by named contributors must not be materially changed, reassigned, or presented as consensus without involving the relevant contributor where reasonably possible.",
         "A legitimate contract change must update the owning document, the contract, and an appropriate regression fixture in the same pull request.",
-        "A responsibility transfer must not leave two active documents claiming the same `canonical_for` value."
+        "A responsibility transfer must not leave two active documents claiming the same `canonical_for` value.",
+        "`AGENTS.md` owns AI-specific behavioral invariants and corrective-feedback routing. This file owns ordinary contributor procedure, validation commands, and step-by-step pull-request mechanics. [`.github/pull_request_template.md`](.github/pull_request_template.md) owns canonical marker forms. [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json) owns marker names, checkpoint fields and controlled values, and readiness identifiers; [`.github/scripts/validate_agent_checkpoint.py`](.github/scripts/validate_agent_checkpoint.py) and [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) enforce checkpoint and approval-object shape and state."
       ],
       "required_links": [
         "AGENTS.md",
         "DOCUMENT-METADATA.md",
         "LICENSING.md",
         "content/research/review-process.md",
+        ".github/pull_request_template.md",
+        ".github/policy/agent-checkpoint-contract.json",
         ".github/policy/metadata-contract.json",
-        ".github/policy/repository-contract.json"
+        ".github/policy/repository-contract.json",
+        ".github/scripts/validate_agent_checkpoint.py",
+        ".github/scripts/fetch_agent_checkpoint_context.py"
       ]
     },
     {
@@ -392,7 +390,10 @@
         "Topic tags are a deliberate projection of the most useful declared topics.",
         "Warnings are visible in GitHub Actions but do not fail the workflow by default."
       ],
-      "required_links": ["SPECIFICATION.md", ".github/policy/metadata-contract.json"]
+      "required_links": [
+        "SPECIFICATION.md",
+        ".github/policy/metadata-contract.json"
+      ]
     },
     {
       "path": "ROADMAP.md",
@@ -412,7 +413,10 @@
     },
     {
       "path": "CHANGELOG.md",
-      "required_headings": ["# Changelog", "## [Unreleased]"],
+      "required_headings": [
+        "# Changelog",
+        "## [Unreleased]"
+      ],
       "required_text": [
         "Added a machine-readable metadata contract",
         "Added a machine-readable repository contract"
@@ -430,7 +434,11 @@
         "Automated agents may prepare and validate changes, but they must not merge, force-push, delete branches, rewrite history, or make unscoped normative decisions without explicit human instruction.",
         "Do not move directly from source wording into normative specification."
       ],
-      "required_links": ["../../AGENTS.md", "framework-traceability.md", "../../CHANGELOG.md"]
+      "required_links": [
+        "../../AGENTS.md",
+        "framework-traceability.md",
+        "../../CHANGELOG.md"
+      ]
     },
     {
       "path": "LICENSING.md",
@@ -439,7 +447,10 @@
         "Creative Commons Attribution 4.0 International License (CC BY 4.0).",
         "Apache License, Version 2.0."
       ],
-      "required_links": ["LICENSE-DOCS.md", "LICENSE-CODE.md"]
+      "required_links": [
+        "LICENSE-DOCS.md",
+        "LICENSE-CODE.md"
+      ]
     }
   ],
   "protected_markers": [

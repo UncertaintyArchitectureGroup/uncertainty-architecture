@@ -140,7 +140,7 @@ Use the current target tip for `--base`; do not substitute the historical PR `ba
 
 High-impact classification is not purely self-declared. The protected repository-policy surface includes `.github/`, `AGENTS.md`, `CONTRIBUTING.md`, and `DOCUMENT-METADATA.md`; PR-owned changes there require `change_class: repository-policy`. Maintained Markdown whose current-target or candidate frontmatter status is `draft-normative` or `normative` also remains high-impact even when the same PR attempts to downgrade that status. Reading both sides prevents a weaker declaration or status edit from disabling the stricter controls.
 
-Every human-authored pull request declares `agent_assistance` as `used` or `none` in `ua-change-contract`. This is an applicability declaration, not a quality judgment. `none` is a maintainer-controlled, **head-bound** opt-out, not a self-attested bypass: except for the Dependabot compatibility path, it disables the checkpoint only after a target-branch global CODEOWNER who still has current `write`, `maintain`, or `admin` repository permission and trusted GitHub association adds the structured `ua-agent-assistance-none` approval for the exact current head described in [`AGENTS.md`](AGENTS.md). A later repository head invalidates the prior opt-out. Existing open human-authored PRs created before the field was introduced must add it on their next maintained iteration; this is an explicit compatibility migration.
+Every human-authored pull request declares `agent_assistance` as `used` or `none` in `ua-change-contract`. This is an applicability declaration, not a quality judgment. `none` is a maintainer-controlled, **head-bound** opt-out, not a self-attested bypass: except for the Dependabot compatibility path, it disables the checkpoint only after a target-branch global CODEOWNER who still has current `write`, `maintain`, or `admin` repository permission and trusted GitHub association adds the structured `ua-agent-assistance-none` approval for the exact current head using the canonical form in [`.github/pull_request_template.md`](.github/pull_request_template.md). [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json) owns the marker name and relevant readiness identifiers, while [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) enforces the exact opt-out object and current-authority state. A later repository head invalidates the prior opt-out. Existing open human-authored PRs created before the field was introduced must add it on their next maintained iteration; this is an explicit compatibility migration.
 
 The validator enforces:
 
@@ -154,6 +154,19 @@ The validator enforces:
 - controlled `agent_assistance` declaration for human-authored PRs.
 
 Exception labels are narrow, category-specific maintenance escapes. They are not ordinary contributor controls and must not be used to hide a stale contract or incomplete change. Applying an exception requires maintainer authority through repository permissions and a visible explanation in the pull-request body. `ua-exception/pr-contract` bypasses only the missing or malformed change-contract declaration; it does not bypass the agent checkpoint, high-impact classification, target freshness, or Draft/readiness controls, which continue with safe agent-assisted defaults.
+
+### Local AI-agent control validation
+
+Before pushing an AI-assisted repository-policy or protected normative change, run:
+
+```bash
+python3 .github/tests/agent_checkpoint/test_agent_checkpoint.py
+python3 .github/tests/agent_checkpoint/test_feedback_context.py
+python3 .github/tests/agent_checkpoint/test_trusted_base_guard.py
+python3 .github/tests/agent_checkpoint/test_checkpoint_repository_contract.py
+```
+
+These tests validate checkpoint semantics, feedback-context freshness, trusted-base behavior, and repository-contract protection. Live GitHub Actions remains authoritative for PR state, tested merge, current target, CODEOWNER evidence, and trusted review context.
 
 ## 4. Repository ownership and attribution
 
@@ -185,7 +198,7 @@ A branch and pull request are recommended for:
 
 Draft pull requests remain optional for ordinary human-authored work unless the maintainer chooses otherwise. AI-assisted high-impact work follows the stricter rule in [`AGENTS.md`](AGENTS.md): repository-policy scope is derived from the protected policy surface, and maintained Markdown with current-target or candidate `draft-normative` / `normative` status is high-impact even when a weaker class/status is declared. Such PRs remain Draft while repository-changing work is active.
 
-Leaving Draft requires a fresh checkpoint and a currently authorized target-branch global CODEOWNER `ua-agent-ready-approval` comment bound to the exact current **head, tested merge SHA, PR-body digest, and checkpoint fingerprint**. That approval must predate the Ready transition and must not be edited afterwards. The subsequent `ready_for_review` run must pass the checkpoint, and durable readiness is accepted only from the protected `.github/workflows/change-coupling.yml` run on the PR head with the expected **Agent protocol / readiness authorization** job and success step. A same-named check from another workflow does not count. A failed or premature Ready transition is not made valid by later checkpoint or comment edits. Same-head review feedback can stale the checkpoint without revoking successful readiness; a substantive PR-body edit, later head, changed target tip/tested-merge state, or new Ready cycle requires fresh authorization.
+Leaving Draft requires a fresh checkpoint and a currently authorized target-branch global CODEOWNER `ua-agent-ready-approval` comment bound to the exact current **head, tested merge SHA, PR-body digest, and checkpoint fingerprint**. The canonical marker form is in [`.github/pull_request_template.md`](.github/pull_request_template.md); marker names and readiness identifiers are in [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json); executable approval-object and live-state checks are implemented by [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py). That approval must predate the Ready transition and must not be edited afterwards. The subsequent `ready_for_review` run must pass the checkpoint, and durable readiness is accepted only from the protected `.github/workflows/change-coupling.yml` run on the PR head with the expected **Agent protocol / readiness authorization** job and success step. A same-named check from another workflow does not count. A failed or premature Ready transition is not made valid by later checkpoint or comment edits. Same-head review feedback can stale the checkpoint without revoking successful readiness; a substantive PR-body edit, later head, changed target tip/tested-merge state, or new Ready cycle requires fresh authorization.
 
 After `.github/workflows/agent-policy-guard.yml` is present on the target branch, the separate **Agent protocol / trusted-base guard** supplies the independent trust boundary for candidate-modifiable policy controls. It runs target-branch code through `pull_request_target`, never checks out or executes candidate code, derives high-impact scope from target-owned policy plus candidate data, and publishes a status on the PR head. A `push` to `main` re-evaluates open PRs so a target advance can stale their checkpoint even without a head `synchronize` event. The bootstrap PR that first introduces this guard necessarily requires direct maintainer review because the target-owned workflow does not exist until that bootstrap change is merged.
 
@@ -221,7 +234,7 @@ The purpose of review is to improve the specification, not to create ceremony ar
 1. Fork or branch from the current default branch.
 2. Keep the change focused and use the current repository structure.
 3. Explain what changed, why it changed, and whether the change is research, normative guidance, reference material, historical material, maintenance, or repository policy; derived policy/status classification may make the effective class stronger than the declaration.
-4. Declare whether `agent_assistance` was materially `used` or `none`; `none` becomes effective only after the maintainer-controlled, head-bound, current-authority opt-out evidence described in `AGENTS.md`.
+4. Declare whether `agent_assistance` was materially `used` or `none`; `none` becomes effective only after the maintainer-controlled, head-bound, current-authority opt-out evidence using the canonical marker form in [`.github/pull_request_template.md`](.github/pull_request_template.md), the marker name in [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json), and executable validation in [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py).
 5. Add or update metadata, local navigation, and cross-links where needed.
 6. When the change resolves, narrows, rejects, supersedes, reopens, or promotes a research question, reconcile the affected source-intake note, working note, analysis, or [`framework-traceability.md`](content/research/framework-traceability.md) under the [`Research Review Process`](content/research/review-process.md).
 7. Confirm licensing and attribution requirements.
@@ -237,38 +250,34 @@ Research reconciliation records meaningful changes in evidence, interpretation, 
 
 ## Code contributions
 
-Code in this repository supports publishing, validation, repository policy, and reference implementations. It is not normative UA specification content, but defects can corrupt artifacts, weaken repository controls, or make later agent-assisted maintenance unsafe.
+Code and publishing infrastructure do not acquire normative authority merely because they are executable. They support publishing, validation, repository policy, and reference implementations; defects can still corrupt artifacts, weaken controls, or make later maintenance unsafe.
 
-Before changing code, identify whether the target is Quartz-derived core, UA-owned integration, a repository validator, a workflow, a test, or generated output. For Quartz and publication work, read [`quartz/README.md`](quartz/README.md) and the contract document that owns the affected behavior. Prefer configuration and UA-owned extension surfaces over edits to Quartz-derived core when they can satisfy the requirement without duplicating behavior.
+Before changing code, identify whether the target is Quartz-derived core, UA-owned integration, a repository validator, a workflow, a test, or generated output. Read the applicable scoped guidance in [`.github/AGENTS.md`](.github/AGENTS.md) or [`quartz/AGENTS.md`](quartz/AGENTS.md); for Quartz and publication work also read [`quartz/README.md`](quartz/README.md) and the narrower behavioral contract.
 
 ### Code clarity and comments
 
-- Follow the existing language, module, and formatting conventions of the affected surface. Do not mix an unrelated reformat with a behavioral change.
-- Comments explain **intent, invariants, boundaries, risks, or non-obvious workarounds**, not syntax. Do not narrate each line or restate a function name in prose.
-- Non-trivial repository-owned modules should make their purpose and important side effects discoverable near the implementation. Exported non-obvious functions should document their contract, failure behavior, and side effects when names and types are insufficient.
-- Document security boundaries, atomic-write assumptions, provenance guarantees, compatibility behavior, external-platform quirks, intentionally conservative thresholds, and fail-closed decisions next to the code that depends on them.
+- Follow existing language, module, and formatting conventions; do not mix unrelated normalization with a behavioral change.
+- Comments explain **intent, invariants, boundaries, risks, or non-obvious workarounds**, not syntax.
+- Document security boundaries, atomic-write assumptions, provenance guarantees, compatibility behavior, intentionally conservative thresholds, and fail-closed decisions next to the code that depends on them.
 - Keep comments synchronized with behavior. A stale explanation is a defect; a comment is not a substitute for a regression test.
 
 ### Structure and change scope
 
-- Keep one coherent responsibility per function or module. Split code when a responsibility has an independent contract, lifecycle, failure mode, or reusable boundary; do not split merely to satisfy a line-count target.
+- Keep one coherent responsibility per function or module. Split code when the responsibility has an independent contract, lifecycle, failure mode, or reusable boundary—not to satisfy a line-count target.
 - Reuse existing path-safety, provenance, finalization, and publication helpers rather than creating a second implementation of the same invariant.
-- Preserve canonical Markdown as input. Generated PDFs, manifests, site output, platform renditions, and visual-review assets remain derived artifacts unless an explicit publication record says otherwise.
-- Keep external effects explicit. File writes, process execution, browser use, network assumptions, environment variables, and repository mutations should be bounded and testable.
-- Do not add a new dependency, workflow, validator, or abstraction when an existing owner can be extended coherently. When a dependency is necessary, update the lockfile and applicable supply-chain controls in the same pull request.
+- Preserve canonical Markdown as input. Generated site output, PDFs, manifests, platform renditions, and visual-review assets remain derived artifacts unless an explicit publication record says otherwise.
+- Keep file writes, process execution, browser use, environment variables, and other external effects explicit, bounded, and testable.
+- Do not add a dependency, workflow, validator, or abstraction when an existing owner can be extended coherently.
 
 ### Errors, tests, and acceptance
 
-- Fail with actionable context that identifies the violated invariant or affected path. Publishing safety, provenance, policy, and repository-integrity checks should fail closed when required evidence is unavailable or contradictory.
-- Every defect fix requires a regression test that would fail without the fix. Every new externally observable behavior requires positive, boundary, and relevant failure-path coverage.
-- Tests should assert contracts and outcomes rather than private implementation shape. Use descriptive test names; comments in tests should explain the regression or adversarial condition, not the assertion syntax.
-- Preserve the previous valid artifact when generation or finalization fails. Use staging and atomic replacement for multi-step publication outputs when partial installation would be misleading or destructive.
-- Run the test and validator matrix documented in [`quartz/README.md`](quartz/README.md) for the affected surface. Changed repository-owned JavaScript, TypeScript, JSON, YAML, CSS, and SCSS must pass the incremental formatting check; changed Python must parse successfully.
+- Fail with actionable context that identifies the violated invariant or affected path. Publishing safety, provenance, policy, and repository-integrity checks fail closed when required evidence is unavailable or contradictory.
+- Every defect fix requires a regression test that would fail without the fix. New externally observable behavior requires positive, boundary, and relevant failure-path coverage.
+- Tests assert contracts and outcomes rather than private implementation shape.
+- For multi-step publication outputs, stage the candidate artifact and replace the prior valid artifact atomically only after all required checks pass.
 - Update the owning human-readable contract, machine-readable protection, and regression fixture together when an intentional change modifies a protected invariant.
 
-Run `npm run check:types` for compiler-level TypeScript contracts. Check committed candidate changes with `python3 .github/scripts/validate_code_quality.py --base <current-target-tip> --head HEAD`. To apply formatting to that same bounded diff, use `npm run format -- --base <current-target-tip> --head HEAD`; the format command intentionally requires explicit refs and does not rewrite the full legacy tree. Formatting uses the repository `.prettierrc` and `.prettierignore` explicitly and fails closed when either is unavailable. Changed-path selection rejects symbolic-link and hard-link aliases so write mode cannot mutate another file through a selected path.
-
-The Python baseline validates syntax only; it is not a comprehensive Python formatter or linter. Follow the existing module style and use review plus focused tests for naming, structure, error handling, and behavioral quality.
+Run compiler-level TypeScript checks with `npm run check:types`. Check committed candidate changes with `python3 .github/scripts/validate_code_quality.py --base <current-target-tip> --head HEAD` or the equivalent `npm run format:check -- --base <current-target-tip> --head HEAD`. Apply formatting to the same bounded diff with `npm run format -- --base <current-target-tip> --head HEAD`; the command does not rewrite the legacy tree. Python enforcement is syntax-only, so use focused tests and review for behavior, naming, structure, and error handling.
 
 ## 8. Writing guidelines
 
@@ -290,13 +299,13 @@ Language models and coding agents must read [`AGENTS.md`](AGENTS.md) before repo
 
 Agent-assisted work must preserve the same content boundaries as human-authored work. In particular, an agent must not promote research by implication, rewrite provenance, create parallel canonical entry points, or infer authority from tags, recency, visibility, or external attention.
 
-When `agent_assistance: used`, `AGENTS.md` is the canonical human-readable owner of the corrective-feedback and deterministic checked-state protocols. The candidate `Change coupling` workflow validates fast PR-head evidence: PR-owned diff scope, derived repository-policy/normative classification, effective instruction blobs, current target/head/tested-merge identities, PR-description digest, trusted review/inline-review feedback watermark, head-bound current-authority CODEOWNER opt-out evidence, state-bound readiness approval, verified readiness workflow provenance on the PR head, and completed checkpoint declarations.
+`AGENTS.md` owns AI-specific behavioral invariants and corrective-feedback routing. This file owns ordinary contributor procedure, validation commands, and step-by-step pull-request mechanics. [`.github/pull_request_template.md`](.github/pull_request_template.md) owns canonical marker forms. [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json) owns marker names, checkpoint fields and controlled values, and readiness identifiers; [`.github/scripts/validate_agent_checkpoint.py`](.github/scripts/validate_agent_checkpoint.py) and [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) enforce checkpoint and approval-object shape and state. The candidate `Change coupling` workflow validates fast PR-head evidence: PR-owned diff scope, derived repository-policy/normative classification, effective instruction blobs, current target/head/tested-merge identities, PR-description digest, trusted review/inline-review feedback watermark, head-bound current-authority CODEOWNER opt-out evidence, state-bound readiness approval, verified readiness workflow provenance on the PR head, and completed checkpoint declarations.
 
 Once installed on the target branch, the independent **Agent protocol / trusted-base guard** validates the candidate-modifiable boundary with target-owned code and revalidates open PRs when `main` advances. Candidate workflow success is not a substitute for that target-owned status. The first PR introducing the guard is a bootstrap exception in availability, not in semantics: its guard implementation must be reviewed and regression/security-checked before merge, after which subsequent PRs receive target-owned enforcement.
 
 Trusted GitHub reviews and inline review comments can invalidate an otherwise green checkpoint on the PR head lifecycle. Ordinary top-level PR Conversation comments and external AI conversation corrections remain semantic feedback rather than immediate PR-head status triggers; explicit CODEOWNER control markers for `agent_assistance: none` and Ready authorization are read during normal PR-head checkpoint events. GitHub cannot distinguish a human action from an AI action performed through the same authenticated GitHub principal, so the repository does not claim stronger identity separation than the evidence supports.
 
-Agents should use the research reconciliation trigger in `AGENTS.md` when source-derived framework work, worked applications, incidents, or operational observations change research state.
+Agents should use the [`Material research item protocol`](content/research/AGENTS.md#material-research-item-protocol) when source-derived framework work, worked applications, incidents, or operational observations change research state, and follow the [`Research Review Process`](content/research/review-process.md) for disposition and traceability.
 
 ## 10. Licensing
 

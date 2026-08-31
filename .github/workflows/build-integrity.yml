@@ -36,6 +36,8 @@ jobs:
       - name: Code formatting and Python syntax / changed sources
         env:
           EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BEFORE_SHA: ${{ github.event.before }}
           CURRENT_SHA: ${{ github.sha }}
         shell: bash
@@ -44,16 +46,16 @@ jobs:
           base_ref="$CURRENT_SHA"
           head_ref="$CURRENT_SHA"
           if [[ "$EVENT_NAME" == "pull_request" ]]; then
-            base_ref="$(git rev-parse HEAD^1)"
-            head_ref="$(git rev-parse HEAD^2)"
+            base_ref="$BASE_SHA"
+            head_ref="$HEAD_SHA"
           elif [[ "$EVENT_NAME" == "push" && -n "$BEFORE_SHA" && ! "$BEFORE_SHA" =~ ^0+$ ]]; then
             base_ref="$BEFORE_SHA"
           fi
           python3 .github/scripts/validate_code_quality.py --base "$base_ref" --head "$head_ref"
-      - name: Policy / changed-source self-tests
-        run: python3 .github/tests/code_quality/test_code_quality.py
+      - name: Policy / code-quality self-tests
+        run: python3 -m unittest discover -s .github/tests/code_quality -p 'test_*.py'
       - name: Policy / publication-impact self-tests
-        run: python3 .github/tests/publication_impact/test_publication_impact.py
+        run: python3 -m unittest discover -s .github/tests/publication_impact -p 'test_*.py'
       - name: TypeScript / static analysis
         run: npm run check:types
       - name: Quartz / TypeScript regression tests
