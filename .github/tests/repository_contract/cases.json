@@ -112,6 +112,15 @@
       "expected_error": "AGENTS.md: missing protected text"
     },
     {
+      "name": "AI terminology ownership routing deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "AGENTS.md",
+        "text": "Use terminology from the current glossary and owning doctrine. Preserve historical, quoted, raw, and attributed wording under the applicable provenance rules instead of normalizing it in place."
+      },
+      "expected_error": "AGENTS.md: missing protected text"
+    },
+    {
       "name": "CITATION author deletion is rejected",
       "mutation": {
         "type": "remove_text",
