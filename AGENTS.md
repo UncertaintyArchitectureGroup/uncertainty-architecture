@@ -28,7 +28,7 @@ This file is the repository-wide **router and control protocol for AI-assisted c
 
 Do not use it as a second glossary, a second specification, or a source of new governance requirements.
 
-Canonical UA meaning belongs in the owning specification documents. Ordinary contribution mechanics belong in [`CONTRIBUTING.md`](CONTRIBUTING.md). Exact marker schemas and field layouts belong in [`.github/pull_request_template.md`](.github/pull_request_template.md) and the relevant machine contracts; validators, tests, and workflows enforce observable invariants.
+Canonical UA meaning belongs in the owning specification documents. [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure, step-by-step PR mechanics, and validation commands. [`.github/pull_request_template.md`](.github/pull_request_template.md) owns the canonical marker forms. [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json) owns marker names, checkpoint fields and controlled values, and readiness identifiers. [`.github/scripts/validate_agent_checkpoint.py`](.github/scripts/validate_agent_checkpoint.py) validates checkpoint objects; [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) interprets opt-out and readiness-approval objects against live repository state; tests and workflows enforce the remaining observable invariants.
 
 Determine authority by **concern**, not by one global document ranking:
 
@@ -165,7 +165,7 @@ The completion report must record every material durable candidate considered, i
 
 ### Deterministic agent iteration checkpoint
 
-This section owns behavioral invariants; [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure and step-by-step PR mechanics. Exact marker schemas and field layouts belong to [`.github/pull_request_template.md`](.github/pull_request_template.md) and the machine contracts, not this always-loaded router.
+This section owns behavioral invariants; [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure, validation commands, and step-by-step PR mechanics. Canonical marker forms live in [`.github/pull_request_template.md`](.github/pull_request_template.md). [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json) owns marker names, checkpoint fields and controlled values, and readiness identifiers; [`.github/scripts/validate_agent_checkpoint.py`](.github/scripts/validate_agent_checkpoint.py) and [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) enforce checkpoint and approval-object shape and state.
 
 Every human-authored PR declares `agent_assistance` as `used` or `none`. The `ua-agent-assistance-none` path is a maintainer-controlled, head-bound opt-out, not self-attestation. When assistance is used, maintain one current checkpoint bound to the PR-owned changed paths, current target/head/tested-merge state, PR-body digest, `reviewed_feedback_sha256`, and effective root/nested instruction blobs.
 
