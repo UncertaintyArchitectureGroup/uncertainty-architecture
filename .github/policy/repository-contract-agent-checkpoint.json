@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state and trusted-base control surfaces while keeping exact schemas and command detail with their machine owners.",
+  "description": "Repository-contract extension protecting the stable deterministic AI-agent checked-state and trusted-base control surfaces while keeping exact schemas and command detail with their machine owners and out of the always-loaded router.",
   "required_paths": [
     {"path": ".github/policy/change-coupling-contract.json", "type": "file"},
     {"path": ".github/policy/agent-checkpoint-contract.json", "type": "file"},
@@ -48,7 +48,8 @@
     {
       "path": ".github/scripts/validate_repository_contract.py",
       "required_text": [
-        "repository-contract-agent-checkpoint.json"
+        "repository-contract-agent-checkpoint.json",
+        "forbidden_text"
       ]
     },
     {
@@ -134,7 +135,13 @@
         "Agent protocol / readiness authorization",
         "Agent protocol / trusted-base guard",
         "This section owns behavioral invariants; [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure and step-by-step PR mechanics.",
-        "Exact marker schemas and field layouts belong to the PR template and machine contracts, not this always-loaded router."
+        "Exact marker schemas and field layouts belong to [`.github/pull_request_template.md`](.github/pull_request_template.md) and the machine contracts, not this always-loaded router."
+      ],
+      "forbidden_text": [
+        "<!-- ua-change-contract",
+        "<!-- ua-agent-checkpoint",
+        "<!-- ua-agent-assistance-none",
+        "<!-- ua-agent-ready-approval"
       ]
     }
   ]

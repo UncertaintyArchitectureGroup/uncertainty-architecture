@@ -66,6 +66,26 @@ def assert_file_mutation_blocked(
             print("PASS: {}".format(label))
 
 
+def assert_file_append_blocked(
+    validator, extension, relative_path: str, appended_text: str,
+    label: str, failures: List[str],
+) -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-checkpoint-contract-") as temp:
+        root = Path(temp)
+        materialize_surface(root, extension)
+        target = root / relative_path
+        original = target.read_text(encoding="utf-8")
+        target.write_text(
+            "{}\n\n{}\n".format(original.rstrip(), appended_text.strip()),
+            encoding="utf-8",
+        )
+        errors = validate_surface(validator, root, extension)
+        if not errors:
+            failures.append("{}: appended forbidden content did not trigger repository-contract failure".format(label))
+        else:
+            print("PASS: {}".format(label))
+
+
 def main() -> int:
     validator = load_validator()
     extension = load_extension()
@@ -82,12 +102,18 @@ def main() -> int:
     else:
         failures.append("repository validator does not register the agent-checkpoint extension")
 
-    assert_file_mutation_blocked(
+    assert_file_append_blocked(
         validator, extension,
         "AGENTS.md",
-        "Exact marker schemas and field layouts belong to the PR template and machine contracts, not this always-loaded router.",
-        "Exact marker schemas and field layouts are copied into this always-loaded router.",
-        "copying marker schemas back into root guidance is blocked",
+        """<!-- ua-agent-ready-approval
+{
+  "head_sha": "1111111111111111111111111111111111111111",
+  "merge_sha": "2222222222222222222222222222222222222222",
+  "pr_body_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+  "checkpoint_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+}
+-->""",
+        "copying an exact marker schema back into root guidance is blocked",
         failures,
     )
     assert_file_mutation_blocked(

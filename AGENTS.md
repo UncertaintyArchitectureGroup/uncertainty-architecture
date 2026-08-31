@@ -28,7 +28,7 @@ This file is the repository-wide **router and control protocol for AI-assisted c
 
 Do not use it as a second glossary, a second specification, or a source of new governance requirements.
 
-Canonical UA meaning belongs in the owning specification documents. Ordinary contribution mechanics belong in [`CONTRIBUTING.md`](CONTRIBUTING.md). Exact schemas and deterministic enforcement belong in the pull-request template, `.github/policy/`, `.github/scripts/`, `.github/tests/`, and GitHub Actions.
+Canonical UA meaning belongs in the owning specification documents. Ordinary contribution mechanics belong in [`CONTRIBUTING.md`](CONTRIBUTING.md). Exact marker schemas and field layouts belong in [`.github/pull_request_template.md`](.github/pull_request_template.md) and the relevant machine contracts; validators, tests, and workflows enforce observable invariants.
 
 Determine authority by **concern**, not by one global document ranking:
 
@@ -36,7 +36,7 @@ Determine authority by **concern**, not by one global document ranking:
 - A document's explicit status and normative language determine whether its statements can carry normative force.
 - A module README owns module scope, placement, and navigation; it does not override a canonical term or another document's declared decision surface.
 - [`00-doctrine/glossary.md`](00-doctrine/glossary.md) owns canonical vocabulary where an entry exists.
-- Doctrine, patterns, capability documents, repository processes, and publishing documents own the meaning or workflow explicitly assigned to them by `canonical_for`, the specification index, or their declared scope.
+- Doctrine, patterns, capability documents, repository processes, and publishing documents own the meaning or workflow assigned to them by the specification index, module boundary, declared scope, or an explicit repository-process decision. `canonical_for` records and helps discover that ownership claim; metadata does not establish authority by itself.
 - [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) owns metadata and controlled tag vocabulary; machine policy validates an observable subset.
 - Research, history, raw sources, references, templates, and examples own evidence, provenance, or illustration within their status; they do not update framework meaning by implication.
 
@@ -88,6 +88,8 @@ Use this map to route work. Do not copy the mapped semantic content back into th
 | Concern | Canonical owner or starting point |
 |---|---|
 | Specification boundary and status | [`SPECIFICATION.md`](SPECIFICATION.md) |
+| Repository-wide proportionality and non-prescription | [`SPECIFICATION.md#2-scope`](SPECIFICATION.md#2-scope) |
+| Practical SMB default | [`README.md#practical-smb-path`](README.md#practical-smb-path), then the applicable project or delivery pattern |
 | Canonical terminology | [`00-doctrine/glossary.md`](00-doctrine/glossary.md) |
 | Controlled-object shift and Thinking-System category | [`00-doctrine/uncertainty-in-the-controlled-object.md`](00-doctrine/uncertainty-in-the-controlled-object.md) and glossary |
 | Decision levels, inheritance, reassessment | [`00-doctrine/nested-control-lifecycle.md`](00-doctrine/nested-control-lifecycle.md) |
@@ -163,7 +165,7 @@ The completion report must record every material durable candidate considered, i
 
 ### Deterministic agent iteration checkpoint
 
-This section owns behavioral invariants; [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure and step-by-step PR mechanics. Exact marker schemas and field layouts belong to the PR template and machine contracts, not this always-loaded router.
+This section owns behavioral invariants; [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor procedure and step-by-step PR mechanics. Exact marker schemas and field layouts belong to [`.github/pull_request_template.md`](.github/pull_request_template.md) and the machine contracts, not this always-loaded router.
 
 Every human-authored PR declares `agent_assistance` as `used` or `none`. The `ua-agent-assistance-none` path is a maintainer-controlled, head-bound opt-out, not self-attestation. When assistance is used, maintain one current checkpoint bound to the PR-owned changed paths, current target/head/tested-merge state, PR-body digest, `reviewed_feedback_sha256`, and effective root/nested instruction blobs.
 
