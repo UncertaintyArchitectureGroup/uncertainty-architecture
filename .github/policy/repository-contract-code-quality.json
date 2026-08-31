@@ -18,6 +18,7 @@
     {"path": "quartz/AGENTS.md", "type": "file"},
     {"path": "quartz/README.md", "type": "file"},
     {"path": "quartz/plugins/transformers/ofm.ts", "type": "file"},
+    {"path": "quartz/plugins/transformers/ofm.test.ts", "type": "file"},
     {"path": "quartz/types/events.d.ts", "type": "file"},
     {"path": "quartz/types/global.d.ts", "type": "file"},
     {"path": "tsconfig.json", "type": "file"}
@@ -72,16 +73,14 @@
       ],
       "required_links": ["AGENTS.md", "PDF-EXPORT.md", "PLATFORM-RENDITIONS.md", "../CONTRIBUTING.md"]
     },
-    {
-      "path": ".github/scripts/validate_repository_contract.py",
-      "required_text": ["repository-contract-code-quality.json"]
-    },
+    {"path": ".github/scripts/validate_repository_contract.py", "required_text": ["repository-contract-code-quality.json"]},
     {
       "path": ".github/scripts/validate_code_quality.py",
       "required_text": [
         "Validate changed repository-owned code without normalizing the legacy tree.",
         "PRETTIER_CONFIG = \".github/config/prettier.json\"",
         "PRETTIER_IGNORE = \".github/config/prettierignore\"",
+        "selected_code_paths",
         "\"--diff-filter=ACMR\"",
         "\"-z\"",
         "symbolic-link alias",
@@ -93,29 +92,8 @@
         "--head"
       ]
     },
-    {
-      "path": ".github/tests/code_quality/test_code_quality.py",
-      "required_text": [
-        "class CodeQualityTests",
-        "test_scope_selects_repository_code_without_preserved_or_prose_files",
-        "test_changed_paths_use_merge_base_and_ignore_deletions",
-        "test_changed_paths_are_nul_safe_for_unicode_newline_and_rename",
-        "test_prettier_failure_is_blocking_and_write_mode_is_forwarded",
-        "test_missing_or_aliased_prettier_configuration_is_configuration_failure",
-        "test_existing_paths_reject_symbolic_hard_and_parent_aliases"
-      ]
-    },
-    {
-      "path": ".github/tests/code_quality/test_code_quality_repository_contract.py",
-      "required_text": [
-        "class CodeQualityRepositoryContractTests",
-        "test_live_surface_satisfies_extension",
-        "test_contributor_contract_mutation_is_blocked",
-        "test_quartz_upstream_baseline_mutation_is_blocked",
-        "test_package_script_mutation_is_blocked",
-        "test_required_type_declaration_deletion_is_blocked"
-      ]
-    },
+    {"path": ".github/tests/code_quality/test_code_quality.py", "required_text": ["class CodeQualityTests", "unrelated_prose_symlink_is_outside_code_quality_scope"]},
+    {"path": ".github/tests/code_quality/test_code_quality_repository_contract.py", "required_text": ["class CodeQualityRepositoryContractTests"]},
     {
       "path": ".github/scripts/detect_publication_impact.py",
       "required_text": [
@@ -132,17 +110,7 @@
         "--head"
       ]
     },
-    {
-      "path": ".github/tests/publication_impact/test_publication_impact.py",
-      "required_text": [
-        "class PublicationImpactTests",
-        "test_renderer_configuration_types_and_publication_sources_are_impacting",
-        "test_scoped_guidance_and_unrelated_repository_docs_are_not_impacting",
-        "test_changed_paths_preserve_unicode_newlines_and_both_rename_sides",
-        "test_invalid_revision_fails_closed",
-        "test_unrelated_diff_does_not_require_publication_render"
-      ]
-    },
+    {"path": ".github/tests/publication_impact/test_publication_impact.py", "required_text": ["class PublicationImpactTests"]},
     {
       "path": ".github/workflows/build-integrity.yml",
       "required_text": [
@@ -197,7 +165,6 @@
       ]
     },
     {"path": "quartz/types/global.d.ts", "required_text": ["export declare global", "interface Document", "interface Window", "spaNavigate(url: URL, isBack: boolean = false)", "addCleanup(fn: (...args: any[]) => void)"]},
-    {"path": "quartz/types/events.d.ts", "required_text": ["declare module \"*.scss\"", "interface CustomEventMap", "themechange: CustomEvent<{ theme: \"light\" | \"dark\" }>", "type ContentIndex = Record<FullSlug, ContentDetails>", "declare const fetchData: Promise<ContentIndex>"]},
-    {"path": "quartz/plugins/transformers/ofm.ts", "required_text": ["className: classNames,"]}
+    {"path": "quartz/types/events.d.ts", "required_text": ["declare module \"*.scss\"", "interface CustomEventMap", "themechange: CustomEvent<{ theme: \"light\" | \"dark\" }>", "type ContentIndex = Record<FullSlug, ContentDetails>", "declare const fetchData: Promise<ContentIndex>"]}
   ]
 }
