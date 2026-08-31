@@ -333,6 +333,8 @@
         "CONTRIBUTING.md",
         "DOCUMENT-METADATA.md",
         "CHANGELOG.md",
+        ".github/pull_request_template.md",
+        ".github/policy/agent-checkpoint-contract.json",
         ".github/policy/metadata-contract.json",
         ".github/policy/repository-contract.json"
       ]
@@ -358,15 +360,19 @@
         "Attributed work by named contributors must not be materially changed, reassigned, or presented as consensus without involving the relevant contributor where reasonably possible.",
         "A legitimate contract change must update the owning document, the contract, and an appropriate regression fixture in the same pull request.",
         "A responsibility transfer must not leave two active documents claiming the same `canonical_for` value.",
-        "`AGENTS.md` owns AI-specific behavioral invariants and corrective-feedback routing. This file owns ordinary contributor procedure and step-by-step pull-request mechanics; the pull-request template and machine contracts own exact marker schemas, field layouts, and validation evidence."
+        "`AGENTS.md` owns AI-specific behavioral invariants and corrective-feedback routing. This file owns ordinary contributor procedure, validation commands, and step-by-step pull-request mechanics. [`.github/pull_request_template.md`](.github/pull_request_template.md) owns canonical marker forms. [`.github/policy/agent-checkpoint-contract.json`](.github/policy/agent-checkpoint-contract.json) owns marker names, checkpoint fields and controlled values, and readiness identifiers; [`.github/scripts/validate_agent_checkpoint.py`](.github/scripts/validate_agent_checkpoint.py) and [`.github/scripts/fetch_agent_checkpoint_context.py`](.github/scripts/fetch_agent_checkpoint_context.py) enforce checkpoint and approval-object shape and state."
       ],
       "required_links": [
         "AGENTS.md",
         "DOCUMENT-METADATA.md",
         "LICENSING.md",
         "content/research/review-process.md",
+        ".github/pull_request_template.md",
+        ".github/policy/agent-checkpoint-contract.json",
         ".github/policy/metadata-contract.json",
-        ".github/policy/repository-contract.json"
+        ".github/policy/repository-contract.json",
+        ".github/scripts/validate_agent_checkpoint.py",
+        ".github/scripts/fetch_agent_checkpoint_context.py"
       ]
     },
     {
