@@ -112,6 +112,33 @@
       "expected_error": "AGENTS.md: missing protected text"
     },
     {
+      "name": "AI terminology ownership routing deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "AGENTS.md",
+        "text": "Use terminology from the current glossary and meaning from the declared owning doctrine, pattern, or capability document. Preserve historical, quoted, raw, and attributed wording under the applicable provenance rules instead of normalizing it in place."
+      },
+      "expected_error": "AGENTS.md: missing protected text"
+    },
+    {
+      "name": "AI router editing heading deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "AGENTS.md",
+        "text": "## 7. Editing workflow"
+      },
+      "expected_error": "AGENTS.md: missing required heading '## 7. Editing workflow'"
+    },
+    {
+      "name": "AI contributor ownership boundary deletion is rejected",
+      "mutation": {
+        "type": "remove_text",
+        "path": "CONTRIBUTING.md",
+        "text": "[`.github/pull_request_template.md`](.github/pull_request_template.md) owns canonical marker forms."
+      },
+      "expected_error": "CONTRIBUTING.md: missing protected text"
+    },
+    {
       "name": "CITATION author deletion is rejected",
       "mutation": {
         "type": "remove_text",

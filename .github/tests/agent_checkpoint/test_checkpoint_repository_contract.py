@@ -12,6 +12,12 @@ from typing import List
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_PATH = REPOSITORY_ROOT / ".github/scripts/validate_repository_contract.py"
 EXTENSION_PATH = REPOSITORY_ROOT / ".github/policy/repository-contract-agent-checkpoint.json"
+CONTROL_MARKERS = (
+    "ua-change-contract",
+    "ua-agent-checkpoint",
+    "ua-agent-assistance-none",
+    "ua-agent-ready-approval",
+)
 
 
 def load_validator(path: Path = VALIDATOR_PATH):
@@ -66,6 +72,47 @@ def assert_file_mutation_blocked(
             print("PASS: {}".format(label))
 
 
+def assert_file_append_blocked(
+    validator, extension, relative_path: str, appended_text: str,
+    expected_error: str, label: str, failures: List[str],
+) -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-checkpoint-contract-") as temp:
+        root = Path(temp)
+        materialize_surface(root, extension)
+        baseline_errors = validate_surface(validator, root, extension)
+        if baseline_errors:
+            failures.append(
+                "{}: materialized baseline is invalid before mutation: {}".format(
+                    label, baseline_errors
+                )
+            )
+            return
+
+        target = root / relative_path
+        original = target.read_text(encoding="utf-8")
+        target.write_text(
+            "{}\n\n{}\n".format(original.rstrip(), appended_text.strip()),
+            encoding="utf-8",
+        )
+        errors = validate_surface(validator, root, extension)
+        if not any(expected_error in error for error in errors):
+            failures.append(
+                "{}: expected repository-contract error {!r}, got {}".format(
+                    label, expected_error, errors
+                )
+            )
+        else:
+            print("PASS: {}".format(label))
+
+
+def control_marker_block(prefix: str) -> str:
+    return """{}
+{{
+  "fixture": true
+}}
+-->""".format(prefix)
+
+
 def main() -> int:
     validator = load_validator()
     extension = load_extension()
@@ -82,6 +129,26 @@ def main() -> int:
     else:
         failures.append("repository validator does not register the agent-checkpoint extension")
 
+    expected_marker_error = "AGENTS.md: matches forbidden protected pattern"
+    for marker in CONTROL_MARKERS:
+        assert_file_append_blocked(
+            validator,
+            extension,
+            "AGENTS.md",
+            control_marker_block("<!-- {}".format(marker)),
+            expected_marker_error,
+            "copying a canonical {} marker block into root guidance is blocked".format(marker),
+            failures,
+        )
+    assert_file_append_blocked(
+        validator,
+        extension,
+        "AGENTS.md",
+        control_marker_block("<!--\n  ua-agent-ready-approval   "),
+        expected_marker_error,
+        "copying a whitespace-variant parser-valid marker block is blocked",
+        failures,
+    )
     assert_file_mutation_blocked(
         validator, extension,
         ".github/workflows/change-coupling.yml",
@@ -161,7 +228,7 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent-checkpoint repository-contract fixture passed: 12 assertions.")
+    print("Agent-checkpoint repository-contract fixture passed: 17 assertions.")
     return 0
 
 
