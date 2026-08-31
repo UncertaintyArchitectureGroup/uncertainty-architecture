@@ -12,6 +12,12 @@ from typing import List
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_PATH = REPOSITORY_ROOT / ".github/scripts/validate_repository_contract.py"
 EXTENSION_PATH = REPOSITORY_ROOT / ".github/policy/repository-contract-agent-checkpoint.json"
+CONTROL_MARKERS = (
+    "ua-change-contract",
+    "ua-agent-checkpoint",
+    "ua-agent-assistance-none",
+    "ua-agent-ready-approval",
+)
 
 
 def load_validator(path: Path = VALIDATOR_PATH):
@@ -99,13 +105,10 @@ def assert_file_append_blocked(
             print("PASS: {}".format(label))
 
 
-def ready_approval_block(prefix: str) -> str:
+def control_marker_block(prefix: str) -> str:
     return """{}
 {{
-  "head_sha": "1111111111111111111111111111111111111111",
-  "merge_sha": "2222222222222222222222222222222222222222",
-  "pr_body_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
-  "checkpoint_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+  "fixture": true
 }}
 -->""".format(prefix)
 
@@ -127,22 +130,23 @@ def main() -> int:
         failures.append("repository validator does not register the agent-checkpoint extension")
 
     expected_marker_error = "AGENTS.md: matches forbidden protected pattern"
+    for marker in CONTROL_MARKERS:
+        assert_file_append_blocked(
+            validator,
+            extension,
+            "AGENTS.md",
+            control_marker_block("<!-- {}".format(marker)),
+            expected_marker_error,
+            "copying a canonical {} marker block into root guidance is blocked".format(marker),
+            failures,
+        )
     assert_file_append_blocked(
         validator,
         extension,
         "AGENTS.md",
-        ready_approval_block("<!-- ua-agent-ready-approval"),
+        control_marker_block("<!--\n  ua-agent-ready-approval   "),
         expected_marker_error,
-        "copying a canonical exact marker schema back into root guidance is blocked",
-        failures,
-    )
-    assert_file_append_blocked(
-        validator,
-        extension,
-        "AGENTS.md",
-        ready_approval_block("<!--\n  ua-agent-ready-approval   "),
-        expected_marker_error,
-        "copying a whitespace-variant parser-valid marker schema is blocked",
+        "copying a whitespace-variant parser-valid marker block is blocked",
         failures,
     )
     assert_file_mutation_blocked(
@@ -224,7 +228,7 @@ def main() -> int:
         for failure in failures:
             print("- {}".format(failure))
         return 1
-    print("Agent-checkpoint repository-contract fixture passed: 14 assertions.")
+    print("Agent-checkpoint repository-contract fixture passed: 17 assertions.")
     return 0
 
 
