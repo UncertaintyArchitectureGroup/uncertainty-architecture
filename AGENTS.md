@@ -30,7 +30,7 @@ Do not use it as a second glossary, a second specification, or a source of new g
 
 Canonical UA meaning belongs in the owning specification documents. Ordinary contribution mechanics belong in [`CONTRIBUTING.md`](CONTRIBUTING.md). Deterministic enforcement belongs in `.github/policy/`, `.github/scripts/`, `.github/tests/`, the pull-request template, and GitHub Actions.
 
-When sources conflict, prefer, in descending order:
+For semantic and framework authority, prefer, in descending order:
 
 1. [`SPECIFICATION.md`](SPECIFICATION.md) for specification scope, status, conformance, and change control;
 2. explicit document status and normative language;
@@ -40,9 +40,9 @@ When sources conflict, prefer, in descending order:
 6. the owning project or delivery pattern;
 7. the relevant AI Control Plane capability document;
 8. [`DOCUMENT-METADATA.md`](DOCUMENT-METADATA.md) for metadata conventions;
-9. research, history, raw sources, references, templates, and examples for evidence and context;
-10. [`CONTRIBUTING.md`](CONTRIBUTING.md) for ordinary contribution workflow;
-11. this file for AI-specific repository workflow.
+9. research, history, raw sources, references, templates, and examples for evidence and context.
+
+Contribution workflow uses scoped ownership rather than this semantic ladder. [`CONTRIBUTING.md`](CONTRIBUTING.md) owns ordinary contributor mechanics; this file supplements it and governs AI-specific behavior. Within that AI-specific scope, this file takes precedence over generic contribution instructions. Report any broader conflict instead of silently overriding either owner.
 
 Report genuine contradictions instead of silently choosing one side. Treat current GitHub repository state as authoritative for repository facts; prior chats, summaries, pasted excerpts, and cached snapshots are supporting context only.
 
@@ -114,7 +114,7 @@ Repository-wide invariants:
 - Preserve attributed, raw, historical, and published source wording unless the owning provenance process explicitly authorizes transformation.
 - Metadata, tags, recency, navigation, publishing surfaces, and external attention do not create authority.
 - A lower-level artifact or implementation must not silently expand higher-level authority or weaken an inherited boundary; read the owning lifecycle/pattern when this distinction matters.
-- Prefer the smallest coherent, reviewable change. Avoid unnecessary roles, files, registers, services, committees, gates, or duplicate protocols.
+- Prefer the smallest coherent, reviewable change and preserve UA's SMB-first proportionality default. Before adding roles, files, registers, services, committees, gates, or process, read the applicable proportionality owner and justify the added structure against actual consequence, authority, evidence, capacity, or lifecycle needs.
 - Every notable repository or specification-artifact change must be recorded in [`CHANGELOG.md`](CHANGELOG.md).
 - Never claim a file, test, commit, workflow, review, or PR state without verifying it.
 
@@ -142,7 +142,7 @@ Do not create a parallel namespace or new canonical record when an existing owne
 
 Before introducing, redefining, replacing, deprecating, or narrowing a UA term, read the complete glossary, search current framework material and near-synonyms, identify the owning source, and reconcile glossary and research traceability when the canonical meaning or research disposition changes.
 
-Use **Thinking Systems** in current framework material. Preserve **Behavioral Software** and **Behavioral Applications** in historical titles, quotations, raw sources, and provenance records.
+Use terminology from the current glossary and owning doctrine. Preserve historical, quoted, raw, and attributed wording under the applicable provenance rules instead of normalizing it in place.
 
 For Constraint, Constraint Realization, Hard/Soft strength, Sensor, Controller, Actuator, Human Authority, diagrams, and bounded-control semantics, read [`00-doctrine/control-loop-anatomy.md`](00-doctrine/control-loop-anatomy.md) and the affected owning pattern/capability material. Do not maintain abbreviated semantic definitions here: a shortened copy becomes a second source of truth precisely when the canonical text evolves.
 
