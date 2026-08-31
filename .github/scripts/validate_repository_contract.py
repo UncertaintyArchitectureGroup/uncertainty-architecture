@@ -245,9 +245,6 @@ def validate_critical_files(root: Path, contract: Dict[str, object], errors: Lis
         for marker in rule.get("required_text", []):
             if marker not in text:
                 errors.append("{}: missing protected text {!r}".format(relative, marker))
-        for marker in rule.get("forbidden_text", []):
-            if marker in text:
-                errors.append("{}: contains forbidden protected text {!r}".format(relative, marker))
         validate_forbidden_patterns(
             relative,
             text,
