@@ -30,12 +30,13 @@ Original third-party or maintainer-supplied presentation files are provenance ar
 A maintained presentation lives under:
 
 ```text
-content/presentations/<slug>/deck.mjs
+content/presentations/<slug>/deck.md
+content/presentations/<slug>/layout.mjs
 ```
 
-The module exports structured metadata, canonical source references, slide IDs, content, and speaker notes. Text and semantic decisions stay reviewable in Git; renderer implementation stays under `quartz/presentations/`.
+`deck.md` is the maintained editable presentation source. It owns deck metadata, canonical source references, slide IDs, presenter notes, and human-readable slide content. The companion `layout.mjs` may select layout variants or supply presentation-specific geometry, but it must not become a second prose source of truth. Reusable rendering implementation stays under `quartz/presentations/`.
 
-The `.mjs` source format is deliberate: the repository already runs Node 22, and a structured module avoids adding a second parser or embedding large text blocks in rendering code.
+This split follows the scoped Quartz invariant that canonical editable content remains Markdown while still allowing precise native-PowerPoint composition where a slide needs more than a generic Markdown-to-bullets conversion.
 
 ### Generated outputs
 
@@ -96,16 +97,16 @@ Native editable PPTX objects are preferred. Whole-slide rasterization is an exce
 From the repository root:
 
 ```bash
-npm run pptx:build -- content/presentations/<slug>/deck.mjs
-npm run pptx:normalize -- content/presentations/<slug>/deck.mjs
-npm run pptx:verify -- content/presentations/<slug>/deck.mjs
-npm run pptx:preview -- content/presentations/<slug>/deck.mjs
+npm run pptx:build -- content/presentations/<slug>/deck.md
+npm run pptx:normalize -- content/presentations/<slug>/deck.md
+npm run pptx:verify -- content/presentations/<slug>/deck.md
+npm run pptx:preview -- content/presentations/<slug>/deck.md
 ```
 
 The normal review command is:
 
 ```bash
-npm run pptx:bundle -- content/presentations/<slug>/deck.mjs
+npm run pptx:bundle -- content/presentations/<slug>/deck.md
 ```
 
 `pptx:bundle` runs:
@@ -114,32 +115,55 @@ npm run pptx:bundle -- content/presentations/<slug>/deck.mjs
 build → OOXML normalization → structural verification → rendered preview → verification with preview evidence
 ```
 
-## 7. Why OOXML normalization is part of the pipeline
+## 7. Repository safety and finalization
 
-The current PptxGenJS 4.0.1 release has two upstream PowerPoint-repair defects relevant to generated decks:
+Presentation generation is part of the UA-owned publication layer and therefore reuses the existing publication safety surface instead of creating a parallel implementation.
 
-1. multi-slide files can contain `[Content_Types].xml` overrides for non-existent `slideMaster2.xml`, `slideMaster3.xml`, and so on (upstream issue #1444);
-2. the generated notes master contains placeholder shapes that native PowerPoint removes during repair (upstream issue #1443).
+The pipeline must:
 
-`normalize.mjs` does not silently ignore these defects. It:
+- resolve maintained and historical source paths inside the repository boundary;
+- constrain generated outputs to `dist/presentations/`;
+- reuse `quartz/scripts/publication-path-safety.mjs` for path containment, symlink/hardlink protection, and atomic file writes;
+- build into a staging directory, verify the complete candidate bundle there, and only then replace the previously valid rendition;
+- preserve the last valid deck bundle if build, normalization, rendering, or verification fails;
+- record source and generator provenance in the manifest rather than trusting caller-supplied paths or refs.
 
+This is a correction from the first local prototype, which had its own path resolver and wrote directly into the final deck directory. That prototype proved rendering feasibility but is **not** the merge implementation.
+
+## 8. Why OOXML normalization is part of the pipeline
+
+The current PptxGenJS 4.0.1 release has several upstream OOXML defects that matter for native Microsoft PowerPoint even when LibreOffice accepts the same file:
+
+1. geometry-only shapes can be emitted as `<p:sp>` without the required `<p:txBody>`, which triggers PowerPoint repair (upstream issue #1441);
+2. solid-color `<p:bgPr>` backgrounds can omit `<a:effectLst/>`, which triggers PowerPoint repair (upstream issue #1442);
+3. the generated notes master contains placeholder shapes that PowerPoint removes during repair, and its theme relationship is not isolated from the presentation theme (upstream issues #1443 and #1449);
+4. multi-slide files can contain `[Content_Types].xml` overrides for non-existent `slideMaster2.xml`, `slideMaster3.xml`, and so on (upstream issue #1444).
+
+A lower-severity packaging defect also registers `<Default>` extension content types for media or embedding formats that are not present in the archive (upstream issue #1449). It does not itself trigger repair, but keeping the package declaration aligned with actual parts is cheap and independently verifiable.
+
+`normalize.mjs` therefore:
+
+- inserts the minimal required `<p:txBody>` into geometry-only shapes that lack one;
+- inserts `<a:effectLst/>` into solid backgrounds that lack it;
 - removes slide-master content-type overrides that do not correspond to actual archive parts;
-- replaces the notes-master shape tree with the minimal structure PowerPoint leaves after its repair pass;
+- replaces the notes-master shape tree with the minimal structure PowerPoint leaves after repair;
+- gives the notes master its own `theme2.xml` relationship while preserving speaker-note pages;
+- removes unused default-extension declarations by deriving the keep-set from the actual archive parts;
 - rewrites the manifest checksum and records normalization evidence.
 
-`verify.mjs` then fails if phantom master overrides remain or if the notes master still carries the problematic placeholder shapes.
-
-This compatibility normalization should be removed or narrowed when the pinned generator version no longer requires it.
+`verify.mjs` fails if any of those normalized invariants regress. The compatibility layer is deliberately explicit and should be removed or narrowed when the pinned generator version no longer requires it.
 
 ### Dependency-security caveat
 
-The target generator is pinned to `pptxgenjs@4.0.1` as development-only presentation tooling. Upstream issue #1474 documents that this release declares `image-size` even though the dependency is not referenced by the published bundles/source, and that the declared package currently carries two HIGH advisories with no patched release.
+The target generator is pinned to `pptxgenjs@4.0.1` as development-only presentation tooling. That release still declares `image-size: ^1.2.1`. GitHub advisories `GHSA-w3rx-r6r6-pgpr` and `GHSA-5p2g-fcmc-qvqq` classify all published `image-size` versions through `2.0.2` as affected by denial-of-service infinite-loop bugs, with no installable patched release currently available.
 
-This must be treated as an explicit merge-time dependency decision rather than hidden by the presentation pipeline. The final target branch must choose one of: a documented temporary development-tool exception, a reviewed patched/forked package, or a generator change. CI installs dependencies with lifecycle scripts disabled, but that does not by itself resolve dependency-audit policy.
+Current PptxGenJS source/package metadata indicates that `image-size` is a declared dependency but not part of the active image-dimension path used by this pipeline; the presentation source also does not accept untrusted runtime image input. That makes exploit reachability through this generator path appear absent, but it does **not** make the dependency-audit finding disappear.
 
-The local smoke environment available while this PR was prepared contains PptxGenJS `4.0.0`; `package.json` targets `4.0.1`. Therefore local rendering proves the pipeline shape and the repair normalizer, while the final locked `4.0.1` execution must be re-run by repository CI before merge.
+The merge-time disposition should therefore be explicit and time-bounded: document a development-tool exception if repository policy permits it, record the two advisory IDs and the lack of a patched release, and remove the exception as soon as PptxGenJS drops the dead dependency or a reviewed replacement is adopted. Disabling install lifecycle scripts is useful hardening but is not a security fix for this advisory.
 
-## 8. Verification model
+The local smoke environment available while this PR was prepared contains PptxGenJS `4.0.0`; `package.json` targets `4.0.1`. Therefore local rendering proves the pipeline shape and normalizer behavior, while the exact locked generator version must be exercised by repository CI before merge.
+
+## 9. Verification model
 
 ### Structural verification
 
@@ -152,8 +176,12 @@ The verifier checks at least:
 - actual slide-master/content-type consistency;
 - normalized notes master;
 - minimum declared font-size floor;
+- source paths resolved through real filesystem containment checks (including symlink escape rejection);
 - source and output checksums;
-- manifest consistency.
+- manifest consistency;
+- required OOXML shape text bodies and solid-background effect lists;
+- notes-master shape/theme normalization;
+- absence of phantom slide-master overrides and unused default-extension declarations.
 
 ### Render verification
 
@@ -169,7 +197,7 @@ Automated checks are necessary but not sufficient. A presentation PR should revi
 
 Native Microsoft PowerPoint opening remains the final application-specific smoke test when available; do not report it as completed merely because LibreOffice accepts the file.
 
-## 9. GitHub Actions behavior
+## 10. GitHub Actions behavior
 
 `.github/workflows/export-presentation.yml` has two entry points:
 
@@ -183,7 +211,7 @@ It runs only when presentation source/tooling, its workflow, or relevant package
 
 Ordinary UA pull requests should not pay the PPTX/LibreOffice rendering cost.
 
-## 10. Historical deck modernization
+## 11. Historical deck modernization
 
 The first maintained deck is deliberately more than a visual port. The repository rendition updates the old teaching shorthand against current UA semantics, including:
 
@@ -199,22 +227,26 @@ The first maintained deck is deliberately more than a visual port. The repositor
 
 The historical editable PPTX remains provenance evidence and is not overwritten by this generated rendition.
 
-## 11. Implementation status
+## 12. Implementation status
 
 - [x] Architecture agreed
 - [x] Original editable PPTX located and verified
 - [x] Current repository contracts and PR #108 interaction reviewed
-- [x] Create implementation branch `agent/pptx-presentation-pipeline` from current `main` after PR #108 merged
+- [x] Create implementation branch `agent/pptx-presentation-pipeline` and Draft PR #113 from post-#108 `main`
 - [x] Add canonical `quartz/PRESENTATION-PIPELINE.md`
-- [x] Implement presentation source contract
+- [x] Prototype presentation source contract locally
+- [ ] Refactor maintained deck content from `deck.mjs` to canonical `deck.md` + layout-only `layout.mjs`
 - [x] Implement `ua-dark-v1`
 - [x] Add reusable layouts/components and diagram primitives
 - [x] Add smoke fixture and contract tests
-- [x] Add PPTX generation
+- [x] Prototype PPTX generation locally
+- [ ] Reuse repository publication path/provenance helpers; remove the parallel local path-safety implementation
+- [ ] Stage and atomically finalize a fully verified presentation bundle so failure preserves the last valid artifact
 - [x] Add OOXML compatibility normalization
 - [x] Add structural verification
 - [x] Add PPTX → PDF/PNG/contact-sheet verification
-- [x] Add path-scoped GitHub Actions workflow + manual dispatch
+- [x] Prototype path-scoped GitHub Actions workflow + manual dispatch locally
+- [ ] Reconcile workflow and output finalization with current `.github/` and Quartz publication contracts
 - [x] Preserve the original PPTX locally as provenance/reference source
 - [x] Rebuild the real 22-slide deck as presentation-as-code
 - [x] Modernize deck semantics against current UA
@@ -223,7 +255,8 @@ The historical editable PPTX remains provenance evidence and is not overwritten 
 - [x] Run local presentation-source unit tests
 - [x] Run local LibreOffice render verification
 - [x] Run `slides_test.py` overflow verification
-- [x] Local implementation review; provenance checksum, generator metadata, workflow path hardening, and reproducibility wording corrections applied
+- [x] Local implementation review; provenance checksum, generator metadata, workflow path hardening, OOXML repair/conformance normalization, and reproducibility wording corrections applied
+- [x] Analyze generator dependency-security exposure and document a proposed time-bounded advisory disposition
 - [ ] Integrate `package.json`, resolve the PptxGenJS dependency-security disposition, and regenerate the repository `package-lock.json` from the final target branch
 - [ ] Reconcile source-intake / research index and repository changelog in the actual branch
 - [ ] Run final repository-wide validators from the final target branch
@@ -232,7 +265,7 @@ The historical editable PPTX remains provenance evidence and is not overwritten 
 - [ ] Independent final implementation review against the complete PR diff
 - [ ] Live GitHub CI / readiness review
 
-## 12. Decisions and deviations
+## 13. Decisions and deviations
 
 ### D001 — One vertical-slice PR
 
@@ -244,11 +277,11 @@ The maintainer-supplied `.pptx` is historical editable source material. The new 
 
 ### D003 — PR #108 is a dependency boundary, not part of this change
 
-PR #108 merged into `main` as `4fbaa94b721f91134796ae18bfefd87481ef5876`. This presentation change is based on that resulting repository contract and must not duplicate or weaken it.
+PR #108 merged into `main` as `4fbaa94b721f91134796ae18bfefd87481ef5876`. PR #113 is based on that resulting repository contract and must not duplicate or weaken it.
 
-### D004 — Structured `.mjs` source instead of `deck.md`
+### D004 — Markdown is the editable presentation source
 
-The initial design considered a Markdown/YAML presentation DSL. The implementation uses a structured ESM object because it is directly diffable, type-like, dependency-light, and compatible with the repository's existing Node 22 toolchain. Presentation content stays separate from rendering implementation.
+The first local prototype used a structured `deck.mjs`. Re-reading the scoped `quartz/AGENTS.md` exposed that as the wrong repository fit: canonical editable content in the publication layer remains Markdown. The merge design therefore uses `deck.md` for metadata, slide content, source references, and notes, with a companion layout-only module where precise geometry is needed. This keeps semantic edits reviewable as prose without reducing the deck to generic Markdown bullets.
 
 ### D005 — Explicit generator-compatibility normalization
 
@@ -266,11 +299,21 @@ The contract promises one repeatable source → build → normalize → verify p
 
 The manifest records PptxGenJS version, Node version, renderer-contract identifier, source checksum, historical-source checksum, and generated-output checksum. This makes a rendition traceable to both its maintained source and the preserved original without pretending that the generated deck is the historical file.
 
-## 13. Acceptance criteria
+### D009 — Time-bounded dependency exception is preferable to a fake fix
+
+`pptxgenjs@4.0.1` still declares `image-size`, while the two current high-severity `image-size` advisories have no installable patched release. The active presentation path does not use that parser for untrusted image input, so the proposed disposition is a documented, reviewable development-tool exception if the repository audit policy requires one. The exception must name `GHSA-w3rx-r6r6-pgpr` and `GHSA-5p2g-fcmc-qvqq`, explain reachability, and carry an explicit removal condition. An override to another vulnerable published version or `--ignore-scripts` would not be presented as remediation.
+
+### D010 — Reuse publication safety ownership rather than fork it
+
+The local prototype created a presentation-specific repository path resolver and wrote directly to final output locations. The scoped Quartz contract explicitly forbids parallel safety implementations and requires failed generation to preserve the last valid artifact. The merge implementation will therefore import the existing publication path-safety/provenance helpers, use staged candidate outputs, and perform verified finalization only after the full bundle passes.
+
+## 14. Acceptance criteria
 
 The first PR is merge-ready only when all of the following are true on the final target branch:
 
-- a presentation source builds reproducibly through one defined pipeline into an editable PPTX;
+- canonical Markdown presentation source builds reproducibly through one defined pipeline into an editable PPTX;
+- presentation layout code does not duplicate maintained slide prose;
+- the implementation reuses repository publication safety/provenance helpers and preserves the last valid bundle on failure;
 - the historical original remains separately identifiable;
 - the real 22-slide deck builds through the same public pipeline used by future decks;
 - source-contract tests pass;
@@ -278,7 +321,8 @@ The first PR is merge-ready only when all of the following are true on the final
 - slide count, notes count, aspect ratio, and manifest checks pass;
 - rendered PDF/PNG/contact-sheet review evidence exists;
 - automated overflow verification passes;
-- the presentation workflow is path-scoped and remains on demand outside presentation PRs;
-- the final dependency/security disposition is explicit;
-- repository-wide validators and GitHub checks pass;
-- the PR remains Draft until the repository's AI-assisted readiness protocol is satisfied.
+- the presentation workflow is path-scoped and manually dispatchable;
+- ordinary unrelated PRs do not invoke presentation rendering;
+- package manifest and lockfile are synchronized, with the generator dependency-security disposition explicitly resolved;
+- applicable repository validators and live GitHub CI pass;
+- final semantic and implementation reviews have no unresolved blockers.
