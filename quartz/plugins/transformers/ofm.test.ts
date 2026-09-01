@@ -81,10 +81,7 @@ test("callout classes remain HAST class-name lists", async () => {
 
     for (const pluginEntry of markdownPlugins) {
       assert.equal(typeof pluginEntry, "function")
-      const transformerFactory = pluginEntry as () =>
-        | ((tree: Root, file: { data: { slug: string } }) => void)
-        | undefined
-      const transformer = transformerFactory()
+      const transformer = (pluginEntry as () => unknown)()
       if (typeof transformer === "function") {
         transformer(tree, file)
       }
