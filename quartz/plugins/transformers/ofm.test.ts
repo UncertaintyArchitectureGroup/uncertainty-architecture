@@ -23,7 +23,23 @@ const calloutOnlyOptions = {
   disableBrokenWikilinks: false,
 }
 
-test("callout classes remain a HAST class-name list", async () => {
+function callout(value: string): Blockquote {
+  return {
+    type: "blockquote",
+    children: [
+      {
+        type: "paragraph",
+        children: [{ type: "text", value }],
+      },
+      {
+        type: "paragraph",
+        children: [{ type: "text", value: "Body" }],
+      },
+    ],
+  }
+}
+
+test("callout classes remain HAST class-name lists", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "ua-ofm-test-"))
   const outfile = path.join(directory, "ofm.bundle.mjs")
   try {
@@ -57,30 +73,30 @@ test("callout classes remain a HAST class-name list", async () => {
     const { ObsidianFlavoredMarkdown } = await import(pathToFileURL(outfile).href)
     const plugin = ObsidianFlavoredMarkdown(calloutOnlyOptions)
     const markdownPlugins = plugin.markdownPlugins?.({}) ?? []
-    assert.equal(markdownPlugins.length, 1)
 
-    const transformerFactory = markdownPlugins[0]
-    assert.equal(typeof transformerFactory, "function")
-    const transformer = transformerFactory()
+    const normal = callout("[!note] Regression")
+    const collapsed = callout("[!warning]- Collapsed")
+    const tree: Root = { type: "root", children: [normal, collapsed] }
+    const file = { data: { slug: "index" } }
 
-    const blockquote: Blockquote = {
-      type: "blockquote",
-      children: [
-        {
-          type: "paragraph",
-          children: [{ type: "text", value: "[!note] Regression" }],
-        },
-        {
-          type: "paragraph",
-          children: [{ type: "text", value: "Body" }],
-        },
-      ],
+    for (const pluginEntry of markdownPlugins) {
+      assert.equal(typeof pluginEntry, "function")
+      const transformerFactory = pluginEntry as () =>
+        | ((tree: Root, file: { data: { slug: string } }) => void)
+        | undefined
+      const transformer = transformerFactory()
+      if (typeof transformer === "function") {
+        transformer(tree, file)
+      }
     }
-    const tree: Root = { type: "root", children: [blockquote] }
 
-    transformer(tree, { data: {} })
-
-    assert.deepEqual(blockquote.data?.hProperties?.className, ["callout", "note"])
+    assert.deepEqual(normal.data?.hProperties?.className, ["callout", "note"])
+    assert.deepEqual(collapsed.data?.hProperties?.className, [
+      "callout",
+      "warning",
+      "is-collapsible",
+      "is-collapsed",
+    ])
   } finally {
     await rm(directory, { recursive: true, force: true })
   }
