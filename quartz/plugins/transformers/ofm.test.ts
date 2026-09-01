@@ -82,9 +82,7 @@ test("callout classes remain HAST class-name lists", async () => {
     for (const pluginEntry of markdownPlugins) {
       if (typeof pluginEntry !== "function") continue
       const transformer = (pluginEntry as () => unknown)()
-      if (typeof transformer === "function") {
-        transformer(tree, file)
-      }
+      if (typeof transformer === "function") transformer(tree, file)
     }
 
     assert.deepEqual(normal.data?.hProperties?.className, ["callout", "note"])
