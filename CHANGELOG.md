@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added scoped code-contribution guidance for humans and AI contributors, a maintained Quartz architecture/provenance map, explicit formatter configuration under `.github/config/`, alias-safe diff-bounded code-quality validation, compiler-level TypeScript checks, split Quartz/publication regressions, test-backed publication-impact routing, and repository-contract protection for these control surfaces without re-expanding the compact root `AGENTS.md`.
 - Added reproducible Medium and LinkedIn rendition packaging for the Thinking Systems article: copy-ready HTML/Markdown/text, deterministic table expansion, durable links, current reviewed publication figures and alt text, LinkedIn cover/SEO/launch-post checks, Medium hero/canonical guidance, and provenance/readiness manifests without creating a second conceptual source.
 
 - Added a deployment-independent Quartz-to-PDF pipeline that keeps Markdown canonical, provides generic, standalone-article, and living-working-paper exports, adds publication metadata, page numbering, conditional contents, strict provenance manifests and checksums, rollback-capable PDF/manifest finalization, fingerprint-coupled Figure 8A/8B renditions with measured PDF and desktop-PNG readability, visual verification, and manual GitHub Actions artifacts.

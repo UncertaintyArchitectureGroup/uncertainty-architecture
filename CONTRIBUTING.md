@@ -248,6 +248,37 @@ One logical change per pull request is a useful default for substantial work, bu
 
 Research reconciliation records meaningful changes in evidence, interpretation, question state, or framework destination. It should not duplicate pull-request history or become a session log.
 
+## Code contributions
+
+Code and publishing infrastructure do not acquire normative authority merely because they are executable. They support publishing, validation, repository policy, and reference implementations; defects can still corrupt artifacts, weaken controls, or make later maintenance unsafe.
+
+Before changing code, identify whether the target is Quartz-derived core, UA-owned integration, a repository validator, a workflow, a test, or generated output. Read the applicable scoped guidance in [`.github/AGENTS.md`](.github/AGENTS.md) or [`quartz/AGENTS.md`](quartz/AGENTS.md); for Quartz and publication work also read [`quartz/README.md`](quartz/README.md) and the narrower behavioral contract.
+
+### Code clarity and comments
+
+- Follow existing language, module, and formatting conventions; do not mix unrelated normalization with a behavioral change.
+- Comments explain **intent, invariants, boundaries, risks, or non-obvious workarounds**, not syntax.
+- Document security boundaries, atomic-write assumptions, provenance guarantees, compatibility behavior, intentionally conservative thresholds, and fail-closed decisions next to the code that depends on them.
+- Keep comments synchronized with behavior. A stale explanation is a defect; a comment is not a substitute for a regression test.
+
+### Structure and change scope
+
+- Keep one coherent responsibility per function or module. Split code when the responsibility has an independent contract, lifecycle, failure mode, or reusable boundary—not to satisfy a line-count target.
+- Reuse existing path-safety, provenance, finalization, and publication helpers rather than creating a second implementation of the same invariant.
+- Preserve canonical Markdown as input. Generated site output, PDFs, manifests, platform renditions, and visual-review assets remain derived artifacts unless an explicit publication record says otherwise.
+- Keep file writes, process execution, browser use, environment variables, and other external effects explicit, bounded, and testable.
+- Do not add a dependency, workflow, validator, or abstraction when an existing owner can be extended coherently.
+
+### Errors, tests, and acceptance
+
+- Fail with actionable context that identifies the violated invariant or affected path. Publishing safety, provenance, policy, and repository-integrity checks fail closed when required evidence is unavailable or contradictory.
+- Every defect fix requires a regression test that would fail without the fix. New externally observable behavior requires positive, boundary, and relevant failure-path coverage.
+- Tests assert contracts and outcomes rather than private implementation shape.
+- For multi-step publication outputs, stage the candidate artifact and replace the prior valid artifact atomically only after all required checks pass.
+- Update the owning human-readable contract, machine-readable protection, and regression fixture together when an intentional change modifies a protected invariant.
+
+Run compiler-level TypeScript checks with `npm run check:types`. Check committed candidate changes with `python3 .github/scripts/validate_code_quality.py --base <current-target-tip> --head HEAD` or the equivalent `npm run format:check -- --base <current-target-tip> --head HEAD`. Apply formatting to the same bounded diff with `npm run format -- --base <current-target-tip> --head HEAD`; the command does not rewrite the legacy tree. Python enforcement is syntax-only, so use focused tests and review for behavior, naming, structure, and error handling.
+
 ## 8. Writing guidelines
 
 - Keep language clear, precise, and operational.

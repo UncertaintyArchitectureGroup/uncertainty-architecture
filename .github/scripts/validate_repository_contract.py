@@ -19,6 +19,7 @@ DEFAULT_CONTRACT = DEFAULT_ROOT / ".github/policy/repository-contract.json"
 DEFAULT_EXTENSIONS = (
     DEFAULT_ROOT / ".github/policy/repository-contract-change-coupling.json",
     DEFAULT_ROOT / ".github/policy/repository-contract-agent-checkpoint.json",
+    DEFAULT_ROOT / ".github/policy/repository-contract-code-quality.json",
 )
 LINK_PATTERN = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 

@@ -23,17 +23,45 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          fetch-depth: 0
           persist-credentials: false
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
-          node-version: '22'
+          node-version: "22"
           cache: npm
           package-manager-cache: false
       - name: Install locked dependencies
         run: npm ci --ignore-scripts
+      - name: Code formatting and Python syntax / changed sources
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          CURRENT_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          base_ref="$CURRENT_SHA"
+          head_ref="$CURRENT_SHA"
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            base_ref="$BASE_SHA"
+            head_ref="$HEAD_SHA"
+          elif [[ "$EVENT_NAME" == "push" && -n "$BEFORE_SHA" && ! "$BEFORE_SHA" =~ ^0+$ ]]; then
+            base_ref="$BEFORE_SHA"
+          fi
+          python3 .github/scripts/validate_code_quality.py --base "$base_ref" --head "$head_ref"
+      - name: Policy / code-quality self-tests
+        run: python3 -m unittest discover -s .github/tests/code_quality -p 'test_*.py'
+      - name: Policy / publication-impact self-tests
+        run: python3 -m unittest discover -s .github/tests/publication_impact -p 'test_*.py'
+      - name: TypeScript / static analysis
+        run: npm run check:types
+      - name: Quartz / TypeScript regression tests
+        run: npm run test:quartz
       - name: PDF export / regression tests
-        run: node --test quartz/scripts/*.test.mjs
+        run: npm run test:publication
       - name: Figure 8 / semantic and readability verification
         run: npm run pdf:verify:figure8
       - name: Build Quartz site
@@ -65,23 +93,11 @@ jobs:
             exit 0
           fi
 
-          required=false
-          while IFS= read -r changed_path; do
-            case "$changed_path" in
-              .github/policy/repository-contract-change-coupling.json|\
-              .github/tests/repository_contract/*|\
-              .github/workflows/build-integrity.yml|\
-              .github/workflows/export-research-pdf.yml|\
-              package.json|package-lock.json|quartz.config.ts|\
-              quartz/PDF-EXPORT.md|quartz/scripts/*|quartz/styles/custom.scss|\
-              content/research/notes/thinking-systems-publication-draft.md|\
-              content/research/notes/open-engineering-specification-article-draft.md|\
-              content/research/publications/*)
-                required=true
-                break
-                ;;
-            esac
-          done < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          required="$(
+            python3 .github/scripts/detect_publication_impact.py \
+              --base "$BASE_SHA" \
+              --head "$HEAD_SHA"
+          )"
           echo "required=$required" >> "$GITHUB_OUTPUT"
 
   publication-render:
@@ -98,7 +114,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
-          node-version: '22'
+          node-version: "22"
           cache: npm
           package-manager-cache: false
       - name: Install locked dependencies
@@ -149,7 +165,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
-          node-version: '22'
+          node-version: "22"
           package-manager-cache: false
       - name: Render every maintained Mermaid block
         run: python3 .github/scripts/validate_mermaid.py
@@ -169,7 +185,7 @@ jobs:
         run: python3 .github/tests/supply_chain/test_supply_chain.py
       - name: Install actionlint
         env:
-          ACTIONLINT_VERSION: '1.7.12'
+          ACTIONLINT_VERSION: "1.7.12"
         run: go install "github.com/rhysd/actionlint/cmd/actionlint@v${ACTIONLINT_VERSION}"
       - name: Run actionlint
         run: '"$(go env GOPATH)/bin/actionlint"'

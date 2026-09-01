@@ -1,0 +1,194 @@
+#!/usr/bin/env python3
+"""Validate changed repository-owned code without normalizing the legacy tree."""
+
+import argparse
+import os
+import subprocess
+import sys
+from pathlib import Path
+from typing import Callable, Iterable, List, Sequence
+
+ROOT = Path(__file__).resolve().parents[2]
+PRETTIER_CONFIG = ".github/config/prettier.json"
+PRETTIER_IGNORE = ".github/config/prettierignore"
+PRETTIER_SUFFIXES = {
+    ".cjs", ".css", ".js", ".json", ".jsx", ".mjs", ".scss", ".ts", ".tsx", ".yaml", ".yml",
+}
+ROOT_CODE_FILES = {
+    "package.json", "quartz.config.ts", "quartz.layout.ts", "tsconfig.json", "vercel.json",
+}
+PRETTIER_PREFIXES = (".github/", "quartz/")
+PYTHON_PREFIXES = (".github/scripts/", ".github/tests/")
+EXCLUDED_PATHS = {"package-lock.json", "quartz/util/emojimap.json"}
+EXCLUDED_PREFIXES = (".github/policy/",)
+Runner = Callable[..., subprocess.CompletedProcess]
+
+
+def git_output_bytes(root: Path, arguments: Sequence[str]) -> bytes:
+    completed = subprocess.run(
+        ["git", *arguments], cwd=str(root), check=False,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    if completed.returncode != 0:
+        raise ValueError(
+            "git {} failed: {}".format(
+                " ".join(arguments), os.fsdecode(completed.stderr).strip() or "unknown error"
+            )
+        )
+    return completed.stdout
+
+
+def git_output(root: Path, arguments: Sequence[str]) -> str:
+    return os.fsdecode(git_output_bytes(root, arguments))
+
+
+def changed_paths(root: Path, base: str, head: str) -> List[str]:
+    merge_base = git_output(root, ["merge-base", base, head]).strip()
+    if not merge_base:
+        raise ValueError("git merge-base returned no commit")
+    output = git_output_bytes(
+        root,
+        ["diff", "--name-only", "-z", "--diff-filter=ACMR", "--find-renames", merge_base, head],
+    )
+    return sorted({os.fsdecode(raw_path) for raw_path in output.split(b"\0") if raw_path})
+
+
+def is_prettier_candidate(relative: str) -> bool:
+    if relative in EXCLUDED_PATHS or relative.startswith(EXCLUDED_PREFIXES):
+        return False
+    if relative in ROOT_CODE_FILES:
+        return True
+    path = Path(relative)
+    if path.suffix.lower() not in PRETTIER_SUFFIXES:
+        return False
+    return relative.startswith(PRETTIER_PREFIXES)
+
+
+def is_python_candidate(relative: str) -> bool:
+    return relative.endswith(".py") and relative.startswith(PYTHON_PREFIXES)
+
+
+def selected_code_paths(paths: Iterable[str]) -> List[str]:
+    """Return only paths that this validator can format or syntax-check."""
+    return sorted(
+        {
+            relative
+            for relative in paths
+            if is_prettier_candidate(relative) or is_python_candidate(relative)
+        }
+    )
+
+
+def existing_paths(root: Path, paths: Iterable[str]) -> List[str]:
+    """Select regular candidate files while rejecting aliases inside code-quality scope."""
+    selected: List[str] = []
+    resolved_root = root.resolve()
+    for relative in paths:
+        relative_path = Path(relative)
+        if relative_path.is_absolute() or ".." in relative_path.parts:
+            raise ValueError("Changed path escapes repository: {}".format(relative))
+
+        source = resolved_root
+        for part in relative_path.parts:
+            source /= part
+            if source.is_symlink():
+                raise ValueError("Changed path uses a symbolic-link alias: {}".format(relative))
+
+        candidate = source.resolve()
+        try:
+            candidate.relative_to(resolved_root)
+        except ValueError:
+            raise ValueError("Changed path escapes repository: {}".format(relative))
+        if candidate.is_file():
+            if candidate.stat().st_nlink > 1:
+                raise ValueError("Changed path uses a hard-link alias: {}".format(relative))
+            selected.append(relative)
+    return selected
+
+
+def validate_python_syntax(root: Path, paths: Iterable[str]) -> List[str]:
+    errors: List[str] = []
+    for relative in paths:
+        path = root / relative
+        try:
+            source = path.read_text(encoding="utf-8")
+            compile(source, relative, "exec")
+        except (OSError, UnicodeError, SyntaxError) as exc:
+            errors.append("{}: {}".format(relative, exc))
+    return errors
+
+
+def run_prettier(
+    root: Path,
+    paths: Sequence[str],
+    runner: Runner = subprocess.run,
+    write: bool = False,
+) -> int:
+    if not paths:
+        return 0
+    executable = root / "node_modules/.bin/prettier"
+    if not executable.is_file():
+        print("Local Prettier is unavailable; run npm ci --ignore-scripts first.", file=sys.stderr)
+        return 2
+    config = root / PRETTIER_CONFIG
+    ignore = root / PRETTIER_IGNORE
+    if not config.is_file() or not ignore.is_file() or config.is_symlink() or ignore.is_symlink():
+        print("Prettier configuration is incomplete or aliased.", file=sys.stderr)
+        return 2
+    mode = "--write" if write else "--check"
+    completed = runner(
+        [
+            str(executable), mode,
+            "--config", str(config),
+            "--ignore-path", str(ignore),
+            "--ignore-unknown", *paths,
+        ],
+        cwd=str(root), check=False,
+    )
+    return int(completed.returncode)
+
+
+def validate(root: Path, base: str, head: str, write: bool = False) -> int:
+    try:
+        changed = changed_paths(root, base, head)
+        paths = existing_paths(root, selected_code_paths(changed))
+    except ValueError as exc:
+        print("Code-quality validation failed: {}".format(exc), file=sys.stderr)
+        return 2
+
+    prettier_paths = [path for path in paths if is_prettier_candidate(path)]
+    python_paths = [path for path in paths if is_python_candidate(path)]
+    python_errors = validate_python_syntax(root, python_paths)
+    for error in python_errors:
+        print("Python syntax error: {}".format(error), file=sys.stderr)
+
+    prettier_status = run_prettier(root, prettier_paths, write=write)
+    if prettier_status == 2:
+        return 2
+    if python_errors or prettier_status:
+        return 1
+
+    print(
+        "Changed-code {} passed ({} formatted files, {} Python files).".format(
+            "formatting" if write else "quality validation", len(prettier_paths), len(python_paths)
+        )
+    )
+    return 0
+
+
+def parse_args(argv: Sequence[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--base", required=True, help="Current target tip or other base ref")
+    parser.add_argument("--head", required=True, help="Candidate head ref")
+    parser.add_argument("--write", action="store_true")
+    parser.add_argument("--root", type=Path, default=ROOT)
+    return parser.parse_args(argv)
+
+
+def main(argv: Sequence[str] = sys.argv[1:]) -> int:
+    args = parse_args(argv)
+    return validate(args.root.resolve(), args.base, args.head, write=args.write)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

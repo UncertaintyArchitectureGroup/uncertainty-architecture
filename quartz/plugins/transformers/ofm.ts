@@ -486,7 +486,10 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
                   node.children = [
                     node.children[0],
                     {
-                      data: { hProperties: { className: ["callout-content"] }, hName: "div" },
+                      data: {
+                        hProperties: { className: ["callout-content"] },
+                        hName: "div",
+                      },
                       type: "blockquote",
                       children: [...calloutContent],
                     },
@@ -508,7 +511,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
                 node.data = {
                   hProperties: {
                     ...(node.data?.hProperties ?? {}),
-                    className: classNames.join(" "),
+                    className: classNames,
                     "data-callout": calloutType,
                     "data-callout-fold": collapse,
                     "data-callout-metadata": calloutMetaData,
