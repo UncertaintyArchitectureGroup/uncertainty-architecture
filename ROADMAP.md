@@ -165,7 +165,20 @@ A new top-level Operating Model module is not planned at this stage.
 
 ## Phase 5 — Optional tooling and reference implementations
 
-**Status: Later**
+**Status: Active for repository intelligence; Later for framework reference implementations**
+
+### Repository intelligence
+
+Repository intelligence is an active enabling track for reliable cold-start AI-assisted repository work. Its architecture and staged rollout are owned by [`.github/REPOSITORY-INTELLIGENCE.md`](.github/REPOSITORY-INTELLIGENCE.md).
+
+Required sequence:
+
+1. define the lightweight architecture and authority/freshness boundaries;
+2. build one deterministic GitHub-readable Agent Context Surface with terminology/artifact preflight and drift validation;
+3. integrate it into agent workflow and benchmark it against manual live-GitHub orientation;
+4. stop if the lightweight path meets the benchmark.
+
+The baseline complements GitHub rather than mirroring the repository. Persistent storage, embeddings, MCP, graph UI, code intelligence, remote caches, and inferred semantic edges remain optional until a named measured failure justifies their complexity.
 
 ### Current repository-integrity foundation
 
