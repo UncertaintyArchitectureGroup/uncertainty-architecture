@@ -169,16 +169,19 @@ A new top-level Operating Model module is not planned at this stage.
 
 ### Repository intelligence
 
-Repository intelligence is an active enabling track for reliable cold-start AI-assisted repository work. Its architecture and staged rollout are owned by [`.github/REPOSITORY-INTELLIGENCE.md`](.github/REPOSITORY-INTELLIGENCE.md).
+Repository intelligence is an active enabling track for reliable cold-start AI-assisted repository work and maintainer-facing repository control. Its architecture and staged rollout are owned by [`.github/REPOSITORY-INTELLIGENCE.md`](.github/REPOSITORY-INTELLIGENCE.md).
 
 Required sequence:
 
-1. define the lightweight architecture and authority/freshness boundaries;
-2. build one deterministic GitHub-readable Agent Context Surface with terminology/artifact preflight and drift validation;
+1. define the lightweight shared architecture and authority/freshness boundaries;
+2. build one deterministic GitHub-readable Agent Context Surface with graph-ready typed relations, terminology/artifact preflight, diagnostics primitives, and drift validation;
 3. integrate it into agent workflow and benchmark it against manual live-GitHub orientation;
-4. stop if the lightweight path meets the benchmark.
+4. build the Quartz **Repository Control Map** over the same projection with Explore, Architecture, Impact, and Diagnostics lenses;
+5. stop when the lightweight shared projection and both consumers are useful at acceptable maintainer cost.
 
-The baseline complements GitHub rather than mirroring the repository. Persistent storage, embeddings, MCP, graph UI, code intelligence, remote caches, and inferred semantic edges remain optional until a named measured failure justifies their complexity.
+The Control Map is a planned consumer, not a requirement for a graph database. It should reuse existing Quartz graph infrastructure where practical, expose relation provenance and PR impact, and distinguish deterministic errors from advisory structural warnings and Model-Judgment review candidates.
+
+The baseline complements GitHub rather than mirroring the repository. Persistent storage, embeddings, MCP, graph databases, code intelligence, remote caches, and inferred semantic edges remain optional until a named measured failure justifies their complexity.
 
 ### Current repository-integrity foundation
 
