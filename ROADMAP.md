@@ -174,12 +174,12 @@ Repository intelligence is an active enabling track for reliable cold-start AI-a
 Required sequence:
 
 1. define the lightweight shared architecture and authority/freshness boundaries;
-2. build one deterministic GitHub-readable Agent Context Surface with graph-ready typed relations, terminology/artifact preflight, diagnostics primitives, and drift validation;
+2. build one deterministic GitHub-readable Agent Context Surface with graph-ready typed relations, terminology/artifact preflight, deterministic diagnostics primitives, and drift validation;
 3. integrate it into agent workflow and benchmark it against manual live-GitHub orientation;
 4. build the Quartz **Repository Control Map** over the same projection with Explore, Architecture, Impact, and Diagnostics lenses;
 5. stop when the lightweight shared projection and both consumers are useful at acceptable maintainer cost.
 
-The Control Map is a planned consumer, not a requirement for a graph database. It should reuse existing Quartz graph infrastructure where practical, expose relation provenance and PR impact, and distinguish deterministic errors from advisory structural warnings and Model-Judgment review candidates.
+The Control Map is a planned consumer, not a requirement for a graph database. PR 4 should not build a bespoke graph engine: it should first compare a narrow extension of the existing Quartz D3/Pixi graph with a mature OSS renderer such as Cytoscape.js, then keep one Control Map behavior contract regardless of renderer choice. An OKF-compatible export may follow after the shared projection schema stabilizes, but OKF remains an interoperability format rather than UA's canonical schema.
 
 The baseline complements GitHub rather than mirroring the repository. Persistent storage, embeddings, MCP, graph databases, code intelligence, remote caches, and inferred semantic edges remain optional until a named measured failure justifies their complexity.
 
