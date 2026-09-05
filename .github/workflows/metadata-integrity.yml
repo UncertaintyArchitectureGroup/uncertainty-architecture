@@ -74,6 +74,35 @@ jobs:
       - name: Validate research state register
         run: python3 .github/scripts/validate_research_register.py
 
+  repository-intelligence:
+    name: Repository / agent context surface
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Run repository-intelligence behavioral tests
+        run: python3 .github/tests/repository_intelligence/test_repository_intelligence.py
+
+      - name: Build deterministic candidate context surface
+        run: python3 .github/scripts/repository_intelligence.py build --output "${RUNNER_TEMP}/agent-context.json"
+
+      - name: Upload candidate context surface for connector-only recovery
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: agent-context-candidate
+          path: ${{ runner.temp }}/agent-context.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Verify committed context surface freshness
+        run: python3 .github/scripts/repository_intelligence.py verify --candidate "${RUNNER_TEMP}/agent-context.json"
+
   self-tests:
     name: Policy / metadata self-tests
     runs-on: ubuntu-24.04
