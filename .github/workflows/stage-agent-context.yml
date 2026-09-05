@@ -1,0 +1,45 @@
+name: Stage Agent Context Surface
+
+on:
+  push:
+    branches:
+      - repository-intelligence/context-surface
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-stage:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Remove one-shot workflow before projection
+        run: git rm .github/workflows/stage-agent-context.yml
+
+      - name: Validate repository-intelligence producer
+        run: python3 .github/tests/repository_intelligence/test_repository_intelligence.py
+
+      - name: Generate committed Agent Context Surface
+        run: python3 .github/scripts/repository_intelligence.py build --output .github/agent-context.json
+
+      - name: Verify generated surface against post-workflow tree
+        run: python3 .github/scripts/repository_intelligence.py verify
+
+      - name: Commit generated surface and remove one-shot workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add .github/agent-context.json .github/workflows/stage-agent-context.yml
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: commit deterministic agent context surface"
+          git push origin HEAD:repository-intelligence/context-surface
