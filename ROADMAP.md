@@ -102,7 +102,7 @@ The repository integration is complete. The relevant framework documents remain 
 - [x] Complete automated internal-link, navigation-route, anchor, and citation validation.
 - [x] Establish a machine-readable repository contract protecting critical files, landing-page functions, compatibility paths, and the top-level namespace, with independent regression fixtures.
 - [x] Establish controlled frontmatter, tag-projection, active canonical-ownership, protected-glossary, and terminology-warning validation.
-- [x] Establish diff-aware changelog, glossary, roadmap, traceability, deletion, rename, and machine-readable pull-request coupling.
+- [x] Establish diff-aware changelog, glossary, roadmap, research-traceability, deletion, rename, and machine-readable pull-request coupling.
 - [x] Establish a deterministic AI-agent checked-state checkpoint with derived repository-policy and protected document-status classification, target-branch CODEOWNER-controlled and head-bound applicability opt-out with current permission verification, one PR-owned diff model shared with change coupling, tested-merge instruction resolution, PR-description and trusted PR-review/inline-review feedback watermarks, state-bound CODEOWNER readiness approval across head/merge/body/checkpoint, paginated verified readiness workflow/job/step provenance on the PR head, retroactive-comment-edit rejection, narrow PR-contract exception semantics, explicit migration for pre-existing open PRs, and mutation/regression protection of the control surface including its repository-contract registration.
 - [x] Define a target-owned trusted-base agent guard that does not execute candidate code, can invalidate a stale checkpoint after `main` advances, and protects the candidate-modifiable policy boundary; bootstrap availability begins only after the introducing PR is merged into the target branch.
 - [x] Establish a cross-document Research State Register with stable material-item IDs, provenance boundaries, epistemic status, ownership, next decisions, deterministic CI validation, and regression fixtures.
@@ -174,7 +174,7 @@ Repository intelligence is an active enabling track for reliable cold-start AI-a
 Required sequence:
 
 1. define the lightweight shared architecture and authority/freshness boundaries;
-2. build one deterministic GitHub-readable Agent Context Surface with graph-ready typed relations, terminology/artifact preflight, diagnostics primitives, and drift validation;
+2. [x] build one deterministic GitHub-readable Agent Context Surface with graph-ready typed relations, terminology/artifact preflight, diagnostics primitives, and drift validation;
 3. integrate it into agent workflow and benchmark it against manual live-GitHub orientation;
 4. build the Quartz **Repository Control Map** over the same projection with Explore, Architecture, Impact, and Diagnostics lenses;
 5. stop when the lightweight shared projection and both consumers are useful at acceptable maintainer cost.
@@ -185,6 +185,7 @@ The baseline complements GitHub rather than mirroring the repository. Persistent
 
 ### Current repository-integrity foundation
 
+- deterministic Agent Context Surface generation now exposes repository-native term/artifact/instruction/research/validation inventories plus a shared typed, provenance-bearing graph projection, deterministic source identity, and explicit stale-surface rejection; the same projection is intended for agent preflight and the later Quartz Repository Control Map;
 - deterministic navigation coverage and route validation;
 - offline repository-relative link and anchor validation;
 - machine-readable citation validation;
