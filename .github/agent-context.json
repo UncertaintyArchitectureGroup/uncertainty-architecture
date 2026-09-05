@@ -9640,7 +9640,7 @@
   "schema_version": 1,
   "source_identity": {
     "algorithm": "sha256-path-content-v1",
-    "digest": "984f91ce76d41ed624307fd802f01c833455dcef6457b0c0cd4a0f178c3593ff",
+    "digest": "e1d4986a1521687b9430dd77c54e3cad4a2d1b80065df5d421183f0169a3923f",
     "excluded_outputs": [
       ".github/agent-context.json"
     ],
