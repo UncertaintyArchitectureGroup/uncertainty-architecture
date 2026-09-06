@@ -173,13 +173,13 @@ Repository intelligence is an active enabling track for reliable cold-start AI-a
 
 Required sequence:
 
-1. define one lightweight logical projection with authority, freshness, materialization, and accepted/proposed-state boundaries;
-2. build one deterministic producer that emits a compact connector-friendly Agent Context Surface and a fuller Graph View, supports typed relations plus explicit impact roles, can create an ephemeral proposed projection for PR comparison, and validates freshness without making routine generated read data a repository-policy change;
-3. integrate the compact surface into agent workflow and benchmark it against manual live-GitHub orientation through the actual ChatGPT/iPad/GitHub-connector path;
-4. build the Quartz **Repository Control Map** over the Graph View with Explore, Architecture, Impact, and Diagnostics lenses, accepted/proposed comparison where available, high-fan-out structural aggregation, degraded operation without live GitHub, and mature OSS graph-renderer reuse when preferable to extending the existing Quartz graph;
+1. define one lightweight logical projection with authority, freshness, materialization, accepted/proposed-state, trusted-comparison, and impact-semantics boundaries;
+2. build one deterministic accepted-state producer that emits a compact connector-friendly Agent Context Surface and a fuller Graph View, supports typed relations plus explicit impact roles and directions, can create an ephemeral proposed projection for PR comparison through trusted target-owned producer/schema semantics with candidate files treated as data, reports unsupported/incomplete when interpretation self-change cannot be compared faithfully, and validates freshness without making routine generated read data a repository-policy change;
+3. integrate the compact surface into agent workflow and benchmark it against manual live-GitHub orientation through the actual ChatGPT/iPad/GitHub-connector path, including impact-direction and producer/schema self-change cases;
+4. build the Quartz **Repository Control Map** over the Graph View with Explore, Architecture, Impact, and Diagnostics lenses, trusted accepted/proposed comparison where safely interpretable, direction-aware impact traversal, high-fan-out structural aggregation, degraded operation without live GitHub, and mature OSS graph-renderer reuse when preferable to extending the existing Quartz graph;
 5. stop when the lightweight projection and both consumers are useful at acceptable local, connector, and maintainer cost.
 
-The Control Map is a planned consumer, not a requirement for a graph database. The compact agent view and full graph view share one producer and semantics but need not be one physical file. Live PR/review/check state remains a runtime overlay rather than committed projection data.
+The Control Map is a planned consumer, not a requirement for a graph database. The compact agent view and full graph view share one producer and semantics but need not be one physical file. Live PR/review/check state remains a runtime overlay rather than committed projection data. Trusted PR comparison must not execute candidate repository-intelligence code; when the candidate changes the interpretation contract beyond what the target-owned producer can safely understand, the comparison is visibly unsupported/incomplete rather than silently candidate-defined.
 
 An OKF-compatible export is considered only after the projection schema is stable **and a concrete external consumer or interchange need exists**; OKF remains an interoperability format rather than UA's canonical schema.
 
