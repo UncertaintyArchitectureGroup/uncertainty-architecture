@@ -156,6 +156,20 @@ For a trusted PR Impact comparison:
 - do not check out and execute candidate repository-intelligence code merely because the candidate contains a newer producer;
 - record the producer/schema identity used for the comparison when the distinction matters.
 
+#### RI-DATA-BOUNDARY-001 — Candidate snapshot data stays inside a bounded repository-data boundary
+
+Treating candidate content as data also means the target-owned producer must not inherit candidate-controlled filesystem or Git execution semantics.
+
+Preferred trusted input is repository tree/blob data addressed by explicit Git object identity. If an implementation uses a checkout for convenience, it must provide equivalent isolation:
+
+- do not follow candidate symlinks outside the repository snapshot or use path resolution that can escape the declared repository root;
+- do not initialize or traverse candidate submodules as trusted repository content;
+- do not execute candidate Git hooks, clean/smudge filters, external diff/textconv commands, package hooks, or candidate-provided configuration as part of projection reads;
+- reject path traversal, unsupported file kinds, and other filesystem indirection instead of normalizing them into apparently valid repository paths;
+- apply explicit deterministic bounds to the candidate input set, including supported paths/types and implementation-appropriate file/count/total-size limits; when a bound prevents complete interpretation, report **unsupported** or **incomplete** instead of silently omitting input.
+
+The exact implementation limits belong to PR 2 and should be recorded and tested rather than frozen as universal byte constants in this architecture.
+
 If the candidate changes producer code, parser/schema contracts, stable-ID rules, relation extraction, impact-role mapping, or other interpretation semantics so the trusted target producer cannot faithfully interpret the candidate state, the trusted comparison must fail visibly as **unsupported** or **incomplete** rather than silently switching to candidate code or inventing equivalence.
 
 Candidate-produced output may still be generated in an ordinary candidate-controlled test job as advisory implementation evidence. It does not become the trusted accepted-versus-proposed projection used by the Control Map, agent routing, or repository-policy decision merely because it was generated successfully.
@@ -332,6 +346,19 @@ Examples of safe defaults:
 
 For these structural-control defaults, `both` means **review relevance in either endpoint direction**, not an assertion that changing either endpoint requires modifying the other. High-fan-out presentation remains subject to the aggregation rules below.
 
+### RI-IMPACT-TRAVERSAL-001 — Structural-control review relevance is first-order and terminal by default
+
+Bidirectional review relevance on a shared scope or validator must not turn that hub into a transitive path connecting every sibling artifact.
+
+For baseline Impact traversal:
+
+- when a covered artifact changes, expose its directly applicable `SCOPED_BY` and `VALIDATED_BY` targets and stop structural-control traversal at those targets;
+- when an `AgentScope`, validator, or equivalent control surface changes, expose the directly covered artifacts and stop structural-control traversal at those artifacts;
+- do not walk through a shared scope/validator from one artifact into sibling artifacts and then onward through their other control edges merely because those edges are `control / both`;
+- broader multi-hop structural exploration is allowed only when explicitly requested or when a separately owned relation contract declares genuine dependency semantics; any such expansion remains bounded and explains the traversed path.
+
+`both` therefore means **bidirectional first-order review relevance**, not transitive closure across structural-control hubs. Presentation aggregation and traversal stopping are separate concerns: collapsing a hub changes display density, while this rule bounds the impact semantics themselves.
+
 Evolution or dependency-bearing relations such as an explicit supersession or declared dependency chain may receive `dependency` plus a direction only where the owning repository contract supports that interpretation.
 
 Impact traversal prioritizes task-relevant `dependency` and `control` relations whose direction permits traversal from the changed endpoint. Ownership, provenance, association, navigation, and `none`-direction relations remain inspectable but do not automatically inflate blast radius.
@@ -477,7 +504,7 @@ For pull-request mode, the view combines:
 - accepted-state deterministic projection from the current target;
 - an ephemeral deterministic proposed projection from the **current-target tested merge** when relationship-level comparison is required;
 - added, removed, or changed projected facts;
-- dependency/control traversal based on explicit impact roles and directions;
+- dependency traversal plus endpoint-sensitive, first-order structural-control review relevance based on explicit impact roles and directions;
 - relevant owners, validators, tests, and companion surfaces.
 
 A raw-head view may be shown only under the conditions in `RI-CANDIDATE-001` and must be labelled `head-only` when it is not equivalent to the tested merge.
@@ -663,6 +690,8 @@ The independently authored benchmark in PR 3 should include at least:
 - a PR whose metadata/relations change so accepted/proposed graph comparison is required;
 - a PR whose branch is behind the current target so raw-head comparison would falsely report target-only changes as candidate changes;
 - a PR that changes repository-intelligence producer/schema semantics so trusted comparison must remain target-owned or visibly unsupported;
+- a PR that introduces candidate symlinks/path escapes/submodule indirection or exceeds a declared input bound so the trusted reader must refuse or degrade visibly without reading outside the repository snapshot;
+- a shared root-scope or validator-hub case proving one changed artifact does not fan out transitively through sibling artifacts;
 - a research task that must keep research state separate from framework authority;
 - a stale/unavailable materialization case that must fall back to live repository reading;
 - Ukrainian and paraphrased maintainer wording that should still reach relevant candidates.
@@ -679,7 +708,9 @@ For benchmarked deterministic cases:
 - candidate state silently represented as accepted state: **0**;
 - candidate `AGENTS.md` text used to waive target-owned controls: **0**;
 - candidate-owned producer/schema silently trusted for its own accepted/proposed comparison: **0**;
-- raw PR head silently substituted for an unavailable current-target tested merge and presented as merge-state truth: **0**.
+- raw PR head silently substituted for an unavailable current-target tested merge and presented as merge-state truth: **0**;
+- trusted candidate reads escaping the repository snapshot through symlink/path/submodule or candidate Git execution semantics: **0**;
+- ordinary artifact impact traversal reaching sibling artifacts only through a shared structural-control hub: **0**.
 
 ### Connector/iPad acceptance
 
@@ -730,10 +761,11 @@ Acceptance covers at least:
 - Model-Judgment candidates remain visibly review-only;
 - relation type, impact role, and impact direction remain distinct;
 - impact traversal follows explicit direction semantics rather than graph drawing direction;
-- `SCOPED_BY` and `VALIDATED_BY` support review relevance from either changed endpoint while density aggregation keeps the global view legible;
+- `SCOPED_BY` and `VALIDATED_BY` support review relevance from either changed endpoint while remaining first-order/terminal by default so a shared hub does not connect sibling artifacts transitively;
 - a PR impact view compares accepted state against the current-target tested-merge projection when candidate relationships change;
 - a raw-head view is never silently presented as the merge state when the branch is behind target;
 - trusted accepted/proposed comparison uses target-owned producer/schema semantics and visibly refuses unsupported schema-self-change cases;
+- trusted candidate reads remain inside the declared repository snapshot and fail visibly on unsupported indirection or bounded-input overflow;
 - PR 2 bootstrap evidence is not misrepresented as target-owned trusted comparison before its producer/schema are merged;
 - the first suitable post-merge use of the PR 2 producer exercises the real target-owned trusted-comparison path;
 - the map still works meaningfully when the live overlay is unavailable;
@@ -745,7 +777,7 @@ Acceptance covers at least:
 
 ### PR 1 — Architecture baseline — this PR
 
-Purpose: define the smallest useful logical projection, authority/freshness boundaries, physical materialization rules, accepted/proposed state model, trusted comparison boundary, impact semantics, bootstrap trust transition, agent preflight behavior, Repository Control Map contract, open-source reuse strategy, interoperability boundary, evaluation gates, and stop/go rule.
+Purpose: define the smallest useful logical projection, authority/freshness boundaries, physical materialization rules, accepted/proposed state model, trusted comparison and candidate-data boundaries, impact semantics, bootstrap trust transition, agent preflight behavior, Repository Control Map contract, open-source reuse strategy, interoperability boundary, evaluation gates, and stop/go rule.
 
 Included:
 
@@ -779,7 +811,7 @@ Required behavior:
 - compact maintained-artifact inventory;
 - structural contributor-scope inventory;
 - derived `Responsibility` nodes for existing `canonical_for` identifiers;
-- explicit relationship extraction with edge classes, impact roles, impact directions, and provenance;
+- explicit relationship extraction with edge classes, impact roles, impact directions, first-order structural-control traversal semantics, and provenance;
 - deterministic diagnostic signals backed by existing repository rules;
 - `context_for_task`;
 - `find_owner`;
@@ -789,6 +821,7 @@ Required behavior:
 - a compact connector-friendly Agent Context Surface;
 - a fuller graph materialization usable by PR 4;
 - ability, once the producer/schema are target-owned, to create an ephemeral proposed projection from the **current-target tested merge** without executing candidate code;
+- bounded candidate-snapshot reading that keeps trusted reads inside declared Git tree/blob data or an equivalently isolated checkout, refuses symlink/path/submodule/Git-execution indirection, and reports unsupported/incomplete when declared input bounds prevent complete interpretation;
 - raw-head projection only when the current target is already contained in head or when clearly labelled as head-only diagnostic evidence;
 - explicit unavailable/incomplete behavior when a current-target tested merge cannot be established;
 - explicit unsupported/incomplete behavior when a candidate changes interpretation semantics beyond what the trusted producer can safely compare;
@@ -805,7 +838,7 @@ Live PR/check/review state is explicitly outside the deterministic materializati
 
 Integrate context/preflight operations into the actual agent workflow, add independently authored cold-start cases, and compare against manual live-GitHub orientation.
 
-The benchmark must include the actual ChatGPT/iPad/GitHub-connector path, connector-size/read-cost behavior, impact-direction cases, a branch-behind-target comparison case, and producer/schema self-change cases.
+The benchmark must include the actual ChatGPT/iPad/GitHub-connector path, connector-size/read-cost behavior, impact-direction and shared-control-hub cases, a branch-behind-target comparison case, candidate-data-boundary cases, and producer/schema self-change cases.
 
 Do not choose the next retrieval technology before measuring the failure.
 
@@ -820,7 +853,7 @@ Target behavior:
 - local-first navigation with global view available on demand;
 - node/edge inspector with provenance and direct source navigation;
 - optional live PR overlay plus trusted accepted/proposed graph comparison against the current-target tested merge when candidate structure is safely interpretable;
-- dependency/control-aware and direction-aware blast-radius traversal rather than all-edge traversal;
+- dependency-aware traversal plus endpoint-sensitive first-order structural-control review relevance rather than all-edge transitive traversal;
 - collapsed/aggregated high-fan-out structural relations by default with on-demand expansion;
 - deterministic error, structural warning, and Model-Judgment review-candidate distinction;
 - degraded operation without live GitHub overlay;
@@ -885,6 +918,8 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 | `RI-DEC-025` | Impact traversal has explicit direction semantics independent of graph drawing direction. | Accepted | Knowing that an edge matters is insufficient unless the review-propagation direction is deterministic. |
 | `RI-DEC-026` | Repository-intelligence trusted-comparison authority activates only after the producer/schema bootstrap is merged. | Accepted | A candidate implementation cannot provide target-owned evidence about itself before it exists on the target branch. |
 | `RI-DEC-027` | Structural control relations support bidirectional review relevance where either endpoint can change coverage. | Accepted | Scope and validator changes must expose affected covered surfaces, while aggregation prevents graph explosion. |
+| `RI-DEC-028` | Structural-control traversal is endpoint-sensitive and first-order/terminal by default. | Accepted | Shared scope/validator hubs must expose direct review relevance without turning sibling artifacts into transitive blast-radius paths. |
+| `RI-DEC-029` | Trusted candidate reads stay inside a bounded repository-data boundary. | Accepted | Candidate symlinks, path indirection, submodules, Git execution semantics, or resource exhaustion must not escape or redefine the trusted projection read boundary. |
 
 ## 18. Current implementation state
 
@@ -896,7 +931,9 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 | Full Graph View materialization | Planned for PR 2 / consumed by PR 4 |
 | Ephemeral proposed projection from current-target tested merge | Planned for PR 2 / consumed by PR 4 |
 | Trusted target-owned producer/schema boundary for proposed comparison | Activates only after PR 2 merge |
+| Bounded candidate snapshot reader for trusted comparison | Planned for PR 2 / activated after PR 2 merge |
 | `Responsibility` derived nodes, typed edge classes, impact roles, and impact directions | Planned for PR 2 |
+| Endpoint-sensitive first-order structural-control traversal | Planned for PR 2 / consumed by PR 4 |
 | `context_for_task` / owner / preflight / validation operations | Planned for PR 2 |
 | Drift/regeneration validation | Planned for PR 2 |
 | Agent-workflow integration | Planned for PR 3 |
