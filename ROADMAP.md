@@ -173,15 +173,17 @@ Repository intelligence is an active enabling track for reliable cold-start AI-a
 
 Required sequence:
 
-1. define the lightweight shared architecture and authority/freshness boundaries;
-2. build one deterministic GitHub-readable Agent Context Surface with graph-ready typed relations, terminology/artifact preflight, deterministic diagnostics primitives, and drift validation;
-3. integrate it into agent workflow and benchmark it against manual live-GitHub orientation;
-4. build the Quartz **Repository Control Map** over the same projection with Explore, Architecture, Impact, and Diagnostics lenses;
-5. stop when the lightweight shared projection and both consumers are useful at acceptable maintainer cost.
+1. define one lightweight logical projection with authority, freshness, materialization, and accepted/proposed-state boundaries;
+2. build one deterministic producer that emits a compact connector-friendly Agent Context Surface and a fuller Graph View, supports typed relations plus explicit impact roles, can create an ephemeral proposed projection for PR comparison, and validates freshness without making routine generated read data a repository-policy change;
+3. integrate the compact surface into agent workflow and benchmark it against manual live-GitHub orientation through the actual ChatGPT/iPad/GitHub-connector path;
+4. build the Quartz **Repository Control Map** over the Graph View with Explore, Architecture, Impact, and Diagnostics lenses, accepted/proposed comparison where available, high-fan-out structural aggregation, degraded operation without live GitHub, and mature OSS graph-renderer reuse when preferable to extending the existing Quartz graph;
+5. stop when the lightweight projection and both consumers are useful at acceptable local, connector, and maintainer cost.
 
-The Control Map is a planned consumer, not a requirement for a graph database. PR 4 should not build a bespoke graph engine: it should first compare a narrow extension of the existing Quartz D3/Pixi graph with a mature OSS renderer such as Cytoscape.js, then keep one Control Map behavior contract regardless of renderer choice. An OKF-compatible export may follow after the shared projection schema stabilizes, but OKF remains an interoperability format rather than UA's canonical schema.
+The Control Map is a planned consumer, not a requirement for a graph database. The compact agent view and full graph view share one producer and semantics but need not be one physical file. Live PR/review/check state remains a runtime overlay rather than committed projection data.
 
-The baseline complements GitHub rather than mirroring the repository. Persistent storage, embeddings, MCP, graph databases, code intelligence, remote caches, and inferred semantic edges remain optional until a named measured failure justifies their complexity.
+An OKF-compatible export is considered only after the projection schema is stable **and a concrete external consumer or interchange need exists**; OKF remains an interoperability format rather than UA's canonical schema.
+
+The baseline complements GitHub rather than mirroring the repository. Persistent storage, embeddings, MCP, graph databases, code intelligence, remote caches, and inferred semantic edges remain optional until a named measured failure or consumer need justifies their complexity.
 
 ### Current repository-integrity foundation
 
