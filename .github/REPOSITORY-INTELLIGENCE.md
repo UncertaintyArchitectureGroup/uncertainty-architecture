@@ -28,15 +28,15 @@ Git and GitHub already expose most raw repository facts: tree structure, files, 
 
 The baseline product is one deterministic **Repository Intelligence Projection** over one explicit repository source state.
 
-That logical projection has different consumers with different context budgets. It may therefore be materialized into more than one deterministic view, provided every view:
+That logical projection has consumers with different context budgets. It may therefore be materialized into more than one deterministic view, provided every view:
 
 - derives from the same producer and source state;
-- preserves the same node/relationship semantics;
+- preserves the same node, relationship, and impact semantics for shared objects;
 - carries compatible schema and source-identity metadata;
 - remains rebuildable from canonical repository sources;
 - does not acquire authority merely because it is committed or rendered.
 
-The two required materializations are:
+The two required accepted-state materializations are:
 
 1. a compact **Agent Context Surface** for connector-friendly cold-start orientation and preflight;
 2. a fuller **Graph View** for the Quartz **Repository Control Map**.
@@ -63,7 +63,7 @@ Agent Context Pack      Repository Control Map
     └──── live GitHub runtime overlay ────┘
 ```
 
-The graph consumer must not force ordinary agent orientation to load the complete graph-edge payload. The agent consumer must not force the graph to throw away provenance or structure needed for inspection.
+The graph consumer must not force ordinary agent orientation to load the complete graph-edge payload. The agent consumer must not force the graph to discard provenance or structure needed for inspection.
 
 ### RI-MATERIALIZE-001 — Consumer-specific materialization is allowed; semantic forks are not
 
@@ -72,28 +72,27 @@ Materializations may omit fields or edge classes that are unnecessary for their 
 For example:
 
 - the compact Agent Context Surface may keep complete term/artifact inventories and high-value ownership/control relationships while omitting bulk navigation edges;
-- the full Graph View may include all explicit graph relationships required by Explore/Architecture/Impact/Diagnostics;
-- both views must preserve the same identifiers and source identity for objects they share.
+- the full Graph View may include all explicit graph relationships required by Explore, Architecture, Impact, and Diagnostics;
+- both views preserve the same identifiers, relationship semantics, impact roles, and source identity for objects they share.
 
 Do not maintain independent agent and graph schemas that must be manually reconciled.
 
-## 3. Static repository projection versus live GitHub overlay
+## 3. Accepted, proposed, and live GitHub state
 
-### RI-STATE-001 — Deterministic repository state and volatile GitHub state are separate inputs
+### RI-STATE-001 — Deterministic repository snapshots and volatile GitHub state are separate inputs
 
-The deterministic projection is built from one explicit repository snapshot. Live GitHub state is not serialized into the committed deterministic materialization.
+A deterministic projection is built from one explicit repository snapshot. Live GitHub state is not serialized into the committed accepted-state materialization.
 
 ```text
-repository snapshot
-      ↓
-deterministic projection
+accepted target snapshot ──→ deterministic accepted projection
+candidate/tested snapshot ─→ ephemeral proposed projection
 
 live PR / review / check / mergeability state
-      ↓
-runtime overlay
+                    ↓
+              runtime overlay
 ```
 
-The repository snapshot owns stable project facts such as files, metadata, glossary terms, explicit links, research-register records, contributor-scope paths, and repository policy definitions.
+The repository snapshot owns project facts such as files, metadata, glossary terms, explicit links, research-register records, contributor-scope paths, and repository policy definitions.
 
 Live GitHub owns volatile facts such as:
 
@@ -104,9 +103,40 @@ Live GitHub owns volatile facts such as:
 - check/workflow state;
 - mergeability and tested-merge state.
 
-A runtime Agent Context Pack or Control Map may combine both, but it must keep accepted repository state, candidate repository state, and live PR state visibly distinct.
+A runtime Agent Context Pack or Control Map may combine both, but it must keep accepted repository state, proposed repository state, and live PR state visibly distinct.
 
-If live GitHub is unavailable, the deterministic projection remains usable. The missing overlay must be reported as unavailable or stale rather than silently treated as empty.
+If live GitHub is unavailable, the accepted deterministic projection remains usable. The missing overlay must be reported as unavailable or stale rather than silently treated as empty.
+
+### RI-CANDIDATE-001 — PR impact compares deterministic accepted and proposed projections
+
+A changed-file list is not sufficient to explain how repository relationships change. For PR impact work, the same deterministic producer may therefore build an **ephemeral proposed projection** from the PR head or tested-merge snapshot.
+
+The comparison model is:
+
+```text
+accepted projection
+        │
+        ├── stable node / edge identities
+        │
+proposed projection
+        ↓
+added / removed / changed structural facts
+        +
+live PR state
+        ↓
+impact view
+```
+
+Requirements:
+
+- accepted and proposed facts remain separately labelled;
+- the proposed projection uses the same schema semantics and stable identifiers as the accepted projection;
+- candidate relationships are never presented as already accepted;
+- a proposed projection is disposable and need not be committed;
+- the system does not require a general historical or cross-snapshot graph database;
+- generating the proposed projection treats candidate repository content as data and must not execute arbitrary candidate-controlled code as a side effect.
+
+The live GitHub overlay selects the relevant target/head/tested state and provides PR facts; it does not substitute for projecting candidate repository structure when relationship-level comparison is needed.
 
 ## 4. Source of truth and freshness
 
@@ -114,7 +144,7 @@ If live GitHub is unavailable, the deterministic projection remains usable. The 
 
 The checked Git repository at an explicitly identified source state is authoritative for repository content. Live GitHub remains authoritative for branches, pull requests, reviews, checks, workflow runs, mergeability, tested-merge state, and current file state.
 
-Any generated context surface, graph view, local index, cache, lexical index, embedding index, database, visualization, diagnostic report, interoperability export, or adapter response is a derived projection.
+Any generated context surface, graph view, candidate projection, local index, cache, lexical index, embedding index, database, visualization, diagnostic report, interoperability export, or adapter response is derived.
 
 If a projection and live repository state disagree, the repository wins. A stale or unverifiable projection must fall back to live repository reading.
 
@@ -131,7 +161,8 @@ Required properties:
 - explicit about included and excluded paths;
 - sufficient to distinguish current, stale, and deliberately pinned source states;
 - rebuildable without a hosted service;
-- shared across the compact and graph materializations for the same source state.
+- shared across accepted-state compact and graph materializations for the same source state;
+- independently identifiable for any ephemeral proposed projection.
 
 A visually current graph or agent surface built from stale data is a correctness defect, not a cosmetic issue.
 
@@ -197,7 +228,7 @@ Additional node families should be added only when a real workflow requires them
 
 ### Edge classes
 
-The graph should distinguish edge classes because not all explicit links carry the same engineering meaning.
+The graph distinguishes edge classes because not all explicit links carry the same engineering meaning.
 
 #### Semantic / evolution evidence
 
@@ -220,7 +251,7 @@ Examples:
 - `SCOPED_BY` — path falls under structural `AGENTS.md` scope;
 - `VALIDATED_BY` — objective repository policy/validator relation derivable from existing contracts.
 
-These edges help answer impact and validation questions.
+These edges help answer routing and validation questions.
 
 #### Navigation
 
@@ -228,13 +259,40 @@ These edges help answer impact and validation questions.
 
 Navigation edges are useful for Explore and backlinks, but they are noisy. They should not dominate the default Architecture or Impact views and do not imply semantic dependence merely because one document links to another.
 
+### RI-IMPACT-001 — Edge class and impact role are orthogonal
+
+A relationship may be useful to visualize without meaning that a change should automatically propagate along that edge. Every projected edge that can participate in Impact should therefore carry an explainable **impact role** separate from its relation type.
+
+Baseline impact roles:
+
+- **dependency** — a source change creates a specific reason to review the target or dependent surface;
+- **ownership** — identifies an owning definition/responsibility surface but does not by itself imply downstream modification;
+- **provenance** — records evidence/source lineage; source movement or revision is not automatically a framework dependency;
+- **association** — useful semantic adjacency such as `RELATED_TO`; not blast-radius evidence by itself;
+- **navigation** — browsing/backlink structure such as `LINKS_TO`;
+- **control** — contributor scope, validator, policy, or companion-check routing that may affect validation/review planning.
+
+The exact relation-to-role mapping belongs to PR 2 and must be explicit and testable. A relation type must not silently gain dependency semantics merely because it is drawn in the graph.
+
+Examples of safe defaults:
+
+- `CANONICAL_FOR` → ownership;
+- `SOURCE_BASIS` → provenance;
+- `RELATED_TO` → association;
+- `LINKS_TO` → navigation;
+- `SCOPED_BY` / `VALIDATED_BY` → control.
+
+Evolution or dependency-bearing relations such as an explicit supersession chain may be marked `dependency` where the owning repository contract supports that interpretation.
+
+Impact traversal prioritizes `dependency` and task-relevant `control` relations. Ownership, provenance, association, and navigation remain inspectable but do not automatically inflate blast radius.
+
 ### Provenance
 
 Every explicit edge exposed by the full Graph View must carry enough provenance to explain why it exists: source path plus the declaration, field, link, contract, or other deterministic origin that created it.
 
 Unsupported relationship families must be reported as unsupported rather than inferred as absent.
 
-No relationship may be promoted from semantic similarity into canonical ownership, research disposition, contributor authority, or normative status.
+No relationship may be promoted from semantic similarity into canonical ownership, research disposition, contributor authority, normative status, or dependency impact.
 
 ### Signal records
 
@@ -288,7 +346,7 @@ Raw/history preservation, generated outputs, and publication renditions are outs
 
 ### `validation_plan`
 
-Return likely existing validators, tests, workflows, and companion surfaces for the proposed change. This operation is orientation only; it does not execute target-controlled code as a side effect.
+Return likely existing validators, tests, workflows, contributor scopes, and companion surfaces for the proposed change. This operation is orientation only; it does not execute target-controlled code as a side effect.
 
 ## 9. Lightweight retrieval baseline
 
@@ -355,20 +413,24 @@ Default behavior:
 
 - prioritize semantic/evolution and repository/control edges;
 - hide or de-emphasize bulk `LINKS_TO` navigation edges unless requested;
-- allow filters by module, status, artifact type, node family, edge family, research/framework boundary, contributor scope, and validator relation;
+- expose impact role independently from relation type;
+- allow filters by module, status, artifact type, node family, edge family, impact role, research/framework boundary, contributor scope, and validator relation;
 - make edge provenance inspectable.
 
 ### Impact
 
 Purpose: show likely change blast radius for a selected file, term, responsibility, or current pull request.
 
-For pull-request mode, live GitHub supplies the changed-file set and PR state. The map may overlay:
+For pull-request mode, the view combines:
 
-- directly changed artifacts;
-- explicit inbound/outbound high-value relationships;
-- canonical terms or responsibility claims connected to the changed surface;
-- relevant validators, tests, and companion files;
-- accepted versus proposed state where available.
+- the live changed-file set and PR state from GitHub;
+- accepted-state deterministic projection;
+- an ephemeral deterministic proposed projection for head/tested-merge when relationship-level comparison is required;
+- added, removed, or changed projected facts;
+- dependency/control traversal based on explicit impact roles;
+- relevant owners, validators, tests, and companion surfaces.
+
+The UI must distinguish accepted and proposed nodes/edges rather than flattening the candidate state into the accepted graph.
 
 Impact visualization is orientation evidence. It must not imply that an unconnected artifact is guaranteed unaffected when the projection does not support that relation family.
 
@@ -423,11 +485,27 @@ Selecting a node or edge should show, where available:
 - title and document classification;
 - owner/evidence role;
 - incoming and outgoing typed relations;
+- relation class and impact role;
 - relation provenance;
 - source/freshness identity;
+- accepted/proposed state;
 - diagnostic signals and their class;
 - current PR impact state;
 - direct action to open the owning source.
+
+### RI-DENSITY-001 — High-fan-out structural hubs collapse by default
+
+A graph becomes useless if every maintained document draws an edge to the root contributor scope or the same generic validator. High-fan-out structural relations must therefore remain queryable without dominating the default canvas.
+
+Default behavior:
+
+- root/global `SCOPED_BY` relationships may be represented as an effective-scope summary or cluster instead of one visible edge per document;
+- generic `VALIDATED_BY` relationships may be grouped by validator/policy family when the individual edge set adds no immediate decision value;
+- node inspectors still expose the effective scopes and validators for the selected item;
+- local expansion can reveal the underlying individual edges on demand;
+- aggregation changes presentation only: it must not discard provenance, change counts, or alter impact semantics.
+
+The same rule applies to any later structural relation whose fan-out makes the global graph less informative than its aggregated representation.
 
 ### Default visibility
 
@@ -439,7 +517,7 @@ The default global map prioritizes:
 - high-value policies/validators;
 - explicit research-state nodes when relevant.
 
-Raw archives, history, binary assets, generated output, publication renditions, low-level Quartz internals, and bulk navigation edges are hidden by default or shown through filters unless needed for provenance or impact.
+Raw archives, history, binary assets, generated output, publication renditions, low-level Quartz internals, bulk navigation edges, and expanded high-fan-out structural edges are hidden by default or shown through filters/expansion unless needed for provenance or impact.
 
 ## 11. Live-overlay degraded mode and browser security
 
@@ -449,7 +527,8 @@ The accepted-state Repository Control Map must remain useful when the live GitHu
 
 The UI must distinguish:
 
-- deterministic projection state;
+- deterministic accepted projection state;
+- optional proposed projection state;
 - live overlay state;
 - stale or unavailable overlay state.
 
@@ -527,6 +606,7 @@ The independently authored benchmark in PR 3 should include at least:
 - a request that sounds like a new document but should refine an existing owner;
 - a legitimate new artifact where overlap exists but no current artifact owns the required role;
 - an impact/validation query for a material concept or repository-policy change;
+- a PR whose metadata/relations change so accepted/proposed graph comparison is required;
 - a research task that must keep research state separate from framework authority;
 - a stale/unavailable materialization case that must fall back to live repository reading;
 - Ukrainian and paraphrased maintainer wording that should still reach relevant candidates.
@@ -580,18 +660,18 @@ Measure:
 
 ### Repository Control Map acceptance
 
-The graph consumer is useful only if it preserves repository meaning while making structure and impact easier to inspect.
-
 Acceptance covers at least:
 
 - every rendered explicit edge can expose deterministic source/provenance;
 - stale or unverifiable projection state is visible and does not masquerade as current;
-- filters do not change underlying authority or relation semantics;
+- filters and aggregation do not change underlying authority, relation, or impact semantics;
 - navigation edges do not dominate default Architecture/Impact views;
+- high-fan-out structural hubs are collapsed/aggregated by default while underlying edges remain inspectable;
 - deterministic errors are reproducible from repository facts;
 - structural warnings remain advisory and explain their basis;
 - Model-Judgment candidates remain visibly review-only;
-- a PR impact view starts from the live changed-file set when the overlay is available and keeps accepted/proposed state separate;
+- relation type and impact role remain distinct;
+- a PR impact view can compare accepted and proposed structural facts when candidate relationships change;
 - the map still works meaningfully when the live overlay is unavailable;
 - the user can move from graph node/edge to owning source without reconstructing the path manually;
 - default global view remains legible enough to reveal architecture rather than merely rendering every repository file;
@@ -601,7 +681,7 @@ Acceptance covers at least:
 
 ### PR 1 — Architecture baseline — this PR
 
-Purpose: define the smallest useful logical projection, authority/freshness boundaries, physical materialization rules, agent preflight behavior, Repository Control Map contract, open-source reuse strategy, interoperability boundary, evaluation gates, and stop/go rule.
+Purpose: define the smallest useful logical projection, authority/freshness boundaries, physical materialization rules, accepted/proposed state model, impact semantics, agent preflight behavior, Repository Control Map contract, open-source reuse strategy, interoperability boundary, evaluation gates, and stop/go rule.
 
 Included:
 
@@ -635,7 +715,7 @@ Required behavior:
 - compact maintained-artifact inventory;
 - structural contributor-scope inventory;
 - derived `Responsibility` nodes for existing `canonical_for` identifiers;
-- explicit relationship extraction with edge classes and provenance;
+- explicit relationship extraction with edge classes, impact roles, and provenance;
 - deterministic diagnostic signals backed by existing repository rules;
 - `context_for_task`;
 - `find_owner`;
@@ -644,6 +724,7 @@ Required behavior:
 - `validation_plan`;
 - a compact connector-friendly Agent Context Surface;
 - a fuller graph materialization usable by PR 4;
+- ability to create an ephemeral proposed projection from head/tested-merge for relationship-level PR comparison without executing candidate code;
 - drift/regeneration validation;
 - generated-view placement that does not make ordinary content regeneration a repository-policy change merely because the read materialization changed.
 
@@ -666,10 +747,12 @@ Build the human-facing graph/impact/diagnostics consumer over the full graph mat
 Target behavior:
 
 - Explore, Architecture, Impact, and Diagnostics lenses;
-- type/module/status/relation filters;
+- type/module/status/relation/impact-role filters;
 - local-first navigation with global view available on demand;
 - node/edge inspector with provenance and direct source navigation;
-- optional live PR changed-file overlay and explicit blast-radius paths;
+- optional live PR overlay plus accepted/proposed graph comparison when candidate structure is available;
+- dependency/control-aware blast-radius traversal rather than all-edge traversal;
+- collapsed/aggregated high-fan-out structural relations by default with on-demand expansion;
 - deterministic error, structural warning, and Model-Judgment review-candidate distinction;
 - degraded operation without live GitHub overlay;
 - no GitHub credential embedded in the static client.
@@ -711,21 +794,24 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 | `RI-DEC-003` | One logical projection may have multiple deterministic materializations. | Accepted | Agent cold-start and graph visualization have materially different context budgets. |
 | `RI-DEC-004` | Compact agent and full graph views share producer semantics and source identity. | Accepted | Different physical views must not become semantic forks. |
 | `RI-DEC-005` | Keep live GitHub state as a runtime overlay. | Accepted | PR/check/review state is volatile and should not corrupt deterministic projection freshness. |
-| `RI-DEC-006` | Routine generated read materializations must not live under a path that makes ordinary regeneration repository-policy work. | Accepted | Generated orientation data should not create governance tax for unrelated content edits. |
-| `RI-DEC-007` | Full compact term/artifact inventories precede ranking. | Accepted | Top-k alone can miss the exact object whose omission the system should prevent. |
-| `RI-DEC-008` | Exact/structural/lexical retrieval is the baseline. | Accepted | It is explainable, cheap, and sufficient to test first. |
-| `RI-DEC-009` | Semantic similarity never creates authority. | Accepted | Model Judgment may surface candidates but cannot redefine repository ownership. |
-| `RI-DEC-010` | Effective contributor scope stays with the checked-state protocol. | Accepted | The projection cannot self-authorize candidate instructions. |
-| `RI-DEC-011` | `Responsibility` is a derived node for existing `canonical_for` identifiers. | Accepted | The graph needs an explicit edge target without creating a new responsibility registry. |
-| `RI-DEC-012` | Separate semantic/evolution, repository/control, and navigation edge classes. | Accepted | A Markdown link is not equivalent to ownership, provenance, or validation dependence. |
-| `RI-DEC-013` | `LINKS_TO` is navigation and is hidden/de-emphasized by default in Architecture/Impact. | Accepted | Bulk links are useful for browsing but otherwise dominate the graph signal. |
-| `RI-DEC-014` | Diagnostics separate deterministic errors, structural warnings, and Model-Judgment candidates. | Accepted | Sensors may surface review signals without turning judgment into authority or brittle CI. |
-| `RI-DEC-015` | Manual live-repository fallback remains valid. | Accepted | Intelligence must not become an availability dependency. |
-| `RI-DEC-016` | The Control Map must degrade safely without live GitHub. | Accepted | Accepted-state architecture should remain usable without overlay availability. |
-| `RI-DEC-017` | Do not embed GitHub credentials in the static browser client. | Accepted | Live overlay convenience must not create a new secret boundary in Quartz. |
-| `RI-DEC-018` | Do not build a bespoke graph engine. | Accepted | Reuse the current Quartz path when narrow; otherwise evaluate a mature OSS renderer such as Cytoscape.js. |
-| `RI-DEC-019` | OKF is evidence-triggered interoperability only. | Accepted | Export complexity is justified only by a concrete consumer or interchange need. |
-| `RI-DEC-020` | Complexity requires a named measured failure or consumer need. | Accepted | Maintainer capacity and repository scale favor proportional tooling. |
+| `RI-DEC-006` | PR impact may generate an ephemeral proposed projection using the same producer. | Accepted | Changed files alone cannot show added, removed, or changed candidate relationships. |
+| `RI-DEC-007` | Routine generated read materializations must not live under a path that makes ordinary regeneration repository-policy work. | Accepted | Generated orientation data should not create governance tax for unrelated content edits. |
+| `RI-DEC-008` | Full compact term/artifact inventories precede ranking. | Accepted | Top-k alone can miss the exact object whose omission the system should prevent. |
+| `RI-DEC-009` | Exact/structural/lexical retrieval is the baseline. | Accepted | It is explainable, cheap, and sufficient to test first. |
+| `RI-DEC-010` | Semantic similarity never creates authority. | Accepted | Model Judgment may surface candidates but cannot redefine repository ownership. |
+| `RI-DEC-011` | Effective contributor scope stays with the checked-state protocol. | Accepted | The projection cannot self-authorize candidate instructions. |
+| `RI-DEC-012` | `Responsibility` is a derived node for existing `canonical_for` identifiers. | Accepted | The graph needs an explicit edge target without creating a new responsibility registry. |
+| `RI-DEC-013` | Separate semantic/evolution, repository/control, and navigation edge classes. | Accepted | A Markdown link is not equivalent to ownership, provenance, or validation structure. |
+| `RI-DEC-014` | Edge impact role is separate from relation type. | Accepted | Visualization adjacency must not become blast-radius semantics. |
+| `RI-DEC-015` | `LINKS_TO` is navigation and is hidden/de-emphasized by default in Architecture/Impact. | Accepted | Bulk links are useful for browsing but otherwise dominate the graph signal. |
+| `RI-DEC-016` | High-fan-out structural relations collapse/aggregate by default. | Accepted | Root scopes and generic validators should remain inspectable without becoming visual hubs. |
+| `RI-DEC-017` | Diagnostics separate deterministic errors, structural warnings, and Model-Judgment candidates. | Accepted | Sensors may surface review signals without turning judgment into authority or brittle CI. |
+| `RI-DEC-018` | Manual live-repository fallback remains valid. | Accepted | Intelligence must not become an availability dependency. |
+| `RI-DEC-019` | The Control Map must degrade safely without live GitHub. | Accepted | Accepted-state architecture should remain usable without overlay availability. |
+| `RI-DEC-020` | Do not embed GitHub credentials in the static browser client. | Accepted | Live overlay convenience must not create a new secret boundary in Quartz. |
+| `RI-DEC-021` | Do not build a bespoke graph engine. | Accepted | Reuse the current Quartz path when narrow; otherwise evaluate a mature OSS renderer such as Cytoscape.js. |
+| `RI-DEC-022` | OKF is evidence-triggered interoperability only. | Accepted | Export complexity is justified only by a concrete consumer or interchange need. |
+| `RI-DEC-023` | Complexity requires a named measured failure or consumer need. | Accepted | Maintainer capacity and repository scale favor proportional tooling. |
 
 ## 18. Current implementation state
 
@@ -735,7 +821,8 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 | Deterministic logical Repository Intelligence Projection | Planned for PR 2 |
 | Compact connector-friendly Agent Context Surface | Planned for PR 2 |
 | Full Graph View materialization | Planned for PR 2 / consumed by PR 4 |
-| `Responsibility` derived nodes and typed edge classes | Planned for PR 2 |
+| Ephemeral proposed projection for PR comparison | Planned for PR 2 / consumed by PR 4 |
+| `Responsibility` derived nodes, typed edge classes, and impact roles | Planned for PR 2 |
 | `context_for_task` / owner / preflight / validation operations | Planned for PR 2 |
 | Drift/regeneration validation | Planned for PR 2 |
 | Agent-workflow integration | Planned for PR 3 |
