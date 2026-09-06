@@ -165,7 +165,25 @@ A new top-level Operating Model module is not planned at this stage.
 
 ## Phase 5 — Optional tooling and reference implementations
 
-**Status: Later**
+**Status: Active for repository intelligence; Later for framework reference implementations**
+
+### Repository intelligence
+
+Repository intelligence is an active enabling track for reliable cold-start AI-assisted repository work and maintainer-facing repository control. Its architecture and staged rollout are owned by [`.github/REPOSITORY-INTELLIGENCE.md`](.github/REPOSITORY-INTELLIGENCE.md).
+
+Required sequence:
+
+1. define one lightweight logical projection with authority, freshness, materialization, accepted/proposed-state, trusted-comparison, bootstrap, candidate-data, and impact-semantics boundaries;
+2. build one deterministic accepted-state producer that emits a compact connector-friendly Agent Context Surface and a fuller Graph View, supports typed relations plus explicit impact roles/directions and endpoint-sensitive first-order structural-control traversal, validates freshness, and implements a bounded candidate-snapshot reader that cannot escape the declared repository snapshot through symlink/path/submodule/Git-execution indirection; during this bootstrap PR, candidate-side tests/generated outputs are implementation evidence and direct maintainer review remains the trust boundary because the producer/schema are not target-owned until merge;
+3. after that producer/schema are merged, use the target-owned interpretation boundary to create proposed projections from the **tested merge against the current target tip**, treat candidate files only as bounded repository data, report unsupported/incomplete when interpretation self-change or declared input bounds prevent faithful comparison, allow raw-head projection only when the target is already contained in head or when clearly labelled `head-only`, and benchmark the actual ChatGPT/iPad/GitHub-connector path including branch-behind-target, shared-control-hub, candidate-data-boundary, impact-direction, and producer/schema self-change cases;
+4. build the Quartz **Repository Control Map** over the Graph View with Explore, Architecture, Impact, and Diagnostics lenses, trusted accepted/proposed comparison against the current-target tested merge where safely interpretable, dependency-aware traversal plus first-order/terminal structural scope/validator review relevance, high-fan-out structural aggregation, degraded operation without live GitHub, and mature OSS graph-renderer reuse when preferable to extending the existing Quartz graph;
+5. stop when the lightweight projection and both consumers are useful at acceptable local, connector, and maintainer cost.
+
+The Control Map is a planned consumer, not a requirement for a graph database. The compact agent view and full graph view share one producer and semantics but need not be one physical file. Live PR/review/check state remains a runtime overlay rather than committed projection data. Trusted PR comparison must not execute candidate repository-intelligence code or inherit candidate-controlled filesystem/Git execution semantics. The PR that first introduces the producer/schema cannot claim target-owned trusted comparison about itself; that trust property becomes available only after merge. The canonical proposed merge state is the current-target tested merge, not a stale raw head. If the tested merge cannot be established, merge-state comparison is visibly unavailable/incomplete rather than silently downgraded to head-only evidence. `control / both` denotes bidirectional direct review relevance, not transitive traversal through shared scope or validator hubs.
+
+An OKF-compatible export is considered only after the projection schema is stable **and a concrete external consumer or interchange need exists**; OKF remains an interoperability format rather than UA's canonical schema.
+
+The baseline complements GitHub rather than mirroring the repository. Persistent storage, embeddings, MCP, graph databases, code intelligence, remote caches, and inferred semantic edges remain optional until a named measured failure or consumer need justifies their complexity.
 
 ### Current repository-integrity foundation
 

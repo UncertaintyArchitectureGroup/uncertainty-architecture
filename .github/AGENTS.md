@@ -4,6 +4,8 @@
 
 This file applies only to work under `.github/` and supplements the root [`AGENTS.md`](../AGENTS.md). Read [`CONTRIBUTING.md#code-contributions`](../CONTRIBUTING.md#code-contributions) before changing validators, policy, tests, or workflows.
 
+Repository-intelligence architecture is owned by [`REPOSITORY-INTELLIGENCE.md`](REPOSITORY-INTELLIGENCE.md). Read it before changing repository-intelligence tooling, generated context surfaces, or their validation. It is an orientation/tooling architecture and does not become UA semantic authority.
+
 ## Required route
 
 Keep one owner per responsibility and follow this chain when a repository rule becomes executable:
