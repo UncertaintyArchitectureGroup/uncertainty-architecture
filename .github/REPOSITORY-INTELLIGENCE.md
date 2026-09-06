@@ -644,7 +644,7 @@ Google's OKF reference visualizer is useful as a UI/reference pattern. It is not
 Implementation references checked on 2026-09-05:
 
 - OKF specification: <https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md>
-+- Google introduction: <https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing>
+- Google introduction: <https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing>
 
 ## 14. Evaluation and acceptance
 
