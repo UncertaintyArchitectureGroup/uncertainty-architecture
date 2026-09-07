@@ -25,6 +25,8 @@ npm run pdf:setup
 npx playwright install --with-deps chromium
 ```
 
+Publication asset rendering passes this same Chromium executable to Mermaid CLI; it does not depend on a separately downloaded Puppeteer Chrome cache. The existing full platform-asset render in Build Integrity verifies this browser boundary.
+
 Visual verification additionally requires Poppler (`poppler-utils` on Ubuntu):
 
 ```bash
