@@ -926,16 +926,16 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 | Capability | State |
 |---|---|
 | Architecture and proportionality contract | Defined by this document |
-| Deterministic logical Repository Intelligence Projection | Planned for PR 2 |
-| Compact connector-friendly Agent Context Surface | Planned for PR 2 |
-| Full Graph View materialization | Planned for PR 2 / consumed by PR 4 |
-| Ephemeral proposed projection from current-target tested merge | Planned for PR 2 / consumed by PR 4 |
+| Deterministic logical Repository Intelligence Projection | Implemented by PR 2 bootstrap |
+| Compact connector-friendly Agent Context Surface | Implemented by PR 2 bootstrap at `.ua-agent-context.json` |
+| Full Graph View materialization | Implemented by PR 2 bootstrap as CI/build materialization; consumed by PR 4 |
+| Ephemeral proposed projection from current-target tested merge | Implemented capability in PR 2; trusted activation after merge |
 | Trusted target-owned producer/schema boundary for proposed comparison | Activates only after PR 2 merge |
-| Bounded candidate snapshot reader for trusted comparison | Planned for PR 2 / activated after PR 2 merge |
-| `Responsibility` derived nodes, typed edge classes, impact roles, and impact directions | Planned for PR 2 |
-| Endpoint-sensitive first-order structural-control traversal | Planned for PR 2 / consumed by PR 4 |
-| `context_for_task` / owner / preflight / validation operations | Planned for PR 2 |
-| Drift/regeneration validation | Planned for PR 2 |
+| Bounded candidate snapshot reader for trusted comparison | Implemented in PR 2; trusted activation after merge |
+| `Responsibility` derived nodes, typed edge classes, impact roles, and impact directions | Implemented by PR 2 bootstrap |
+| Endpoint-sensitive first-order structural-control traversal | Implemented by PR 2 bootstrap; consumed by PR 4 |
+| `context_for_task` / owner / preflight / validation operations | Implemented by PR 2 bootstrap |
+| Drift/regeneration validation | Implemented by PR 2 bootstrap |
 | Agent-workflow integration | Planned for PR 3 |
 | Independent connector-aware cold-start benchmark | Planned for PR 3 |
 | Quartz Repository Control Map | Planned for PR 4 |
