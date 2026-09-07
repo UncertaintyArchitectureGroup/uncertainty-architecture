@@ -451,6 +451,19 @@ Validation routing uses recovered owner paths and maintained-artifact classifica
 
 ## 9. Lightweight retrieval baseline
 
+### Operational agent route
+
+1. Establish the current target and task ref, then read applicable contributor instructions. The context surface never selects its own authority or replaces those reads.
+2. For owner discovery or preflight, obtain `assets/repository-intelligence/agent-context.json` from that explicit source state. Reuse the same verified surface within the session while the state is unchanged. A known exact owner may be read directly without an extra index fetch.
+3. With a local runtime, run `repository_intelligence.py verify` before querying. In a connector-only client, verify the successful `Repository / intelligence projection` job in the existing metadata-integrity workflow and read its `Verified context checkout` record from the job logs. Match the record's `checkout_sha` to the intended source state and fetch the JSON at that exact SHA and `surface_path`; check its Git blob identity (or SHA-256 of the complete returned bytes) against the record. A `pull_request` check is attached to the PR head even when checkout and verification used a synthetic merge: the check/run `head_sha` is not proof of the checked content. For merge-state use, also verify that the recorded checkout is the current live tested merge for the current target/head; never reuse that result to certify a JSON fetched at the raw head. Earlier runs without the record require equivalent explicit checkout/blob evidence or direct live-source fallback. An unavailable check, mismatched identity, partial response, or unverifiable freshness requires direct live-source fallback. Candidate workflow success and its record are implementation evidence and do not attest a target-owned comparison.
+4. Use `context-for-task` or the narrower `find-owner` / `validation-plan` operation for orientation. Before proposing a canonical term or maintained conceptual/process artifact, inspect the full `term-preflight` / `artifact-preflight` inventory, not only ranked candidates. A connector-only agent can inspect the same inventories in JSON; the connector does not execute the Python CLI.
+5. Preserve the original query. When Ukrainian wording or a paraphrase has no useful lexical match, use the contributor route and source text to identify a canonical label/path, then retry explicitly with that grounded query. This is agent interpretation, not a hidden multilingual capability of the producer. An unresolved or ambiguous mapping requires source review; a zero-result query never authorizes a new owner.
+6. Read the recovered owning documents, relevant declared relationships, applicable instructions, and validation companions before making a material decision. Record source paths and unresolved conflicts; ranking cannot establish authority, synonym equivalence, or permission to create an artifact.
+7. For PR structure comparison, use the accepted target producer from a separate trusted checkout and pass the repository's current-target tested-merge SHA as data. Verify the target/head/merge identity through live GitHub. Do not execute candidate interpretation code for this evidence; a producer/parser/contract change must remain visibly unsupported. A head-only diagnostic is labelled separately.
+8. Missing or stale materialization falls back to the ordinary live repository route. Regenerate with the appropriate producer when available and verify again; do not reuse an old digest to label a modified payload fresh.
+
+Commands and regeneration are documented in [`CONTRIBUTING.md`](../CONTRIBUTING.md#repository-intelligence-preflight). The [benchmark protocol](tests/repository_intelligence/README.md) records observed cost, retrieval limitations, and the remaining independent assessment rather than treating a green fixture suite as proof of agent judgment.
+
 ### RI-RET-001 — Exact and structural signals come first
 
 The baseline retrieval path is:
@@ -954,17 +967,17 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 | Compact connector-friendly Agent Context Surface | Implemented by PR 2 bootstrap at `assets/repository-intelligence/agent-context.json` |
 | Full Graph View materialization | Implemented by PR 2 bootstrap as CI/build materialization; consumed by PR 4 |
 | Ephemeral proposed projection from current-target tested merge | Implemented capability in PR 2; trusted activation after merge |
-| Trusted target-owned producer/schema boundary for proposed comparison | Activates only after PR 2 merge |
+| Trusted target-owned producer/schema boundary for proposed comparison | Producer accepted by merged PR #114; exercised against the next PR's tested merge |
 | Bounded candidate snapshot reader for trusted comparison | Implemented in PR 2; trusted activation after merge |
 | `Responsibility` derived nodes, typed edge classes, impact roles, and impact directions | Implemented by PR 2 bootstrap |
 | Endpoint-sensitive first-order structural-control traversal | Implemented by PR 2 bootstrap; consumed by PR 4 |
 | `context_for_task` / owner / preflight / validation operations | Implemented by PR 2 bootstrap |
 | Drift/regeneration validation | Implemented by PR 2 bootstrap |
-| Agent-workflow integration | Planned for PR 3 |
-| Independent connector-aware cold-start benchmark | Planned for PR 3 |
+| Agent-workflow integration | Operational route integrated in PR 3 |
+| Independent connector-aware cold-start benchmark | PR 3 adds a runner, source-derived fixtures, boundary regressions, and connector measurements; independent blind cold-start acceptance remains pending |
 | Quartz Repository Control Map | Planned for PR 4 |
 | Renderer selection: existing Quartz path vs mature OSS | Planned PR 4 spike |
 | OKF-compatible export | Optional after concrete consumer need |
 | Persistent store / embeddings / MCP / graph database / code intelligence | Optional, evidence-triggered |
 
-The repository remains fully understandable without this tooling. Until PR 2 exists and passes its own freshness and connector-size checks, agents continue to use live GitHub plus the task-specific reading paths in [`../AGENTS.md`](../AGENTS.md).
+The repository remains fully understandable without this tooling. Agents use the operational route when useful and retain live GitHub plus the task-specific reading paths in [`../AGENTS.md`](../AGENTS.md) as the fallback. Observational or independent-assessment gaps remain visible in the benchmark record.

@@ -5320,11 +5320,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "4e4468bb778dc184a3c05963db2a70ad8b938f9b494cb6f4c3178b03297f834a",
+    "digest": "5c0b59a1f8b5fef5a1bf3c849c7f4caf10ef0545a65d8ac5344c8ae46c9219fa",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 117,
+    "input_count": 119,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5457,6 +5457,14 @@
       {
         "identity_mode": "existence",
         "path": ".github/tests/repository_contract/test_repository_contract.py"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/README.md"
+      },
+      {
+        "identity_mode": "existence",
+        "path": ".github/tests/repository_intelligence/test_agent_workflow.py"
       },
       {
         "identity_mode": "existence",
@@ -5845,6 +5853,7 @@
       ".github/tests/metadata_contract/test_metadata.py",
       ".github/tests/publication_impact/test_publication_impact.py",
       ".github/tests/repository_contract/test_repository_contract.py",
+      ".github/tests/repository_intelligence/test_agent_workflow.py",
       ".github/tests/repository_intelligence/test_repository_intelligence.py",
       ".github/tests/research_register/test_research_register.py",
       ".github/tests/supply_chain/test_supply_chain.py"

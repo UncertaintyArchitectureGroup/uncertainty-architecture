@@ -173,6 +173,8 @@ Repository intelligence is an active enabling track for reliable cold-start AI-a
 
 The PR 2 discovery baseline includes existing publication-process contracts outside frontmatter scanning and direct declared relationships as explainable preflight evidence; regressions cover owner recovery, scoped routing, and removal of obsolete relation evidence.
 
+PR #114 has merged. PR 3 integrates the operational agent route and a reproducible preflight corpus, adds workflow/trust-boundary regressions, and records live connector transport. Review hardening adds checked commit/blob evidence, standard corpus coverage protection, and complete-inventory/owner-role assertions. The initial lexical baseline misses two Ukrainian-only queries; explicit source-grounded retries recover their owners. Independent blind cold-start assessment remains open, and measured byte counts do not establish a productivity gain.
+
 Required sequence:
 
 1. define one lightweight logical projection with authority, freshness, materialization, accepted/proposed-state, trusted-comparison, bootstrap, candidate-data, and impact-semantics boundaries;
