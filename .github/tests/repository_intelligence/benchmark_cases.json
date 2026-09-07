@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "authorship": "Source-derived fixtures authored by the integration agent from accepted repository owners; this is not an independently authored blind cold-start corpus.",
+  "baseline_ref": "9facd534c7e8aeb59c2ee3003e37e44b83488516",
+  "cases": [
+    {
+      "id": "RI-COLD-001",
+      "category": "exact responsibility",
+      "operation": "find_owner",
+      "query": "contribution-workflow",
+      "expected_paths": ["CONTRIBUTING.md"],
+      "expected_rank": 1,
+      "mandatory": true,
+      "evidence_sources": ["AGENTS.md#4-canonical-ownership-and-invariants", "CONTRIBUTING.md"]
+    },
+    {
+      "id": "RI-COLD-002",
+      "category": "historical synonym",
+      "operation": "term_preflight",
+      "query": "Behavioral Software",
+      "expected_terms": ["Thinking System"],
+      "inventory_paths": ["00-doctrine/glossary.md"],
+      "mandatory": true,
+      "evidence_sources": ["00-doctrine/glossary.md#thinking-system"],
+      "decision_boundary": "Read the current definition and predecessor note; do not introduce Behavioral Software as a new canonical term."
+    },
+    {
+      "id": "RI-COLD-003",
+      "category": "ambiguous near-synonyms",
+      "operation": "term_preflight",
+      "query": "Constraint realization hard soft",
+      "expected_terms": [
+        "Constraint",
+        "Constraint Realization",
+        "Hard Constraint",
+        "Soft Constraint"
+      ],
+      "mandatory": true,
+      "evidence_sources": ["00-doctrine/glossary.md", "00-doctrine/control-loop-anatomy.md"],
+      "decision_boundary": "These related terms have distinct meanings. Candidate retrieval must not merge or rename them."
+    },
+    {
+      "id": "RI-COLD-004",
+      "category": "existing process owner",
+      "operation": "artifact_preflight",
+      "query": "PDF export",
+      "expected_paths": ["quartz/PDF-EXPORT.md"],
+      "expected_rank": 1,
+      "inventory_paths": ["quartz/PDF-EXPORT.md", "quartz/PLATFORM-RENDITIONS.md"],
+      "mandatory": true,
+      "evidence_sources": ["quartz/README.md#ownership-boundary"],
+      "decision_boundary": "Refine the existing PDF contract before proposing another export pipeline."
+    },
+    {
+      "id": "RI-COLD-005",
+      "category": "potential new artifact",
+      "operation": "artifact_preflight",
+      "query": "presentation slide deck pipeline",
+      "inventory_paths": [
+        "quartz/README.md",
+        "quartz/PDF-EXPORT.md",
+        "quartz/PLATFORM-RENDITIONS.md"
+      ],
+      "mandatory": true,
+      "evidence_sources": ["quartz/README.md#ownership-boundary"],
+      "decision_boundary": "The current inventory has no dedicated presentation pipeline owner. Review overlapping publication contracts and maintainer scope; an empty ranked list does not authorize creation."
+    },
+    {
+      "id": "RI-COLD-006",
+      "category": "policy validation",
+      "operation": "validation_plan",
+      "query": ".github/REPOSITORY-INTELLIGENCE.md",
+      "expected_instructions": ["AGENTS.md", ".github/AGENTS.md"],
+      "expected_validators": [
+        ".github/scripts/validate_repository_contract.py",
+        ".github/scripts/validate_change_coupling.py"
+      ],
+      "expected_companions": ["CHANGELOG.md", "ROADMAP.md"],
+      "mandatory": true,
+      "evidence_sources": [".github/AGENTS.md", "CONTRIBUTING.md"]
+    },
+    {
+      "id": "RI-COLD-007",
+      "category": "research authority boundary",
+      "operation": "context_for_task",
+      "query": "research-state-register",
+      "expected_paths": ["content/research/research-register.md"],
+      "expected_rank": 1,
+      "expected_instructions": ["AGENTS.md", "content/research/AGENTS.md"],
+      "mandatory": true,
+      "evidence_sources": ["content/research/index.md", "AGENTS.md"],
+      "decision_boundary": "Research status belongs to the research register; changing framework meaning still requires reading its separate canonical owner."
+    },
+    {
+      "id": "RI-COLD-008",
+      "category": "declared source relation",
+      "operation": "artifact_preflight",
+      "query": "content/research/notes/designing-nondeterministic-systems-source-intake.md",
+      "expected_paths": ["00-doctrine/control-loop-anatomy.md"],
+      "expected_rank": 10,
+      "mandatory": true,
+      "evidence_sources": ["00-doctrine/control-loop-anatomy.md"],
+      "decision_boundary": "source_basis is provenance evidence; it does not automatically propagate dependency impact."
+    },
+    {
+      "id": "RI-COLD-009",
+      "category": "Ukrainian task",
+      "operation": "find_owner",
+      "query": "Як змінити правила внесення змін до репозиторію?",
+      "grounded_query": "contribution-workflow",
+      "expected_paths": ["CONTRIBUTING.md"],
+      "expected_rank": 1,
+      "mandatory": false,
+      "evidence_sources": ["AGENTS.md#4-canonical-ownership-and-invariants"]
+    },
+    {
+      "id": "RI-COLD-010",
+      "category": "Ukrainian task",
+      "operation": "find_owner",
+      "query": "Де описано класифікацію розміщення модельного судження?",
+      "grounded_query": "model-judgment-placement-taxonomy",
+      "expected_paths": ["00-doctrine/model-judgment-placement.md"],
+      "expected_rank": 1,
+      "mandatory": false,
+      "evidence_sources": ["00-doctrine/model-judgment-placement.md"]
+    },
+    {
+      "id": "RI-COLD-011",
+      "category": "Ukrainian mixed-language task",
+      "operation": "find_owner",
+      "query": "Хочу експортувати статтю в PDF",
+      "grounded_query": "PDF export",
+      "expected_paths": ["quartz/PDF-EXPORT.md"],
+      "expected_rank": 1,
+      "mandatory": false,
+      "evidence_sources": ["quartz/PDF-EXPORT.md"]
+    },
+    {
+      "id": "RI-COLD-012",
+      "category": "English paraphrase",
+      "operation": "find_owner",
+      "query": "I need a document for runtime judgment boundary review",
+      "grounded_query": "judgment-node-boundary-pattern",
+      "expected_paths": ["01-patterns/judgment-node-boundary.md"],
+      "expected_rank": 1,
+      "mandatory": false,
+      "evidence_sources": ["01-patterns/judgment-node-boundary.md"]
+    }
+  ]
+}

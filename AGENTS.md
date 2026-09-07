@@ -60,6 +60,8 @@ Read [`content/research/AGENTS.md`](content/research/AGENTS.md) in full when wor
 
 Inspecting a tree is not the same as reading a repository. Do not claim complete review of content you did not actually read.
 
+For owner discovery, term/artifact preflight, or impact exploration, follow the [repository-intelligence agent route](.github/REPOSITORY-INTELLIGENCE.md#operational-agent-route) after instruction bootstrap. Reuse a verified context surface for the same source state; read the full relevant inventory before proposing a new term or maintained artifact, then read the owning sources. Keep an already-known direct source route cheap. Missing, stale, truncated, or ambiguous context requires live-repository fallback. A lexical miss, including an untranslated Ukrainian query, is not evidence that no owner exists.
+
 State the inspected ref and material access limitations before editing only when they affect correctness or scope; otherwise include them in the completion report rather than adding a routine preamble to every response.
 
 ## 3. Task-specific reading paths

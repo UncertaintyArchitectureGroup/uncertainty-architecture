@@ -80,6 +80,32 @@ Metadata supports navigation, Obsidian queries, publishing, and machine retrieva
 
 Do not mechanically rewrite raw source snapshots or historical publication bodies merely to normalize metadata. The convention is applied incrementally when maintained documents are created or materially edited.
 
+### Repository-intelligence preflight
+
+The [operational agent route](.github/REPOSITORY-INTELLIGENCE.md#operational-agent-route) describes local and GitHub-connector use, freshness, source reading, and fallback. The tooling is orientation evidence; ordinary contribution and authority rules remain applicable.
+
+```bash
+python3 .github/scripts/repository_intelligence.py verify
+python3 .github/scripts/repository_intelligence.py context-for-task "contribution-workflow"
+python3 .github/scripts/repository_intelligence.py term-preflight "Behavioral Software"
+python3 .github/scripts/repository_intelligence.py artifact-preflight "PDF export"
+python3 .github/scripts/repository_intelligence.py validation-plan ".github/REPOSITORY-INTELLIGENCE.md"
+```
+
+After changing indexed inputs, regenerate the read surface and verify it:
+
+```bash
+python3 .github/scripts/repository_intelligence.py build --view agent --output assets/repository-intelligence/agent-context.json
+python3 .github/scripts/repository_intelligence.py verify
+```
+
+The [benchmark protocol and recorded observations](.github/tests/repository_intelligence/README.md) distinguish deterministic checks, observed retrieval misses, connector transport, and unmeasured agent decisions. Run the corpus with an output path outside the repository:
+
+```bash
+python3 .github/tests/repository_intelligence/test_agent_workflow.py
+python3 .github/scripts/benchmark_repository_intelligence.py --output /tmp/repository-intelligence-benchmark.json
+```
+
 ### Local navigation validation
 
 Before pushing a change to framework navigation or compact breadcrumbs, run from the repository root:

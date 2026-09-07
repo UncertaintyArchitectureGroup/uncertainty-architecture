@@ -89,6 +89,9 @@ jobs:
       - name: Run repository-intelligence behavioral tests
         run: python3 .github/tests/repository_intelligence/test_repository_intelligence.py
 
+      - name: Run agent-workflow and benchmark regressions
+        run: python3 .github/tests/repository_intelligence/test_agent_workflow.py
+
       - name: Build compact Agent Context Surface candidate
         run: python3 .github/scripts/repository_intelligence.py build --view agent --output "${RUNNER_TEMP}/agent-context.json"
 
@@ -121,6 +124,18 @@ jobs:
 
       - name: Verify committed compact surface freshness
         run: python3 .github/scripts/repository_intelligence.py verify --candidate "${RUNNER_TEMP}/agent-context.json"
+
+      - name: Measure deterministic preflight corpus
+        run: python3 .github/scripts/benchmark_repository_intelligence.py --output "${RUNNER_TEMP}/repository-intelligence-benchmark.json"
+
+      - name: Upload benchmark observations
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: repository-intelligence-benchmark
+          path: ${{ runner.temp }}/repository-intelligence-benchmark.json
+          if-no-files-found: ignore
+          retention-days: 7
 
   self-tests:
     name: Policy / metadata self-tests
