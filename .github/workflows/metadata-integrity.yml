@@ -126,7 +126,7 @@ jobs:
         run: python3 .github/scripts/repository_intelligence.py verify --candidate "${RUNNER_TEMP}/agent-context.json"
 
       - name: Measure deterministic preflight corpus
-        run: python3 .github/scripts/benchmark_repository_intelligence.py --output "${RUNNER_TEMP}/repository-intelligence-benchmark.json"
+        run: python3 .github/scripts/benchmark_repository_intelligence.py --suite repository-preflight-v1 --record-checkout --output "${RUNNER_TEMP}/repository-intelligence-benchmark.json"
 
       - name: Upload benchmark observations
         if: always() && github.event_name == 'pull_request'

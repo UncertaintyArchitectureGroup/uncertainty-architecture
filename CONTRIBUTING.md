@@ -106,6 +106,8 @@ python3 .github/tests/repository_intelligence/test_agent_workflow.py
 python3 .github/scripts/benchmark_repository_intelligence.py --output /tmp/repository-intelligence-benchmark.json
 ```
 
+The standard suite checks required scenario coverage, complete preflight inventories, and declared owner roles. Use `--suite exploratory --cases <corpus.json>` for a separately labelled exploratory corpus. In a clean committed checkout, `--record-checkout` adds the exact commit/blob evidence used by the connector route; CI enables it explicitly.
+
 ### Local navigation validation
 
 Before pushing a change to framework navigation or compact breadcrumbs, run from the repository root:

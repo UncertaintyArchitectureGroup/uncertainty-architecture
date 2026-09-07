@@ -9,6 +9,9 @@
       "operation": "find_owner",
       "query": "contribution-workflow",
       "expected_paths": ["CONTRIBUTING.md"],
+      "expected_roles": {
+        "CONTRIBUTING.md": ["machine_responsibility_claim", "repository_process_owner"]
+      },
       "expected_rank": 1,
       "mandatory": true,
       "evidence_sources": ["AGENTS.md#4-canonical-ownership-and-invariants", "CONTRIBUTING.md"]
@@ -45,6 +48,7 @@
       "operation": "artifact_preflight",
       "query": "PDF export",
       "expected_paths": ["quartz/PDF-EXPORT.md"],
+      "expected_roles": { "quartz/PDF-EXPORT.md": ["repository_process_owner"] },
       "expected_rank": 1,
       "inventory_paths": ["quartz/PDF-EXPORT.md", "quartz/PLATFORM-RENDITIONS.md"],
       "mandatory": true,
@@ -85,6 +89,14 @@
       "operation": "context_for_task",
       "query": "research-state-register",
       "expected_paths": ["content/research/research-register.md"],
+      "expected_roles": {
+        "content/research/research-register.md": [
+          "research_state_owner",
+          "machine_responsibility_claim"
+        ],
+        "content/research/index.md": ["research_surface"],
+        "content/research/framework-traceability.md": ["research_disposition_owner"]
+      },
       "expected_rank": 1,
       "expected_instructions": ["AGENTS.md", "content/research/AGENTS.md"],
       "mandatory": true,
