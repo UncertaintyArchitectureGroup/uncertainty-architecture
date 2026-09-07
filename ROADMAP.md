@@ -171,6 +171,8 @@ A new top-level Operating Model module is not planned at this stage.
 
 Repository intelligence is an active enabling track for reliable cold-start AI-assisted repository work and maintainer-facing repository control. Its architecture and staged rollout are owned by [`.github/REPOSITORY-INTELLIGENCE.md`](.github/REPOSITORY-INTELLIGENCE.md).
 
+The PR 2 discovery baseline includes existing publication-process contracts outside frontmatter scanning and direct declared relationships as explainable preflight evidence; regressions cover owner recovery, scoped routing, and removal of obsolete relation evidence.
+
 Required sequence:
 
 1. define one lightweight logical projection with authority, freshness, materialization, accepted/proposed-state, trusted-comparison, bootstrap, candidate-data, and impact-semantics boundaries;

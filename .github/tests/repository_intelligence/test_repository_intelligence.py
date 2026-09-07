@@ -763,6 +763,61 @@ def test_artifact_preflight_recovers_distinct_h1() -> None:
             assert_true(evidence in result["candidates"][0]["reasons"], "preflight must explain its heading/title evidence")
 
 
+def test_publication_process_owners_are_discoverable_without_frontmatter() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-publication-owners-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        titles = {
+            "quartz/README.md": "Quartz Integration Architecture",
+            "quartz/PDF-EXPORT.md": "PDF export",
+            "quartz/PLATFORM-RENDITIONS.md": "Medium and LinkedIn rendition export",
+        }
+        for path, title in titles.items():
+            write(root / path, "# {}\n\nMaintained process contract.\n".format(title))
+        write(root / "quartz/AGENTS.md", "# Quartz contributor instructions\n")
+        write(root / "quartz/unowned-example.md", "# Unowned implementation example\n")
+        write(root / ".github/workflows/build-integrity.yml", "name: Build integrity\n")
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        surface = RI.materialize_agent_surface(RI.build_projection(root), contract)
+        inventory = {item["path"] for item in RI.artifact_preflight(surface, "unrelated task")["inventory"]}
+        assert_true(set(titles) <= inventory, "all existing publication process owners must be inventoried")
+        assert_true("quartz/unowned-example.md" not in inventory, "unclassified implementation docs must not acquire process ownership")
+        for path, title in titles.items():
+            for query in (path, title):
+                first = RI.find_owner(surface, query)["candidates"][0]
+                assert_true(first["path"] == path and first["role"] == "repository_process_owner", "exact path/title must recover the typed publication owner: " + query)
+                context = RI.context_for_task(surface, query)
+                assert_true("quartz/AGENTS.md" in {item["path"] for item in context["instructions"]}, "recovered publication owner must route Quartz instructions")
+                assert_true("build" in context["validation_plan"]["package_scripts"], "publication validation must follow recovered owner paths")
+
+
+def test_artifact_preflight_uses_direct_declared_relation_evidence() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-relation-preflight-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        owner = "01-patterns/second-review.md"
+        target = "content/research/notes/cerulean evidence.md"
+        write(root / target, "# Independent Observation Record\n\n## Basis\n")
+        text = document("Second Review", "pattern", "patterns", "delivery-review", "second-review")
+        text = text.replace("canonical_for:", "source_basis:\n  - ../content/research/notes/cerulean%20evidence.md#basis\nrelated:\n  - ../00-doctrine/glossary.md\ncanonical_for:")
+        write(root / owner, text)
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        surface = RI.materialize_agent_surface(RI.build_projection(root), contract)
+        for query in (target, "cerulean evidence", "Independent Observation Record"):
+            candidates = RI.artifact_preflight(surface, query)["candidates"]
+            first = candidates[0] if candidates else {}
+            assert_true(first.get("path") == owner, "declared source evidence must recover an otherwise lexically unrelated owner: " + query)
+            assert_true(any("source_basis" in reason and target in reason for reason in first["reasons"]), "evidence must identify the relation type and resolved target")
+            assert_true(first["canonical_for"] == ["second-review"], "relation evidence must not become a responsibility claim")
+        related = RI.artifact_preflight(surface, "glossary")["candidates"]
+        candidate = next((item for item in related if item["path"] == owner), {})
+        assert_true(any("related" in reason for reason in candidate.get("reasons", [])), "related metadata must also contribute evidence")
+        write(root / owner, document("Second Review", "pattern", "patterns", "delivery-review", "second-review"))
+        without = RI.materialize_agent_surface(RI.build_projection(root), contract)
+        assert_true(not any(item["path"] == owner for item in RI.artifact_preflight(without, "cerulean evidence")["candidates"]), "removing the declaration must remove its retrieval evidence")
+        assert_true(not any(item["path"] == "01-patterns/thinking-system-review.md" for item in RI.artifact_preflight(surface, "cerulean evidence")["candidates"]), "retrieval must not traverse into unrelated sibling artifacts")
+
+
 def main() -> int:
     tests = [
         test_projection_is_deterministic_and_materializations_share_identity,
@@ -788,6 +843,8 @@ def main() -> int:
         test_comparison_refuses_unrecognized_research_register_schema,
         test_cli_bounds_active_contract_before_reading_candidate_content,
         test_artifact_preflight_recovers_distinct_h1,
+        test_publication_process_owners_are_discoverable_without_frontmatter,
+        test_artifact_preflight_uses_direct_declared_relation_evidence,
     ]
     failures = []
     for test in tests:

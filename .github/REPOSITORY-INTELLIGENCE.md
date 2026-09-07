@@ -439,6 +439,10 @@ Before proposing a new maintained conceptual/process artifact:
 
 Raw/history preservation, generated outputs, and publication renditions are outside this unconditional preflight unless they also introduce a new maintained conceptual/process owner.
 
+Maintained process contracts remain in the inventory even when they are outside frontmatter scanning. The producer explicitly includes this architecture owner and the existing Quartz integration, PDF-export, and platform-rendition contracts identified by contributor guidance. This structural inclusion does not classify arbitrary implementation documentation as a process owner.
+
+Relationship overlap uses direct frontmatter declarations already resolved in the compact graph, with target paths and titles as evidence. Results identify the relation field and resolved target. Only the strongest relation match contributes to an artifact's score, so link count alone cannot improve ranking. These retrieval signals do not create responsibility claims, traverse control/navigation hubs, or change impact semantics.
+
 ### `validation_plan`
 
 Return likely existing validators, tests, workflows, contributor scopes, and companion surfaces for the proposed change. This operation is orientation only; it does not execute target-controlled code as a side effect.

@@ -4838,6 +4838,48 @@
           "provenance",
           "repository-architecture"
         ]
+      },
+      {
+        "artifact_type": "",
+        "canonical_for": [],
+        "canonical_owner_active": true,
+        "h1": "PDF export",
+        "maturity": "",
+        "module": "",
+        "path": "quartz/PDF-EXPORT.md",
+        "projection_role": "repository-process-owner",
+        "relations": {},
+        "status": "",
+        "title": "PDF export",
+        "topics": []
+      },
+      {
+        "artifact_type": "",
+        "canonical_for": [],
+        "canonical_owner_active": true,
+        "h1": "Medium and LinkedIn rendition export",
+        "maturity": "",
+        "module": "",
+        "path": "quartz/PLATFORM-RENDITIONS.md",
+        "projection_role": "repository-process-owner",
+        "relations": {},
+        "status": "",
+        "title": "Medium and LinkedIn rendition export",
+        "topics": []
+      },
+      {
+        "artifact_type": "",
+        "canonical_for": [],
+        "canonical_owner_active": true,
+        "h1": "Quartz Integration Architecture",
+        "maturity": "",
+        "module": "",
+        "path": "quartz/README.md",
+        "projection_role": "repository-process-owner",
+        "relations": {},
+        "status": "",
+        "title": "Quartz Integration Architecture",
+        "topics": []
       }
     ],
     "instructions": [
@@ -5253,11 +5295,11 @@
   "producer": {
     "contract": ".github/policy/repository-intelligence-contract.json",
     "implementation": ".github/scripts/repository_intelligence.py",
-    "interpretation_digest": "545bf428a26a9aca0ee39256e07d4029290b1d36a7a5bc4bd3455f21a97bde95",
+    "interpretation_digest": "6303f7372134338c56777b24498693a0054a91d31bf67ae278a5c57d16f8285f",
     "interpretation_paths": [
       {
         "path": ".github/scripts/repository_intelligence.py",
-        "sha256": "031909c553406d70e09ee548a5f06d1d0b50ee1c07c1dd156a94dceae35d47d0"
+        "sha256": "1a078d2869ea8b6df22c78b06e222f409d7884f7ed123c4a8a0e071b07e0de78"
       },
       {
         "path": ".github/scripts/validate_metadata.py",
@@ -5265,24 +5307,24 @@
       },
       {
         "path": ".github/policy/repository-intelligence-contract.json",
-        "sha256": "aeded882ce4bbd734fa05332c02c137506c00a3d2e19f519dce0822c5b33f3bf"
+        "sha256": "308f9801dc439b3eff00fa86a561bfb9ae4d45eca91c3d8ea49b7e7eb8a22b09"
       },
       {
         "path": ".github/policy/metadata-contract.json",
         "sha256": "9e1cd8798d433430a9e0782a6e99bf4933540db61e7b26fd50422a42ffb1cd95"
       }
     ],
-    "producer_version": 5,
+    "producer_version": 6,
     "schema_version": 2
   },
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "2b8dddee53923829fd7f02fdb0d98e87bafed31f1123d47d2b516921a640a764",
+    "digest": "4e4468bb778dc184a3c05963db2a70ad8b938f9b494cb6f4c3178b03297f834a",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 115,
+    "input_count": 117,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5739,6 +5781,14 @@
       {
         "identity_mode": "content",
         "path": "quartz/AGENTS.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": "quartz/PDF-EXPORT.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": "quartz/PLATFORM-RENDITIONS.md"
       },
       {
         "identity_mode": "content",

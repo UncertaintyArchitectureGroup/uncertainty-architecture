@@ -81,6 +81,9 @@ ARTIFACT_TYPES = {
 }
 STRUCTURAL_ARTIFACTS = {
     ".github/REPOSITORY-INTELLIGENCE.md": "repository-process-owner",
+    "quartz/README.md": "repository-process-owner",
+    "quartz/PDF-EXPORT.md": "repository-process-owner",
+    "quartz/PLATFORM-RENDITIONS.md": "repository-process-owner",
 }
 MetadataValue = Union[str, bool, int, float, None, List[object]]
 
@@ -1067,7 +1070,7 @@ def artifact_role(artifact: Dict[str, object]) -> str:
     path = str(artifact.get("path", ""))
     artifact_type = str(artifact.get("artifact_type", ""))
     module = str(artifact.get("module", ""))
-    if path == ".github/REPOSITORY-INTELLIGENCE.md":
+    if artifact.get("projection_role") == "repository-process-owner":
         return "repository_process_owner"
     if path == "content/research/research-register.md":
         return "research_state_owner"
@@ -1088,6 +1091,25 @@ def artifact_role(artifact: Dict[str, object]) -> str:
 
 def artifact_preflight(surface: Dict[str, object], query: str) -> Dict[str, object]:
     artifact_inventory = inventories(surface).get("artifacts", [])
+    graph = surface.get("high_value_graph", {})
+    nodes = {item["id"]: item for item in graph.get("nodes", [])}
+    relation_fields = {value: key for key, value in RELATION_FIELDS.items()}
+    evidence_by_source: Dict[str, List[Tuple[str, str]]] = {}
+    # Reuse resolved, provenance-backed targets from the compact projection.
+    # Only direct declarations contribute: navigation/control hubs do not fan out.
+    for record in graph.get("edges", []):
+        field = relation_fields.get(str(record.get("relation")))
+        if field is None or record.get("provenance", {}).get("kind") != "frontmatter":
+            continue
+        target = nodes.get(record.get("target"), {})
+        path = str(target.get("path", ""))
+        if not path:
+            continue
+        evidence = evidence_by_source.setdefault(str(record["source"]), [])
+        evidence.extend([
+            ("{} target {}".format(field, path), path),
+            ("{} title {}".format(field, path), str(target.get("title", ""))),
+        ])
     candidates: List[Dict[str, object]] = []
     for artifact in artifact_inventory:
         fields: List[Tuple[str, str]] = [
@@ -1104,6 +1126,15 @@ def artifact_preflight(surface: Dict[str, object], query: str) -> Dict[str, obje
         fields.extend(("topic", str(item)) for item in artifact.get("topics", []))
         fields.extend(("canonical_for", str(item)) for item in artifact.get("canonical_for", []))
         score, reasons = score_fields(query, fields)
+        # A document with many declarations must not win merely by link count.
+        # Keep the strongest direct relation signal and explain its source.
+        relation_score, relation_reasons = 0, []
+        for field in evidence_by_source.get(node_id("document", str(artifact["path"])), []):
+            candidate_score, candidate_reasons = score_fields(query, [field])
+            if candidate_score > relation_score:
+                relation_score, relation_reasons = candidate_score, candidate_reasons
+        score += relation_score
+        reasons.extend(relation_reasons)
         if score:
             candidates.append(
                 {
@@ -1293,7 +1324,7 @@ def validation_plan(
         add(validators, ".github/scripts/validate_research_register.py", available_validators)
         add(workflows, ".github/workflows/metadata-integrity.yml", available_workflows)
         companion_candidates.add("content/research/framework-traceability.md")
-    if tokens & {"quartz", "pdf", "publishing", "publication", "typescript", "code"}:
+    if any(path.startswith("quartz/") for path in paths) or tokens & {"quartz", "pdf", "publishing", "publication", "typescript", "code"}:
         add(workflows, ".github/workflows/build-integrity.yml", available_workflows)
         for script in ("check:types", "test", "build"):
             if script in available_package:

@@ -1,7 +1,7 @@
 {
   "contract_version": 1,
   "schema_version": 2,
-  "producer_version": 5,
+  "producer_version": 6,
   "compact_surface_path": "assets/repository-intelligence/agent-context.json",
   "interpretation_paths": [
     ".github/scripts/repository_intelligence.py",
