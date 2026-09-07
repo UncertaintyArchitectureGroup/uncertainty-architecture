@@ -5180,15 +5180,15 @@
   "producer": {
     "contract": ".github/policy/repository-intelligence-contract.json",
     "implementation": ".github/scripts/repository_intelligence.py",
-    "interpretation_digest": "cb391bb5f1ad6e377c6c68dbb74647480d33a960bbb574f345edd8e64ff0aa4f",
+    "interpretation_digest": "09eba4bc4d81d758b45d7483dc6853e9a1644aada74b5b0f69ff015640d1af72",
     "interpretation_paths": [
       {
         "path": ".github/scripts/repository_intelligence.py",
-        "sha256": "0b119cc803930e47001cca23752279ac5675b3112b46896082017e246ce694ba"
+        "sha256": "5c2796cef598e40aa2429f3458bef69738c7683dfebc199b392a66a784f6afc5"
       },
       {
         "path": ".github/policy/repository-intelligence-contract.json",
-        "sha256": "fa007e566f5c8321b5246abb9363a80f78850078028b7c096b7dc1e9f1cfaf7f"
+        "sha256": "279ce61aeec2a07823c5312756c5c1c3132ad87896a479004dbf3fe319059290"
       },
       {
         "path": ".github/policy/metadata-contract.json",
@@ -5201,9 +5201,9 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "87def72c7b0d0c585ae13c20900e36704e134b24d490b00b97cd46d09aa3a7b1",
+    "digest": "54bcb426ea60af7fecca4f08ef8f34eedb8906c5a860e24c4e6e08301a67922e",
     "excluded_outputs": [
-      ".ua-agent-context.json"
+      "assets/repository-intelligence/agent-context.json"
     ],
     "input_count": 115,
     "inputs": [

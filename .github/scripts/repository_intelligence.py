@@ -38,7 +38,7 @@ except ImportError as exc:  # pragma: no cover - actionable CLI boundary
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONTRACT = ROOT / ".github/policy/repository-intelligence-contract.json"
-DEFAULT_SURFACE = ROOT / ".ua-agent-context.json"
+DEFAULT_SURFACE = ROOT / "assets/repository-intelligence/agent-context.json"
 SOURCE_ALGORITHM = "sha256-path-content-v2"
 
 TERM_HEADING = re.compile(r"^###\s+(.+?)\s*$", re.MULTILINE)
@@ -853,7 +853,7 @@ def source_input_records(
     for category in ("policies", "validators", "workflows", "tests"):
         for path in validation.get(category, []):
             records.setdefault(str(path), "existence")
-    records.pop(str(contract.get("compact_surface_path", ".ua-agent-context.json")), None)
+    records.pop(str(contract.get("compact_surface_path", "assets/repository-intelligence/agent-context.json")), None)
     return [
         {"path": path, "identity_mode": records[path]}
         for path in sorted(records)
@@ -885,7 +885,7 @@ def compute_source_identity(root: Path, records: Sequence[Dict[str, str]]) -> Di
         "digest": aggregate.hexdigest(),
         "input_count": len(records),
         "inputs": list(records),
-        "excluded_outputs": [".ua-agent-context.json"],
+        "excluded_outputs": ["assets/repository-intelligence/agent-context.json"],
     }
 
 

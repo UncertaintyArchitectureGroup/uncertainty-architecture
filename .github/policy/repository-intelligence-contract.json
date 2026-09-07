@@ -2,7 +2,7 @@
   "contract_version": 1,
   "schema_version": 2,
   "producer_version": 2,
-  "compact_surface_path": ".ua-agent-context.json",
+  "compact_surface_path": "assets/repository-intelligence/agent-context.json",
   "interpretation_paths": [
     ".github/scripts/repository_intelligence.py",
     ".github/policy/repository-intelligence-contract.json",

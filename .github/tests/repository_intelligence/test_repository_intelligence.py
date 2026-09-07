@@ -311,6 +311,7 @@ def test_compact_surface_verify_rejects_staleness() -> None:
         materialize_repository(root)
         contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
         surface_path = root / str(contract["compact_surface_path"])
+        surface_path.parent.mkdir(parents=True, exist_ok=True)
         surface_path.write_text(
             RI.serialize_json(RI.materialize_agent_surface(RI.build_projection(root), contract)),
             encoding="utf-8"

@@ -927,7 +927,7 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 |---|---|
 | Architecture and proportionality contract | Defined by this document |
 | Deterministic logical Repository Intelligence Projection | Implemented by PR 2 bootstrap |
-| Compact connector-friendly Agent Context Surface | Implemented by PR 2 bootstrap at `.ua-agent-context.json` |
+| Compact connector-friendly Agent Context Surface | Implemented by PR 2 bootstrap at `assets/repository-intelligence/agent-context.json` |
 | Full Graph View materialization | Implemented by PR 2 bootstrap as CI/build materialization; consumed by PR 4 |
 | Ephemeral proposed projection from current-target tested merge | Implemented capability in PR 2; trusted activation after merge |
 | Trusted target-owned producer/schema boundary for proposed comparison | Activates only after PR 2 merge |
