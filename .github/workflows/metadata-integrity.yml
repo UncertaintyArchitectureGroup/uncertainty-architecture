@@ -74,6 +74,54 @@ jobs:
       - name: Validate research state register
         run: python3 .github/scripts/validate_research_register.py
 
+  repository-intelligence:
+    name: Repository / intelligence projection
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Run repository-intelligence behavioral tests
+        run: python3 .github/tests/repository_intelligence/test_repository_intelligence.py
+
+      - name: Build compact Agent Context Surface candidate
+        run: python3 .github/scripts/repository_intelligence.py build --view agent --output "${RUNNER_TEMP}/agent-context.json"
+
+      - name: Build full Graph View candidate
+        run: python3 .github/scripts/repository_intelligence.py build --view graph --output "${RUNNER_TEMP}/repository-intelligence-graph.json"
+
+      - name: Report materialization sizes
+        shell: bash
+        run: |
+          set -euo pipefail
+          wc -c "${RUNNER_TEMP}/agent-context.json" "${RUNNER_TEMP}/repository-intelligence-graph.json"
+
+      - name: Upload compact candidate for connector-only recovery
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: agent-context-candidate
+          path: ${{ runner.temp }}/agent-context.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload full graph candidate for Quartz/CI consumers
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: repository-intelligence-graph
+          path: ${{ runner.temp }}/repository-intelligence-graph.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Verify committed compact surface freshness
+        run: python3 .github/scripts/repository_intelligence.py verify --candidate "${RUNNER_TEMP}/agent-context.json"
+
   self-tests:
     name: Policy / metadata self-tests
     runs-on: ubuntu-24.04
