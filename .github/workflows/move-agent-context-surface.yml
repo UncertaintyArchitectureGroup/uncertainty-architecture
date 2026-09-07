@@ -1,0 +1,78 @@
+name: Move Agent Context Surface
+
+on:
+  push:
+    branches:
+      - repository-intelligence/context-surface
+
+permissions:
+  contents: write
+
+jobs:
+  move-surface:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Move compact surface contract to neutral assets path
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/move-agent-context-surface.yml
+          python3 - <<'PY'
+          from pathlib import Path
+          old = '.ua-agent-context.json'
+          new = 'assets/repository-intelligence/agent-context.json'
+          paths = [
+              Path('.github/REPOSITORY-INTELLIGENCE.md'),
+              Path('.github/policy/repository-intelligence-contract.json'),
+              Path('.github/scripts/repository_intelligence.py'),
+              Path('CHANGELOG.md'),
+              Path('ROADMAP.md'),
+          ]
+          changed = 0
+          for path in paths:
+              text = path.read_text(encoding='utf-8')
+              count = text.count(old)
+              if count:
+                  path.write_text(text.replace(old, new), encoding='utf-8')
+                  changed += count
+          if changed < 3:
+              raise SystemExit(f'expected at least three compact-surface path references, changed {changed}')
+          PY
+          rm -f .ua-agent-context.json
+          mkdir -p assets/repository-intelligence
+
+      - name: Re-run repository-intelligence tests and regenerate materializations
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile .github/scripts/repository_intelligence.py
+          python3 .github/tests/repository_intelligence/test_repository_intelligence.py
+          python3 .github/scripts/repository_intelligence.py build --view agent --output assets/repository-intelligence/agent-context.json
+          python3 .github/scripts/repository_intelligence.py build --view graph --output "${RUNNER_TEMP}/repository-intelligence-graph.json"
+          python3 .github/scripts/repository_intelligence.py verify
+          python3 .github/scripts/repository_intelligence.py stats
+          wc -c assets/repository-intelligence/agent-context.json "${RUNNER_TEMP}/repository-intelligence-graph.json"
+
+      - name: Commit non-workflow path correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add .github/REPOSITORY-INTELLIGENCE.md
+          git add .github/policy/repository-intelligence-contract.json
+          git add .github/scripts/repository_intelligence.py
+          git add CHANGELOG.md ROADMAP.md
+          git add assets/repository-intelligence/agent-context.json
+          git add -A .ua-agent-context.json
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix: place generated agent context under neutral assets path"
+          git push origin HEAD:repository-intelligence/context-surface
