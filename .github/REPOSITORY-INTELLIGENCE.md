@@ -680,6 +680,18 @@ Implementation references checked on 2026-09-05:
 
 Before adopting an external library, re-check current version, license, security posture, and bundle/runtime impact.
 
+### Control Map implementation and publication
+
+The Quartz `RepositoryControlMap` emitter builds a standalone `control-map/` page from the same deterministic producer. Its browser bundle is isolated from ordinary article pages. A map link in the shared layout provides entry from the site; source links open the exact GitHub snapshot, including specification files outside Quartz's `content/` publishing root.
+
+The first implementation uses Cytoscape.js for rendering, layout, selection, pan, and zoom. UA supplies the four lenses, filters, evidence inspector, and accessible HTML lists. The existing Quartz page-link graph retains its original behavior. The bounded spike compared isolated minified ES2020 entry bundles: existing Quartz D3/Pixi graph 628,417 bytes (188,006 gzip), new map client about 460 kB (149 kB gzip). These are entry-bundle measurements, not full-site transfer costs. Cytoscape.js 3.34.3 is pinned with npm integrity, MIT licensed, and has no runtime package dependencies. The [upstream documentation](https://js.cytoscape.org/) supplies the typed-edge, layout and gesture APIs; the [security page](https://github.com/cytoscape/cytoscape.js/security) reported no published advisories when checked on 2026-09-07. Native canvas needs the parallel HTML controls/lists for keyboard use. Renderer measurements and browser verification belong in the implementation PR; they do not substitute for physical-device acceptance.
+
+The build adapter reuses producer-generated impact results and validation routing. It does not invent a second impact traversal in the browser. Structural control relevance is first-order and terminal; the inspector retains every underlying relation when high-fan-out edges are collapsed on the canvas. Local views use concentric hop levels and suppress lateral links between neighbours; the whole-repository view retains those links and uses force-directed layout. Diagnostics distinguish producer errors from explained structural warnings. No model-based semantic diagnostics are inferred by this UI.
+
+Ordinary builds are visibly labelled previews. Published accepted snapshots require an explicit commit, matching executing interpretation files, a bounded Git-object projection, and a committed compact surface equal to that projection. Source identity is shown independently of optional live state. The first UI supplies selected-artifact impact; a live PR overlay and proposed graph are explicitly unavailable until a target-owned comparison transport is connected. The accepted map remains usable without that optional overlay.
+
+The existing build-integrity workflow produces a downloadable site preview for PRs. GitHub Pages publication is opt-in through repository variable `UA_PUBLISH_QUARTZ=true` and Pages source **GitHub Actions**; deployment uses only successful `main` builds and its separate least-privilege job. The implementation prepares publication without enabling the repository setting. Browser code contains no GitHub credential. CONTRIBUTING owns the build and activation commands.
+
 ## 13. Interoperability: Open Knowledge Format as an evidence-triggered export
 
 ### RI-INTEROP-001 — Compatibility exports do not own UA metadata
@@ -975,8 +987,10 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 | Drift/regeneration validation | Implemented by PR 2 bootstrap |
 | Agent-workflow integration | Operational route integrated in PR 3 |
 | Independent connector-aware cold-start benchmark | PR 3 adds a runner, source-derived fixtures, boundary regressions, and connector measurements; independent blind cold-start acceptance remains pending |
-| Quartz Repository Control Map | Planned for PR 4 |
-| Renderer selection: existing Quartz path vs mature OSS | Planned PR 4 spike |
+| Quartz Repository Control Map | Implemented in PR 4: four lenses, source/evidence inspector, filters and keyboard/touch controls; physical-device acceptance remains pending |
+| Renderer selection: existing Quartz path vs mature OSS | Cytoscape.js selected in the PR 4 bounded spike; existing Quartz page-link graph preserved |
+| Live PR overlay in the Control Map | Explicitly unavailable in the first UI; target-owned comparison transport remains a follow-up |
+| Hosted Quartz site | Opt-in Pages workflow prepared in PR 4; repository activation remains a maintainer action |
 | OKF-compatible export | Optional after concrete consumer need |
 | Persistent store / embeddings / MCP / graph database / code intelligence | Optional, evidence-triggered |
 

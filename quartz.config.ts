@@ -89,6 +89,7 @@ const config: QuartzConfig = {
       Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
+      Plugin.RepositoryControlMap(),
       // Comment out CustomOgImages to speed up build time
       Plugin.CustomOgImages(),
     ],

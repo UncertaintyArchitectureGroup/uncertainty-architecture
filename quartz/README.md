@@ -14,6 +14,7 @@ Current local responsibilities are grouped rather than treated as one undifferen
 |---|---|
 | `quartz.config.ts`, `quartz.layout.ts`, `quartz/styles/custom.scss` | repository site configuration, layout, and presentation |
 | Quartz parser/renderer/components/processors/utilities | upstream-derived core with selected repository adaptations |
+| `components/controlMap/`, `components/ControlMapLink.tsx`, `plugins/emitters/controlMap.ts` | UA-owned Repository Control Map consumer; isolated Cytoscape.js bundle, HTML accessibility surface, existing producer adapter |
 | `quartz/scripts/` and `quartz/publication/` | UA-owned PDF, publication, asset, platform-rendition, provenance, safety, and verification tooling |
 | `quartz/types/` | upstream-compatible browser, event, and SCSS declarations required by the maintained fork |
 | `.github/config/prettier.json` and `.github/config/prettierignore` | explicit formatter baseline used by bounded code-quality validation |
@@ -61,6 +62,8 @@ flowchart TD
 ```
 
 `npm run build` produces the ordinary Quartz site. `npm run pdf -- <content/file.md>` invokes the generic PDF exporter. Publication-specific wrappers add strict provenance, furniture, manifests, verification, and platform packaging while keeping Markdown canonical.
+
+The `RepositoryControlMap` emitter adds `control-map/` and calls `.github/scripts/build_repository_control_map.py`. That adapter reuses the existing projection, bounded snapshot reader, impact results, and validation route. The map client is bundled only for its standalone page; ordinary article pages retain the existing Quartz graph. See the [architecture owner](../.github/REPOSITORY-INTELLIGENCE.md#control-map-implementation-and-publication) for state, authority, diagnostic, and publication boundaries, and [CONTRIBUTING](../CONTRIBUTING.md#repository-control-map-and-site-publication) for activation. The existing build-integrity workflow owns preview artifacts, browser verification, and opt-in Pages deployment after successful main checks.
 
 Path containment, source identity, staging, atomic finalization, and rollback behavior are safety properties rather than convenience helpers. A failed generation or verification path must not replace the last valid artifact.
 

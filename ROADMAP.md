@@ -175,6 +175,8 @@ The PR 2 discovery baseline includes existing publication-process contracts outs
 
 PR #114 has merged. PR 3 integrates the operational agent route and a reproducible preflight corpus, adds workflow/trust-boundary regressions, and records live connector transport. Review hardening adds checked commit/blob evidence, standard corpus coverage protection, and complete-inventory/owner-role assertions. The initial lexical baseline misses two Ukrainian-only queries; explicit source-grounded retries recover their owners. Independent blind cold-start assessment remains open, and measured byte counts do not establish a productivity gain.
 
+PR 4 implements the interactive Quartz Repository Control Map, keeps impact semantics in the existing producer, and prepares opt-in public site delivery. Browser checks cover desktop and touch-sized layouts; live PR overlay/proposed-graph transport, physical iPad acceptance, and independent cold-start assessment remain open.
+
 Required sequence:
 
 1. define one lightweight logical projection with authority, freshness, materialization, accepted/proposed-state, trusted-comparison, bootstrap, candidate-data, and impact-semantics boundaries;
