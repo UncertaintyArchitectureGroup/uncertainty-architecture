@@ -403,11 +403,15 @@ def test_control_endpoint_changes_reach_direct_coverage_only() -> None:
             impacted = {item["id"] for item in result["impacted"]}
             assert_true("document:01-patterns/thinking-system-review.md" in impacted, "changed control must expose covered review")
             assert_true("document:01-patterns/second-review.md" in impacted, "changed shared control must expose both directly covered artifacts")
-            assert_true("agent-scope:.github/AGENTS.md" not in impacted, "control impact must stop at covered artifacts")
+            assert_true(
+                all(edge["source"] in result["changed"] or edge["target"] in result["changed"] for edge in result["traversed_edges"]),
+                "control impact must follow only edges directly touching a changed node"
+            )
         scoped = RI.impact_for_paths(graph, [".github/AGENTS.md"])
         assert_true(
-            {item["id"] for item in scoped["impacted"]} == {"document:.github/REPOSITORY-INTELLIGENCE.md"},
-            "nested scope change must reach its direct coverage without unrelated siblings"
+            "document:.github/REPOSITORY-INTELLIGENCE.md" in {item["id"] for item in scoped["impacted"]}
+            and "document:01-patterns/second-review.md" not in {item["id"] for item in scoped["impacted"]},
+            "nested scope change must include its architecture owner and exclude unrelated siblings"
         )
 
 
@@ -543,6 +547,117 @@ def test_trusted_comparison_covers_imported_metadata_parser() -> None:
         assert_true(json.loads(completed.stdout)["comparison_state"] == "unsupported", "changed imported parser must not produce a complete trusted CLI result")
 
 
+def test_comparison_checks_executing_files_and_active_contract() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-executing-boundary-") as temporary:
+        root = Path(temporary) / "input"
+        root.mkdir()
+        materialize_repository(root)
+        accepted = init_git(root)
+        document_path = root / "01-patterns/thinking-system-review.md"
+        write(document_path, document_path.read_text(encoding="utf-8").replace("Thinking System Review", "Renamed Review"))
+        proposed = commit_all(root, "rename title")
+        executor = Path(temporary) / "executor"
+        copy_runtime_files(executor)
+        contract_path = root / ".github/policy/repository-intelligence-contract.json"
+
+        def compare():
+            completed = subprocess.run(
+                [sys.executable, str(executor / ".github/scripts/repository_intelligence.py"),
+                 "--root", str(root), "--contract", str(contract_path), "compare-refs",
+                 "--accepted-ref", accepted, "--proposed-ref", proposed, "--proposed-kind", "tested-merge"],
+                check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+            )
+            return json.loads(completed.stdout)
+
+        baseline = compare()
+        assert_true(baseline["comparison_state"] == "complete", "identical executor copy must remain usable with --root")
+        assert_true("document:01-patterns/thinking-system-review.md" in baseline["diff"]["nodes"]["changed"], "trusted parser must expose the title delta")
+        parser = executor / ".github/scripts/validate_metadata.py"
+        write(parser, parser.read_text(encoding="utf-8") + '\n_original_parser = parse_frontmatter\ndef parse_frontmatter(frontmatter):\n    metadata, errors = _original_parser(frontmatter)\n    metadata["title"] = "Hidden title delta"\n    return metadata, errors\n')
+        result = compare()
+        assert_true(result["comparison_state"] == "unsupported", "foreign executing parser must not claim accepted producer identity")
+        assert_true(".github/scripts/validate_metadata.py" in result["mismatched_interpretation_paths"], "identify the actual mismatched dependency")
+        copy_runtime_files(executor)
+        producer = executor / ".github/scripts/repository_intelligence.py"
+        write(producer, producer.read_text(encoding="utf-8") + "\n# Different executing producer\n")
+        assert_true(compare()["comparison_state"] == "unsupported", "foreign executing producer must also be rejected")
+        copy_runtime_files(executor)
+        alternate = Path(temporary) / "alternate-contract.json"
+        changed_contract = RI.load_contract(contract_path)
+        changed_contract["interpretation_paths"] = []
+        write(alternate, RI.serialize_json(changed_contract))
+        contract_path = alternate
+        assert_true(compare()["comparison_state"] == "unsupported", "active --contract must not waive the accepted interpretation boundary")
+
+
+def test_comparison_preflight_never_buffers_oversized_interpretation() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-preflight-bounds-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        accepted = init_git(root)
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        limit = contract["snapshot_bounds"]["max_text_file_bytes"]
+        producer = root / ".github/scripts/repository_intelligence.py"
+        producer.write_bytes(b"#" + b"X" * (limit + 999999))
+        proposed = commit_all(root, "oversized interpretation input")
+        original = RI.git_bytes
+
+        def bounded_output(root, args, check=True):
+            data = original(root, args, check)
+            assert_true(len(data) <= limit, "comparison preflight must refuse oversized blobs before buffering their contents")
+            return data
+
+        RI.git_bytes = bounded_output
+        try:
+            result = RI.compare_refs(root, accepted, proposed, "tested-merge", contract)
+            assert_true(result["comparison_state"] in {"unsupported", "incomplete"}, "oversized interpretation must be refused visibly")
+        finally:
+            RI.git_bytes = original
+        # Ordinary candidate input must still reach the snapshot's size gate.
+        subprocess.run(["git", "checkout", "-q", accepted], cwd=str(root), check=True)
+        write(root / "oversized.md", "X" * (limit + 1))
+        proposed = commit_all(root, "oversized ordinary input")
+        result = RI.compare_refs(root, accepted, proposed, "tested-merge", contract)
+        assert_true(result["comparison_state"] == "incomplete" and "max_text_file_bytes" in result["reason"], "snapshot overflow must be incomplete")
+
+
+def test_structural_scopes_cover_policy_and_support_nodes() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-all-scopes-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        write(root / ".github/support.md", "# Supporting control notes\n")
+        architecture = root / ".github/REPOSITORY-INTELLIGENCE.md"
+        write(architecture, architecture.read_text(encoding="utf-8") + "\n[Notes](support.md)\n")
+        graph = RI.materialize_graph_view(RI.build_projection(root))
+        for path in (".github/scripts/validate_repository_contract.py", ".github/policy/metadata-contract.json", ".github/workflows/metadata-integrity.yml", ".github/support.md"):
+            impact = RI.impact_for_paths(graph, [path])
+            impacted = {item["id"] for item in impact["impacted"]}
+            assert_true({"agent-scope:AGENTS.md", "agent-scope:.github/AGENTS.md"} <= impacted, "every represented control/support path must expose its direct scopes: " + path)
+            assert_true("document:01-patterns/second-review.md" not in impacted, "scope routing must not traverse into siblings")
+        impact = RI.impact_for_paths(graph, [".github/AGENTS.md"])
+        impacted = {item["id"] for item in impact["impacted"]}
+        assert_true({"policy:.github/scripts/validate_repository_contract.py", "policy:.github/policy/metadata-contract.json", "policy:.github/workflows/metadata-integrity.yml", "document:.github/support.md"} <= impacted, "scope edits must expose all directly covered represented families")
+        assert_true("document:01-patterns/second-review.md" not in impacted, "nested scope must not reach root siblings")
+
+
+def test_validation_plan_uses_recovered_artifact_structure() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-structural-validation-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        write(root / ".github/tests/metadata_contract/test_metadata.py", "# Metadata fixtures\n")
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        surface = RI.materialize_agent_surface(RI.build_projection(root), contract)
+        for query in ("01-patterns/thinking-system-review.md", "delivery-release"):
+            plans = [RI.validation_plan(surface, query), RI.context_for_task(surface, query)["validation_plan"]]
+            for plan in plans:
+                assert_true(".github/scripts/validate_metadata.py" in plan["validators"], "exact path/responsibility must route metadata without magic query words")
+                assert_true({".github/workflows/metadata-integrity.yml", ".github/workflows/link-integrity.yml"} <= set(plan["workflows"]), "maintained artifact must route metadata and links")
+                assert_true(".github/tests/metadata_contract/test_metadata.py" in plan["tests"], "known metadata regressions must be discoverable")
+                assert_true("CHANGELOG.md" in plan["companion_candidates"], "maintained change must expose its companion")
+        unrelated = RI.validation_plan(surface, "zzzz-unmatched-zzzz")
+        assert_true(".github/scripts/validate_metadata.py" not in unrelated["validators"], "unknown intent must not fabricate a maintained-document match")
+
+
 def main() -> int:
     tests = [
         test_projection_is_deterministic_and_materializations_share_identity,
@@ -560,6 +675,10 @@ def main() -> int:
         test_exact_ownership_evidence_precedes_lexical_overlap,
         test_freshness_covers_support_metadata_producer_and_payload,
         test_trusted_comparison_covers_imported_metadata_parser,
+        test_comparison_checks_executing_files_and_active_contract,
+        test_comparison_preflight_never_buffers_oversized_interpretation,
+        test_structural_scopes_cover_policy_and_support_nodes,
+        test_validation_plan_uses_recovered_artifact_structure,
     ]
     failures = []
     for test in tests:

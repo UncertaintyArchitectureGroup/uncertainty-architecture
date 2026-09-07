@@ -188,6 +188,7 @@ The baseline complements GitHub rather than mirroring the repository. Persistent
 ### Current repository-integrity foundation
 
 - repository-intelligence PR 2 now provides one deterministic projection producer, a compact root-neutral Agent Context Surface, a CI/build Graph View, explicit edge class/impact role/impact direction semantics, first-order structural-control traversal, deterministic freshness/diagnostic checks, and a bounded Git tree/blob snapshot reader; trusted target-owned comparison becomes active only after this producer/schema are merged.
+- PR 2 review regressions also cover actual executor/parser identity across input roots, bounded interpretation preflight, complete represented-file scope coverage, and validation routing from recovered owners.
 - deterministic navigation coverage and route validation;
 - offline repository-relative link and anchor validation;
 - machine-readable citation validation;

@@ -158,6 +158,8 @@ For a trusted PR Impact comparison:
 
 The interpretation identity includes imported repository parser dependencies, including `validate_metadata.py`, as well as the producer and its contracts. Changes in either the candidate dependency or the locally executing dependency invalidate a trusted comparison; checking only the main producer file is insufficient.
 
+When the executor and input repository occupy different locations, validate the actual executing producer, imported parser, and active contract against the accepted target. An intact counterpart beneath the input root cannot attest a different executing copy. Preliminary interpretation comparisons use Git object identities without loading candidate blob contents; the declared data bounds also apply before any content-bearing comparison read.
+
 #### RI-DATA-BOUNDARY-001 — Candidate snapshot data stays inside a bounded repository-data boundary
 
 Treating candidate content as data also means the target-owned producer must not inherit candidate-controlled filesystem or Git execution semantics.
@@ -369,6 +371,8 @@ For baseline Impact traversal:
 
 A changed repository path seeds every represented node family for that path, including `Document`, `AgentScope`, and `PolicyOrValidator`. Otherwise a scope or validator change could silently miss its directly covered artifacts despite a bidirectional relation.
 
+Structural scope coverage includes represented policy, validator, workflow, instruction, and supporting-document paths, including nodes discovered after the maintained-artifact inventory. A control file may expose its own applicable scope as direct review relevance while its coverage remains first-order and terminal.
+
 Evolution or dependency-bearing relations such as an explicit supersession or declared dependency chain may receive `dependency` plus a direction only where the owning repository contract supports that interpretation.
 
 Impact traversal prioritizes task-relevant `dependency` and `control` relations whose direction permits traversal from the changed endpoint. Ownership, provenance, association, navigation, and `none`-direction relations remain inspectable but do not automatically inflate blast radius.
@@ -434,6 +438,8 @@ Raw/history preservation, generated outputs, and publication renditions are outs
 ### `validation_plan`
 
 Return likely existing validators, tests, workflows, contributor scopes, and companion surfaces for the proposed change. This operation is orientation only; it does not execute target-controlled code as a side effect.
+
+Validation routing uses recovered owner paths and maintained-artifact classifications as well as task wording. An exact path or responsibility must discover applicable metadata checks and companion surfaces without requiring the task to repeat special routing keywords.
 
 ## 9. Lightweight retrieval baseline
 

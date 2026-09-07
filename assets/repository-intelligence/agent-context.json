@@ -5253,11 +5253,11 @@
   "producer": {
     "contract": ".github/policy/repository-intelligence-contract.json",
     "implementation": ".github/scripts/repository_intelligence.py",
-    "interpretation_digest": "ebcf6235477021705080f1dc51593d1013a80bf2462b30dfd1db96aba1498a79",
+    "interpretation_digest": "1c394b9bf5a0e676cfe56f857143c62acc2770ccd199cf2ac51fff6abd80502b",
     "interpretation_paths": [
       {
         "path": ".github/scripts/repository_intelligence.py",
-        "sha256": "af9bdeafa37e7d841f6f9f0872cd614835a37e16e910546c332f7bf813a20f69"
+        "sha256": "ab7b7a4a99c01349dd674e78159be1b05be0c565819455122ca4501134cae4ed"
       },
       {
         "path": ".github/scripts/validate_metadata.py",
@@ -5265,20 +5265,20 @@
       },
       {
         "path": ".github/policy/repository-intelligence-contract.json",
-        "sha256": "633303b8c668503e815c65ba69ce042795b87facf2a2be1bd5399c6d558d0b2d"
+        "sha256": "9ffe270219720e2f3e893e212a6095a5bdb46f361713a75c46a08db7d3485991"
       },
       {
         "path": ".github/policy/metadata-contract.json",
         "sha256": "9e1cd8798d433430a9e0782a6e99bf4933540db61e7b26fd50422a42ffb1cd95"
       }
     ],
-    "producer_version": 3,
+    "producer_version": 4,
     "schema_version": 2
   },
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "ec2c8851ef5b7e229036bb106a715e94831f7ca91e13b9e0ac9cffe0cf7fa859",
+    "digest": "0f3eaf82f70769cb977b00de5950cf89e9aeeae8962622cc3c9ebb406ac0be33",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],

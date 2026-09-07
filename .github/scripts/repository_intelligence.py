@@ -615,24 +615,6 @@ def build_graph(
         )
         instruction_ids[str(instruction["path"])] = identifier
 
-    for artifact in artifacts:
-        document_identifier = node_id("document", str(artifact["path"]))
-        path = str(artifact["path"])
-        for instruction in instructions:
-            scope = str(instruction["scope_root"])
-            if scope == "." or path == scope or path.startswith(scope.rstrip("/") + "/"):
-                add_edge(
-                    edge(
-                        contract,
-                        document_identifier,
-                        "SCOPED_BY",
-                        instruction_ids[str(instruction["path"])],
-                        str(instruction["path"]),
-                        "structural-scope",
-                        scope,
-                    )
-                )
-
     responsibility_claimants: Dict[str, List[str]] = {}
     for artifact in artifacts:
         document_identifier = node_id("document", str(artifact["path"]))
@@ -822,6 +804,25 @@ def build_graph(
                     "maintained document is included in the metadata scan",
                 )
             )
+
+    # Scope is a property of represented repository paths, including controls
+    # and supporting documents discovered after the maintained inventory.
+    # Terms and research items inherit their source file's scope; they do not
+    # create additional file-coverage edges. Avoid scope-node self loops.
+    for record in nodes.values():
+        if record["family"] not in {"Document", "PolicyOrValidator", "AgentScope"}:
+            continue
+        path = str(record["path"])
+        for instruction in instructions:
+            scope = str(instruction["scope_root"])
+            scope_id = instruction_ids[str(instruction["path"])]
+            if record["id"] == scope_id:
+                continue
+            if scope == "." or path == scope or path.startswith(scope.rstrip("/") + "/"):
+                add_edge(edge(
+                    contract, str(record["id"]), "SCOPED_BY", scope_id,
+                    str(instruction["path"]), "structural-scope", scope,
+                ))
 
     return (
         sorted(nodes.values(), key=lambda item: str(item["id"])),
@@ -1234,9 +1235,20 @@ def likely_instruction_paths(
     return selected
 
 
-def validation_plan(surface: Dict[str, object], query: str) -> Dict[str, object]:
+def validation_plan(
+    surface: Dict[str, object], query: str, owner_paths: Optional[Sequence[str]] = None
+) -> Dict[str, object]:
     normalized = normalize_text(query)
     tokens = token_set(query)
+    if owner_paths is None:
+        owner_paths = [str(item["path"]) for item in find_owner(surface, query)["candidates"][:8]]
+    paths = set(owner_paths)
+    artifacts = [item for item in inventories(surface).get("artifacts", []) if item["path"] in paths]
+    maintained = any(item.get("projection_role") == "maintained-conceptual-process-artifact" for item in artifacts)
+    repository_control = any(
+        path.startswith(".github/") or path in {"AGENTS.md", "CONTRIBUTING.md", "DOCUMENT-METADATA.md"}
+        for path in paths
+    )
     validators: Set[str] = set()
     workflows: Set[str] = set()
     tests: Set[str] = set()
@@ -1254,18 +1266,20 @@ def validation_plan(surface: Dict[str, object], query: str) -> Dict[str, object]
 
     add(validators, ".github/scripts/validate_change_coupling.py", available_validators)
     add(validators, ".github/scripts/validate_code_quality.py", available_validators)
-    if tokens & {"markdown", "document", "docs", "doctrine", "pattern", "term", "glossary", "metadata"}:
+    if maintained or tokens & {"markdown", "document", "docs", "doctrine", "pattern", "term", "glossary", "metadata"}:
         add(validators, ".github/scripts/validate_metadata.py", available_validators)
+        add(tests, ".github/tests/metadata_contract/test_metadata.py", available_tests)
         add(workflows, ".github/workflows/metadata-integrity.yml", available_workflows)
         add(workflows, ".github/workflows/link-integrity.yml", available_workflows)
         companion_candidates.add("CHANGELOG.md")
-    if ".github" in query or tokens & {"repository", "policy", "workflow", "validator", "agent", "context", "intelligence"}:
+    if repository_control or ".github" in query or tokens & {"repository", "policy", "workflow", "validator", "agent", "context", "intelligence"}:
         add(validators, ".github/scripts/validate_repository_contract.py", available_validators)
+        add(tests, ".github/tests/repository_contract/test_repository_contract.py", available_tests)
         add(workflows, ".github/workflows/repository-contract.yml", available_workflows)
         add(workflows, ".github/workflows/change-coupling.yml", available_workflows)
         add(workflows, ".github/workflows/metadata-integrity.yml", available_workflows)
         companion_candidates.update({"CHANGELOG.md", "ROADMAP.md"})
-    if "research" in normalized or "дослідж" in normalized:
+    if any(path.startswith("content/research/") for path in paths) or "research" in normalized or "дослідж" in normalized:
         add(validators, ".github/scripts/validate_research_register.py", available_validators)
         add(workflows, ".github/workflows/metadata-integrity.yml", available_workflows)
         companion_candidates.add("content/research/framework-traceability.md")
@@ -1281,6 +1295,8 @@ def validation_plan(surface: Dict[str, object], query: str) -> Dict[str, object]
     return {
         "operation": "validation_plan",
         "query": query,
+        "owner_paths": sorted(paths),
+        "instructions": likely_instruction_paths(surface, query, sorted(paths)),
         "validators": sorted(validators),
         "tests": sorted(tests),
         "workflows": sorted(workflows),
@@ -1323,7 +1339,7 @@ def context_for_task(surface: Dict[str, object], query: str) -> Dict[str, object
         "artifact_candidates": artifact_preflight(surface, query)["candidates"][:10],
         "research_items": inventories(surface).get("research_items", []) if include_research else [],
         "graph_context": compact_graph_context(surface, candidate_paths),
-        "validation_plan": validation_plan(surface, query),
+        "validation_plan": validation_plan(surface, query, candidate_paths),
         "fallback": "If the surface is stale, unavailable, or ambiguous, use live GitHub and read the owning sources directly.",
     }
 
@@ -1387,23 +1403,31 @@ def git_text(root: Path, args: Sequence[str], check: bool = True) -> str:
     return os.fsdecode(git_bytes(root, args, check=check)).strip()
 
 
-def git_blob_optional(root: Path, ref: str, path: str) -> Optional[bytes]:
+def git_blob_id_optional(root: Path, ref: str, path: str) -> Optional[str]:
+    """Inspect identity without buffering a candidate interpretation blob."""
     spec = "{}:{}".format(ref, path)
-    exists = subprocess.run(
-        ["git", "cat-file", "-e", spec], cwd=str(root), check=False,
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-    )
-    if exists.returncode != 0:
+    identifier = git_text(root, ["rev-parse", "--verify", spec], check=False)
+    if not re.fullmatch(r"[0-9a-f]{40}", identifier):
         return None
-    return git_bytes(root, ["show", spec])
+    if git_text(root, ["cat-file", "-t", identifier]) != "blob":
+        return None
+    return identifier
+
+
+def local_blob_id(root: Path, path: Optional[Path], max_bytes: int) -> Optional[str]:
+    if path is None or not path.is_file() or path.stat().st_size > max_bytes:
+        return None
+    # hash-object streams the file and --no-filters excludes checkout/filter
+    # semantics. Only the object ID is captured, never the file contents.
+    return git_text(root, ["hash-object", "--no-filters", "--", str(path.resolve())])
 
 
 def interpretation_changes(root: Path, accepted_ref: str, proposed_ref: str, contract: Dict[str, object]) -> List[str]:
     changes: List[str] = []
     for path in contract.get("interpretation_paths", []):
         relative = str(path)
-        accepted = git_blob_optional(root, accepted_ref, relative)
-        proposed = git_blob_optional(root, proposed_ref, relative)
+        accepted = git_blob_id_optional(root, accepted_ref, relative)
+        proposed = git_blob_id_optional(root, proposed_ref, relative)
         if accepted != proposed:
             changes.append(relative)
     return sorted(changes)
@@ -1411,12 +1435,21 @@ def interpretation_changes(root: Path, accepted_ref: str, proposed_ref: str, con
 
 def local_interpretation_matches_ref(root: Path, accepted_ref: str, contract: Dict[str, object]) -> Tuple[bool, List[str]]:
     mismatches: List[str] = []
+    executing_paths = {
+        ".github/scripts/repository_intelligence.py": Path(__file__).resolve(),
+        ".github/scripts/validate_metadata.py": Path(metadata_tools.__file__).resolve(),
+        ".github/policy/repository-intelligence-contract.json": DEFAULT_CONTRACT,
+    }
+    max_bytes = int(contract["snapshot_bounds"]["max_text_file_bytes"])
     for path in contract.get("interpretation_paths", []):
         relative = str(path)
-        accepted = git_blob_optional(root, accepted_ref, relative)
-        local_path = repository_path(root, relative)
-        local = local_path.read_bytes() if local_path is not None and local_path.is_file() else None
-        if accepted != local:
+        accepted = git_blob_id_optional(root, accepted_ref, relative)
+        paths = [repository_path(root, relative)]
+        if relative in executing_paths:
+            paths.append(executing_paths[relative])
+        # --root selects input data, not the executing module/import locations.
+        # Both must match before snapshot-derived identity can describe execution.
+        if accepted is None or any(local_blob_id(root, item, max_bytes) != accepted for item in paths):
             mismatches.append(relative)
     return not mismatches, sorted(mismatches)
 
@@ -1558,6 +1591,23 @@ def compare_refs(
     view_state = "merge-state" if proposed_kind == "tested-merge" else (
         "head-contained-target" if contains_target else "head-only"
     )
+    # Establish the active contract before it can select interpretation paths
+    # or relax bounds. The executor's contract must itself be target-owned.
+    executing_contract = load_contract(DEFAULT_CONTRACT)
+    contract_relative = ".github/policy/repository-intelligence-contract.json"
+    accepted_contract_id = git_blob_id_optional(repo_root, accepted_ref, contract_relative)
+    executing_contract_id = local_blob_id(
+        repo_root, DEFAULT_CONTRACT, int(executing_contract["snapshot_bounds"]["max_text_file_bytes"])
+    )
+    if contract != executing_contract or accepted_contract_id is None or accepted_contract_id != executing_contract_id:
+        return {
+            "comparison_state": "unsupported",
+            "reason": "active interpretation contract does not match accepted target execution boundary",
+            "mismatched_interpretation_paths": [contract_relative],
+            "accepted_ref": accepted_ref,
+            "proposed_ref": proposed_ref,
+            "view_state": view_state,
+        }
     changed_interpretation = interpretation_changes(repo_root, accepted_ref, proposed_ref, contract)
     if changed_interpretation:
         return {
