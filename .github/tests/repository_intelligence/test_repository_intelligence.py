@@ -2,13 +2,17 @@
 """Behavioral tests for deterministic repository intelligence."""
 
 import importlib.util
+import io
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
+from contextlib import redirect_stdout
 from pathlib import Path
 from typing import Dict
+from unittest.mock import patch
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 SCRIPT_PATH = REPOSITORY_ROOT / ".github/scripts/repository_intelligence.py"
@@ -658,6 +662,107 @@ def test_validation_plan_uses_recovered_artifact_structure() -> None:
         assert_true(".github/scripts/validate_metadata.py" not in unrelated["validators"], "unknown intent must not fabricate a maintained-document match")
 
 
+def test_real_repository_snapshots_preserve_projection_and_compare_content() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-real-tree-") as temporary:
+        root = Path(temporary)
+        # Include every tracked working file, including large auxiliary assets.
+        # This checks the actual candidate implementation without requiring it
+        # to be committed or claiming it is already trusted on main.
+        tracked = subprocess.check_output(
+            ["git", "ls-files", "-z"], cwd=str(REPOSITORY_ROOT),
+        )
+        for raw in filter(None, tracked.split(b"\0")):
+            relative = os.fsdecode(raw)
+            destination = root / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(REPOSITORY_ROOT / relative, destination)
+        accepted = init_git(root)
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        same = RI.compare_refs(root, accepted, accepted, "head", contract)
+        assert_true(same["comparison_state"] == "complete", "the current repository must support self-comparison: " + str(same.get("reason")))
+        assert_true(all(not values for family in same["diff"].values() for values in family.values()), "identical snapshots must have no projected delta")
+        snapshot, _ = RI.projection_from_git_ref(root, accepted, contract)
+        assert_true(snapshot == RI.build_projection(root), "bounded snapshot must preserve all projected facts and identities from the real tree")
+        changed = "01-patterns/thinking-system-review.md"
+        path = root / changed
+        write(path, path.read_text(encoding="utf-8").replace("title: ", "title: Revised ", 1))
+        proposed = commit_all(root, "change maintained title only")
+        result = RI.compare_refs(root, accepted, proposed, "tested-merge", contract)
+        assert_true(result["comparison_state"] == "complete", "ordinary real-tree content comparison must complete")
+        assert_true("document:" + changed in result["diff"]["nodes"]["changed"], "real-tree title delta must remain visible")
+
+
+def test_comparison_refuses_unrecognized_research_register_schema() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-research-schema-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        accepted = init_git(root)
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        register = root / "content/research/research-register.md"
+        original = register.read_text(encoding="utf-8")
+        variants = (
+            original.replace('"version": 1', '"version": 2'),
+            original.replace('"version": 1', '"version": 2').replace('"items": [', '"records": ['),
+            original.replace('"items": [', '"records": ['),
+            original.replace('"id": "TS-TEST-001"', '"identifier": "TS-TEST-001"'),
+            original.replace('"version": 1,', '"version": 1 broken,'),
+            "# Research State Register\n\nMachine block unavailable.\n",
+        )
+        for index, text in enumerate(variants):
+            write(register, text)
+            proposed = commit_all(root, "unrecognized research schema {}".format(index))
+            result = RI.compare_refs(root, accepted, proposed, "tested-merge", contract)
+            assert_true(result["comparison_state"] in {"unsupported", "incomplete"}, "unknown research schema must not look like complete research-item deletion")
+            assert_true("content/research/research-register.md" in result["reason"], "uninterpretable input must be identified")
+            assert_true("diff" not in result, "unknown research state must not produce an apparent deletion diff")
+
+
+def test_cli_bounds_active_contract_before_reading_candidate_content() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-active-contract-bounds-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        accepted = init_git(root)
+        candidate = root / ".github/policy/repository-intelligence-contract.json"
+        limit = RI.load_contract(candidate)["snapshot_bounds"]["max_text_file_bytes"]
+        write(candidate, candidate.read_text(encoding="utf-8") + " " * (limit + 1))
+        proposed = commit_all(root, "oversized candidate contract")
+        original_read = Path.read_text
+        candidate_reads = []
+
+        def observe_read(path, *args, **kwargs):
+            value = original_read(path, *args, **kwargs)
+            if path == candidate:
+                candidate_reads.append(len(value.encode("utf-8")))
+            return value
+
+        output = io.StringIO()
+        with patch.object(Path, "read_text", observe_read), redirect_stdout(output):
+            status = RI.main([
+                "--root", str(root), "--contract", str(candidate), "compare-refs",
+                "--accepted-ref", accepted, "--proposed-ref", proposed, "--proposed-kind", "tested-merge",
+            ])
+        assert_true(status == 0 and json.loads(output.getvalue())["comparison_state"] in {"unsupported", "incomplete"}, "CLI must return an explicit refusal")
+        assert_true(not any(size > limit for size in candidate_reads), "active contract must be bounded before any candidate JSON is buffered: " + str(candidate_reads))
+
+
+def test_artifact_preflight_recovers_distinct_h1() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-h1-preflight-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        path = root / "01-patterns/second-review.md"
+        write(path, path.read_text(encoding="utf-8").replace("# Second Review", "# Runtime Guard Catalog"))
+        metadata, _, text = RI.parse_document(path)
+        policy = json.loads((REPOSITORY_ROOT / ".github/policy/metadata-contract.json").read_text(encoding="utf-8"))
+        findings = RI.metadata_tools.validate_document_metadata(root, path, text, metadata, policy)
+        assert_true(not any(item.severity == "error" for item in findings), "title/H1 difference is valid under the existing metadata owner")
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        surface = RI.materialize_agent_surface(RI.build_projection(root), contract)
+        for query, evidence in (("Runtime Guard Catalog", "exact h1"), ("Second Review", "exact title")):
+            result = RI.artifact_preflight(surface, query)
+            assert_true(result["candidates"] and result["candidates"][0]["path"] == "01-patterns/second-review.md", "both existing title and H1 must recover the artifact")
+            assert_true(evidence in result["candidates"][0]["reasons"], "preflight must explain its heading/title evidence")
+
+
 def main() -> int:
     tests = [
         test_projection_is_deterministic_and_materializations_share_identity,
@@ -679,6 +784,10 @@ def main() -> int:
         test_comparison_preflight_never_buffers_oversized_interpretation,
         test_structural_scopes_cover_policy_and_support_nodes,
         test_validation_plan_uses_recovered_artifact_structure,
+        test_real_repository_snapshots_preserve_projection_and_compare_content,
+        test_comparison_refuses_unrecognized_research_register_schema,
+        test_cli_bounds_active_contract_before_reading_candidate_content,
+        test_artifact_preflight_recovers_distinct_h1,
     ]
     failures = []
     for test in tests:

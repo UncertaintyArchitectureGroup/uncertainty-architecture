@@ -337,24 +337,29 @@ def discover_instructions(root: Path) -> List[Dict[str, str]]:
 
 
 def parse_research_items(root: Path) -> List[Dict[str, object]]:
-    path = root / "content/research/research-register.md"
+    relative = "content/research/research-register.md"
+    path = root / relative
     if not path.is_file():
         return []
     text = path.read_text(encoding="utf-8")
     match = RESEARCH_REGISTER_BLOCK.search(text)
     if not match:
-        return []
+        raise ComparisonUnsupported("{}: research register machine block is unavailable".format(relative))
     try:
         block = json.loads(match.group(1))
     except json.JSONDecodeError as exc:
-        raise ValueError("Research register machine block is invalid JSON: {}".format(exc))
-    items = block.get("items", [])
+        raise ComparisonUnsupported("{}: research register machine block is invalid JSON: {}".format(relative, exc))
+    # A missing/renamed list in an unknown schema is not an empty research state.
+    # Never execute a candidate validator to infer new extraction semantics.
+    if not isinstance(block, dict) or block.get("version") != 1:
+        raise ComparisonUnsupported("{}: unsupported research-register version".format(relative))
+    items = block.get("items")
     if not isinstance(items, list):
-        raise ValueError("Research register machine block items must be a list")
+        raise ComparisonUnsupported("{}: research register machine block items must be a list".format(relative))
     normalized: List[Dict[str, object]] = []
-    for item in items:
-        if not isinstance(item, dict) or not item.get("id"):
-            continue
+    for index, item in enumerate(items, start=1):
+        if not isinstance(item, dict) or not isinstance(item.get("id"), str) or not item["id"]:
+            raise ComparisonUnsupported("{}: research item {} must have a string id".format(relative, index))
         normalized.append({str(key): value for key, value in item.items()})
     return sorted(normalized, key=lambda item: str(item["id"]))
 
@@ -1091,6 +1096,11 @@ def artifact_preflight(surface: Dict[str, object], query: str) -> Dict[str, obje
             ("module", str(artifact.get("module", ""))),
             ("artifact_type", str(artifact.get("artifact_type", ""))),
         ]
+        # Preserve distinct heading evidence without double-scoring the usual
+        # title/H1 pair that normalizes to the same label.
+        heading = str(artifact.get("h1", ""))
+        if normalize_text(heading) != normalize_text(str(artifact.get("title", ""))):
+            fields.append(("h1", heading))
         fields.extend(("topic", str(item)) for item in artifact.get("topics", []))
         fields.extend(("canonical_for", str(item)) for item in artifact.get("canonical_for", []))
         score, reasons = score_fields(query, fields)
@@ -1472,9 +1482,9 @@ def validate_git_path(raw: bytes) -> str:
 
 def snapshot_requires_content(path: str, contract: Dict[str, object]) -> bool:
     suffixes = set(str(item).lower() for item in contract.get("text_suffixes", []))
-    names = set(str(item) for item in contract.get("text_files", []))
-    pure = PurePosixPath(path)
-    return pure.name in names or pure.suffix.lower() in suffixes
+    paths = set(str(item) for item in contract.get("text_files", []))
+    paths.update(str(item) for item in contract.get("interpretation_paths", []))
+    return path in paths or PurePosixPath(path).suffix.lower() in suffixes
 
 
 def materialize_git_snapshot(repo_root: Path, ref: str, destination: Path, contract: Dict[str, object]) -> Dict[str, object]:
@@ -1524,9 +1534,9 @@ def materialize_git_snapshot(repo_root: Path, ref: str, destination: Path, contr
                 )
             target.write_bytes(git_bytes(repo_root, ["cat-file", "blob", sha]))
         else:
-            # The deterministic projection needs only existence for unsupported
-            # binary/media paths. A regular-file placeholder prevents candidate
-            # content from becoming an execution or parser input.
+            # Non-projected payloads (including auxiliary JSON/code and media)
+            # contribute only path existence. Keep them available for link and
+            # control discovery without making them content-bearing inputs.
             target.write_bytes(b"")
             existence_only += 1
         written += 1
@@ -1577,6 +1587,7 @@ def compare_refs(
     proposed_ref: str,
     proposed_kind: str,
     contract: Dict[str, object],
+    active_contract_path: Optional[Path] = None,
 ) -> Dict[str, object]:
     if proposed_kind not in {"tested-merge", "head"}:
         raise ValueError("proposed_kind must be tested-merge or head")
@@ -1599,7 +1610,11 @@ def compare_refs(
     executing_contract_id = local_blob_id(
         repo_root, DEFAULT_CONTRACT, int(executing_contract["snapshot_bounds"]["max_text_file_bytes"])
     )
-    if contract != executing_contract or accepted_contract_id is None or accepted_contract_id != executing_contract_id:
+    active_contract_id = executing_contract_id if active_contract_path is None else local_blob_id(
+        repo_root, active_contract_path, int(executing_contract["snapshot_bounds"]["max_text_file_bytes"])
+    )
+    if (contract != executing_contract or accepted_contract_id is None
+            or accepted_contract_id != executing_contract_id or active_contract_id != accepted_contract_id):
         return {
             "comparison_state": "unsupported",
             "reason": "active interpretation contract does not match accepted target execution boundary",
@@ -1631,9 +1646,9 @@ def compare_refs(
     try:
         accepted, accepted_boundary = projection_from_git_ref(repo_root, accepted_ref, contract)
         proposed, proposed_boundary = projection_from_git_ref(repo_root, proposed_ref, contract)
-    except SnapshotBoundaryError as exc:
+    except (SnapshotBoundaryError, ComparisonUnsupported) as exc:
         return {
-            "comparison_state": "incomplete",
+            "comparison_state": "unsupported" if isinstance(exc, ComparisonUnsupported) else "incomplete",
             "reason": str(exc),
             "accepted_ref": accepted_ref,
             "proposed_ref": proposed_ref,
@@ -1768,7 +1783,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if not contract_path.is_absolute():
         contract_path = root / contract_path
     try:
-        contract = load_contract(contract_path)
+        # Comparison always parses the executing trusted contract. A caller's
+        # --contract may point into candidate data; compare its bounded identity
+        # below without first buffering or interpreting those bytes.
+        contract = load_contract(DEFAULT_CONTRACT if args.command == "compare-refs" else contract_path)
         surface_path = args.surface
         if not surface_path.is_absolute():
             surface_path = root / surface_path
@@ -1801,7 +1819,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         if args.command == "compare-refs":
             write_json(
                 compare_refs(
-                    root, args.accepted_ref, args.proposed_ref, args.proposed_kind, contract
+                    root, args.accepted_ref, args.proposed_ref, args.proposed_kind, contract,
+                    active_contract_path=contract_path,
                 )
             )
             return 0

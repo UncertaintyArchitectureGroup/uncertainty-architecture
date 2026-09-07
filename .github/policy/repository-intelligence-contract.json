@@ -1,7 +1,7 @@
 {
   "contract_version": 1,
   "schema_version": 2,
-  "producer_version": 4,
+  "producer_version": 5,
   "compact_surface_path": "assets/repository-intelligence/agent-context.json",
   "interpretation_paths": [
     ".github/scripts/repository_intelligence.py",
@@ -14,25 +14,8 @@
     "max_text_file_bytes": 2000000,
     "max_total_text_bytes": 50000000
   },
-  "text_suffixes": [
-    ".cjs",
-    ".css",
-    ".html",
-    ".js",
-    ".json",
-    ".jsx",
-    ".md",
-    ".mjs",
-    ".py",
-    ".scss",
-    ".toml",
-    ".ts",
-    ".tsx",
-    ".txt",
-    ".yaml",
-    ".yml"
-  ],
-  "text_files": ["CITATION.cff", "package.json"],
+  "text_suffixes": [".md"],
+  "text_files": ["package.json"],
   "relation_semantics": {
     "DEFINES": {
       "edge_class": "semantic-evolution",

@@ -158,7 +158,7 @@ For a trusted PR Impact comparison:
 
 The interpretation identity includes imported repository parser dependencies, including `validate_metadata.py`, as well as the producer and its contracts. Changes in either the candidate dependency or the locally executing dependency invalidate a trusted comparison; checking only the main producer file is insufficient.
 
-When the executor and input repository occupy different locations, validate the actual executing producer, imported parser, and active contract against the accepted target. An intact counterpart beneath the input root cannot attest a different executing copy. Preliminary interpretation comparisons use Git object identities without loading candidate blob contents; the declared data bounds also apply before any content-bearing comparison read.
+When the executor and input repository occupy different locations, validate the actual executing producer, imported parser, and active contract against the accepted target. An intact counterpart beneath the input root cannot attest a different executing copy. Preliminary interpretation comparisons use Git object identities without loading candidate blob contents; the declared data bounds also apply before any content-bearing comparison read. A CLI contract override is checked against the trusted contract by bounded file identity before it can become a JSON parser input.
 
 #### RI-DATA-BOUNDARY-001 — Candidate snapshot data stays inside a bounded repository-data boundary
 
@@ -174,7 +174,11 @@ Preferred trusted input is repository tree/blob data addressed by explicit Git o
 
 The exact implementation limits belong to PR 2 and should be recorded and tested rather than frozen as universal byte constants in this architecture.
 
+The snapshot reader materializes Markdown content, root `package.json`, and the declared interpretation files. Other regular files retain existence-only placeholders because the projection uses their paths, not their contents. This selection is declared in the interpretation contract; a full-repository regression verifies snapshot/local projection equivalence and ordinary content comparison, including the repository's large auxiliary assets. File-kind and file-count checks still cover the complete tree, while file/total byte limits apply to content-bearing inputs.
+
 If the candidate changes producer code, parser/schema contracts, stable-ID rules, relation extraction, impact-role mapping, or other interpretation semantics so the trusted target producer cannot faithfully interpret the candidate state, the trusted comparison must fail visibly as **unsupported** or **incomplete** rather than silently switching to candidate code or inventing equivalence.
+
+This includes versioned data interpreted by the producer: an unknown research-register version, missing machine block, or unrecognized item-list shape is unsupported, not evidence that research items were deleted.
 
 Candidate-produced output may still be generated in an ordinary candidate-controlled test job as advisory implementation evidence. It does not become the trusted accepted-versus-proposed projection used by the Control Map, agent routing, or repository-policy decision merely because it was generated successfully.
 
