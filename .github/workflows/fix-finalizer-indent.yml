@@ -1,0 +1,52 @@
+name: Repair Repository Intelligence Finalizer
+
+on:
+  push:
+    branches:
+      - repository-intelligence/context-surface
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - name: Repair heredoc indentation and remove helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('.github/workflows/finalize-repository-intelligence.yml')
+          lines = path.read_text(encoding='utf-8').splitlines()
+          inside = False
+          out = []
+          for line in lines:
+              if line.strip() == "python3 - <<'PYDOC'":
+                  inside = True
+                  out.append(line)
+                  continue
+              if inside and line.strip() == 'PYDOC':
+                  inside = False
+                  out.append(line)
+                  continue
+              if inside and line.startswith('            '):
+                  line = line[2:]
+              out.append(line)
+          path.write_text('\n'.join(out) + '\n', encoding='utf-8')
+          PY
+          git rm .github/workflows/fix-finalizer-indent.yml
+          git add .github/workflows/finalize-repository-intelligence.yml
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: repair repository-intelligence finalizer heredoc"
+          git push origin HEAD:repository-intelligence/context-surface
