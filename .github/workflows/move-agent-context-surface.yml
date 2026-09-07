@@ -45,6 +45,14 @@ jobs:
                   changed += count
           if changed < 3:
               raise SystemExit(f'expected at least three compact-surface path references, changed {changed}')
+
+          test_path = Path('.github/tests/repository_intelligence/test_repository_intelligence.py')
+          test_text = test_path.read_text(encoding='utf-8')
+          needle = '        surface_path.write_text(\n'
+          replacement = '        surface_path.parent.mkdir(parents=True, exist_ok=True)\n        surface_path.write_text(\n'
+          if needle not in test_text:
+              raise SystemExit('stale-surface test write marker missing')
+          test_path.write_text(test_text.replace(needle, replacement, 1), encoding='utf-8')
           PY
           rm -f .ua-agent-context.json
           mkdir -p assets/repository-intelligence
@@ -68,6 +76,7 @@ jobs:
           git add .github/REPOSITORY-INTELLIGENCE.md
           git add .github/policy/repository-intelligence-contract.json
           git add .github/scripts/repository_intelligence.py
+          git add .github/tests/repository_intelligence/test_repository_intelligence.py
           git add CHANGELOG.md ROADMAP.md
           git add assets/repository-intelligence/agent-context.json
           git add -A .ua-agent-context.json
