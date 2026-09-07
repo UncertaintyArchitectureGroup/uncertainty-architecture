@@ -1,10 +1,11 @@
 {
   "contract_version": 1,
   "schema_version": 2,
-  "producer_version": 2,
+  "producer_version": 3,
   "compact_surface_path": "assets/repository-intelligence/agent-context.json",
   "interpretation_paths": [
     ".github/scripts/repository_intelligence.py",
+    ".github/scripts/validate_metadata.py",
     ".github/policy/repository-intelligence-contract.json",
     ".github/policy/metadata-contract.json"
   ],
@@ -31,10 +32,7 @@
     ".yaml",
     ".yml"
   ],
-  "text_files": [
-    "CITATION.cff",
-    "package.json"
-  ],
+  "text_files": ["CITATION.cff", "package.json"],
   "relation_semantics": {
     "DEFINES": {
       "edge_class": "semantic-evolution",

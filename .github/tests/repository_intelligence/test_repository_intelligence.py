@@ -100,7 +100,11 @@ def materialize_repository(root: Path, duplicate_claim: bool = False) -> None:
         ],
         "frontmatter_scan_roots": ["00-doctrine", "01-patterns", "content/research"],
         "frontmatter_scan_files": ["AGENTS.md", "DOCUMENT-METADATA.md"],
-        "frontmatter_exclude_prefixes": ["content/research/notes/"]
+        "frontmatter_exclude_prefixes": ["content/research/notes/"],
+        "canonical_ownership": {
+            "inactive_maturities": ["superseded"],
+            "allow_duplicate_values": []
+        }
     }
     write(root / ".github/policy/metadata-contract.json", json.dumps(metadata_contract, indent=2) + "\n")
     write(root / ".github/policy/repository-contract.json", "{\"contract_version\": 1}\n")
@@ -389,6 +393,156 @@ def test_trusted_comparison_rejects_self_change_and_head_behind_target() -> None
         assert_true(tested["comparison_state"] == "incomplete", "behind-target raw head cannot be accepted as tested merge")
 
 
+def test_control_endpoint_changes_reach_direct_coverage_only() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-control-endpoint-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        graph = RI.materialize_graph_view(RI.build_projection(root))
+        for path in ("AGENTS.md", ".github/scripts/validate_metadata.py"):
+            result = RI.impact_for_paths(graph, [path])
+            impacted = {item["id"] for item in result["impacted"]}
+            assert_true("document:01-patterns/thinking-system-review.md" in impacted, "changed control must expose covered review")
+            assert_true("document:01-patterns/second-review.md" in impacted, "changed shared control must expose both directly covered artifacts")
+            assert_true("agent-scope:.github/AGENTS.md" not in impacted, "control impact must stop at covered artifacts")
+        scoped = RI.impact_for_paths(graph, [".github/AGENTS.md"])
+        assert_true(
+            {item["id"] for item in scoped["impacted"]} == {"document:.github/REPOSITORY-INTELLIGENCE.md"},
+            "nested scope change must reach its direct coverage without unrelated siblings"
+        )
+
+
+def test_ownership_uses_metadata_inactive_and_exception_rules() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-ownership-policy-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root, duplicate_claim=True)
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        duplicate = root / "01-patterns/duplicate.md"
+        active_text = duplicate.read_text(encoding="utf-8")
+        duplicate.write_text(active_text.replace("maturity: active", "maturity: superseded"), encoding="utf-8")
+        projection = RI.build_projection(root)
+        assert_true(not projection["graph"]["signals"], "retired owner must not block a valid ownership transfer")
+        surface = RI.materialize_agent_surface(projection, contract)
+        owners = RI.find_owner(surface, "delivery-release")["candidates"]
+        assert_true(owners[0]["path"] == "01-patterns/thinking-system-review.md", "current owner must precede historical overlap")
+        assert_true(
+            not any(item["path"] == "01-patterns/duplicate.md" and item["role"] == "machine_responsibility_claim" for item in owners),
+            "historical claims remain inspectable without being current owner candidates"
+        )
+        duplicate.write_text(active_text, encoding="utf-8")
+        policy_path = root / ".github/policy/metadata-contract.json"
+        policy = json.loads(policy_path.read_text(encoding="utf-8"))
+        policy["canonical_ownership"]["allow_duplicate_values"] = ["delivery-release"]
+        write(policy_path, json.dumps(policy))
+        projection = RI.build_projection(root)
+        assert_true(not projection["graph"]["signals"], "metadata-owned duplicate exception must be honored")
+        owners = RI.find_owner(RI.materialize_agent_surface(projection, contract), "delivery-release")["candidates"]
+        assert_true(
+            len([item for item in owners if item["role"] == "machine_responsibility_claim"]) == 2,
+            "permitted co-owners must both remain visible"
+        )
+
+
+def test_context_routes_scopes_from_recovered_owner_paths() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-owner-scope-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        surface = RI.materialize_agent_surface(RI.build_projection(root), contract)
+        result = RI.context_for_task(surface, "repository intelligence")
+        assert_true(result["owner_candidates"][0]["path"] == ".github/REPOSITORY-INTELLIGENCE.md", "recover structural process owner")
+        assert_true(
+            {item["path"] for item in result["instructions"]} == {"AGENTS.md", ".github/AGENTS.md"},
+            "recovered paths must route nested guidance even when the task omits its directory name"
+        )
+        unknown = RI.context_for_task(surface, "unmatched-fixture-query")
+        assert_true([item["path"] for item in unknown["instructions"]] == ["AGENTS.md"], "unknown task must retain root guidance")
+
+
+def test_exact_ownership_evidence_precedes_lexical_overlap() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-exact-owner-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        # Many lexical matches on a non-owner must not outweigh one exact claim.
+        write(root / "01-patterns/decoy.md", document(
+            "Delivery Release Guide", "pattern", "patterns", "delivery-release",
+            body="Unrelated process surface."
+        ))
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        surface = RI.materialize_agent_surface(RI.build_projection(root), contract)
+        for artifact in surface["inventories"]["artifacts"]:
+            for claim in artifact["canonical_for"]:
+                result = RI.find_owner(surface, claim)["candidates"]
+                assert_true(result[0]["path"] == artifact["path"], "exact responsibility must recover its owner: " + claim)
+        term = RI.find_owner(surface, "Thinking System")["candidates"]
+        assert_true(term[0]["role"] == "definition_owner", "exact glossary label must precede pattern/template overlap")
+
+
+def test_freshness_covers_support_metadata_producer_and_payload() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-complete-freshness-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        review = root / "01-patterns/thinking-system-review.md"
+        review.write_text(review.read_text(encoding="utf-8").replace(
+            "../content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf",
+            "../content/research/notes/support.md"
+        ), encoding="utf-8")
+        support = root / "content/research/notes/support.md"
+        write(support, "# Original supporting title\n")
+        surface_path = root / str(contract["compact_surface_path"])
+
+        def save_current():
+            projection = RI.build_projection(root)
+            write(surface_path, RI.serialize_json(RI.materialize_agent_surface(projection, contract)))
+            return projection
+
+        def assert_stale(reason):
+            try:
+                RI.load_fresh_surface(root, contract, surface_path)
+            except ValueError as exc:
+                assert_true("stale" in str(exc).lower(), "staleness must explain fallback")
+            else:
+                raise AssertionError(reason)
+
+        original = save_current()
+        write(support, "# Revised supporting title\n")
+        revised = RI.build_projection(root)
+        assert_true(original["source_identity"] != revised["source_identity"], "support metadata is content-bearing source identity")
+        assert_stale("changed support metadata must stale the compact surface")
+        save_current()
+        producer = root / ".github/scripts/repository_intelligence.py"
+        producer.write_text(producer.read_text(encoding="utf-8") + "\n# revised producer\n", encoding="utf-8")
+        assert_stale("producer change must invalidate queries even when source inputs are unchanged")
+        save_current()
+        payload = json.loads(surface_path.read_text(encoding="utf-8"))
+        payload["inventories"]["terms"][0]["term"] = "Fabricated term"
+        write(surface_path, RI.serialize_json(payload))
+        assert_stale("modified derived facts must not pass with a copied source digest")
+
+
+def test_trusted_comparison_covers_imported_metadata_parser() -> None:
+    with tempfile.TemporaryDirectory(prefix="ua-ri-parser-boundary-") as temporary:
+        root = Path(temporary)
+        materialize_repository(root)
+        accepted = init_git(root)
+        contract = RI.load_contract(root / ".github/policy/repository-intelligence-contract.json")
+        parser_path = root / ".github/scripts/validate_metadata.py"
+        parser_path.write_text(parser_path.read_text(encoding="utf-8") + "\ndef parse_frontmatter(frontmatter):\n    return {}, []\n", encoding="utf-8")
+        local = RI.compare_refs(root, accepted, accepted, "head", contract)
+        assert_true(local["comparison_state"] == "unsupported", "local parser drift must invalidate the executing interpretation boundary")
+        proposed = commit_all(root, "change imported metadata parser")
+        comparison = RI.compare_refs(root, accepted, proposed, "tested-merge", contract)
+        assert_true(comparison["comparison_state"] == "unsupported", "candidate parser self-change must fail visibly")
+        assert_true(".github/scripts/validate_metadata.py" in comparison["changed_interpretation_paths"], "name the interpretation dependency that changed")
+        # Exercise the actual CLI/import boundary as well as the pure API.
+        completed = subprocess.run(
+            [sys.executable, str(root / ".github/scripts/repository_intelligence.py"), "compare-refs",
+             "--accepted-ref", accepted, "--proposed-ref", proposed, "--proposed-kind", "tested-merge"],
+            cwd=str(root), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+        )
+        assert_true(json.loads(completed.stdout)["comparison_state"] == "unsupported", "changed imported parser must not produce a complete trusted CLI result")
+
+
 def main() -> int:
     tests = [
         test_projection_is_deterministic_and_materializations_share_identity,
@@ -400,6 +554,12 @@ def main() -> int:
         test_context_pack_routes_scoped_guidance_and_validation_without_full_graph,
         test_snapshot_reader_refuses_symlink_and_bounds_candidate_data,
         test_trusted_comparison_rejects_self_change_and_head_behind_target,
+        test_control_endpoint_changes_reach_direct_coverage_only,
+        test_ownership_uses_metadata_inactive_and_exception_rules,
+        test_context_routes_scopes_from_recovered_owner_paths,
+        test_exact_ownership_evidence_precedes_lexical_overlap,
+        test_freshness_covers_support_metadata_producer_and_payload,
+        test_trusted_comparison_covers_imported_metadata_parser,
     ]
     failures = []
     for test in tests:

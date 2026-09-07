@@ -2346,6 +2346,7 @@
         "canonical_for": [
           "doctrine-module"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:00-doctrine/README.md",
         "identity": "00-doctrine/README.md",
@@ -2370,6 +2371,7 @@
         "canonical_for": [
           "control-loop-capability-anatomy"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:00-doctrine/control-loop-anatomy.md",
         "identity": "00-doctrine/control-loop-anatomy.md",
@@ -2393,6 +2395,7 @@
         "canonical_for": [
           "doctrine-vocabulary"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:00-doctrine/glossary.md",
         "identity": "00-doctrine/glossary.md",
@@ -2417,6 +2420,7 @@
         "canonical_for": [
           "model-judgment-placement-taxonomy"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:00-doctrine/model-judgment-placement.md",
         "identity": "00-doctrine/model-judgment-placement.md",
@@ -2440,6 +2444,7 @@
         "canonical_for": [
           "nested-control-lifecycle"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:00-doctrine/nested-control-lifecycle.md",
         "identity": "00-doctrine/nested-control-lifecycle.md",
@@ -2465,6 +2470,7 @@
           "correctness-model",
           "requirement-model"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:00-doctrine/requirements-correctness-and-bugs.md",
         "identity": "00-doctrine/requirements-correctness-and-bugs.md",
@@ -2489,6 +2495,7 @@
         "canonical_for": [
           "controlled-object-shift"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:00-doctrine/uncertainty-in-the-controlled-object.md",
         "identity": "00-doctrine/uncertainty-in-the-controlled-object.md",
@@ -2513,6 +2520,7 @@
         "canonical_for": [
           "patterns-module"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:01-patterns/README.md",
         "identity": "01-patterns/README.md",
@@ -2540,6 +2548,7 @@
         "canonical_for": [
           "judgment-node-boundary-pattern"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:01-patterns/judgment-node-boundary.md",
         "identity": "01-patterns/judgment-node-boundary.md",
@@ -2561,6 +2570,7 @@
       {
         "artifact_type": "pattern",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:01-patterns/project-control-architecture-and-viability-review-template.md",
         "identity": "01-patterns/project-control-architecture-and-viability-review-template.md",
@@ -2584,6 +2594,7 @@
         "canonical_for": [
           "project-control-architecture-and-viability-review-pattern"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:01-patterns/project-control-architecture-and-viability-review.md",
         "identity": "01-patterns/project-control-architecture-and-viability-review.md",
@@ -2607,6 +2618,7 @@
         "canonical_for": [
           "thinking-system-review-template"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:01-patterns/thinking-system-review-template.md",
         "identity": "01-patterns/thinking-system-review-template.md",
@@ -2630,6 +2642,7 @@
         "canonical_for": [
           "thinking-system-review-pattern"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:01-patterns/thinking-system-review.md",
         "identity": "01-patterns/thinking-system-review.md",
@@ -2654,6 +2667,7 @@
         "canonical_for": [
           "constraint-capability"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:02-ai-control-plane/01-constraints/README.md",
         "identity": "02-ai-control-plane/01-constraints/README.md",
@@ -2674,6 +2688,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:02-ai-control-plane/01-constraints/constraint-realization-catalog.md",
         "identity": "02-ai-control-plane/01-constraints/constraint-realization-catalog.md",
@@ -2696,6 +2711,7 @@
         "canonical_for": [
           "control-plane-module"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:02-ai-control-plane/README.md",
         "identity": "02-ai-control-plane/README.md",
@@ -2719,6 +2735,7 @@
         "canonical_for": [
           "reference-architectures-module"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:03-reference-architectures/README.md",
         "identity": "03-reference-architectures/README.md",
@@ -2740,6 +2757,7 @@
       {
         "artifact_type": "reference-architecture",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:03-reference-architectures/judgment-placement-examples.md",
         "identity": "03-reference-architectures/judgment-placement-examples.md",
@@ -2763,6 +2781,7 @@
       {
         "artifact_type": "reference-architecture",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:03-reference-architectures/worked-thinking-system-review-support-triage.md",
         "identity": "03-reference-architectures/worked-thinking-system-review-support-triage.md",
@@ -2788,6 +2807,7 @@
         "canonical_for": [
           "failure-modes-module"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:04-failure-modes/README.md",
         "identity": "04-failure-modes/README.md",
@@ -2811,6 +2831,7 @@
         "canonical_for": [
           "ai-agent-repository-guide"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:AGENTS.md",
         "identity": "AGENTS.md",
@@ -2832,6 +2853,7 @@
         "canonical_for": [
           "contribution-workflow"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:CONTRIBUTING.md",
         "identity": "CONTRIBUTING.md",
@@ -2853,6 +2875,7 @@
           "document-metadata",
           "tag-vocabulary"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:DOCUMENT-METADATA.md",
         "identity": "DOCUMENT-METADATA.md",
@@ -2873,6 +2896,7 @@
         "canonical_for": [
           "project-roadmap"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:ROADMAP.md",
         "identity": "ROADMAP.md",
@@ -2895,6 +2919,7 @@
           "document-status-model",
           "specification-boundary"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:SPECIFICATION.md",
         "identity": "SPECIFICATION.md",
@@ -2917,6 +2942,7 @@
         "canonical_for": [
           "supporting-material-publishing-portal"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:content/index.md",
         "identity": "content/index.md",
@@ -2944,6 +2970,7 @@
         "canonical_for": [
           "research-track"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:content/research/index.md",
         "identity": "content/research/index.md",
@@ -3008,6 +3035,7 @@
         "canonical_for": [
           "research-state-register"
         ],
+        "canonical_owner_active": true,
         "family": "Document",
         "id": "document:content/research/research-register.md",
         "identity": "content/research/research-register.md",
@@ -3743,6 +3771,7 @@
       {
         "artifact_type": "",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Repository Intelligence and Agent Context Architecture",
         "maturity": "",
         "module": "",
@@ -3758,6 +3787,7 @@
         "canonical_for": [
           "doctrine-module"
         ],
+        "canonical_owner_active": true,
         "h1": "Core Doctrine",
         "maturity": "active",
         "module": "doctrine",
@@ -3781,6 +3811,7 @@
         "canonical_for": [
           "control-loop-capability-anatomy"
         ],
+        "canonical_owner_active": true,
         "h1": "Control-Loop Capability Anatomy",
         "maturity": "active",
         "module": "doctrine",
@@ -3812,6 +3843,7 @@
         "canonical_for": [
           "doctrine-vocabulary"
         ],
+        "canonical_owner_active": true,
         "h1": "Uncertainty Architecture Glossary",
         "maturity": "active",
         "module": "doctrine",
@@ -3835,6 +3867,7 @@
         "canonical_for": [
           "model-judgment-placement-taxonomy"
         ],
+        "canonical_owner_active": true,
         "h1": "Model Judgment Placement",
         "maturity": "active",
         "module": "doctrine",
@@ -3866,6 +3899,7 @@
         "canonical_for": [
           "nested-control-lifecycle"
         ],
+        "canonical_owner_active": true,
         "h1": "Nested Control Lifecycle",
         "maturity": "active",
         "module": "doctrine",
@@ -3890,6 +3924,7 @@
           "correctness-model",
           "requirement-model"
         ],
+        "canonical_owner_active": true,
         "h1": "Requirements, Correctness, and Bugs in Thinking Systems",
         "maturity": "active",
         "module": "doctrine",
@@ -3922,6 +3957,7 @@
         "canonical_for": [
           "controlled-object-shift"
         ],
+        "canonical_owner_active": true,
         "h1": "Uncertainty in the Controlled Object",
         "maturity": "active",
         "module": "doctrine",
@@ -3960,6 +3996,7 @@
         "canonical_for": [
           "patterns-module"
         ],
+        "canonical_owner_active": true,
         "h1": "Interface and Control Patterns",
         "maturity": "active",
         "module": "patterns",
@@ -3986,6 +4023,7 @@
         "canonical_for": [
           "judgment-node-boundary-pattern"
         ],
+        "canonical_owner_active": true,
         "h1": "Judgment Node Boundary",
         "maturity": "active",
         "module": "patterns",
@@ -4014,6 +4052,7 @@
       {
         "artifact_type": "pattern",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Project Control Architecture and Viability Review Template",
         "maturity": "active",
         "module": "patterns",
@@ -4045,6 +4084,7 @@
         "canonical_for": [
           "project-control-architecture-and-viability-review-pattern"
         ],
+        "canonical_owner_active": true,
         "h1": "Project Control Architecture and Viability Review",
         "maturity": "active",
         "module": "patterns",
@@ -4077,6 +4117,7 @@
         "canonical_for": [
           "thinking-system-review-template"
         ],
+        "canonical_owner_active": true,
         "h1": "Thinking System Review Template",
         "maturity": "active",
         "module": "patterns",
@@ -4112,6 +4153,7 @@
         "canonical_for": [
           "thinking-system-review-pattern"
         ],
+        "canonical_owner_active": true,
         "h1": "Thinking System Review",
         "maturity": "active",
         "module": "patterns",
@@ -4149,6 +4191,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Actuator Capabilities",
         "maturity": "active",
         "module": "control-plane",
@@ -4167,6 +4210,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Prompt Interfaces",
         "maturity": "active",
         "module": "control-plane",
@@ -4186,6 +4230,7 @@
         "canonical_for": [
           "constraint-capability"
         ],
+        "canonical_owner_active": true,
         "h1": "Constraint Capability Family",
         "maturity": "active",
         "module": "control-plane",
@@ -4212,6 +4257,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Constraint Realization Catalog",
         "maturity": "active",
         "module": "control-plane",
@@ -4236,6 +4282,7 @@
       {
         "artifact_type": "repository-guide",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Sensors Path Compatibility Notice",
         "maturity": "active",
         "module": "control-plane",
@@ -4252,6 +4299,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Evaluation and Drift Analysis",
         "maturity": "active",
         "module": "control-plane",
@@ -4270,6 +4318,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Golden Scenarios and Reference Cases",
         "maturity": "active",
         "module": "control-plane",
@@ -4287,6 +4336,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Metrics with Skepticism",
         "maturity": "active",
         "module": "control-plane",
@@ -4305,6 +4355,7 @@
       {
         "artifact_type": "repository-guide",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Controller Path Compatibility Notice",
         "maturity": "active",
         "module": "control-plane",
@@ -4321,6 +4372,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Controller Responsibility Bundles",
         "maturity": "active",
         "module": "control-plane",
@@ -4338,6 +4390,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Sensor and Evidence Capabilities",
         "maturity": "active",
         "module": "control-plane",
@@ -4358,6 +4411,7 @@
       {
         "artifact_type": "control-capability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Controller and Decision Authority",
         "maturity": "active",
         "module": "control-plane",
@@ -4380,6 +4434,7 @@
         "canonical_for": [
           "control-plane-module"
         ],
+        "canonical_owner_active": true,
         "h1": "The AI Control Plane",
         "maturity": "active",
         "module": "control-plane",
@@ -4402,6 +4457,7 @@
         "canonical_for": [
           "reference-architectures-module"
         ],
+        "canonical_owner_active": true,
         "h1": "Reference Architectures",
         "maturity": "active",
         "module": "reference-architectures",
@@ -4422,6 +4478,7 @@
       {
         "artifact_type": "reference-architecture",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Judgment Placement Reference Architectures",
         "maturity": "active",
         "module": "reference-architectures",
@@ -4456,6 +4513,7 @@
       {
         "artifact_type": "reference-architecture",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Worked Thinking System Review: Human-Supervised Support Triage and Grounded Reply Drafting",
         "maturity": "active",
         "module": "reference-architectures",
@@ -4492,6 +4550,7 @@
         "canonical_for": [
           "failure-modes-module"
         ],
+        "canonical_owner_active": true,
         "h1": "Failure Modes and Anti-Patterns",
         "maturity": "active",
         "module": "failure-modes",
@@ -4514,6 +4573,7 @@
         "canonical_for": [
           "ai-agent-repository-guide"
         ],
+        "canonical_owner_active": true,
         "h1": "Operational Protocol for AI Contributors",
         "maturity": "active",
         "module": "repository",
@@ -4534,6 +4594,7 @@
         "canonical_for": [
           "contribution-workflow"
         ],
+        "canonical_owner_active": true,
         "h1": "Contributing to Uncertainty Architecture",
         "maturity": "active",
         "module": "repository",
@@ -4554,6 +4615,7 @@
           "document-metadata",
           "tag-vocabulary"
         ],
+        "canonical_owner_active": true,
         "h1": "UA Document Metadata and Tagging Convention",
         "maturity": "active",
         "module": "repository",
@@ -4573,6 +4635,7 @@
         "canonical_for": [
           "project-roadmap"
         ],
+        "canonical_owner_active": true,
         "h1": "Uncertainty Architecture Roadmap",
         "maturity": "active",
         "module": "repository",
@@ -4594,6 +4657,7 @@
           "document-status-model",
           "specification-boundary"
         ],
+        "canonical_owner_active": true,
         "h1": "Uncertainty Architecture Specification",
         "maturity": "active",
         "module": "repository",
@@ -4615,6 +4679,7 @@
         "canonical_for": [
           "supporting-material-publishing-portal"
         ],
+        "canonical_owner_active": true,
         "h1": "Uncertainty Architecture",
         "maturity": "active",
         "module": "publishing",
@@ -4631,6 +4696,7 @@
       {
         "artifact_type": "repository-guide",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Research Drafting Protocol for AI Contributors",
         "maturity": "active",
         "module": "research",
@@ -4649,6 +4715,7 @@
       {
         "artifact_type": "research-traceability",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Research-to-Framework Traceability",
         "maturity": "active",
         "module": "research",
@@ -4669,6 +4736,7 @@
         "canonical_for": [
           "research-track"
         ],
+        "canonical_owner_active": true,
         "h1": "Uncertainty Architecture Research Track",
         "maturity": "active",
         "module": "research",
@@ -4686,6 +4754,7 @@
       {
         "artifact_type": "research-index",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "UA Research Notes",
         "maturity": "active",
         "module": "research",
@@ -4702,6 +4771,7 @@
       {
         "artifact_type": "research-template",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "[Publication title]",
         "maturity": "active",
         "module": "research",
@@ -4717,6 +4787,7 @@
       {
         "artifact_type": "research-template",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "Analysis: [Source title]",
         "maturity": "active",
         "module": "research",
@@ -4735,6 +4806,7 @@
         "canonical_for": [
           "research-state-register"
         ],
+        "canonical_owner_active": true,
         "h1": "Research State Register",
         "maturity": "active",
         "module": "research",
@@ -4753,6 +4825,7 @@
       {
         "artifact_type": "research-process",
         "canonical_for": [],
+        "canonical_owner_active": true,
         "h1": "UA Research Review Process",
         "maturity": "active",
         "module": "research",
@@ -5180,28 +5253,32 @@
   "producer": {
     "contract": ".github/policy/repository-intelligence-contract.json",
     "implementation": ".github/scripts/repository_intelligence.py",
-    "interpretation_digest": "09eba4bc4d81d758b45d7483dc6853e9a1644aada74b5b0f69ff015640d1af72",
+    "interpretation_digest": "ebcf6235477021705080f1dc51593d1013a80bf2462b30dfd1db96aba1498a79",
     "interpretation_paths": [
       {
         "path": ".github/scripts/repository_intelligence.py",
-        "sha256": "5c2796cef598e40aa2429f3458bef69738c7683dfebc199b392a66a784f6afc5"
+        "sha256": "af9bdeafa37e7d841f6f9f0872cd614835a37e16e910546c332f7bf813a20f69"
+      },
+      {
+        "path": ".github/scripts/validate_metadata.py",
+        "sha256": "cfee450318218e2adf4bec95294009214585aaf368f7cf5ebbc62ba4e5ac1721"
       },
       {
         "path": ".github/policy/repository-intelligence-contract.json",
-        "sha256": "279ce61aeec2a07823c5312756c5c1c3132ad87896a479004dbf3fe319059290"
+        "sha256": "633303b8c668503e815c65ba69ce042795b87facf2a2be1bd5399c6d558d0b2d"
       },
       {
         "path": ".github/policy/metadata-contract.json",
         "sha256": "9e1cd8798d433430a9e0782a6e99bf4933540db61e7b26fd50422a42ffb1cd95"
       }
     ],
-    "producer_version": 2,
+    "producer_version": 3,
     "schema_version": 2
   },
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "54bcb426ea60af7fecca4f08ef8f34eedb8906c5a860e24c4e6e08301a67922e",
+    "digest": "ec2c8851ef5b7e229036bb106a715e94831f7ca91e13b9e0ac9cffe0cf7fa859",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
@@ -5252,7 +5329,7 @@
         "path": ".github/policy/supply-chain-contract.json"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": ".github/pull_request_template.md"
       },
       {
@@ -5512,11 +5589,11 @@
         "path": "AGENTS.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "CHANGELOG.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "CODE_OF_CONDUCT.md"
       },
       {
@@ -5528,11 +5605,11 @@
         "path": "DOCUMENT-METADATA.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "LICENSING.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "README.md"
       },
       {
@@ -5544,7 +5621,7 @@
         "path": "SPECIFICATION.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/history/README.md"
       },
       {
@@ -5556,7 +5633,7 @@
         "path": "content/raw/Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era.pdf"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/raw/README.md"
       },
       {
@@ -5576,59 +5653,59 @@
         "path": "content/research/notes/README.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/ai-delivery-lifecycle.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/control-theory-brief.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/designing-nondeterministic-systems-source-intake.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/metrics-brief.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/on-device-cloud-source-intake.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/open-engineering-specification-article-blueprint.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/open-engineering-specification-article-draft.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/reference-implementations-brief.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/thinking-systems-linkedin-launch-post.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/thinking-systems-platform-renditions.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/thinking-systems-publication-draft.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/notes/thinking-systems-release-contract-scope-review.md"
       },
       {
@@ -5636,11 +5713,11 @@
         "path": "content/research/publication-record-template.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/publications/README.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "content/research/publications/beyond-embeddings-architecting-risk-and-logic-in-the-age-of-behavioral-software.md"
       },
       {
@@ -5664,7 +5741,7 @@
         "path": "quartz/AGENTS.md"
       },
       {
-        "identity_mode": "existence",
+        "identity_mode": "content",
         "path": "quartz/README.md"
       }
     ]

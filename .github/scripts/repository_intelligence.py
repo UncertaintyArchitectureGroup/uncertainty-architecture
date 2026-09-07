@@ -257,6 +257,11 @@ def discover_artifacts(root: Path, metadata_contract: Dict[str, object]) -> List
         artifacts[relative] = artifact_record(
             relative, metadata, title, text, projection_role
         )
+    inactive = set(metadata_contract["canonical_ownership"]["inactive_maturities"])
+    for artifact in artifacts.values():
+        # Preserve historical declarations for inspection, without presenting
+        # retired claims as current owners or active uniqueness violations.
+        artifact["canonical_owner_active"] = artifact["maturity"] not in inactive
     return [artifacts[path] for path in sorted(artifacts)]
 
 
@@ -444,6 +449,7 @@ def document_node(artifact: Dict[str, object]) -> Dict[str, object]:
         "maturity": artifact.get("maturity", ""),
         "topics": artifact.get("topics", []),
         "canonical_for": artifact.get("canonical_for", []),
+        "canonical_owner_active": artifact.get("canonical_owner_active", True),
         "projection_role": artifact.get(
             "projection_role", "maintained-conceptual-process-artifact"
         ),
@@ -547,6 +553,7 @@ def build_graph(
     instructions: Sequence[Dict[str, str]],
     research_items: Sequence[Dict[str, object]],
     validation: Dict[str, object],
+    metadata_contract: Dict[str, object],
 ) -> Tuple[List[Dict[str, object]], List[Dict[str, object]], List[Dict[str, object]], Set[str]]:
     nodes: Dict[str, Dict[str, object]] = {}
     edges: Dict[str, Dict[str, object]] = {}
@@ -650,10 +657,12 @@ def build_graph(
                     "canonical_for: {}".format(claim),
                 )
             )
-            responsibility_claimants.setdefault(claim, []).append(document_identifier)
+            if artifact["canonical_owner_active"]:
+                responsibility_claimants.setdefault(claim, []).append(document_identifier)
 
+    allowed_duplicates = set(metadata_contract["canonical_ownership"]["allow_duplicate_values"])
     for claim, claimants in sorted(responsibility_claimants.items()):
-        if len(claimants) > 1:
+        if len(claimants) > 1 and claim not in allowed_duplicates:
             add_signal(
                 signal(
                     "duplicate-active-canonical-claim",
@@ -847,7 +856,10 @@ def source_input_records(
         if (root / fixed).is_file():
             records[fixed] = "content"
     for path in relation_targets:
-        records.setdefault(str(path), "existence")
+        # Support Markdown nodes expose parsed titles/classification too. Their
+        # bytes affect both views even when the document is outside preflight.
+        mode = "content" if PurePosixPath(str(path)).suffix.lower() == ".md" else "existence"
+        records.setdefault(str(path), mode)
     # Validation surfaces are projected as paths only. Their existence changes the
     # projection, while their executable content remains owned by the repository.
     for category in ("policies", "validators", "workflows", "tests"):
@@ -921,7 +933,7 @@ def build_projection(root: Path, contract_path: Optional[Path] = None) -> Dict[s
     research_items = parse_research_items(root)
     validation = discover_validation_surfaces(root)
     nodes, edges, signals, relation_targets = build_graph(
-        root, contract, artifacts, terms, instructions, research_items, validation
+        root, contract, artifacts, terms, instructions, research_items, validation, metadata_contract
     )
     records = source_input_records(
         root, contract, artifacts, instructions, validation, relation_targets
@@ -1044,6 +1056,8 @@ def term_preflight(surface: Dict[str, object], query: str) -> Dict[str, object]:
 
 
 def artifact_role(artifact: Dict[str, object]) -> str:
+    if not artifact.get("canonical_owner_active", True):
+        return "inactive_artifact"
     path = str(artifact.get("path", ""))
     artifact_type = str(artifact.get("artifact_type", ""))
     module = str(artifact.get("module", ""))
@@ -1089,6 +1103,7 @@ def artifact_preflight(surface: Dict[str, object], query: str) -> Dict[str, obje
                     "artifact_type": artifact.get("artifact_type", ""),
                     "status": artifact.get("status", ""),
                     "canonical_for": artifact.get("canonical_for", []),
+                    "canonical_owner_active": artifact.get("canonical_owner_active", True),
                     "score": score,
                     "reasons": reasons,
                 }
@@ -1106,6 +1121,8 @@ def artifact_preflight(surface: Dict[str, object], query: str) -> Dict[str, obje
 def find_owner(surface: Dict[str, object], query: str) -> Dict[str, object]:
     owners: List[Dict[str, object]] = []
     for artifact in inventories(surface).get("artifacts", []):
+        if not artifact.get("canonical_owner_active", True):
+            continue
         for claim in artifact.get("canonical_for", []):
             score, reasons = score_fields(query, [("canonical_for", str(claim))])
             if score:
@@ -1171,7 +1188,14 @@ def find_owner(surface: Dict[str, object], query: str) -> Dict[str, object]:
                     "reasons": reasons,
                 }
             )
-    owners.sort(key=lambda item: (-int(item["score"]), str(item["path"]), str(item["role"])))
+    # Exact source evidence precedes aggregate lexical overlap. This orders
+    # retrieval candidates; it never grants authority or resolves conflicts.
+    exact_evidence = {"exact canonical_for", "exact term", "exact path", "exact research_id", "exact implementation_path"}
+    owners.sort(key=lambda item: (
+        item["role"] == "inactive_artifact",
+        not bool(exact_evidence.intersection(item["reasons"])),
+        -int(item["score"]), str(item["path"]), str(item["role"]),
+    ))
     deduped: List[Dict[str, object]] = []
     seen: Set[Tuple[str, str, str]] = set()
     for owner in owners:
@@ -1192,7 +1216,9 @@ def find_owner(surface: Dict[str, object], query: str) -> Dict[str, object]:
     }
 
 
-def likely_instruction_paths(surface: Dict[str, object], query: str) -> List[Dict[str, str]]:
+def likely_instruction_paths(
+    surface: Dict[str, object], query: str, paths: Sequence[str] = ()
+) -> List[Dict[str, str]]:
     selected: List[Dict[str, str]] = []
     query_tokens = token_set(query)
     for item in inventories(surface).get("instructions", []):
@@ -1202,7 +1228,8 @@ def likely_instruction_paths(surface: Dict[str, object], query: str) -> List[Dic
             selected.append(item)
             continue
         scope_tokens = token_set(scope.replace("/", " "))
-        if scope != "." and (scope in query or scope_tokens & query_tokens):
+        covers_candidate = any(path == scope or path.startswith(scope.rstrip("/") + "/") for path in paths)
+        if scope != "." and (covers_candidate or scope in query or scope_tokens & query_tokens):
             selected.append(item)
     return selected
 
@@ -1290,7 +1317,7 @@ def context_for_task(surface: Dict[str, object], query: str) -> Dict[str, object
         "operation": "context_for_task",
         "query": query,
         "source_identity": surface.get("source_identity", {}),
-        "instructions": likely_instruction_paths(surface, query),
+        "instructions": likely_instruction_paths(surface, query, candidate_paths),
         "owner_candidates": owner_candidates,
         "term_candidates": term_preflight(surface, query)["candidates"][:10],
         "artifact_candidates": artifact_preflight(surface, query)["candidates"][:10],
@@ -1302,8 +1329,13 @@ def context_for_task(surface: Dict[str, object], query: str) -> Dict[str, object
 
 
 def impact_for_paths(graph_view: Dict[str, object], paths: Sequence[str]) -> Dict[str, object]:
-    changed = {node_id("document", path) for path in paths}
     graph = graph_view.get("graph", {})
+    path_set = set(paths)
+    # One repository path can have document, scope, and policy projections.
+    # Seed every represented family so control-side edits reach their coverage.
+    changed = {str(node["id"]) for node in graph.get("nodes", []) if node.get("path") in path_set}
+    represented = {str(node["path"]) for node in graph.get("nodes", []) if node.get("path") in path_set}
+    changed.update(node_id("document", path) for path in path_set - represented)
     impacted: Dict[str, Dict[str, object]] = {}
     traversed: List[Dict[str, object]] = []
     for edge_record in graph.get("edges", []):
@@ -1629,6 +1661,11 @@ def load_fresh_surface(root: Path, contract: Dict[str, object], surface_path: Pa
             "Agent Context Surface is stale (surface {}, current {}). Fall back to live repository reading or regenerate it.".format(
                 actual_digest or "<missing>", expected_digest
             )
+        )
+    if surface != current:
+        raise ValueError(
+            "Agent Context Surface is stale or invalid: producer identity or generated facts differ. "
+            "Fall back to live repository reading or regenerate it."
         )
     return surface
 

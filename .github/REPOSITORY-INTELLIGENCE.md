@@ -156,6 +156,8 @@ For a trusted PR Impact comparison:
 - do not check out and execute candidate repository-intelligence code merely because the candidate contains a newer producer;
 - record the producer/schema identity used for the comparison when the distinction matters.
 
+The interpretation identity includes imported repository parser dependencies, including `validate_metadata.py`, as well as the producer and its contracts. Changes in either the candidate dependency or the locally executing dependency invalidate a trusted comparison; checking only the main producer file is insufficient.
+
 #### RI-DATA-BOUNDARY-001 — Candidate snapshot data stays inside a bounded repository-data boundary
 
 Treating candidate content as data also means the target-owned producer must not inherit candidate-controlled filesystem or Git execution semantics.
@@ -220,6 +222,8 @@ Required properties:
 
 A visually current graph or agent surface built from stale or interpretation-ambiguous data is a correctness defect, not a cosmetic issue.
 
+Source identity covers the content of supporting Markdown whose title or classification is projected, even when it is outside the maintained-artifact inventory. Query-time freshness verifies producer identity and the generated facts as well as source identity; a copied input digest cannot authenticate an altered or obsolete materialization.
+
 ## 5. Generated-output placement and repository-policy coupling
 
 ### RI-PLACEMENT-001 — Routine regeneration must not reclassify ordinary content work as repository-policy work
@@ -257,11 +261,15 @@ Routing uses existing repository evidence first:
 
 Absence of a `canonical_for` value must not become a claim that no semantic owner exists. When ownership remains ambiguous, the agent or maintainer opens likely owning sources and resolves the question against their maintained prose.
 
+Exact responsibility, term, or path evidence precedes aggregate lexical overlap in owner retrieval. Historical claims remain inspectable, while active ownership and permitted duplicate claims follow the existing metadata contract's inactive-maturity and exception rules.
+
 ### RI-GUIDANCE-001 — Contributor scope is resolved by the existing agent protocol
 
 The projection may list `AGENTS.md` paths, blob identities, and structural scope roots. Those facts help discovery but do not independently decide which instructions govern a pull request.
 
 Effective PR instruction scope remains owned by the checked-state protocol in [`../AGENTS.md`](../AGENTS.md) and live GitHub state. Candidate text cannot use repository intelligence to waive target-owned controls.
+
+Task-context orientation also derives structural scope candidates from recovered owner paths. A task does not need to spell out a directory name to discover the nested instructions for the owner found there.
 
 ## 7. Projection model
 
@@ -358,6 +366,8 @@ For baseline Impact traversal:
 - broader multi-hop structural exploration is allowed only when explicitly requested or when a separately owned relation contract declares genuine dependency semantics; any such expansion remains bounded and explains the traversed path.
 
 `both` therefore means **bidirectional first-order review relevance**, not transitive closure across structural-control hubs. Presentation aggregation and traversal stopping are separate concerns: collapsing a hub changes display density, while this rule bounds the impact semantics themselves.
+
+A changed repository path seeds every represented node family for that path, including `Document`, `AgentScope`, and `PolicyOrValidator`. Otherwise a scope or validator change could silently miss its directly covered artifacts despite a bidirectional relation.
 
 Evolution or dependency-bearing relations such as an explicit supersession or declared dependency chain may receive `dependency` plus a direction only where the owning repository contract supports that interpretation.
 
