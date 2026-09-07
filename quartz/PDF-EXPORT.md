@@ -10,7 +10,7 @@ canonical Markdown
 → PDF + provenance manifest
 ```
 
-The exporter does **not** move, rename, replace, or rewrite the canonical Markdown source. Normal Quartz builds continue to remove `draft: true` content; PDF commands set `UA_INCLUDE_DRAFTS=1` only for their temporary build.
+The exporter does **not** move, rename, replace, or rewrite the canonical Markdown source. Normal Quartz builds continue to remove `draft: true` content; PDF commands set `UA_INCLUDE_DRAFTS=1` only for their temporary build. Those draft-inclusive builds omit the Repository Control Map and its navigation entry: temporary publication renditions are not canonical repository-projection inputs.
 
 ## Local setup
 

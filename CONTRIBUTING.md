@@ -122,7 +122,7 @@ python3 .github/tests/repository_intelligence/test_control_map.py
 
 The browser verification requires `./node_modules/.bin/playwright install chromium`. It checks desktop and touch-sized viewports, keyboard access, project-subpath hosting, missing/malformed data, and literal rendering of hostile source text. These checks do not claim physical iPad acceptance.
 
-PR builds upload `quartz-site-preview` and `control-map-browser-review` for seven days. The preview ZIP must be served over HTTP to load its JSON; opening the HTML as a local `file:` URL is insufficient. For local use, `npm run serve` serves the generated map. Source Markdown remains in its existing repository locations.
+PR builds upload `quartz-site-preview` and `control-map-browser-review` for seven days. The preview artifact contains `quartz-site-preview.tar.gz`, preserving existing source-asset filenames that the artifact service cannot upload individually. Extract the archive and serve its contents over HTTP to load the JSON; opening the HTML as a local `file:` URL is insufficient. For local use, `npm run serve` serves the generated map. Source Markdown remains in its existing repository locations.
 
 To activate public hosting after accepting the implementation, select **Settings → Pages → Source: GitHub Actions**, then set repository Actions variable `UA_PUBLISH_QUARTZ` to `true`. The next successful push to `main` publishes the complete filtered Quartz site; repository Pages settings own the final URL. The expected project path is `/uncertainty-architecture/control-map/`. PR builds never deploy. Setting the variable to another value stops future deployments but does not remove an already published site.
 

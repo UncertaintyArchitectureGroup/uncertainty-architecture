@@ -11,6 +11,9 @@ import { validateData } from "../../components/controlMap/model"
 export const RepositoryControlMap: QuartzEmitterPlugin = () => ({
   name: "RepositoryControlMap",
   async *emit(ctx) {
+    // PDF builds include temporary, non-canonical renditions. They neither need
+    // a site map nor provide a fresh repository projection to publish.
+    if (process.env.UA_INCLUDE_DRAFTS === "1") return
     // Quartz runs from the repository root. Keep Python arguments separate from
     // shell code, and bound output before parsing a complete materialization.
     const root = process.cwd()

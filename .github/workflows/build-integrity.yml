@@ -75,12 +75,15 @@ jobs:
         env:
           UA_MAP_REVIEW_DIR: ${{ runner.temp }}/control-map-review
         run: node quartz/scripts/verify-control-map.mjs public
+      - name: Package site preview without renaming source assets
+        if: github.event_name == 'pull_request'
+        run: tar --create --gzip --file="${RUNNER_TEMP}/quartz-site-preview.tar.gz" --directory=public .
       - name: Upload site preview
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: quartz-site-preview
-          path: public/
+          path: ${{ runner.temp }}/quartz-site-preview.tar.gz
           if-no-files-found: error
           retention-days: 7
       - name: Upload Control Map review images
@@ -104,8 +107,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
-      pages: write
-      id-token: write
+      pages: write # Create the opted-in GitHub Pages deployment.
+      id-token: write # Authenticate the main-build deployment through OIDC.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
