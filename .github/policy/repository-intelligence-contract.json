@@ -1,0 +1,86 @@
+{
+  "contract_version": 1,
+  "schema_version": 2,
+  "producer_version": 6,
+  "compact_surface_path": "assets/repository-intelligence/agent-context.json",
+  "interpretation_paths": [
+    ".github/scripts/repository_intelligence.py",
+    ".github/scripts/validate_metadata.py",
+    ".github/policy/repository-intelligence-contract.json",
+    ".github/policy/metadata-contract.json"
+  ],
+  "snapshot_bounds": {
+    "max_files": 5000,
+    "max_text_file_bytes": 2000000,
+    "max_total_text_bytes": 50000000
+  },
+  "text_suffixes": [".md"],
+  "text_files": ["package.json"],
+  "relation_semantics": {
+    "DEFINES": {
+      "edge_class": "semantic-evolution",
+      "impact_role": "ownership",
+      "impact_direction": "none"
+    },
+    "CANONICAL_FOR": {
+      "edge_class": "semantic-evolution",
+      "impact_role": "ownership",
+      "impact_direction": "none"
+    },
+    "RELATED_TO": {
+      "edge_class": "semantic-evolution",
+      "impact_role": "association",
+      "impact_direction": "none"
+    },
+    "SUPERSEDES": {
+      "edge_class": "semantic-evolution",
+      "impact_role": "association",
+      "impact_direction": "none"
+    },
+    "SUPERSEDED_BY": {
+      "edge_class": "semantic-evolution",
+      "impact_role": "association",
+      "impact_direction": "none"
+    },
+    "SOURCE_BASIS": {
+      "edge_class": "semantic-evolution",
+      "impact_role": "provenance",
+      "impact_direction": "none"
+    },
+    "RESEARCH_OWNER": {
+      "edge_class": "semantic-evolution",
+      "impact_role": "ownership",
+      "impact_direction": "none"
+    },
+    "FRAMEWORK_DESTINATION": {
+      "edge_class": "semantic-evolution",
+      "impact_role": "association",
+      "impact_direction": "none"
+    },
+    "SCOPED_BY": {
+      "edge_class": "repository-control",
+      "impact_role": "control",
+      "impact_direction": "both"
+    },
+    "VALIDATED_BY": {
+      "edge_class": "repository-control",
+      "impact_role": "control",
+      "impact_direction": "both"
+    },
+    "LINKS_TO": {
+      "edge_class": "navigation",
+      "impact_role": "navigation",
+      "impact_direction": "none"
+    }
+  },
+  "compact_relation_types": [
+    "DEFINES",
+    "CANONICAL_FOR",
+    "RELATED_TO",
+    "SUPERSEDES",
+    "SUPERSEDED_BY",
+    "SOURCE_BASIS",
+    "RESEARCH_OWNER",
+    "FRAMEWORK_DESTINATION"
+  ]
+}

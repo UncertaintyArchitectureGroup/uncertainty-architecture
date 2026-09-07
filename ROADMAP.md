@@ -171,10 +171,12 @@ A new top-level Operating Model module is not planned at this stage.
 
 Repository intelligence is an active enabling track for reliable cold-start AI-assisted repository work and maintainer-facing repository control. Its architecture and staged rollout are owned by [`.github/REPOSITORY-INTELLIGENCE.md`](.github/REPOSITORY-INTELLIGENCE.md).
 
+The PR 2 discovery baseline includes existing publication-process contracts outside frontmatter scanning and direct declared relationships as explainable preflight evidence; regressions cover owner recovery, scoped routing, and removal of obsolete relation evidence.
+
 Required sequence:
 
 1. define one lightweight logical projection with authority, freshness, materialization, accepted/proposed-state, trusted-comparison, bootstrap, candidate-data, and impact-semantics boundaries;
-2. build one deterministic accepted-state producer that emits a compact connector-friendly Agent Context Surface and a fuller Graph View, supports typed relations plus explicit impact roles/directions and endpoint-sensitive first-order structural-control traversal, validates freshness, and implements a bounded candidate-snapshot reader that cannot escape the declared repository snapshot through symlink/path/submodule/Git-execution indirection; during this bootstrap PR, candidate-side tests/generated outputs are implementation evidence and direct maintainer review remains the trust boundary because the producer/schema are not target-owned until merge;
+2. [x] build one deterministic accepted-state producer that emits a compact connector-friendly Agent Context Surface and a fuller Graph View, supports typed relations plus explicit impact roles/directions and endpoint-sensitive first-order structural-control traversal, validates freshness, and implements a bounded candidate-snapshot reader that cannot escape the declared repository snapshot through symlink/path/submodule/Git-execution indirection; during this bootstrap PR, candidate-side tests/generated outputs are implementation evidence and direct maintainer review remains the trust boundary because the producer/schema are not target-owned until merge;
 3. after that producer/schema are merged, use the target-owned interpretation boundary to create proposed projections from the **tested merge against the current target tip**, treat candidate files only as bounded repository data, report unsupported/incomplete when interpretation self-change or declared input bounds prevent faithful comparison, allow raw-head projection only when the target is already contained in head or when clearly labelled `head-only`, and benchmark the actual ChatGPT/iPad/GitHub-connector path including branch-behind-target, shared-control-hub, candidate-data-boundary, impact-direction, and producer/schema self-change cases;
 4. build the Quartz **Repository Control Map** over the Graph View with Explore, Architecture, Impact, and Diagnostics lenses, trusted accepted/proposed comparison against the current-target tested merge where safely interpretable, dependency-aware traversal plus first-order/terminal structural scope/validator review relevance, high-fan-out structural aggregation, degraded operation without live GitHub, and mature OSS graph-renderer reuse when preferable to extending the existing Quartz graph;
 5. stop when the lightweight projection and both consumers are useful at acceptable local, connector, and maintainer cost.
@@ -187,6 +189,8 @@ The baseline complements GitHub rather than mirroring the repository. Persistent
 
 ### Current repository-integrity foundation
 
+- repository-intelligence PR 2 now provides one deterministic projection producer, a compact root-neutral Agent Context Surface, a CI/build Graph View, explicit edge class/impact role/impact direction semantics, first-order structural-control traversal, deterministic freshness/diagnostic checks, and a bounded Git tree/blob snapshot reader; trusted target-owned comparison becomes active only after this producer/schema are merged.
+- PR 2 review regressions also cover actual executor/parser identity across input roots, bounded interpretation preflight and CLI contract selection, full-repository snapshot/projection equivalence and content comparison, unsupported research-register schemas, distinct H1 retrieval, complete represented-file scope coverage, and validation routing from recovered owners.
 - deterministic navigation coverage and route validation;
 - offline repository-relative link and anchor validation;
 - machine-readable citation validation;

@@ -156,6 +156,10 @@ For a trusted PR Impact comparison:
 - do not check out and execute candidate repository-intelligence code merely because the candidate contains a newer producer;
 - record the producer/schema identity used for the comparison when the distinction matters.
 
+The interpretation identity includes imported repository parser dependencies, including `validate_metadata.py`, as well as the producer and its contracts. Changes in either the candidate dependency or the locally executing dependency invalidate a trusted comparison; checking only the main producer file is insufficient.
+
+When the executor and input repository occupy different locations, validate the actual executing producer, imported parser, and active contract against the accepted target. An intact counterpart beneath the input root cannot attest a different executing copy. Preliminary interpretation comparisons use Git object identities without loading candidate blob contents; the declared data bounds also apply before any content-bearing comparison read. A CLI contract override is checked against the trusted contract by bounded file identity before it can become a JSON parser input.
+
 #### RI-DATA-BOUNDARY-001 — Candidate snapshot data stays inside a bounded repository-data boundary
 
 Treating candidate content as data also means the target-owned producer must not inherit candidate-controlled filesystem or Git execution semantics.
@@ -170,7 +174,11 @@ Preferred trusted input is repository tree/blob data addressed by explicit Git o
 
 The exact implementation limits belong to PR 2 and should be recorded and tested rather than frozen as universal byte constants in this architecture.
 
+The snapshot reader materializes Markdown content, root `package.json`, and the declared interpretation files. Other regular files retain existence-only placeholders because the projection uses their paths, not their contents. This selection is declared in the interpretation contract; a full-repository regression verifies snapshot/local projection equivalence and ordinary content comparison, including the repository's large auxiliary assets. File-kind and file-count checks still cover the complete tree, while file/total byte limits apply to content-bearing inputs.
+
 If the candidate changes producer code, parser/schema contracts, stable-ID rules, relation extraction, impact-role mapping, or other interpretation semantics so the trusted target producer cannot faithfully interpret the candidate state, the trusted comparison must fail visibly as **unsupported** or **incomplete** rather than silently switching to candidate code or inventing equivalence.
+
+This includes versioned data interpreted by the producer: an unknown research-register version, missing machine block, or unrecognized item-list shape is unsupported, not evidence that research items were deleted.
 
 Candidate-produced output may still be generated in an ordinary candidate-controlled test job as advisory implementation evidence. It does not become the trusted accepted-versus-proposed projection used by the Control Map, agent routing, or repository-policy decision merely because it was generated successfully.
 
@@ -220,6 +228,8 @@ Required properties:
 
 A visually current graph or agent surface built from stale or interpretation-ambiguous data is a correctness defect, not a cosmetic issue.
 
+Source identity covers the content of supporting Markdown whose title or classification is projected, even when it is outside the maintained-artifact inventory. Query-time freshness verifies producer identity and the generated facts as well as source identity; a copied input digest cannot authenticate an altered or obsolete materialization.
+
 ## 5. Generated-output placement and repository-policy coupling
 
 ### RI-PLACEMENT-001 — Routine regeneration must not reclassify ordinary content work as repository-policy work
@@ -257,11 +267,15 @@ Routing uses existing repository evidence first:
 
 Absence of a `canonical_for` value must not become a claim that no semantic owner exists. When ownership remains ambiguous, the agent or maintainer opens likely owning sources and resolves the question against their maintained prose.
 
+Exact responsibility, term, or path evidence precedes aggregate lexical overlap in owner retrieval. Historical claims remain inspectable, while active ownership and permitted duplicate claims follow the existing metadata contract's inactive-maturity and exception rules.
+
 ### RI-GUIDANCE-001 — Contributor scope is resolved by the existing agent protocol
 
 The projection may list `AGENTS.md` paths, blob identities, and structural scope roots. Those facts help discovery but do not independently decide which instructions govern a pull request.
 
 Effective PR instruction scope remains owned by the checked-state protocol in [`../AGENTS.md`](../AGENTS.md) and live GitHub state. Candidate text cannot use repository intelligence to waive target-owned controls.
+
+Task-context orientation also derives structural scope candidates from recovered owner paths. A task does not need to spell out a directory name to discover the nested instructions for the owner found there.
 
 ## 7. Projection model
 
@@ -359,6 +373,10 @@ For baseline Impact traversal:
 
 `both` therefore means **bidirectional first-order review relevance**, not transitive closure across structural-control hubs. Presentation aggregation and traversal stopping are separate concerns: collapsing a hub changes display density, while this rule bounds the impact semantics themselves.
 
+A changed repository path seeds every represented node family for that path, including `Document`, `AgentScope`, and `PolicyOrValidator`. Otherwise a scope or validator change could silently miss its directly covered artifacts despite a bidirectional relation.
+
+Structural scope coverage includes represented policy, validator, workflow, instruction, and supporting-document paths, including nodes discovered after the maintained-artifact inventory. A control file may expose its own applicable scope as direct review relevance while its coverage remains first-order and terminal.
+
 Evolution or dependency-bearing relations such as an explicit supersession or declared dependency chain may receive `dependency` plus a direction only where the owning repository contract supports that interpretation.
 
 Impact traversal prioritizes task-relevant `dependency` and `control` relations whose direction permits traversal from the changed endpoint. Ownership, provenance, association, navigation, and `none`-direction relations remain inspectable but do not automatically inflate blast radius.
@@ -421,9 +439,15 @@ Before proposing a new maintained conceptual/process artifact:
 
 Raw/history preservation, generated outputs, and publication renditions are outside this unconditional preflight unless they also introduce a new maintained conceptual/process owner.
 
+Maintained process contracts remain in the inventory even when they are outside frontmatter scanning. The producer explicitly includes this architecture owner and the existing Quartz integration, PDF-export, and platform-rendition contracts identified by contributor guidance. This structural inclusion does not classify arbitrary implementation documentation as a process owner.
+
+Relationship overlap uses direct frontmatter declarations already resolved in the compact graph, with target paths and titles as evidence. Results identify the relation field and resolved target. Only the strongest relation match contributes to an artifact's score, so link count alone cannot improve ranking. These retrieval signals do not create responsibility claims, traverse control/navigation hubs, or change impact semantics.
+
 ### `validation_plan`
 
 Return likely existing validators, tests, workflows, contributor scopes, and companion surfaces for the proposed change. This operation is orientation only; it does not execute target-controlled code as a side effect.
+
+Validation routing uses recovered owner paths and maintained-artifact classifications as well as task wording. An exact path or responsibility must discover applicable metadata checks and companion surfaces without requiring the task to repeat special routing keywords.
 
 ## 9. Lightweight retrieval baseline
 
@@ -926,16 +950,16 @@ Remote services, persistent stores, graph databases, and embeddings remain optio
 | Capability | State |
 |---|---|
 | Architecture and proportionality contract | Defined by this document |
-| Deterministic logical Repository Intelligence Projection | Planned for PR 2 |
-| Compact connector-friendly Agent Context Surface | Planned for PR 2 |
-| Full Graph View materialization | Planned for PR 2 / consumed by PR 4 |
-| Ephemeral proposed projection from current-target tested merge | Planned for PR 2 / consumed by PR 4 |
+| Deterministic logical Repository Intelligence Projection | Implemented by PR 2 bootstrap |
+| Compact connector-friendly Agent Context Surface | Implemented by PR 2 bootstrap at `assets/repository-intelligence/agent-context.json` |
+| Full Graph View materialization | Implemented by PR 2 bootstrap as CI/build materialization; consumed by PR 4 |
+| Ephemeral proposed projection from current-target tested merge | Implemented capability in PR 2; trusted activation after merge |
 | Trusted target-owned producer/schema boundary for proposed comparison | Activates only after PR 2 merge |
-| Bounded candidate snapshot reader for trusted comparison | Planned for PR 2 / activated after PR 2 merge |
-| `Responsibility` derived nodes, typed edge classes, impact roles, and impact directions | Planned for PR 2 |
-| Endpoint-sensitive first-order structural-control traversal | Planned for PR 2 / consumed by PR 4 |
-| `context_for_task` / owner / preflight / validation operations | Planned for PR 2 |
-| Drift/regeneration validation | Planned for PR 2 |
+| Bounded candidate snapshot reader for trusted comparison | Implemented in PR 2; trusted activation after merge |
+| `Responsibility` derived nodes, typed edge classes, impact roles, and impact directions | Implemented by PR 2 bootstrap |
+| Endpoint-sensitive first-order structural-control traversal | Implemented by PR 2 bootstrap; consumed by PR 4 |
+| `context_for_task` / owner / preflight / validation operations | Implemented by PR 2 bootstrap |
+| Drift/regeneration validation | Implemented by PR 2 bootstrap |
 | Agent-workflow integration | Planned for PR 3 |
 | Independent connector-aware cold-start benchmark | Planned for PR 3 |
 | Quartz Repository Control Map | Planned for PR 4 |
