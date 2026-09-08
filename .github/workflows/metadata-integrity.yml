@@ -92,6 +92,9 @@ jobs:
       - name: Run agent-workflow and benchmark regressions
         run: python3 .github/tests/repository_intelligence/test_agent_workflow.py
 
+      - name: Run Control Map data-boundary regressions
+        run: python3 .github/tests/repository_intelligence/test_control_map.py
+
       - name: Build compact Agent Context Surface candidate
         run: python3 .github/scripts/repository_intelligence.py build --view agent --output "${RUNNER_TEMP}/agent-context.json"
 

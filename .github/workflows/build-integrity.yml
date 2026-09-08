@@ -65,7 +65,57 @@ jobs:
       - name: Figure 8 / semantic and readability verification
         run: npm run pdf:verify:figure8
       - name: Build Quartz site
+        env:
+          UA_MAP_ACCEPTED_REF: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.sha || '' }}
         run: npm run build
+
+      - name: Install browser for Control Map acceptance
+        run: ./node_modules/.bin/playwright install --with-deps chromium
+      - name: Verify Control Map browser behavior
+        env:
+          UA_MAP_REVIEW_DIR: ${{ runner.temp }}/control-map-review
+        run: node quartz/scripts/verify-control-map.mjs public
+      - name: Package site preview without renaming source assets
+        if: github.event_name == 'pull_request'
+        run: tar --create --gzip --file="${RUNNER_TEMP}/quartz-site-preview.tar.gz" --directory=public .
+      - name: Upload site preview
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: quartz-site-preview
+          path: ${{ runner.temp }}/quartz-site-preview.tar.gz
+          if-no-files-found: error
+          retention-days: 7
+      - name: Upload Control Map review images
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: control-map-browser-review
+          path: ${{ runner.temp }}/control-map-review/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Prepare opted-in Pages deployment
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.UA_PUBLISH_QUARTZ == 'true'
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: public/
+
+  deploy-pages:
+    name: Publish / Quartz site
+    needs: [quartz-build, workflow-policy, mermaid-render, publication-render]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.UA_PUBLISH_QUARTZ == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write # Create the opted-in GitHub Pages deployment.
+      id-token: write # Authenticate the main-build deployment through OIDC.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the checked main site
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
 
   publication-impact:
     name: Publication / detect impacted surfaces

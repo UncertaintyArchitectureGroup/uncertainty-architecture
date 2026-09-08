@@ -10,7 +10,7 @@ canonical Markdown
 → PDF + provenance manifest
 ```
 
-The exporter does **not** move, rename, replace, or rewrite the canonical Markdown source. Normal Quartz builds continue to remove `draft: true` content; PDF commands set `UA_INCLUDE_DRAFTS=1` only for their temporary build.
+The exporter does **not** move, rename, replace, or rewrite the canonical Markdown source. Normal Quartz builds continue to remove `draft: true` content; PDF commands set `UA_INCLUDE_DRAFTS=1` only for their temporary build. Those draft-inclusive builds omit the Repository Control Map and its navigation entry: temporary publication renditions are not canonical repository-projection inputs.
 
 ## Local setup
 
@@ -24,6 +24,8 @@ npm run pdf:setup
 ```bash
 npx playwright install --with-deps chromium
 ```
+
+Publication asset rendering passes this same Chromium executable to Mermaid CLI; it does not depend on a separately downloaded Puppeteer Chrome cache. The existing full platform-asset render in Build Integrity verifies this browser boundary.
 
 Visual verification additionally requires Poppler (`poppler-utils` on Ubuntu):
 
