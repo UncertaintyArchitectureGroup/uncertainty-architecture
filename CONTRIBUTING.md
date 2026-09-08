@@ -120,11 +120,11 @@ node quartz/scripts/verify-control-map.mjs public
 python3 .github/tests/repository_intelligence/test_control_map.py
 ```
 
-The browser verification requires `./node_modules/.bin/playwright install chromium`. It checks desktop and touch-sized viewports, keyboard access, project-subpath hosting, missing/malformed data, and literal rendering of hostile source text. These checks do not claim physical iPad acceptance.
+The browser verification requires `./node_modules/.bin/playwright install chromium`. It checks desktop and touch-sized viewports, keyboard access, local filters, simulated cached-page restore/cleanup, project-subpath hosting, published feed/sitemap/404 URLs, missing/malformed data, and literal rendering of hostile source text. Lifecycle simulation does not prove real browser-cache behavior or physical iPad acceptance.
 
 PR builds upload `quartz-site-preview` and `control-map-browser-review` for seven days. The preview artifact contains `quartz-site-preview.tar.gz`, preserving existing source-asset filenames that the artifact service cannot upload individually. Extract the archive and serve its contents over HTTP to load the JSON; opening the HTML as a local `file:` URL is insufficient. For local use, `npm run serve` serves the generated map. Source Markdown remains in its existing repository locations.
 
-To activate public hosting after accepting the implementation, select **Settings → Pages → Source: GitHub Actions**, then set repository Actions variable `UA_PUBLISH_QUARTZ` to `true`. The next successful push to `main` publishes the complete filtered Quartz site; repository Pages settings own the final URL. The expected project path is `/uncertainty-architecture/control-map/`. PR builds never deploy. Setting the variable to another value stops future deployments but does not remove an already published site.
+To activate public hosting after accepting the implementation, select **Settings → Pages → Source: GitHub Actions**, then set repository Actions variable `UA_PUBLISH_QUARTZ` to `true`. The next successful push to `main` publishes the complete filtered Quartz site. `quartz.config.ts` sets `baseUrl` to `uncertaintyarchitecturegroup.github.io/uncertainty-architecture` so feed, sitemap, and 404 URLs use the project site. If Pages settings use a custom domain or a different path, update that configuration and the publication URL expectations in the browser verifier before building. The expected map path is `/uncertainty-architecture/control-map/`. PR builds never deploy. Setting the variable to another value stops future deployments but does not remove an already published site.
 
 ### Local navigation validation
 

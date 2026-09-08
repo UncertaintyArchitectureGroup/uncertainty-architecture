@@ -100,6 +100,44 @@ test("filters and architecture navigation exclusion remain explicit", () => {
     1,
   )
 })
+test("local filters preserve matching neighbours when the focus is hidden", () => {
+  const data = fixture()
+  data.projection.graph.nodes.push({ id: "owner-role", family: "Responsibility" })
+  data.projection.graph.edges.push({
+    ...edge("d0", "owner-role", "ownership"),
+    relation: "CANONICAL_FOR",
+    edge_class: "semantic-evolution",
+  })
+  for (const lens of ["explore", "architecture"] as const) {
+    const view = filterGraph(data, { ...filters, lens, family: "Responsibility", depth: 1 })
+    assert.deepEqual(
+      view.nodes.map((n) => n.id),
+      ["owner-role"],
+    )
+    assert.deepEqual(view.edges, [])
+  }
+})
+test("node filters retain two-hop matches through a hidden intermediate node", () => {
+  const data = fixture()
+  Object.assign(data.projection.graph.nodes[2], {
+    module: "research",
+    path: "content/research/result.md",
+    status: "informative",
+  })
+  data.projection.graph.edges.push(edge("d1", "d2", "navigation"))
+  for (const filter of [
+    { module: "research" },
+    { status: "informative" },
+    { boundary: "research" },
+  ]) {
+    assert.deepEqual(
+      filterGraph(data, { ...filters, ...filter }).nodes.map((n) => n.id),
+      ["d2"],
+    )
+    assert.equal(filterGraph(data, { ...filters, ...filter, depth: 1 }).nodes.length, 0)
+  }
+  assert.equal(filterGraph(data, { ...filters, module: "absent" }).nodes.length, 0)
+})
 test("source links stay in the pinned repository even for hostile names", () => {
   assert.equal(sourceURL("../secret", "a".repeat(40)), null)
   assert.equal(sourceURL("/absolute", null), null)

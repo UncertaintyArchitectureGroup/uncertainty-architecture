@@ -255,13 +255,10 @@ export function filterGraph(
     (!filters.family || n.family === filters.family) &&
     (!filters.status || n.status === filters.status) &&
     (!filters.boundary || nodeBoundaries(graph, n).has(filters.boundary))
-  let nodes = graph.nodes.filter(
-    (n) =>
-      allowed(n) &&
-      (impact
-        ? impact.nodes.has(n.id)
-        : filters.extras || primaryNode(n) || n.id === filters.selected),
+  let nodes = graph.nodes.filter((n) =>
+    impact ? impact.nodes.has(n.id) : filters.extras || primaryNode(n) || n.id === filters.selected,
   )
+  const allowedIds = new Set(nodes.filter(allowed).map((n) => n.id))
   let nodeIds = new Set(nodes.map((n) => n.id))
   let edges = graph.edges.filter(
     (e) =>
@@ -319,7 +316,16 @@ export function filterGraph(
         Math.abs(distance.get(e.source)! - distance.get(e.target)!) === 1,
     )
   }
-  return { nodes, edges, collapsed }
+  // Node filters narrow the established neighbourhood, not the paths used to
+  // discover it. A hidden focus or intermediate node must not erase matches.
+  nodes = nodes.filter((n) => allowedIds.has(n.id))
+  nodeIds = new Set(nodes.map((n) => n.id))
+  edges = edges.filter((e) => nodeIds.has(e.source) && nodeIds.has(e.target))
+  return {
+    nodes,
+    edges,
+    collapsed: collapsed.filter((e) => allowedIds.has(e.source) && allowedIds.has(e.target)),
+  }
 }
 
 export function structuralWarnings(graph: Graph): { node: MapNode; message: string }[] {

@@ -12,6 +12,7 @@ const config: QuartzConfig = {
   configuration: {
     pageTitle: "Uncertainty Architecture",
     pageTitleSuffix: "",
+    baseUrl: "uncertaintyarchitecturegroup.github.io/uncertainty-architecture",
     enableSPA: true,
     enablePopovers: true,
     analytics: {

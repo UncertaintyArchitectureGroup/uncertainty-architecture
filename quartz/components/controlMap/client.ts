@@ -147,14 +147,16 @@ function start(data: MapData) {
   })
   const resize = new ResizeObserver(() => cy.resize())
   resize.observe(element("graph"))
-  window.addEventListener(
-    "pagehide",
-    () => {
-      resize.disconnect()
-      cy.destroy()
-    },
-    { once: true },
-  )
+  window.addEventListener("pagehide", (event) => {
+    // A cached page resumes this same renderer and its existing UI handlers.
+    // Keep listening so a later non-cached departure still releases resources.
+    if (event.persisted) return
+    resize.disconnect()
+    cy.destroy()
+  })
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) cy.resize()
+  })
 
   function addSource(container: HTMLElement, path: string, anchor?: string) {
     const url = sourceURL(path, sourceRef, anchor)
