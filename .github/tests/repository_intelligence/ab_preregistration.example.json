@@ -1,8 +1,38 @@
 {
-  "protocol_version": 4,
+  "protocol_version": 5,
   "study_id": "RI-AB-YYYYMMDD-01",
   "repository_ref": "<40-char commit sha>",
   "execution_policy": "always_run_pilot_and_confirmatory",
+  "execution_preflight": {
+    "required": true,
+    "smoke_task_source": "synthetic_or_non_held_out",
+    "smoke_evidence_reference": "<external issue/comment/artifact reference>",
+    "smoke_passed": "<true|false>",
+    "pinned_tree_reads_verified": "<true|false>",
+    "unpinned_repository_search_excluded": "<true|false>",
+    "instrumentation_capture_verified": "<true|false>",
+    "connector_permission_parity_verified": "<true|false>"
+  },
+  "pinned_state_tool_policy": {
+    "repository_evidence_must_be_ref_addressable": true,
+    "default_branch_unpinned_search_allowed": false,
+    "ref_addressable_search_allowed": "<true|false>",
+    "ref_addressable_search_mode": "<tool/mode or not-applicable>",
+    "accidental_unpinned_search": "invalidate run unless no repository information was returned and no influence is possible"
+  },
+  "treatment_delivery": {
+    "mode": "connector_compact_surface|local_cli|dedicated_adapter",
+    "must_remain_constant_across_primary_runs": true,
+    "surface_path": "assets/repository-intelligence/agent-context.json",
+    "surface_blob_sha": "<git blob sha or not-applicable>",
+    "surface_sha256": "<64 hex chars or not-applicable>",
+    "source_identity": "<RI source identity/digest>",
+    "freshness_evidence_reference": "<workflow/job/log or local verification reference>",
+    "complete_payload_verified": "<true|false>",
+    "truncation_check_passed": "<true|false>",
+    "delivery_failure_rule": "invalidate run; do not score silent fallback as Treatment",
+    "task_level_fallback_rule": "valid Treatment behavior after successful delivery; count cost/outcome normally"
+  },
   "pilot": {
     "case_count": 12,
     "paired_run_count": 24,
@@ -31,15 +61,20 @@
     "mode": "combined_pool|separate_wave_pools",
     "provenance": "<fixed cutoff period or frozen source set>",
     "cutoff_rule": "<exact rule>",
-    "eligible_pool_sha256": "<64 hex chars>",
+    "raw_pool_sha256": "<64 hex chars>",
+    "normalization_contract_version": "RI-AB-NORMALIZE-1",
+    "normalization_rule": "make each source task self-contained using only facts present in its source context; do not add expected owners, paths, validators, canonical terms, RI vocabulary, answer-key facts, or later repository findings",
+    "normalization_before_selection": true,
+    "normalized_eligible_pool_sha256": "<64 hex chars>",
     "eligible_pool_count": "<integer >= 24 for combined mode, or >= 12 per wave for separate mode>",
     "selection_rule": "<seeded without-replacement allocation across waves>",
     "non_overlap_required": true,
-    "anchor_rule": "<at least one exact-owner and one legitimate-new-artifact anchor per wave, fixed before seeded selection if needed>",
+    "anchor_rule": "<at least one exact-owner and one legitimate-new-artifact anchor per wave, normalized/fixed before seeded selection if needed>",
     "exclusion_rules": [
       "duplicate task family",
       "depends on unavailable external state",
-      "cannot be run identically in both arms"
+      "cannot be run identically in both arms",
+      "cannot be neutrally normalized without revealing material answer information"
     ]
   },
   "model_family": "<exact displayed model family>",
@@ -50,12 +85,14 @@
   "secondary_endpoints": [
     "paired correctness score delta",
     "total connector calls",
+    "paired connector-call ratio",
     "broad searches",
     "distinct source files opened",
     "calls before first explicit visible owner or route assertion when observable",
     "measured context or token volume when available",
     "elapsed time when reliably observable",
-    "equal-correctness ecological cost sensitivity"
+    "equal-correctness ecological cost sensitivity",
+    "Treatment delivery and task-level fallback behavior"
   ],
   "ecological_correctness_non_regression": {
     "metric": "median paired total correctness delta B-A",
@@ -64,18 +101,21 @@
   },
   "cost_gate": {
     "applies_to": "all valid ecological cases including serious-error-prevention cases",
-    "primary_cost_metric": "ecological median total connector calls",
+    "primary_cost_metric": "total connector calls to final answer",
+    "per_case_ratio_formula": "r_i = B_i / A_i",
+    "primary_cost_statistic": "median of per-case paired ratios r_i over all valid ecological pairs in the wave",
+    "not_ratio_of_group_medians": true,
     "acceptable_median_ratio_b_over_a": 1.5,
     "high_overhead_ratio_threshold": 2.0,
     "acceptable_high_overhead_case_count": 2,
-    "zero_denominator_rule": "if A=0 and B=0 ratio=1.0; if A=0 and B>0 ratio=infinity",
+    "zero_denominator_rule": "if A_i=0 and B_i=0 then r_i=1.0; if A_i=0 and B_i>0 then r_i=infinity",
     "serious_error_prevention_exception": "none; all such cases remain in the primary gate",
     "unavailable_token_or_time_metrics": "exclude from gate; report as unavailable",
     "apply_independently_to_each_wave": true,
     "report_combined_ecological_view": true
   },
   "efficiency_gain_rule": {
-    "primary_cost_metric": "same as cost_gate.primary_cost_metric",
+    "primary_cost_statistic": "same median-of-paired-ratios statistic as cost_gate",
     "maximum_median_ratio_b_over_a_per_wave": 0.8,
     "requires_ecological_correctness_non_regression": true,
     "maximum_reverse_serious_error_reversals": 0
@@ -86,7 +126,7 @@
     "provisional_efficiency_signal": "efficiency gain rule passes with non-worse correctness and 0 reverse serious errors",
     "no_pilot_signal": "neither correctness nor efficiency signal",
     "pilot_regression": "reverse serious-error reversal or ecological correctness non-regression failure",
-    "pilot_inconclusive": "protocol/isolation defect prevents interpretation"
+    "pilot_inconclusive": "protocol/isolation/pinned-state/Treatment-delivery defect prevents interpretation"
   },
   "final_decision_rule": {
     "demonstrated_correctness_go": {
@@ -95,22 +135,27 @@
       "minimum_combined_positive_reversals": 3,
       "maximum_combined_reverse_reversals": 0,
       "ecological_correctness_non_regression_must_pass_both_waves": true,
-      "cost_gate_must_pass_both_waves": true
+      "cost_gate_must_pass_both_waves": true,
+      "same_treatment_delivery_mode_required": true,
+      "material_pinned_state_contamination_allowed": false
     },
     "demonstrated_efficiency_go": {
       "efficiency_gain_rule_must_pass_both_waves": true,
       "ecological_correctness_non_regression_must_pass_both_waves": true,
-      "maximum_reverse_serious_error_reversals_combined": 0
+      "maximum_reverse_serious_error_reversals_combined": 0,
+      "same_treatment_delivery_mode_required": true,
+      "material_pinned_state_contamination_allowed": false
     },
     "correctness_gain_cost_not_accepted": "correctness reversal thresholds met but primary all-case cost gate fails in either wave",
     "not_confirmed": "pilot correctness signal not supported by independent confirmatory corpus",
-    "no_incremental_value": "neither demonstrated correctness nor demonstrated efficiency rule met without material treatment regression",
+    "no_incremental_value": "neither demonstrated correctness nor demonstrated efficiency rule met without material treatment regression and with valid Treatment delivery",
     "regression": "any reverse serious-error reversal or material ecological correctness non-regression failure",
-    "inconclusive": "protocol, isolation, source-state, model compatibility, or scoring defect prevents defensible comparison"
+    "inconclusive": "protocol, isolation, pinned-state, Treatment-delivery, source-state, model compatibility, or scoring defect prevents defensible comparison"
   },
   "equal_correctness_sensitivity": {
     "enabled": true,
     "case_filter": "ecological pairs with equal total correctness score and equal serious-error status",
+    "statistic": "median of the same per-case paired connector-call ratios on the filtered set",
     "does_not_replace_primary_cost_gate": true
   },
   "diagnostic_c": {
@@ -119,6 +164,7 @@
     "case_count": "<4-6 if enabled>",
     "timing": "after both primary waves and scores are frozen"
   },
-  "stopping_rule": "Complete all 48 preregistered primary A/B runs under the default protocol; do not stop for Pilot performance.",
+  "infrastructure_retry_policy": "<none by default, or exact preregistered rule>",
+  "stopping_rule": "Complete all 48 preregistered primary A/B runs under the default protocol unless infrastructure validity fails; do not stop for Pilot performance.",
   "unblinding_rule": "Score arm-hidden response copies against the frozen wave-specific key before revealing treatment labels whenever practical."
 }
