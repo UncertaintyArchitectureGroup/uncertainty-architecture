@@ -72,6 +72,8 @@ When the task envelope names `Experiment arm: RI-AB-TREATMENT`, follow the norma
 
 When the task envelope names `Experiment arm: RI-AB-DATA-ONLY`, use only the verified compact Agent Context Surface supplied for the pinned state as the RI-derived aid. Do not invoke task-specific RI query operations, do not use the full Graph View or Repository Control Map, and do not accept task-specific RI routing suggestions from another session. Decide how to use the compact data yourself, then read authoritative repository sources before making material decisions. This marker is diagnostic only and must not be used to rewrite the primary A/B result.
 
+For any benchmark arm, do not search for or use held-out prompt packs, scoring keys, prior-arm outputs, or task material from another wave. Pilot and confirmatory corpora are independently held out under the evaluation protocol; future-wave task material is not repository context for the current run.
+
 If none of these exact markers is present, this benchmark exception does not apply.
 
 State the inspected ref and material access limitations before editing only when they affect correctness or scope; otherwise include them in the completion report rather than adding a routine preamble to every response.
@@ -87,7 +89,7 @@ Read the complete sources needed for the task, but do not load unrelated reposit
 | Edit project architecture material | controlled-object doctrine → capability anatomy → lifecycle → project pattern/template → delivery pattern → relevant Constraint/failure-mode/traceability material |
 | Edit delivery-team material | project inheritance rules → delivery pattern/template → Judgment Node Boundary → relevant Constraint/glossary/failure-mode material |
 | Edit runtime material | active project/delivery ownership rules → capability anatomy → relevant Controller/Actuator/Sensor/realization/fallback/incident material |
-| Edit AI Control Plane | capability anatomy → glossary → affected capability areas → both review patterns → relevant references/failure modes/source intake/traceability |
+| Edit AI Control Plane | capability anatomy → glossary → affected capability areas → both review patterns → relevant references/failure-modes/source intake/traceability |
 | Research or publication content | scoped research `AGENTS.md` → `content/research/index.md` → `review-process.md` → relevant Research State Register entries → traceability → owning research artifacts |
 | Metadata or controlled tags | `DOCUMENT-METADATA.md` → `.github/policy/metadata-contract.json` → validator/tests/workflow → affected maintained documents |
 | Repository policy or contribution flow | `CONTRIBUTING.md` → human-readable owner of the changed rule → relevant `.github/policy/*` → validators/tests/workflows → roadmap/changelog |
