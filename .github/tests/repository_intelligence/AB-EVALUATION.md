@@ -1,5 +1,7 @@
 # Repository Intelligence A/B Evaluation Protocol
 
+> Protocol version: 4
+
 ## Purpose and estimand
 
 This protocol defines the independent comparative evaluation required by [`REPOSITORY-INTELLIGENCE.md`](../../REPOSITORY-INTELLIGENCE.md#14-evaluation-and-acceptance).
