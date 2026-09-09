@@ -26,40 +26,50 @@ The root owner map is shared baseline information. Easy exact-owner cases are ce
 
 The unit is one **task × arm** run in a fresh isolated session.
 
-### 2.1 Primary pilot wave
+The primary study uses **two independent held-out corpora**, frozen before the first run:
 
-Run **12 held-out tasks × 2 arms = 24 isolated sessions** using a paired randomized crossover design:
+- **Pilot corpus P:** 12 tasks = 6 stress + 6 ecological.
+- **Confirmatory corpus C:** 12 different tasks = 6 stress + 6 ecological.
+
+No task prompt may appear in both corpora, and the confirmatory prompts must remain unused until the pilot wave is complete. Both prompt packs, both scoring keys, both ecological selections, and all randomization commitments are frozen before Pilot begins.
+
+### 2.1 Pilot wave
+
+Run **12 pilot tasks × 2 arms = 24 isolated sessions** using a paired randomized crossover design:
 
 - identical task prompt and pinned source state within each pair;
 - fresh session for every run;
-- randomized A/B order per task from a frozen seed;
+- randomized A/B order per task from a frozen pilot arm-order seed;
 - pairs interleaved over time rather than all A then all B;
 - same displayed model family, selectable thinking configuration, connector permissions, client class, and source commit within each pair;
-- frozen scoring key;
+- frozen Pilot scoring key;
 - arm-hidden correctness scoring where practical.
 
 Do not selectively rerun failures.
 
-### 2.2 Confirmatory replication wave
+### 2.2 Independent confirmatory wave
 
-LLM output is stochastic. A single 24-run pilot may show route differences caused by sampling variance rather than architecture.
+LLM output is stochastic, and repeating the same tasks would test repeatability more strongly than generalization. Confirmation therefore uses the **different, independently held-out confirmatory corpus C** frozen before Pilot.
 
-A positive agent-benefit claim therefore requires a **second complete confirmatory wave** using the same 12 frozen tasks and scoring key:
+Run **12 confirmatory tasks × 2 arms = 24 additional fresh isolated sessions**:
 
-- another 12 × 2 = 24 fresh isolated sessions;
-- a second frozen randomization seed/order;
-- same pinned repository state and same model/configuration target as the pilot unless a preregistered compatibility exception is invoked;
-- no prompt, answer-key, scoring-rule, ecological-sampling, or cost-gate changes after pilot unblinding.
+- confirmatory tasks are disjoint from Pilot tasks;
+- another 6 stress + 6 ecological cases are used;
+- confirmatory prompts and scoring key were committed by hash before any Pilot run but were not exposed during Pilot;
+- A/B order uses a separate frozen confirmatory arm-order seed;
+- ecological case selection uses a separate frozen confirmatory selection seed or a deterministic non-overlapping allocation from one combined frozen pool;
+- same pinned repository state and same model/configuration target as Pilot unless a preregistered compatibility exception is invoked;
+- no prompt, answer-key, scoring-rule, ecological-sampling, cost-gate, or decision-rule changes after Pilot unblinding.
 
-The pilot may produce `PROVISIONAL GO` or `WEAK POSITIVE`, but the repository must not claim demonstrated incremental agent value until the confirmatory wave is complete and directionally consistent.
+The default study executes the confirmatory wave **regardless of Pilot outcome**. This avoids outcome-dependent stopping and strengthens null/regression evidence as well as positive evidence. A preregistration may choose a conditional confirmation policy only if that stopping rule is fixed before Pilot and the resulting claim is correspondingly narrower.
 
-If model/service drift makes exact replication impossible, record the difference and classify confirmatory evidence separately; do not silently combine incompatible waves.
+If model/service drift makes compatible confirmation impossible, record the difference and classify confirmatory evidence separately; do not silently combine incompatible waves.
 
-Maximum primary evidence set when replication is required: **48 A/B sessions**.
+Primary evidence set under the default protocol: **48 A/B sessions across 24 distinct tasks**.
 
-### 2.3 Optional diagnostic C
+### 2.3 Optional diagnostic C arm
 
-After pilot A/B outputs and scores are frozen, an optional **RI data-only** diagnostic may run on 4–6 frozen cases.
+After **both primary A/B waves and their correctness scores are frozen**, an optional **RI data-only** diagnostic may run on 4–6 frozen cases.
 
 C receives the verified compact Agent Context Surface for the pinned state but no RI query-operation output or task-specific routing suggestion. The agent decides how to use that data and still reads authoritative sources before material decisions.
 
@@ -91,6 +101,7 @@ Required conditions:
 3. No previous-arm output exposed to the paired run.
 4. No corrective scoring feedback before both runs in a pair are complete.
 5. Equivalent repository/connector access within each pair.
+6. Confirmatory prompts remain unexposed to tested sessions until the confirmatory wave starts.
 
 Mark a primary run invalid if:
 
@@ -102,13 +113,13 @@ Mark a primary run invalid if:
 
 If the product cannot determine cross-chat memory or prior repo context, record `unavailable`. Treat this as an isolation limitation; if material to interpretation, classify the study `INCONCLUSIVE` or repeat in a cleaner environment.
 
-## 4. Held-out corpus
+## 4. Held-out corpora
 
-The first corpus contains **6 designed stress cases + 6 ecological cases**.
+Each primary wave contains **6 designed stress cases + 6 ecological cases**, for 24 distinct tasks total.
 
 ### 4.1 Stress cases
 
-Across six stress cases cover a balanced subset of:
+Across each six-case stress half cover a balanced subset of:
 
 - canonical term / synonym pressure;
 - overlapping artifact ownership;
@@ -118,7 +129,7 @@ Across six stress cases cover a balanced subset of:
 - stale/unverifiable RI fallback;
 - Ukrainian or paraphrased maintainer wording.
 
-Stress cases must not be tuned after observing A/B results or RI rankings.
+Pilot and confirmatory stress prompts must be different. All 12 stress prompts and both scoring-key sections are frozen before the first Pilot run. Stress cases must not be tuned after observing A/B results or RI rankings.
 
 ### 4.2 Ecological cases and sampling frame
 
@@ -126,15 +137,17 @@ Ecological cases answer the practical question: does RI help on ordinary UA main
 
 Before any arm run:
 
-1. Define an **ecological source pool** of at least 15 realistic maintainer tasks from a fixed cutoff period or other frozen source set.
-2. Record the pool provenance and cutoff rule outside the tested repository view.
-3. Apply only preregistered exclusions, such as duplicates, tasks whose answer depends on unavailable external state, or tasks that cannot be run identically in both arms.
-4. Freeze the eligible pool.
-5. Select six cases using the preregistered randomization seed; do not manually replace selected cases because RI is expected to perform poorly or well.
+1. Define one **combined ecological source pool** of at least 24 eligible realistic maintainer tasks from a fixed cutoff period or other frozen source set, or define two separately frozen pools of at least 12 eligible tasks per wave.
+2. Record pool provenance, cutoff rule, exact exclusion rules, and serialized pool hash outside the tested repository view.
+3. Apply only preregistered exclusions, such as duplicate task families, tasks whose answer depends on unavailable external state, or tasks that cannot be run identically in both arms.
+4. Freeze the eligible pool before selection.
+5. Select six Pilot ecological cases and six **different** confirmatory ecological cases using preregistered seeded selection, without replacement across waves.
+6. Freeze selected opaque case IDs and selection hashes before Pilot begins.
+7. Do not manually replace a selected case because RI is expected to perform poorly or well.
 
-At least one ecological case must be an easy exact-owner/negative-control case. At least one must be a legitimate-new-artifact case where no existing owner fully covers the need. If random sampling does not produce those required anchors, define them as two fixed ecological anchors before random selection and sample the remaining four from the frozen pool; preregister that rule before execution.
+Across the combined 12 ecological cases include at least two easy exact-owner/negative-control cases and at least two legitimate-new-artifact cases where no existing owner fully covers the need, with at least one of each anchor type allocated to each wave. If those anchors are fixed rather than randomly produced, identify and allocate them before seeded selection and sample the remaining slots from the frozen pool.
 
-Report ecological results separately from stress results. A gain confined to designed stress cases is not broad routine productivity evidence.
+Report ecological results separately from stress results and separately by wave. A gain confined to designed stress cases is not broad routine productivity evidence.
 
 ### 4.3 Hidden prompts and answer-key secrecy
 
@@ -142,20 +155,24 @@ Do not commit held-out prompts or scoring keys before execution. Keep them outsi
 
 Preregister only non-revealing metadata and cryptographic commitments:
 
-- corpus version and case count;
-- six stress / six ecological classification;
+- protocol/corpus version;
+- Pilot and confirmatory case counts and 6/6 classifications;
+- confirmation-corpus non-overlap rule;
 - ecological source-pool provenance/cutoff rule;
-- ecological pool SHA-256 if serialized;
-- prompt-pack SHA-256;
-- scoring-key SHA-256;
+- ecological pool SHA-256;
+- Pilot selected ecological IDs SHA-256;
+- confirmatory selected ecological IDs SHA-256;
+- Pilot prompt-pack SHA-256 and scoring-key SHA-256;
+- confirmatory prompt-pack SHA-256 and scoring-key SHA-256;
 - source commit;
 - model/configuration target;
-- randomization-seed SHA-256;
+- Pilot and confirmatory arm-order seed SHA-256 values;
+- ecological selection seed commitment(s);
 - primary/secondary endpoints;
-- cost gate;
-- pilot/replication decision rule.
+- cost acceptance gate and efficiency threshold;
+- final decision rule.
 
-After outputs and scoring are frozen, prompts/key/raw records may be published and verified against the commitments.
+After all primary outputs and scoring are frozen, prompts/key/raw records may be published and verified against the commitments.
 
 ## 5. Primary arms
 
@@ -254,27 +271,48 @@ A **serious routing error** includes:
 
 Preferred blind scoring order: remove arm labels/route metadata from scoring copies, randomize pair order, score against frozen key, lock scores, then reveal arms and add cost data.
 
-## 9. Cost gate
+For ecological correctness, preregister a mechanically decidable non-regression rule. The recommended default is **median paired total correctness delta (B−A) >= 0** within each wave, with zero ecological `A correct / B wrong` serious-error reversals.
 
-A positive usefulness result requires a preregistered **numeric or otherwise mechanically decidable cost acceptance rule**. `Clearly disproportionate` must not be decided after unblinding.
+## 9. Cost accounting and acceptance gate
+
+A positive usefulness result requires a preregistered **numeric or otherwise mechanically decidable cost rule**. `Clearly disproportionate` must not be decided after unblinding.
+
+### 9.1 Primary cost accounting
+
+The primary cost gate includes **all valid ecological cases**, including cases where Treatment prevents a serious routing error. Correctness value may justify a high-cost case in interpretation, but the case must not be removed from primary cost accounting.
 
 The preregistration must define:
 
 - `primary_cost_metric` — e.g. ecological median total connector calls;
 - `acceptable_median_ratio_b_over_a` or another explicit threshold;
 - `acceptable_high_overhead_case_count` and the threshold defining high overhead;
-- how serious-error-prevention cases are treated in cost interpretation;
+- ratio behavior when the Control denominator is zero;
 - treatment of unavailable token/time metrics.
 
 Recommended default if the study owner has no better prior threshold:
 
-- ecological median connector-call ratio B/A ≤ **1.50**;
+- ecological median connector-call ratio B/A <= **1.50**;
 - no more than **2 of 6** ecological cases with connector-call ratio > **2.00**;
-- a case where B prevents a serious routing error is reported separately and does not by itself fail the cost gate, but its cost remains visible.
+- if A=0 and B=0, define the case ratio as 1.0; if A=0 and B>0, define it as infinity for gate purposes;
+- serious-error-prevention cases remain included in both median and high-overhead counts.
 
-The exact rule must be frozen before the first run. Changing it after unblinding invalidates the preregistered GO decision and may only be reported as exploratory.
+Apply the cost gate independently to Pilot and confirmatory ecological halves. Also report the combined 12-case ecological view.
 
-## 10. Endpoints and pilot decision
+### 9.2 Equal-correctness sensitivity view
+
+Report a secondary cost view using only ecological pairs whose total correctness score and serious-error status are equal across arms. This estimates orientation efficiency when correctness is held observationally equal.
+
+This sensitivity view does **not** replace the all-case primary cost gate. If no equal-correctness ecological pairs exist, report the view as unavailable.
+
+### 9.3 Efficiency-gain threshold
+
+Because the primary question allows RI to demonstrate value through lower orientation cost even when correctness is equivalent, preregister an **efficiency-gain threshold** separately from the maximum acceptable-overhead gate.
+
+Recommended default: ecological median primary-cost ratio B/A <= **0.80** in each wave, with the ecological correctness non-regression rule satisfied and zero reverse serious-error reversals. A different threshold may be used only if frozen before Pilot.
+
+Changing any cost or efficiency threshold after unblinding invalidates the preregistered GO decision and may only be reported as exploratory.
+
+## 10. Endpoints and Pilot interpretation
 
 Primary endpoint: paired serious-error matrix across valid pairs:
 
@@ -283,49 +321,74 @@ Primary endpoint: paired serious-error matrix across valid pairs:
 - both correct;
 - both wrong.
 
-Secondary endpoints: per-case correctness delta; median paired correctness delta; observable cost metrics; stress/ecological split.
+Secondary endpoints: per-case correctness delta; median paired correctness delta; observable cost metrics; equal-correctness cost sensitivity; stress/ecological split.
 
-For the 12-pair **pilot**:
+For the 12-pair **Pilot**, report an interim descriptive classification only:
 
-- **PROVISIONAL GO:** ≥2 valid `A wrong / B correct`, 0 reverse serious errors, no systematic ecological correctness regression, and preregistered cost gate passes.
-- **WEAK POSITIVE / REPLICATE:** exactly 1 positive reversal, 0 reverse serious errors, otherwise non-worse correctness. Signal only.
-- **GO, OPTIMIZE COST:** correctness reaches provisional-GO threshold but cost gate fails due repeated avoidable RI overhead.
-- **NO INCREMENTAL VALUE SHOWN:** serious-error and material-correctness outcomes are equivalent and RI does not reduce observable cost.
-- **REGRESSION:** RI introduces any serious error on a case Control handled correctly, or shows systematic uncompensated correctness/cost regression.
-- **INCONCLUSIVE:** invalid pairs, isolation uncertainty, source-state mismatch, scoring ambiguity, or protocol defect prevents defensible comparison.
+- **PROVISIONAL CORRECTNESS SIGNAL:** >=2 valid `A wrong / B correct`, 0 reverse serious errors, ecological correctness non-regression passes, and Pilot cost gate passes.
+- **WEAK CORRECTNESS SIGNAL:** exactly 1 positive reversal, 0 reverse serious errors, ecological correctness non-regression passes.
+- **PROVISIONAL EFFICIENCY SIGNAL:** correctness is non-worse, zero reverse serious errors, and the preregistered efficiency-gain threshold passes.
+- **NO PILOT SIGNAL:** neither correctness nor efficiency signal is met.
+- **PILOT REGRESSION:** Treatment introduces a reverse serious-error reversal or fails the preregistered ecological correctness non-regression rule without a predefined interpretation exception.
+- **PILOT INCONCLUSIVE:** invalid pairs, isolation uncertainty, source-state mismatch, scoring ambiguity, or protocol defect prevents defensible interpretation.
 
-The pilot alone cannot produce final `DEMONSTRATED GO`.
+Under the default always-run protocol, Pilot classification does not stop or alter the confirmatory wave. Pilot alone cannot produce final `DEMONSTRATED GO`.
 
-## 11. Confirmatory decision
+## 11. Confirmatory and final decision
 
-Run the full confirmatory 12-pair wave whenever the pilot is `PROVISIONAL GO` or `WEAK POSITIVE` and an agent-benefit claim is desired.
+The confirmatory wave uses its independent held-out corpus and is scored without changing any rule after Pilot.
 
-Final **DEMONSTRATED GO** requires:
+### 11.1 Correctness-value route
 
-- pilot and confirmatory waves both complete under compatible frozen conditions;
-- no reverse serious-error reversal in either wave;
-- combined evidence remains directionally positive rather than the confirmatory wave erasing the pilot effect;
-- no systematic ecological correctness regression;
-- preregistered cost gate passes in the confirmatory wave and is not materially contradicted by combined results.
+Final **DEMONSTRATED CORRECTNESS GO** requires all of:
 
-A practical default consistency rule is: confirmatory wave must contain at least one `A wrong / B correct` and zero `A correct / B wrong`, while combined pilot+confirmatory positive reversals must exceed reverse reversals by at least 2. If another rule is preferred, preregister it before pilot execution.
+- both 12-pair waves complete under compatible frozen conditions;
+- confirmatory wave contains at least **1** `A wrong / B correct` serious-error reversal;
+- confirmatory wave contains **0** `A correct / B wrong` serious-error reversals;
+- combined Pilot+confirmatory positive serious-error reversals are at least **3**;
+- combined reverse serious-error reversals are **0**;
+- ecological correctness non-regression passes independently in both waves;
+- primary all-case cost gate passes independently in both waves.
 
-If confirmatory results contradict the pilot, final outcome is `NOT CONFIRMED` or `INCONCLUSIVE`, not GO.
+If Pilot shows a correctness signal but the independent confirmatory corpus does not satisfy these rules, the correctness claim is **NOT CONFIRMED** rather than GO.
+
+### 11.2 Efficiency-value route
+
+Final **DEMONSTRATED EFFICIENCY GO** requires all of:
+
+- both waves complete under compatible frozen conditions;
+- zero reverse serious-error reversals in either wave;
+- ecological correctness non-regression passes independently in both waves;
+- the preregistered efficiency-gain threshold passes independently in both waves.
+
+This route does not require serious-error reversals because it claims reduced orientation cost without degraded material decisions, not improved correctness.
+
+### 11.3 Other final outcomes
+
+- **CORRECTNESS GAIN / COST NOT ACCEPTED:** correctness reversal thresholds are met, but the primary all-case cost gate fails in either wave.
+- **NO INCREMENTAL VALUE SHOWN:** neither demonstrated correctness nor demonstrated efficiency route is met, with no material Treatment regression.
+- **REGRESSION:** any reverse serious-error reversal occurs, or the preregistered ecological correctness non-regression rule fails materially under otherwise valid conditions.
+- **INCONCLUSIVE:** invalid pairs, incompatible model/source conditions, isolation uncertainty, scoring ambiguity, or protocol defects prevent a defensible final comparison.
+
+Do not substitute narrative judgment for these preregistered rules after unblinding.
 
 ## 12. Execution lifecycle
 
 1. Merge the protocol/infrastructure PR.
 2. Freeze a specific `main` source commit for evaluation.
 3. Create a preregistration record outside the tested Git tree (for example a GitHub Issue) containing only commitments/metadata, not hidden answers.
-4. Freeze ecological source pool, prompt pack, scoring key, seeds, model/configuration, cost gate, and confirmatory rule.
-5. Run pilot A/B.
-6. Freeze pilot outputs and scores.
-7. Run confirmatory A/B when required for a positive claim.
-8. Optionally run C diagnostic after primary evidence is frozen.
-9. Publish a separate evidence/results PR containing revealed prompts, key, hash verification, raw run records, scoring, wave results, limitations, and conclusion.
-10. Merge the results PR whether the result is positive, null, regression, or inconclusive, so evidence is preserved rather than discarded.
+4. Freeze **both independent prompt packs**, both scoring keys, the combined/separate ecological source pools, non-overlapping ecological selections, all seeds, model/configuration, cost/efficiency gates, and final decision rules.
+5. Run Pilot A/B on corpus P.
+6. Freeze Pilot outputs and scores; do not modify confirmatory material.
+7. Run confirmatory A/B on independent corpus C under the already-frozen rules.
+8. Freeze all primary outputs and scores.
+9. Optionally run C diagnostic only after both primary waves are frozen.
+10. Publish a separate evidence/results PR containing revealed prompts, both keys, hash verification, raw run records, scoring, wave results, limitations, and conclusion.
+11. Merge the results PR whether the result is positive, null, regression, or inconclusive, so evidence is preserved rather than discarded.
 
 Do not conduct the held-out experiment inside the protocol PR and then close it unmerged. The protocol is a durable repository control/evaluation artifact and should be merged before the frozen evaluation state is selected.
+
+The protocol, example templates, and narrow benchmark markers remain in the repository after the study so future RI changes can be reevaluated without redesigning the methodology. Completed study prompts/results become historical evidence; they are not operational RI input unless another explicit process says otherwise.
 
 ## 13. Result report
 
@@ -333,14 +396,16 @@ Include:
 
 - preregistered hashes and source commit;
 - exact model/client/configuration and isolation limitations;
-- ecological source-pool provenance and selection record;
-- stress/ecological classification;
+- Pilot and confirmatory corpus hashes and proof of non-overlap;
+- ecological source-pool provenance and non-overlapping selection record;
+- stress/ecological classification per wave;
 - all valid and invalid runs with reasons;
-- pilot serious-error matrix and correctness/cost deltas;
-- confirmatory results when run;
-- combined interpretation;
+- serious-error matrices per wave and combined;
+- correctness-score deltas per wave and combined;
+- all-case primary cost-gate results per wave and combined;
+- equal-correctness cost sensitivity view;
+- efficiency-gain threshold results;
 - optional C results separately;
-- cost-gate result;
 - deviations before and after unblinding, clearly distinguished;
 - conclusion tied exactly to preregistered rules;
 - concrete follow-up only for measured failures.
