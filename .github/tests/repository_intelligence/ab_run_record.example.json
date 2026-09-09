@@ -24,18 +24,12 @@
     {
       "task_id": "P01",
       "corpus_class": "stress",
-      "order": [
-        "RI-AB-CONTROL",
-        "RI-AB-TREATMENT"
-      ],
+      "order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
       "runs": [
         {
           "run_id": "<opaque run id>",
           "arm": "RI-AB-CONTROL",
-          "pair_order": [
-            "RI-AB-CONTROL",
-            "RI-AB-TREATMENT"
-          ],
+          "pair_order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
           "submitted_task_prompt": "<exact held-out prompt text>",
           "task_prompt_sha256": "<SHA-256 of exact UTF-8 prompt>",
           "submitted_run_envelope": {
@@ -119,10 +113,7 @@
         {
           "run_id": "<opaque run id>",
           "arm": "RI-AB-TREATMENT",
-          "pair_order": [
-            "RI-AB-CONTROL",
-            "RI-AB-TREATMENT"
-          ],
+          "pair_order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
           "submitted_task_prompt": "<same exact held-out prompt text as Control>",
           "task_prompt_sha256": "<same prompt SHA-256 as Control>",
           "submitted_run_envelope": {
