@@ -177,6 +177,8 @@ PR #114 has merged. PR 3 integrates the operational agent route and a reproducib
 
 PR 4 implements the interactive Quartz Repository Control Map, keeps impact semantics in the existing producer, and prepares opt-in public site delivery. Browser checks cover desktop and touch-sized layouts; live PR overlay/proposed-graph transport, physical iPad acceptance, and independent cold-start assessment remain open.
 
+The independent acceptance protocol is now defined in [`.github/tests/repository_intelligence/AB-EVALUATION.md`](.github/tests/repository_intelligence/AB-EVALUATION.md). It preserves ordinary live-GitHub bootstrap/search as Control under a stable-default-branch source lock, uses two disjoint 12-task held-out waves, requires Memory-off/no-Project isolation, fixes one Treatment Delivery Mode before execution, distinguishes connector-interaction gain from broader orientation efficiency through an explicit context-volume gate, and uses a deterministic evaluator for hashes, validity, paired metrics, and final classification. This is protocol/infrastructure only: the 48 primary sessions and evidence/results PR remain open, so no independent productivity or accuracy claim is yet established.
+
 Required sequence:
 
 1. define one lightweight logical projection with authority, freshness, materialization, accepted/proposed-state, trusted-comparison, bootstrap, candidate-data, and impact-semantics boundaries;
