@@ -101,7 +101,7 @@
         },
         "confirmatory": {
           "required": null,
-          "order": ["<frozen second-wave order>", "<frozen second-wave order>"],
+          "order": ["<frozen second-wave arm 1>", "<frozen second-wave arm 2>"],
           "runs": []
         }
       },
