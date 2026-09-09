@@ -1,29 +1,46 @@
 {
-  "protocol_version": 3,
+  "protocol_version": 4,
   "study_id": "RI-AB-YYYYMMDD-01",
   "repository_ref": "<40-char commit sha>",
-  "case_count": 12,
-  "pilot_paired_run_count": 24,
-  "confirmatory_paired_run_count": 24,
-  "held_out_prompts_sha256": "<64 hex chars>",
-  "scoring_key_sha256": "<64 hex chars>",
-  "pilot_randomization_seed_sha256": "<64 hex chars>",
-  "confirmatory_randomization_seed_sha256": "<64 hex chars>",
+  "execution_policy": "always_run_pilot_and_confirmatory",
+  "pilot": {
+    "case_count": 12,
+    "paired_run_count": 24,
+    "stress_cases": 6,
+    "ecological_cases": 6,
+    "prompts_sha256": "<64 hex chars>",
+    "scoring_key_sha256": "<64 hex chars>",
+    "arm_order_seed_sha256": "<64 hex chars>",
+    "ecological_selection_seed_sha256": "<64 hex chars>",
+    "selected_ecological_ids_sha256": "<64 hex chars>"
+  },
+  "confirmatory": {
+    "independent_corpus_required": true,
+    "case_count": 12,
+    "paired_run_count": 24,
+    "stress_cases": 6,
+    "ecological_cases": 6,
+    "prompts_sha256": "<64 hex chars>",
+    "scoring_key_sha256": "<64 hex chars>",
+    "arm_order_seed_sha256": "<64 hex chars>",
+    "ecological_selection_seed_sha256": "<64 hex chars>",
+    "selected_ecological_ids_sha256": "<64 hex chars>",
+    "prompt_overlap_with_pilot": 0
+  },
   "ecological_source_pool": {
+    "mode": "combined_pool|separate_wave_pools",
     "provenance": "<fixed cutoff period or frozen source set>",
     "cutoff_rule": "<exact rule>",
-    "eligible_pool_sha256": "<64 hex chars or unavailable>",
-    "eligible_pool_count": "<integer >= 15>",
-    "selection_rule": "<random six from frozen pool, or two fixed anchors plus four seeded selections>",
+    "eligible_pool_sha256": "<64 hex chars>",
+    "eligible_pool_count": "<integer >= 24 for combined mode, or >= 12 per wave for separate mode>",
+    "selection_rule": "<seeded without-replacement allocation across waves>",
+    "non_overlap_required": true,
+    "anchor_rule": "<at least one exact-owner and one legitimate-new-artifact anchor per wave, fixed before seeded selection if needed>",
     "exclusion_rules": [
       "duplicate task family",
       "depends on unavailable external state",
       "cannot be run identically in both arms"
     ]
-  },
-  "corpus_split": {
-    "stress_cases": 6,
-    "ecological_cases": 6
   },
   "model_family": "<exact displayed model family>",
   "thinking_configuration": "<exact setting or unavailable>",
@@ -37,38 +54,71 @@
     "distinct source files opened",
     "calls before first explicit visible owner or route assertion when observable",
     "measured context or token volume when available",
-    "elapsed time when reliably observable"
+    "elapsed time when reliably observable",
+    "equal-correctness ecological cost sensitivity"
   ],
+  "ecological_correctness_non_regression": {
+    "metric": "median paired total correctness delta B-A",
+    "minimum_per_wave": 0,
+    "maximum_reverse_serious_error_reversals_per_wave": 0
+  },
   "cost_gate": {
+    "applies_to": "all valid ecological cases including serious-error-prevention cases",
     "primary_cost_metric": "ecological median total connector calls",
     "acceptable_median_ratio_b_over_a": 1.5,
     "high_overhead_ratio_threshold": 2.0,
     "acceptable_high_overhead_case_count": 2,
-    "serious_error_prevention_exception": "report separately; does not alone fail cost gate; cost remains visible",
-    "unavailable_token_or_time_metrics": "exclude from gate; report as unavailable"
+    "zero_denominator_rule": "if A=0 and B=0 ratio=1.0; if A=0 and B>0 ratio=infinity",
+    "serious_error_prevention_exception": "none; all such cases remain in the primary gate",
+    "unavailable_token_or_time_metrics": "exclude from gate; report as unavailable",
+    "apply_independently_to_each_wave": true,
+    "report_combined_ecological_view": true
   },
-  "pilot_decision_rule": {
-    "provisional_go": ">=2 A-wrong/B-correct, 0 A-correct/B-wrong, no systematic ecological correctness regression, cost gate passes",
-    "weak_positive": "exactly 1 A-wrong/B-correct, 0 reverse serious errors, otherwise non-worse correctness",
-    "go_optimize_cost": "correctness reaches provisional-go threshold but preregistered cost gate fails due avoidable RI overhead",
-    "no_incremental_value": "serious-error and material-correctness outcomes equivalent and no observable cost reduction",
-    "regression": "any reverse serious-error reversal or systematic uncompensated correctness/cost regression",
-    "inconclusive": "protocol or isolation defect prevents defensible comparison"
+  "efficiency_gain_rule": {
+    "primary_cost_metric": "same as cost_gate.primary_cost_metric",
+    "maximum_median_ratio_b_over_a_per_wave": 0.8,
+    "requires_ecological_correctness_non_regression": true,
+    "maximum_reverse_serious_error_reversals": 0
   },
-  "confirmatory_rule": {
-    "required_for_positive_claim": true,
-    "minimum_confirmatory_positive_reversals": 1,
-    "maximum_confirmatory_reverse_reversals": 0,
-    "minimum_combined_positive_minus_reverse_reversals": 2,
-    "cost_gate_must_pass_confirmatory": true,
-    "contradictory_confirmatory_result": "NOT CONFIRMED or INCONCLUSIVE"
+  "pilot_interpretation": {
+    "provisional_correctness_signal": ">=2 A-wrong/B-correct, 0 reverse serious errors, ecological correctness non-regression passes, pilot cost gate passes",
+    "weak_correctness_signal": "exactly 1 A-wrong/B-correct, 0 reverse serious errors, ecological correctness non-regression passes",
+    "provisional_efficiency_signal": "efficiency gain rule passes with non-worse correctness and 0 reverse serious errors",
+    "no_pilot_signal": "neither correctness nor efficiency signal",
+    "pilot_regression": "reverse serious-error reversal or ecological correctness non-regression failure",
+    "pilot_inconclusive": "protocol/isolation defect prevents interpretation"
+  },
+  "final_decision_rule": {
+    "demonstrated_correctness_go": {
+      "minimum_confirmatory_positive_reversals": 1,
+      "maximum_confirmatory_reverse_reversals": 0,
+      "minimum_combined_positive_reversals": 3,
+      "maximum_combined_reverse_reversals": 0,
+      "ecological_correctness_non_regression_must_pass_both_waves": true,
+      "cost_gate_must_pass_both_waves": true
+    },
+    "demonstrated_efficiency_go": {
+      "efficiency_gain_rule_must_pass_both_waves": true,
+      "ecological_correctness_non_regression_must_pass_both_waves": true,
+      "maximum_reverse_serious_error_reversals_combined": 0
+    },
+    "correctness_gain_cost_not_accepted": "correctness reversal thresholds met but primary all-case cost gate fails in either wave",
+    "not_confirmed": "pilot correctness signal not supported by independent confirmatory corpus",
+    "no_incremental_value": "neither demonstrated correctness nor demonstrated efficiency rule met without material treatment regression",
+    "regression": "any reverse serious-error reversal or material ecological correctness non-regression failure",
+    "inconclusive": "protocol, isolation, source-state, model compatibility, or scoring defect prevents defensible comparison"
+  },
+  "equal_correctness_sensitivity": {
+    "enabled": true,
+    "case_filter": "ecological pairs with equal total correctness score and equal serious-error status",
+    "does_not_replace_primary_cost_gate": true
   },
   "diagnostic_c": {
     "enabled": "<true|false>",
     "arm_marker": "RI-AB-DATA-ONLY",
     "case_count": "<4-6 if enabled>",
-    "timing": "after primary outputs and scores are frozen"
+    "timing": "after both primary waves and scores are frozen"
   },
-  "stopping_rule": "Complete all preregistered runs for each invoked wave; do not stop for apparent arm performance.",
-  "unblinding_rule": "Score arm-hidden response copies against the frozen key before revealing treatment labels whenever practical."
+  "stopping_rule": "Complete all 48 preregistered primary A/B runs under the default protocol; do not stop for Pilot performance.",
+  "unblinding_rule": "Score arm-hidden response copies against the frozen wave-specific key before revealing treatment labels whenever practical."
 }
