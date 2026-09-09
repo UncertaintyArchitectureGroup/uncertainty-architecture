@@ -1,18 +1,24 @@
 {
-  "protocol_version": 2,
+  "protocol_version": 3,
   "study_id": "RI-AB-YYYYMMDD-01",
   "status": "planned",
   "preregistered": {
     "repository_ref": "<40-char commit sha>",
     "held_out_prompts_sha256": "<64 hex chars>",
     "scoring_key_sha256": "<64 hex chars>",
-    "randomization_seed_sha256": "<64 hex chars>",
+    "pilot_randomization_seed_sha256": "<64 hex chars>",
+    "confirmatory_randomization_seed_sha256": "<64 hex chars>",
+    "ecological_source_pool_sha256": "<64 hex chars or unavailable>",
     "case_count": 12,
-    "stress_case_count": 6,
-    "ecological_case_count": 6,
-    "paired_run_count": 24,
-    "primary_estimand": "operational RI route versus ordinary live-GitHub fallback",
-    "primary_endpoint": "paired serious-routing-error matrix"
+    "pilot_paired_run_count": 24,
+    "confirmatory_paired_run_count": 24,
+    "primary_endpoint": "paired serious-routing-error difference",
+    "cost_gate": {
+      "primary_cost_metric": "ecological median total connector calls",
+      "acceptable_median_ratio_b_over_a": 1.5,
+      "high_overhead_ratio_threshold": 2.0,
+      "acceptable_high_overhead_case_count": 2
+    }
   },
   "environment": {
     "model_family": "<exact displayed model family>",
@@ -23,105 +29,117 @@
   "cases": [
     {
       "task_id": "T01",
-      "corpus_half": "stress",
-      "order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
-      "runs": [
-        {
-          "run_id": "T01-A",
-          "arm": "RI-AB-CONTROL",
-          "valid": null,
-          "invalid_reason": null,
-          "isolation": {
-            "conversation_fresh": null,
-            "memory_enabled": "<true/false/unavailable>",
-            "project_context_present": null,
-            "prior_repo_context_available": "<true/false/unavailable>",
-            "connector_state_equal": null,
-            "model_family": "<exact displayed model family>",
-            "thinking_configuration": "<exact setting or unavailable>"
-          },
-          "ordered_tool_calls": [],
-          "connector_calls_before_first_explicit_owner_route_assertion": null,
-          "first_explicit_owner_route_assertion_observable": null,
-          "total_connector_calls": null,
-          "broad_search_calls": null,
-          "ordered_sources_opened": [],
-          "distinct_source_files_opened": null,
-          "ri_operations": [],
-          "ri_payload_bytes": 0,
-          "measured_input_tokens": null,
-          "elapsed_seconds": null,
-          "tool_errors_or_fallbacks": [],
-          "transcript_reference": null,
-          "scores": {
-            "owner_routing": null,
-            "evidence_sufficiency": null,
-            "authority_discipline": null,
-            "companion_validation": null,
-            "decision_quality": null,
-            "serious_routing_error": null
-          }
+      "corpus_class": "stress|ecological",
+      "ecological_source_id": "<opaque source-pool id or null>",
+      "waves": {
+        "pilot": {
+          "order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
+          "runs": [
+            {
+              "run_id": "T01-P-A",
+              "arm": "RI-AB-CONTROL",
+              "valid": null,
+              "invalid_reason": null,
+              "conversation_fresh": null,
+              "memory_enabled": "<true|false|unavailable>",
+              "project_context_present": null,
+              "prior_repo_context_available": "<true|false|unavailable>",
+              "connector_state_equal": null,
+              "ordered_tool_calls": [],
+              "total_connector_calls": null,
+              "broad_searches": null,
+              "ordered_files_opened": [],
+              "distinct_files_opened": null,
+              "calls_before_first_explicit_owner_route_assertion": null,
+              "ri_operations": [],
+              "ri_payload_bytes": 0,
+              "measured_input_tokens": null,
+              "elapsed_seconds": null,
+              "tool_errors_or_fallbacks": [],
+              "transcript_reference": null,
+              "scores": {
+                "owner_routing": null,
+                "evidence_sufficiency": null,
+                "authority_discipline": null,
+                "companion_validation": null,
+                "decision_quality": null,
+                "serious_routing_error": null
+              }
+            },
+            {
+              "run_id": "T01-P-B",
+              "arm": "RI-AB-TREATMENT",
+              "valid": null,
+              "invalid_reason": null,
+              "conversation_fresh": null,
+              "memory_enabled": "<true|false|unavailable>",
+              "project_context_present": null,
+              "prior_repo_context_available": "<true|false|unavailable>",
+              "connector_state_equal": null,
+              "ordered_tool_calls": [],
+              "total_connector_calls": null,
+              "broad_searches": null,
+              "ordered_files_opened": [],
+              "distinct_files_opened": null,
+              "calls_before_first_explicit_owner_route_assertion": null,
+              "ri_operations": [],
+              "ri_payload_bytes": null,
+              "measured_input_tokens": null,
+              "elapsed_seconds": null,
+              "tool_errors_or_fallbacks": [],
+              "transcript_reference": null,
+              "scores": {
+                "owner_routing": null,
+                "evidence_sufficiency": null,
+                "authority_discipline": null,
+                "companion_validation": null,
+                "decision_quality": null,
+                "serious_routing_error": null
+              }
+            }
+          ]
         },
-        {
-          "run_id": "T01-B",
-          "arm": "RI-AB-TREATMENT",
-          "valid": null,
-          "invalid_reason": null,
-          "isolation": {
-            "conversation_fresh": null,
-            "memory_enabled": "<true/false/unavailable>",
-            "project_context_present": null,
-            "prior_repo_context_available": "<true/false/unavailable>",
-            "connector_state_equal": null,
-            "model_family": "<exact displayed model family>",
-            "thinking_configuration": "<exact setting or unavailable>"
-          },
-          "ordered_tool_calls": [],
-          "connector_calls_before_first_explicit_owner_route_assertion": null,
-          "first_explicit_owner_route_assertion_observable": null,
-          "total_connector_calls": null,
-          "broad_search_calls": null,
-          "ordered_sources_opened": [],
-          "distinct_source_files_opened": null,
-          "ri_operations": [],
-          "ri_payload_bytes": null,
-          "measured_input_tokens": null,
-          "elapsed_seconds": null,
-          "tool_errors_or_fallbacks": [],
-          "transcript_reference": null,
-          "scores": {
-            "owner_routing": null,
-            "evidence_sufficiency": null,
-            "authority_discipline": null,
-            "companion_validation": null,
-            "decision_quality": null,
-            "serious_routing_error": null
-          }
+        "confirmatory": {
+          "required": null,
+          "order": ["<frozen second-wave order>", "<frozen second-wave order>"],
+          "runs": []
         }
-      ]
+      },
+      "diagnostic_c": {
+        "selected": false,
+        "run": null
+      }
     }
   ],
-  "aggregate": {
-    "valid_pair_count": null,
-    "invalid_pair_count": null,
+  "pilot_aggregate": {
     "control_wrong_treatment_correct": null,
     "control_correct_treatment_wrong": null,
     "both_correct": null,
     "both_wrong": null,
-    "stress_serious_error_matrix": null,
-    "ecological_serious_error_matrix": null,
     "median_paired_correctness_delta": null,
-    "median_paired_total_connector_call_delta": null,
-    "median_paired_broad_search_delta": null,
-    "median_paired_distinct_source_file_delta": null,
-    "median_paired_token_delta_when_available": null,
+    "stress_results": null,
+    "ecological_results": null,
+    "ecological_median_connector_ratio_b_over_a": null,
+    "ecological_high_overhead_case_count": null,
+    "cost_gate_passed": null,
     "conclusion": null
   },
-  "optional_diagnostic_c": {
-    "status": "not-run",
-    "runs": [],
-    "interpretation": null
+  "confirmatory_aggregate": {
+    "run": false,
+    "control_wrong_treatment_correct": null,
+    "control_correct_treatment_wrong": null,
+    "both_correct": null,
+    "both_wrong": null,
+    "cost_gate_passed": null,
+    "conclusion": null
   },
+  "combined_conclusion": {
+    "demonstrated_go": null,
+    "positive_minus_reverse_reversals": null,
+    "final_status": null,
+    "rationale": null
+  },
+  "diagnostic_c_results": [],
   "limitations": [],
   "deviations_before_unblinding": [],
   "exploratory_changes_after_unblinding": []
