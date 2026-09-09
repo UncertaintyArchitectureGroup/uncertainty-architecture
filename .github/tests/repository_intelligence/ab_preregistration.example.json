@@ -1,5 +1,5 @@
 {
-  "protocol_version": 8,
+  "protocol_version": 9,
   "study_id": "RI-AB-YYYYMMDD-01",
   "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
   "repository_ref": "<40-char study commit sha>",
@@ -14,7 +14,8 @@
     "ordinary_default_branch_search_allowed": true
   },
   "execution_preflight": {
-    "smoke_evidence_reference": "<external issue/comment/artifact reference>",
+    "smoke_evidence_reference": "<immutable issue/comment/artifact reference>",
+    "smoke_evidence_sha256": "<64 hex chars>",
     "smoke_passed": true,
     "default_branch_tip_checks_verified": true,
     "ordinary_control_search_verified": true,
@@ -85,7 +86,30 @@
     "selection_seed_sha256": "<64 hex chars>",
     "minimum_eligible_count": 24,
     "normalization_contract": "self-contained using source-context facts only; no answer, owner, path, validator, canonical-term, RI-vocabulary, or later-findings leakage",
-    "selection_algorithm": "protocol-v8-stratified-sha256-ranking"
+    "selection_algorithm": "protocol-v9-stratified-sha256-ranking"
+  },
+  "randomization_provenance": {
+    "method": "independent_assessor_after_pool_commitment",
+    "pool_commitment_reference": "<immutable reference created before seed generation>",
+    "pool_commitment_sha256": "<same ecological normalized pool SHA-256>",
+    "ecological_selection": {
+      "independent_assessor": "<assessor identity>",
+      "generation_reference": "<immutable one-generation reference>",
+      "generated_after_pool_commitment": true,
+      "single_generation_attested": true
+    },
+    "pilot_arm_order": {
+      "independent_assessor": "<assessor identity>",
+      "generation_reference": "<immutable one-generation reference>",
+      "generated_after_pool_commitment": true,
+      "single_generation_attested": true
+    },
+    "confirmatory_arm_order": {
+      "independent_assessor": "<assessor identity>",
+      "generation_reference": "<immutable one-generation reference>",
+      "generated_after_pool_commitment": true,
+      "single_generation_attested": true
+    }
   },
   "pilot": {
     "case_count": 12,
