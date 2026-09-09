@@ -1,186 +1,102 @@
 # Repository Intelligence A/B Evaluation Protocol
 
-> Protocol version: 7
+> Protocol version: 8
 
-## Purpose and estimand
+## Purpose
 
 This protocol defines the independent comparative evaluation required by [`REPOSITORY-INTELLIGENCE.md`](../../REPOSITORY-INTELLIGENCE.md#14-evaluation-and-acceptance).
 
-The primary estimand is the **incremental operational value of the normal Repository Intelligence (RI) route** over the repository's ordinary live-GitHub orientation route under one stable repository state. The primary A/B does not isolate projection-data value from the workflow that verifies, interprets, and uses that data.
+The primary estimand is the **incremental operational value of the normal Repository Intelligence (RI) route** over the repository's ordinary live-GitHub orientation route under one stable repository state.
 
 Primary question:
 
-> Given the repository's normal contributor instructions and authority model, does the operational RI route reduce serious routing mistakes or observable orientation cost without degrading material decisions, compared with ordinary live-GitHub bootstrap/search on the same repository state?
+> Given the same repository instructions, model/client configuration, source state, and task prompt, does the operational RI route reduce serious routing mistakes or observable orientation cost without degrading material decisions compared with ordinary live-GitHub bootstrap/search?
 
-Both primary arms use the same repository state, same root and scoped `AGENTS.md`, same displayed model family, same selectable thinking configuration, same connector permissions, same client class, and same task prompt. The existing deterministic 12-case corpus remains a regression suite and is not independent held-out evidence.
+The primary A/B tests the complete operational RI route through one preregistered delivery mode. It does **not** by itself isolate value from graph relations, graph visualization, or the Repository Control Map.
 
-A successful primary result supports only the operational RI route through the tested Treatment Delivery Mode. It does not by itself prove that graph relations, graph visualization, or the Repository Control Map add value beyond the compact structured projection.
+## 1. Shared baseline and arms
 
-## 1. Shared `AGENTS.md` baseline
+Both arms read the same root and scoped `AGENTS.md` files and use the same repository authority model.
 
-Removing `AGENTS.md` from Control would create a different repository contract and confound the experiment. Both arms therefore read the same instructions.
+- `RI-AB-CONTROL`: ordinary live-GitHub orientation with RI deliberately unavailable.
+- `RI-AB-TREATMENT`: the same baseline plus one preregistered RI delivery mode.
+- `RI-AB-DATA-ONLY`: optional post-primary diagnostic only.
 
-- `RI-AB-CONTROL`: RI is deliberately unavailable; use the ordinary live-GitHub route allowed by the source-state lock.
-- `RI-AB-TREATMENT`: follow the normal operational RI route through the preregistered Treatment Delivery Mode.
-- `RI-AB-DATA-ONLY`: optional post-primary diagnostic; use only the verified compact Agent Context Surface supplied for the study state, without task-specific RI query output.
+The benchmark marker is an unavoidable observer intervention. The model is arm-aware, which can create demand-characteristic effects; report this limitation explicitly.
 
-The root owner map is shared baseline information. Easy exact-owner cases are ceiling/negative controls. The benchmark marker itself is a small observer intervention and must not be counted as RI evidence.
-
-## 2. Experimental design
+## 2. Study design
 
 The unit is one **task × arm** run in a fresh isolated session.
 
-The primary study uses two independent held-out corpora, frozen before the first run:
+The primary study uses two independently held-out waves frozen before Pilot:
 
-- **Pilot corpus P:** 12 tasks = 6 stress + 6 ecological.
-- **Confirmatory corpus C:** 12 different tasks = 6 stress + 6 ecological.
+- Pilot: 12 tasks = 6 stress + 6 ecological.
+- Confirmatory: 12 different tasks = 6 stress + 6 ecological.
 
-No prompt, concrete task family, or ecological source event may appear in both waves. Both prompt packs, both scoring keys, source/task identities, scenario-coverage assignments, pair orders, ecological selections, thresholds, model/client target, Treatment identity, and source-state controls are frozen before Pilot.
+Each task runs once in each arm, yielding **48 primary sessions across 24 distinct tasks**.
 
-### 2.1 Pilot
+Both waves run regardless of Pilot performance unless experiment infrastructure validity fails. Do not selectively rerun unfavorable valid results.
 
-Run **12 Pilot tasks × 2 arms = 24 isolated sessions**:
+## 3. Stable source state
 
-- identical task and source state within each pair;
-- fresh session for every run;
-- frozen randomized A/B order per task;
-- pairs interleaved over time rather than all A then all B;
-- same displayed model family, thinking configuration, connector permissions, client class, and source state;
-- frozen Pilot scoring key;
-- arm-hidden semantic scoring where practical.
+Use a preregistered `stable_default_branch_window`:
 
-Do not selectively rerun unfavorable valid results. Infrastructure retries are allowed only under a preregistered rule.
-
-### 2.2 Independent confirmatory wave
-
-Confirmation uses **12 different tasks** rather than rerunning Pilot prompts. The confirmatory pack and key are committed by hash before Pilot, remain hidden from tested sessions until the confirmatory wave begins, and use a separate frozen arm-order seed.
-
-The confirmatory wave runs regardless of Pilot performance. Pilot results must not change the confirmatory corpus, scoring key, thresholds, coverage, or stopping rule.
-
-If model/service drift makes compatible confirmation impossible, classify the primary study `INCONCLUSIVE`; do not silently pool incompatible waves.
-
-Primary evidence under this protocol is **48 A/B sessions across 24 distinct tasks**.
-
-### 2.3 Optional diagnostic C
-
-After both A/B waves and their correctness scores are frozen, an optional `RI-AB-DATA-ONLY` diagnostic may run on 4–6 frozen cases. C receives the verified compact surface but no task-specific RI routing suggestion. It is diagnostic only and cannot rewrite the primary result.
-
-A separate future decomposition may compare a flat owner/inventory-only materialization with the same compact surface plus relational evidence. That is the appropriate experiment for asking whether graph relations themselves add value; it is not silently inferred from the primary A/B.
-
-## 3. Execution eligibility and source-state lock
-
-### 3.1 Stable default-branch window
-
-The Control baseline is ordinary live-GitHub bootstrap/search, not a tree-traversal-only artificial baseline. The primary study therefore uses a preregistered **stable-default-branch window**:
-
-1. record the exact 40-character study commit and default branch;
-2. verify the default-branch tip equals the study commit before the first primary run;
-3. freeze repository mutations until all 48 primary sessions are complete;
+1. select the exact study commit;
+2. require the default-branch tip to equal that commit before the study;
+3. freeze repository mutations through all primary sessions;
 4. verify the default-branch tip before and after every run;
-5. invalidate a run whose pre/post tip differs from the study commit and stop the study on lock failure;
-6. use the exact study ref for direct file/tree reads where supported;
-7. allow ordinary default-branch GitHub search in both arms while the lock remains valid.
+5. stop the study on lock failure and invalidate affected runs;
+6. use exact-ref reads where supported;
+7. preserve ordinary default-branch search in both arms while the lock is valid.
 
-Search-index lag is observed baseline behavior, not silently corrected out of Control. Search candidates still require source reading before material decisions.
+Search-index lag is baseline behavior and is not silently corrected out of Control.
 
-If `main` cannot remain stable, use a separately preregistered evaluation repository whose default branch is an exact immutable copy of the selected source state. Do not change execution repository mid-study.
+If the default branch cannot remain stable, use a separately preregistered immutable evaluation repository copied from the selected source state.
 
-### 3.2 Fixed Treatment Delivery Mode and identity
+## 4. Treatment delivery and identity
 
-Preregister exactly one Treatment Delivery Mode:
+Preregister exactly one delivery mode:
 
-- `local_cli`;
 - `connector_compact_surface`;
+- `local_cli`;
 - `dedicated_adapter`.
 
-Do not mix modes within one primary study.
+For `connector_compact_surface`, freeze the exact committed `assets/repository-intelligence/agent-context.json` identity:
 
-For ChatGPT + GitHub connector, `connector_compact_surface` is preferred. In that mode the agent receives the complete committed `assets/repository-intelligence/agent-context.json` surface and interprets it directly. Do not pretend local query RPCs were executed when they were not.
-
-The preregistration freezes an exact Treatment aid identity. For `connector_compact_surface`, it includes:
-
-- mode;
 - repository path;
 - Git blob SHA;
 - full-content SHA-256;
 - RI source identity/digest.
 
-Every Treatment run records the same identity. A different blob, content digest, source identity, mode, truncated payload, or unverifiable payload is **Treatment delivery failure**, not ordinary RI fallback.
+A different blob, digest, source identity, truncated payload, or unverifiable payload is **Treatment delivery failure**.
 
-The complete surface may arrive in deterministic connector chunks. Every chunk counts as a connector call and, when measurable, context volume. The complete payload must be reconstructed/verified against the preregistered identity.
+Task-level RI fallback after successful delivery is valid Treatment behavior and remains part of the measured route.
 
-### 3.3 Contrast integrity
+## 5. Execution eligibility and isolation
 
-A valid A/B requires proof that A remained Control and B actually received the preregistered Treatment.
+Before Pilot, run a non-scored smoke test in the actual client. The preregistration must prove:
 
-For every **Control** run:
+- source-state pre/post checks;
+- ordinary Control search;
+- exact-ref reads where supported;
+- Treatment delivery for the same state;
+- complete-payload and truncation verification;
+- instrumentation capture;
+- connector-permission parity;
+- Memory disabled;
+- Project/workspace context absent;
+- prior product-supplied repository context absent;
+- repository-mutation freeze acknowledged.
 
-- `ri_aid_accessed = false`;
-- `ri_payload_bytes = 0`;
-- no RI logical operation/evidence is recorded;
-- no compact Agent Context Surface is consumed;
-- no full Graph View is consumed;
-- no Repository Control Map is consumed;
-- no copied RI result from another run is consumed.
+Primary runs require a fresh conversation, Memory disabled, no Project/workspace context, no prior product-supplied repository context, no previous-arm output, no corrective scoring feedback before pair completion, no future-wave or hidden benchmark material, the same displayed model family/thinking configuration/client/connector/source state, and no protocol violation.
 
-For every **Treatment** run:
+If a required isolation condition cannot be established, primary evidence is `INCONCLUSIVE`.
 
-- Treatment delivery status is `delivered`;
-- complete payload verification succeeds;
-- the exact per-run Treatment aid identity equals preregistration;
-- `ri_aid_accessed = true`;
-- connector compact-surface mode records positive RI payload bytes.
+## 6. Held-out corpora
 
-A contaminated Control or wrong Treatment identity invalidates the pair. It must never be scored as ordinary variance.
+### 6.1 Mandatory scenario coverage
 
-### 3.4 Non-scored smoke test
-
-Before preregistration becomes executable, run a synthetic/non-held-out smoke test in the actual client. It must prove:
-
-1. default-branch pre/post tip checks;
-2. ordinary Control search;
-3. exact-ref direct reads where supported;
-4. selected Treatment delivery for the same state;
-5. complete-payload and truncation verification;
-6. connector-call/instrumentation capture;
-7. connector-permission parity;
-8. Memory disabled;
-9. Project/workspace context absent;
-10. prior product-supplied repository context absent;
-11. repository-mutation freeze acknowledged.
-
-All mandatory smoke fields must be `true` in preregistration and the run record. If they cannot be established, do not start the 48 primary sessions.
-
-## 4. Isolation and per-run validity
-
-Primary runs require a genuinely cold product context, not merely an empty-looking conversation.
-
-Every run records and must satisfy:
-
-- `conversation_fresh = true`;
-- `memory_enabled = false`;
-- `project_context_present = false`;
-- `prior_repo_context_available = false`;
-- `previous_arm_output_exposed = false`;
-- `corrective_scoring_feedback_before_pair_complete = false`;
-- `future_wave_material_exposed = false`;
-- `hidden_benchmark_material_exposed = false`;
-- connector state equal within the pair;
-- source-state pre/post SHAs equal the study commit;
-- no source-state protocol violation;
-- exact preregistered `model_family`;
-- exact preregistered `thinking_configuration`;
-- exact preregistered `client_environment`;
-- exact preregistered connector;
-- no protocol violation.
-
-`unavailable` is not acceptable for Memory, Project context, prior product context, source-state checks, or model/client identity in primary evidence. General model pretraining and public-Internet knowledge are not separately controllable and are shared limitations.
-
-## 5. Held-out corpora and independence
-
-### 5.1 Mandatory scenario coverage
-
-The combined 24 tasks must cover every mandatory scenario family inherited from `RI-EVAL-001`:
+Across the 24 tasks cover every mandatory scenario family inherited from `RI-EVAL-001`:
 
 - `exact-owner-recovery`;
 - `canonical-term-synonym-pressure`;
@@ -197,316 +113,136 @@ The combined 24 tasks must cover every mandatory scenario family inherited from 
 - `stale-materialization-fallback`;
 - `ukrainian-or-paraphrased-routing`.
 
-One case may cover more than one family when the task genuinely exercises both. Scenario-family assignments live inside the hashed prompt packs and are frozen before Pilot.
+Confirmatory must itself cover `accepted-proposed-relation-change`, `branch-behind-target`, `producer-schema-self-change`, `candidate-data-boundary`, `shared-structural-hub`, and `stale-materialization-fallback`.
 
-The Confirmatory wave must itself cover these critical trust-boundary families:
+The evaluator verifies declared coverage, but human review of the revealed corpus must still confirm that prompts genuinely exercise their declared scenarios.
 
-- `accepted-proposed-relation-change`;
-- `branch-behind-target`;
-- `producer-schema-self-change`;
-- `candidate-data-boundary`;
-- `shared-structural-hub`;
-- `stale-materialization-fallback`.
+### 6.2 Ecological pool and neutral normalization
 
-The deterministic evaluator verifies declared coverage. Human review of the revealed corpus must still confirm that the prompt genuinely exercises the declared scenario; a label cannot manufacture coverage.
+Use one frozen combined normalized ecological pool with at least 24 eligible tasks.
 
-### 5.2 Stress cases
+Normalization may add only facts explicitly present in the source event/context that are required to make the task self-contained. It must not add expected owners, paths, validators, canonical terms, RI vocabulary, answer-key facts, or later repository findings.
 
-Each wave has six designed stress cases. Stress cases must be different concrete tasks across waves. Every case has an opaque `task_family_id`; the two waves must have zero `task_family_id` overlap even if prompts are paraphrased.
+Each pool item contains `ecological_source_id`, `task_family_id`, normalized prompt, `anchor_type` (`exact-owner`, `legitimate-new-artifact`, or `none`), and declared scenario families.
 
-Stress prompts and scoring-key sections are frozen before Pilot and are not tuned after viewing RI rankings or A/B output.
+### 6.3 Replayable ecological sampling
 
-### 5.3 Ecological cases and neutral normalization
+Selection is not accepted merely because selected-ID hashes were committed. The evaluator must reproduce the selection from the frozen normalized pool and the revealed seed.
 
-Ecological cases come from real UA maintainer work. Conversational fragments are neutrally normalized into self-contained prompts before seeded selection.
+Deterministic algorithm:
 
-Normalization may add only facts explicitly present in the source event/context that are needed for self-containment. It must not add expected owners, repository paths, validators, canonical terms, RI vocabulary, answer-key facts, or later repository findings.
+1. rank exact-owner anchors by `SHA256(seed + NUL + "exact-owner" + NUL + ecological_source_id)` and choose the first two;
+2. rank legitimate-new-artifact anchors similarly and choose the first two;
+3. remove those four IDs, rank the remaining eligible items by `SHA256(seed + NUL + "general" + NUL + ecological_source_id)`, and choose the first eight;
+4. Pilot receives the first selected anchor of each type plus the first four general selections;
+5. Confirmatory receives the second selected anchor of each type plus the remaining four general selections.
 
-If a source request cannot be made self-contained without materially revealing the answer, exclude it under the preregistered rule.
+The revealed seed must hash to the preregistered `selection_seed_sha256`. Each wave therefore contains at least one ecological exact-owner negative control and one ecological legitimate-new-artifact case by construction, and the evaluator verifies those scenario labels.
 
-Before any arm run:
+### 6.4 Replayable arm randomization
 
-1. freeze raw ecological source-pool provenance/cutoff and SHA-256;
-2. apply only preregistered exclusions;
-3. normalize all eligible source items before selection;
-4. freeze normalized-pool SHA-256;
-5. require at least 24 eligible items for a combined pool, or at least 12 per separate wave pool;
-6. select six Pilot and six different Confirmatory ecological cases without replacement;
-7. assign immutable opaque `ecological_source_id` and `task_family_id` values;
-8. freeze selected-ID commitments;
-9. never replace a selected case because RI is expected to perform poorly or well.
+For each wave, reveal the preregistered arm-order seed after primary evidence is frozen.
 
-Ecological source IDs and concrete task-family IDs must be disjoint across waves. Textual paraphrase is not sufficient independence.
+For task ID `t`, compute `h = SHA256(seed + NUL + "arm-order" + NUL + t)`. If the integer value of `h` is even, order is Control→Treatment; otherwise Treatment→Control.
 
-Across the 12 ecological cases include at least two easy exact-owner negative controls and at least two legitimate-new-artifact cases, with at least one of each anchor type per wave.
+The prompt pack stores the resulting `planned_order`, and the evaluator must reproduce it from the revealed seed. A committed plan hash alone is not sufficient evidence of randomization.
 
-### 5.4 Hidden prompt-pack format
+### 6.5 Prompt-pack schema
 
-Each hidden prompt pack uses schema version 2:
+Prompt packs use schema version 3. Every case includes `task_id`, `task_family_id`, `corpus_class`, `ecological_source_id`, `scenario_families`, `planned_order`, and exact `prompt` text. Pilot and Confirmatory must have no overlap in concrete task-family IDs or ecological source IDs.
 
-```json
-{
-  "schema_version": 2,
-  "wave": "PILOT",
-  "cases": [
-    {
-      "task_id": "P01",
-      "task_family_id": "opaque-family-01",
-      "corpus_class": "stress",
-      "ecological_source_id": null,
-      "scenario_families": ["branch-behind-target"],
-      "planned_order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
-      "prompt": "..."
-    }
-  ]
-}
-```
+## 7. Frozen scoring key
 
-Each pack has exactly 12 unique task IDs, 6 stress and 6 ecological tasks, unique task-family IDs within the wave, and a frozen pair order per task.
+A hash commitment to an empty or underspecified key is not sufficient. Scoring keys use schema version 3 and every case must freeze:
 
-The evaluator rejects cross-wave overlap in normalized prompt text, concrete task-family IDs, or ecological source IDs. It also verifies selected ecological-ID and arm-order-plan commitments.
+- `expected_owner_or_route` — one or more accepted owner/route outcomes;
+- `acceptable_alternatives` — explicitly allowed alternatives, possibly empty;
+- `required_authoritative_evidence` — nonempty evidence anchors;
+- `serious_error_conditions` — nonempty case-specific conditions;
+- `decision_acceptance_conditions` — nonempty bounded acceptance conditions;
+- `companion_validation_applicable`;
+- `dimension_anchors` defining concrete `0`, `1`, and `2` criteria for every applicable score dimension.
 
-### 5.5 Hidden scoring-key format
+The assessor still performs semantic scoring, but the judgment boundary must exist before any run.
 
-Each scoring key uses schema version 2 and one object per task ID. Every case must declare:
+## 8. Exact task identity per run
 
-```json
-{
-  "task_id": "P01",
-  "companion_validation_applicable": true,
-  "expected_evidence": ["..."]
-}
-```
+Every run records `task_prompt_sha256` as SHA-256 of whitespace-normalized held-out prompt text and `run_envelope_sha256` as SHA-256 of the canonical run envelope.
 
-`companion_validation_applicable` is frozen before runs. The evaluator requires both arms of that task to use the same applicability: score `0..2` when applicable and `null` when not applicable.
+The canonical envelope includes repository, study ref, wave, task ID, arm, Treatment Delivery Mode or `not-applicable`, and `task_prompt_sha256`.
 
-### 5.6 Preregistration commitments
+The evaluator derives expected values from the frozen prompt pack and preregistration. A pair is invalid if either arm received a different task prompt or noncanonical envelope.
 
-Preregister non-revealing metadata and cryptographic commitments outside the tested Git tree, including:
+## 9. Structured instrumentation
 
-- study commit/default-branch lock;
-- smoke evidence;
-- model/thinking/client/connector target;
-- isolation rules;
-- Treatment mode and exact aid identity;
-- prompt-pack and scoring-key hashes;
-- task/source independence rules;
-- arm-order seeds and frozen order-plan hashes;
-- ecological pool/selection hashes;
-- mandatory and Confirmatory-critical coverage rules;
-- positive-reversal quality gate;
-- cost/context thresholds;
-- final decision rule.
+Every run contains a canonical `tool_events` list. Each event records contiguous `sequence`, `phase` (`study_infrastructure` or `task_orientation`), tool family, operation, repository, ref when available, resource, `resource_class`, exact response bytes when measurable, and content identity when the event delivers RI aid.
 
-After all primary outputs and scores are frozen, reveal prompt packs, keys, and run evidence and verify them against commitments.
+Allowed `resource_class` values are `ordinary_source`, `ri_compact_surface`, `ri_query`, `ri_full_graph`, `repository_control_map`, and `other`.
 
-## 6. Primary arms
+The evaluator derives task-orientation connector calls, search calls, RI access, RI payload bytes, repository-response bytes, prohibited Control RI access, and whether Treatment events prove access to the exact preregistered aid identity. Hand-filled summary fields are accepted only when they equal reconstructed values.
 
-### A — Control
+### 9.1 Orientation cost boundary
 
-Control follows ordinary repository authority and contributor rules but receives no RI aid.
+Primary connector-cost metrics count **only `task_orientation` events**. Study-infrastructure calls such as pre/post branch-tip checks, smoke checks, recorder bookkeeping, or hash verification are excluded. Treatment acquisition of RI aid is task-orientation cost and is included.
 
-Allowed:
+If `input_tokens` is selected as the context-volume metric, exact client-exposed token counts may remain a direct recorded metric because they are not derivable from connector events.
 
-- ordinary GitHub search against the stable default branch;
-- ref-addressable tree/directory/direct-file reads at the study commit;
-- task-relevant ref-addressable PR/diff/review/check/branch/commit reads;
-- maintained navigation discovered from source files.
+## 10. Contrast integrity
 
-Disallowed for orientation:
+A valid Control run must have no task-orientation event classified as any RI resource class.
 
-- compact Agent Context Surface;
-- full/generated Graph View;
-- RI query operations;
-- Repository Control Map;
-- copied RI output from another session.
+A valid Treatment run must record successful delivery, verify complete payload/truncation as applicable, include task-orientation RI event(s), and include at least one RI event whose exact `content_identity` equals the preregistered Treatment aid identity.
 
-Control may read `.github/REPOSITORY-INTELLIGENCE.md` only when the benchmark task itself is specifically about RI architecture.
+A contaminated Control or wrong Treatment identity invalidates the pair. Manual flags cannot override contradictory event evidence.
 
-### B — Treatment
+## 11. Correctness scoring
 
-Treatment follows the production RI route through the fixed delivery mode:
+Dimensions are Owner/routing correctness (0–2), Evidence sufficiency (0–2), Authority discipline (0–2), Companion/validation completeness (0–2) when applicable, and Decision quality (0–2).
 
-- verify exact Treatment identity;
-- consume the accepted aid for orientation/preflight;
-- read owning sources before material decisions;
-- use ordinary live-GitHub fallback/search when task-specific RI evidence is ambiguous or unsupported;
-- never infer authority from ranking/graph structure;
-- avoid loading the full graph when compact data is sufficient.
+Serious-error matrix labels are `A-serious/B-no-serious`, `A-no-serious/B-serious`, `both-serious`, and `neither-serious`.
 
-Task-level fallback after successful Treatment delivery is valid Treatment behavior. Failure to obtain/verify the preregistered aid is not.
+An `A-serious/B-no-serious` pair counts as a qualifying positive reversal only when every applicable Treatment dimension meets the preregistered minimum quality floor, default `>=1`.
 
-## 7. Neutral run envelope
+Ecological correctness non-regression defaults to median paired total correctness delta `B−A >= 0` in each wave and zero ecological reverse serious-error reversals.
 
-```text
-Repository: UncertaintyArchitectureGroup/uncertainty-architecture
-Study source commit: <40-character SHA>
-Source-state lock: stable-default-branch window
-Expected default-branch tip: <same SHA>
-Experiment arm: RI-AB-CONTROL | RI-AB-TREATMENT | RI-AB-DATA-ONLY
-Treatment delivery mode: <mode or not-applicable>
-Task ID: <opaque ID>
-Wave: PILOT | CONFIRMATORY | DIAGNOSTIC
+## 12. Cost and efficiency
 
-Follow the repository's applicable contributor instructions and complete the task below using repository facts attributable to the study source state. Ordinary GitHub search is allowed when permitted by the arm. Do not search for hidden prompt packs, keys, prior-arm output, or another wave's task material. Report repository sources relied on and distinguish verified fact from inference.
+For each ecological pair define `r_i = B_i/A_i` from **task-orientation connector calls only**. `0/0 -> 1.0`; `A=0, B>0 -> infinity`.
 
-Task:
-<held-out prompt>
-```
+Default correctness-route connector gate per wave: median paired `r_i <= 1.50`, with no more than 2 of 6 ecological cases above `2.00`.
 
-Opaque IDs must not reveal expected owner, scenario, or answer.
+`DEMONSTRATED CONNECTOR-INTERACTION GAIN ONLY` requires median `r_i <= 0.80` in both waves, ecological correctness non-regression in both waves, and zero reverse serious errors.
 
-## 8. Observable instrumentation
+`DEMONSTRATED ORIENTATION EFFICIENCY GO` additionally requires one exact preregistered context-volume metric for every ecological run: reconstructed `repository_response_utf8_bytes`, exact client-exposed `input_tokens`, or `unavailable`. Default volume gate per wave is all six pairs measured, median B/A `<=1.00`, and no more than 2 of 6 above `2.00`. If exact volume is unavailable or incomplete, orientation-efficiency GO is unavailable by design.
 
-Never use hidden model reasoning or infer when the model internally knew an answer.
+## 13. Final outcomes
 
-Record where observable:
+Pilot is descriptive only and cannot stop Confirmatory.
 
-- source-state pre/post tip SHAs;
-- exact per-run model/thinking/client/connector identity;
-- ordered connector/tool calls;
-- direct exact-ref reads;
-- default-branch/broad search calls;
-- total connector calls;
-- ordered files opened and distinct-file count;
-- Treatment identity/delivery/complete-payload verification;
-- RI payload bytes and RI logical evidence/operations;
-- explicit Control prohibited-aid flags;
-- task-level fallback separately from Treatment delivery failure;
-- exact repository-response UTF-8 bytes when measurable;
-- exact input tokens when exposed;
-- elapsed time only when reliable;
-- tool errors and protocol violations;
-- transcript reference.
+The correctness route is an **engineering acceptance criterion**, not a statistical significance claim.
 
-Do not estimate unavailable token, byte, or latency data from prose length.
+`ENGINEERING ACCEPTANCE — CORRECTNESS` requires all 24 pairs valid; at least 1 qualifying Confirmatory positive reversal; at least 1 qualifying Confirmatory **ecological** positive reversal; at least 3 qualifying positive reversals combined; zero reverse serious-error reversals combined; ecological correctness non-regression in both waves; and connector-cost gate pass in both waves.
 
-## 9. Correctness scoring
+Do not present this status as proof of a population-level effect or p-value threshold. With only 24 pairs, the study is an engineering acceptance experiment.
 
-Each task has a frozen repository-verifiable key.
+Other outcomes are `ENGINEERING ACCEPTANCE — CORRECTNESS + ORIENTATION EFFICIENCY`, `DEMONSTRATED ORIENTATION EFFICIENCY GO`, `DEMONSTRATED CONNECTOR-INTERACTION GAIN ONLY`, `CORRECTNESS SIGNAL / COST NOT ACCEPTED`, `NOT CONFIRMED`, `NO INCREMENTAL VALUE SHOWN`, `REGRESSION`, and `INCONCLUSIVE`.
 
-Dimensions:
+## 14. Deterministic evaluator
 
-- **Owner/routing correctness (0–2)**;
-- **Evidence sufficiency (0–2)**;
-- **Authority discipline (0–2)**;
-- **Companion/validation completeness (0–2)** when the frozen key marks it applicable;
-- **Decision quality (0–2)**.
+`.github/scripts/score_repository_intelligence_ab.py` verifies preregistration/smoke eligibility, revealed ecological-selection seed and replay, revealed arm seeds and arm-order replay, prompt/key hashes, task-family/source independence, mandatory/critical scenario coverage, ecological anchors per wave, scoring-key completeness, per-run prompt/envelope hashes, model/client/source/isolation parity, structured instrumentation reconstruction, Control ablation integrity, exact Treatment aid identity, paired correctness/cost/context metrics, and final classification.
 
-A **serious routing error** includes wrong canonical authority, duplicate canonical term/artifact despite an owner, promotion of research/history/example material to framework authority, material scoped-instruction miss, material validator/companion omission that violates a contract, or candidate state presented as accepted.
+The evaluator never inspects hidden model reasoning.
 
-Do not label the serious-error matrix as “wrong/correct.” The four observable states are:
-
-- `A-serious/B-no-serious`;
-- `A-no-serious/B-serious`;
-- `both-serious`;
-- `neither-serious`.
-
-An `A-serious/B-no-serious` pair counts as a **qualifying positive reversal** only when Treatment also meets the preregistered quality floor: every applicable Treatment dimension is at least `1` by default. A vacuous, unsupported, or unusable non-serious answer therefore cannot create a correctness win.
-
-Preferred scoring order: remove arm labels/route metadata from copies, randomize pair display, score against the frozen key, freeze scores, then reveal arms and cost data.
-
-Ecological correctness non-regression defaults to median paired total correctness delta `B−A >= 0` in each wave and zero ecological `A-no-serious/B-serious` reversals.
-
-## 10. Cost and efficiency
-
-For each valid ecological pair define `r_i = B_i/A_i` using total connector calls. `0/0 -> 1.0`; if `A_i=0` and `B_i>0`, ratio is infinity.
-
-Per-wave connector statistic: **median of six paired ratios**, not ratio of group medians.
-
-Default correctness-route connector gate per wave:
-
-- median `r_i <= 1.50`;
-- no more than 2 of 6 cases with `r_i > 2.00`.
-
-A narrower **DEMONSTRATED CONNECTOR-INTERACTION GAIN** requires median `r_i <= 0.80` in both waves, ecological correctness non-regression in both waves, and zero reverse serious-error reversals.
-
-A stronger **DEMONSTRATED ORIENTATION EFFICIENCY GO** additionally requires one exact preregistered context-volume metric for every ecological run:
-
-- `repository_response_utf8_bytes`;
-- `input_tokens`;
-- or `unavailable`.
-
-When available, define `v_i = B_i/A_i` with the same zero-denominator rule. Default volume gate per wave:
-
-- all six ecological pairs measured;
-- median `v_i <= 1.00`;
-- no more than 2 of 6 cases with `v_i > 2.00`.
-
-If exact context volume is unavailable/incomplete, orientation-efficiency GO is unavailable by design. A connector-interaction result must not be relabelled as total efficiency.
-
-## 11. Pilot interpretation
-
-Pilot is descriptive only:
-
-- **PROVISIONAL CORRECTNESS SIGNAL:** at least 2 qualifying positive reversals, zero reverse serious reversals, ecological non-regression, connector-cost gate pass;
-- **WEAK CORRECTNESS SIGNAL:** exactly 1 qualifying positive reversal with zero reverse serious reversals and ecological non-regression;
-- **PROVISIONAL ORIENTATION EFFICIENCY SIGNAL** when Pilot passes connector and context gates;
-- **PROVISIONAL CONNECTOR-INTERACTION SIGNAL** when connector gain passes but full efficiency is unavailable/not passed;
-- **NO PILOT SIGNAL** otherwise;
-- **PILOT REGRESSION** on reverse serious reversal or ecological regression;
-- **PILOT INCONCLUSIVE** on invalid evidence or infrastructure failure.
-
-Pilot does not stop or alter Confirmatory unless experiment infrastructure validity fails.
-
-## 12. Confirmatory and final decision
-
-### 12.1 Demonstrated correctness
-
-Final **DEMONSTRATED CORRECTNESS GO** requires:
-
-- all 24 A/B pairs valid;
-- at least 1 qualifying positive reversal in Confirmatory;
-- at least 1 qualifying **ecological** positive reversal in Confirmatory;
-- at least 3 qualifying positive reversals combined;
-- zero `A-no-serious/B-serious` reversals combined;
-- ecological correctness non-regression in both waves;
-- connector-cost gate pass in both waves;
-- valid source-state, isolation, Treatment identity/delivery, coverage, scoring, and model/client evidence.
-
-The ecological Confirmatory requirement prevents stress-only gains from being reported as demonstrated routine repository value.
-
-If Pilot shows a correctness signal but independent Confirmatory does not support final correctness, report `NOT CONFIRMED` unless another separately demonstrated result applies.
-
-### 12.2 Orientation efficiency
-
-Final **DEMONSTRATED ORIENTATION EFFICIENCY GO** requires all pairs valid, zero reverse serious reversals, ecological correctness non-regression, connector-interaction gain, and complete context-volume gate pass in both waves.
-
-### 12.3 Other outcomes
-
-- `CORRECTNESS GAIN / COST NOT ACCEPTED` when correctness thresholds are met but connector overhead gate fails;
-- `DEMONSTRATED CONNECTOR-INTERACTION GAIN ONLY` when connector gain is demonstrated but full orientation efficiency is not;
-- `NOT CONFIRMED` when Pilot correctness signal is not independently confirmed;
-- `NO INCREMENTAL VALUE SHOWN` when no demonstrated route succeeds and no material regression occurs;
-- `REGRESSION` on any reverse serious reversal or material ecological correctness regression under otherwise valid conditions;
-- `INCONCLUSIVE` on contrast contamination, invalid pair, source-state failure, isolation failure, wrong Treatment identity/delivery, incompatible model/client, missing required scenario coverage, scoring ambiguity, or protocol defect.
-
-## 13. Deterministic evaluator
-
-`.github/scripts/score_repository_intelligence_ab.py` mechanically verifies observable protocol conditions after assessor-entered semantic scores are frozen. It verifies:
-
-- protocol/source/isolation/preflight requirements;
-- prompt and scoring-key hashes;
-- prompt/task/source cross-wave independence;
-- selected ecological-ID and pair-order commitments;
-- mandatory scenario coverage and Confirmatory critical coverage;
-- exactly one Control and Treatment run per task in frozen order;
-- per-run model/thinking/client/connector identity;
-- Control RI ablation integrity;
-- exact Treatment aid identity and delivery;
-- companion-score applicability from the frozen key;
-- serious-error states and qualifying positive reversals;
-- paired correctness/cost/context metrics;
-- final classification.
-
-The evaluator does not inspect hidden reasoning and cannot replace assessor judgment about whether a prompt genuinely represents its declared scenario or whether semantic scores are correct.
-
-Final invocation:
+Example invocation after primary evidence is frozen:
 
 ```bash
 python3 .github/scripts/score_repository_intelligence_ab.py \
   --preregistration /secure/ab-preregistration.json \
   --run-record /secure/ab-run-record.json \
+  --ecological-pool /secure/ecological-normalized-pool.json \
+  --ecological-selection-seed "$ECO_SELECTION_SEED" \
+  --pilot-arm-seed "$PILOT_ARM_SEED" \
+  --confirmatory-arm-seed "$CONFIRM_ARM_SEED" \
   --pilot-prompts /secure/pilot-prompts.json \
   --pilot-key /secure/pilot-scoring-key.json \
   --confirmatory-prompts /secure/confirmatory-prompts.json \
@@ -514,56 +250,24 @@ python3 .github/scripts/score_repository_intelligence_ab.py \
   --output /secure/ab-evaluation-report.json
 ```
 
-A scorer failure is an instrumentation/protocol defect, not permission to choose a more favorable manual formula.
+## 15. Lifecycle
 
-## 14. Execution lifecycle
+1. Merge this protocol/infrastructure PR after generated RI surface freshness, tests, companions, and checkpoint are green.
+2. Select the exact study commit and establish the repository-mutation freeze.
+3. Run the non-scored smoke test in the actual client.
+4. Freeze the normalized ecological pool, both prompt packs, both scoring keys, and seed commitments outside the tested Git tree.
+5. Preregister model/client, Treatment identity, thresholds, and decision rules.
+6. Run Pilot A/B in frozen seeded order and freeze Pilot outputs/scores without changing Confirmatory material.
+7. Run Confirmatory A/B in its frozen seeded order and freeze all primary evidence.
+8. Reveal seeds and run the deterministic evaluator.
+9. Optionally run data-only C or a separate flat-inventory-vs-relational diagnostic.
+10. Publish a separate evidence/results PR with revealed evidence, evaluator output, limitations, and conclusion; merge it whether positive, null, regression, or inconclusive.
+11. Release the repository-mutation freeze after primary evidence is frozen.
 
-1. Merge the protocol/infrastructure PR only after companion files, generated RI surface freshness, deterministic tests, and checked-state checkpoint are reconciled.
-2. Select the exact `main` study commit.
-3. Establish repository-mutation freeze.
-4. Run the non-scored smoke test in the actual client.
-5. Create preregistration outside the tested Git tree.
-6. Freeze both prompt packs, keys, task/source identities, scenario coverage, pair orders, ecological selections, model/client, Treatment identity, thresholds, and decision rules.
-7. Run Pilot A/B with source-state checks before/after every session.
-8. Freeze Pilot outputs/scores without altering Confirmatory material.
-9. Run independent Confirmatory A/B.
-10. Freeze all primary output/scores.
-11. Run deterministic evaluator.
-12. Optionally run data-only C or a later flat-vs-relational decomposition diagnostic.
-13. Publish a separate evidence/results PR with revealed packs/keys, hash verification, run records, evaluator output, limitations, and conclusion.
-14. Merge the results PR whether positive, null, regression, or inconclusive.
-15. Release repository-mutation freeze after primary evidence is frozen.
+The protocol, templates, evaluator, and narrow benchmark markers remain durable repository test infrastructure after the study.
 
-Do not conduct the held-out experiment inside the protocol PR and close it unmerged. The protocol is a durable evaluation artifact. The protocol, templates, evaluator, and narrow arm markers remain after the study; completed study material becomes historical evidence and is not operational RI input by default.
+## 16. What the experiment does not prove
 
-## 15. Result report
+A successful result supports only the tested operational RI route for the tested repository state, model/client, delivery mode, and task distribution. It does not prove universal productivity gain, graph semantics, graph visualization value, Control Map value to agents, another delivery mode, or future-state equivalence.
 
-Publish at least:
-
-- preregistration hashes and study commit;
-- source-state lock evidence;
-- exact model/thinking/client/connector;
-- smoke and isolation evidence;
-- Treatment Delivery Mode and exact aid identity;
-- prompt/task-family/ecological-source non-overlap verification;
-- mandatory/critical scenario coverage matrix;
-- stress/ecological split per wave;
-- all valid/invalid runs with reasons;
-- serious-error states and qualifying positive reversals;
-- correctness deltas;
-- connector/context gates;
-- task-level fallback and delivery failures;
-- deterministic evaluator output;
-- optional diagnostic results separately;
-- deviations before/after unblinding;
-- conclusion tied exactly to preregistered rules.
-
-## 16. What this experiment does not prove
-
-A successful result supports the operational RI route **through the tested Treatment Delivery Mode** for the tested repository state, model/client, and task distribution. It does not prove universal productivity gain, semantic understanding by a graph, graph ranking as authority, Control Map value to agents, another delivery mode, or future-state equivalence.
-
-A connector-interaction gain does not prove lower total context cost. An orientation-efficiency claim requires exact preregistered context-volume evidence.
-
-The primary A/B does not isolate relational graph value from flat inventory/ownership value. If that distinction matters after primary evidence, run the explicitly separate post-primary decomposition diagnostic rather than inferring it.
-
-No embeddings, vector database, MCP service, graph database, inferred semantic edges, or additional retrieval layer is justified unless measured failure evidence identifies a concrete need the simpler route cannot address.
+If relational graph value matters after primary evidence, run a separate flat-owner/inventory versus relational-evidence decomposition diagnostic rather than inferring graph value from this A/B.
