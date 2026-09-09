@@ -25,6 +25,8 @@ The experiment instead uses a **controlled ablation mode** defined in root `AGEN
 
 This tests RI as an additional orientation instrument rather than testing two different instruction systems.
 
+The fact that `AGENTS.md` already names some canonical owners is **shared baseline information**, not contamination. It creates a useful ceiling condition: on easy exact-owner tasks both arms should often be correct, and RI should justify itself through lower orientation cost rather than an artificial accuracy advantage. Harder tasks must therefore require relationship recovery, scoped routing, overlap detection, validation planning, authority separation, fallback, or impact reasoning that is not answered by one explicit root-table row.
+
 ## 2. Experimental unit and design
 
 The experimental unit is one **task × arm** run in a fresh isolated agent session.
@@ -85,7 +87,7 @@ After all runs are complete and frozen, the corpus, answer key, raw transcripts/
 
 The 12-task first run should cover at least these distinct failure surfaces, with no two tasks differing only by wording:
 
-1. exact canonical owner recovery;
+1. exact canonical owner recovery (**negative-control / ceiling case**);
 2. existing canonical term / synonym temptation;
 3. ambiguous near-synonyms requiring source reading;
 4. apparent new artifact that should refine an existing owner;
