@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "source_event_id": "E001",
+      "source_event_reference": "<immutable source-event reference>",
+      "source_event_sha256": "<64 hex chars>",
+      "eligible": true,
+      "inclusion_rule_ids": [
+        "real-maintainer-repository-task",
+        "self-contained-or-neutral-normalizable"
+      ],
+      "exclusion_rule_id": null
+    },
+    {
+      "source_event_id": "E002",
+      "source_event_reference": "<immutable source-event reference>",
+      "source_event_sha256": "<64 hex chars>",
+      "eligible": false,
+      "inclusion_rule_ids": [],
+      "exclusion_rule_id": "insufficient-source-context"
+    }
+  ]
+}
