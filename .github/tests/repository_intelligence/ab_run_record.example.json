@@ -1,44 +1,11 @@
 {
-  "protocol_version": 7,
+  "protocol_version": 8,
   "study_id": "RI-AB-YYYYMMDD-01",
   "status": "planned",
-  "preregistered": {
-    "repository_ref": "<40-char study commit sha>",
-    "treatment_delivery_mode": "connector_compact_surface",
-    "treatment_aid_identity": {
-      "mode": "connector_compact_surface",
-      "identifier": "assets/repository-intelligence/agent-context.json",
-      "git_blob_sha": "<40-char blob sha>",
-      "content_sha256": "<64 hex chars>",
-      "source_identity": "<RI source identity/digest>"
-    },
-    "context_volume_metric": "repository_response_utf8_bytes|input_tokens|unavailable",
-    "model_family": "<exact displayed model family>",
-    "thinking_configuration": "<exact selectable setting or unavailable>",
-    "client_environment": "<exact client class>",
-    "connector": "GitHub"
-  },
-  "execution_preflight": {
-    "smoke_passed": null,
-    "default_branch_tip_checks_verified": null,
-    "ordinary_control_search_verified": null,
-    "exact_ref_direct_reads_verified": null,
-    "treatment_delivery_verified": null,
-    "complete_treatment_payload_verified": null,
-    "truncation_check_passed": null,
-    "instrumentation_capture_verified": null,
-    "connector_permission_parity_verified": null,
-    "memory_disabled_verified": null,
-    "project_context_absent_verified": null,
-    "prior_product_repo_context_absent_verified": null,
-    "repository_mutation_freeze_acknowledged": null,
-    "smoke_evidence_reference": "<same reference as preregistration>",
-    "eligible_to_start_primary": null
-  },
   "pilot_cases": [
     {
       "task_id": "P01",
-      "corpus_class": "stress|ecological",
+      "corpus_class": "stress",
       "order": [
         "RI-AB-CONTROL",
         "RI-AB-TREATMENT"
@@ -47,9 +14,13 @@
         {
           "run_id": "<opaque run id>",
           "arm": "RI-AB-CONTROL",
-          "valid": null,
-          "invalid_reason": null,
-          "conversation_fresh": null,
+          "pair_order": [
+            "RI-AB-CONTROL",
+            "RI-AB-TREATMENT"
+          ],
+          "task_prompt_sha256": "<64 hex chars derived from exact held-out prompt>",
+          "run_envelope_sha256": "<64 hex chars derived from canonical run envelope>",
+          "conversation_fresh": true,
           "memory_enabled": false,
           "project_context_present": false,
           "prior_repo_context_available": false,
@@ -57,39 +28,49 @@
           "corrective_scoring_feedback_before_pair_complete": false,
           "future_wave_material_exposed": false,
           "hidden_benchmark_material_exposed": false,
-          "connector_state_equal": null,
+          "connector_state_equal": true,
           "source_state_pre_sha": "<40-char study sha>",
           "source_state_post_sha": "<same 40-char study sha>",
           "source_state_protocol_violation": false,
           "model_family": "<exact displayed model family>",
-          "thinking_configuration": "<exact selectable setting or unavailable>",
+          "thinking_configuration": "<exact selectable setting>",
           "client_environment": "<exact client class>",
           "connector": "GitHub",
           "protocol_violations": [],
-          "ordered_tool_calls": [],
-          "direct_exact_ref_read_calls": null,
-          "default_branch_search_calls": null,
-          "broad_searches": null,
-          "total_connector_calls": null,
-          "ordered_files_opened": [],
-          "distinct_files_opened": null,
-          "calls_before_first_explicit_owner_route_assertion": null,
-          "treatment_delivery_status": "not-applicable",
-          "treatment_surface_verified": "not-applicable",
-          "complete_treatment_payload_verified": "not-applicable",
-          "treatment_aid_identity": null,
-          "ri_aid_accessed": false,
+          "tool_events": [
+            {
+              "sequence": 1,
+              "phase": "study_infrastructure",
+              "tool_family": "GitHub",
+              "operation": "branch_tip",
+              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+              "ref": "<study sha>",
+              "resource": "main",
+              "resource_class": "other",
+              "response_bytes": 123,
+              "content_identity": null
+            },
+            {
+              "sequence": 2,
+              "phase": "task_orientation",
+              "tool_family": "GitHub",
+              "operation": "fetch",
+              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+              "ref": "<study sha>",
+              "resource": "AGENTS.md",
+              "resource_class": "ordinary_source",
+              "response_bytes": 12345,
+              "content_identity": null
+            }
+          ],
+          "total_connector_calls": 1,
+          "default_branch_search_calls": 0,
           "ri_payload_bytes": 0,
-          "ri_logical_operations_or_evidence": [],
-          "ri_prohibited_aid_accessed": false,
-          "full_graph_view_accessed": false,
-          "repository_control_map_accessed": false,
-          "task_level_ri_fallback": "not-applicable",
-          "repository_response_utf8_bytes": null,
+          "repository_response_utf8_bytes": 12345,
           "measured_input_tokens": null,
-          "elapsed_seconds": null,
-          "tool_errors_or_fallbacks": [],
-          "transcript_reference": null,
+          "treatment_delivery_status": "not-applicable",
+          "treatment_surface_verified": false,
+          "complete_treatment_payload_verified": false,
           "scores": {
             "owner_routing": null,
             "evidence_sufficiency": null,
@@ -103,9 +84,13 @@
         {
           "run_id": "<opaque run id>",
           "arm": "RI-AB-TREATMENT",
-          "valid": null,
-          "invalid_reason": null,
-          "conversation_fresh": null,
+          "pair_order": [
+            "RI-AB-CONTROL",
+            "RI-AB-TREATMENT"
+          ],
+          "task_prompt_sha256": "<same 64 hex chars as Control>",
+          "run_envelope_sha256": "<Treatment-specific canonical envelope hash>",
+          "conversation_fresh": true,
           "memory_enabled": false,
           "project_context_present": false,
           "prior_repo_context_available": false,
@@ -113,45 +98,43 @@
           "corrective_scoring_feedback_before_pair_complete": false,
           "future_wave_material_exposed": false,
           "hidden_benchmark_material_exposed": false,
-          "connector_state_equal": null,
+          "connector_state_equal": true,
           "source_state_pre_sha": "<40-char study sha>",
           "source_state_post_sha": "<same 40-char study sha>",
           "source_state_protocol_violation": false,
           "model_family": "<exact displayed model family>",
-          "thinking_configuration": "<exact selectable setting or unavailable>",
+          "thinking_configuration": "<exact selectable setting>",
           "client_environment": "<exact client class>",
           "connector": "GitHub",
           "protocol_violations": [],
-          "ordered_tool_calls": [],
-          "direct_exact_ref_read_calls": null,
-          "default_branch_search_calls": null,
-          "broad_searches": null,
-          "total_connector_calls": null,
-          "ordered_files_opened": [],
-          "distinct_files_opened": null,
-          "calls_before_first_explicit_owner_route_assertion": null,
-          "treatment_delivery_status": "<delivered|delivery-failure>",
-          "treatment_surface_verified": null,
-          "complete_treatment_payload_verified": null,
-          "treatment_aid_identity": {
-            "mode": "connector_compact_surface",
-            "identifier": "assets/repository-intelligence/agent-context.json",
-            "git_blob_sha": "<40-char blob sha>",
-            "content_sha256": "<64 hex chars>",
-            "source_identity": "<RI source identity/digest>"
-          },
-          "ri_aid_accessed": null,
-          "ri_payload_bytes": null,
-          "ri_logical_operations_or_evidence": [],
-          "ri_prohibited_aid_accessed": false,
-          "full_graph_view_accessed": false,
-          "repository_control_map_accessed": false,
-          "task_level_ri_fallback": null,
-          "repository_response_utf8_bytes": null,
+          "tool_events": [
+            {
+              "sequence": 1,
+              "phase": "task_orientation",
+              "tool_family": "GitHub",
+              "operation": "fetch",
+              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+              "ref": "<study sha>",
+              "resource": "assets/repository-intelligence/agent-context.json",
+              "resource_class": "ri_compact_surface",
+              "response_bytes": 208000,
+              "content_identity": {
+                "mode": "connector_compact_surface",
+                "identifier": "assets/repository-intelligence/agent-context.json",
+                "git_blob_sha": "<40-char blob sha>",
+                "content_sha256": "<64 hex chars>",
+                "source_identity": "<RI source identity/digest>"
+              }
+            }
+          ],
+          "total_connector_calls": 1,
+          "default_branch_search_calls": 0,
+          "ri_payload_bytes": 208000,
+          "repository_response_utf8_bytes": 208000,
           "measured_input_tokens": null,
-          "elapsed_seconds": null,
-          "tool_errors_or_fallbacks": [],
-          "transcript_reference": null,
+          "treatment_delivery_status": "delivered",
+          "treatment_surface_verified": true,
+          "complete_treatment_payload_verified": true,
           "scores": {
             "owner_routing": null,
             "evidence_sufficiency": null,
@@ -162,74 +145,13 @@
             "serious_routing_error": null
           }
         }
-      ],
-      "paired_metrics": {
-        "computed_by_evaluator": true,
-        "serious_error_outcome": null,
-        "qualifying_positive_reversal": null,
-        "correctness_delta_b_minus_a": null,
-        "connector_ratio_b_over_a": null,
-        "context_volume_ratio_b_over_a": null
-      }
+      ]
     }
   ],
-  "confirmatory_cases": [
-    {
-      "task_id": "C01",
-      "corpus_class": "stress|ecological",
-      "order": [
-        "RI-AB-TREATMENT",
-        "RI-AB-CONTROL"
-      ],
-      "runs": [],
-      "paired_metrics": {
-        "computed_by_evaluator": true
-      }
-    }
+  "confirmatory_cases": [],
+  "limitations": [
+    "The model is aware of the arm marker; demand-characteristic effects cannot be fully blinded in this execution mode."
   ],
-  "pilot_aggregate": {
-    "computed_by_evaluator": true,
-    "a_serious_b_no_serious": null,
-    "qualifying_positive_reversals": null,
-    "qualifying_ecological_positive_reversals": null,
-    "a_no_serious_b_serious": null,
-    "ecological_correctness_non_regression_passed": null,
-    "connector_cost_gate_passed": null,
-    "connector_interaction_gain_passed": null,
-    "context_volume_gate_passed": null,
-    "orientation_efficiency_passed": null,
-    "interim_classification": null
-  },
-  "confirmatory_aggregate": {
-    "computed_by_evaluator": true,
-    "a_serious_b_no_serious": null,
-    "qualifying_positive_reversals": null,
-    "qualifying_ecological_positive_reversals": null,
-    "a_no_serious_b_serious": null,
-    "ecological_correctness_non_regression_passed": null,
-    "connector_cost_gate_passed": null,
-    "connector_interaction_gain_passed": null,
-    "context_volume_gate_passed": null,
-    "orientation_efficiency_passed": null
-  },
-  "combined_aggregate": {
-    "computed_by_evaluator": true,
-    "prompt_overlap_verified_zero": null,
-    "task_family_overlap_verified_zero": null,
-    "ecological_source_overlap_verified_zero": null,
-    "mandatory_scenario_coverage_verified": null,
-    "confirmatory_critical_coverage_verified": null,
-    "all_primary_pairs_valid": null
-  },
-  "final_conclusion": {
-    "computed_by_evaluator": true,
-    "demonstrated_correctness_go": null,
-    "demonstrated_orientation_efficiency_go": null,
-    "demonstrated_connector_interaction_gain": null,
-    "final_status": null
-  },
-  "diagnostic_c_results": [],
-  "limitations": [],
   "deviations_before_unblinding": [],
   "exploratory_changes_after_unblinding": []
 }
