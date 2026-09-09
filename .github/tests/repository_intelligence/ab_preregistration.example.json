@@ -1,73 +1,60 @@
 {
-  "protocol_version": 7,
+  "protocol_version": 8,
   "study_id": "RI-AB-YYYYMMDD-01",
   "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-  "repository_ref": "<40-char commit sha>",
+  "repository_ref": "<40-char study commit sha>",
   "default_branch": "main",
   "execution_policy": "always_run_pilot_and_confirmatory",
   "source_state_lock": {
     "mode": "stable_default_branch_window",
-    "expected_default_branch_tip_sha": "<same 40-char commit sha>",
+    "expected_default_branch_tip_sha": "<same 40-char study commit sha>",
     "repository_mutations_prohibited_during_primary": true,
     "pre_run_tip_check_required": true,
     "post_run_tip_check_required": true,
-    "direct_reads_use_exact_ref_when_supported": true,
-    "ordinary_default_branch_search_allowed": true,
-    "search_index_lag_is_observed_baseline_behavior": true,
-    "alternate_evaluation_repository": null,
-    "lock_failure_rule": "stop study; a run whose pre/post tip differs from repository_ref is invalid"
+    "ordinary_default_branch_search_allowed": true
   },
   "execution_preflight": {
     "smoke_evidence_reference": "<external issue/comment/artifact reference>",
-    "smoke_passed": null,
-    "default_branch_tip_checks_verified": null,
-    "ordinary_control_search_verified": null,
-    "exact_ref_direct_reads_verified": null,
-    "treatment_delivery_verified": null,
-    "complete_treatment_payload_verified": null,
-    "truncation_check_passed": null,
-    "instrumentation_capture_verified": null,
-    "connector_permission_parity_verified": null,
-    "memory_disabled_verified": null,
-    "project_context_absent_verified": null,
-    "prior_product_repo_context_absent_verified": null,
-    "repository_mutation_freeze_acknowledged": null
+    "smoke_passed": true,
+    "default_branch_tip_checks_verified": true,
+    "ordinary_control_search_verified": true,
+    "exact_ref_direct_reads_verified": true,
+    "treatment_delivery_verified": true,
+    "complete_treatment_payload_verified": true,
+    "truncation_check_passed": true,
+    "instrumentation_capture_verified": true,
+    "connector_permission_parity_verified": true,
+    "memory_disabled_verified": true,
+    "project_context_absent_verified": true,
+    "prior_product_repo_context_absent_verified": true,
+    "repository_mutation_freeze_acknowledged": true
   },
   "isolation_requirements": {
     "conversation_fresh": true,
     "memory_enabled": false,
     "project_context_present": false,
     "prior_repo_context_available": false,
-    "unavailable_is_acceptable_for_primary": false,
     "previous_arm_output_exposed": false,
     "corrective_scoring_feedback_before_pair_complete": false,
     "future_wave_material_exposed": false,
     "hidden_benchmark_material_exposed": false
   },
   "model_family": "<exact displayed model family>",
-  "thinking_configuration": "<exact selectable setting or unavailable>",
-  "client_environment": "<iPad/web/Work/etc>",
+  "thinking_configuration": "<exact selectable setting>",
+  "client_environment": "<exact client class>",
   "connector": "GitHub",
   "treatment_delivery": {
     "mode": "connector_compact_surface",
-    "must_remain_constant_across_primary_runs": true,
-    "complete_payload_verified": null,
-    "truncation_check_passed": null,
     "aid_identity": {
       "mode": "connector_compact_surface",
       "identifier": "assets/repository-intelligence/agent-context.json",
       "git_blob_sha": "<40-char blob sha>",
       "content_sha256": "<64 hex chars>",
       "source_identity": "<RI source identity/digest>"
-    },
-    "freshness_evidence_reference": "<workflow/job/log or local verification reference>",
-    "chunked_connector_delivery_allowed": true,
-    "chunk_calls_count_as_connector_cost": true,
-    "delivery_failure_rule": "invalidate run; do not score silent fallback as Treatment",
-    "task_level_fallback_rule": "valid after successful Treatment delivery; count cost/outcome normally"
+    }
   },
-  "prompt_pack_schema_version": 2,
-  "scoring_key_schema_version": 2,
+  "prompt_pack_schema_version": 3,
+  "scoring_key_schema_version": 3,
   "mandatory_scenario_families": [
     "accepted-proposed-relation-change",
     "branch-behind-target",
@@ -92,137 +79,63 @@
     "shared-structural-hub",
     "stale-materialization-fallback"
   ],
+  "ecological_source_pool": {
+    "mode": "combined_pool",
+    "normalized_eligible_pool_sha256": "<64 hex chars>",
+    "selection_seed_sha256": "<64 hex chars>",
+    "minimum_eligible_count": 24,
+    "normalization_contract": "self-contained using source-context facts only; no answer, owner, path, validator, canonical-term, RI-vocabulary, or later-findings leakage",
+    "selection_algorithm": "protocol-v8-stratified-sha256-ranking"
+  },
   "pilot": {
     "case_count": 12,
-    "paired_run_count": 24,
     "stress_cases": 6,
     "ecological_cases": 6,
     "prompts_sha256": "<64 hex chars>",
     "scoring_key_sha256": "<64 hex chars>",
-    "arm_order_seed_sha256": "<64 hex chars>",
-    "arm_order_plan_sha256": "<64 hex chars computed from frozen per-task order>",
-    "ecological_selection_seed_sha256": "<64 hex chars>",
-    "selected_ecological_ids_sha256": "<64 hex chars computed from frozen selected source IDs>"
+    "arm_order_seed_sha256": "<64 hex chars>"
   },
   "confirmatory": {
     "case_count": 12,
-    "paired_run_count": 24,
     "stress_cases": 6,
     "ecological_cases": 6,
     "prompts_sha256": "<64 hex chars>",
     "scoring_key_sha256": "<64 hex chars>",
-    "arm_order_seed_sha256": "<64 hex chars>",
-    "arm_order_plan_sha256": "<64 hex chars computed from frozen per-task order>",
-    "ecological_selection_seed_sha256": "<64 hex chars>",
-    "selected_ecological_ids_sha256": "<64 hex chars computed from frozen selected source IDs>",
-    "independent_corpus_required": true
-  },
-  "ecological_source_pool": {
-    "mode": "combined_pool|separate_wave_pools",
-    "provenance": "<fixed cutoff period or frozen source set>",
-    "cutoff_rule": "<exact rule>",
-    "raw_pool_sha256": "<64 hex chars>",
-    "normalization_contract_version": "RI-AB-NORMALIZE-2",
-    "normalization_rule": "make each source task self-contained using only source-context facts; do not add expected owners, paths, validators, canonical terms, RI vocabulary, answer-key facts, or later findings",
-    "normalization_before_selection": true,
-    "normalized_eligible_pool_sha256": "<64 hex chars>",
-    "eligible_pool_count": "<integer >=24 combined, or >=12 per wave>",
-    "selection_rule": "<seeded without-replacement allocation across waves>",
-    "non_overlap_required": true,
-    "task_family_non_overlap_required": true,
-    "ecological_source_non_overlap_required": true,
-    "anchor_rule": "at least one exact-owner and one legitimate-new-artifact anchor per wave",
-    "exclusion_rules": [
-      "duplicate task family",
-      "depends on unavailable external state",
-      "cannot be run identically in both arms",
-      "cannot be neutrally normalized without revealing material answer information"
-    ]
-  },
-  "coverage_matrix_rule": {
-    "combined_must_cover_every_mandatory_scenario_family": true,
-    "confirmatory_must_cover_required_critical_families": true,
-    "scenario_assignments_are_frozen_inside_hashed_prompt_packs": true
+    "arm_order_seed_sha256": "<64 hex chars>"
   },
   "positive_reversal_quality_gate": {
-    "minimum_each_applicable_dimension": 1,
-    "meaning": "A serious/B no-serious counts toward correctness GO only when every applicable Treatment score dimension is at least this value"
+    "minimum_each_applicable_dimension": 1
   },
-  "primary_endpoint": "paired serious-routing-error status with qualifying Treatment quality",
-  "secondary_endpoints": [
-    "paired correctness score delta",
-    "total connector calls",
-    "paired connector-call ratio",
-    "default-branch search calls",
-    "distinct source files opened",
-    "preregistered context-volume metric",
-    "equal-correctness ecological connector-cost sensitivity",
-    "Treatment delivery and task-level fallback behavior"
-  ],
   "ecological_correctness_non_regression": {
     "metric": "median paired total correctness delta B-A",
     "minimum_per_wave": 0,
     "maximum_reverse_serious_error_reversals_per_wave": 0
   },
   "connector_cost_gate": {
-    "applies_to": "all valid ecological cases",
-    "primary_cost_metric": "total connector calls to final answer",
-    "per_case_ratio_formula": "r_i = B_i / A_i",
-    "primary_cost_statistic": "median of paired r_i across all six ecological pairs",
     "acceptable_median_ratio_b_over_a": 1.5,
     "high_overhead_ratio_threshold": 2.0,
-    "acceptable_high_overhead_case_count": 2,
-    "zero_denominator_rule": "0/0 -> 1.0; B>0 with A=0 -> infinity",
-    "apply_independently_to_each_wave": true
+    "acceptable_high_overhead_case_count": 2
   },
   "connector_interaction_gain_rule": {
-    "maximum_median_ratio_b_over_a_per_wave": 0.8,
-    "requires_ecological_correctness_non_regression": true,
-    "maximum_reverse_serious_error_reversals": 0,
-    "claim_name": "DEMONSTRATED CONNECTOR-INTERACTION GAIN"
+    "maximum_median_ratio_b_over_a_per_wave": 0.8
   },
   "context_volume": {
-    "metric": "repository_response_utf8_bytes|input_tokens|unavailable",
-    "must_remain_constant_across_primary_runs": true,
-    "measurement_must_be_exact_not_estimated": true,
-    "required_for_orientation_efficiency_go": true,
+    "metric": "repository_response_utf8_bytes",
     "maximum_median_ratio_b_over_a_per_wave": 1.0,
     "high_overhead_ratio_threshold": 2.0,
-    "acceptable_high_overhead_case_count": 2,
-    "complete_for_all_ecological_runs_required": true,
-    "unavailable_rule": "orientation-efficiency GO unavailable; connector-interaction gain may still be reported"
+    "acceptable_high_overhead_case_count": 2
   },
+  "orientation_cost_boundary": "task_orientation_events_only",
   "final_decision_rule": {
-    "demonstrated_correctness_go": {
+    "engineering_acceptance_correctness": {
       "minimum_confirmatory_positive_reversals": 1,
       "minimum_confirmatory_ecological_positive_reversals": 1,
-      "maximum_confirmatory_reverse_reversals": 0,
       "minimum_combined_positive_reversals": 3,
-      "maximum_combined_reverse_reversals": 0,
-      "ecological_correctness_non_regression_must_pass_both_waves": true,
+      "maximum_combined_reverse_serious_reversals": 0,
+      "ecological_non_regression_must_pass_both_waves": true,
       "connector_cost_gate_must_pass_both_waves": true,
       "all_primary_pairs_must_be_valid": true
-    },
-    "demonstrated_orientation_efficiency_go": {
-      "connector_interaction_gain_rule_must_pass_both_waves": true,
-      "context_volume_gate_must_pass_both_waves": true,
-      "ecological_correctness_non_regression_must_pass_both_waves": true,
-      "maximum_reverse_serious_error_reversals_combined": 0,
-      "all_primary_pairs_must_be_valid": true
-    },
-    "regression": "any A-no-serious/B-serious reversal or material ecological non-regression failure",
-    "inconclusive": "contrast contamination, source-state, isolation, Treatment identity/delivery, model/client, coverage, scoring, or protocol defect"
+    }
   },
-  "diagnostic_c": {
-    "enabled": false,
-    "arm_marker": "RI-AB-DATA-ONLY",
-    "timing": "after both primary waves and scores are frozen"
-  },
-  "post_primary_projection_decomposition": {
-    "planned": false,
-    "purpose": "optional future diagnostic to separate flat owner/inventory value from relational graph evidence; not part of the primary A/B claim"
-  },
-  "infrastructure_retry_policy": "none by default; otherwise freeze exact rule before Pilot",
-  "stopping_rule": "complete all 48 primary runs unless experiment infrastructure validity fails; never stop for Pilot performance",
-  "unblinding_rule": "score arm-hidden copies against the frozen wave key before revealing arms whenever practical"
+  "claim_boundary": "engineering acceptance; not statistical significance or universal productivity proof"
 }
