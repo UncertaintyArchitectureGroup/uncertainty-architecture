@@ -1,5 +1,5 @@
 {
-  "protocol_version": 1,
+  "protocol_version": 2,
   "study_id": "RI-AB-YYYYMMDD-01",
   "status": "planned",
   "preregistered": {
@@ -8,20 +8,22 @@
     "scoring_key_sha256": "<64 hex chars>",
     "randomization_seed_sha256": "<64 hex chars>",
     "case_count": 12,
+    "stress_case_count": 6,
+    "ecological_case_count": 6,
     "paired_run_count": 24,
-    "primary_endpoint": "paired serious-routing-error difference"
+    "primary_estimand": "operational RI route versus ordinary live-GitHub fallback",
+    "primary_endpoint": "paired serious-routing-error matrix"
   },
   "environment": {
-    "model_family": "<record exact displayed model/configuration>",
-    "thinking_configuration": "<record or unavailable>",
+    "model_family": "<exact displayed model family>",
+    "thinking_configuration": "<exact setting or unavailable>",
     "client": "<iPad/web/Work/etc>",
-    "connector": "GitHub",
-    "memory_isolation": "<enabled/disabled/unavailable>",
-    "project_history_isolation": "<enabled/disabled/unavailable>"
+    "connector": "GitHub"
   },
   "cases": [
     {
       "task_id": "T01",
+      "corpus_half": "stress",
       "order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
       "runs": [
         {
@@ -29,10 +31,22 @@
           "arm": "RI-AB-CONTROL",
           "valid": null,
           "invalid_reason": null,
-          "connector_calls": null,
-          "broad_searches_before_material_decision": null,
-          "files_opened_before_material_decision": [],
-          "all_sources_opened": [],
+          "isolation": {
+            "conversation_fresh": null,
+            "memory_enabled": "<true/false/unavailable>",
+            "project_context_present": null,
+            "prior_repo_context_available": "<true/false/unavailable>",
+            "connector_state_equal": null,
+            "model_family": "<exact displayed model family>",
+            "thinking_configuration": "<exact setting or unavailable>"
+          },
+          "ordered_tool_calls": [],
+          "connector_calls_before_first_explicit_owner_route_assertion": null,
+          "first_explicit_owner_route_assertion_observable": null,
+          "total_connector_calls": null,
+          "broad_search_calls": null,
+          "ordered_sources_opened": [],
+          "distinct_source_files_opened": null,
           "ri_operations": [],
           "ri_payload_bytes": 0,
           "measured_input_tokens": null,
@@ -41,7 +55,7 @@
           "transcript_reference": null,
           "scores": {
             "owner_routing": null,
-            "required_source_reading": null,
+            "evidence_sufficiency": null,
             "authority_discipline": null,
             "companion_validation": null,
             "decision_quality": null,
@@ -53,10 +67,22 @@
           "arm": "RI-AB-TREATMENT",
           "valid": null,
           "invalid_reason": null,
-          "connector_calls": null,
-          "broad_searches_before_material_decision": null,
-          "files_opened_before_material_decision": [],
-          "all_sources_opened": [],
+          "isolation": {
+            "conversation_fresh": null,
+            "memory_enabled": "<true/false/unavailable>",
+            "project_context_present": null,
+            "prior_repo_context_available": "<true/false/unavailable>",
+            "connector_state_equal": null,
+            "model_family": "<exact displayed model family>",
+            "thinking_configuration": "<exact setting or unavailable>"
+          },
+          "ordered_tool_calls": [],
+          "connector_calls_before_first_explicit_owner_route_assertion": null,
+          "first_explicit_owner_route_assertion_observable": null,
+          "total_connector_calls": null,
+          "broad_search_calls": null,
+          "ordered_sources_opened": [],
+          "distinct_source_files_opened": null,
           "ri_operations": [],
           "ri_payload_bytes": null,
           "measured_input_tokens": null,
@@ -65,7 +91,7 @@
           "transcript_reference": null,
           "scores": {
             "owner_routing": null,
-            "required_source_reading": null,
+            "evidence_sufficiency": null,
             "authority_discipline": null,
             "companion_validation": null,
             "decision_quality": null,
@@ -76,14 +102,25 @@
     }
   ],
   "aggregate": {
+    "valid_pair_count": null,
+    "invalid_pair_count": null,
     "control_wrong_treatment_correct": null,
     "control_correct_treatment_wrong": null,
     "both_correct": null,
     "both_wrong": null,
+    "stress_serious_error_matrix": null,
+    "ecological_serious_error_matrix": null,
     "median_paired_correctness_delta": null,
-    "median_paired_connector_call_delta": null,
-    "median_paired_files_before_decision_delta": null,
+    "median_paired_total_connector_call_delta": null,
+    "median_paired_broad_search_delta": null,
+    "median_paired_distinct_source_file_delta": null,
+    "median_paired_token_delta_when_available": null,
     "conclusion": null
+  },
+  "optional_diagnostic_c": {
+    "status": "not-run",
+    "runs": [],
+    "interpretation": null
   },
   "limitations": [],
   "deviations_before_unblinding": [],
