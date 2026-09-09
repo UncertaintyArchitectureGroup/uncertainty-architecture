@@ -62,6 +62,14 @@ Inspecting a tree is not the same as reading a repository. Do not claim complete
 
 For owner discovery, term/artifact preflight, or impact exploration, follow the [repository-intelligence agent route](.github/REPOSITORY-INTELLIGENCE.md#operational-agent-route) after instruction bootstrap. Reuse a verified context surface for the same source state; read the full relevant inventory before proposing a new term or maintained artifact, then read the owning sources. Keep an already-known direct source route cheap. Missing, stale, truncated, or ambiguous context requires live-repository fallback. A lexical miss, including an untranslated Ukrainian query, is not evidence that no owner exists.
 
+### Controlled Repository Intelligence benchmark ablation
+
+The only exception to the normal Repository Intelligence route is an explicitly invoked comparative evaluation that follows [`.github/tests/repository_intelligence/AB-EVALUATION.md`](.github/tests/repository_intelligence/AB-EVALUATION.md).
+
+When the task envelope names `Experiment arm: RI-AB-CONTROL` and supplies a pinned repository source state plus an opaque benchmark task ID, treat the RI consumer as deliberately unavailable for that run. Follow the normal bootstrap, authority, scoped-instruction, provenance, validation, and source-reading rules, but use ordinary live GitHub tree/search/direct-source reads instead of generated RI surfaces, RI query operations, or the Repository Control Map. Do not use prior benchmark outputs or hidden scoring material. This is an evaluation-only ablation, not permission to bypass repository controls or to use the control route in ordinary work.
+
+When the task envelope names `Experiment arm: RI-AB-TREATMENT`, follow the normal Repository Intelligence route. If neither exact marker is present, this exception does not apply.
+
 State the inspected ref and material access limitations before editing only when they affect correctness or scope; otherwise include them in the completion report rather than adding a routine preamble to every response.
 
 ## 3. Task-specific reading paths
