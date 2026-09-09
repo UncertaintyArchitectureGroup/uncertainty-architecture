@@ -1,0 +1,39 @@
+{
+  "protocol_version": 1,
+  "study_id": "RI-AB-YYYYMMDD-01",
+  "repository_ref": "<40-char commit sha>",
+  "case_count": 12,
+  "paired_run_count": 24,
+  "held_out_prompts_sha256": "<64 hex chars>",
+  "scoring_key_sha256": "<64 hex chars>",
+  "randomization_seed_sha256": "<64 hex chars>",
+  "model_family": "<exact displayed model family>",
+  "thinking_configuration": "<exact setting or unavailable>",
+  "client_environment": "<iPad/web/Work/etc>",
+  "connector": "GitHub",
+  "required_strata": [
+    "exact-owner-negative-control",
+    "canonical-term-synonym-pressure",
+    "ambiguous-near-synonyms",
+    "existing-artifact-refinement",
+    "legitimate-new-artifact",
+    "validation-companion-routing",
+    "research-authority-boundary",
+    "navigation-vs-impact",
+    "shared-control-hub",
+    "stale-context-fallback",
+    "ukrainian-wording",
+    "unnamed-paraphrase-routing"
+  ],
+  "primary_endpoint": "paired serious-routing-error difference",
+  "secondary_endpoints": [
+    "paired correctness score delta",
+    "connector calls before material decision",
+    "broad searches before material decision",
+    "files opened before material decision",
+    "measured context/token volume when available",
+    "elapsed time when reliably observable"
+  ],
+  "stopping_rule": "Complete all preregistered paired runs unless a run is invalidated by the protocol. Do not stop for apparent arm performance.",
+  "unblinding_rule": "Score arm-hidden outputs against the frozen key before revealing treatment labels whenever practical."
+}
