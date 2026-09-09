@@ -1,39 +1,79 @@
 {
-  "protocol_version": 1,
+  "protocol_version": 2,
   "study_id": "RI-AB-YYYYMMDD-01",
   "repository_ref": "<40-char commit sha>",
   "case_count": 12,
+  "stress_case_count": 6,
+  "ecological_case_count": 6,
   "paired_run_count": 24,
   "held_out_prompts_sha256": "<64 hex chars>",
   "scoring_key_sha256": "<64 hex chars>",
   "randomization_seed_sha256": "<64 hex chars>",
+  "ecological_source_pool_sha256": "<64 hex chars or not-applicable>",
   "model_family": "<exact displayed model family>",
   "thinking_configuration": "<exact setting or unavailable>",
   "client_environment": "<iPad/web/Work/etc>",
   "connector": "GitHub",
-  "required_strata": [
-    "exact-owner-negative-control",
-    "canonical-term-synonym-pressure",
-    "ambiguous-near-synonyms",
-    "existing-artifact-refinement",
-    "legitimate-new-artifact",
-    "validation-companion-routing",
-    "research-authority-boundary",
-    "navigation-vs-impact",
-    "shared-control-hub",
-    "stale-context-fallback",
-    "ukrainian-wording",
-    "unnamed-paraphrase-routing"
-  ],
-  "primary_endpoint": "paired serious-routing-error difference",
+  "primary_estimand": "incremental operational value of the normal RI route versus ordinary live-GitHub fallback",
+  "primary_endpoint": "paired serious-routing-error matrix across valid pairs",
+  "primary_go_rule": {
+    "minimum_control_wrong_treatment_correct": 2,
+    "maximum_control_correct_treatment_wrong": 0,
+    "ecological_correctness_regression_allowed": false,
+    "disproportionate_routine_cost_regression_allowed": false
+  },
+  "weak_positive_rule": "Exactly one A-wrong/B-correct serious-error reversal and no reverse serious error requires full-study replication before any agent-benefit claim.",
   "secondary_endpoints": [
-    "paired correctness score delta",
-    "connector calls before material decision",
-    "broad searches before material decision",
-    "files opened before material decision",
+    "paired applicable correctness-score delta",
+    "total connector calls to final answer",
+    "broad searches to final answer",
+    "distinct source files opened",
+    "connector calls before first explicit visible owner/route assertion when observable",
     "measured context/token volume when available",
+    "RI payload bytes",
     "elapsed time when reliably observable"
   ],
-  "stopping_rule": "Complete all preregistered paired runs unless a run is invalidated by the protocol. Do not stop for apparent arm performance.",
-  "unblinding_rule": "Score arm-hidden outputs against the frozen key before revealing treatment labels whenever practical."
+  "required_corpus_structure": {
+    "stress": [
+      "term-or-synonym-pressure",
+      "artifact-overlap-or-ownership",
+      "validation-or-companion-routing",
+      "authority-boundary-or-impact-reasoning",
+      "stale-or-unverifiable-RI-fallback",
+      "ukrainian-or-paraphrased-wording"
+    ],
+    "ecological": [
+      "realistic-maintainer-task-1",
+      "realistic-maintainer-task-2",
+      "realistic-maintainer-task-3",
+      "realistic-maintainer-task-4",
+      "exact-owner-negative-control",
+      "legitimate-new-artifact"
+    ]
+  },
+  "required_isolation_fields": [
+    "conversation_fresh",
+    "memory_enabled",
+    "project_context_present",
+    "prior_repo_context_available",
+    "connector_state_equal",
+    "model_family",
+    "thinking_configuration"
+  ],
+  "invalid_primary_run_conditions": [
+    "conversation_not_fresh",
+    "held_out_key_available",
+    "previous_arm_output_available",
+    "project_context_contains_benchmark_answers",
+    "material_connector_access_mismatch_within_pair",
+    "known_prior_repo_context_supplies_answer_independently_of_tested_route"
+  ],
+  "optional_diagnostic_c": {
+    "enabled": false,
+    "case_count": "4-6 if used",
+    "purpose": "separate projection/data value from operational RI query-routing value",
+    "timing": "after primary A/B outputs and scores are frozen unless separately preregistered"
+  },
+  "stopping_rule": "Complete all preregistered paired runs unless invalidated by protocol. Do not stop for apparent arm performance.",
+  "unblinding_rule": "Score arm-hidden response copies against the frozen key before revealing treatment labels whenever practical."
 }
