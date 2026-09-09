@@ -86,8 +86,15 @@
     "commitment_reference": "<immutable reference created before normalization>",
     "source_window": "<frozen maintainer-event source range>",
     "cutoff": "<ISO date/time or repository-history cutoff>",
-    "inclusion_rule_ids": ["real-maintainer-repository-task", "self-contained-or-neutral-normalizable"],
-    "exclusion_rule_ids": ["not-repository-task", "insufficient-source-context", "duplicate-task-family"]
+    "inclusion_rule_ids": [
+      "real-maintainer-repository-task",
+      "self-contained-or-neutral-normalizable"
+    ],
+    "exclusion_rule_ids": [
+      "not-repository-task",
+      "insufficient-source-context",
+      "duplicate-task-family"
+    ]
   },
   "ecological_source_pool": {
     "mode": "complete_eligible_frame",
