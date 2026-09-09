@@ -1,0 +1,18 @@
+{
+  "schema_version": 2,
+  "items": [
+    {
+      "ecological_source_id": "E001",
+      "source_event_reference": "<same immutable source-event reference as sampling frame>",
+      "source_event_sha256": "<same 64 hex chars as sampling frame>",
+      "normalization_reference": "<immutable normalization evidence reference>",
+      "normalized_from_source_only": true,
+      "task_family_id": "ECO-OWNER-001",
+      "normalized_prompt": "<self-contained task normalized only from source-event facts>",
+      "anchor_type": "exact-owner",
+      "scenario_families": [
+        "exact-owner-recovery"
+      ]
+    }
+  ]
+}
