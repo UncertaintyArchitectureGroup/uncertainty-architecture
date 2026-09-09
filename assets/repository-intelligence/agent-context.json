@@ -5320,11 +5320,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "a3b3c47079aabb715c7fd18e00275c3a5f1ac5e265c8b54361c4cb7a2369ff95",
+    "digest": "1e3cd2d2aa0940da5a88f1eb8a2e44f6dc095d6df3322da66ae111c750b3f7f5",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 120,
+    "input_count": 122,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5460,7 +5460,15 @@
       },
       {
         "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/AB-EVALUATION.md"
+      },
+      {
+        "identity_mode": "content",
         "path": ".github/tests/repository_intelligence/README.md"
+      },
+      {
+        "identity_mode": "existence",
+        "path": ".github/tests/repository_intelligence/test_ab_evaluation.py"
       },
       {
         "identity_mode": "existence",
@@ -5857,6 +5865,7 @@
       ".github/tests/metadata_contract/test_metadata.py",
       ".github/tests/publication_impact/test_publication_impact.py",
       ".github/tests/repository_contract/test_repository_contract.py",
+      ".github/tests/repository_intelligence/test_ab_evaluation.py",
       ".github/tests/repository_intelligence/test_agent_workflow.py",
       ".github/tests/repository_intelligence/test_control_map.py",
       ".github/tests/repository_intelligence/test_repository_intelligence.py",
