@@ -1,10 +1,21 @@
 {
-  "protocol_version": 4,
+  "protocol_version": 5,
   "study_id": "RI-AB-YYYYMMDD-01",
   "status": "planned",
   "preregistered": {
     "repository_ref": "<40-char commit sha>",
     "execution_policy": "always_run_pilot_and_confirmatory",
+    "treatment_delivery_mode": "connector_compact_surface|local_cli|dedicated_adapter",
+    "treatment_surface_path": "assets/repository-intelligence/agent-context.json",
+    "treatment_surface_blob_sha": "<git blob sha or not-applicable>",
+    "treatment_surface_sha256": "<64 hex chars or not-applicable>",
+    "treatment_source_identity": "<RI source identity/digest>",
+    "treatment_freshness_evidence_reference": "<reference>",
+    "pinned_repository_evidence_required": true,
+    "unpinned_repository_search_allowed": false,
+    "ref_addressable_search_mode": "<tool/mode or not-applicable>",
+    "execution_smoke_evidence_reference": "<reference>",
+    "execution_smoke_passed": null,
     "pilot_prompts_sha256": "<64 hex chars>",
     "pilot_scoring_key_sha256": "<64 hex chars>",
     "confirmatory_prompts_sha256": "<64 hex chars>",
@@ -13,7 +24,9 @@
     "confirmatory_arm_order_seed_sha256": "<64 hex chars>",
     "pilot_ecological_selection_seed_sha256": "<64 hex chars>",
     "confirmatory_ecological_selection_seed_sha256": "<64 hex chars>",
-    "ecological_source_pool_sha256": "<64 hex chars>",
+    "ecological_raw_source_pool_sha256": "<64 hex chars>",
+    "ecological_normalization_contract_version": "RI-AB-NORMALIZE-1",
+    "ecological_normalized_eligible_pool_sha256": "<64 hex chars>",
     "pilot_selected_ecological_ids_sha256": "<64 hex chars>",
     "confirmatory_selected_ecological_ids_sha256": "<64 hex chars>",
     "prompt_overlap_between_waves": 0,
@@ -28,22 +41,38 @@
     },
     "cost_gate": {
       "applies_to": "all valid ecological cases",
-      "primary_cost_metric": "ecological median total connector calls",
+      "primary_cost_metric": "total connector calls to final answer",
+      "per_case_ratio_formula": "r_i=B_i/A_i",
+      "primary_cost_statistic": "median of paired per-case ratios r_i",
+      "not_ratio_of_group_medians": true,
       "acceptable_median_ratio_b_over_a": 1.5,
       "high_overhead_ratio_threshold": 2.0,
       "acceptable_high_overhead_case_count": 2,
-      "zero_denominator_rule": "A=0,B=0 => 1.0; A=0,B>0 => infinity"
+      "zero_denominator_rule": "A_i=0,B_i=0 => 1.0; A_i=0,B_i>0 => infinity"
     },
     "efficiency_gain_rule": {
       "maximum_median_ratio_b_over_a_per_wave": 0.8,
       "requires_non_regression": true
     }
   },
+  "execution_preflight": {
+    "smoke_task_reference": "<synthetic/non-held-out task reference>",
+    "pinned_tree_reads_verified": null,
+    "unpinned_search_excluded": null,
+    "treatment_delivery_verified": null,
+    "complete_payload_verified": null,
+    "truncation_check_passed": null,
+    "connector_permission_parity_verified": null,
+    "instrumentation_capture_verified": null,
+    "eligible_to_start_primary": null,
+    "notes": []
+  },
   "environment": {
     "model_family": "<exact displayed model family>",
     "thinking_configuration": "<exact setting or unavailable>",
     "client": "<iPad/web/Work/etc>",
-    "connector": "GitHub"
+    "connector": "GitHub",
+    "treatment_delivery_mode": "connector_compact_surface|local_cli|dedicated_adapter"
   },
   "pilot_cases": [
     {
@@ -62,13 +91,20 @@
           "project_context_present": null,
           "prior_repo_context_available": "<true|false|unavailable>",
           "connector_state_equal": null,
+          "pinned_state_protocol_violation": false,
+          "unpinned_repository_search_calls": 0,
           "ordered_tool_calls": [],
+          "tool_call_pin_evidence": [],
           "total_connector_calls": null,
+          "allowed_ref_addressable_searches": null,
           "broad_searches": null,
           "ordered_files_opened": [],
           "distinct_files_opened": null,
           "calls_before_first_explicit_owner_route_assertion": null,
-          "ri_operations": [],
+          "treatment_delivery_status": "not-applicable",
+          "treatment_surface_verified": "not-applicable",
+          "task_level_ri_fallback": "not-applicable",
+          "ri_logical_operations_or_evidence": [],
           "ri_payload_bytes": 0,
           "measured_input_tokens": null,
           "elapsed_seconds": null,
@@ -94,13 +130,20 @@
           "project_context_present": null,
           "prior_repo_context_available": "<true|false|unavailable>",
           "connector_state_equal": null,
+          "pinned_state_protocol_violation": false,
+          "unpinned_repository_search_calls": 0,
           "ordered_tool_calls": [],
+          "tool_call_pin_evidence": [],
           "total_connector_calls": null,
+          "allowed_ref_addressable_searches": null,
           "broad_searches": null,
           "ordered_files_opened": [],
           "distinct_files_opened": null,
           "calls_before_first_explicit_owner_route_assertion": null,
-          "ri_operations": [],
+          "treatment_delivery_status": "<delivered|delivery-failure>",
+          "treatment_surface_verified": null,
+          "task_level_ri_fallback": "<true|false>",
+          "ri_logical_operations_or_evidence": [],
           "ri_payload_bytes": null,
           "measured_input_tokens": null,
           "elapsed_seconds": null,
@@ -120,7 +163,10 @@
       "paired_metrics": {
         "correctness_delta_b_minus_a": null,
         "serious_error_outcome": "<A-wrong/B-correct|A-correct/B-wrong|both-correct|both-wrong|null>",
+        "connector_calls_a": null,
+        "connector_calls_b": null,
         "connector_ratio_b_over_a": null,
+        "connector_ratio_formula": "B_i/A_i with preregistered zero-denominator rule",
         "equal_correctness_pair": null,
         "high_overhead_case": null
       }
@@ -137,7 +183,10 @@
       "paired_metrics": {
         "correctness_delta_b_minus_a": null,
         "serious_error_outcome": null,
+        "connector_calls_a": null,
+        "connector_calls_b": null,
         "connector_ratio_b_over_a": null,
+        "connector_ratio_formula": "B_i/A_i with preregistered zero-denominator rule",
         "equal_correctness_pair": null,
         "high_overhead_case": null
       }
@@ -153,11 +202,14 @@
     "ecological_correctness_non_regression_passed": null,
     "stress_results": null,
     "ecological_results": null,
-    "ecological_median_connector_ratio_b_over_a_all_cases": null,
+    "ecological_median_of_paired_connector_ratios_all_cases": null,
     "ecological_high_overhead_case_count_all_cases": null,
     "cost_gate_passed": null,
-    "equal_correctness_ecological_median_connector_ratio": null,
+    "equal_correctness_ecological_median_of_paired_connector_ratios": null,
     "efficiency_gain_rule_passed": null,
+    "treatment_delivery_failures": null,
+    "task_level_ri_fallbacks": null,
+    "pinned_state_protocol_violations": null,
     "interim_classification": null
   },
   "confirmatory_aggregate": {
@@ -170,11 +222,14 @@
     "ecological_correctness_non_regression_passed": null,
     "stress_results": null,
     "ecological_results": null,
-    "ecological_median_connector_ratio_b_over_a_all_cases": null,
+    "ecological_median_of_paired_connector_ratios_all_cases": null,
     "ecological_high_overhead_case_count_all_cases": null,
     "cost_gate_passed": null,
-    "equal_correctness_ecological_median_connector_ratio": null,
+    "equal_correctness_ecological_median_of_paired_connector_ratios": null,
     "efficiency_gain_rule_passed": null,
+    "treatment_delivery_failures": null,
+    "task_level_ri_fallbacks": null,
+    "pinned_state_protocol_violations": null,
     "classification": null
   },
   "combined_aggregate": {
@@ -182,8 +237,11 @@
     "control_wrong_treatment_correct": null,
     "control_correct_treatment_wrong": null,
     "positive_minus_reverse_reversals": null,
-    "combined_ecological_median_connector_ratio_b_over_a_all_cases": null,
-    "combined_equal_correctness_ecological_median_connector_ratio": null
+    "combined_ecological_median_of_paired_connector_ratios_all_cases": null,
+    "combined_equal_correctness_ecological_median_of_paired_connector_ratios": null,
+    "treatment_delivery_failures": null,
+    "task_level_ri_fallbacks": null,
+    "pinned_state_protocol_violations": null
   },
   "final_conclusion": {
     "demonstrated_correctness_go": null,
