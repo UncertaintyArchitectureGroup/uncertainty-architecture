@@ -1,23 +1,42 @@
 {
-  "protocol_version": 3,
+  "protocol_version": 4,
   "study_id": "RI-AB-YYYYMMDD-01",
   "status": "planned",
   "preregistered": {
     "repository_ref": "<40-char commit sha>",
-    "held_out_prompts_sha256": "<64 hex chars>",
-    "scoring_key_sha256": "<64 hex chars>",
-    "pilot_randomization_seed_sha256": "<64 hex chars>",
-    "confirmatory_randomization_seed_sha256": "<64 hex chars>",
-    "ecological_source_pool_sha256": "<64 hex chars or unavailable>",
-    "case_count": 12,
+    "execution_policy": "always_run_pilot_and_confirmatory",
+    "pilot_prompts_sha256": "<64 hex chars>",
+    "pilot_scoring_key_sha256": "<64 hex chars>",
+    "confirmatory_prompts_sha256": "<64 hex chars>",
+    "confirmatory_scoring_key_sha256": "<64 hex chars>",
+    "pilot_arm_order_seed_sha256": "<64 hex chars>",
+    "confirmatory_arm_order_seed_sha256": "<64 hex chars>",
+    "pilot_ecological_selection_seed_sha256": "<64 hex chars>",
+    "confirmatory_ecological_selection_seed_sha256": "<64 hex chars>",
+    "ecological_source_pool_sha256": "<64 hex chars>",
+    "pilot_selected_ecological_ids_sha256": "<64 hex chars>",
+    "confirmatory_selected_ecological_ids_sha256": "<64 hex chars>",
+    "prompt_overlap_between_waves": 0,
+    "pilot_case_count": 12,
+    "confirmatory_case_count": 12,
     "pilot_paired_run_count": 24,
     "confirmatory_paired_run_count": 24,
     "primary_endpoint": "paired serious-routing-error difference",
+    "ecological_correctness_non_regression": {
+      "minimum_median_total_correctness_delta_b_minus_a_per_wave": 0,
+      "maximum_reverse_serious_error_reversals_per_wave": 0
+    },
     "cost_gate": {
+      "applies_to": "all valid ecological cases",
       "primary_cost_metric": "ecological median total connector calls",
       "acceptable_median_ratio_b_over_a": 1.5,
       "high_overhead_ratio_threshold": 2.0,
-      "acceptable_high_overhead_case_count": 2
+      "acceptable_high_overhead_case_count": 2,
+      "zero_denominator_rule": "A=0,B=0 => 1.0; A=0,B>0 => infinity"
+    },
+    "efficiency_gain_rule": {
+      "maximum_median_ratio_b_over_a_per_wave": 0.8,
+      "requires_non_regression": true
     }
   },
   "environment": {
@@ -26,88 +45,101 @@
     "client": "<iPad/web/Work/etc>",
     "connector": "GitHub"
   },
-  "cases": [
+  "pilot_cases": [
     {
-      "task_id": "T01",
+      "task_id": "P01",
       "corpus_class": "stress|ecological",
       "ecological_source_id": "<opaque source-pool id or null>",
-      "waves": {
-        "pilot": {
-          "order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
-          "runs": [
-            {
-              "run_id": "T01-P-A",
-              "arm": "RI-AB-CONTROL",
-              "valid": null,
-              "invalid_reason": null,
-              "conversation_fresh": null,
-              "memory_enabled": "<true|false|unavailable>",
-              "project_context_present": null,
-              "prior_repo_context_available": "<true|false|unavailable>",
-              "connector_state_equal": null,
-              "ordered_tool_calls": [],
-              "total_connector_calls": null,
-              "broad_searches": null,
-              "ordered_files_opened": [],
-              "distinct_files_opened": null,
-              "calls_before_first_explicit_owner_route_assertion": null,
-              "ri_operations": [],
-              "ri_payload_bytes": 0,
-              "measured_input_tokens": null,
-              "elapsed_seconds": null,
-              "tool_errors_or_fallbacks": [],
-              "transcript_reference": null,
-              "scores": {
-                "owner_routing": null,
-                "evidence_sufficiency": null,
-                "authority_discipline": null,
-                "companion_validation": null,
-                "decision_quality": null,
-                "serious_routing_error": null
-              }
-            },
-            {
-              "run_id": "T01-P-B",
-              "arm": "RI-AB-TREATMENT",
-              "valid": null,
-              "invalid_reason": null,
-              "conversation_fresh": null,
-              "memory_enabled": "<true|false|unavailable>",
-              "project_context_present": null,
-              "prior_repo_context_available": "<true|false|unavailable>",
-              "connector_state_equal": null,
-              "ordered_tool_calls": [],
-              "total_connector_calls": null,
-              "broad_searches": null,
-              "ordered_files_opened": [],
-              "distinct_files_opened": null,
-              "calls_before_first_explicit_owner_route_assertion": null,
-              "ri_operations": [],
-              "ri_payload_bytes": null,
-              "measured_input_tokens": null,
-              "elapsed_seconds": null,
-              "tool_errors_or_fallbacks": [],
-              "transcript_reference": null,
-              "scores": {
-                "owner_routing": null,
-                "evidence_sufficiency": null,
-                "authority_discipline": null,
-                "companion_validation": null,
-                "decision_quality": null,
-                "serious_routing_error": null
-              }
-            }
-          ]
+      "order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
+      "runs": [
+        {
+          "run_id": "P01-A",
+          "arm": "RI-AB-CONTROL",
+          "valid": null,
+          "invalid_reason": null,
+          "conversation_fresh": null,
+          "memory_enabled": "<true|false|unavailable>",
+          "project_context_present": null,
+          "prior_repo_context_available": "<true|false|unavailable>",
+          "connector_state_equal": null,
+          "ordered_tool_calls": [],
+          "total_connector_calls": null,
+          "broad_searches": null,
+          "ordered_files_opened": [],
+          "distinct_files_opened": null,
+          "calls_before_first_explicit_owner_route_assertion": null,
+          "ri_operations": [],
+          "ri_payload_bytes": 0,
+          "measured_input_tokens": null,
+          "elapsed_seconds": null,
+          "tool_errors_or_fallbacks": [],
+          "transcript_reference": null,
+          "scores": {
+            "owner_routing": null,
+            "evidence_sufficiency": null,
+            "authority_discipline": null,
+            "companion_validation": null,
+            "decision_quality": null,
+            "total_applicable_correctness": null,
+            "serious_routing_error": null
+          }
         },
-        "confirmatory": {
-          "required": null,
-          "order": ["<frozen second-wave arm 1>", "<frozen second-wave arm 2>"],
-          "runs": []
+        {
+          "run_id": "P01-B",
+          "arm": "RI-AB-TREATMENT",
+          "valid": null,
+          "invalid_reason": null,
+          "conversation_fresh": null,
+          "memory_enabled": "<true|false|unavailable>",
+          "project_context_present": null,
+          "prior_repo_context_available": "<true|false|unavailable>",
+          "connector_state_equal": null,
+          "ordered_tool_calls": [],
+          "total_connector_calls": null,
+          "broad_searches": null,
+          "ordered_files_opened": [],
+          "distinct_files_opened": null,
+          "calls_before_first_explicit_owner_route_assertion": null,
+          "ri_operations": [],
+          "ri_payload_bytes": null,
+          "measured_input_tokens": null,
+          "elapsed_seconds": null,
+          "tool_errors_or_fallbacks": [],
+          "transcript_reference": null,
+          "scores": {
+            "owner_routing": null,
+            "evidence_sufficiency": null,
+            "authority_discipline": null,
+            "companion_validation": null,
+            "decision_quality": null,
+            "total_applicable_correctness": null,
+            "serious_routing_error": null
+          }
         }
-      },
-      "diagnostic_c": {
-        "selected": false,
-        "run": null
+      ],
+      "paired_metrics": {
+        "correctness_delta_b_minus_a": null,
+        "serious_error_outcome": "<A-wrong/B-correct|A-correct/B-wrong|both-correct|both-wrong|null>",
+        "connector_ratio_b_over_a": null,
+        "equal_correctness_pair": null,
+        "high_overhead_case": null
+      }
+    }
+  ],
+  "confirmatory_cases": [
+    {
+      "task_id": "C01",
+      "corpus_class": "stress|ecological",
+      "ecological_source_id": "<opaque source-pool id or null>",
+      "prompt_used_in_pilot": false,
+      "order": ["RI-AB-TREATMENT", "RI-AB-CONTROL"],
+      "runs": [],
+      "paired_metrics": {
+        "correctness_delta_b_minus_a": null,
+        "serious_error_outcome": null,
+        "connector_ratio_b_over_a": null,
+        "equal_correctness_pair": null,
+        "high_overhead_case": null
       }
     }
   ],
@@ -117,25 +149,46 @@
     "both_correct": null,
     "both_wrong": null,
     "median_paired_correctness_delta": null,
+    "ecological_median_correctness_delta_b_minus_a": null,
+    "ecological_correctness_non_regression_passed": null,
     "stress_results": null,
     "ecological_results": null,
-    "ecological_median_connector_ratio_b_over_a": null,
-    "ecological_high_overhead_case_count": null,
+    "ecological_median_connector_ratio_b_over_a_all_cases": null,
+    "ecological_high_overhead_case_count_all_cases": null,
     "cost_gate_passed": null,
-    "conclusion": null
+    "equal_correctness_ecological_median_connector_ratio": null,
+    "efficiency_gain_rule_passed": null,
+    "interim_classification": null
   },
   "confirmatory_aggregate": {
-    "run": false,
     "control_wrong_treatment_correct": null,
     "control_correct_treatment_wrong": null,
     "both_correct": null,
     "both_wrong": null,
+    "median_paired_correctness_delta": null,
+    "ecological_median_correctness_delta_b_minus_a": null,
+    "ecological_correctness_non_regression_passed": null,
+    "stress_results": null,
+    "ecological_results": null,
+    "ecological_median_connector_ratio_b_over_a_all_cases": null,
+    "ecological_high_overhead_case_count_all_cases": null,
     "cost_gate_passed": null,
-    "conclusion": null
+    "equal_correctness_ecological_median_connector_ratio": null,
+    "efficiency_gain_rule_passed": null,
+    "classification": null
   },
-  "combined_conclusion": {
-    "demonstrated_go": null,
+  "combined_aggregate": {
+    "prompt_overlap_verified_zero": null,
+    "control_wrong_treatment_correct": null,
+    "control_correct_treatment_wrong": null,
     "positive_minus_reverse_reversals": null,
+    "combined_ecological_median_connector_ratio_b_over_a_all_cases": null,
+    "combined_equal_correctness_ecological_median_connector_ratio": null
+  },
+  "final_conclusion": {
+    "demonstrated_correctness_go": null,
+    "demonstrated_efficiency_go": null,
+    "correctness_gain_cost_not_accepted": null,
     "final_status": null,
     "rationale": null
   },
