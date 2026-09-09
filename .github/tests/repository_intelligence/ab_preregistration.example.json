@@ -1,79 +1,74 @@
 {
-  "protocol_version": 2,
+  "protocol_version": 3,
   "study_id": "RI-AB-YYYYMMDD-01",
   "repository_ref": "<40-char commit sha>",
   "case_count": 12,
-  "stress_case_count": 6,
-  "ecological_case_count": 6,
-  "paired_run_count": 24,
+  "pilot_paired_run_count": 24,
+  "confirmatory_paired_run_count": 24,
   "held_out_prompts_sha256": "<64 hex chars>",
   "scoring_key_sha256": "<64 hex chars>",
-  "randomization_seed_sha256": "<64 hex chars>",
-  "ecological_source_pool_sha256": "<64 hex chars or not-applicable>",
+  "pilot_randomization_seed_sha256": "<64 hex chars>",
+  "confirmatory_randomization_seed_sha256": "<64 hex chars>",
+  "ecological_source_pool": {
+    "provenance": "<fixed cutoff period or frozen source set>",
+    "cutoff_rule": "<exact rule>",
+    "eligible_pool_sha256": "<64 hex chars or unavailable>",
+    "eligible_pool_count": "<integer >= 15>",
+    "selection_rule": "<random six from frozen pool, or two fixed anchors plus four seeded selections>",
+    "exclusion_rules": [
+      "duplicate task family",
+      "depends on unavailable external state",
+      "cannot be run identically in both arms"
+    ]
+  },
+  "corpus_split": {
+    "stress_cases": 6,
+    "ecological_cases": 6
+  },
   "model_family": "<exact displayed model family>",
   "thinking_configuration": "<exact setting or unavailable>",
   "client_environment": "<iPad/web/Work/etc>",
   "connector": "GitHub",
-  "primary_estimand": "incremental operational value of the normal RI route versus ordinary live-GitHub fallback",
-  "primary_endpoint": "paired serious-routing-error matrix across valid pairs",
-  "primary_go_rule": {
-    "minimum_control_wrong_treatment_correct": 2,
-    "maximum_control_correct_treatment_wrong": 0,
-    "ecological_correctness_regression_allowed": false,
-    "disproportionate_routine_cost_regression_allowed": false
-  },
-  "weak_positive_rule": "Exactly one A-wrong/B-correct serious-error reversal and no reverse serious error requires full-study replication before any agent-benefit claim.",
+  "primary_endpoint": "paired serious-routing-error difference",
   "secondary_endpoints": [
-    "paired applicable correctness-score delta",
-    "total connector calls to final answer",
-    "broad searches to final answer",
+    "paired correctness score delta",
+    "total connector calls",
+    "broad searches",
     "distinct source files opened",
-    "connector calls before first explicit visible owner/route assertion when observable",
-    "measured context/token volume when available",
-    "RI payload bytes",
+    "calls before first explicit visible owner or route assertion when observable",
+    "measured context or token volume when available",
     "elapsed time when reliably observable"
   ],
-  "required_corpus_structure": {
-    "stress": [
-      "term-or-synonym-pressure",
-      "artifact-overlap-or-ownership",
-      "validation-or-companion-routing",
-      "authority-boundary-or-impact-reasoning",
-      "stale-or-unverifiable-RI-fallback",
-      "ukrainian-or-paraphrased-wording"
-    ],
-    "ecological": [
-      "realistic-maintainer-task-1",
-      "realistic-maintainer-task-2",
-      "realistic-maintainer-task-3",
-      "realistic-maintainer-task-4",
-      "exact-owner-negative-control",
-      "legitimate-new-artifact"
-    ]
+  "cost_gate": {
+    "primary_cost_metric": "ecological median total connector calls",
+    "acceptable_median_ratio_b_over_a": 1.5,
+    "high_overhead_ratio_threshold": 2.0,
+    "acceptable_high_overhead_case_count": 2,
+    "serious_error_prevention_exception": "report separately; does not alone fail cost gate; cost remains visible",
+    "unavailable_token_or_time_metrics": "exclude from gate; report as unavailable"
   },
-  "required_isolation_fields": [
-    "conversation_fresh",
-    "memory_enabled",
-    "project_context_present",
-    "prior_repo_context_available",
-    "connector_state_equal",
-    "model_family",
-    "thinking_configuration"
-  ],
-  "invalid_primary_run_conditions": [
-    "conversation_not_fresh",
-    "held_out_key_available",
-    "previous_arm_output_available",
-    "project_context_contains_benchmark_answers",
-    "material_connector_access_mismatch_within_pair",
-    "known_prior_repo_context_supplies_answer_independently_of_tested_route"
-  ],
-  "optional_diagnostic_c": {
-    "enabled": false,
-    "case_count": "4-6 if used",
-    "purpose": "separate projection/data value from operational RI query-routing value",
-    "timing": "after primary A/B outputs and scores are frozen unless separately preregistered"
+  "pilot_decision_rule": {
+    "provisional_go": ">=2 A-wrong/B-correct, 0 A-correct/B-wrong, no systematic ecological correctness regression, cost gate passes",
+    "weak_positive": "exactly 1 A-wrong/B-correct, 0 reverse serious errors, otherwise non-worse correctness",
+    "go_optimize_cost": "correctness reaches provisional-go threshold but preregistered cost gate fails due avoidable RI overhead",
+    "no_incremental_value": "serious-error and material-correctness outcomes equivalent and no observable cost reduction",
+    "regression": "any reverse serious-error reversal or systematic uncompensated correctness/cost regression",
+    "inconclusive": "protocol or isolation defect prevents defensible comparison"
   },
-  "stopping_rule": "Complete all preregistered paired runs unless invalidated by protocol. Do not stop for apparent arm performance.",
+  "confirmatory_rule": {
+    "required_for_positive_claim": true,
+    "minimum_confirmatory_positive_reversals": 1,
+    "maximum_confirmatory_reverse_reversals": 0,
+    "minimum_combined_positive_minus_reverse_reversals": 2,
+    "cost_gate_must_pass_confirmatory": true,
+    "contradictory_confirmatory_result": "NOT CONFIRMED or INCONCLUSIVE"
+  },
+  "diagnostic_c": {
+    "enabled": "<true|false>",
+    "arm_marker": "RI-AB-DATA-ONLY",
+    "case_count": "<4-6 if enabled>",
+    "timing": "after primary outputs and scores are frozen"
+  },
+  "stopping_rule": "Complete all preregistered runs for each invoked wave; do not stop for apparent arm performance.",
   "unblinding_rule": "Score arm-hidden response copies against the frozen key before revealing treatment labels whenever practical."
 }
