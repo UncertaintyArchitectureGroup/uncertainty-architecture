@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "study_id": "RI-AB-YYYYMMDD-01",
+  "scorer_identity": "<blind assessor identity>",
+  "scoring_evidence_reference": "<immutable arm-hidden scoring evidence reference>",
+  "scoring_completed_before_arm_reveal": true,
+  "arm_labels_present": false,
+  "pilot_scoring_key_sha256": "<64 hex chars>",
+  "confirmatory_scoring_key_sha256": "<64 hex chars>",
+  "responses": [
+    {
+      "blind_response_id": "<opaque response id>",
+      "task_id": "P01",
+      "model_response_sha256": "<64 hex chars>",
+      "scores": {
+        "owner_routing": 2,
+        "evidence_sufficiency": 2,
+        "authority_discipline": 2,
+        "companion_validation": null,
+        "decision_quality": 2,
+        "total_applicable_correctness": 8,
+        "serious_routing_error": false
+      }
+    }
+  ]
+}
