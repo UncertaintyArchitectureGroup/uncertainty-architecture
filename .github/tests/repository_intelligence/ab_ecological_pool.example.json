@@ -10,9 +10,7 @@
       "task_family_id": "ECO-OWNER-001",
       "normalized_prompt": "<self-contained task normalized only from source-event facts>",
       "anchor_type": "exact-owner",
-      "scenario_families": [
-        "exact-owner-recovery"
-      ]
+      "scenario_families": ["exact-owner-recovery"]
     }
   ]
 }
