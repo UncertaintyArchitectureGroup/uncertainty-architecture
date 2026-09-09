@@ -68,7 +68,11 @@ The only exception to the normal Repository Intelligence route is an explicitly 
 
 When the task envelope names `Experiment arm: RI-AB-CONTROL` and supplies a pinned repository source state plus an opaque benchmark task ID, treat the RI consumer as deliberately unavailable for that run. Follow the normal bootstrap, authority, scoped-instruction, provenance, validation, and source-reading rules, but use ordinary live GitHub tree/search/direct-source reads instead of generated RI surfaces, RI query operations, or the Repository Control Map. Do not use prior benchmark outputs or hidden scoring material. This is an evaluation-only ablation, not permission to bypass repository controls or to use the control route in ordinary work.
 
-When the task envelope names `Experiment arm: RI-AB-TREATMENT`, follow the normal Repository Intelligence route. If neither exact marker is present, this exception does not apply.
+When the task envelope names `Experiment arm: RI-AB-TREATMENT`, follow the normal Repository Intelligence route.
+
+When the task envelope names `Experiment arm: RI-AB-DATA-ONLY`, use only the verified compact Agent Context Surface supplied for the pinned state as the RI-derived aid. Do not invoke task-specific RI query operations, do not use the full Graph View or Repository Control Map, and do not accept task-specific RI routing suggestions from another session. Decide how to use the compact data yourself, then read authoritative repository sources before making material decisions. This marker is diagnostic only and must not be used to rewrite the primary A/B result.
+
+If none of these exact markers is present, this benchmark exception does not apply.
 
 State the inspected ref and material access limitations before editing only when they affect correctness or scope; otherwise include them in the completion report rather than adding a routine preamble to every response.
 
