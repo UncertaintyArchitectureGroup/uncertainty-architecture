@@ -1,5 +1,5 @@
 {
-  "protocol_version": 9,
+  "protocol_version": 10,
   "study_id": "RI-AB-YYYYMMDD-01",
   "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
   "repository_ref": "<40-char study commit sha>",
@@ -14,7 +14,7 @@
     "ordinary_default_branch_search_allowed": true
   },
   "execution_preflight": {
-    "smoke_evidence_reference": "<immutable issue/comment/artifact reference>",
+    "smoke_evidence_reference": "<immutable smoke evidence reference>",
     "smoke_evidence_sha256": "<64 hex chars>",
     "smoke_passed": true,
     "default_branch_tip_checks_verified": true,
@@ -56,6 +56,7 @@
   },
   "prompt_pack_schema_version": 3,
   "scoring_key_schema_version": 3,
+  "blind_scoring_schema_version": 1,
   "mandatory_scenario_families": [
     "accepted-proposed-relation-change",
     "branch-behind-target",
@@ -80,18 +81,25 @@
     "shared-structural-hub",
     "stale-materialization-fallback"
   ],
+  "ecological_sampling_frame": {
+    "manifest_sha256": "<64 hex chars>",
+    "commitment_reference": "<immutable reference created before normalization>",
+    "source_window": "<frozen maintainer-event source range>",
+    "cutoff": "<ISO date/time or repository-history cutoff>",
+    "inclusion_rule_ids": ["real-maintainer-repository-task", "self-contained-or-neutral-normalizable"],
+    "exclusion_rule_ids": ["not-repository-task", "insufficient-source-context", "duplicate-task-family"]
+  },
   "ecological_source_pool": {
-    "mode": "combined_pool",
+    "mode": "complete_eligible_frame",
     "normalized_eligible_pool_sha256": "<64 hex chars>",
     "selection_seed_sha256": "<64 hex chars>",
     "minimum_eligible_count": 24,
-    "normalization_contract": "self-contained using source-context facts only; no answer, owner, path, validator, canonical-term, RI-vocabulary, or later-findings leakage",
-    "selection_algorithm": "protocol-v9-stratified-sha256-ranking"
+    "selection_algorithm": "protocol-v10-stratified-sha256-ranking"
   },
   "randomization_provenance": {
     "method": "independent_assessor_after_pool_commitment",
     "pool_commitment_reference": "<immutable reference created before seed generation>",
-    "pool_commitment_sha256": "<same ecological normalized pool SHA-256>",
+    "pool_commitment_sha256": "<same normalized eligible pool SHA-256>",
     "ecological_selection": {
       "independent_assessor": "<assessor identity>",
       "generation_reference": "<immutable one-generation reference>",
