@@ -1,233 +1,42 @@
 {
-  "protocol_version": 10,
-  "study_id": "RI-AB-YYYYMMDD-01",
-  "status": "planned",
-  "execution_preflight": {
-    "eligible_to_start_primary": true,
-    "smoke_evidence_reference": "<same immutable smoke evidence reference as preregistration>",
-    "smoke_evidence_sha256": "<same 64 hex chars as preregistration>",
-    "smoke_passed": true,
-    "default_branch_tip_checks_verified": true,
-    "ordinary_control_search_verified": true,
-    "exact_ref_direct_reads_verified": true,
-    "treatment_delivery_verified": true,
-    "complete_treatment_payload_verified": true,
-    "truncation_check_passed": true,
-    "instrumentation_capture_verified": true,
-    "connector_permission_parity_verified": true,
-    "memory_disabled_verified": true,
-    "project_context_absent_verified": true,
-    "prior_product_repo_context_absent_verified": true,
-    "repository_mutation_freeze_acknowledged": true
-  },
-  "blind_scoring": {
-    "scoring_bundle_sha256": "<SHA-256 of the arm-hidden scoring bundle>",
-    "scoring_evidence_reference": "<immutable blind-scoring evidence reference>"
-  },
-  "pilot_cases": [
-    {
-      "task_id": "P01",
-      "corpus_class": "stress",
-      "order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
-      "runs": [
-        {
-          "run_id": "<opaque run id>",
-          "arm": "RI-AB-CONTROL",
-          "pair_order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
-          "submitted_task_prompt": "<exact held-out prompt text>",
-          "task_prompt_sha256": "<SHA-256 of exact UTF-8 prompt>",
-          "submitted_run_envelope": {
-            "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-            "repository_ref": "<40-char study sha>",
-            "source_state_lock": "stable_default_branch_window",
-            "wave": "PILOT",
-            "task_id": "P01",
-            "arm": "RI-AB-CONTROL",
-            "treatment_delivery_mode": "not-applicable",
-            "task_prompt_sha256": "<same prompt SHA-256>"
-          },
-          "run_envelope_sha256": "<SHA-256 of canonical JSON envelope>",
-          "submitted_full_message": "<exact deterministic benchmark message delivered to the model>",
-          "submitted_full_message_sha256": "<SHA-256 of exact full message>",
-          "model_response": "<exact visible model response>",
-          "model_response_sha256": "<SHA-256 of exact response>",
-          "blind_response_id": "<opaque response id with no arm semantics>",
-          "conversation_fresh": true,
-          "memory_enabled": false,
-          "project_context_present": false,
-          "prior_repo_context_available": false,
-          "previous_arm_output_exposed": false,
-          "corrective_scoring_feedback_before_pair_complete": false,
-          "future_wave_material_exposed": false,
-          "hidden_benchmark_material_exposed": false,
-          "connector_state_equal": true,
-          "source_state_pre_sha": "<40-char study sha derived from branch_tip_pre>",
-          "source_state_post_sha": "<same study sha derived from branch_tip_post>",
-          "source_state_protocol_violation": false,
-          "model_family": "<exact displayed model family>",
-          "thinking_configuration": "<exact selectable setting>",
-          "client_environment": "<exact client class>",
-          "connector": "GitHub",
-          "protocol_violations": [],
-          "instrumentation_source": "exported_transcript",
-          "raw_evidence_reference": "<immutable transcript/capture reference>",
-          "raw_evidence_sha256": "<64 hex chars>",
-          "event_extractor_version": "ri-ab-events-v1",
-          "tool_events": [
-            {
-              "sequence": 1,
-              "phase": "study_infrastructure",
-              "tool_family": "GitHub",
-              "operation": "branch_tip_pre",
-              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-              "ref": "main",
-              "resource": "main",
-              "resource_class": "other",
-              "response_bytes": 40,
-              "observed_ref_sha": "<40-char study sha>"
-            },
-            {
-              "sequence": 2,
-              "phase": "task_orientation",
-              "tool_family": "GitHub",
-              "operation": "fetch",
-              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-              "ref": "<study sha>",
-              "resource": "AGENTS.md",
-              "resource_class": "ordinary_source",
-              "response_bytes": 12345,
-              "content_identity": null
-            },
-            {
-              "sequence": 3,
-              "phase": "study_infrastructure",
-              "tool_family": "GitHub",
-              "operation": "branch_tip_post",
-              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-              "ref": "main",
-              "resource": "main",
-              "resource_class": "other",
-              "response_bytes": 40,
-              "observed_ref_sha": "<same 40-char study sha>"
-            }
-          ],
-          "event_log_sha256": "<SHA-256 of canonical JSON tool_events list>",
-          "total_connector_calls": 1,
-          "default_branch_search_calls": 0,
-          "ri_payload_bytes": 0,
-          "repository_response_utf8_bytes": 12345,
-          "measured_input_tokens": null,
-          "treatment_delivery_status": "not-applicable",
-          "complete_treatment_payload_verified": false
-        },
-        {
-          "run_id": "<opaque run id>",
-          "arm": "RI-AB-TREATMENT",
-          "pair_order": ["RI-AB-CONTROL", "RI-AB-TREATMENT"],
-          "submitted_task_prompt": "<same exact held-out prompt text as Control>",
-          "task_prompt_sha256": "<same prompt SHA-256 as Control>",
-          "submitted_run_envelope": {
-            "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-            "repository_ref": "<40-char study sha>",
-            "source_state_lock": "stable_default_branch_window",
-            "wave": "PILOT",
-            "task_id": "P01",
-            "arm": "RI-AB-TREATMENT",
-            "treatment_delivery_mode": "connector_compact_surface",
-            "task_prompt_sha256": "<same prompt SHA-256>"
-          },
-          "run_envelope_sha256": "<SHA-256 of canonical JSON envelope>",
-          "submitted_full_message": "<exact deterministic Treatment benchmark message>",
-          "submitted_full_message_sha256": "<SHA-256 of exact full message>",
-          "model_response": "<exact visible model response>",
-          "model_response_sha256": "<SHA-256 of exact response>",
-          "blind_response_id": "<different opaque response id with no arm semantics>",
-          "conversation_fresh": true,
-          "memory_enabled": false,
-          "project_context_present": false,
-          "prior_repo_context_available": false,
-          "previous_arm_output_exposed": false,
-          "corrective_scoring_feedback_before_pair_complete": false,
-          "future_wave_material_exposed": false,
-          "hidden_benchmark_material_exposed": false,
-          "connector_state_equal": true,
-          "source_state_pre_sha": "<40-char study sha derived from branch_tip_pre>",
-          "source_state_post_sha": "<same study sha derived from branch_tip_post>",
-          "source_state_protocol_violation": false,
-          "model_family": "<exact displayed model family>",
-          "thinking_configuration": "<exact selectable setting>",
-          "client_environment": "<exact client class>",
-          "connector": "GitHub",
-          "protocol_violations": [],
-          "instrumentation_source": "exported_transcript",
-          "raw_evidence_reference": "<immutable transcript/capture reference>",
-          "raw_evidence_sha256": "<64 hex chars>",
-          "event_extractor_version": "ri-ab-events-v1",
-          "tool_events": [
-            {
-              "sequence": 1,
-              "phase": "study_infrastructure",
-              "tool_family": "GitHub",
-              "operation": "branch_tip_pre",
-              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-              "ref": "main",
-              "resource": "main",
-              "resource_class": "other",
-              "response_bytes": 40,
-              "observed_ref_sha": "<40-char study sha>"
-            },
-            {
-              "sequence": 2,
-              "phase": "task_orientation",
-              "tool_family": "GitHub",
-              "operation": "fetch",
-              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-              "ref": "<study sha>",
-              "resource": "assets/repository-intelligence/agent-context.json",
-              "resource_class": "ri_compact_surface",
-              "response_bytes": 4096,
-              "content_identity": {
-                "mode": "connector_compact_surface",
-                "identifier": "assets/repository-intelligence/agent-context.json",
-                "git_blob_sha": "<40-char blob sha>",
-                "content_sha256": "<64 hex chars>",
-                "source_identity": "<RI source identity/digest>"
-              },
-              "payload_byte_start": 0,
-              "payload_byte_end": 4096,
-              "payload_chunk_sha256": "<SHA-256 of exact bytes [0:4096]>"
-            },
-            {
-              "sequence": 3,
-              "phase": "study_infrastructure",
-              "tool_family": "GitHub",
-              "operation": "branch_tip_post",
-              "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-              "ref": "main",
-              "resource": "main",
-              "resource_class": "other",
-              "response_bytes": 40,
-              "observed_ref_sha": "<same 40-char study sha>"
-            }
-          ],
-          "event_log_sha256": "<SHA-256 of canonical JSON tool_events list>",
-          "total_connector_calls": 1,
-          "default_branch_search_calls": 0,
-          "ri_payload_bytes": 4096,
-          "repository_response_utf8_bytes": 4096,
-          "measured_input_tokens": null,
-          "treatment_delivery_status": "delivered",
-          "complete_treatment_payload_verified": true
-        }
-      ]
+  "study_sha256": "<generated by init>",
+  "conditions_confirmed": true,
+  "source_window": {
+    "before": {
+      "tool": "GitHub",
+      "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+      "branch": "main",
+      "sha": "<full study commit>",
+      "evidence": "<immutable branch observation>"
+    },
+    "after": {
+      "tool": "GitHub",
+      "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+      "branch": "main",
+      "sha": "<full study commit>",
+      "evidence": "<immutable branch observation>"
     }
-  ],
-  "confirmatory_cases": [],
-  "limitations": [
-    "The model sees the arm marker; demand-characteristic effects cannot be fully blinded.",
-    "Random-seed provenance remains externally auditable rather than cryptographically proving no unreported alternative seed existed.",
-    "Raw transcript/capture evidence and the structured event log are separately hash-committed; the evaluator validates the event-log materialization but does not mechanically re-extract it from the raw transcript."
-  ],
-  "deviations_before_unblinding": [],
-  "exploratory_changes_after_unblinding": []
+  },
+  "runs": [
+    {
+      "task_id": "T01",
+      "arm": "RI-AB-CONTROL",
+      "session_id": "<unique fresh conversation ID>",
+      "submitted_message": "<generated by init; preserve exact submitted text>",
+      "response": "<exact visible answer>",
+      "evidence": "<immutable raw capture reference>",
+      "events": [
+        {
+          "tool": "GitHub",
+          "operation": "fetch",
+          "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+          "resource": "AGENTS.md",
+          "ref": "<full study commit>",
+          "response_bytes": null
+        }
+      ],
+      "deviations": [],
+      "input_tokens": null
+    }
+  ]
 }

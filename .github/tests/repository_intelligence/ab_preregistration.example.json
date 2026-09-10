@@ -1,180 +1,29 @@
 {
-  "protocol_version": 10,
-  "study_id": "RI-AB-YYYYMMDD-01",
+  "protocol_version": 11,
+  "study_id": "<study identifier>",
   "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
-  "repository_ref": "<40-char study commit sha>",
+  "repository_ref": "<full 40-hex study commit>",
   "default_branch": "main",
-  "execution_policy": "always_run_pilot_and_confirmatory",
-  "source_state_lock": {
-    "mode": "stable_default_branch_window",
-    "expected_default_branch_tip_sha": "<same 40-char study commit sha>",
-    "repository_mutations_prohibited_during_primary": true,
-    "pre_run_tip_check_required": true,
-    "post_run_tip_check_required": true,
-    "ordinary_default_branch_search_allowed": true
+  "configuration": {
+    "model": "<displayed model>",
+    "thinking": "<selected setting>",
+    "client": "<actual client/device>",
+    "connector": "GitHub"
   },
-  "execution_preflight": {
-    "smoke_evidence_reference": "<immutable smoke evidence reference>",
-    "smoke_evidence_sha256": "<64 hex chars>",
-    "smoke_passed": true,
-    "default_branch_tip_checks_verified": true,
-    "ordinary_control_search_verified": true,
-    "exact_ref_direct_reads_verified": true,
-    "treatment_delivery_verified": true,
-    "complete_treatment_payload_verified": true,
-    "truncation_check_passed": true,
-    "instrumentation_capture_verified": true,
-    "connector_permission_parity_verified": true,
-    "memory_disabled_verified": true,
-    "project_context_absent_verified": true,
-    "prior_product_repo_context_absent_verified": true,
-    "repository_mutation_freeze_acknowledged": true
-  },
-  "isolation_requirements": {
-    "conversation_fresh": true,
-    "memory_enabled": false,
-    "project_context_present": false,
-    "prior_repo_context_available": false,
-    "previous_arm_output_exposed": false,
-    "corrective_scoring_feedback_before_pair_complete": false,
-    "future_wave_material_exposed": false,
-    "hidden_benchmark_material_exposed": false
-  },
-  "model_family": "<exact displayed model family>",
-  "thinking_configuration": "<exact selectable setting>",
-  "client_environment": "<exact client class>",
-  "connector": "GitHub",
-  "treatment_delivery": {
-    "mode": "connector_compact_surface",
-    "aid_identity": {
-      "mode": "connector_compact_surface",
-      "identifier": "assets/repository-intelligence/agent-context.json",
-      "git_blob_sha": "<40-char blob sha>",
-      "content_sha256": "<64 hex chars>",
-      "source_identity": "<RI source identity/digest>"
+  "assessor": "<independent task author/selector>",
+  "selection_note": "<how these real requests were selected before observing results>",
+  "frozen_before_execution": true,
+  "smoke_evidence": "<immutable capture reference; verify client, source and RI freshness>",
+  "ri_surface_sha256": "<SHA-256 of complete verified compact surface at study commit>",
+  "context_metric": "repository_response_utf8_bytes",
+  "follow_up_rule": "<specific unresolved decision that would justify a separate follow-up>",
+  "tasks": [
+    {
+      "task_id": "T01",
+      "prompt": "<exact real request; expand to 12 distinct frozen tasks>",
+      "source_reference": "<original maintainer request>",
+      "expected": ["<acceptable result, owning sources, authority and applicable companions>"],
+      "serious_errors": ["<concrete material routing/authority error>"]
     }
-  },
-  "prompt_pack_schema_version": 3,
-  "scoring_key_schema_version": 3,
-  "blind_scoring_schema_version": 1,
-  "mandatory_scenario_families": [
-    "accepted-proposed-relation-change",
-    "branch-behind-target",
-    "candidate-data-boundary",
-    "canonical-term-synonym-pressure",
-    "exact-owner-recovery",
-    "impact-validation-routing",
-    "legitimate-new-artifact",
-    "near-synonym-source-review",
-    "overlapping-artifact-refinement",
-    "producer-schema-self-change",
-    "research-authority-separation",
-    "shared-structural-hub",
-    "stale-materialization-fallback",
-    "ukrainian-or-paraphrased-routing"
-  ],
-  "confirmatory_required_scenario_families": [
-    "accepted-proposed-relation-change",
-    "branch-behind-target",
-    "candidate-data-boundary",
-    "producer-schema-self-change",
-    "shared-structural-hub",
-    "stale-materialization-fallback"
-  ],
-  "ecological_sampling_frame": {
-    "manifest_sha256": "<64 hex chars>",
-    "commitment_reference": "<immutable reference created before normalization>",
-    "source_window": "<frozen maintainer-event source range>",
-    "cutoff": "<ISO date/time or repository-history cutoff>",
-    "inclusion_rule_ids": [
-      "real-maintainer-repository-task",
-      "self-contained-or-neutral-normalizable"
-    ],
-    "exclusion_rule_ids": [
-      "not-repository-task",
-      "insufficient-source-context",
-      "duplicate-task-family"
-    ]
-  },
-  "ecological_source_pool": {
-    "mode": "complete_eligible_frame",
-    "normalized_eligible_pool_sha256": "<64 hex chars>",
-    "selection_seed_sha256": "<64 hex chars>",
-    "minimum_eligible_count": 24,
-    "selection_algorithm": "protocol-v10-stratified-sha256-ranking"
-  },
-  "randomization_provenance": {
-    "method": "independent_assessor_after_pool_commitment",
-    "pool_commitment_reference": "<immutable reference created before seed generation>",
-    "pool_commitment_sha256": "<same normalized eligible pool SHA-256>",
-    "ecological_selection": {
-      "independent_assessor": "<assessor identity>",
-      "generation_reference": "<immutable one-generation reference>",
-      "generated_after_pool_commitment": true,
-      "single_generation_attested": true
-    },
-    "pilot_arm_order": {
-      "independent_assessor": "<assessor identity>",
-      "generation_reference": "<immutable one-generation reference>",
-      "generated_after_pool_commitment": true,
-      "single_generation_attested": true
-    },
-    "confirmatory_arm_order": {
-      "independent_assessor": "<assessor identity>",
-      "generation_reference": "<immutable one-generation reference>",
-      "generated_after_pool_commitment": true,
-      "single_generation_attested": true
-    }
-  },
-  "pilot": {
-    "case_count": 12,
-    "stress_cases": 6,
-    "ecological_cases": 6,
-    "prompts_sha256": "<64 hex chars>",
-    "scoring_key_sha256": "<64 hex chars>",
-    "arm_order_seed_sha256": "<64 hex chars>"
-  },
-  "confirmatory": {
-    "case_count": 12,
-    "stress_cases": 6,
-    "ecological_cases": 6,
-    "prompts_sha256": "<64 hex chars>",
-    "scoring_key_sha256": "<64 hex chars>",
-    "arm_order_seed_sha256": "<64 hex chars>"
-  },
-  "positive_reversal_quality_gate": {
-    "minimum_each_applicable_dimension": 1
-  },
-  "ecological_correctness_non_regression": {
-    "metric": "median paired total correctness delta B-A",
-    "minimum_per_wave": 0,
-    "maximum_reverse_serious_error_reversals_per_wave": 0
-  },
-  "connector_cost_gate": {
-    "acceptable_median_ratio_b_over_a": 1.5,
-    "high_overhead_ratio_threshold": 2.0,
-    "acceptable_high_overhead_case_count": 2
-  },
-  "connector_interaction_gain_rule": {
-    "maximum_median_ratio_b_over_a_per_wave": 0.8
-  },
-  "context_volume": {
-    "metric": "repository_response_utf8_bytes",
-    "maximum_median_ratio_b_over_a_per_wave": 1.0,
-    "high_overhead_ratio_threshold": 2.0,
-    "acceptable_high_overhead_case_count": 2
-  },
-  "orientation_cost_boundary": "task_orientation_events_only",
-  "final_decision_rule": {
-    "engineering_acceptance_correctness": {
-      "minimum_confirmatory_positive_reversals": 1,
-      "minimum_confirmatory_ecological_positive_reversals": 1,
-      "minimum_combined_positive_reversals": 3,
-      "maximum_combined_reverse_serious_reversals": 0,
-      "ecological_non_regression_must_pass_both_waves": true,
-      "connector_cost_gate_must_pass_both_waves": true,
-      "all_primary_pairs_must_be_valid": true
-    }
-  },
-  "claim_boundary": "engineering acceptance; not statistical significance or universal productivity proof"
+  ]
 }

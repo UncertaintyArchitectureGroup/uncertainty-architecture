@@ -1,222 +1,105 @@
 #!/usr/bin/env python3
-"""Per-run input, source-lock, Treatment, and instrumentation validation for RI A/B."""
+"""Source/arm boundaries and measurements from recorded connector interactions."""
 
 from pathlib import PurePosixPath
 
-from _ri_ab_base import (
-    CONTROL, CORE_SCORE_FIELDS, INSTRUMENTATION_SOURCES, OPTIONAL_SCORE_FIELD,
-    PROHIBITED_TREATMENT_CLASSES, RESOURCE_CLASSES, RI_CLASSES, TREATMENT,
-    TREATMENT_IDENTIFIER, csha, envelope, exact_fields, full_message, req,
-    s256b, s256t, valid_commit_sha, valid_sha256,
-)
-
-CONNECTOR_READ_OPERATIONS = {"fetch", "search", "code_search"}
-BRANCH_TIP_OPERATIONS = {"branch_tip_pre", "branch_tip_post"}
+from _ri_ab_base import COMPACT, CONTROL, digest, exact, measurement, nonempty, planned_runs, require, text_digest
 
 
-def score_total(scores, key):
-    exact_fields(scores, {*CORE_SCORE_FIELDS, OPTIONAL_SCORE_FIELD, "total_applicable_correctness", "serious_routing_error"}, "blind scores")
-    values = {}
-    for field in CORE_SCORE_FIELDS:
-        req(type(scores.get(field)) is int and 0 <= scores[field] <= 2, f"{field} score invalid")
-        values[field] = scores[field]
-    companion = scores.get(OPTIONAL_SCORE_FIELD)
-    if key["companion_validation_applicable"]:
-        req(type(companion) is int and 0 <= companion <= 2, "companion_validation must be scored")
-        values[OPTIONAL_SCORE_FIELD] = companion
-    else:
-        req(companion is None, "companion_validation must be null")
-    total = sum(values.values())
-    req(scores.get("total_applicable_correctness") == total, "total_applicable_correctness mismatch")
-    req(type(scores.get("serious_routing_error")) is bool, "serious_routing_error must be boolean")
-    return total, scores["serious_routing_error"], values
-
-
-def validate_event(event, index, p):
-    req(isinstance(event, dict) and event.get("sequence") == index and event.get("phase") in {"study_infrastructure", "task_orientation"} and event.get("resource_class") in RESOURCE_CLASSES and event.get("repository") == p["repository"], "invalid tool event")
-    for field in ("tool_family", "operation", "resource"):
-        req(isinstance(event.get(field), str) and event[field], f"tool event {field} required")
-    req(event.get("response_bytes") is None or type(event["response_bytes"]) is int and event["response_bytes"] >= 0, "invalid response_bytes")
-    if event["operation"] == "fetch":
-        resource = event["resource"]
-        path = PurePosixPath(resource)
-        req(bool(path.parts) and not path.is_absolute() and ".." not in path.parts and "\\" not in resource and str(path) == resource, "fetch resource must be a canonical repository-relative path")
-    # A caller's class label cannot erase a resource identity already in the log.
-    identity = event.get("content_identity")
-    frozen_identity = p["treatment_delivery"]["aid_identity"]
-    compact_identity = isinstance(identity, dict) and any(
-        identity.get(field) == frozen_identity[field]
-        for field in ("identifier", "git_blob_sha", "content_sha256")
-    )
-    compact_payload = any(field in event for field in ("payload_byte_start", "payload_byte_end", "payload_chunk_sha256"))
-    if event["resource"] == TREATMENT_IDENTIFIER or compact_identity or compact_payload:
-        req(event["resource_class"] == "ri_compact_surface", "resource_class contradicts compact-surface resource or identity")
-    if event["operation"] in BRANCH_TIP_OPERATIONS:
-        req(event["phase"] == "study_infrastructure", "branch-tip evidence must be study infrastructure")
-        req(event["resource_class"] == "other", "branch-tip evidence must have resource_class other")
-        req(event.get("ref") == p["default_branch"] and event["resource"] == p["default_branch"], "branch-tip evidence must identify preregistered default branch")
-        req(event.get("observed_ref_sha") == p["repository_ref"], "branch-tip event does not prove study SHA")
-        return
-
-    # A stable branch does not authenticate a read explicitly taken from another ref.
-    # Keep ordinary search available, but require read-level evidence for unpinned reads.
-    ref = event.get("ref")
-    observed = event.get("observed_ref_sha")
-    study_ref = p["repository_ref"]
-    req(observed is None or valid_commit_sha(observed) and observed == study_ref, f"tool event {index} source ref evidence contradicts study SHA")
-    ordinary_search = event["operation"] in {"search", "code_search"} and event["resource_class"] == "ordinary_source"
-    if ordinary_search:
-        req(ref in (None, p["default_branch"], study_ref), f"tool event {index} search source ref is outside the study lock")
-    else:
-        pinned = ref == study_ref
-        resolved_default = ref in (None, p["default_branch"]) and observed == study_ref
-        req(pinned or resolved_default, f"tool event {index} source ref must prove the study SHA for this read")
-
-
-def compact_surface_coverage(events, p, treatment):
-    payload = treatment["payload"]
-    size = len(payload)
-    ranges = []
+def event_metrics(events, arm, study):
+    require(isinstance(events, list), "events must be a chronological list")
+    reasons, sizes, attempts, verified = [], [], 0, 0
+    if not events:
+        reasons.append("no repository interactions recorded")
     for event in events:
-        req(event.get("content_identity") == p["treatment_delivery"]["aid_identity"], "Treatment compact-surface event has wrong identity")
-        start = event.get("payload_byte_start")
-        end = event.get("payload_byte_end")
-        chunk_sha = event.get("payload_chunk_sha256")
-        req(type(start) is int and type(end) is int and 0 <= start < end <= size, "Treatment compact-surface byte range invalid")
-        req(valid_sha256(chunk_sha), "Treatment compact-surface chunk SHA-256 required")
-        req(event.get("response_bytes") == end - start, "Treatment compact-surface response_bytes must equal byte range length")
-        req(s256b(payload[start:end]) == chunk_sha, "Treatment compact-surface chunk bytes do not match exact surface")
-        ranges.append((start, end))
-    if not ranges:
-        return False
-    ranges.sort()
-    cursor = 0
-    for start, end in ranges:
-        if start != cursor:
-            return False
-        cursor = end
-    return cursor == size
-
-
-def derive(run, p, treatment):
-    events = run.get("tool_events")
-    req(isinstance(events, list) and events, "tool_events must be non-empty list")
-    req(run.get("instrumentation_source") in INSTRUMENTATION_SOURCES, "instrumentation_source must be machine_capture or exported_transcript")
-    req(isinstance(run.get("raw_evidence_reference"), str) and run["raw_evidence_reference"], "raw_evidence_reference required")
-    req(valid_sha256(run.get("raw_evidence_sha256")), "raw_evidence_sha256 required")
-    req(isinstance(run.get("event_extractor_version"), str) and run["event_extractor_version"], "event_extractor_version required")
-    req(run.get("event_log_sha256") == csha(events), "event_log_sha256 does not match structured events")
-    for index, event in enumerate(events, 1):
-        validate_event(event, index, p)
-    task = [event for event in events if event["phase"] == "task_orientation"]
-    req(task, "at least one task_orientation event required")
-    pre = [event for event in events if event.get("operation") == "branch_tip_pre"]
-    post = [event for event in events if event.get("operation") == "branch_tip_post"]
-    req(len(pre) == 1 and len(post) == 1, "exactly one branch_tip_pre and branch_tip_post event required")
-    req(pre[0]["sequence"] < min(event["sequence"] for event in task), "branch_tip_pre must precede task orientation")
-    req(post[0]["sequence"] > max(event["sequence"] for event in task), "branch_tip_post must follow task orientation")
-    # Cost phases do not define the ablation boundary: all recorded access counts.
-    ri = [event for event in events if event["resource_class"] in RI_CLASSES]
-    compact = [event for event in task if event["resource_class"] == "ri_compact_surface"]
-    connector_reads = [event for event in task if event["tool_family"] == p["connector"] and event["operation"] in CONNECTOR_READ_OPERATIONS]
-    unsupported_route = any(
-        event["tool_family"] != p["connector"]
-        or event["operation"] not in CONNECTOR_READ_OPERATIONS | BRANCH_TIP_OPERATIONS
-        or event["operation"] in {"search", "code_search"} and event["resource_class"] != "ordinary_source"
-        for event in events
-    )
-    repo_bytes = None if any(event.get("response_bytes") is None for event in task) else sum(event["response_bytes"] for event in task)
-    ri_bytes = None if any(event.get("response_bytes") is None for event in ri) else sum(event["response_bytes"] for event in ri)
-    exact_identity = [event for event in compact if event.get("content_identity") == p["treatment_delivery"]["aid_identity"]]
-    complete = compact_surface_coverage(compact, p, treatment)
+        required = {"tool", "operation", "repository", "resource", "ref", "response_bytes"}
+        optional = {"observed_ref_sha", "kind", "delivery", "content_sha256"}
+        require(isinstance(event, dict) and required <= set(event) <= required | optional, "event: incorrect fields")
+        for name in ("tool", "operation", "repository", "resource"):
+            require(nonempty(event[name]), f"event.{name} required")
+        measurement(event["response_bytes"], "response_bytes")
+        sizes.append(event["response_bytes"])
+        if event["tool"] != "GitHub" or event["operation"] not in {"fetch", "search", "code_search", "inspect"}:
+            reasons.append("unsupported transport or operation")
+        require(event["repository"] == study["repository"], "event repository differs from study")
+        resource = event["resource"]
+        if event["operation"] == "fetch":
+            path = PurePosixPath(resource)
+            require(bool(path.parts) and not path.is_absolute() and ".." not in path.parts and "\\" not in resource and str(path) == resource, "fetch resource must be a canonical repository-relative path")
+        compact = resource == COMPACT or event.get("content_sha256") == study["ri_surface_sha256"]
+        known_ri = compact or resource.startswith("assets/repository-intelligence/") or resource.rstrip("/") == "control-map"
+        kind = event.get("kind", "ri_compact" if compact else "ri_other" if known_ri else "source")
+        require(kind in {"source", "ri_compact", "ri_other"}, "unknown resource kind")
+        require(not compact or kind == "ri_compact", "compact identity contradicts resource kind")
+        require(not known_ri or kind != "source", "RI resource cannot be classified as ordinary source")
+        require("delivery" not in event or kind == "ri_compact", "delivery metadata belongs to compact RI")
+        observed, ref = event.get("observed_ref_sha"), event["ref"]
+        sha, branch = study["repository_ref"], study["default_branch"]
+        require(observed is None or observed == sha, "read source evidence contradicts study SHA")
+        if event["operation"] in {"search", "code_search"} and kind == "source":
+            require(ref in (None, branch, sha), "search ref is outside the study window")
+        else:
+            require(ref == sha or ref in (None, branch) and observed == sha, "read must prove the study SHA")
+        if kind != "source":
+            attempts += 1
+            if arm == CONTROL:
+                reasons.append("Control accessed RI")
+            if kind == "ri_other" or event["operation"] != "fetch":
+                reasons.append("RI aid outside the connector compact route")
+        if kind == "ri_compact":
+            require(event.get("delivery") in {"verified", "unverified", "unavailable"}, "record compact delivery outcome")
+            if event["delivery"] == "verified":
+                require(event.get("content_sha256") == study["ri_surface_sha256"], "verified RI content does not match frozen complete surface")
+                require(event["response_bytes"] is None or event["response_bytes"] > 0, "verified RI delivery cannot have zero response bytes")
+                verified += 1
     return {
-        "calls": len(connector_reads),
-        "infrastructure_calls": len(events) - len(task),
-        "searches": sum(event["operation"] in {"search", "code_search"} for event in connector_reads),
-        "unsupported_connector_route": unsupported_route,
-        "misphased_access": any(event["operation"] not in BRANCH_TIP_OPERATIONS and event["phase"] != "task_orientation" for event in events),
-        "ri": bool(ri),
-        "ri_bytes": 0 if not ri else ri_bytes,
-        "repo_bytes": repo_bytes,
-        "bad_control": bool(ri),
-        "prohibited_treatment": any(event["resource_class"] in PROHIBITED_TREATMENT_CLASSES for event in events),
-        "identity": bool(exact_identity),
-        "complete_treatment_delivery": complete,
-        "source_pre_sha": pre[0]["observed_ref_sha"],
-        "source_post_sha": post[0]["observed_ref_sha"],
+        "reasons": reasons, "calls": len(events),
+        "bytes": None if any(n is None for n in sizes) else sum(sizes),
+        "ri_attempts": attempts, "ri_verified": verified,
     }
 
 
-def run_valid(run, arm, wave, task_id, prompt_text, prompt_hash, order, p, treatment):
-    reasons = []
-    tokens = run.get("measured_input_tokens")
-    req(tokens is None or type(tokens) is int and tokens >= 0, "measured_input_tokens must be a non-negative integer or null")
-    expected_env = envelope(p, wave, task_id, arm, prompt_hash)
-    expected_message = full_message(p, wave, task_id, arm, prompt_text, prompt_hash)
-    checks = {
-        "wrong arm": run.get("arm") == arm,
-        "submitted task prompt mismatch": run.get("submitted_task_prompt") == prompt_text,
-        "task prompt hash mismatch": run.get("task_prompt_sha256") == prompt_hash,
-        "run envelope object mismatch": run.get("submitted_run_envelope") == expected_env,
-        "run envelope hash mismatch": run.get("run_envelope_sha256") == csha(expected_env),
-        "submitted full message mismatch": run.get("submitted_full_message") == expected_message,
-        "submitted full message hash mismatch": run.get("submitted_full_message_sha256") == s256t(expected_message),
-        "conversation not fresh": run.get("conversation_fresh") is True,
-        "Memory not disabled": run.get("memory_enabled") is False,
-        "Project context present": run.get("project_context_present") is False,
-        "prior repo context present": run.get("prior_repo_context_available") is False,
-        "previous arm exposed": run.get("previous_arm_output_exposed") is False,
-        "corrective feedback exposed": run.get("corrective_scoring_feedback_before_pair_complete") is False,
-        "future wave exposed": run.get("future_wave_material_exposed") is False,
-        "hidden benchmark exposed": run.get("hidden_benchmark_material_exposed") is False,
-        "connector state mismatch": run.get("connector_state_equal") is True,
-        "source protocol violation": run.get("source_state_protocol_violation") is False,
-        "model mismatch": run.get("model_family") == p["model_family"],
-        "thinking mismatch": run.get("thinking_configuration") == p["thinking_configuration"],
-        "client mismatch": run.get("client_environment") == p["client_environment"],
-        "connector mismatch": run.get("connector") == p["connector"],
-    }
-    reasons.extend(message for message, passed in checks.items() if not passed)
-    req(run.get("pair_order") == order, "pair_order mismatch")
-    req(isinstance(run.get("protocol_violations"), list), "protocol_violations must be list")
-    if run["protocol_violations"]:
-        reasons.append("protocol violations")
-    if "scores" in run:
-        reasons.append("arm-labelled inline scores are prohibited")
-    response = run.get("model_response")
-    req(isinstance(response, str) and response, "model_response required")
-    if run.get("model_response_sha256") != s256t(response):
-        reasons.append("model_response_sha256 mismatch")
-    req(isinstance(run.get("blind_response_id"), str) and run["blind_response_id"], "blind_response_id required")
-    derived = derive(run, p, treatment)
-    if derived["unsupported_connector_route"]:
-        reasons.append("tool events use an unsupported connector route")
-    if derived["misphased_access"]:
-        reasons.append("repository access recorded outside task orientation")
-    for summary_field, derived_field in (
-        ("total_connector_calls", "calls"),
-        ("default_branch_search_calls", "searches"),
-        ("ri_payload_bytes", "ri_bytes"),
-        ("repository_response_utf8_bytes", "repo_bytes"),
-        ("source_state_pre_sha", "source_pre_sha"),
-        ("source_state_post_sha", "source_post_sha"),
-    ):
-        if run.get(summary_field) != derived[derived_field]:
-            reasons.append(f"{summary_field} does not match structured events")
-    if arm == CONTROL:
-        if derived["bad_control"]:
-            reasons.append("Control RI ablation contaminated by structured events")
-        if run.get("treatment_delivery_status") not in {None, "not-applicable"}:
-            reasons.append("Control records Treatment delivery")
-    else:
-        if run.get("treatment_delivery_status") != "delivered":
-            reasons.append("Treatment delivery failed")
-        if derived["prohibited_treatment"]:
-            reasons.append("Treatment used RI aid outside compact-surface-only boundary")
-        if not derived["ri"] or not derived["identity"]:
-            reasons.append("Treatment events do not prove exact compact aid access")
-        if not derived["complete_treatment_delivery"]:
-            reasons.append("Treatment events do not prove complete aid delivery")
-        if run.get("complete_treatment_payload_verified") != derived["complete_treatment_delivery"]:
-            reasons.append("complete_treatment_payload_verified does not match derived delivery")
-    return reasons, derived
+def validate_runs(study, records):
+    exact(records, {"study_sha256", "conditions_confirmed", "source_window", "runs"}, "run bundle")
+    require(records["study_sha256"] == digest(study), "study changed after run preparation")
+    require(type(records["conditions_confirmed"]) is bool, "conditions_confirmed must be boolean")
+    exact(records["source_window"], {"before", "after"}, "source window")
+    window_ok = True
+    for observation in records["source_window"].values():
+        if observation is None:
+            window_ok = False
+            continue
+        exact(observation, {"tool", "repository", "branch", "sha", "evidence"}, "branch observation")
+        window_ok &= (
+            observation["tool"] == "GitHub" and observation["repository"] == study["repository"]
+            and observation["branch"] == study["default_branch"] and observation["sha"] == study["repository_ref"]
+            and nonempty(observation["evidence"])
+        )
+    require(isinstance(records["runs"], list), "runs must be a list")
+    plan = {(task["task_id"], arm): message for task, arm, message in planned_runs(study)}
+    run_map, sessions, actual_order = {}, set(), []
+    for run in records["runs"]:
+        exact(run, {"task_id", "arm", "session_id", "submitted_message", "response", "evidence", "events", "deviations", "input_tokens"}, "run")
+        require(nonempty(run["task_id"]) and nonempty(run["arm"]), "run task/arm required")
+        key = (run["task_id"], run["arm"])
+        require(key in plan and key not in run_map, "unknown or duplicate task/arm run")
+        require(isinstance(run["response"], str), "response must be exact visible text")
+        require(nonempty(run["session_id"]) and run["session_id"] not in sessions, "unique fresh session ID required")
+        sessions.add(run["session_id"])
+        measurement(run["input_tokens"], "input_tokens")
+        require(isinstance(run["deviations"], list) and all(nonempty(v) for v in run["deviations"]), "deviations must be a list of explanations")
+        metrics = event_metrics(run["events"], run["arm"], study)
+        reasons = metrics["reasons"] + run["deviations"]
+        for ok, reason in (
+            (records["conditions_confirmed"], "session/configuration conditions unconfirmed"),
+            (window_ok, "source window not proven"),
+            (run["submitted_message"] == plan[key], "submitted message differs from frozen task"),
+            (nonempty(run["response"]), "no final response"),
+            (nonempty(run["evidence"]), "raw capture reference missing"),
+        ):
+            if not ok:
+                reasons.append(reason)
+        run_map[key] = {**metrics, "reasons": reasons, "input_tokens": run["input_tokens"], "response_id": text_digest(run["session_id"])}
+        actual_order.append(key)
+    require(actual_order == [key for key in plan if key in run_map], "execution order differs from frozen counterbalanced plan")
+    return run_map

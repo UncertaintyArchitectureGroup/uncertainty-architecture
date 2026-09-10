@@ -64,17 +64,11 @@ For owner discovery, term/artifact preflight, or impact exploration, follow the 
 
 ### Controlled Repository Intelligence benchmark ablation
 
-The only exception to the normal Repository Intelligence route is an explicitly invoked comparative evaluation that follows [`.github/tests/repository_intelligence/AB-EVALUATION.md`](.github/tests/repository_intelligence/AB-EVALUATION.md).
+An explicit `Experiment arm: RI-AB-CONTROL` marker with a study commit and task ID invokes the [bounded A/B protocol](.github/tests/repository_intelligence/AB-EVALUATION.md). Use ordinary source-state-locked live-GitHub reading/search with RI aids unavailable; preserve the normal bootstrap, scoped-instruction, authority and validation rules.
 
-When the task envelope names `Experiment arm: RI-AB-CONTROL` and supplies a study source commit plus an opaque benchmark task ID, treat the RI consumer as deliberately unavailable for that run. Follow the normal bootstrap, authority, scoped-instruction, provenance, validation, and source-reading rules, but use only the **source-state-locked ordinary live-GitHub route permitted by the evaluation protocol** instead of generated RI surfaces, RI query operations, or the Repository Control Map. Ordinary default-branch GitHub search is permitted only while the preregistered stable-default-branch window is active and the required pre/post tip checks establish the study commit; a failed lock invalidates the run. Do not use prior benchmark outputs or hidden scoring material. This is an evaluation-only ablation, not permission to bypass repository controls or to use the control route in ordinary work.
+`Experiment arm: RI-AB-TREATMENT` uses the normal connector RI route under the same protocol: read known owners directly, consult and reuse verified compact context when useful, and fall back to authoritative sources when RI is unavailable or unverifiable. Do not force an index fetch or claim local CLI/query execution in a connector-only run.
 
-When the task envelope names `Experiment arm: RI-AB-TREATMENT`, follow the evaluation protocol's preregistered **Treatment Delivery Mode** and the normal Repository Intelligence authority/fallback rules under the same source-state lock. Do not claim that a local RI CLI/query operation was executed when the selected client only supplied the compact Agent Context Surface. A failure to obtain or verify the preregistered Treatment aid is a benchmark delivery failure, not an ordinary task-level fallback.
-
-When the task envelope names `Experiment arm: RI-AB-DATA-ONLY`, use only the verified compact Agent Context Surface supplied for the study state as the RI-derived aid. Do not invoke task-specific RI query operations, do not use the full Graph View or Repository Control Map, and do not accept task-specific RI routing suggestions from another session. Decide how to use the compact data yourself, then read authoritative repository sources before making material decisions. This marker is diagnostic only and must not be used to rewrite the primary A/B result.
-
-For any benchmark arm, use only repository facts attributable to the preregistered study state. Use the exact study ref for direct reads when the client supports it; ordinary default-branch search is allowed only under the active stable-source lock defined by the evaluation protocol. Do not search for or use held-out prompt packs, scoring keys, prior-arm outputs, or task material from another wave. Pilot and confirmatory corpora are independently held out under the evaluation protocol; future-wave task material is not repository context for the current run.
-
-If none of these exact markers is present, this benchmark exception does not apply.
+Keep hidden tasks, scoring keys, prior-arm answers and corrective scoring feedback out of either session. These exact markers authorize only the benchmark ablation; ordinary work follows the normal RI route.
 
 State the inspected ref and material access limitations before editing only when they affect correctness or scope; otherwise include them in the completion report rather than adding a routine preamble to every response.
 
