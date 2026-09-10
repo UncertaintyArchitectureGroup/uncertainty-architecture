@@ -728,6 +728,8 @@ Implementation references checked on 2026-09-05:
 
 Repository intelligence is useful only if it reduces predictable repository mistakes or materially lowers the cost of finding evidence needed for a correct decision.
 
+Begin with the [bounded initial A/B comparison](tests/repository_intelligence/AB-EVALUATION.md): 12 independently selected real tasks, normal optional compact-context use, fresh paired sessions, blind scoring, and measured cost. This preliminary decision aid does not close the full acceptance gate below. Record uncovered scenarios and obtain additional agent-judgment evidence only for the remaining decision; preserve the existing deterministic trust/data-boundary regressions. Do not require a full research-study apparatus before collecting the first operational evidence.
+
 The independently authored benchmark in PR 3 should include at least:
 
 - owner recovery for an exact existing responsibility;

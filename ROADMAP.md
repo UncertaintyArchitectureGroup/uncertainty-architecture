@@ -177,6 +177,8 @@ PR #114 has merged. PR 3 integrates the operational agent route and a reproducib
 
 PR 4 implements the interactive Quartz Repository Control Map, keeps impact semantics in the existing producer, and prepares opt-in public site delivery. Browser checks cover desktop and touch-sized layouts; live PR overlay/proposed-graph transport, physical iPad acceptance, and independent cold-start assessment remain open.
 
+The [bounded initial comparison](.github/tests/repository_intelligence/AB-EVALUATION.md) uses 12 independently selected real tasks / 24 fresh sessions, ordinary live-GitHub Control and normal optional compact-context Treatment. Protocol v11 keeps same-state/isolation checks, blind scoring and measured costs while reducing evidence to study, runs and scores; the evaluator generates session messages, blind packets and four-outcome reports. It replaces the unexecuted v10 two-wave design. This PR supplies infrastructure only: the initial sessions, results PR and full RI-EVAL scenario acceptance remain open. Additional evidence follows a frozen decision-specific rule rather than an obligatory second wave.
+
 Required sequence:
 
 1. define one lightweight logical projection with authority, freshness, materialization, accepted/proposed-state, trusted-comparison, bootstrap, candidate-data, and impact-semantics boundaries;

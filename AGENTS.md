@@ -62,6 +62,14 @@ Inspecting a tree is not the same as reading a repository. Do not claim complete
 
 For owner discovery, term/artifact preflight, or impact exploration, follow the [repository-intelligence agent route](.github/REPOSITORY-INTELLIGENCE.md#operational-agent-route) after instruction bootstrap. Reuse a verified context surface for the same source state; read the full relevant inventory before proposing a new term or maintained artifact, then read the owning sources. Keep an already-known direct source route cheap. Missing, stale, truncated, or ambiguous context requires live-repository fallback. A lexical miss, including an untranslated Ukrainian query, is not evidence that no owner exists.
 
+### Controlled Repository Intelligence benchmark ablation
+
+An explicit `Experiment arm: RI-AB-CONTROL` marker with a study commit and task ID invokes the [bounded A/B protocol](.github/tests/repository_intelligence/AB-EVALUATION.md). Use ordinary source-state-locked live-GitHub reading/search with RI aids unavailable; preserve the normal bootstrap, scoped-instruction, authority and validation rules.
+
+`Experiment arm: RI-AB-TREATMENT` uses the normal connector RI route under the same protocol: read known owners directly, consult and reuse verified compact context when useful, and fall back to authoritative sources when RI is unavailable or unverifiable. Do not force an index fetch or claim local CLI/query execution in a connector-only run.
+
+Keep hidden tasks, scoring keys, prior-arm answers and corrective scoring feedback out of either session. These exact markers authorize only the benchmark ablation; ordinary work follows the normal RI route.
+
 State the inspected ref and material access limitations before editing only when they affect correctness or scope; otherwise include them in the completion report rather than adding a routine preamble to every response.
 
 ## 3. Task-specific reading paths
@@ -75,7 +83,7 @@ Read the complete sources needed for the task, but do not load unrelated reposit
 | Edit project architecture material | controlled-object doctrine → capability anatomy → lifecycle → project pattern/template → delivery pattern → relevant Constraint/failure-mode/traceability material |
 | Edit delivery-team material | project inheritance rules → delivery pattern/template → Judgment Node Boundary → relevant Constraint/glossary/failure-mode material |
 | Edit runtime material | active project/delivery ownership rules → capability anatomy → relevant Controller/Actuator/Sensor/realization/fallback/incident material |
-| Edit AI Control Plane | capability anatomy → glossary → affected capability areas → both review patterns → relevant references/failure modes/source intake/traceability |
+| Edit AI Control Plane | capability anatomy → glossary → affected capability areas → both review patterns → relevant references/failure-modes/source intake/traceability |
 | Research or publication content | scoped research `AGENTS.md` → `content/research/index.md` → `review-process.md` → relevant Research State Register entries → traceability → owning research artifacts |
 | Metadata or controlled tags | `DOCUMENT-METADATA.md` → `.github/policy/metadata-contract.json` → validator/tests/workflow → affected maintained documents |
 | Repository policy or contribution flow | `CONTRIBUTING.md` → human-readable owner of the changed rule → relevant `.github/policy/*` → validators/tests/workflows → roadmap/changelog |
