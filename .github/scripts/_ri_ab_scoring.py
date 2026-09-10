@@ -197,7 +197,7 @@ def evaluate(p, record, evidence, score_map):
     pilot = eval_wave("PILOT", record.get("pilot_cases"), evidence["packs"]["pilot"], evidence["keys"]["pilot"], p, treatment, score_map)
     confirmatory = eval_wave("CONFIRMATORY", record.get("confirmatory_cases"), evidence["packs"]["confirmatory"], evidence["keys"]["confirmatory"], p, treatment, score_map)
     return {
-        "evaluation_version": 7,
+        "evaluation_version": 8,
         "protocol_version": PROTOCOL_VERSION,
         "study_id": p["study_id"],
         "repository_ref": p["repository_ref"],

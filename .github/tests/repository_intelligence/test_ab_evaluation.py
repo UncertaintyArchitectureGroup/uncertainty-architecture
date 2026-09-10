@@ -291,4 +291,219 @@ class T(unittest.TestCase):
             self.assertTrue(report[wave]['all_pairs_valid'])
             self.assertTrue(report[wave]['context_volume_gate_passed'])
 
+    @staticmethod
+    def _refresh_events(run):
+        # Keep submitted summaries consistent so a bad event cannot be rejected
+        # merely because the regression forgot to update its hash or costs.
+        for index, event in enumerate(run['tool_events'], 1):
+            event['sequence'] = index
+        task = [event for event in run['tool_events'] if event['phase'] == 'task_orientation']
+        run['event_log_sha256'] = E.csha(run['tool_events'])
+        run['total_connector_calls'] = len(task)
+        run['default_branch_search_calls'] = sum(event['operation'] in {'search', 'code_search'} for event in task)
+        run['repository_response_utf8_bytes'] = sum(event['response_bytes'] for event in task)
+        run['ri_payload_bytes'] = sum(event['response_bytes'] for event in task if event['resource_class'] in E.RI_CLASSES)
+
+    def _correctness_record(self):
+        record = copy.deepcopy(self.record)
+        bundle = copy.deepcopy(self.bundle)
+        positive_ids = set()
+        for wave, index in (('pilot', 0), ('confirmatory', 0), ('confirmatory', 6)):
+            run = next(run for run in record[wave + '_cases'][index]['runs'] if run['arm'] == E.CONTROL)
+            positive_ids.add(run['blind_response_id'])
+        for entry in bundle['responses']:
+            if entry['blind_response_id'] in positive_ids:
+                entry['scores'] = score(entry['scores'][E.OPTIONAL_SCORE_FIELD] is not None, serious=True, value=1)
+        record['blind_scoring']['scoring_bundle_sha256'] = dump(self.blind, bundle)
+        return record
+
+    def _efficiency_record(self):
+        self.p['context_volume']['metric'] = 'input_tokens'
+        record = copy.deepcopy(self.record)
+        for wave in ('pilot', 'confirmatory'):
+            for case in record[wave + '_cases']:
+                for run in case['runs']:
+                    run['measured_input_tokens'] = 100
+                    if run['arm'] == E.CONTROL:
+                        extra = copy.deepcopy(run['tool_events'][1])
+                        extra['resource'] = 'SPECIFICATION.md'
+                        run['tool_events'].insert(2, extra)
+                        self._refresh_events(run)
+        return record
+
+    def test_cli_correctness_acceptance_remains_available(self):
+        record = self._correctness_record()
+        case = record['pilot_cases'][0]
+        control = next(run for run in case['runs'] if run['arm'] == E.CONTROL)
+        treatment = next(run for run in case['runs'] if run['arm'] == E.TREATMENT)
+        treatment['tool_events'].insert(2, copy.deepcopy(control['tool_events'][1]))
+        self._refresh_events(treatment)
+        result, report = self._cli(record)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(report['final_conclusion']['final_status'], 'ENGINEERING ACCEPTANCE — CORRECTNESS')
+
+    def test_cli_compact_resource_and_identity_cannot_be_classed_as_ordinary(self):
+        baseline = self._correctness_record()
+        for arm in (E.CONTROL, E.TREATMENT):
+            for resource, identity, byte_fields in ((E.TREATMENT_IDENTIFIER, None, False), ('AGENTS.md', self.identity, False), ('AGENTS.md', None, True)):
+                for resource_class in ('ordinary_source', 'other'):
+                    with self.subTest(arm=arm, resource=resource, resource_class=resource_class, byte_fields=byte_fields):
+                        record = copy.deepcopy(baseline)
+                        run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == arm)
+                        event = copy.deepcopy(self._events(E.TREATMENT)[1])
+                        event.update(resource=resource, content_identity=identity, resource_class=resource_class)
+                        if not byte_fields:
+                            for field in ('payload_byte_start', 'payload_byte_end', 'payload_chunk_sha256'):
+                                del event[field]
+                        run['tool_events'].insert(2, event)
+                        self._refresh_events(run)
+                        result, report = self._cli(record)
+                        self.assertEqual(result.returncode, 2, result.stderr)
+                        self.assertIn('resource_class', result.stderr)
+                        self.assertIsNone(report)
+
+    def test_cli_repository_access_cannot_be_hidden_as_infrastructure(self):
+        baseline = self._correctness_record()
+        for arm in (E.CONTROL, E.TREATMENT):
+            for resource_class in ('ordinary_source', 'ri_compact_surface', 'ri_query', 'ri_full_graph', 'repository_control_map'):
+                with self.subTest(arm=arm, resource_class=resource_class):
+                    record = copy.deepcopy(baseline)
+                    run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == arm)
+                    event = copy.deepcopy(self._events(E.TREATMENT if resource_class == 'ri_compact_surface' else E.CONTROL)[1])
+                    event.update(phase='study_infrastructure', resource_class=resource_class)
+                    run['tool_events'].insert(2, event)
+                    self._refresh_events(run)
+                    result, report = self._cli(record)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(report['final_conclusion']['final_status'], 'INCONCLUSIVE')
+                    reasons = report['pilot']['cases'][0]['invalid_reasons'][arm]
+                    self.assertIn('repository access recorded outside task orientation', reasons)
+
+    def test_cli_noncanonical_fetch_paths_cannot_hide_compact_access(self):
+        baseline = self._correctness_record()
+        for resource in ('./' + E.TREATMENT_IDENTIFIER, 'assets/../' + E.TREATMENT_IDENTIFIER, '/' + E.TREATMENT_IDENTIFIER, E.TREATMENT_IDENTIFIER.replace('/', '\\'), 'https://github.com/' + self.p['repository'] + '/blob/' + self.ref + '/' + E.TREATMENT_IDENTIFIER):
+            with self.subTest(resource=resource):
+                record = copy.deepcopy(baseline)
+                run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == E.CONTROL)
+                run['tool_events'][1]['resource'] = resource
+                self._refresh_events(run)
+                result, report = self._cli(record)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn('canonical repository-relative path', result.stderr)
+                self.assertIsNone(report)
+
+    def test_cli_actual_event_transport_and_operation_enforce_connector_route(self):
+        baseline = self._correctness_record()
+        for arm in (E.CONTROL, E.TREATMENT):
+            for family, operation in (('local_cli', 'read_file'), ('local_cli', 'fetch'), ('dedicated_adapter', 'fetch'), ('GitHub', 'read_file'), ('GitHub', 'query')):
+                with self.subTest(arm=arm, family=family, operation=operation):
+                    record = copy.deepcopy(baseline)
+                    run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == arm)
+                    run['tool_events'][1].update(tool_family=family, operation=operation)
+                    self._refresh_events(run)
+                    result, report = self._cli(record)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(report['final_conclusion']['final_status'], 'INCONCLUSIVE')
+                    self.assertIn('tool events use an unsupported connector route', report['pilot']['cases'][0]['invalid_reasons'][arm])
+
+    def test_preregistered_connector_cannot_enable_local_primary(self):
+        for connector in ('local_cli', 'dedicated_adapter', 'unregistered'):
+            with self.subTest(connector=connector):
+                prereg = copy.deepcopy(self.p)
+                prereg['connector'] = connector
+                with self.assertRaisesRegex(ValueError, 'GitHub connector'):
+                    E.validate_prereg(prereg)
+
+    def test_cli_branch_tip_evidence_requires_registered_connector(self):
+        baseline = self._correctness_record()
+        for arm in (E.CONTROL, E.TREATMENT):
+            for index in (0, 2):
+                with self.subTest(arm=arm, index=index):
+                    record = copy.deepcopy(baseline)
+                    run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == arm)
+                    run['tool_events'][index]['tool_family'] = 'local_cli'
+                    self._refresh_events(run)
+                    result, report = self._cli(record)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(report['final_conclusion']['final_status'], 'INCONCLUSIVE')
+                    self.assertIn('tool events use an unsupported connector route', report['pilot']['cases'][0]['invalid_reasons'][arm])
+
+    def test_cli_mutable_or_malformed_study_ref_is_rejected(self):
+        baseline = self._correctness_record()
+        for ref in ('main', 'refs/tags/v1', 'a' * 7, 'g' * 40, '<40-char study commit sha>'):
+            with self.subTest(ref=ref):
+                self.p['repository_ref'] = ref
+                self.p['source_state_lock']['expected_default_branch_tip_sha'] = ref
+                record = copy.deepcopy(baseline)
+                for wave in ('pilot', 'confirmatory'):
+                    for case in record[wave + '_cases']:
+                        for run in case['runs']:
+                            run['submitted_run_envelope'] = E.envelope(self.p, wave.upper(), case['task_id'], run['arm'], run['task_prompt_sha256'])
+                            run['run_envelope_sha256'] = E.csha(run['submitted_run_envelope'])
+                            run['submitted_full_message'] = E.full_message(self.p, wave.upper(), case['task_id'], run['arm'], run['submitted_task_prompt'], run['task_prompt_sha256'])
+                            run['submitted_full_message_sha256'] = E.s256t(run['submitted_full_message'])
+                            run['source_state_pre_sha'] = run['source_state_post_sha'] = ref
+                            for event in run['tool_events']:
+                                if event['operation'] in ('branch_tip_pre', 'branch_tip_post'):
+                                    event['observed_ref_sha'] = ref
+                                else:
+                                    event['ref'] = ref
+                            self._refresh_events(run)
+                result, report = self._cli(record)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn('40-character commit SHA', result.stderr)
+                self.assertIsNone(report)
+
+    def test_cli_invalid_token_counts_cannot_produce_efficiency_acceptance(self):
+        baseline = self._efficiency_record()
+        for arm in (E.CONTROL, E.TREATMENT):
+            for value in (-100, '100', True, 1.5, float('inf'), float('nan')):
+                with self.subTest(arm=arm, value=value):
+                    record = copy.deepcopy(baseline)
+                    for wave in ('pilot', 'confirmatory'):
+                        for case in record[wave + '_cases']:
+                            next(run for run in case['runs'] if run['arm'] == arm)['measured_input_tokens'] = value
+                    result, report = self._cli(record)
+                    self.assertEqual(result.returncode, 2, result.stderr)
+                    self.assertIn('measured_input_tokens', result.stderr)
+                    self.assertNotIn('Traceback', result.stderr)
+                    self.assertIsNone(report)
+
+    def test_token_count_validation_is_independent_of_metric_and_run_validity(self):
+        for metric in ('repository_response_utf8_bytes', 'input_tokens', 'unavailable'):
+            with self.subTest(metric=metric):
+                self.p['context_volume']['metric'] = metric
+                record = copy.deepcopy(self.record)
+                run = record['pilot_cases'][0]['runs'][0]
+                run.update(measured_input_tokens=-1, conversation_fresh=False)
+                with self.assertRaisesRegex(ValueError, 'measured_input_tokens'):
+                    self.eval(record)
+
+    def test_cli_token_boundaries_and_missing_measurements(self):
+        baseline = self._efficiency_record()
+        for a, b, expected in ((100, 100, 'ENGINEERING ACCEPTANCE — ORIENTATION EFFICIENCY'), (100, 0, 'ENGINEERING ACCEPTANCE — ORIENTATION EFFICIENCY'), (0, 0, 'ENGINEERING ACCEPTANCE — ORIENTATION EFFICIENCY'), (100, None, 'ENGINEERING SIGNAL — CONNECTOR INTERACTION ONLY'), (None, 100, 'ENGINEERING SIGNAL — CONNECTOR INTERACTION ONLY')):
+            with self.subTest(a=a, b=b):
+                record = copy.deepcopy(baseline)
+                for wave in ('pilot', 'confirmatory'):
+                    for case in record[wave + '_cases']:
+                        for run in case['runs']:
+                            run['measured_input_tokens'] = a if run['arm'] == E.CONTROL else b
+                result, report = self._cli(record)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(report['final_conclusion']['final_status'], expected)
+
+    def test_cli_connector_search_retains_valid_cost_accounting(self):
+        record = self._efficiency_record()
+        for wave in ('pilot', 'confirmatory'):
+            for case in record[wave + '_cases']:
+                run = next(run for run in case['runs'] if run['arm'] == E.CONTROL)
+                run['tool_events'][1].update(operation='code_search', ref=None)
+                self._refresh_events(run)
+        result, report = self._cli(record)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(report['final_conclusion']['final_status'], 'ENGINEERING ACCEPTANCE — ORIENTATION EFFICIENCY')
+        for wave in ('pilot', 'confirmatory'):
+            self.assertEqual(report[wave]['ecological_median_connector_ratio'], 0.5)
+            self.assertTrue(all(case['derived_infrastructure_calls_a'] == 2 and case['derived_infrastructure_calls_b'] == 2 for case in report[wave]['cases']))
+
 if __name__=='__main__': unittest.main()

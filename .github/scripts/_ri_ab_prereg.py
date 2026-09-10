@@ -5,7 +5,7 @@ from pathlib import Path
 
 from _ri_ab_base import (
     CRITICAL, MANDATORY, PREFLIGHT, PROTOCOL_VERSION, TREATMENT_IDENTIFIER,
-    TREATMENT_MODE, git_blob_sha, req, s256b, valid_sha256,
+    TREATMENT_MODE, git_blob_sha, req, s256b, valid_commit_sha, valid_sha256,
     validate_randomization_provenance,
 )
 import json
@@ -47,6 +47,8 @@ def validate_prereg(p):
     req(p.get("protocol_version") == PROTOCOL_VERSION, "unsupported protocol_version")
     for field in ("study_id", "repository", "repository_ref", "default_branch", "model_family", "thinking_configuration", "client_environment", "connector"):
         req(isinstance(p.get(field), str) and p[field], f"{field} must be preregistered")
+    req(valid_commit_sha(p["repository_ref"]), "repository_ref must be a full 40-character commit SHA")
+    req(p["connector"] == "GitHub", "primary study requires the GitHub connector")
     req(p.get("execution_policy") == "always_run_pilot_and_confirmatory", "both primary waves must run")
     lock = p.get("source_state_lock")
     req(isinstance(lock, dict) and lock.get("mode") == "stable_default_branch_window" and lock.get("expected_default_branch_tip_sha") == p["repository_ref"], "invalid source_state_lock")

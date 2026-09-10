@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 """Per-run input, source-lock, Treatment, and instrumentation validation for RI A/B."""
 
+from pathlib import PurePosixPath
+
 from _ri_ab_base import (
     CONTROL, CORE_SCORE_FIELDS, INSTRUMENTATION_SOURCES, OPTIONAL_SCORE_FIELD,
     PROHIBITED_TREATMENT_CLASSES, RESOURCE_CLASSES, RI_CLASSES, TREATMENT,
-    csha, envelope, exact_fields, full_message, req, s256b, s256t, valid_sha256,
+    TREATMENT_IDENTIFIER, csha, envelope, exact_fields, full_message, req,
+    s256b, s256t, valid_commit_sha, valid_sha256,
 )
+
+CONNECTOR_READ_OPERATIONS = {"fetch", "search", "code_search"}
+BRANCH_TIP_OPERATIONS = {"branch_tip_pre", "branch_tip_post"}
+
 
 def score_total(scores, key):
     exact_fields(scores, {*CORE_SCORE_FIELDS, OPTIONAL_SCORE_FIELD, "total_applicable_correctness", "serious_routing_error"}, "blind scores")
@@ -30,8 +37,23 @@ def validate_event(event, index, p):
     for field in ("tool_family", "operation", "resource"):
         req(isinstance(event.get(field), str) and event[field], f"tool event {field} required")
     req(event.get("response_bytes") is None or type(event["response_bytes"]) is int and event["response_bytes"] >= 0, "invalid response_bytes")
-    if event["operation"] in {"branch_tip_pre", "branch_tip_post"}:
+    if event["operation"] == "fetch":
+        resource = event["resource"]
+        path = PurePosixPath(resource)
+        req(bool(path.parts) and not path.is_absolute() and ".." not in path.parts and "\\" not in resource and str(path) == resource, "fetch resource must be a canonical repository-relative path")
+    # A caller's class label cannot erase a resource identity already in the log.
+    identity = event.get("content_identity")
+    frozen_identity = p["treatment_delivery"]["aid_identity"]
+    compact_identity = isinstance(identity, dict) and any(
+        identity.get(field) == frozen_identity[field]
+        for field in ("identifier", "git_blob_sha", "content_sha256")
+    )
+    compact_payload = any(field in event for field in ("payload_byte_start", "payload_byte_end", "payload_chunk_sha256"))
+    if event["resource"] == TREATMENT_IDENTIFIER or compact_identity or compact_payload:
+        req(event["resource_class"] == "ri_compact_surface", "resource_class contradicts compact-surface resource or identity")
+    if event["operation"] in BRANCH_TIP_OPERATIONS:
         req(event["phase"] == "study_infrastructure", "branch-tip evidence must be study infrastructure")
+        req(event["resource_class"] == "other", "branch-tip evidence must have resource_class other")
         req(event.get("ref") == p["default_branch"] and event["resource"] == p["default_branch"], "branch-tip evidence must identify preregistered default branch")
         req(event.get("observed_ref_sha") == p["repository_ref"], "branch-tip event does not prove study SHA")
         return
@@ -41,7 +63,7 @@ def validate_event(event, index, p):
     ref = event.get("ref")
     observed = event.get("observed_ref_sha")
     study_ref = p["repository_ref"]
-    req(observed is None or observed == study_ref, f"tool event {index} source ref evidence contradicts study SHA")
+    req(observed is None or valid_commit_sha(observed) and observed == study_ref, f"tool event {index} source ref evidence contradicts study SHA")
     ordinary_search = event["operation"] in {"search", "code_search"} and event["resource_class"] == "ordinary_source"
     if ordinary_search:
         req(ref in (None, p["default_branch"], study_ref), f"tool event {index} search source ref is outside the study lock")
@@ -93,21 +115,31 @@ def derive(run, p, treatment):
     req(len(pre) == 1 and len(post) == 1, "exactly one branch_tip_pre and branch_tip_post event required")
     req(pre[0]["sequence"] < min(event["sequence"] for event in task), "branch_tip_pre must precede task orientation")
     req(post[0]["sequence"] > max(event["sequence"] for event in task), "branch_tip_post must follow task orientation")
-    ri = [event for event in task if event["resource_class"] in RI_CLASSES]
+    # Cost phases do not define the ablation boundary: all recorded access counts.
+    ri = [event for event in events if event["resource_class"] in RI_CLASSES]
     compact = [event for event in task if event["resource_class"] == "ri_compact_surface"]
+    connector_reads = [event for event in task if event["tool_family"] == p["connector"] and event["operation"] in CONNECTOR_READ_OPERATIONS]
+    unsupported_route = any(
+        event["tool_family"] != p["connector"]
+        or event["operation"] not in CONNECTOR_READ_OPERATIONS | BRANCH_TIP_OPERATIONS
+        or event["operation"] in {"search", "code_search"} and event["resource_class"] != "ordinary_source"
+        for event in events
+    )
     repo_bytes = None if any(event.get("response_bytes") is None for event in task) else sum(event["response_bytes"] for event in task)
     ri_bytes = None if any(event.get("response_bytes") is None for event in ri) else sum(event["response_bytes"] for event in ri)
     exact_identity = [event for event in compact if event.get("content_identity") == p["treatment_delivery"]["aid_identity"]]
     complete = compact_surface_coverage(compact, p, treatment)
     return {
-        "calls": len(task),
+        "calls": len(connector_reads),
         "infrastructure_calls": len(events) - len(task),
-        "searches": sum(event.get("operation") in {"search", "code_search"} for event in task),
+        "searches": sum(event["operation"] in {"search", "code_search"} for event in connector_reads),
+        "unsupported_connector_route": unsupported_route,
+        "misphased_access": any(event["operation"] not in BRANCH_TIP_OPERATIONS and event["phase"] != "task_orientation" for event in events),
         "ri": bool(ri),
         "ri_bytes": 0 if not ri else ri_bytes,
         "repo_bytes": repo_bytes,
         "bad_control": bool(ri),
-        "prohibited_treatment": any(event["resource_class"] in PROHIBITED_TREATMENT_CLASSES for event in task),
+        "prohibited_treatment": any(event["resource_class"] in PROHIBITED_TREATMENT_CLASSES for event in events),
         "identity": bool(exact_identity),
         "complete_treatment_delivery": complete,
         "source_pre_sha": pre[0]["observed_ref_sha"],
@@ -117,6 +149,8 @@ def derive(run, p, treatment):
 
 def run_valid(run, arm, wave, task_id, prompt_text, prompt_hash, order, p, treatment):
     reasons = []
+    tokens = run.get("measured_input_tokens")
+    req(tokens is None or type(tokens) is int and tokens >= 0, "measured_input_tokens must be a non-negative integer or null")
     expected_env = envelope(p, wave, task_id, arm, prompt_hash)
     expected_message = full_message(p, wave, task_id, arm, prompt_text, prompt_hash)
     checks = {
@@ -155,6 +189,10 @@ def run_valid(run, arm, wave, task_id, prompt_text, prompt_hash, order, p, treat
         reasons.append("model_response_sha256 mismatch")
     req(isinstance(run.get("blind_response_id"), str) and run["blind_response_id"], "blind_response_id required")
     derived = derive(run, p, treatment)
+    if derived["unsupported_connector_route"]:
+        reasons.append("tool events use an unsupported connector route")
+    if derived["misphased_access"]:
+        reasons.append("repository access recorded outside task orientation")
     for summary_field, derived_field in (
         ("total_connector_calls", "calls"),
         ("default_branch_search_calls", "searches"),

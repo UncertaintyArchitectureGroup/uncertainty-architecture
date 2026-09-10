@@ -195,6 +195,10 @@ def valid_sha256(value):
     return isinstance(value, str) and len(value) == 64 and all(char in "0123456789abcdef" for char in value.lower())
 
 
+def valid_commit_sha(value):
+    return isinstance(value, str) and len(value) == 40 and all(char in "0123456789abcdef" for char in value.lower())
+
+
 def validate_randomization_provenance(p):
     provenance = p.get("randomization_provenance")
     req(isinstance(provenance, dict), "randomization_provenance required")

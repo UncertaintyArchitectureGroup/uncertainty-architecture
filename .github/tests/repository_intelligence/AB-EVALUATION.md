@@ -51,6 +51,8 @@ Use a preregistered `stable_default_branch_window`:
 
 Run-level `source_state_pre_sha` and `source_state_post_sha` are summaries only. The evaluator derives the authoritative lock evidence from the ordered branch-tip events and requires the summaries to match.
 
+`repository_ref`, `expected_default_branch_tip_sha`, and observed source SHAs must be full 40-character hexadecimal commit identities. A branch name, tag, abbreviated SHA, or template placeholder is not a study commit, even if repeated consistently throughout the evidence. `default_branch` remains a branch name.
+
 The branch-tip events must identify the preregistered default branch in both `ref` and `resource`. Each other repository event must also establish its permitted source route; marking a read as study infrastructure does not exempt it:
 
 - Direct reads use `ref` equal to the exact study SHA. If a connector cannot pin a read, only an omitted/null ref or the preregistered default branch is allowed, and that read must carry `observed_ref_sha` equal to the study SHA from its own source evidence. Do not copy the surrounding branch-tip checks into this field as a substitute for read-level evidence.
@@ -74,7 +76,7 @@ The evaluator receives the exact Treatment surface as evidence and recomputes th
 
 Every compact-surface delivery event records `payload_byte_start`, `payload_byte_end`, and `payload_chunk_sha256`. The evaluator requires all chunks to belong to the exact frozen identity and to cover byte interval `[0, surface_size)` exactly once with no gaps, overlap, duplicate range, or hash mismatch.
 
-A different blob, digest, source identity, truncated payload, invented byte range, or unverifiable payload is **Treatment delivery failure**. The primary Treatment may use the compact surface plus ordinary authoritative repository sources only. Any task-orientation `ri_query`, `ri_full_graph`, or `repository_control_map` event invalidates the Treatment run.
+A different blob, digest, source identity, truncated payload, invented byte range, or unverifiable payload is **Treatment delivery failure**. The primary Treatment may use the compact surface plus ordinary authoritative repository sources only. Any `ri_query`, `ri_full_graph`, or `repository_control_map` access in the primary run invalidates Treatment, regardless of its declared cost phase. Any RI access in Control violates the ablation.
 
 Task-level fallback to ordinary authoritative sources after successful compact-surface delivery remains valid Treatment behavior.
 
@@ -214,6 +216,10 @@ The full message contains only experiment arm, study repository, study ref, wave
 
 Every run contains a canonical `tool_events` list with contiguous sequence numbers, phase (`study_infrastructure` or `task_orientation`), tool family, operation, repository, ref when available, resource, `resource_class`, response bytes when measurable, and RI content identity where applicable.
 
+For this GitHub-connector study, preregister `connector: GitHub` and normalize actual connector events to `tool_family: GitHub`. Supported orientation operations are `fetch` for direct repository reads and `search` / `code_search` for ordinary-source search. The only source-lock operations are `branch_tip_pre` and `branch_tip_post`, classified as `other` in `study_infrastructure`. Record the actual transport: a local CLI or adapter call cannot be relabelled as GitHub. Unsupported transports or operations invalidate a primary run; they are not counted as GitHub connector reads.
+
+For direct file reads, `resource` records the canonical repository-relative path. Resource classification must agree with observable identity: the compact-surface path, its identifier/blob/content identity, or its delivery byte-range fields cannot be labelled `ordinary_source` or `other`. These consistency checks apply in every phase. Classifying a resource whose content is not mechanically identifiable remains an auditable extractor responsibility.
+
 Each run also records:
 
 - `instrumentation_source` = `machine_capture` or `exported_transcript`;
@@ -224,7 +230,7 @@ Each run also records:
 
 The evaluator mechanically verifies the structured event-log digest and reconstructs connector calls, search calls, source-lock evidence, RI access, RI bytes, repository-response bytes, Control contamination, and Treatment completeness from that event list. Raw transcript/capture evidence is **separately hash-committed and auditable**; v10 does not claim that the local evaluator mechanically re-extracts `tool_events` from the raw transcript.
 
-Primary connector-cost metrics count only `task_orientation` events. `branch_tip_pre`, `branch_tip_post`, smoke checks, and recorder bookkeeping are study infrastructure and excluded. Compact-surface acquisition is Treatment orientation cost and remains included.
+Primary connector-cost metrics count only supported GitHub reads/searches in `task_orientation`. Every repository read/search delivered in a primary session, including compact-surface acquisition, belongs to task orientation. Moving one into `study_infrastructure` invalidates the run; the phase cannot exempt access from the arm boundary. The pre/post branch-tip checks are excluded from orientation cost. Freeze separate smoke-session and recorder-bookkeeping evidence through the preflight/raw evidence references; those activities must not deliver repository context into a primary session outside its event ledger.
 
 ## 10. Correctness and cost
 
@@ -237,6 +243,8 @@ An `A-serious/B-no-serious` pair is qualifying only when every applicable Treatm
 For each ecological pair define connector ratio `r_i = B_i/A_i` from task-orientation calls only; `0/0 -> 1.0`, `A=0, B>0 -> infinity`.
 
 Context-volume efficiency uses exactly one preregistered metric: reconstructed repository-response UTF-8 bytes, exact client-exposed input tokens, or `unavailable`.
+
+`measured_input_tokens`, when supplied, must be a non-negative integer or `null` for unavailable evidence. Negative values, booleans, strings, fractions, and non-finite numbers are validation errors regardless of the chosen context metric or other run invalidity. An omitted/null measurement cannot support the input-token efficiency gate; zero is a measured value and uses the same ratio boundary convention as connector cost.
 
 ## 11. Protocol-owned acceptance floors
 
