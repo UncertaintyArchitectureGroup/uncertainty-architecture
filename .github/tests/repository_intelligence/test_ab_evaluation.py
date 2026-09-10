@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import copy, hashlib, importlib.util, json, tempfile, unittest
+import copy, hashlib, importlib.util, json, subprocess, sys, tempfile, unittest
 from pathlib import Path
 
 MODULE_PATH = Path(__file__).resolve().parents[2] / 'scripts' / 'score_repository_intelligence_ab.py'
@@ -87,7 +87,7 @@ class T(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'branch_tip_pre and branch_tip_post'): self.eval(r)
     def test_blind_arm_label_rejected(self):
         b=copy.deepcopy(self.bundle); b['responses'][0]['arm']=E.CONTROL; p=self.root/'bad.json'; h=dump(p,b); r=copy.deepcopy(self.record); r['blind_scoring']['scoring_bundle_sha256']=h
-        with self.assertRaisesRegex(ValueError,'must not contain arm label'): E.validate_blind_scores(p,r,self.p,self.ev)
+        with self.assertRaisesRegex(ValueError,'blind scoring response fields'): E.validate_blind_scores(p,r,self.p,self.ev)
     def test_inline_scores_invalid(self):
         r=copy.deepcopy(self.record); r['pilot_cases'][0]['runs'][0]['scores']={'owner_routing':2}; self.assertFalse(self.eval(r)['pilot']['all_pairs_valid'])
     def test_query_aid_invalid(self):
@@ -101,5 +101,194 @@ class T(unittest.TestCase):
     def test_cross_wave_overlap(self):
         c=json.loads(self.paths['confirmatory_prompts'].read_text()); ppack=json.loads(self.paths['pilot_prompts'].read_text()); c['cases'][0]['prompt']=ppack['cases'][0]['prompt']; dump(self.paths['confirmatory_prompts'],c); p=copy.deepcopy(self.p); p['confirmatory']['prompts_sha256']=hashlib.sha256(self.paths['confirmatory_prompts'].read_bytes()).hexdigest()
         with self.assertRaisesRegex(ValueError,'normalized prompt text overlaps'): E.verify_evidence(p,self.paths,{'ecological_selection':self.eco,'pilot_arm':self.pseed,'confirmatory_arm':self.cseed})
+
+    def _cli(self, record):
+        prereg = self.root / 'prereg.json'
+        runs = self.root / 'runs.json'
+        output = self.root / 'report.json'
+        dump(prereg, self.p)
+        dump(runs, record)
+        if output.exists():
+            output.unlink()
+        args = [
+            sys.executable, str(MODULE_PATH),
+            '--preregistration', str(prereg), '--run-record', str(runs),
+            '--ecological-frame', str(self.frame), '--ecological-pool', str(self.pool),
+            '--ecological-selection-seed', self.eco,
+            '--pilot-arm-seed', self.pseed, '--confirmatory-arm-seed', self.cseed,
+            '--blind-scores', str(self.blind), '--treatment-surface', str(self.surface),
+            '--output', str(output),
+        ]
+        for key in ('pilot_prompts', 'pilot_key', 'confirmatory_prompts', 'confirmatory_key'):
+            args.extend(['--' + key.replace('_', '-'), str(self.paths[key])])
+        result = subprocess.run(args, capture_output=True, text=True, check=False)
+        return result, json.loads(output.read_text()) if output.exists() else None
+
+    def test_each_read_requires_study_source_evidence(self):
+        for arm in (E.CONTROL, E.TREATMENT):
+            for ref in ('b' * 40, 'other-branch', 'main', None, ''):
+                with self.subTest(arm=arm, ref=ref):
+                    record = copy.deepcopy(self.record)
+                    run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == arm)
+                    run['tool_events'][1]['ref'] = ref
+                    run['event_log_sha256'] = E.csha(run['tool_events'])
+                    with self.assertRaisesRegex(ValueError, 'source ref'):
+                        self.eval(record)
+
+    def test_resolved_default_branch_reads_preserve_supported_fallback(self):
+        for arm in (E.CONTROL, E.TREATMENT):
+            for ref in ('main', None):
+                with self.subTest(arm=arm, ref=ref):
+                    record = copy.deepcopy(self.record)
+                    run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == arm)
+                    event = run['tool_events'][1]
+                    event['ref'] = ref
+                    event['observed_ref_sha'] = self.ref
+                    run['event_log_sha256'] = E.csha(run['tool_events'])
+                    self.assertTrue(self.eval(record)['final_conclusion']['all_primary_pairs_valid'])
+
+    def test_default_branch_search_remains_valid_under_source_lock(self):
+        for operation in ('search', 'code_search'):
+            for ref in ('main', None, self.ref):
+                with self.subTest(operation=operation, ref=ref):
+                    record = copy.deepcopy(self.record)
+                    run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == E.CONTROL)
+                    event = run['tool_events'][1]
+                    event.update(operation=operation, ref=ref)
+                    run['default_branch_search_calls'] = 1
+                    run['event_log_sha256'] = E.csha(run['tool_events'])
+                    self.assertTrue(self.eval(record)['final_conclusion']['all_primary_pairs_valid'])
+
+    def test_search_and_resolved_reads_reject_contradictory_source_evidence(self):
+        for operation, ref, observed in (
+            ('search', 'b' * 40, None),
+            ('code_search', 'other-branch', self.ref),
+            ('search', None, 'b' * 40),
+            ('fetch', self.ref, 'b' * 40),
+            ('fetch', 'main', 'b' * 40),
+            ('fetch', 'other-branch', self.ref),
+        ):
+            with self.subTest(operation=operation, ref=ref, observed=observed):
+                record = copy.deepcopy(self.record)
+                run = next(run for run in record['pilot_cases'][0]['runs'] if run['arm'] == E.CONTROL)
+                run['tool_events'][1].update(operation=operation, ref=ref, observed_ref_sha=observed)
+                run['event_log_sha256'] = E.csha(run['tool_events'])
+                with self.assertRaisesRegex(ValueError, 'source ref'):
+                    self.eval(record)
+
+    def test_infrastructure_label_does_not_exempt_source_reads(self):
+        record = copy.deepcopy(self.record)
+        run = record['pilot_cases'][0]['runs'][0]
+        event = copy.deepcopy(run['tool_events'][1])
+        event.update(phase='study_infrastructure', ref='b' * 40)
+        run['tool_events'].insert(2, event)
+        for index, event in enumerate(run['tool_events'], 1):
+            event['sequence'] = index
+        run['event_log_sha256'] = E.csha(run['tool_events'])
+        with self.assertRaisesRegex(ValueError, 'source ref'):
+            self.eval(record)
+
+    def test_branch_tip_checks_identify_preregistered_default_branch(self):
+        for index in (0, 2):
+            with self.subTest(index=index):
+                record = copy.deepcopy(self.record)
+                run = record['pilot_cases'][0]['runs'][0]
+                run['tool_events'][index].update(ref='other-branch', resource='other-branch')
+                run['event_log_sha256'] = E.csha(run['tool_events'])
+                with self.assertRaisesRegex(ValueError, 'default branch'):
+                    self.eval(record)
+
+    def test_blind_bundle_rejects_extra_fields_at_every_level(self):
+        for level in ('bundle', 'response', 'scores'):
+            for field, value in (
+                ('tool_events', self.record['pilot_cases'][0]['runs'][0]['tool_events']),
+                ('treatment_delivery_status', 'delivered'),
+                ('metadata', {'arm': E.CONTROL}),
+            ):
+                with self.subTest(level=level, field=field):
+                    bundle = copy.deepcopy(self.bundle)
+                    target = bundle if level == 'bundle' else bundle['responses'][0]
+                    if level == 'scores':
+                        target = target['scores']
+                    target[field] = value
+                    record = copy.deepcopy(self.record)
+                    record['blind_scoring']['scoring_bundle_sha256'] = dump(self.blind, bundle)
+                    with self.assertRaisesRegex(ValueError, 'fields'):
+                        E.validate_blind_scores(self.blind, record, self.p, self.ev)
+
+    def test_blind_bundle_requires_exact_fields_at_every_level(self):
+        for level, field in (('bundle', 'scorer_identity'), ('response', 'task_id'), ('scores', 'companion_validation')):
+            with self.subTest(level=level):
+                bundle = copy.deepcopy(self.bundle)
+                target = bundle if level == 'bundle' else bundle['responses'][0]
+                if level == 'scores':
+                    target = target['scores']
+                del target[field]
+                record = copy.deepcopy(self.record)
+                record['blind_scoring']['scoring_bundle_sha256'] = dump(self.blind, bundle)
+                with self.assertRaisesRegex(ValueError, 'fields'):
+                    E.validate_blind_scores(self.blind, record, self.p, self.ev)
+
+    def test_cli_rejects_wrong_read_sha_and_blind_metadata(self):
+        record = copy.deepcopy(self.record)
+        run = record['pilot_cases'][0]['runs'][0]
+        run['tool_events'][1]['ref'] = 'b' * 40
+        run['event_log_sha256'] = E.csha(run['tool_events'])
+        result, report = self._cli(record)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn('source ref', result.stderr)
+        self.assertIsNone(report)
+
+        bundle = copy.deepcopy(self.bundle)
+        bundle['responses'][0]['tool_events'] = run['tool_events']
+        record = copy.deepcopy(self.record)
+        record['blind_scoring']['scoring_bundle_sha256'] = dump(self.blind, bundle)
+        result, report = self._cli(record)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn('fields', result.stderr)
+        self.assertIsNone(report)
+
+    def test_cli_invalid_ecological_pairs_write_inconclusive_report(self):
+        for metric in ('repository_response_utf8_bytes', 'input_tokens', 'unavailable'):
+            for waves, all_cases in ((('pilot',), False), (('confirmatory',), False), (('pilot', 'confirmatory'), True)):
+                with self.subTest(metric=metric, waves=waves, all_cases=all_cases):
+                    self.p['context_volume']['metric'] = metric
+                    record = copy.deepcopy(self.record)
+                    for wave in ('pilot', 'confirmatory'):
+                        for case in record[wave + '_cases']:
+                            for run in case['runs']:
+                                run['measured_input_tokens'] = 100
+                                if wave in waves and (all_cases or case['corpus_class'] == 'ecological'):
+                                    run['conversation_fresh'] = False
+                    result, report = self._cli(record)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertIsNotNone(report)
+                    self.assertEqual(report['final_conclusion']['final_status'], 'INCONCLUSIVE')
+                    self.assertFalse(report['final_conclusion']['all_primary_pairs_valid'])
+                    for wave in waves:
+                        self.assertIsNone(report[wave]['ecological_median_context_volume_ratio'])
+                        self.assertIsNone(report[wave]['ecological_median_connector_ratio'])
+                        self.assertFalse(report[wave]['context_volume_gate_passed'])
+                        self.assertFalse(report[wave]['orientation_efficiency_passed'])
+                        invalid = [case for case in report[wave]['cases'] if not case['valid']]
+                        self.assertEqual(len(invalid), 12 if all_cases else 6)
+                        self.assertTrue(all('conversation not fresh' in reasons for case in invalid for reasons in case['invalid_reasons'].values()))
+
+    def test_partial_ecological_sample_cannot_pass_context_volume_gate(self):
+        record = copy.deepcopy(self.record)
+        case = next(case for case in record['pilot_cases'] if case['corpus_class'] == 'ecological')
+        case['runs'][0]['conversation_fresh'] = False
+        report = self.eval(record)
+        self.assertEqual(report['final_conclusion']['final_status'], 'INCONCLUSIVE')
+        self.assertIsNotNone(report['pilot']['ecological_median_context_volume_ratio'])
+        self.assertFalse(report['pilot']['context_volume_gate_passed'])
+
+    def test_cli_complete_sample_preserves_context_volume_gate(self):
+        result, report = self._cli(self.record)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(report['final_conclusion']['final_status'], 'NO INCREMENTAL VALUE SHOWN')
+        for wave in ('pilot', 'confirmatory'):
+            self.assertTrue(report[wave]['all_pairs_valid'])
+            self.assertTrue(report[wave]['context_volume_gate_passed'])
 
 if __name__=='__main__': unittest.main()

@@ -2,7 +2,7 @@
 """Blind scoring, paired analysis, and final classification for RI A/B."""
 
 from _ri_ab_base import (
-    CONTROL, PREFLIGHT, PRIMARY_ARMS, PROTOCOL_VERSION, TREATMENT, load, med,
+    CONTROL, PREFLIGHT, PRIMARY_ARMS, PROTOCOL_VERSION, TREATMENT, exact_fields, load, med,
     rat, req, s256f, valid_sha256,
 )
 from _ri_ab_events import run_valid, score_total
@@ -14,6 +14,13 @@ def validate_blind_scores(path, record, p, evidence):
     req(valid_sha256(cfg.get("scoring_bundle_sha256")), "blind scoring bundle SHA-256 required")
     req(s256f(path) == cfg["scoring_bundle_sha256"], "blind scoring bundle hash mismatch")
     bundle = load(path, "blind scoring bundle")
+    # Closed schemas keep arm-revealing metadata out of the assessor's bundle,
+    # including metadata nested inside otherwise valid responses or scores.
+    exact_fields(bundle, {
+        "schema_version", "study_id", "scorer_identity", "scoring_evidence_reference",
+        "scoring_completed_before_arm_reveal", "arm_labels_present",
+        "pilot_scoring_key_sha256", "confirmatory_scoring_key_sha256", "responses",
+    }, "blind scoring bundle")
     req(bundle.get("schema_version") == 1 and bundle.get("study_id") == p["study_id"], "blind scoring bundle protocol/study mismatch")
     req(bundle.get("scoring_completed_before_arm_reveal") is True, "blind scoring must finish before arm reveal")
     req(bundle.get("arm_labels_present") is False, "blind scoring bundle must not contain arm labels")
@@ -25,10 +32,9 @@ def validate_blind_scores(path, record, p, evidence):
     req(isinstance(entries, list) and len(entries) == 48, "blind scoring bundle must contain exactly 48 responses")
     by_id = {}
     for entry in entries:
-        req(isinstance(entry, dict), "invalid blind scoring response entry")
+        exact_fields(entry, {"blind_response_id", "task_id", "model_response_sha256", "scores"}, "blind scoring response")
         response_id = entry.get("blind_response_id")
         req(isinstance(response_id, str) and response_id and response_id not in by_id, "blind_response_id duplicate or missing in blind scoring bundle")
-        req("arm" not in entry, "blind scoring response must not contain arm label")
         req(isinstance(entry.get("task_id"), str) and entry["task_id"], "blind scoring task_id required")
         req(valid_sha256(entry.get("model_response_sha256")), "blind scoring response hash required")
         by_id[response_id] = entry
@@ -111,8 +117,9 @@ def eval_wave(name, cases, pack, keys, p, treatment, score_map):
     connector_gate = all_valid and connector_median <= p["connector_cost_gate"]["acceptable_median_ratio_b_over_a"] and sum(value > p["connector_cost_gate"]["high_overhead_ratio_threshold"] for value in connector_ratios) <= p["connector_cost_gate"]["acceptable_high_overhead_case_count"]
     connector_gain = all_valid and nonreg and reverse == 0 and connector_median <= p["connector_interaction_gain_rule"]["maximum_median_ratio_b_over_a_per_wave"]
     volume_ratios = [case["context_volume_ratio_b_over_a"] for case in ecological]
-    complete_volume = p["context_volume"]["metric"] != "unavailable" and all(value is not None for value in volume_ratios)
-    volume_gate = complete_volume and med(volume_ratios) <= p["context_volume"]["maximum_median_ratio_b_over_a_per_wave"] and sum(value > p["context_volume"]["high_overhead_ratio_threshold"] for value in volume_ratios) <= p["context_volume"]["acceptable_high_overhead_case_count"]
+    # all([]) is true, but an empty sample has no median or acceptance evidence.
+    complete_volume = bool(volume_ratios) and p["context_volume"]["metric"] != "unavailable" and all(value is not None for value in volume_ratios)
+    volume_gate = all_valid and complete_volume and med(volume_ratios) <= p["context_volume"]["maximum_median_ratio_b_over_a_per_wave"] and sum(value > p["context_volume"]["high_overhead_ratio_threshold"] for value in volume_ratios) <= p["context_volume"]["acceptable_high_overhead_case_count"]
     return {
         "name": name,
         "cases": evaluated,
@@ -190,7 +197,7 @@ def evaluate(p, record, evidence, score_map):
     pilot = eval_wave("PILOT", record.get("pilot_cases"), evidence["packs"]["pilot"], evidence["keys"]["pilot"], p, treatment, score_map)
     confirmatory = eval_wave("CONFIRMATORY", record.get("confirmatory_cases"), evidence["packs"]["confirmatory"], evidence["keys"]["confirmatory"], p, treatment, score_map)
     return {
-        "evaluation_version": 6,
+        "evaluation_version": 7,
         "protocol_version": PROTOCOL_VERSION,
         "study_id": p["study_id"],
         "repository_ref": p["repository_ref"],

@@ -51,6 +51,12 @@ Use a preregistered `stable_default_branch_window`:
 
 Run-level `source_state_pre_sha` and `source_state_post_sha` are summaries only. The evaluator derives the authoritative lock evidence from the ordered branch-tip events and requires the summaries to match.
 
+The branch-tip events must identify the preregistered default branch in both `ref` and `resource`. Each other repository event must also establish its permitted source route; marking a read as study infrastructure does not exempt it:
+
+- Direct reads use `ref` equal to the exact study SHA. If a connector cannot pin a read, only an omitted/null ref or the preregistered default branch is allowed, and that read must carry `observed_ref_sha` equal to the study SHA from its own source evidence. Do not copy the surrounding branch-tip checks into this field as a substitute for read-level evidence.
+- Ordinary `search` / `code_search` events may use an omitted/null ref, the preregistered default branch, or the exact study SHA under the required pre/post lock. This exception applies only to `ordinary_source` events, not Treatment-surface acquisition.
+- Any supplied `observed_ref_sha` must agree with the study SHA. Another explicit SHA, branch, tag, or contradictory resolved SHA is rejected even when the surrounding tip checks pass.
+
 Search-index lag is baseline behavior and is not silently corrected out of Control. If the default branch cannot remain stable, do not silently weaken the lock; preregister a separate immutable evaluation repository in a future protocol revision.
 
 ## 4. Treatment delivery and identity
@@ -194,7 +200,9 @@ After all primary responses for scoring are frozen, prepare a separate blind sco
 - `scoring_completed_before_arm_reveal: true`;
 - `arm_labels_present: false`.
 
-Freeze the blind scoring bundle hash before revealing arm mapping to the scorer. The evaluator maps blind scores back to the run only through the opaque ID, task ID, and exact response SHA-256. This makes scoring materially arm-blind rather than merely schema-valid.
+Freeze the blind scoring bundle hash before revealing arm mapping to the scorer. The evaluator maps blind scores back to the run only through the opaque ID, task ID, and exact response SHA-256, keeping the structured scoring packet separate from arm-labelled run evidence.
+
+The bundle, each response entry, and each `scores` object must contain exactly the fields shown in [`ab_blind_scoring.example.json`](ab_blind_scoring.example.json), including explicit `companion_validation: null` when inapplicable. Unknown fields are rejected at every level; an `arm` blacklist alone would still permit tool events, costs, delivery status, or nested metadata to reveal the arm. Opaque identifiers and arm-hidden evidence references remain an assessor/process obligation; field validation cannot prove that allowed strings conceal no arm information or that the scorer saw no outside material.
 
 ## 8. Exact input identity per run
 
@@ -244,6 +252,8 @@ Study preregistration may make acceptance **stricter**, never weaker than protoc
 The correctness route is an **engineering acceptance criterion**, not a statistical-significance claim.
 
 Possible outcomes remain `ENGINEERING ACCEPTANCE — CORRECTNESS + ORIENTATION EFFICIENCY`, `ENGINEERING ACCEPTANCE — CORRECTNESS`, `ENGINEERING ACCEPTANCE — ORIENTATION EFFICIENCY`, `ENGINEERING SIGNAL — CONNECTOR INTERACTION ONLY`, `CORRECTNESS SIGNAL / COST NOT ACCEPTED`, `NOT CONFIRMED`, `NO INCREMENTAL VALUE SHOWN`, `REGRESSION`, and `INCONCLUSIVE`.
+
+When run-validity failures leave no valid ecological pairs in a wave, the evaluator still writes the report with `INCONCLUSIVE`, the individual invalidity reasons, null ecological medians, and failed cost/efficiency gates. A partial valid sample may retain descriptive medians, but cannot pass an acceptance gate. Missing or contradictory required evidence is a validation error, reported by the CLI with exit code 2 rather than an acceptance report.
 
 ## 12. Deterministic evaluator
 

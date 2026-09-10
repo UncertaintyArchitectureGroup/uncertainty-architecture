@@ -45,7 +45,7 @@ def validate_protocol_floors(p):
 
 def validate_prereg(p):
     req(p.get("protocol_version") == PROTOCOL_VERSION, "unsupported protocol_version")
-    for field in ("study_id", "repository", "repository_ref", "model_family", "thinking_configuration", "client_environment", "connector"):
+    for field in ("study_id", "repository", "repository_ref", "default_branch", "model_family", "thinking_configuration", "client_environment", "connector"):
         req(isinstance(p.get(field), str) and p[field], f"{field} must be preregistered")
     req(p.get("execution_policy") == "always_run_pilot_and_confirmatory", "both primary waves must run")
     lock = p.get("source_state_lock")

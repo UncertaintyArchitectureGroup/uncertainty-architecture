@@ -80,6 +80,12 @@ def req(condition, message):
         raise ValueError(message)
 
 
+def exact_fields(value, expected, label):
+    req(isinstance(value, dict), f"{label} must be an object")
+    actual = set(value)
+    req(actual == expected, f"{label} fields mismatch: missing={sorted(expected - actual)}, unexpected={sorted(actual - expected)}")
+
+
 def load(path, label):
     try:
         value = json.loads(Path(path).read_text(encoding="utf-8"))

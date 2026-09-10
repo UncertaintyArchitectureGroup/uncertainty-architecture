@@ -4,11 +4,11 @@
 from _ri_ab_base import (
     CONTROL, CORE_SCORE_FIELDS, INSTRUMENTATION_SOURCES, OPTIONAL_SCORE_FIELD,
     PROHIBITED_TREATMENT_CLASSES, RESOURCE_CLASSES, RI_CLASSES, TREATMENT,
-    csha, envelope, full_message, req, s256b, s256t, valid_sha256,
+    csha, envelope, exact_fields, full_message, req, s256b, s256t, valid_sha256,
 )
 
 def score_total(scores, key):
-    req(isinstance(scores, dict), "blind scores required")
+    exact_fields(scores, {*CORE_SCORE_FIELDS, OPTIONAL_SCORE_FIELD, "total_applicable_correctness", "serious_routing_error"}, "blind scores")
     values = {}
     for field in CORE_SCORE_FIELDS:
         req(type(scores.get(field)) is int and 0 <= scores[field] <= 2, f"{field} score invalid")
@@ -32,7 +32,23 @@ def validate_event(event, index, p):
     req(event.get("response_bytes") is None or type(event["response_bytes"]) is int and event["response_bytes"] >= 0, "invalid response_bytes")
     if event["operation"] in {"branch_tip_pre", "branch_tip_post"}:
         req(event["phase"] == "study_infrastructure", "branch-tip evidence must be study infrastructure")
+        req(event.get("ref") == p["default_branch"] and event["resource"] == p["default_branch"], "branch-tip evidence must identify preregistered default branch")
         req(event.get("observed_ref_sha") == p["repository_ref"], "branch-tip event does not prove study SHA")
+        return
+
+    # A stable branch does not authenticate a read explicitly taken from another ref.
+    # Keep ordinary search available, but require read-level evidence for unpinned reads.
+    ref = event.get("ref")
+    observed = event.get("observed_ref_sha")
+    study_ref = p["repository_ref"]
+    req(observed is None or observed == study_ref, f"tool event {index} source ref evidence contradicts study SHA")
+    ordinary_search = event["operation"] in {"search", "code_search"} and event["resource_class"] == "ordinary_source"
+    if ordinary_search:
+        req(ref in (None, p["default_branch"], study_ref), f"tool event {index} search source ref is outside the study lock")
+    else:
+        pinned = ref == study_ref
+        resolved_default = ref in (None, p["default_branch"]) and observed == study_ref
+        req(pinned or resolved_default, f"tool event {index} source ref must prove the study SHA for this read")
 
 
 def compact_surface_coverage(events, p, treatment):
