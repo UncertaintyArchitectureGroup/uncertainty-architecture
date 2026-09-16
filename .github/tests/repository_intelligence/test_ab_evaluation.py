@@ -102,6 +102,49 @@ class ComparisonTests(unittest.TestCase):
         self.assertFalse(output["scored_before_reveal"])
         self.assertTrue(all(entry["quality"] is None for entry in output["responses"]))
 
+    def test_fresh_session_messages_bootstrap_both_arms_identically(self):
+        result, output = self.invoke("init")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for index, task in enumerate(self.study["tasks"]):
+            pair = output["runs"][index * 2:index * 2 + 2]
+            messages = []
+            for run in pair:
+                message = run["submitted_message"]
+                self.assertIn("GitHub connector", message)
+                self.assertIn("read the root AGENTS.md in full", message)
+                self.assertIn("at the Study ref", message)
+                self.assertIn("benchmark-arm clause", message)
+                self.assertIn("applicable scoped instructions", message)
+                self.assertTrue(message.endswith("Task:\n" + task["prompt"]))
+                messages.append(message.replace(run["arm"], "<arm>"))
+            self.assertEqual(*messages)
+
+    def test_blind_packet_carries_immutable_scoring_guidance(self):
+        result, output = self.invoke("prepare")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(output["rubric"], {
+            "0": "Materially incorrect.",
+            "1": "Partially correct but needs a maintainer correction.",
+            "2": "Meets all frozen expectations, including sources, authority and applicable companions.",
+            "serious_error": "Any frozen serious-error condition is met: set serious_error to true and quality to 0; otherwise set serious_error to false.",
+        })
+        self.assertIn("scored_before_reveal", " ".join(output["scorer_instructions"]))
+        self.assertIn("before revealing arms", " ".join(output["scorer_instructions"]))
+        packet = self.scored()
+        mutations = (
+            lambda p: p.pop("rubric"),
+            lambda p: p["rubric"].update({"2": "Any answer is sufficient."}),
+            lambda p: p["rubric"].update({"extra": "Unexpected hint"}),
+            lambda p: p.pop("scorer_instructions"),
+            lambda p: p["scorer_instructions"].append("Reveal arms first."),
+        )
+        for mutate in mutations:
+            changed = copy.deepcopy(packet)
+            mutate(changed)
+            result, report = self.invoke("score", changed)
+            self.assertEqual(result.returncode, 2, result.stderr)
+            self.assertIsNone(report)
+
     def test_equal_quality_and_cost_shows_no_benefit(self):
         result, report = self.invoke("score", self.scored())
         self.assertEqual(result.returncode, 0, result.stderr)

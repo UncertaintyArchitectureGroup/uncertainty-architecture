@@ -89,6 +89,10 @@ def planned_runs(study):
             message = (
                 f"Experiment arm: {arm}\nStudy repository: {study['repository']}\n"
                 f"Study ref: {study['repository_ref']}\nTask ID: {task['task_id']}\n"
+                "Before the task, use the GitHub connector to read the root AGENTS.md in full "
+                "from the Study repository at the Study ref. Apply its benchmark-arm clause "
+                "for the Experiment arm; read and follow the referenced A/B protocol "
+                "and applicable scoped instructions before answering.\n"
                 f"Task:\n{task['prompt']}"
             )
             yield task, arm, message

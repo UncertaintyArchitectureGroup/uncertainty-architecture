@@ -44,6 +44,17 @@ def blind_packet(study, records, run_map):
     return {
         "protocol_version": PROTOCOL_VERSION, "study_sha256": digest(study),
         "runs_sha256": digest(records), "scorer": "", "scored_before_reveal": False,
+        "rubric": {
+            "0": "Materially incorrect.",
+            "1": "Partially correct but needs a maintainer correction.",
+            "2": "Meets all frozen expectations, including sources, authority and applicable companions.",
+            "serious_error": "Any frozen serious-error condition is met: set serious_error to true and quality to 0; otherwise set serious_error to false.",
+        },
+        "scorer_instructions": [
+            "Judge each exact response against its prompt, frozen expected outcomes and serious_errors using this rubric.",
+            "Fill only scorer, scored_before_reveal, and each response's quality and serious_error. Preserve all other content and response order.",
+            "Complete and freeze this packet before revealing arms; set scored_before_reveal to true only after blind scoring is complete.",
+        ],
         "responses": sorted(entries, key=lambda entry: entry["response_id"]),
     }
 
@@ -51,7 +62,7 @@ def blind_packet(study, records, run_map):
 def blind_scores(study, records, run_map, packet):
     expected = blind_packet(study, records, run_map)
     exact(packet, expected, "blind scoring packet")
-    for field in ("protocol_version", "study_sha256", "runs_sha256"):
+    for field in ("protocol_version", "study_sha256", "runs_sha256", "rubric", "scorer_instructions"):
         require(packet[field] == expected[field], "blind packet does not match frozen evidence")
     require(nonempty(packet["scorer"]) and packet["scored_before_reveal"] is True, "independent blind scoring must finish before arm reveal")
     require(isinstance(packet["responses"], list), "blind responses must be a list")
