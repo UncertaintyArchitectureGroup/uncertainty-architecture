@@ -31,6 +31,9 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Bounded repository-context improvement research (`RI-CONTEXT-001`) and a correction-candidate pilot (`RI-FEEDBACK-001`), with source boundaries, explicit revisit triggers, and roadmap/register links independent of PR #119.
+- Scoped `AGENT-FEEDBACK.md` candidate memory beside applicable agent guidance, read at bootstrap and reconciled at completion. Independent incidents trigger concrete maintainer proposals; log entries do not become instructions or authorize automatic promotion. The root namespace permits this record through the existing repository contract.
+
 - Added the Quartz Repository Control Map with four interactive lenses, typed relationship filters, source and control inspection, producer-owned artifact impact, explicit snapshot/preview state, keyboard navigation, browser regressions, downloadable site previews, and opt-in GitHub Pages publication. Review fixes preserve filtered local neighbours and cached-page renderer state, and configure project-site feed/sitemap/404 URLs. The map uses an isolated Cytoscape.js renderer; live PR comparison remains visibly unavailable.
 
 - Integrated repository-intelligence preflight into the agent/contributor route after PR #114, with explicit local and connector freshness checks, complete-inventory/source-reading requirements, grounded-query handling, and live-source fallback. Added a reproducible 12-case measurement runner, workflow/boundary regressions, and recorded connector observations while keeping Ukrainian lexical misses and unperformed independent cold-start assessment visible. Review hardening binds CI evidence to the actual checkout and surface blob, protects standard scenario coverage/classification, and checks complete preflight records and declared owner roles.

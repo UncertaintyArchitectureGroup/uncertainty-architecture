@@ -479,6 +479,20 @@
       },
       {
         "edge_class": "semantic-evolution",
+        "id": "32e2beb86d71b1b08788",
+        "impact_direction": "none",
+        "impact_role": "ownership",
+        "provenance": {
+          "detail": "owning_record: content/research/notes/repository-context-improvement-research.md",
+          "kind": "research-register",
+          "path": "content/research/research-register.md"
+        },
+        "relation": "RESEARCH_OWNER",
+        "source": "research:RI-FEEDBACK-001",
+        "target": "document:content/research/notes/repository-context-improvement-research.md"
+      },
+      {
+        "edge_class": "semantic-evolution",
         "id": "33321e6f42b20febb121",
         "impact_direction": "none",
         "impact_role": "association",
@@ -1134,6 +1148,20 @@
         "relation": "RELATED_TO",
         "source": "document:01-patterns/project-control-architecture-and-viability-review.md",
         "target": "document:00-doctrine/uncertainty-in-the-controlled-object.md"
+      },
+      {
+        "edge_class": "semantic-evolution",
+        "id": "874489c282cb48c983d1",
+        "impact_direction": "none",
+        "impact_role": "ownership",
+        "provenance": {
+          "detail": "owning_record: content/research/notes/repository-context-improvement-research.md",
+          "kind": "research-register",
+          "path": "content/research/research-register.md"
+        },
+        "relation": "RESEARCH_OWNER",
+        "source": "research:RI-CONTEXT-001",
+        "target": "document:content/research/notes/repository-context-improvement-research.md"
       },
       {
         "edge_class": "semantic-evolution",
@@ -3011,6 +3039,17 @@
       {
         "artifact_type": "research-note",
         "family": "Document",
+        "id": "document:content/research/notes/repository-context-improvement-research.md",
+        "identity": "content/research/notes/repository-context-improvement-research.md",
+        "module": "research",
+        "path": "content/research/notes/repository-context-improvement-research.md",
+        "projection_role": "explicit-relation-target",
+        "status": "research",
+        "title": "Repository Context Improvement Research"
+      },
+      {
+        "artifact_type": "research-note",
+        "family": "Document",
         "id": "document:content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md",
         "identity": "content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md",
         "module": "research",
@@ -3051,6 +3090,30 @@
           "terminology",
           "thinking-systems"
         ]
+      },
+      {
+        "family": "ResearchItem",
+        "id": "research:RI-CONTEXT-001",
+        "identity": "RI-CONTEXT-001",
+        "item_class": "comparison",
+        "next_step": "After PR #119 results or before the next retrieval change, diagnose at most three failures and compare one bounded improvement.",
+        "origin_kind": "operational-observation",
+        "provenance_record": "content/research/notes/repository-context-improvement-research.md",
+        "research_id": "RI-CONTEXT-001",
+        "status": "open",
+        "title": "Proportionate repository-context improvements"
+      },
+      {
+        "family": "ResearchItem",
+        "id": "research:RI-FEEDBACK-001",
+        "identity": "RI-FEEDBACK-001",
+        "item_class": "process",
+        "next_step": "Observe ten tasks after adoption and decide whether scoped candidate records improve capture and recurrence at acceptable maintainer cost.",
+        "origin_kind": "operational-observation",
+        "provenance_record": "content/research/notes/repository-context-improvement-research.md",
+        "research_id": "RI-FEEDBACK-001",
+        "status": "open",
+        "title": "Persistent scoped correction candidates"
       },
       {
         "family": "ResearchItem",
@@ -4902,6 +4965,26 @@
     ],
     "research_items": [
       {
+        "id": "RI-CONTEXT-001",
+        "item_class": "comparison",
+        "next_step": "After PR #119 results or before the next retrieval change, diagnose at most three failures and compare one bounded improvement.",
+        "origin_kind": "operational-observation",
+        "owning_record": "content/research/notes/repository-context-improvement-research.md",
+        "provenance_record": "content/research/notes/repository-context-improvement-research.md",
+        "status": "open",
+        "title": "Proportionate repository-context improvements"
+      },
+      {
+        "id": "RI-FEEDBACK-001",
+        "item_class": "process",
+        "next_step": "Observe ten tasks after adoption and decide whether scoped candidate records improve capture and recurrence at acceptable maintainer cost.",
+        "origin_kind": "operational-observation",
+        "owning_record": "content/research/notes/repository-context-improvement-research.md",
+        "provenance_record": "content/research/notes/repository-context-improvement-research.md",
+        "status": "open",
+        "title": "Persistent scoped correction candidates"
+      },
+      {
         "id": "TS-CARRIER-001",
         "item_class": "artifact",
         "next_step": "Complete Article 5 mapping and test the lightest credible carriers without semantic loss or duplicate UA-specific records.",
@@ -5320,11 +5403,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "a3b3c47079aabb715c7fd18e00275c3a5f1ac5e265c8b54361c4cb7a2369ff95",
+    "digest": "7c5a6da4e941afaf940a83ef31eb6a0b19631513e7b6d54a5f0b4864838413a1",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 120,
+    "input_count": 122,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5640,6 +5723,10 @@
       },
       {
         "identity_mode": "content",
+        "path": "AGENT-FEEDBACK.md"
+      },
+      {
+        "identity_mode": "content",
         "path": "AGENTS.md"
       },
       {
@@ -5737,6 +5824,10 @@
       {
         "identity_mode": "content",
         "path": "content/research/notes/reference-implementations-brief.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": "content/research/notes/repository-context-improvement-research.md"
       },
       {
         "identity_mode": "content",

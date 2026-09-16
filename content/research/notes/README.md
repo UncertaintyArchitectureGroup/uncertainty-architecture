@@ -12,7 +12,7 @@ tags:
   - ua/type/research-index
   - ua/status/research
   - ua/topic/provenance
-updated: 2026-08-25
+updated: 2026-09-16
 license: CC-BY-4.0
 ---
 
@@ -30,6 +30,7 @@ Material terms, hypotheses, comparison questions, candidate artifacts/processes,
 
 ## Notes
 
+- [`repository-context-improvement-research.md`](repository-context-improvement-research.md) — bounded research agenda for context discovery/delivery and a ten-task pilot of persistent correction candidates (`RI-CONTEXT-001`, `RI-FEEDBACK-001`); distinguishes supplied screenshot framing, current implementation evidence, and untested benefits.
 - [`ai-delivery-lifecycle.md`](ai-delivery-lifecycle.md) — an early lifecycle hypothesis reclassified from doctrine. Its main project and delivery questions are now translated into the Project Control Architecture and Viability Review and the Thinking System Review. Remaining questions concern proportionality, two-level inheritance, control economics, evidence methods, incident learning, reauthorization, and real-team validation.
 - [`control-theory-brief.md`](control-theory-brief.md) — planning brief for research beyond the basic control-loop mapping already active in UA, including stability, feedback adequacy, latency, and limits of control-theory transfer.
 - [`designing-nondeterministic-systems-source-intake.md`](designing-nondeterministic-systems-source-intake.md) — provenance and framework-transfer record for the maintainer-supplied PDF export. The repository does not currently preserve or independently verify an editable PPTX; presentation content remains research evidence rather than specification authority. During consolidation of the article plan, two concerns from the former operational-extension note that were only partially represented—active behavioral/control baseline reconstructability and explicit fallback/common-mode/capacity/restoration evidence—were transferred into the living blueprint/manuscript. The intermediary note was then removed as redundant; Git history preserves it.
