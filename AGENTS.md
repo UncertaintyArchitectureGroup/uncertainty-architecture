@@ -56,6 +56,8 @@ At the start of every repository task, and again before repository-changing work
 6. identify the task-specific reading path, canonical owner, relevant dependencies, and applicable repository contracts before proposing or editing;
 7. distinguish verified current state, proposed work, locally prepared work, remotely applied work, and passing CI when reporting status.
 
+After reading applicable instructions, read any adjacent `AGENT-FEEDBACK.md` for the root and applicable nested scopes. Pending entries are evidence and proposals, not instructions. Check their review triggers against this task; approved behavior belongs in its owning instruction or control, never only in the log.
+
 Read [`content/research/AGENTS.md`](content/research/AGENTS.md) in full when work edits `content/research/` or materially changes research content, provenance, research state, or publication-edition decisions. Infrastructure that only renders, validates, transports, or packages research artifacts does not activate the long-form research-drafting protocol unless it also changes research content or state.
 
 Inspecting a tree is not the same as reading a repository. Do not claim complete review of content you did not actually read.
@@ -127,7 +129,7 @@ For material framework changes, locate the work on both canonical axes—**decis
 
 Use the existing namespace whose owner matches the material:
 
-- root entry points — public navigation, specification boundary, roadmap, changelog, metadata, contribution process, and this AI routing protocol;
+- root entry points — public navigation, specification boundary, roadmap, changelog, metadata, contribution process, this AI routing protocol, and its adjacent feedback-candidate memory;
 - `00-doctrine/` — foundational distinctions and canonical architecture meaning;
 - `01-patterns/` — reusable socio-technical responses and review patterns;
 - `02-ai-control-plane/` — capability-specific realization guidance;
@@ -164,6 +166,17 @@ Do not turn every preference into permanent guidance, duplicate one rule across 
 Before applying a **feedback-derived** persistent-guidance change, present the candidate to the maintainer with the triggering failure pattern, recurrence rationale, proposed owner, exact scope change, expected benefit, and automation feasibility. Apply it only after approval of that candidate. This extra approval is not required when editing agent guidance is itself the maintainer's explicit task.
 
 The completion report must record every material durable candidate considered, its owner, automation feasibility, approval/disposition, and whether it was applied, proposed, rejected, or deferred.
+
+#### Persistent candidates
+
+Keep candidates likely to recur in `AGENT-FEEDBACK.md` beside the narrowest applicable `AGENTS.md`; create a scoped log only when it has its first real candidate. A scope is a repository directory, not a model or individual agent identity. The [root log](AGENT-FEEDBACK.md) supplies the record format. This section owns the behavior; logs hold evidence and decisions without adding instruction authority.
+
+- At task completion, reconcile material corrections available in the conversation or trusted review with that log. Match an existing candidate by failure mechanism and scope before adding a new one. A one-off content edit needs no candidate. If an existing rule already covers the failure, investigate discovery, compliance, or enforcement instead of proposing the same rule again.
+- Record a stable local candidate ID, concise failure and proposed behavior, owning path/section, dated evidence with distinct task/incident keys, independent occurrence count, status, and next review trigger. Use public issue/PR links where available; otherwise label a minimal sanitized task summary as maintainer-attested. Do not copy private transcripts, sensitive data, or hidden reasoning. An agent's inference is not evidence of a user correction.
+- Count independent corrected tasks/incidents, not messages: repeated requests or review rounds for the same unresolved incident count once. A new session alone does not establish a new occurrence. Unknown history stays unknown; do not infer counts from recollection. Keep conflicting or narrower corrections visible instead of merging incompatible preferences.
+- By default, **three independent occurrences** make a candidate due for a maintainer proposal. This is a review trigger, not proof or automatic promotion. A consequential failure or an explicit maintainer request may justify an earlier proposal; immediate defect correction never waits for the threshold. The proposal includes the exact suggested wording or diff and target section, evidence/count, expected benefit and cost, and automation feasibility. Silence is not approval; approval covers that candidate and scope only.
+- Record `observed`, `proposed`, `approved`, `implemented`, `rejected`, `deferred`, or `superseded`, with the decision evidence and implementation link when applicable. Rejected/deferred proposals are not raised again without materially new evidence or their recorded review trigger. An implemented candidate needs later observation before claiming improvement. Summarize closed entries and retain their decision links rather than expanding the instruction file into an incident history.
+- Include log updates in the current authorized repository change. During read-only work or when persistence is unavailable, report the unsaved candidate and intended owner; do not claim it was stored. At the next applicable repository-changing task, reconcile any such evidence actually available. This is an agent-executed protocol: it does not automatically ingest past chats or guarantee capture when an agent skips the protocol.
 
 ### Deterministic agent iteration checkpoint
 

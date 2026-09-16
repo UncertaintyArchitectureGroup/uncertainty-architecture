@@ -16,6 +16,7 @@
     "files": [
       ".gitignore",
       "AGENTS.md",
+      "AGENT-FEEDBACK.md",
       "CHANGELOG.md",
       "CITATION.cff",
       "CODE_OF_CONDUCT.md",

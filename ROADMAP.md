@@ -169,6 +169,9 @@ A new top-level Operating Model module is not planned at this stage.
 
 ### Repository intelligence
 
+- [ ] Revisit [context-improvement research](content/research/notes/repository-context-improvement-research.md) when [PR #119](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/pull/119) has evaluation results or before the next retrieval change. Diagnose a real failure before adopting another backend (`RI-CONTEXT-001`).
+- [ ] Review the [scoped correction-candidate pilot](content/research/notes/repository-context-improvement-research.md#feedback-pilot) after ten repository tasks following adoption; assess missed captures, recurrence, proposal quality, and maintainer effort (`RI-FEEDBACK-001`).
+
 Repository intelligence is an active enabling track for reliable cold-start AI-assisted repository work and maintainer-facing repository control. Its architecture and staged rollout are owned by [`.github/REPOSITORY-INTELLIGENCE.md`](.github/REPOSITORY-INTELLIGENCE.md).
 
 The PR 2 discovery baseline includes existing publication-process contracts outside frontmatter scanning and direct declared relationships as explainable preflight evidence; regressions cover owner recovery, scoped routing, and removal of obsolete relation evidence.

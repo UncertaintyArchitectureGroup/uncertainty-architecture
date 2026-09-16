@@ -19,7 +19,7 @@ tags:
 canonical_for:
   - research-state-register
 created: 2026-08-25
-updated: 2026-08-25
+updated: 2026-09-16
 license: CC-BY-4.0
 ---
 
@@ -73,6 +73,8 @@ Do **not** split every subclaim into its own ID. Subclaims that share provenance
 | `TS-CARRIER-001` | Material-relationship carrier sufficiency and proportional application | Artifact / process hypothesis | Article §5 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Complete Article §5 mapping and test whether existing records/tools can carry each material relationship without UA-specific duplicate artifacts or semantic loss |
 | `TS-COMP-001` | Four-horizon model relative to STAMP/STPA | Comparative hypothesis | Maximiliano Armesto review | Under Validation | Same review record; planned Article §6 landscape/substitution analysis | Perform bidirectional mapping and determine whether the four-horizon model adds useful lifecycle-decision specialization, merely renames existing semantics, or loses material relationships |
 | `TS-SUB-001` | Semantic substitution and reverse-mapping test for existing methods/compositions | Comparative method hypothesis | Article §6 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Test whether equivalent-or-stronger semantics can substitute for UA relationships and whether reverse mapping exposes relationships the UA-derived map omitted or distorted |
+| `RI-CONTEXT-001` | Proportionate repository-context improvements | Comparison | Maintainer discussion, screenshot intake, and repository baseline | Open | [`repository-context-improvement-research.md`](notes/repository-context-improvement-research.md) | After #119 results or before the next retrieval change, identify a measured failure and compare one small improvement. |
+| `RI-FEEDBACK-001` | Persistent scoped correction candidates | Process | Maintainer request and observed protocol gap | Open | [`repository-context-improvement-research.md`](notes/repository-context-improvement-research.md#feedback-pilot) | Observe ten tasks after adoption; assess capture, proposal quality, recurrence, and maintainer cost. |
 
 ## Machine-readable register
 
@@ -189,6 +191,26 @@ The block below is validated in CI. Human-readable rows above must express the s
       "provenance_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
       "next_step": "Test equivalent-or-stronger semantic substitution and reverse mapping against the derived UA map."
+    },
+    {
+      "id": "RI-CONTEXT-001",
+      "title": "Proportionate repository-context improvements",
+      "item_class": "comparison",
+      "status": "open",
+      "origin_kind": "operational-observation",
+      "provenance_record": "content/research/notes/repository-context-improvement-research.md",
+      "owning_record": "content/research/notes/repository-context-improvement-research.md",
+      "next_step": "After PR #119 results or before the next retrieval change, diagnose at most three failures and compare one bounded improvement."
+    },
+    {
+      "id": "RI-FEEDBACK-001",
+      "title": "Persistent scoped correction candidates",
+      "item_class": "process",
+      "status": "open",
+      "origin_kind": "operational-observation",
+      "provenance_record": "content/research/notes/repository-context-improvement-research.md",
+      "owning_record": "content/research/notes/repository-context-improvement-research.md",
+      "next_step": "Observe ten tasks after adoption and decide whether scoped candidate records improve capture and recurrence at acceptable maintainer cost."
     }
   ]
 }

@@ -8,6 +8,14 @@
       "expected_valid": true
     },
     {
+      "name": "scoped root feedback record is permitted",
+      "mutation": {
+        "type": "add_file",
+        "path": "AGENT-FEEDBACK.md"
+      },
+      "expected_valid": true
+    },
+    {
       "name": "critical file deletion is rejected",
       "mutation": {
         "type": "delete_path",
