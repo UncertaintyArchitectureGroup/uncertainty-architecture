@@ -68,7 +68,7 @@ def blind_scores(study, records, run_map, packet):
         require(type(entry["serious_error"]) is bool, "serious_error must be boolean")
         require(not entry["serious_error"] or entry["quality"] == 0, "a serious error must score 0")
         scores[rid] = entry
-    require(set(scores) == set(frozen), "blind scores must cover exactly the recorded responses")
+    require(list(scores) == list(frozen), "blind scores must preserve the generated opaque response order")
     return scores
 
 

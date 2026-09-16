@@ -278,13 +278,15 @@ class ComparisonTests(unittest.TestCase):
                 self.assertIsNone(report)
 
     def test_missing_duplicate_unblinded_or_inconsistent_scores_rejected(self):
-        for mutation in ("missing", "duplicate", "unblinded", "serious-with-two"):
+        for mutation in ("missing", "duplicate", "reordered", "unblinded", "serious-with-two"):
             with self.subTest(mutation=mutation):
                 packet = self.scored()
                 if mutation == "missing":
                     packet["responses"].pop()
                 elif mutation == "duplicate":
                     packet["responses"].append(copy.deepcopy(packet["responses"][0]))
+                elif mutation == "reordered":
+                    packet["responses"].reverse()
                 elif mutation == "unblinded":
                     packet["scored_before_reveal"] = False
                 else:
