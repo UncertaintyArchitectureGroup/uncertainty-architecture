@@ -1,6 +1,6 @@
 # RI comparison — frozen descriptive study
 
-Status: **12 tasks and 24 messages frozen before experimental outcomes; first session ready to issue; 0 collected, 0 scored**.
+Status: **12 tasks and 24 messages frozen before experimental outcomes; collection in progress; 1/24 collected, 0 scored**.
 
 On 2026-09-17 the maintainer accepted the preceding task set and explicitly narrower descriptive scope with “Ок, погнали”. This is the separate post-#119 experiment in Draft PR #125. PR #124 research remains separate.
 
@@ -39,6 +39,10 @@ The accepted projection job and organizer checkout verify prepared source data, 
 4. Organizer preserves the response and available capture, updates the corresponding pending record, and supplies the next prompt. No mid-run scoring feedback is sent to tested sessions. An unanswered clarification is recorded and the sequence proceeds without substantive hints. Never overwrite a started attempt with a better answer.
 
 No strict source lock is claimed. Organizer observed `main` at the study commit at 2026-09-17T11:27:18.128Z via the GitHub branch API and rechecks immediately before first issuance and after collection. The branch is not protected; this is an observation plus a requested quiet window, not enforcement. Avoid merging to `main` during collection, including this experiment PR. If it moves, retain all prior outcomes, pause further issuance, record possible default-search contamination and decide a separately frozen follow-up if needed. Do not rewrite this study against a new SHA after seeing answers. Exact-ref reads are still requested; opaque/redacted payloads do not prove compliance.
+
+## Collected receipts
+
+- **T01/A, 1 of 24:** [shared capture](T01-A-share.json), with the exact answer in [sessions.json](sessions.json). The submitted wording matches; blank separator lines were omitted. Share reports GPT-5.6 Luna / `gpt-5-6` with Auto. All 10 exposed tool response bodies are redacted, so source and arm compliance, actual repository-call totals and traffic remain unverified. Memory-disabled operation is not confirmed; the public metadata flags are recorded without inferring actual context contamination. The answer is retained without scoring or a rerun. Next handoff: the already-frozen T01/B message, in a separate fresh chat.
 
 ## Assessment and stopping rule
 
