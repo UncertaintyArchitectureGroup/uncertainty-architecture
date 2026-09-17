@@ -1,6 +1,6 @@
 # RI comparison — frozen descriptive study
 
-Status: **12 tasks and 24 messages frozen before experimental outcomes; collection in progress; 5/24 collected, 0 scored**.
+Status: **12 tasks and 24 messages frozen before experimental outcomes; collection in progress; 6/24 collected, 0 scored**.
 
 On 2026-09-17 the maintainer accepted the preceding task set and explicitly narrower descriptive scope with “Ок, погнали”. This is the separate post-#119 experiment in Draft PR #125. PR #124 research remains separate.
 
@@ -50,7 +50,9 @@ No strict source lock is claimed. Organizer observed `main` at the study commit 
 
 - **T02/A, 4 of 24:** [shared capture](T02-A-share.json), with the exact answer in [sessions.json](sessions.json). Submitted wording matches with blank separators omitted. Share reports GPT-5.6 Luna / `gpt-5-6` with Auto and 11 redacted tool responses. The answer reports ordinary-source reads, no compact RI or excerpts, and resource continuation after a truncated tree display; redacted payloads do not verify those claims. Source and isolation limitations remain recorded. Both T02 answers are retained without quality scores or a rerun.
 
-- **T03/A, 5 of 24:** [shared capture](T03-A-share.json), with the exact answer in [sessions.json](sessions.json). Submitted wording matches with blank separators omitted. Share reports GPT-5.6 Luna / `gpt-5-6` with Auto and 14 redacted tool responses. The answer reports ordinary-source reads, no compact RI or excerpts, and full blob reads after transport truncation; redacted payloads do not verify those claims. Source and isolation limitations remain recorded, without scoring or a rerun. Next handoff: the already-frozen T03/B message in a fresh chat.
+- **T03/A, 5 of 24:** [shared capture](T03-A-share.json), with the exact answer in [sessions.json](sessions.json). Submitted wording matches with blank separators omitted. Share reports GPT-5.6 Luna / `gpt-5-6` with Auto and 14 redacted tool responses. The answer reports ordinary-source reads, no compact RI or excerpts, and full blob reads after transport truncation; redacted payloads do not verify those claims. Source and isolation limitations remain recorded, without scoring or a rerun.
+
+- **T03/B, 6 of 24:** [shared capture](T03-B-share.json), with the exact refusal in [sessions.json](sessions.json). Submitted wording and study SHA match, with blank separators omitted. The response reports an unavailable ref, but quotes `989fc1398fc221ffca4e1f7a141b2c03bfc7cf3`, different from the correctly submitted study SHA. Both tool responses are redacted, so actual connector arguments and the claimed error remain unverified. Share reports `gpt-5-6-mini` under Auto, unlike the preceding five sessions (`gpt-5-6`); backend parity cannot be assumed. The refusal remains a collected attempt without a substantive task answer, score or rerun. Source and isolation limitations remain recorded. Next handoff: the already-frozen T04/B message in a fresh chat.
 
 ## Assessment and stopping rule
 
