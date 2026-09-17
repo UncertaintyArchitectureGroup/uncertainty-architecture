@@ -1,0 +1,271 @@
+{
+  "study_id": "2026-09-17-descriptive",
+  "scope": "Descriptive answer quality only; not a v11 evaluator input or RI-benefit/cost verdict.",
+  "repository_ref": "989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3",
+  "sessions": [
+    {
+      "sequence": 1,
+      "task_id": "T01",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T01\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nПрочитай інструкції та структуру репозиторію. Поясни, як RI допомагає агенту орієнтуватися і чи виправдана складність цієї реалізації",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 2,
+      "task_id": "T01",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T01\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nПрочитай інструкції та структуру репозиторію. Поясни, як RI допомагає агенту орієнтуватися і чи виправдана складність цієї реалізації",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 3,
+      "task_id": "T02",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T02\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nКоли оновлюється RI, як агент починає ним користуватися і що відбувається, якщо дані застаріли?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 4,
+      "task_id": "T02",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T02\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nКоли оновлюється RI, як агент починає ним користуватися і що відбувається, якщо дані застаріли?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 5,
+      "task_id": "T03",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T03\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nМи вже пишемо багато коду для Quartz і пайплайнів. Чи треба додати правила стилю коду для агента, зокрема про коментарі?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 6,
+      "task_id": "T03",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T03\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nМи вже пишемо багато коду для Quartz і пайплайнів. Чи треба додати правила стилю коду для агента, зокрема про коментарі?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 7,
+      "task_id": "T04",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T04\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nЯкі в нас правила стилю коду, чому вони такі та які з них реально перевіряються автоматично?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 8,
+      "task_id": "T04",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T04\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nЯкі в нас правила стилю коду, чому вони такі та які з них реально перевіряються автоматично?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 9,
+      "task_id": "T05",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T05\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nХочу отримати PDF статті `content/research/notes/thinking-systems-publication-draft.md`. Знайди наявний маршрут експорту та поясни порядок дій. Markdown має залишитися на місці; нічого не запускай і не змінюй",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 10,
+      "task_id": "T05",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T05\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nХочу отримати PDF статті `content/research/notes/thinking-systems-publication-draft.md`. Знайди наявний маршрут експорту та поясни порядок дій. Markdown має залишитися на місці; нічого не запускай і не змінюй",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 11,
+      "task_id": "T06",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T06\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nЧи працюватиме наявний Markdown-to-PDF exporter, якщо Quartz-сайт не опублікований? Поясни залежності й порядок дій",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 12,
+      "task_id": "T06",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T06\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nЧи працюватиме наявний Markdown-to-PDF exporter, якщо Quartz-сайт не опублікований? Поясни залежності й порядок дій",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 13,
+      "task_id": "T07",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T07\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nЦе knowledge graph для LLM, шар spec-driven development чи щось інше? Поясни за фактичною реалізацією",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 14,
+      "task_id": "T07",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T07\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nЦе knowledge graph для LLM, шар spec-driven development чи щось інше? Поясни за фактичною реалізацією",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 15,
+      "task_id": "T08",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T08\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nПоясни наявні маршрути підготовки статті для PDF, LinkedIn та Medium, їхні залежності й перевірки. Чи потрібен ще один pipeline?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 16,
+      "task_id": "T08",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T08\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nПоясни наявні маршрути підготовки статті для PDF, LinkedIn та Medium, їхні залежності й перевірки. Чи потрібен ще один pipeline?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 17,
+      "task_id": "T09",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T09\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nХочемо продовжити довгу статтю “Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities”. Знайди її чинні blueprint і рукопис. Де має жити план наступної секції та які матеріали треба прочитати перед її написанням? Потрібна лише навігація й порядок роботи; план і текст секції зараз не пиши",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 18,
+      "task_id": "T09",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T09\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nХочемо продовжити довгу статтю “Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities”. Знайди її чинні blueprint і рукопис. Де має жити план наступної секції та які матеріали треба прочитати перед її написанням? Потрібна лише навігація й порядок роботи; план і текст секції зараз не пиши",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 19,
+      "task_id": "T10",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T10\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nЗа файлами репозиторію визнач, які можливості RI реалізовані, що перевірено автоматичними тестами, а що ще потребує реальних агентних сесій. Який наступний мінімальний крок?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 20,
+      "task_id": "T10",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T10\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nЗа файлами репозиторію визнач, які можливості RI реалізовані, що перевірено автоматичними тестами, а що ще потребує реальних агентних сесій. Який наступний мінімальний крок?",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 21,
+      "task_id": "T11",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T11\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nПланується оновлення залежностей Quartz і Playwright. Знайди чинні правила, файли залежностей та перевірки сумісності й впливу на GitHub Pages. Склади план перевірки за файлами репозиторію",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 22,
+      "task_id": "T11",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T11\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nПланується оновлення залежностей Quartz і Playwright. Знайди чинні правила, файли залежностей та перевірки сумісності й впливу на GitHub Pages. Склади план перевірки за файлами репозиторію",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 23,
+      "task_id": "T12",
+      "arm": "RI-AB-TREATMENT",
+      "submitted_message": "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T12\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nОціни за кодом і документацією, наскільки RI придатний до виділення в окремий open-source інструмент: що універсальне, що прив’язане до UA, чого бракує? Не роби висновків про попит або глобальну новизну без зовнішніх доказів",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    },
+    {
+      "sequence": 24,
+      "task_id": "T12",
+      "arm": "RI-AB-CONTROL",
+      "submitted_message": "Experiment arm: RI-AB-CONTROL\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T12\n\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\n\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\n\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\n\nTask:\nОціни за кодом і документацією, наскільки RI придатний до виділення в окремий open-source інструмент: що універсальне, що прив’язане до UA, чого бракує? Не роби висновків про попит або глобальну новизну без зовнішніх доказів",
+      "session_url": null,
+      "response": null,
+      "observed_model": null,
+      "capture_note": null,
+      "deviations": []
+    }
+  ]
+}

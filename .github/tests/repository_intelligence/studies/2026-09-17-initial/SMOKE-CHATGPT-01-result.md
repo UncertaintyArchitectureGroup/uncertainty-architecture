@@ -22,13 +22,9 @@ Disposition: **unscored client rehearsal; prompt/model metadata captured, connec
 6. If complete returned RI content is present in the existing capture, the organizer can compute its hash from that captured content and compare it with the accepted record. The model need not invent a hash or byte count. Preserve wrappers, truncation and unavailable metrics honestly. Missing context measurements prevent the efficiency claim; they do not alone invalidate every quality comparison.
 7. The same model/settings and isolation must hold across the primary arms. The shared metadata identifies this response's reported model, but Auto parity and Memory-disabled operation remain unconfirmed. Do not infer that every later response will use the same model.
 
-## Next action
+## Disposition after maintainer decision
 
-The requested Share link has been inspected; requesting it again will not recover redacted payloads. The maintainer subsequently confirmed connector configuration and asked to skip further setup checks. Stop the repeated capture/setup handoff and proceed to task selection. Retain missing payloads as an evidence limitation; do not ask the model to reconstruct its log or rerun the task. If capture remains unavailable, explicitly agree a descriptive comparison before collecting sessions on that basis; do not claim that configured access satisfies v11 source/delivery/cost evidence requirements.
-
-Before primary execution, confirm Memory is disabled and that the chosen model/settings can remain consistent across both arms. No evidence here justifies a paid upgrade by itself. The present failure is a demonstrated limitation of this Share export, not proof that the original session lacked GitHub access or that all clients/plans redact the same information.
-
-After client qualification, complete independent task selection and freeze the study before issuing the 24 primary prompts. Both rehearsals remain outside the primary sample and are not compared as a Gemini-versus-ChatGPT experiment. The v11 protocol and thresholds remain unchanged.
+The Share was inspected and the maintainer confirmed connector setup. Repeated setup/capture requests stop. On 2026-09-17 the maintainer accepted the 12 proposed tasks and the explicitly descriptive comparison with incomplete evidence. The [frozen study record](README.md) now owns the handoff and settings limitations; this rehearsal stays unscored. No unavailable connector payload, Memory setting or future model parity is inferred from the approval.
 
 ## Response as pasted by the maintainer
 

@@ -1,69 +1,59 @@
-# Initial RI A/B study — preparation record
+# RI comparison — frozen descriptive study
 
-Status: **preparation; not preregistered; no primary sessions or scores**.
+Status: **12 tasks and 24 messages frozen before experimental outcomes; first session ready to issue; 0 collected, 0 scored**.
 
-This directory holds the experiment supported by merged PR #119. The [v11 protocol](../../AB-EVALUATION.md) remains the procedural owner. This record applies that protocol; it does not change thresholds, declare RI acceptance, or incorporate the separate research in PR #124.
+On 2026-09-17 the maintainer accepted the preceding task set and explicitly narrower descriptive scope with “Ок, погнали”. This is the separate post-#119 experiment in Draft PR #125. PR #124 research remains separate.
 
-## Verified preparation baseline
+## What this comparison can establish
 
-| Item | Observation |
+Compare the quality of answers under ordinary-source instructions (A) and normal optional RI instructions (B) in the maintainer's actual client. Both may use ordinary sources; B need not fetch RI. This is a comparison of assigned instructions with incomplete execution visibility. It cannot establish actual RI exposure, causal RI benefit, efficiency or general model superiority. A positive quality difference is descriptive only.
+
+The [v11 protocol](../../AB-EVALUATION.md) retains its original meaning, evidence requirements and thresholds. Its bootstrap, source authority, ablation/fallback rules, alternating order and 0/1/2 quality anchors guide this study. The maintainer-approved deviations are explicit: assistant-prepared task selection, Auto routing without verified model parity, and incomplete source/delivery/traffic capture. This record is **not v11 preregistration**, and [sessions.json](sessions.json) is not input for the strict v11 evaluator. Do not manufacture smoke, event or configuration evidence to obtain a valid-looking v11 result.
+
+## Frozen inputs and settings
+
+| Item | Frozen value or evidence status |
 |---|---|
 | Repository | https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture |
-| PR #119 merged | 2026-09-17 10:24:20 UTC |
-| Preparation and smoke commit | `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` |
+| Study commit | `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` |
 | Commit tree | `ed4dcf068af29ad0eb42867e1548076e21eca67d` |
 | Compact surface | `assets/repository-intelligence/agent-context.json` |
 | Surface Git blob | `1b1c3f07ed7202d566fca1dda0004f89cb6e5219` |
 | Complete surface SHA-256 | `bf0fb746f299c31683e3909f9532d4d560eff21326d5d59fd822fdada378ba35` |
-| Source freshness evidence | [Successful main projection job](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/actions/runs/35210305097/job/105165981358), `Verified context checkout` at 2026-09-17 10:24:44 UTC |
+| Source freshness | [Successful main projection job](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/actions/runs/35210305097/job/105165981358), verified checkout at 2026-09-17 10:24:44 UTC |
+| Tasks / keys | [TASK-CANDIDATES.md](TASK-CANDIDATES.md), accepted wording and expectations; UTF-8 file SHA-256 `8df53543c64a883391bbc238bc6d2efb0784daf3c2dd561953d43b882dfce5b8` |
+| Exact messages | [sessions.json](sessions.json); only the arm marker differs within each task pair |
+| Client setting | Maintainer's other-account ChatGPT Free, default/Auto, GitHub connector configured per maintainer |
+| Actual model / thinking | Unknown for future sessions; smoke page reported GPT-5.6 Luna / `gpt-5-6`; no fixed reasoning setting exposed |
+| Context metric | Unavailable; no tokens/bytes/call-total estimates from narrative or repository file sizes |
+| Isolation instruction | New conversation for every message, outside Projects, Memory off, no past answers/keys; operator compliance not yet observed |
+| Model parity | Same visible client/Auto setting requested; backend parity unverified and must remain a limitation |
 
-The job's checkout, tree, blob and complete-content hash match the values above and the local committed checkout. This is organizer preparation evidence, not the operator-client smoke result, a primary execution-window observation, or a token/transport measurement.
+The accepted projection job and organizer checkout verify prepared source data, not what another model received. Two unscored rehearsals remain preserved: [Gemini-labelled](SMOKE-01-result.md), [ChatGPT](SMOKE-CHATGPT-01-result.md), and the latter's [extracted Share](SMOKE-CHATGPT-01-share.json). All 20 shared tool response bodies were redacted. No further connector-setup test is required; no rehearsal enters the 24-session sample.
 
-The main branch is **not locked during preparation or scoring**. Before primary execution, recheck the branch, all selected tasks and their expectations; freeze the actual study commit and obtain the protocol's before/after execution-window observations. A changed baseline requires a new frozen study before any primary session.
+## One-message handoff
 
-## Immediate handoff
+1. Organizer supplies only the next exact `submitted_message`. Odd tasks run A then B; even tasks B then A. All 24 messages are prepared before the first outcome.
+2. Maintainer opens a fresh chat on the same other account, outside Projects, with Memory disabled and the same visible default model setting. Paste the entire message once. Do not add earlier answers, repository attachments, scoring keys or task-specific hints.
+3. Return the exact first answer and Share link here. A refusal, clarification request, quota interruption or failed read is a result to retain. Do not click regenerate or repair the tested conversation. Record any visible model/setting change or accidental context as a deviation; unknown model identity stays unknown.
+4. Organizer preserves the response and available capture, updates the corresponding pending record, and supplies the next prompt. No mid-run scoring feedback is sent to tested sessions. An unanswered clarification is recorded and the sequence proceeds without substantive hints. Never overwrite a started attempt with a better answer.
 
-1. Two pasted rehearsal responses are retained: [the Gemini-labelled attempt](SMOKE-01-result.md) and [the ChatGPT free/default attempt](SMOKE-CHATGPT-01-result.md). The second reports GitHub access and unverified RI with source fallback. Neither is a primary session.
-2. The maintainer confirms that GitHub is installed/configured and requests moving on. Stop repeating connector-setup checks or requesting another smoke. The inspected Share confirms SMOKE-01 and page-reported GPT-5.6 Luna (`gpt-5-6`, Auto), while all 20 tool response bodies are redacted. Record setup as maintainer-confirmed; retain source/delivery/cost capture as unavailable. Configuration is not proof of what was read.
-3. The original supplied message is [SMOKE-01](SMOKE-01.txt). [SMOKE-02.txt](SMOKE-02.txt) was prepared as a contingency, but was not handed to the maintainer before the second response arrived. The shared initial message now confirms Task ID SMOKE-01; its exact submitted text is retained, including the omission of blank separator lines. The share URL identifies this receipt; the filename is not a second submitted Task ID.
-4. The next handoff is maintainer selection of the now-concrete [12 task candidates](TASK-CANDIDATES.md). The organizer has filled the T05 source and bounded T09 to navigation/ownership, and will supply one complete repository-addressed prompt per fresh session after the study scope/configuration is agreed. The maintainer reviews tasks and returns session responses; the organizer prepares records, checks source state and prepares the blind packet.
+No strict source lock is claimed. Organizer observed `main` at the study commit at 2026-09-17T11:27:18.128Z via the GitHub branch API and rechecks immediately before first issuance and after collection. The branch is not protected; this is an observation plus a requested quiet window, not enforcement. Avoid merging to `main` during collection, including this experiment PR. If it moves, retain all prior outcomes, pause further issuance, record possible default-search contamination and decide a separately frozen follow-up if needed. Do not rewrite this study against a new SHA after seeing answers. Exact-ref reads are still requested; opaque/redacted payloads do not prove compliance.
 
-Skipping another connector check does not waive v11 evidence requirements or authorize fabricated measurements. If connector payloads remain unavailable, responses can support a descriptive comparison under the observed client configuration, but a valid v11 RI-benefit/cost verdict is not established. Agree that narrower scope explicitly before collecting sessions on that basis; do not silently label it the primary v11 study. No primary session has started. Before execution, confirm Memory-disabled fresh conversations and actual model/settings in both arms; Auto routing remains a limitation until parity is demonstrated.
+## Assessment and stopping rule
 
-Smoke is unscored and outside the 12 tasks. It deliberately exercises search, a pinned source read and compact delivery/fallback; forced transport coverage in this probe does not change optional RI use in the primary Treatment arm. The second account's reported GitHub access addresses the first attempt's transport problem, but Share redaction prevents inspection of connector payloads. Primary configuration parity and Memory-disabled isolation remain pending; the share reports Auto and `memory_scope: global_enabled`, which does not establish actual memory use. The free-plan label alone neither qualifies nor disqualifies a client. Primary execution awaits client qualification and the remaining preregistration steps. No result is discarded and no primary run is replaced.
+After collection, freeze all responses and retain all 12 task pairs, including missing or interrupted sessions. Prepare a self-contained packet with opaque shuffled response IDs, task prompt, frozen expectations/serious errors, verbatim answer and blank score. Withhold arm mapping, execution order, sessions, tools and settings. Do not rewrite answers that themselves reveal their route: disclose residual unblinding. The organizer has seen arm assignments and must not be the blind scorer; use a separate person or isolated scoring session given only that packet and frozen owning evidence.
 
-## Pending before primary execution
+Use v11's semantic anchors: **0** materially incorrect (always 0 for a concrete serious error); **1** partially correct and needs maintainer correction; **2** meets frozen expectations with owning sources. Freeze scores before revealing arms. Publish A/B scores for every task, quality wins/losses/ties for paired scoreable responses, their denominator, missing/unscoreable attempts and serious errors. Show source/isolation/model deviations beside the results. Missing responses stay missing rather than becoming favorable ties or synthetic score-zero answers. No strict v11 outcome is inferred from these descriptive counts; missing evidence would leave its RI-benefit question inconclusive.
 
-- Independent maintainer selection/review of the [12 task candidates](TASK-CANDIDATES.md), their actual request provenance, required source evidence and concrete serious errors. They were prepared by the implementation-aware assistant and are not an independently selected corpus yet.
-- Confirm or replace overlapping tasks and accept the standalone adaptations. T05's document and T09's pair/current premise are now concretely specified for review.
-- Record actual model, thinking, client, isolation, access parity, smoke evidence and one context metric. Unknown measurements remain unavailable.
-- Freeze exact prompts and keys before outcomes. Each submitted prompt must contain the full repository URL. Include any coordinator-supplied repository-address line in the frozen task text before using v11 `init`; label that context addition in the selection note, preserve the selected request's original language, and do not append unrecorded text after generation.
-- Freeze a concrete follow-up rule. Proposed for maintainer review: retain the initial verdict unchanged; use a separate study only to resolve an identified transport/isolation failure or a named uncovered task family that still blocks the next RI decision. Do not selectively rerun unfavorable answers.
-
-No valid-looking `study.json` with guessed configuration, fabricated smoke evidence or an asserted freeze is supplied at this stage. Once these decisions are complete, the organizer uses the existing evaluator to create the actual study and 24 ordered messages. No new runner or workflow is needed.
-
-## Execution and custody
-
-The organizer gives one prompt at a time. Each prompt uses a separate fresh conversation at the frozen source state. Odd tasks run A then B; even tasks B then A. Both arms read the same applicable instructions. A uses ordinary GitHub sources without RI aids; B uses the normal optional verified compact route and source fallback. This is instruction-level ablation with evidence review, not a claim of file-level access enforcement.
-
-During primary sessions, do not provide answer keys, prior responses, scoring feedback or corrective hints. Retain started failures, interruptions and missing measurements. Record clarification requests without supplying substantive hints; do not silently repair or restart a run. The exact operational handling is fixed before execution.
-
-Keep this Draft PR and all study keys/results outside test-agent inputs. Test agents read only the study commit on `main`; default-branch search is allowed only under the execution lock. Do not merge the experiment branch during collection. If a tested session accesses experiment material or another source ref, record the deviation rather than assume contamination was impossible because a prompt forbade it.
-
-After collection, generate the arm-hidden packet and give only that packet to an independent person or isolated scoring session. The organizer conversation knows the arm mapping and cannot be the blind scorer. Freeze scores before revealing arms. Publish every pair and the original outcome, including INCONCLUSIVE or REGRESSION, with actual costs, RI delivery, evidence limitations and remaining RI-EVAL gaps.
-
-The eventual evidence remains the protocol's three input records — study, runs with raw-evidence references, and blind scores — plus its generated report. This preparation README is a handoff record, not another evidence schema or a new source of rules.
+Stop after the 24 planned slots or a recorded interruption. Do not adjust tasks, expectations, instructions, client selection or scoring anchors based on results; do not selectively rerun failures or unfavorable answers. A follow-up is a separate frozen study only for an identified transport/isolation issue or a named task family still needed for a concrete RI decision. Retain this study's original results unchanged.
 
 ## Progress
 
-- [x] PR #119 merged; preparation commit and accepted RI freshness checked.
-- [x] Initial operator handoff and candidate review material prepared.
-- [x] SMOKE-01 pasted response preserved; connector/capture prerequisites not met.
-- [x] Second ChatGPT paste and extracted Share snapshot preserved; SMOKE-01 prompt/model metadata identified, connector outputs redacted, RI unverified.
-- [x] Maintainer confirms connector setup; repeated setup checks stopped and concrete task-selection handoff prepared.
-- [ ] Suitable maintainer-client smoke completed with adequate access/isolation/capture evidence.
-- [ ] Independent task selection, provenance and expectations confirmed.
-- [ ] Study/configuration/follow-up rule frozen; source window opened.
-- [ ] 24 primary sessions captured; source window closed.
-- [ ] Independent blind scores frozen.
-- [ ] All-pair report reviewed and results PR completed.
+- [x] PR #119 merged; source/RI preparation checked.
+- [x] Rehearsals retained and connector setup accepted as maintainer-confirmed.
+- [x] Maintainer accepted the 12 tasks and descriptive scope before outcomes.
+- [x] Exact messages, expectations, settings limitations and follow-up rule frozen.
+- [ ] 24 session slots completed or explicitly reported missing/interrupted; final source observation recorded.
+- [ ] Independent scores frozen before arm reveal.
+- [ ] All-pair descriptive report published and reviewed; Draft PR #125 completed.
