@@ -1,6 +1,6 @@
 # RI comparison — frozen descriptive study
 
-Status: **12 tasks and 24 messages frozen before experimental outcomes; collection paused for model availability; 6/24 collected, 0 scored; one supplemental retry planned**.
+Status: **12 tasks and 24 messages frozen before experimental outcomes; collection resumed; 6/24 original slots collected plus 1 supplemental attempt, 0 scored**.
 
 On 2026-09-17 the maintainer accepted the preceding task set and explicitly narrower descriptive scope with “Ок, погнали”. This is the separate post-#119 experiment in Draft PR #125. PR #124 research remains separate.
 
@@ -52,7 +52,7 @@ No strict source lock is claimed. Organizer observed `main` at the study commit 
 
 - **T03/A, 5 of 24:** [shared capture](T03-A-share.json), with the exact answer in [sessions.json](sessions.json). Submitted wording matches with blank separators omitted. Share reports GPT-5.6 Luna / `gpt-5-6` with Auto and 14 redacted tool responses. The answer reports ordinary-source reads, no compact RI or excerpts, and full blob reads after transport truncation; redacted payloads do not verify those claims. Source and isolation limitations remain recorded, without scoring or a rerun.
 
-- **T03/B, 6 of 24:** [shared capture](T03-B-share.json), with the exact refusal in [sessions.json](sessions.json). Submitted wording and study SHA match, with blank separators omitted. The response reports an unavailable ref, but quotes `989fc1398fc221ffca4e1f7a141b2c03bfc7cf3`, different from the correctly submitted study SHA. Both tool responses are redacted, so actual connector arguments and the claimed error remain unverified. Share reports `gpt-5-6-mini` under Auto, unlike the preceding five sessions (`gpt-5-6`); backend parity cannot be assumed. The refusal remains a collected attempt without a substantive task answer, score or rerun. Source and isolation limitations remain recorded. The subsequent maintainer update and planned follow-up are recorded below.
+- **T03/B, 6 of 24:** [shared capture](T03-B-share.json), with the exact refusal in [sessions.json](sessions.json). Submitted wording and study SHA match, with blank separators omitted. The response reports an unavailable ref, but quotes `989fc1398fc221ffca4e1f7a141b2c03bfc7cf3`, different from the correctly submitted study SHA. Both tool responses are redacted, so actual connector arguments and the claimed error remain unverified. Share reports `gpt-5-6-mini` under Auto, unlike the preceding five sessions (`gpt-5-6`); backend parity cannot be assumed. The original refusal remains a collected attempt without a substantive task answer or score; the supplemental repeat below does not replace it. Source and isolation limitations remain recorded. The subsequent maintainer update and planned follow-up are recorded below.
 
 ## Maintainer-directed follow-up after T03/B
 
@@ -60,10 +60,18 @@ Recorded on 2026-09-17, after the first six responses and before any retry outco
 
 This is a disclosed post-outcome addition outside the frozen 24-session comparison. The original no-replacement rule and all six received records remain intact. The follow-up question is whether T03/B can produce a substantive answer after reported restoration of model availability; one repeat cannot establish why the first attempt failed or isolate an RI effect.
 
-- **Pause:** hold T04/B and later primary slots while the maintainer waits for availability to return. No retry has started or been collected. Before resuming, recheck the original study source; if main moved, retain results and apply the existing source-movement rule.
+- **Pause (original plan):** hold T04/B and later primary slots while the maintainer waits for availability to return. At the time this plan was recorded, no retry had started or been collected. Before resuming, recheck the original study source; if main moved, retain results and apply the existing source-movement rule.
 - **One supplemental attempt, T03-B-R1:** after the maintainer reports restored availability, use a fresh chat on the same account, outside Projects, with Memory off and the same visible model setting. Copy the exact frozen T03/B `submitted_message` from sequence 6 in [sessions.json](sessions.json), including its original study SHA and task ID. The retry label belongs only in the organizer record; add no correction, previous answer, failure diagnosis or task hint to the tested prompt.
 - **Preservation:** save the first returned retry response and Share separately as T03-B-R1, even if it refuses again or reports another model. Record exposed model metadata and operator observations without inferring backend parity. Do not overwrite T03/B, erase its refusal, or repeat until success. T04/B remains the next original slot after this one follow-up.
 - **Reporting:** keep the original 24 slots and denominators. Show the supplemental attempt separately, using the same frozen expectations and independent scoring after collection. Any comparison with the existing T03/A is exploratory, reuses that response and occurs at a different time; it is not an additional independent pair or a replacement result. Report the original and retry together, including their model/access limitations.
+
+## Supplemental receipt and resumption
+
+**T03-B-R1:** [shared capture and verbatim answer](T03-B-R1-share.json), received on 2026-09-17 after the maintainer-requested pause. The submitted text matches the frozen T03/B wording and study SHA, with blank separator lines omitted and one trailing newline added. Share again reports GPT-5.6 Luna / `gpt-5-6` under Auto, matching the label reported for T03/A; this does not independently verify backend parity or the account's quota reset. The returned answer is retained without scoring.
+
+All 9 exposed tool response records are redacted. The answer reports direct reading of known owners, no compact RI use, and transport truncation of root `AGENTS.md` and `CONTRIBUTING.md`. Actual reads, full-bootstrap compliance, source/delivery completeness and traffic remain unverified or unavailable. Memory-disabled isolation is still not confirmed by the available metadata. These limitations are recorded in the capture's organizer receipt without inferring actual contamination.
+
+The organizer rechecked main at `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` at 2026-09-17T16:57:36.475Z. All original task, session and capture files remain unchanged: **6/24 original slots plus this one supplemental attempt, 0 scored**. Resume the original sequence with the unchanged **T04/B** prompt in a fresh chat. No further repeat is scheduled; the original refusal and this later response will both remain visible in the report.
 
 ## Assessment and stopping rule
 
