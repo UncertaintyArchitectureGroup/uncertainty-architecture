@@ -89,8 +89,12 @@ jobs:
       - name: Run repository-intelligence behavioral tests
         run: python3 .github/tests/repository_intelligence/test_repository_intelligence.py
 
-      - name: Run agent-workflow and benchmark regressions
-        run: python3 .github/tests/repository_intelligence/test_agent_workflow.py
+      - name: Run agent-workflow and A/B evaluation regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/tests/repository_intelligence/test_agent_workflow.py
+          python3 .github/tests/repository_intelligence/test_ab_evaluation.py
 
       - name: Run Control Map data-boundary regressions
         run: python3 .github/tests/repository_intelligence/test_control_map.py

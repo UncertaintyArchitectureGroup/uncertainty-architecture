@@ -1,0 +1,29 @@
+{
+  "protocol_version": 11,
+  "study_id": "<study identifier>",
+  "repository": "UncertaintyArchitectureGroup/uncertainty-architecture",
+  "repository_ref": "<full 40-hex study commit>",
+  "default_branch": "main",
+  "configuration": {
+    "model": "<displayed model>",
+    "thinking": "<selected setting>",
+    "client": "<actual client/device>",
+    "connector": "GitHub"
+  },
+  "assessor": "<independent task author/selector>",
+  "selection_note": "<how these real requests were selected before observing results>",
+  "frozen_before_execution": true,
+  "smoke_evidence": "<immutable capture reference; verify client, source and RI freshness>",
+  "ri_surface_sha256": "<SHA-256 of complete verified compact surface at study commit>",
+  "context_metric": "repository_response_utf8_bytes",
+  "follow_up_rule": "<specific unresolved decision that would justify a separate follow-up>",
+  "tasks": [
+    {
+      "task_id": "T01",
+      "prompt": "<exact real request; expand to 12 distinct frozen tasks>",
+      "source_reference": "<original maintainer request>",
+      "expected": ["<acceptable result, owning sources, authority and applicable companions>"],
+      "serious_errors": ["<concrete material routing/authority error>"]
+    }
+  ]
+}
