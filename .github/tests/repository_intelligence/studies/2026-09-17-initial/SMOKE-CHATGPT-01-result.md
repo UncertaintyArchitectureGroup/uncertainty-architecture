@@ -1,14 +1,16 @@
-# ChatGPT rehearsal — reported GitHub access; capture pending
+# ChatGPT rehearsal — shared transcript inspected; plugin outputs redacted
 
-Disposition: **unscored client rehearsal; raw evidence and model configuration pending**. No primary A/B pair, score or RI verdict is created.
+Disposition: **unscored client rehearsal; prompt/model metadata captured, connector payloads unavailable in Share**. No primary A/B pair, score or RI verdict is created.
 
 ## Evidence provenance
 
 - Received from the maintainer in the organizer conversation on 2026-09-17.
-- Maintainer reports another ChatGPT account, a free plan, the default model and a configured GitHub connector. The exact model/reasoning setting, client/device and original session ID were not provided. “Default” is not a verified model identifier.
-- Available evidence is the pasted response below. Its statement that a full tool transcript exists describes the original client; that transcript has not been supplied to the organizer.
-- The exact submitted prompt is not available. This receipt follows SMOKE-01, but its filename does not assert a submitted Task ID. The prepared SMOKE-02 prompt had not been issued before this return.
-- The response lists 16 operations. These are reported operations, not an independently established complete call count or measured transport cost.
+- Maintainer reports another ChatGPT account, a free plan, the default model and a configured GitHub connector. The supplied iPad screenshot displays Free but does not display a model name.
+- The maintainer subsequently supplied [the shared conversation](https://chatgpt.com/share/6aabc837-7d0c-83eb-9c06-7fe0045bb65b). Its public page data was retrieved and inspected on 2026-09-17. The [extracted initial-exchange snapshot](SMOKE-CHATGPT-01-share.json) preserves the prompt, final answer, relevant public metadata and redacted tool-message records. It excludes system messages, private reasoning and the later screenshot discussion; it is not an unredacted connector export.
+- The initial prompt identifies Task ID **SMOKE-01** and the expected repository URL/study SHA. Compared with the supplied SMOKE-01.txt, blank separator lines and the terminal newline are absent; the wording is otherwise identical. The exact submitted string is preserved in the snapshot. SMOKE-02 was not used.
+- Share metadata labels the model **GPT-5.6 Luna**, with `model.slug`, the initial answer's `model_slug` and `resolved_model_slug` all `gpt-5-6`; `default_model_slug` is `auto`. These are client/page-reported identifiers, not an immutable backend snapshot or proof that later Auto sessions will resolve identically. No reasoning-effort setting was established.
+- Share metadata reports `is_temporary_chat: false`, `is_do_not_remember: false`, and `memory_scope: global_enabled`. This does not establish that prior memory actually entered the answer, but it does not demonstrate the primary protocol's Memory-disabled condition. This remains an unscored rehearsal.
+- Before the first final answer, the share contains **20 tool response records**, all replaced with `The output of this plugin was redacted.`: 19 `api_tool.call_tool` responses and one `api_tool.read_resource` response. One resource-read request survives; the connector call arguments and returned contents are unavailable. The answer lists 16 repository operations, but redaction prevents reconciling that list with actual repository versus discovery/resource-read traffic. Do not normalize all 20 records into GitHub repository events or use 16 as a verified total.
 
 ## Organizer assessment
 
@@ -18,11 +20,13 @@ Disposition: **unscored client rehearsal; raw evidence and model configuration p
 4. The statement that the recursive tree's identity equals the commit SHA needs the original response for interpretation. The organizer's verified preparation commit is `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3`; its Git tree is `ed4dcf068af29ad0eb42867e1548076e21eca67d`. A tool may echo its input ref: do not treat that field alone as either proof of verification or proof of fabrication.
 5. Several reads are reported truncated. Later full blob reads may recover some content, but completeness and read order must be checked in the actual outputs. Do not reconstruct missing output using fresh organizer reads and attribute it to the tested session.
 6. If complete returned RI content is present in the existing capture, the organizer can compute its hash from that captured content and compare it with the accepted record. The model need not invent a hash or byte count. Preserve wrappers, truncation and unavailable metrics honestly. Missing context measurements prevent the efficiency claim; they do not alone invalidate every quality comparison.
-7. The same actual model/settings and isolation must hold across the primary arms. Inspect the client's displayed configuration before freezing it; neither the free-plan label nor the model's self-description establishes that parity. If the client exposes only an unidentifiable default, leave that limitation unresolved rather than invent a model name.
+7. The same model/settings and isolation must hold across the primary arms. The shared metadata identifies this response's reported model, but Auto parity and Memory-disabled operation remain unconfirmed. Do not infer that every later response will use the same model.
 
 ## Next action
 
-Request the original session share link/export with visible tool inputs and outputs, if the client exposes them, plus its displayed model/settings and submitted prompt. Inspect existing evidence before asking the maintainer to repeat any task. If the export omits tool outputs, record that limitation and determine whether they can be copied directly from the original session.
+The requested Share link has been inspected; requesting it again will not recover redacted payloads. In the original existing conversation, check whether one GitHub tool entry can be expanded to show actual input/output and send that view. Do not ask the model to reconstruct its log or rerun the task. If the original client cannot expose connector evidence, it cannot yet support an auditable v11 run bundle through this capture route; resolve that transport limitation before collecting 24 sessions.
+
+Before primary execution, confirm Memory is disabled and that the chosen model/settings can remain consistent across both arms. No evidence here justifies a paid upgrade by itself. The present failure is a demonstrated limitation of this Share export, not proof that the original session lacked GitHub access or that all clients/plans redact the same information.
 
 After client qualification, complete independent task selection and freeze the study before issuing the 24 primary prompts. Both rehearsals remain outside the primary sample and are not compared as a Gemini-versus-ChatGPT experiment. The v11 protocol and thresholds remain unchanged.
 

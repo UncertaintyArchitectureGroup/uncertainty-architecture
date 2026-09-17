@@ -24,11 +24,11 @@ The main branch is **not locked during preparation or scoring**. Before primary 
 ## Immediate handoff
 
 1. Two pasted rehearsal responses are retained: [the Gemini-labelled attempt](SMOKE-01-result.md) and [the ChatGPT free/default attempt](SMOKE-CHATGPT-01-result.md). The second reports GitHub access and unverified RI with source fallback. Neither is a primary session.
-2. The next action is to inspect the existing ChatGPT session: return its share link/export with visible tool inputs and outputs, if exposed, and the model/settings shown by the client. Do not rerun the task merely to produce a better-looking capture. The organizer identifies what evidence is available before requesting another rehearsal.
-3. The original supplied message is [SMOKE-01](SMOKE-01.txt). [SMOKE-02.txt](SMOKE-02.txt) was prepared as a contingency, but was not handed to the maintainer before the second response arrived. The second response's exact submitted prompt and session ID remain unknown; its filename is a receipt label, not a claimed submitted Task ID.
+2. The Share link has been inspected and a bounded snapshot is retained with the second receipt. It confirms the submitted SMOKE-01 prompt and page-reported GPT-5.6 Luna model (`gpt-5-6`, Auto), but all 20 tool response bodies are redacted. Next, check whether a single tool entry in the original conversation can display actual input/output. Do not rerun the task or ask the model to reconstruct missing data.
+3. The original supplied message is [SMOKE-01](SMOKE-01.txt). [SMOKE-02.txt](SMOKE-02.txt) was prepared as a contingency, but was not handed to the maintainer before the second response arrived. The shared initial message now confirms Task ID SMOKE-01; its exact submitted text is retained, including the omission of blank separator lines. The share URL identifies this receipt; the filename is not a second submitted Task ID.
 4. The organizer checks actual model/settings, source identity, RI freshness/delivery, isolation and capture. Record failures or unavailable evidence. A model-written call table does not replace raw tool outputs. Do not invent counts, compute traffic from repository file sizes, or claim hidden state was verified by a model's assertion.
 
-Smoke is unscored and outside the 12 tasks. It deliberately exercises search, a pinned source read and compact delivery/fallback; forced transport coverage in this probe does not change optional RI use in the primary Treatment arm. The second account's reported GitHub access addresses the first attempt's transport problem, but raw evidence and the actual model configuration are still pending. The free-plan label alone neither qualifies nor disqualifies a client. Primary execution awaits client qualification and the remaining preregistration steps. No result is discarded and no primary run is replaced.
+Smoke is unscored and outside the 12 tasks. It deliberately exercises search, a pinned source read and compact delivery/fallback; forced transport coverage in this probe does not change optional RI use in the primary Treatment arm. The second account's reported GitHub access addresses the first attempt's transport problem, but Share redaction prevents inspection of connector payloads. Primary configuration parity and Memory-disabled isolation remain pending; the share reports Auto and `memory_scope: global_enabled`, which does not establish actual memory use. The free-plan label alone neither qualifies nor disqualifies a client. Primary execution awaits client qualification and the remaining preregistration steps. No result is discarded and no primary run is replaced.
 
 ## Pending before primary execution
 
@@ -57,7 +57,7 @@ The eventual evidence remains the protocol's three input records — study, runs
 - [x] PR #119 merged; preparation commit and accepted RI freshness checked.
 - [x] Initial operator handoff and candidate review material prepared.
 - [x] SMOKE-01 pasted response preserved; connector/capture prerequisites not met.
-- [x] Second ChatGPT pasted response preserved; GitHub access reported, RI unverified, original capture and model/settings pending.
+- [x] Second ChatGPT paste and extracted Share snapshot preserved; SMOKE-01 prompt/model metadata identified, connector outputs redacted, RI unverified.
 - [ ] Suitable maintainer-client smoke completed with adequate access/isolation/capture evidence.
 - [ ] Independent task selection, provenance and expectations confirmed.
 - [ ] Study/configuration/follow-up rule frozen; source window opened.
