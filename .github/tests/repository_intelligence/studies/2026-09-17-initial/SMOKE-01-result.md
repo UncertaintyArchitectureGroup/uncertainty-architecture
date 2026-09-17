@@ -1,6 +1,6 @@
 # SMOKE-01 — connector prerequisite not met
 
-Disposition: **unsuccessful unscored rehearsal; primary execution remains blocked**. This is not a v11 A/B verdict or a score for RI.
+Disposition at receipt: **unsuccessful unscored rehearsal; strict primary prerequisites not met**. This is not a v11 A/B verdict or a score for RI.
 
 ## Evidence provenance
 
@@ -16,11 +16,9 @@ Disposition: **unsuccessful unscored rehearsal; primary execution remains blocke
 3. RI delivery/freshness and complete capture were not established. No empirical RI quality or cost comparison can be made from this rehearsal. Do not normalize `google:search` into `GitHub` or enter estimated metrics into primary records.
 4. A narrow organizer check against the pinned source confirms that the broad CC BY 4.0 / Apache 2.0 split matches [LICENSING.md](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3/LICENSING.md) and README.md. The root contains LICENSE-DOCS.md and LICENSE-CODE.md, but no file named LICENSE. The response's `LICENSE / LICENSE-CODE.md` alternative is therefore imprecise. This is an unscored source check, not independent blind assessment.
 
-## Next action
+## Later disposition
 
-Retain the supplied response unchanged. A [second response from ChatGPT](SMOKE-CHATGPT-01-result.md) has since arrived and reports actual GitHub calls. Inspect that existing session's raw capture and displayed model/settings next. [SMOKE-02.txt](SMOKE-02.txt) was prepared as a contingency with a stop-if-unavailable check, but had not been issued when the second response arrived. Do not infer that the maintainer used it or require an unnecessary repeat.
-
-The primary model/client is not frozen yet. Once chosen, both A and B use the same configuration; this Gemini-labelled rehearsal is not compared with a ChatGPT answer as an A/B pair. No primary answers, scores or study freeze are created from this result. This is a local handoff clarification, not a new standing AGENTS.md rule or a change to the v11 protocol.
+The supplied response remains unchanged. A [second ChatGPT rehearsal](SMOKE-CHATGPT-01-result.md) and its redacted Share have since been inspected. The maintainer confirmed connector setup and approved a narrower descriptive comparison; the [frozen study record](README.md) owns the current handoff and limitations. Neither rehearsal enters the 24-session sample. The contingency SMOKE-02 was not used. No Gemini-versus-ChatGPT A/B comparison or verified RI benefit is inferred.
 
 ## Response as pasted by the maintainer
 
