@@ -70,7 +70,7 @@ For the first real post-merge PR, run the producer from a separate checkout of t
 
 ## Independent acceptance still required
 
-The [initial experiment record](studies/2026-09-17-initial/README.md) preserves post-#119 rehearsals and the maintainer-approved descriptive comparison, with 12 tasks / 24 messages frozen before outcomes. That narrower study does not meet the [v11 protocol](AB-EVALUATION.md)'s full evidence prerequisites and cannot establish its RI-benefit/cost verdict. After a pause for reported model availability, one maintainer-requested supplemental retry is retained separately without replacing the original attempt. Collection resumes at T04/B. Independent scoring remains pending.
+The [initial experiment record](studies/2026-09-17-initial/README.md) preserves post-#119 rehearsals and the maintainer-approved descriptive comparison, with 12 tasks / 24 messages frozen before outcomes. That narrower study does not meet the [v11 protocol](AB-EVALUATION.md)'s full evidence prerequisites and cannot establish its RI-benefit/cost verdict. After a pause for reported model availability, one maintainer-requested supplemental retry is retained separately without replacing the original attempt. Original collection is in progress. Independent scoring remains pending.
 
 1. Have a separate assessor author or select held-out tasks without adapting them to observed rankings, then freeze their expected evidence and corpus hash before the run.
 2. Run manual-live and compact-preflight routes in separate fresh sessions at the same Git state, preserving the original query and every source-grounded retry.

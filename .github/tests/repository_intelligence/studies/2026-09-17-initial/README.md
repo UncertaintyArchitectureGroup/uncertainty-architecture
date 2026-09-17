@@ -1,6 +1,6 @@
 # RI comparison — frozen descriptive study
 
-Status: **12 tasks and 24 messages frozen before experimental outcomes; collection resumed; 6/24 original slots collected plus 1 supplemental attempt, 0 scored**.
+Status: **12 tasks and 24 messages frozen before experimental outcomes; collection in progress; 7/24 original slots collected plus 1 supplemental attempt, 0 scored**.
 
 On 2026-09-17 the maintainer accepted the preceding task set and explicitly narrower descriptive scope with “Ок, погнали”. This is the separate post-#119 experiment in Draft PR #125. PR #124 research remains separate.
 
@@ -54,6 +54,8 @@ No strict source lock is claimed. Organizer observed `main` at the study commit 
 
 - **T03/B, 6 of 24:** [shared capture](T03-B-share.json), with the exact refusal in [sessions.json](sessions.json). Submitted wording and study SHA match, with blank separators omitted. The response reports an unavailable ref, but quotes `989fc1398fc221ffca4e1f7a141b2c03bfc7cf3`, different from the correctly submitted study SHA. Both tool responses are redacted, so actual connector arguments and the claimed error remain unverified. Share reports `gpt-5-6-mini` under Auto, unlike the preceding five sessions (`gpt-5-6`); backend parity cannot be assumed. The original refusal remains a collected attempt without a substantive task answer or score; the supplemental repeat below does not replace it. Source and isolation limitations remain recorded. The subsequent maintainer update and planned follow-up are recorded below.
 
+- **T04/B, 7 of 24:** [shared capture](T04-B-share.json), with the exact answer in [sessions.json](sessions.json). Submitted wording matches with blank separators omitted. Share reports GPT-5.6 Luna / `gpt-5-6` with Auto and 20 redacted tool responses. The answer reports direct reads of known owners, no use of compact RI as current-state evidence, and transport truncation of root `AGENTS.md` and `CONTRIBUTING.md`. Redacted payloads do not independently establish actual reads, full-bootstrap or arm compliance, or traffic. Source and isolation limitations remain recorded, without scoring or another repeat. Main still matched the study commit at 2026-09-17T17:08:10.531Z; this organizer observation does not prove the tested session's source state. Next original slot: **T04/A, 8 of 24**.
+
 ## Maintainer-directed follow-up after T03/B
 
 Recorded on 2026-09-17, after the first six responses and before any retry outcome. The maintainer reported that the previously used model had become temporarily unavailable on the Free account and would return later, and explicitly requested a repeat of the last test. This is new operator testimony after the T03/B receipt; the original capture remains unchanged. Share reports `gpt-5-6-mini` for T03/B versus `gpt-5-6` for T03/A. The availability explanation, reset time and routing cause have not been independently verified.
@@ -71,7 +73,7 @@ This is a disclosed post-outcome addition outside the frozen 24-session comparis
 
 All 9 exposed tool response records are redacted. The answer reports direct reading of known owners, no compact RI use, and transport truncation of root `AGENTS.md` and `CONTRIBUTING.md`. Actual reads, full-bootstrap compliance, source/delivery completeness and traffic remain unverified or unavailable. Memory-disabled isolation is still not confirmed by the available metadata. These limitations are recorded in the capture's organizer receipt without inferring actual contamination.
 
-The organizer rechecked main at `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` at 2026-09-17T16:57:36.475Z. All original task, session and capture files remain unchanged: **6/24 original slots plus this one supplemental attempt, 0 scored**. Resume the original sequence with the unchanged **T04/B** prompt in a fresh chat. No further repeat is scheduled; the original refusal and this later response will both remain visible in the report.
+The organizer rechecked main at `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` at 2026-09-17T16:57:36.475Z. At this resumption point, all original task, session and capture files remained unchanged: **6/24 original slots plus this one supplemental attempt, 0 scored**. Original collection resumed with the unchanged **T04/B** prompt in a fresh chat; subsequent receipts are recorded above. No further repeat is scheduled; the original refusal and this later response will both remain visible in the report.
 
 ## Assessment and stopping rule
 
