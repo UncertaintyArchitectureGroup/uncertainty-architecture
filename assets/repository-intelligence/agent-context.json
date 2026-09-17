@@ -5320,11 +5320,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "273352c58e10d9a162324a67356afb7c0b83bb6221b221df02b4c197f82bca5c",
+    "digest": "06cd5a6148c8e2718e8aeb5822ded055512bf18b0dbe0e098c38b1b8d9c4e520",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 122,
+    "input_count": 123,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5465,6 +5465,10 @@
       {
         "identity_mode": "content",
         "path": ".github/tests/repository_intelligence/README.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/studies/2026-09-17-initial/README.md"
       },
       {
         "identity_mode": "existence",

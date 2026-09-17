@@ -70,6 +70,8 @@ For the first real post-merge PR, run the producer from a separate checkout of t
 
 ## Independent acceptance still required
 
+The [initial A/B study preparation record](studies/2026-09-17-initial/README.md) tracks the post-#119 operator smoke, candidate selection and later evidence. It is not a completed or frozen experiment; the [v11 protocol](AB-EVALUATION.md) remains the procedural owner.
+
 1. Have a separate assessor author or select held-out tasks without adapting them to observed rankings, then freeze their expected evidence and corpus hash before the run.
 2. Run manual-live and compact-preflight routes in separate fresh sessions at the same Git state, preserving the original query and every source-grounded retry.
 3. Record actual connector reads/searches, opened sources, and available token measurements; assess proposals and material decisions against owning sources with maintainer review.
