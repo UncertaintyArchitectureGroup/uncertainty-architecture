@@ -24,7 +24,7 @@ Disposition: **unscored client rehearsal; prompt/model metadata captured, connec
 
 ## Next action
 
-The requested Share link has been inspected; requesting it again will not recover redacted payloads. In the original existing conversation, check whether one GitHub tool entry can be expanded to show actual input/output and send that view. Do not ask the model to reconstruct its log or rerun the task. If the original client cannot expose connector evidence, it cannot yet support an auditable v11 run bundle through this capture route; resolve that transport limitation before collecting 24 sessions.
+The requested Share link has been inspected; requesting it again will not recover redacted payloads. The maintainer subsequently confirmed connector configuration and asked to skip further setup checks. Stop the repeated capture/setup handoff and proceed to task selection. Retain missing payloads as an evidence limitation; do not ask the model to reconstruct its log or rerun the task. If capture remains unavailable, explicitly agree a descriptive comparison before collecting sessions on that basis; do not claim that configured access satisfies v11 source/delivery/cost evidence requirements.
 
 Before primary execution, confirm Memory is disabled and that the chosen model/settings can remain consistent across both arms. No evidence here justifies a paid upgrade by itself. The present failure is a demonstrated limitation of this Share export, not proof that the original session lacked GitHub access or that all clients/plans redact the same information.
 

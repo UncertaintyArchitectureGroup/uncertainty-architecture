@@ -4,7 +4,11 @@
 
 These candidates condense real request topics from the maintainer's earlier conversations. The implementation-aware assistant prepared the wording and review expectations. Exact original references and any edits still require maintainer verification before conversion into v11 study records. Nothing here is a model response or scored evidence.
 
-Requests remain in Ukrainian; expected outcomes and repository documentation are in English. Before freezing, include the full repository address in each selected task's context: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture. Record that addition separately from the historical wording in the selection note.
+Requests remain in Ukrainian; expected outcomes and repository documentation are in English. Every selected prompt will include this exact common context line before the task: `Repository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture`. Include it in the frozen task text before generating messages; record it as coordinator-supplied context rather than historical wording.
+
+Source paths below were checked at preparation commit `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3`. T05 now names the standalone publication source. T09 is a bounded navigation/ownership task: comparing the approximately 491 KB blueprint with the approximately 145 KB manuscript would make this initial orientation test depend heavily on long-document delivery. These file sizes describe task scope, not measured connector traffic. No primary outcomes were observed when refining candidates.
+
+Maintainer action: review the exact 12 requests, select or replace them as representative of your work, and accept their adaptations explicitly. This review is pending; preparation by the implementation-aware assistant does not establish independent corpus selection.
 
 ## T01 — Architecture and proportionality
 
@@ -32,9 +36,9 @@ Expected evidence/outcome: distinguish general/scoped rules, formatting, types, 
 
 ## T05 — Existing PDF exporter
 
-Proposed request: «Хочу отримувати PDF із цього рукопису. Знайди, що для цього вже є в репозиторії, та поясни, як цим скористатися».
+Proposed request: «Хочу отримати PDF статті `content/research/notes/thinking-systems-publication-draft.md`. Знайди наявний маршрут експорту та поясни порядок дій. Markdown має залишитися на місці; нічого не запускай і не змінюй».
 
-Pending: name the exact manuscript before selection. Expected evidence/outcome: quartz/PDF-EXPORT.md, quartz/README.md, scripts/tests/workflows; existing setup and export route, canonical Markdown, separate derived output, provenance and visual verification. Serious errors: a competing converter without discovery, replacing canonical Markdown, or requiring a deployed website.
+Expected evidence/outcome: quartz/PDF-EXPORT.md, quartz/README.md, package scripts and relevant exporter/workflow configuration; identify the standalone article route rather than the separate working paper, actual setup, derived PDF/manifest destination, canonical Markdown preservation, provenance and visual verification. Serious errors: a competing converter without discovery, replacing canonical Markdown, confusing the two publication objects, requiring a deployed website, or claiming an export was performed. The source path and read-only boundary are proposed adaptations for this connector test.
 
 ## T06 — PDF without deployed Pages
 
@@ -54,11 +58,11 @@ Proposed request: «Поясни наявні маршрути підготов�
 
 Expected evidence/outcome: quartz/PDF-EXPORT.md, quartz/PLATFORM-RENDITIONS.md, quartz/README.md and related automation; distinct outputs with canonical source/provenance, only genuine missing work. Serious errors: competing publication flow without discovery or conflating platform outputs. Approve this source-tree-only replacement for a historical live-PR question; do not require external PR-state verification in the frozen task.
 
-## T09 — Blueprint/manuscript alignment
+## T09 — Next-section planning owner
 
-Proposed request: «Порівняй зазначені blueprint і рукопис. Що треба змінити в плані наступних секцій з огляду на вже написаний матеріал?»
+Proposed request: «Хочемо продовжити довгу статтю “Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities”. Знайди її чинні blueprint і рукопис. Де має жити план наступної секції та які матеріали треба прочитати перед її написанням? Потрібна лише навігація й порядок роботи; план і текст секції зараз не пиши».
 
-Pending: identify both files and confirm their actual current sections. Expected evidence/outcome: complete scoped research instructions, blueprint, manuscript and applicable research-state owners; concrete cumulative-argument gaps/repetition with the plan owned by the blueprint. Serious errors: planning from a fragment, a third competing planning document, or promoting a research hypothesis into a framework requirement. Do not silently reuse the historical “only Sections 1–4 exist” premise.
+Expected evidence/outcome: scoped research instructions and the article's two-document process identify `content/research/notes/open-engineering-specification-article-blueprint.md` as the living editorial owner and `content/research/notes/open-engineering-specification-article-draft.md` as the long-form manuscript. Route future drafting through complete blueprint/manuscript reading, applicable research-state/provenance records and the cumulative iteration loop. The standalone `thinking-systems-publication-draft.md` is a different publication object. At the preparation commit, the long manuscript contains Abstract and numbered sections 1–4; this was checked in current headings, not assumed from history. This navigation task does not ask for full-manuscript semantic assessment. Serious errors: a third competing planning document, substituting the standalone article for the long manuscript, claiming full comparative review from headings, or promoting research into specification authority. Approve this bounded adaptation of the earlier next-section planning request.
 
 ## T10 — Implementation versus benefit evidence
 
@@ -80,4 +84,4 @@ Expected evidence/outcome: implementation/configuration boundaries, UA-specific 
 
 ## Selection decisions still needed
 
-T01/T07/T10 and T05/T06 overlap. The maintainer may replace candidates with more representative real tasks before freeze. For each selected task, verify its request provenance, finalize a standalone prompt and owning source paths, and agree concrete acceptable outcomes/serious errors against the actual study commit. Keep all rejected/replaced proposals out of model inputs; do not adapt the corpus to observed primary answers.
+T01/T07/T10 and T05/T06 overlap. Keeping all 12 is a proposed convenience sample, not independent coverage of 12 different capabilities. The maintainer may replace candidates with more representative real tasks before freeze. For each selected task, verify its request provenance, finalize a standalone prompt and owning source paths, and agree concrete acceptable outcomes/serious errors against the actual study commit. Keep all rejected/replaced proposals out of model inputs; do not adapt the corpus to observed primary answers.
