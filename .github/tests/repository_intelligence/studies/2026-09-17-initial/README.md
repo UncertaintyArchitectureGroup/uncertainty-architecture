@@ -1,6 +1,6 @@
 # RI comparison — frozen descriptive study
 
-Status: **12 tasks and 24 messages frozen before experimental outcomes; collection interrupted; 20/24 original attempts plus 2 supplemental attempts retained; 4 original slots unreceived; 0 scored**.
+Status: **12 tasks and 24 messages frozen before experimental outcomes; collection interrupted; 20/24 original attempts plus 2 supplemental attempts retained; 4 original slots unreceived; organizer qualitative analysis published; 0 independently scored**.
 
 On 2026-09-17 the maintainer accepted the preceding task set and explicitly narrower descriptive scope with “Ок, погнали”. This is the separate post-#119 experiment in Draft PR #125. PR #124 research remains separate.
 
@@ -148,6 +148,12 @@ Proceed to the already specified independent scoring stage using the unchanged e
 
 Final organizer source observation: the branch API still reported `main` at `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` at 2026-09-18T07:42:50.529Z. This is an observation of organizer-visible state, not proof of tested-session reads.
 
+## Organizer analysis after interruption
+
+The maintainer requested a conclusion from the available evidence on 2026-09-18. [ANALYSIS.md](ANALYSIS.md) provides a source-checked, unblinded qualitative assessment of all 12 planned tasks and both supplements. It finds useful repository navigation and source-consistent conceptual distinctions in both conditions, but **incremental benefit from RI remains inconclusive**. Most substantive paired Treatment answers report direct-owner routes; no compact exposure is independently verified. The report identifies shared freshness-procedure omissions and T07 scope drift rather than treating plausible explanations as complete success.
+
+This report is organizer interpretation, not independent blind scoring: 0/1/2 scores and scored wins/losses/ties remain absent. It does not replace the frozen scoring step below, count assisted recovery as a new primary response, or establish efficiency, conceptual transfer, full RI-EVAL acceptance or PR readiness. It recommends retaining optional RI/fallback without expanding infrastructure on this evidence and does not request further sessions under the same limitations. Original prompts, expectations, sessions and all captures remain unchanged.
+
 ## Assessment and stopping rule
 
 After collection, freeze all responses and retain all 12 task pairs, including missing or interrupted sessions. Prepare a self-contained packet with opaque shuffled response IDs, task prompt, frozen expectations/serious errors, verbatim answer and blank score. Withhold arm mapping, execution order, sessions, tools and settings. Do not rewrite answers that themselves reveal their route: disclose residual unblinding. The organizer has seen arm assignments and must not be the blind scorer; use a separate person or isolated scoring session given only that packet and frozen owning evidence.
@@ -163,5 +169,6 @@ Stop after the 24 planned slots or a recorded interruption. Do not adjust tasks,
 - [x] Maintainer accepted the 12 tasks and descriptive scope before outcomes.
 - [x] Exact messages, expectations, settings limitations and follow-up rule frozen.
 - [x] 24 session slots completed or explicitly reported missing/interrupted; final source observation recorded.
+- [x] Requested organizer qualitative analysis published, explicitly unblinded and without scores.
 - [ ] Independent scores frozen before arm reveal.
 - [ ] All-pair descriptive report published and reviewed; Draft PR #125 completed.
