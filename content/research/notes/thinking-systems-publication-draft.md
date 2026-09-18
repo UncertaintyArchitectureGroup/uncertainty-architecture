@@ -2,7 +2,7 @@
 title: "Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes"
 artifact_type: research-note
 status: research
-maturity: draft
+maturity: stable
 module: research
 topics:
   - thinking-systems
@@ -21,7 +21,7 @@ tags:
   - ua/topic/uncertainty-boundary
   - ua/topic/control-loop
 created: 2026-08-17
-updated: 2026-08-24
+updated: 2026-09-18
 language: en
 license: CC-BY-4.0
 draft: true
@@ -41,7 +41,9 @@ related:
 
 # Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes
 
-> **Publication note.** This is a shorter standalone adaptation of the living working paper [_Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities_](open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
+> **Publication-source status.** This Markdown is the frozen authoring source for the externally published LinkedIn and Medium renditions and the published PDF rendition. The maintainer confirmed on September 18, 2026 that its substantive text did not change after publication and will not be used for further research development. The preserved repository edition is [under `content/research/publications/`](../publications/thinking-systems-when-the-controlled-object-changes.md); exact external URLs and remaining platform metadata will be added when supplied. Future substantive development continues in the living long-form manuscript.
+>
+> **Derivation note.** This is a shorter standalone adaptation of the living working paper [_Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities_](open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
 
 ## Who this article is for
 
