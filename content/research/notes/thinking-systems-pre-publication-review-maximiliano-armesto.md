@@ -1,5 +1,6 @@
 ---
 title: "External Review Record — Maximiliano Armesto on the Thinking Systems Publication Draft"
+description: "Bounded provenance of Maximiliano Armesto's pre-publication Thinking Systems review: terminology, scope, proportionality and comparison questions."
 artifact_type: research-note
 status: research
 maturity: active
@@ -17,15 +18,16 @@ tags:
   - ua/topic/thinking-systems
   - ua/topic/terminology
 created: 2026-08-25
-updated: 2026-08-25
+updated: 2026-09-18
 license: CC-BY-4.0
-draft: true
+draft: false
 source_basis:
   - thinking-systems-publication-draft.md
   - open-engineering-specification-article-draft.md
 related:
   - ../research-register.md
   - ../review-process.md
+  - thinking-systems-public-review-2026-09.md
 analysts:
   - "Vitalii Oborskyi"
 ---
@@ -33,6 +35,8 @@ analysts:
 # External Review Record — Maximiliano Armesto on the Thinking Systems Publication Draft
 
 > **Record boundary:** This note preserves the material research effect of a private pre-publication review. It is a maintainer-authored summary, not a verbatim publication of private correspondence. The review is treated as conceptual critique and provenance, not co-authorship, endorsement, framework authority, or empirical validation.
+
+**Publication visibility update, September 18, 2026:** this existing public-repository summary is now eligible for the published site. The dispositions below describe the earlier review and its reconciliation, not new framework decisions in the [September public-review intake](thinking-systems-public-review-2026-09.md). No new private correspondence is added.
 
 ## Review object
 
@@ -63,7 +67,7 @@ The review therefore establishes that the **current definition is written broadl
 - `TS-SCOPE-001` — **Under Validation:** whether the current technology-neutral wording coheres with the release-contract thesis across fixed learned probabilistic functions and runtime judgment processes, or whether the category/thesis needs refinement;
 - `TS-HIST-001` — **Under Validation:** which concrete pre-LLM systems, if any, satisfy the resulting category test strongly enough to be treated as Thinking Systems.
 
-The second-order consistency issue is preserved separately in [`thinking-systems-release-contract-scope-review.md`](thinking-systems-release-contract-scope-review.md). No historical prevalence claim follows from the current definition alone.
+The second-order consistency issue is preserved separately in [`thinking-systems-release-contract-scope-review.md` on GitHub](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-release-contract-scope-review.md). No historical prevalence claim follows from the current definition alone.
 
 ### 3. Category membership must be separated from control depth
 
