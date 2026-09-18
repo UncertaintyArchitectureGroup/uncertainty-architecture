@@ -59,7 +59,7 @@ Before release of the standalone publication adaptation, Dobkin reviewed the pla
 
 ## Later public recognition and extension
 
-A subsequent [public repost with commentary](https://www.linkedin.com/posts/arkadiydobkin_uncertainty-architecture-thinking-systems-activity-7500661925790240768--I1H), inspected on September 18, 2026, is now recorded in [Independent References and Recognition](../../history/external-recognition.md#arkadiy-dobkin). Its research implications belong to the [September public-review intake](thinking-systems-public-review-2026-09.md), including `TS-ECON-001`.
+A subsequent [public repost with commentary](https://www.linkedin.com/posts/arkadiydobkin_uncertainty-architecture-thinking-systems-activity-7500661925790240768--I1H), inspected on September 18, 2026, is now recorded in [Independent References and Recognition](../../history/external-recognition.md#arkadiy-dobkin). Its candidate research implications are preserved in the [September public-review intake](thinking-systems-public-review-2026-09.md) without assigning durable Research State Register identities at intake.
 
 The later public event does not retroactively make the earlier private exchange publicly verifiable. It also does not reassign authorship of the definition or paper. This bounded note remains available in the repository but is not promoted into the published Quartz surface because its central provenance claim is maintainer-attested rather than independently evidenced.
 
