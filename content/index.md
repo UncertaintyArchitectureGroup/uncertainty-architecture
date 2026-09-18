@@ -28,7 +28,7 @@ This page is the entry point for the repository's published supporting material.
 
 Read Vitalii Oborskyi's [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we), published August 27, 2026. The repository also holds a [PDF copy](research/publications/thinking-systems-when-the-controlled-object-changes.pdf).
 
-[Arkadiy Dobkin's public repost and extension](history/external-recognition.md#arkadiy-dobkin) and [Maximiliano Armesto's public discussion](history/external-recognition.md#maximiliano-armesto) are documented separately from the [provenance of the Thinking Systems formulation](research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md).
+[Arkadiy Dobkin's public repost and commentary](history/external-recognition.md#arkadiy-dobkin) and the [public discussion following Maximiliano Armesto's earlier review](history/community-discussions.md#augustseptember-2026--thinking-systems-public-review) are documented separately from the [repository-only provenance of the Thinking Systems formulation](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md).
 
 The [September 2026 public-review intake](research/notes/thinking-systems-public-review-2026-09.md) preserves category counterexamples, harness-substitution questions and human-review evidence concerns alongside recognition. See the [complete recognition ledger](history/external-recognition.md) and [public discussion history](history/community-discussions.md).
 
