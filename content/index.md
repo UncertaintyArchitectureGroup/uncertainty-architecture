@@ -26,7 +26,7 @@ This page is the entry point for the repository's published supporting material.
 
 ## Thinking Systems: publication, provenance and public review
 
-Read Vitalii Oborskyi's [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we), published August 27, 2026. The repository also holds a [PDF copy](research/publications/thinking-systems-when-the-controlled-object-changes.pdf).
+Read Vitalii Oborskyi's [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we), published August 27, 2026. The repository also preserves the [frozen Markdown publication edition](research/publications/thinking-systems-when-the-controlled-object-changes.md) and a [PDF copy](research/publications/thinking-systems-when-the-controlled-object-changes.pdf).
 
 [Public recognition](history/external-recognition.md), [public discussion](history/community-discussions.md), and the [repository-only provenance of the Thinking Systems formulation](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) are documented separately.
 
