@@ -1,5 +1,5 @@
 ---
-title: "Thinking Systems — Public Review and Recognition Intake, September 2026"
+title: "Thinking Systems — Public Feedback Intake, September 2026"
 artifact_type: research-note
 status: research
 maturity: active
@@ -34,13 +34,13 @@ analysts:
   - "Vitalii Oborskyi"
 ---
 
-# Thinking Systems — Public Review and Recognition Intake, September 2026
+# Thinking Systems — Public Feedback Intake, September 2026
 
 ## Scope and evidence boundary
 
 This bounded intake records public communications located and read on **September 18, 2026** concerning *Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes*. It is not a complete archive of LinkedIn, a transcript of private correspondence, or a framework decision. The article page states **August 27, 2026** as its publication date. Relative post/comment ages are not converted into invented exact dates.
 
-The historical recognition ledger remains the owner of public recognition. This note owns the research questions extracted from this particular review window. The [Research State Register](../research-register.md) owns cross-document identities; the [Research-to-Framework Traceability](../framework-traceability.md) ledger is unchanged because no specification decision is made here.
+The historical recognition ledger remains the owner of public recognition. This note records bounded public feedback observations and their possible relevance. It does not own recognition, durable research-item state, or framework decisions. The [Research State Register](../research-register.md) owns cross-document identities; the [Research-to-Framework Traceability](../framework-traceability.md) ledger is unchanged because no specification decision is made here.
 
 ## Public source locators
 
@@ -69,16 +69,16 @@ Armesto's public post and resulting discussion are recorded under [Community Dis
 
 ## Substantive public comments
 
-The following summaries preserve questions and practitioner observations, not reviewer agreement with every UA claim. The proposed repository follow-up is an intake decision, not a quotation or a completed experimental result.
+The following summaries preserve questions and practitioner observations, not reviewer agreement with every UA claim. The relevance column is triage only: it does not modify the referenced research item, create a test obligation, or record a completed result.
 
-| Public contributor and source | Bounded input | Repository follow-up |
+| Public contributor and source | Bounded input | Possible relevance if retained |
 |---|---|---|
-| Sergey Makarevich — article comments | Whether AI-generated functionality can become explicitly authored through human review. | Add an authorship-versus-runtime-mechanism test case to `TS-TERM-002` and `TS-SCOPE-001`; do not decide classification from development tooling alone. |
-| Sarvex Jatasra — article comments | Whether the boundary depends on mechanism or on when the mapping becomes fixed; changing deterministic rules challenge a timing-only account. | Extend `TS-SCOPE-001` with contrasting deterministic-change and runtime-judgment cases. Keep the existing scope review open. |
-| Dmitry Zenevich — article comments | What practical decision differs from an AI application with a well-designed harness. | Use `TS-SUB-001` for an explicit substitution test with the strongest existing implementation, not a deliberately weak baseline. |
-| Nikolai Babakov — article comments | Connect threats to a defined loss-of-control event, preventive/recovery barriers, evidence, ownership and degradation. | Carry this as a comparison question under `TS-SUB-001`, not a newly adopted safety method or proof of UA novelty. |
-| Ganesh Kompella — Armesto discussion | An escalation path can fail when reviewers lack decision-useful evidence and review becomes a bottleneck. | Use the existing carrier and lifecycle questions (`TS-CARRIER-001`, `TS-LIFE-001`) to test evidence presentation and real review capacity. |
-| Eugene Nazirov — Armesto discussion | Review may fail when people reconstruct context from raw logs; surfaced state and latency matter. | Keep the observation qualitative. Proposed tests should measure workload, response time and missed interventions rather than infer a universal capacity threshold. |
+| Sergey Makarevich — article comments | Whether AI-generated functionality can become explicitly authored through human review. | Could inform future tests around `TS-TERM-002` and `TS-SCOPE-001`, particularly whether development tooling changes category classification. |
+| Sarvex Jatasra — article comments | Whether the boundary depends on mechanism or on when the mapping becomes fixed; changing deterministic rules challenge a timing-only account. | Relevant to `TS-SCOPE-001` because it suggests contrasting deterministic-change and runtime-judgment cases; no scope-review change is made here. |
+| Dmitry Zenevich — article comments | What practical decision differs from an AI application with a well-designed harness. | Overlaps with `TS-SUB-001` and may motivate a future substitution comparison against a strong existing implementation. |
+| Nikolai Babakov — article comments | Connect threats to a defined loss-of-control event, preventive/recovery barriers, evidence, ownership and degradation. | Potentially relevant to future `TS-SUB-001` comparison work; it is not adopted here as a safety method or evidence of UA novelty. |
+| Ganesh Kompella — Armesto discussion | An escalation path can fail when reviewers lack decision-useful evidence and review becomes a bottleneck. | Potentially relevant to `TS-CARRIER-001` and `TS-LIFE-001` as a future question about evidence presentation and real review capacity. |
+| Eugene Nazirov — Armesto discussion | Review may fail when people reconstruct context from raw logs; surfaced state and latency matter. | A qualitative lead for future human-review evidence work; no universal capacity threshold or new test obligation is inferred here. |
 
 These comments are **research leads**, not durable transition provenance for the Research State Register. They may motivate later tests or analysis, but the current LinkedIn observations are not sufficient by themselves to change a research item's lifecycle or provenance state. If a comment later becomes material to a state transition, preserve a more durable source or bounded provenance record first.
 
