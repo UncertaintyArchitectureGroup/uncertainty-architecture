@@ -28,30 +28,16 @@ This document records public third-party references to Uncertainty Architecture 
 
 **Source inspected:** September 18, 2026. The public view exposes a relative age; an exact post timestamp is not asserted here.
 
-Arkadiy Dobkin reposted Vitalii Oborskyi's *Thinking Systems — When the Controlled Object Changes*, recommended reading it, and developed its runtime-control argument. His commentary distinguishes design-time optimization from bounding judgment during operation and adds economic hypotheses about newly addressable problems and domain/client-specific differentiation.
+Arkadiy Dobkin reposted Vitalii Oborskyi's *Thinking Systems — When the Controlled Object Changes*, recommended reading it, restated the distinction between design-time optimization and bounding judgment during operation, and added propositions about newly addressable problems and domain/client-specific differentiation.
 
-**What this establishes:** public recognition and a substantive external extension of the article's argument.
+**What this establishes:** a public third-party reference, recommendation, restatement and additional commentary.
 
 **What it does not establish:** formal EPAM endorsement or adoption, co-authorship, validation of the whole UA specification, or empirical confirmation of the economic hypotheses.
 
 - [Primary source: Arkadiy Dobkin's repost with commentary](https://www.linkedin.com/posts/arkadiydobkin_uncertainty-architecture-thinking-systems-activity-7500661925790240768--I1H)
 - Maintainer-supplied navigation alias: https://lnkd.in/p/dSEf5jfX
 - [Research implications and open tests](../research/notes/thinking-systems-public-review-2026-09.md)
-- [Earlier formulation provenance](../research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) — a separate, maintainer-attested exchange, not independently proved by this later public event.
-
-## Maximiliano Armesto
-
-### Thinking Systems — public restatement and practitioner discussion
-
-**Source inspected:** September 18, 2026; exact post timestamp not independently retained.
-
-Maximiliano Armesto publicly shared and positively discussed the article's changed-object framing. The resulting thread includes substantive comments about evidence and human review.
-
-**What this establishes:** public acknowledgement and a practitioner discussion. This does not establish Taller's institutional adoption or resolve the questions from Armesto's earlier conceptual review.
-
-- [Primary source: Maximiliano Armesto's public post](https://www.linkedin.com/posts/maximiliano-armesto_uncertainty-architecture-thinking-systems-activity-7498756197647441920-8REu)
-- [Public-review intake](../research/notes/thinking-systems-public-review-2026-09.md)
-- [Earlier pre-publication review and its dispositions](../research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md)
+- [Earlier formulation provenance on GitHub](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) — a separate, maintainer-attested exchange, not independently proved by this later public event.
 
 ## Christophe Kolb and Taller
 
