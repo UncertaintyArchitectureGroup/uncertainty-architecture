@@ -28,9 +28,9 @@ This page is the entry point for the repository's published supporting material.
 
 Read Vitalii Oborskyi's [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we), published August 27, 2026. The repository also holds a [PDF copy](research/publications/thinking-systems-when-the-controlled-object-changes.pdf).
 
-[Arkadiy Dobkin's public repost and commentary](history/external-recognition.md#arkadiy-dobkin) and the [public discussion following Maximiliano Armesto's earlier review](history/community-discussions.md#augustseptember-2026--thinking-systems-public-review) are documented separately from the [repository-only provenance of the Thinking Systems formulation](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md).
+[Public recognition](history/external-recognition.md), [public discussion](history/community-discussions.md), and the [repository-only provenance of the Thinking Systems formulation](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) are documented separately.
 
-The [September 2026 public-review intake](research/notes/thinking-systems-public-review-2026-09.md) preserves category counterexamples, harness-substitution questions and human-review evidence concerns alongside recognition. See the [complete recognition ledger](history/external-recognition.md) and [public discussion history](history/community-discussions.md).
+The [September 2026 public-feedback intake](research/notes/thinking-systems-public-review-2026-09.md) preserves bounded observations, category counterexamples, harness-substitution questions and human-review evidence leads without changing research state. See the [complete recognition ledger](history/external-recognition.md) and [public discussion history](history/community-discussions.md).
 
 These records distinguish public recognition, intellectual provenance and open research questions. They do not establish institutional endorsement, formal adoption or empirical validation of UA.
 
