@@ -24,7 +24,7 @@ This document records public third-party references to Uncertainty Architecture 
 
 ## Arkadiy Dobkin
 
-### Thinking Systems — public repost with substantive commentary
+### Thinking Systems — public repost with commentary
 
 **Source inspected:** September 18, 2026. The public view exposes a relative age; an exact post timestamp is not asserted here.
 
@@ -36,7 +36,7 @@ Arkadiy Dobkin reposted Vitalii Oborskyi's *Thinking Systems — When the Contro
 
 - [Primary source: Arkadiy Dobkin's repost with commentary](https://www.linkedin.com/posts/arkadiydobkin_uncertainty-architecture-thinking-systems-activity-7500661925790240768--I1H)
 - Maintainer-supplied navigation alias: https://lnkd.in/p/dSEf5jfX
-- [Research implications and open tests](../research/notes/thinking-systems-public-review-2026-09.md)
+- [Public feedback intake and possible research relevance](../research/notes/thinking-systems-public-review-2026-09.md)
 - [Earlier formulation provenance on GitHub](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) — a separate, maintainer-attested exchange, not independently proved by this later public event.
 
 ## Christophe Kolb and Taller
