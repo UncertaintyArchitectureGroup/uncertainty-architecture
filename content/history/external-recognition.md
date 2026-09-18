@@ -30,7 +30,7 @@ This document records public third-party references to Uncertainty Architecture 
 
 Arkadiy Dobkin reposted Vitalii Oborskyi's *Thinking Systems — When the Controlled Object Changes*, recommended reading it, and developed its runtime-control argument. His commentary distinguishes design-time optimization from bounding judgment during operation and adds economic hypotheses about newly addressable problems and domain/client-specific differentiation.
 
-**What this establishes:** public recognition and an independent extension of the article's argument.
+**What this establishes:** public recognition and a substantive external extension of the article's argument.
 
 **What it does not establish:** formal EPAM endorsement or adoption, co-authorship, validation of the whole UA specification, or empirical confirmation of the economic hypotheses.
 
