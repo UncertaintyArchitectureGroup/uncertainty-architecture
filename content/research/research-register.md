@@ -73,9 +73,10 @@ Do **not** split every subclaim into its own ID. Subclaims that share provenance
 | `TS-CARRIER-001` | Material-relationship carrier sufficiency and proportional application | Artifact / process hypothesis | Article §5 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Complete Article §5 mapping and test whether existing records/tools can carry each material relationship without UA-specific duplicate artifacts or semantic loss |
 | `TS-COMP-001` | Four-horizon model relative to STAMP/STPA | Comparative hypothesis | Maximiliano Armesto review | Under Validation | Same review record; planned Article §6 landscape/substitution analysis | Perform bidirectional mapping and determine whether the four-horizon model adds useful lifecycle-decision specialization, merely renames existing semantics, or loses material relationships |
 | `TS-SUB-001` | Semantic substitution and reverse-mapping test for existing methods/compositions | Comparative method hypothesis | Article §6 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Test whether equivalent-or-stronger semantics can substitute for UA relationships and whether reverse mapping exposes relationships the UA-derived map omitted or distorted |
-| `TS-ECON-001` | Addressable-problem and domain-specific differentiation hypotheses | Economic hypothesis | Arkadiy Dobkin's public post-publication commentary | Open | [`thinking-systems-public-review-2026-09.md`](notes/thinking-systems-public-review-2026-09.md) | Test problem feasibility and net benefit against rules-only, human-led and strong generic baselines; test domain-specific differentiation rather than presume it |
+| `TS-ECON-001` | Addressable-problem hypothesis | Economic hypothesis | Arkadiy Dobkin's public post-publication commentary | Open | [`thinking-systems-public-review-2026-09.md`](notes/thinking-systems-public-review-2026-09.md) | Test whether concrete judgment-mediated applications become practically viable relative to rules-only and human-led alternatives after control and operating cost |
+| `TS-ECON-002` | Domain-specific control-architecture differentiation hypothesis | Economic hypothesis | Arkadiy Dobkin's public post-publication commentary | Open | [`thinking-systems-public-review-2026-09.md`](notes/thinking-systems-public-review-2026-09.md) | Test whether domain/client-specific bounding architecture retains material advantage over a strong generic baseline as generic components commoditize |
 
-The [September 2026 public-review intake](notes/thinking-systems-public-review-2026-09.md) adds transition provenance for `TS-TERM-002`, `TS-SCOPE-001`, `TS-LIFE-001`, `TS-CARRIER-001` and `TS-SUB-001`. It supplies additional cases without changing their original provenance, owning analysis or existing lifecycle state. `TS-ECON-001` is a new open question, not an accepted framework claim. No source-to-framework decision is made by this intake.
+The [September 2026 public-review intake](notes/thinking-systems-public-review-2026-09.md) adds transition provenance for `TS-TERM-002`, `TS-SCOPE-001`, `TS-LIFE-001`, `TS-CARRIER-001` and `TS-SUB-001`. It supplies additional cases without changing their original provenance, owning analysis or existing lifecycle state. `TS-ECON-001` and `TS-ECON-002` are new open questions, not accepted framework claims. No source-to-framework decision is made by this intake.
 
 ## Machine-readable register
 
@@ -208,13 +209,23 @@ The block below is validated in CI. Human-readable rows above must express the s
     },
     {
       "id": "TS-ECON-001",
-      "title": "Addressable-problem and domain-specific differentiation hypotheses",
+      "title": "Addressable-problem hypothesis",
       "item_class": "hypothesis",
       "status": "open",
-      "origin_kind": "external-review",
+      "origin_kind": "external-dialogue",
       "provenance_record": "content/research/notes/thinking-systems-public-review-2026-09.md",
       "owning_record": "content/research/notes/thinking-systems-public-review-2026-09.md",
-      "next_step": "Test problem feasibility and net benefit against rules-only, human-led and strong generic baselines; test domain-specific differentiation rather than presume it."
+      "next_step": "Test whether concrete judgment-mediated applications become practically viable relative to rules-only and human-led alternatives after control and operating cost."
+    },
+    {
+      "id": "TS-ECON-002",
+      "title": "Domain-specific control-architecture differentiation hypothesis",
+      "item_class": "hypothesis",
+      "status": "open",
+      "origin_kind": "external-dialogue",
+      "provenance_record": "content/research/notes/thinking-systems-public-review-2026-09.md",
+      "owning_record": "content/research/notes/thinking-systems-public-review-2026-09.md",
+      "next_step": "Test whether domain/client-specific bounding architecture retains material advantage over a strong generic baseline as generic components commoditize."
     }
   ]
 }
