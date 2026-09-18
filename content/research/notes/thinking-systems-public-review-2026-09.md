@@ -55,22 +55,17 @@ Comment-specific permalinks were not retained. Locate each comment by the attrib
 
 ## Recognition versus research input
 
-### Arkadiy Dobkin: public extension, not origin reassignment
+### Arkadiy Dobkin: public commentary, not origin reassignment
 
-Dobkin's commentary adds two economic propositions: judgment-mediated systems may make previously impractical problem classes addressable; client/domain-specific bounding architecture may become a differentiator as more generic components commoditize. These remain forecasts, not demonstrated market outcomes. The [recognition entry](../../history/external-recognition.md#arkadiy-dobkin) records the public event separately.
+Dobkin's commentary adds two testable economic propositions: judgment-mediated systems may make previously impractical problem classes addressable; client/domain-specific bounding architecture may remain differentiating as more generic components commoditize. These are preserved here as **candidate research propositions**, not as durable Research State Register items. They should receive stable IDs only if later UA work adopts them as independently tracked research concerns.
 
-**Research disposition:** preserve the two propositions as separate **Open** items because they can be tested and resolved independently:
+Possible future tests would compare concrete applications against rules-only and human-led alternatives, including review, control and operating cost, and compare domain-specific control architecture with a strong generic baseline. Those test ideas are repository follow-up, not claims made or validated by Dobkin.
 
-- `TS-ECON-001` — whether judgment-mediated systems make specific problem classes practically addressable that were not viable under rules-only or human-led alternatives;
-- `TS-ECON-002` — whether client/domain-specific bounding architecture remains a material differentiator as generic model and harness capabilities commoditize.
+The [recognition entry](../../history/external-recognition.md#arkadiy-dobkin) records the public event. The earlier formulation exchange remains a separate, maintainer-attested repository provenance record and is not made independently verifiable by this later public post.
 
-**Proposed tests, not claims made by the source:** for `TS-ECON-001`, compare concrete candidate applications against rules-only and human-led alternatives and measure delivered benefit together with review, control and operating cost. For `TS-ECON-002`, compare a domain-specific control architecture with a strong generic baseline and measure whether any advantage persists after implementation and operating cost. Record counterexamples and failed differentiation, not only successes.
+### Maximiliano Armesto: public discussion following earlier review
 
-This later public event does not independently prove the earlier private wording exchange or transfer authorship of UA's definition. The existing [formulation-provenance record](thinking-systems-formulation-provenance-arkadiy-dobkin.md) continues to own that narrower claim under `TS-TERM-001`.
-
-### Maximiliano Armesto: public discussion distinct from earlier review
-
-Armesto's public post is recorded in the [recognition ledger](../../history/external-recognition.md#maximiliano-armesto). His earlier pre-publication critique already has a [separate review record](thinking-systems-pre-publication-review-maximiliano-armesto.md). A public restatement does not replace that origin record or resolve its open questions.
+Armesto's public post and resulting discussion are recorded under [Community Discussions and Public Stress Tests](../../history/community-discussions.md#augustseptember-2026--thinking-systems-public-review). His earlier pre-publication critique remains a separate repository-only provenance record. The later public discussion neither converts that private review into independent evidence nor resolves its open questions.
 
 ## Substantive public comments
 
@@ -85,30 +80,13 @@ The following summaries preserve questions and practitioner observations, not re
 | Ganesh Kompella — Armesto discussion | An escalation path can fail when reviewers lack decision-useful evidence and review becomes a bottleneck. | Use the existing carrier and lifecycle questions (`TS-CARRIER-001`, `TS-LIFE-001`) to test evidence presentation and real review capacity. |
 | Eugene Nazirov — Armesto discussion | Review may fail when people reconstruct context from raw logs; surfaced state and latency matter. | Keep the observation qualitative. Proposed tests should measure workload, response time and missed interventions rather than infer a universal capacity threshold. |
 
-These comments are **transition sources** for existing research questions, not retroactive origins of the underlying UA concepts. No existing item is marked resolved by this intake.
+These comments are **research leads**, not durable transition provenance for the Research State Register. They may motivate later tests or analysis, but the current LinkedIn observations are not sufficient by themselves to change a research item's lifecycle or provenance state. If a comment later becomes material to a state transition, preserve a more durable source or bounded provenance record first.
 
 ## Earlier material retained without duplicate records
 
-The [formulation record](thinking-systems-formulation-provenance-arkadiy-dobkin.md) preserves Dobkin's earlier wording exchange and pre-publication attribution confirmation. The [Armesto review record](thinking-systems-pre-publication-review-maximiliano-armesto.md) preserves the earlier terminology, pre-LLM, proportionality and STAMP/STPA review. The [launch post](https://www.linkedin.com/posts/vitaliioborskyi_thinking-systems-when-the-controlled-object-activity-7498703457676279808-a0ud) acknowledges dialogue with Christophe Kolb, Maximiliano Armesto and Jan Rosen; that acknowledgement does not imply company adoption or co-authorship.
+The [formulation record on GitHub](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) preserves Dobkin's earlier wording exchange and pre-publication attribution confirmation. The [Armesto review record on GitHub](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md) preserves the earlier terminology, pre-LLM, proportionality and STAMP/STPA review. The [launch post](https://www.linkedin.com/posts/vitaliioborskyi_thinking-systems-when-the-controlled-object-activity-7498703457676279808-a0ud) acknowledges dialogue with Christophe Kolb, Maximiliano Armesto and Jan Rosen; that acknowledgement does not imply company adoption or co-authorship.
 
 Earlier public records concerning Kolb/Taller, Michael Risch, Markus Kopko, Matthew Skelton, Otman Basir and Corning remain in [Independent References and Recognition](../../history/external-recognition.md) and [Talks and presentations](../../history/talks.md). This intake does not newly re-verify every historical entry.
-
-## Known-interaction coverage
-
-This table is a coverage control, not a second recognition ledger. It identifies material interactions already known to the repository or explicitly acknowledged by the publication and shows where their evidence belongs. It does not publish private correspondence that is not already represented by a bounded repository record.
-
-| Material interaction | Current repository treatment | Coverage state |
-|---|---|---|
-| Arkadiy Dobkin — formulation exchange before publication | [Bounded formulation-provenance record](thinking-systems-formulation-provenance-arkadiy-dobkin.md) | Recorded as maintainer-attested provenance; private exchange is not republished. |
-| Arkadiy Dobkin — later public repost and commentary | [Recognition ledger](../../history/external-recognition.md#arkadiy-dobkin) plus this intake | Public source located; substantive extension routed to `TS-ECON-001` and `TS-ECON-002`. |
-| Maximiliano Armesto — pre-publication conceptual review | [Bounded external-review record](thinking-systems-pre-publication-review-maximiliano-armesto.md) | Recorded as private-review provenance without verbatim correspondence. |
-| Maximiliano Armesto — later public post and discussion | [Recognition ledger](../../history/external-recognition.md#maximiliano-armesto) plus this intake | Public source located; later discussion does not overwrite the earlier review record. |
-| Christophe Kolb, Maximiliano Armesto and Jan Rosen — dialogue acknowledged by the author at launch | [Author's launch post](https://www.linkedin.com/posts/vitaliioborskyi_thinking-systems-when-the-controlled-object-activity-7498703457676279808-a0ud) | Public acknowledgement exists; it is not treated as independent recognition or as permission to publish private dialogue. |
-| Earlier Kolb/Taller, Michael Risch, Markus Kopko, Matthew Skelton and Otman Basir references | [Independent References and Recognition](../../history/external-recognition.md) | Already owned by the historical recognition ledger; not duplicated here. |
-| Corning practitioner exposure | [Talks and presentations](../../history/talks.md) and the recognition ledger | Already routed to the historical owner; not duplicated here. |
-| Additional reported interactions without a locatable public source or bounded, publishable provenance record | None by design | Coverage gap: retain outside the public evidence ledger until the source/permission boundary is satisfied. |
-
-The table is intentionally conservative: "known" means known from repository records or the publication's own public acknowledgement, not every contact, reaction, outreach attempt, or private conversation available to the maintainer.
 
 ## Coverage gaps and publication limits
 
@@ -118,4 +96,4 @@ The repository contains a [Thinking Systems PDF](../publications/thinking-system
 
 ## Next decision
 
-Use the source-linked cases above in the owning research analyses before revising article claims. Reconcile any resulting material state change into the register and update framework traceability only when a source-to-framework decision actually changes. Recognition, a prominent reviewer, and increased discoverability do not substitute for that evidence.
+Treat the source-linked cases above as leads for later analysis rather than as research-state changes. Add a durable Research State Register identity only when a concern is actually adopted for independent cross-document tracking; preserve stronger provenance before using an ephemeral public comment to change research state. Update framework traceability only when a source-to-framework decision actually changes. Recognition, reviewer prominence and discoverability do not substitute for evidence.
