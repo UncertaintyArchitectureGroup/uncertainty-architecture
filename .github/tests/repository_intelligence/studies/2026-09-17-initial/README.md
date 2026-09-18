@@ -1,6 +1,6 @@
 # RI comparison — frozen descriptive study
 
-Status: **12 tasks and 24 messages frozen before experimental outcomes; original collection paused for T10-A-R1; 20/24 original slots collected plus 1 supplemental attempt retained and 1 planned, 0 scored**.
+Status: **12 tasks and 24 messages frozen before experimental outcomes; collection interrupted; 20/24 original attempts plus 2 supplemental attempts retained; 4 original slots unreceived; 0 scored**.
 
 On 2026-09-17 the maintainer accepted the preceding task set and explicitly narrower descriptive scope with “Ок, погнали”. This is the separate post-#119 experiment in Draft PR #125. PR #124 research remains separate.
 
@@ -80,7 +80,7 @@ No strict source lock is claimed. Organizer observed `main` at the study commit 
 
 - **T10/B, 19 of 24:** [shared capture](T10-B-share.json), with the exact answer in [sessions.json](sessions.json). Submitted text omits blank separator lines; all wording matches the frozen message. Share reports GPT-5.6 Luna / `gpt-5-6` with Auto and 68 redacted tool responses. The answer reports optional use of the compact RI surface alongside direct architecture/implementation/test reads, separate file/range reads after aggregated-response truncation and unavailable live CI evidence. Actual RI use is not independently verified. Redacted payloads do not independently establish actual reads, full-bootstrap or arm compliance, or traffic. Source and isolation limitations remain recorded, without scoring or a rerun. Main still matched the study commit at 2026-09-18T07:14:19.538Z; this organizer observation does not prove the tested session's source state.
 
-- **T10/A, 20 of 24:** [shared capture](T10-A-share.json), with the exact answer in [sessions.json](sessions.json). Submitted text omits blank separator lines; all wording matches the frozen message. Share reports GPT-5.6 Luna / `gpt-5-6-mini` with Auto and 7 redacted tool responses. The response is a refusal reporting unavailable source access while quoting 989fc1398fc221ffca4e1f7a141b2c03bfc7cf3 (39 characters), omitting the penultimate b from the correct 40-character SHA in the submitted prompt. It reports no instruction or task-source reads and no RI use. Organizer checks after receipt resolve the correct commit and read AGENTS.md through this session's connector; the quoted altered SHA returns HTTP 422. The tested session's hidden call arguments and errors remain unverified. This started attempt is retained without a substantive T10 answer or a rerun. Redacted payloads do not independently establish actual reads, full-bootstrap or arm compliance, or traffic. Source and isolation limitations remain recorded, without scoring or a rerun. Main still matched the study commit at 2026-09-18T07:29:01.481Z; this organizer observation does not prove the tested session's source state. Next original slot: **T11/A, 21 of 24**, paused for the maintainer-requested T10-A-R1 follow-up below.
+- **T10/A, 20 of 24:** [shared capture](T10-A-share.json), with the exact answer in [sessions.json](sessions.json). Submitted text omits blank separator lines; all wording matches the frozen message. Share reports GPT-5.6 Luna / `gpt-5-6-mini` with Auto and 7 redacted tool responses. The response is a refusal reporting unavailable source access while quoting 989fc1398fc221ffca4e1f7a141b2c03bfc7cf3 (39 characters), omitting the penultimate b from the correct 40-character SHA in the submitted prompt. It reports no instruction or task-source reads and no RI use. Organizer checks after receipt resolve the correct commit and read AGENTS.md through this session's connector; the quoted altered SHA returns HTTP 422. The tested session's hidden call arguments and errors remain unverified. This started attempt is retained without a substantive T10 answer or a rerun. Redacted payloads do not independently establish actual reads, full-bootstrap or arm compliance, or traffic. Source and isolation limitations remain recorded, without scoring or a rerun. Main still matched the study commit at 2026-09-18T07:29:01.481Z; this organizer observation does not prove the tested session's source state. T11/A was the next original slot; further issuance is now stopped under the collection interruption recorded below.
 
 ## Maintainer-directed follow-up after T03/B
 
@@ -114,7 +114,39 @@ This is a second, explicitly maintainer-requested post-outcome addition outside 
 - **Reporting and resumption:** report the original T10/A refusal and T10-A-R1 together after collection, with independent scoring under the frozen expectations. Comparison with existing T10/B reuses an earlier response at another time and is not a new independent pair. After this receipt or a recorded interruption, recheck source freshness and resume the original T11/A slot. The original denominator remains 24.
 - **Source observation before issuance:** the organizer's branch API reported `main` at `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` at 2026-09-18T07:36:41.014Z. Apply the existing pause-on-source-movement rule if this changes. This observation does not prove what the tested session reads.
 
-Current status: **T10-A-R1 planned; no response or model-availability confirmation received; 20/24 original attempts and 1 earlier supplemental attempt retained, 0 scored.** No general agent-guidance, executable control or v11 protocol change is proposed.
+Status when this plan was recorded: **T10-A-R1 planned; no response or model-availability confirmation received; 20/24 original attempts and 1 earlier supplemental attempt retained, 0 scored.** The outcome and subsequent collection interruption are recorded below; no general agent-guidance, executable control or v11 protocol change is proposed.
+
+## T10-A-R1 receipt and assisted continuation
+
+**T10-A-R1:** [complete exposed conversation](T10-A-R1-share.json), received on 2026-09-18. The first submitted message matches the frozen T10/A wording and correct Study ref with blank separators omitted. Share reports `gpt-5-6-mini` for both assistant answers, so the planned `gpt-5-6` label was not obtained.
+
+The first answer is another refusal quoting the altered 39-character SHA. It remains the first outcome of this supplemental attempt. The maintainer then supplied a second message explicitly repeating the correct SHA; the model subsequently returned a substantive answer and reported direct source reads, no compact RI/excerpts, and line-ranged reads after implementation-response truncation. Both answers and the exact intervening user message are preserved in the same capture. The continuation is labeled **assisted recovery**, not an independent fresh attempt, not a same-model replication of T10/B, and not a replacement for either refusal. Its source claims remain model-reported.
+
+All 82 exposed tool responses redact payloads: 10 precede the first refusal and 72 follow the correction. These are exposed-message counts, not verified repository-call or cost measurements. Hidden call arguments cannot establish the cause of the original access failure. Memory-disabled operation, actual reads, full-bootstrap/arm compliance, backend parity and account-quota behavior remain unverified. The operator reports manually repeating the correct ref and concern that the current plan switches models and prevents further reliable collection; that concern is not independent evidence of the provider's routing or quota policy.
+
+The original 24 session records, all earlier captures and T03-B-R1 remain byte-identical. No quality score is assigned. This receipt completes the one planned T10-A-R1 attempt; no additional retry is scheduled.
+
+## Collection interruption and available assessment set
+
+On 2026-09-18 the maintainer questioned continuing under the current plan's model switching and asked whether the existing evidence suffices for assessment. Further prompt issuance is stopped under the existing recorded-interruption rule. This is an operational interruption after observed outcomes, not a statistical stopping boundary, a full 24-session completion, or a successful RI acceptance result.
+
+At interruption, **20 of 24 original attempts and 2 supplemental attempts are retained, with 0 quality scores**. T11/A, T11/B, T12/B and T12/A have no received responses; their frozen prompts and null response fields remain unchanged. T11/A had been issued before the pause, so an unreported start cannot be excluded; retain any already-started attempt if later returned rather than silently discarding it.
+
+| Evidence group | Tasks / attempts | Disposition |
+|---|---|---|
+| Original pairs with substantive answers and matching reported model labels | T01, T02, T04, T05, T06, T07, T08, T09: 8 pairs / 16 answers; all report `gpt-5-6` | Eligible for case-level descriptive quality comparison after independent scoring; label agreement does not verify backend parity or RI exposure |
+| Other original pairs | T03 and T10: 4 attempts, including 2 substantive answers and 2 refusals reporting `gpt-5-6-mini` | Keep visible in the all-task report with missing substantive outcomes and model mismatch; do not silently drop them or turn refusals into synthetic scores |
+| Earlier supplemental attempt | T03-B-R1: 1 substantive answer reporting `gpt-5-6` | Report separately; comparison with existing T03/A reuses an earlier answer and is not a new independent pair |
+| Latest supplemental attempt | T10-A-R1: initial refusal plus subsequent assisted answer, both reporting `gpt-5-6-mini` | Preserve both phases; the assisted continuation is diagnostic evidence only for the primary comparison |
+| Unreceived original slots | T11/A, T11/B, T12/B, T12/A: 4 slots | Explicitly missing at interruption; no inference about dependency-validation or extraction-boundary performance |
+
+The available material supports a **bounded, descriptive assessment of these recorded answers**: source/owner selection, factual correctness against the frozen source state, serious errors, omissions and observed need for user intervention. Eight eligible original pairs are not a claim of adequate statistical power, population representativeness or independent task diversity; the convenience selection, overlapping tasks and interruption remain limitations. Preserve all 12 planned tasks in the report and state the denominator for every comparison.
+
+It does **not** establish causal RI improvement, efficiency, token/read savings, model superiority or full v11 acceptance. Treatment was optional: T01/B reports a truncated compact attempt and fallback; T02/B does not establish compact delivery; T04/B through T09/B report direct-owner/fallback routes without compact RI as evidence. T10/B reports compact use, but its original counterpart is a refusal and the later continuation is assisted and differently labeled. Redacted payloads do not independently verify any actual RI exposure. More sessions under the same capture/routing limitations would not, by themselves, fix those limitations.
+
+Proceed to the already specified independent scoring stage using the unchanged expectations and source commit; prepare the blinded packet separately from organizer mappings and diagnostics. Do not use the assisted T10 continuation to fill the missing original answer or score an arm as a winner. No scores, winner, or RI-benefit conclusion are issued in this collection disposition. No further experimental prompt is supplied now, and no general agent-guidance or control change is proposed.
+
+Final organizer source observation: the branch API still reported `main` at `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` at 2026-09-18T07:42:50.529Z. This is an observation of organizer-visible state, not proof of tested-session reads.
 
 ## Assessment and stopping rule
 
@@ -130,6 +162,6 @@ Stop after the 24 planned slots or a recorded interruption. Do not adjust tasks,
 - [x] Rehearsals retained and connector setup accepted as maintainer-confirmed.
 - [x] Maintainer accepted the 12 tasks and descriptive scope before outcomes.
 - [x] Exact messages, expectations, settings limitations and follow-up rule frozen.
-- [ ] 24 session slots completed or explicitly reported missing/interrupted; final source observation recorded.
+- [x] 24 session slots completed or explicitly reported missing/interrupted; final source observation recorded.
 - [ ] Independent scores frozen before arm reveal.
 - [ ] All-pair descriptive report published and reviewed; Draft PR #125 completed.
