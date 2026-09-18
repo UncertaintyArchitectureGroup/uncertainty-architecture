@@ -16,7 +16,7 @@ tags:
   - ua/topic/provenance
   - ua/topic/repository-architecture
 created: 2026-08-21
-updated: 2026-08-28
+updated: 2026-09-18
 language: en
 license: CC-BY-4.0
 draft: true
@@ -34,7 +34,9 @@ This note defines the distribution boundary for Medium and LinkedIn renditions o
 
 ## Source relationship
 
-The editable content source remains [`thinking-systems-publication-draft.md`](thinking-systems-publication-draft.md) until an actual publication decision freezes an exact content edition under [`../publications/`](../publications/). Medium and LinkedIn outputs may change formatting, image placement, table presentation, cover metadata, platform notes, SEO fields, the launch post, and copy/paste convenience packaging. They must not silently change definitions, decision ownership, maturity caveats, attribution, or figure semantics.
+External publication has occurred on LinkedIn and Medium, with a PDF rendition also published. The publication Markdown in [`thinking-systems-publication-draft.md`](thinking-systems-publication-draft.md) is now a **frozen authoring source**: the maintainer confirmed on September 18, 2026 that it did not change after publication and does not intend to develop it further. Its preserved repository edition is [`../publications/thinking-systems-when-the-controlled-object-changes.md`](../publications/thinking-systems-when-the-controlled-object-changes.md). Future substantive research development belongs in the living long-form manuscript, not in this frozen publication source.
+
+Medium and LinkedIn outputs may differ only in formatting, image placement, table presentation, cover metadata, platform notes, SEO fields, the launch post, and copy/paste packaging unless a later publication is explicitly recorded as a new content edition. Exact platform URLs and remaining publication metadata are pending maintainer reconciliation.
 
 The machine profile lives at [`../../../quartz/publication/thinking-systems.platforms.json`](../../../quartz/publication/thinking-systems.platforms.json). Generated rendition files remain under `dist/publication/thinking-systems/` and are not conceptual authorities.
 
@@ -92,17 +94,15 @@ Platform packaging consumes reviewed assets without changing the canonical artic
 
 ## Publication boundary
 
-A generated package is a **candidate distribution package**, not proof that an external publication edition already exists. The publication lifecycle follows [`../review-process.md`](../review-process.md#publication-adaptation-and-external-feedback-cycle):
+A generated package remains a reproducible distribution artifact; external publication is now independently recorded by the frozen repository edition rather than inferred from package generation. The publication lifecycle follows [`../review-process.md`](../review-process.md#publication-adaptation-and-external-feedback-cycle):
 
-1. generate the candidate package from the current committed adaptation;
-2. review the LinkedIn paste result and the Medium text-plus-manual-image workflow;
-3. publish the first approved external rendition;
-4. for LinkedIn, capture the exact native article URL and replace `{{LINKEDIN_ARTICLE_URL}}` before publishing the launch post;
-5. immediately preserve the exact externally published content edition under `content/research/publications/`;
-6. record the principal `canonical_url`, equivalent `additional_publication_urls`, and immutable published-edition identity;
-7. only then begin feedback-driven reconciliation or substantive source revision.
+1. preserve the frozen publication source and repository edition;
+2. retain generated packages as reproducible rendition artifacts rather than conceptual authorities;
+3. add the exact LinkedIn and Medium URLs and remaining platform metadata when supplied by the maintainer;
+4. treat any later substantive change to the publication text as a new content edition rather than silently rewriting this one;
+5. continue feedback-driven research in the living long-form manuscript.
 
-Because this generator targets the editable note under `content/research/notes/`, it always reports `publication_state: candidate` and `publication_ready: false`. The repository publication record created after release is the durable evidence of what external readers actually received.
+The generator still targets the historical path under `content/research/notes/` for compatibility, but that source is now frozen. Generator fields such as `publication_state: candidate` describe a generated package, not the publication status of the content edition. The repository publication record is the durable publication-provenance surface.
 
 ## Current platform constraints
 
