@@ -59,9 +59,12 @@ Comment-specific permalinks were not retained. Locate each comment by the attrib
 
 Dobkin's commentary adds two economic propositions: judgment-mediated systems may make previously impractical problem classes addressable; client/domain-specific bounding architecture may become a differentiator as more generic components commoditize. These remain forecasts, not demonstrated market outcomes. The [recognition entry](../../history/external-recognition.md#arkadiy-dobkin) records the public event separately.
 
-**Research disposition:** introduce `TS-ECON-001` as **Open**, with this note as its detailed owner. The two propositions share a source and initial evidence program, so they are not split into separate IDs at intake.
+**Research disposition:** preserve the two propositions as separate **Open** items because they can be tested and resolved independently:
 
-**Proposed tests, not claims made by the source:** compare specific candidate applications against rules-only and human-led alternatives; measure delivered benefit together with review, control and operating cost; test whether a domain-specific control architecture retains an advantage over a strong generic baseline. Record counterexamples and failed differentiation, not only successes.
+- `TS-ECON-001` — whether judgment-mediated systems make specific problem classes practically addressable that were not viable under rules-only or human-led alternatives;
+- `TS-ECON-002` — whether client/domain-specific bounding architecture remains a material differentiator as generic model and harness capabilities commoditize.
+
+**Proposed tests, not claims made by the source:** for `TS-ECON-001`, compare concrete candidate applications against rules-only and human-led alternatives and measure delivered benefit together with review, control and operating cost. For `TS-ECON-002`, compare a domain-specific control architecture with a strong generic baseline and measure whether any advantage persists after implementation and operating cost. Record counterexamples and failed differentiation, not only successes.
 
 This later public event does not independently prove the earlier private wording exchange or transfer authorship of UA's definition. The existing [formulation-provenance record](thinking-systems-formulation-provenance-arkadiy-dobkin.md) continues to own that narrower claim under `TS-TERM-001`.
 
@@ -89,6 +92,23 @@ These comments are **transition sources** for existing research questions, not r
 The [formulation record](thinking-systems-formulation-provenance-arkadiy-dobkin.md) preserves Dobkin's earlier wording exchange and pre-publication attribution confirmation. The [Armesto review record](thinking-systems-pre-publication-review-maximiliano-armesto.md) preserves the earlier terminology, pre-LLM, proportionality and STAMP/STPA review. The [launch post](https://www.linkedin.com/posts/vitaliioborskyi_thinking-systems-when-the-controlled-object-activity-7498703457676279808-a0ud) acknowledges dialogue with Christophe Kolb, Maximiliano Armesto and Jan Rosen; that acknowledgement does not imply company adoption or co-authorship.
 
 Earlier public records concerning Kolb/Taller, Michael Risch, Markus Kopko, Matthew Skelton, Otman Basir and Corning remain in [Independent References and Recognition](../../history/external-recognition.md) and [Talks and presentations](../../history/talks.md). This intake does not newly re-verify every historical entry.
+
+## Known-interaction coverage
+
+This table is a coverage control, not a second recognition ledger. It identifies material interactions already known to the repository or explicitly acknowledged by the publication and shows where their evidence belongs. It does not publish private correspondence that is not already represented by a bounded repository record.
+
+| Material interaction | Current repository treatment | Coverage state |
+|---|---|---|
+| Arkadiy Dobkin — formulation exchange before publication | [Bounded formulation-provenance record](thinking-systems-formulation-provenance-arkadiy-dobkin.md) | Recorded as maintainer-attested provenance; private exchange is not republished. |
+| Arkadiy Dobkin — later public repost and commentary | [Recognition ledger](../../history/external-recognition.md#arkadiy-dobkin) plus this intake | Public source located; substantive extension routed to `TS-ECON-001` and `TS-ECON-002`. |
+| Maximiliano Armesto — pre-publication conceptual review | [Bounded external-review record](thinking-systems-pre-publication-review-maximiliano-armesto.md) | Recorded as private-review provenance without verbatim correspondence. |
+| Maximiliano Armesto — later public post and discussion | [Recognition ledger](../../history/external-recognition.md#maximiliano-armesto) plus this intake | Public source located; later discussion does not overwrite the earlier review record. |
+| Christophe Kolb, Maximiliano Armesto and Jan Rosen — dialogue acknowledged by the author at launch | [Author's launch post](https://www.linkedin.com/posts/vitaliioborskyi_thinking-systems-when-the-controlled-object-activity-7498703457676279808-a0ud) | Public acknowledgement exists; it is not treated as independent recognition or as permission to publish private dialogue. |
+| Earlier Kolb/Taller, Michael Risch, Markus Kopko, Matthew Skelton and Otman Basir references | [Independent References and Recognition](../../history/external-recognition.md) | Already owned by the historical recognition ledger; not duplicated here. |
+| Corning practitioner exposure | [Talks and presentations](../../history/talks.md) and the recognition ledger | Already routed to the historical owner; not duplicated here. |
+| Additional reported interactions without a locatable public source or bounded, publishable provenance record | None by design | Coverage gap: retain outside the public evidence ledger until the source/permission boundary is satisfied. |
+
+The table is intentionally conservative: "known" means known from repository records or the publication's own public acknowledgement, not every contact, reaction, outreach attempt, or private conversation available to the maintainer.
 
 ## Coverage gaps and publication limits
 
