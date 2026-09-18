@@ -45,7 +45,7 @@ Generic uses of words such as *behavior*, *behavioral constraint*, or *behaviora
 
 ## Repository editions
 
-- [`thinking-systems-when-the-controlled-object-changes.md`](thinking-systems-when-the-controlled-object-changes.md) — frozen 2026 Thinking Systems publication edition; LinkedIn/Medium URL reconciliation pending.
+- [`thinking-systems-when-the-controlled-object-changes.md`](thinking-systems-when-the-controlled-object-changes.md) — frozen 2026 Thinking Systems publication edition; LinkedIn/Medium URL reconciliation pending. The repository also preserves its [PDF rendition](thinking-systems-when-the-controlled-object-changes.pdf).
 - [`architecting-uncertainty-a-modern-guide-to-llm-based-software.md`](architecting-uncertainty-a-modern-guide-to-llm-based-software.md)
 - [`arkhitektura-nevyznachenosti-suchasnyi-pidkhid-do-proiektuvannia-llm-zastosunkiv.md`](arkhitektura-nevyznachenosti-suchasnyi-pidkhid-do-proiektuvannia-llm-zastosunkiv.md)
 - [`uncertainty-architecture-a-modern-approach-to-designing-llm-applications.md`](uncertainty-architecture-a-modern-approach-to-designing-llm-applications.md)
