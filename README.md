@@ -16,14 +16,6 @@ UA is designed primarily for small and medium-sized engineering organizations th
 
 In UA, **consequential** describes whether a runtime responsibility has material causal relevance to what the system does or affects, regardless of whether that responsibility is implemented deterministically or through Model Judgment. Thinking-System classification changes only when at least one such responsibility depends partly on probabilistic Model Judgment. The term **consequential** is not a synonym for high risk, harm, autonomy, regulation, or production readiness.
 
-## Latest publication, provenance and public review
-
-Read Vitalii Oborskyi's [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we) and the [repository PDF](content/research/publications/thinking-systems-when-the-controlled-object-changes.pdf).
-
-[Arkadiy Dobkin's public repost and extension](content/history/external-recognition.md#arkadiy-dobkin) and [Maximiliano Armesto's public discussion](content/history/external-recognition.md#maximiliano-armesto) are recorded alongside the separate [Thinking Systems formulation provenance](content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md). The [September 2026 public-review intake](content/research/notes/thinking-systems-public-review-2026-09.md) preserves substantive criticism and open tests, not only favorable reactions.
-
-See [Independent References and Recognition](content/history/external-recognition.md) for the full ledger and claim boundaries. Recognition and dialogue are not institutional endorsement, formal adoption or empirical validation.
-
 ## Why UA Exists
 
 Traditional software is engineered primarily as explicitly encoded behavior:
@@ -208,6 +200,8 @@ UA keeps different kinds of evidence separate:
 - The [**changelog**](CHANGELOG.md) records changes to repository and specification artifacts.
 
 Visibility, recommendations, advisory relationships, invited talks, and synthesized examples are not treated as certification, institutional endorsement, formal adoption, or production evidence. The evidence policy and complete historical index are maintained in [`content/history/`](content/history/).
+
+For the latest publication-facing evidence, see [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we), [Arkadiy Dobkin's public repost and commentary](content/history/external-recognition.md#arkadiy-dobkin), the [August–September public discussion](content/history/community-discussions.md#augustseptember-2026--thinking-systems-public-review), and the [September 2026 public-review intake](content/research/notes/thinking-systems-public-review-2026-09.md). The earlier formulation provenance is preserved as a [repository-only bounded record](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md).
 
 GitHub is the canonical home for doctrine and specification changes. Useful contributions include operational failure reports, worked applications, pattern proposals, critiques of terminology or control assumptions, evidence about Human Authority and control cost, and provenance corrections.
 
