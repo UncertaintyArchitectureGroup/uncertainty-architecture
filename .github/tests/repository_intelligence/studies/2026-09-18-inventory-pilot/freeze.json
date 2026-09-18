@@ -1,0 +1,26 @@
+{
+  "frozen_at": "2026-09-18T08:37:17.195741+00:00",
+  "source_commit": "989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3",
+  "model_configuration": "inherited parent configuration; no override; fork_turns=none",
+  "exact_backend_snapshot": "unavailable",
+  "task_author": "/root/pilot_author",
+  "input_files": {
+    "README.md": "74f71f683abe75dffeafe39c3cb4b70ac76620a00c71fb791cda8541aefc821f",
+    "tasks.json": "bd74cf3cc8bb4ed050e4a7c95293d3054636deba98e1ceb039e0083b07b69ad8",
+    "AUTHOR-NOTE.md": "0315f076c2de582dcb2fb6250a0a9e5ab3f7d91f2a78a081e84a0138b9da2782",
+    "ri-inventory.txt": "c5da4c43967386f6df9d5e81afb4c6a718720c05d4db9eac4853278a8ad6710d",
+    "reader.py": "9abd66633b84ce060b8e5205db5b363d554c68b96289c71bd791154c619fb9aa",
+    "sessions.json": "8cc1641e54ad8c693fef298575538eb5bd44b2b81a2792ab236a066ade054e8b"
+  },
+  "message_digests": {
+    "R01": "a26e88ea2ee8f6bec638df0cf87642608abd47580513a4b46e4f3155868ba909",
+    "R02": "dd54021f8ab718a547cf448b9a3367767d0b7e61a03941afba93e2f3529678e4",
+    "R03": "f4f28a67eb7b180f514bb3c74f9e736edbc81d83244e68bd283de7503d0e8b76",
+    "R04": "9cf1fd9b0b27571f957f4550e35005760ac6876c0378e920d9da9273261d058d",
+    "R05": "2379f6311de4bc194dba72d6080b2d77104d216e2ade5598dc49c25172ad1dcc",
+    "R06": "06d7767fe7e98fa4201e2893847d40f096caf040d7e32eaa1d41e390b360daed",
+    "R07": "d0f8ed8e89b76012a8f596a9f2485332981294967df993a856faf25bf47cf174",
+    "R08": "f140147385dacbf888d5589397a4c84fc126e27b57aae6195193201970e6b6ef"
+  },
+  "source_manifest_sha256": "f98585b3adf38c6f31e5ee4835c4f783d2a9ade3a7911bb30580bd76f11177ce"
+}

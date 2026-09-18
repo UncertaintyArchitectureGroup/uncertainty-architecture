@@ -1,0 +1,6 @@
+{
+  "scores_sha256": "814bbe444d5bda770c5fbeed0d16817c3efcb4b392ce46f840c35c23b32d2d66",
+  "packet_sha256": "631c6d846932695280b7d000f68b27b877ff429dfe7cb038424921674ab28caf",
+  "frozen_before_mapping_applied_at": "2026-09-18T08:56:25.870483+00:00",
+  "scorer_task": "/root/pilot_scorer"
+}

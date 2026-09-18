@@ -70,6 +70,10 @@ For the first real post-merge PR, run the producer from a separate checkout of t
 
 ## Independent acceptance still required
 
+The [initial experiment record](studies/2026-09-17-initial/README.md) preserves post-#119 rehearsals and the maintainer-approved descriptive comparison, with 12 tasks / 24 messages frozen before outcomes. Collection is interrupted at 20/24 original attempts plus 2 separate supplemental attempts, including refusals and user-assisted recovery. Its [organizer analysis](studies/2026-09-17-initial/ANALYSIS.md) finds incremental RI benefit inconclusive because exposure, model parity, isolation and costs are unverified. This study does not meet the [v11 protocol](AB-EVALUATION.md)'s full evidence prerequisites; its independent scoring remains pending.
+
+The separate [forced inventory pilot](studies/2026-09-18-inventory-pilot/RESULTS.md) completed four new tasks / eight fresh native-agent sessions, with a task-independent 7,126-byte RI inventory literally supplied in each B starting message. Separate authoring and arm-hidden scoring produced four quality ties (2/2, 1/1, 2/2, 2/2), no serious errors and no benefit-gate pass in either task family. Recorded reader responses plus initial messages were about 7.4% larger in B; these are bytes, not model tokens, latency or money. The result supports no mandatory inventory-loading change and leaves existing optional guidance intact. It concerns this inventory presentation, not full RI/graph usefulness or formal v11 acceptance; backend identity, instructional isolation and the small convenience sample remain limitations. The original study inputs and captures are unchanged.
+
 1. Have a separate assessor author or select held-out tasks without adapting them to observed rankings, then freeze their expected evidence and corpus hash before the run.
 2. Run manual-live and compact-preflight routes in separate fresh sessions at the same Git state, preserving the original query and every source-grounded retry.
 3. Record actual connector reads/searches, opened sources, and available token measurements; assess proposals and material decisions against owning sources with maintainer review.

@@ -1,0 +1,1560 @@
+{
+  "source_url": "https://chatgpt.com/share/6aaccd1b-8d68-83eb-aca4-0613ddc945a6",
+  "retrieved_at": "2026-09-18T05:33:55.271715+00:00",
+  "scope": "Exposed selected conversation branch: exact submitted text, final answer and available tool-message records. System, memory/context and private reasoning content excluded. This is not a verified repository-read trace.",
+  "conversation_metadata": {
+    "title": "Пояснення архітектури",
+    "default_model_slug": "auto",
+    "is_temporary_chat": false,
+    "is_do_not_remember": false,
+    "memory_scope": "global_enabled"
+  },
+  "model_metadata": {
+    "slug": "gpt-5-6",
+    "title": "GPT-5.6 Luna"
+  },
+  "messages": [
+    {
+      "message_id": "5115c38e-788c-4ccd-a15f-761f76177db1",
+      "role": "user",
+      "name": null,
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": [
+          "Experiment arm: RI-AB-TREATMENT\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: T07\nUse only the GitHub connector for repository access. Read root AGENTS.md in full at the Study ref, then its referenced A/B protocol and applicable scoped instructions. Apply the Experiment arm's source-reading and authority rules. Direct file reads must use this exact commit or a blob established from its tree. Do not use web-search substitutes, local checkout/CLI, full Graph View, Control Map or task-specific RI query helpers.\nThis is a descriptive answer-quality comparison, not a claim of valid v11 transport/cost evidence. In Control, do not read the generated RI compact surface or RI excerpts; ordinary owning documentation and implementation sources remain allowed. In Treatment, use the normal optional RI route: read known owners directly; verify compact context when useful, otherwise use authoritative-source fallback. Unverifiable RI must not be treated as current evidence. Missing capture/metrics stay unavailable; they do not alone require stopping the task.\nWork read-only. Do not read experiment branches, other tasks, answer keys or prior session answers. Answer the task using sources you actually read and identify their paths. Add a brief capture note stating the inspected ref, any access/truncation limits, and RI use or fallback. Do not invent measurements, tool logs or claims about hidden Memory/model settings.\nTask:\nЦе knowledge graph для LLM, шар spec-driven development чи щось інше? Поясни за фактичною реалізацією"
+        ]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "bb38ac05-a561-4eae-b186-f8d94a024464",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "1b046093-c97c-4d31-83fe-86686b39adbd",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "58e23a35-1eee-48cf-a4a5-b9740254656f",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f395bb83-7fd2-42b8-962c-f6b2421611f8",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "c387e513-d201-4ccf-a65f-62a92b1a92b9",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "e762fee1-80ae-4864-ae77-2c809bae9ba6",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "d4b35045-f903-46e6-bc5d-abc589e9150e",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "058a642f-90ef-4fed-8117-993e81c217ee",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "31217bf0-8258-42a5-a936-3c3f0e468eca",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "b593feae-a686-4d97-9d20-0c62a0e65fb6",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "d254dc17-35b1-407f-a392-d56969cde1b4",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "640d44eb-04e0-470a-8445-88e7de2e862c",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "d2e05481-0fac-457a-83e0-b2e2efdb9762",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "96cdc9bc-b43d-4a9c-97ec-6336c50eb5fe",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "0bd510b7-6dd7-45ad-9e2e-683a2e98db24",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "fceaee75-2ab4-4fc6-a020-c91666886399",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "28d1a8ec-05df-462d-a89e-4df6125182af",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "c0ac56d7-d698-4ebf-9de5-abf6393f695b",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "5ccc3444-5d05-467e-9eeb-635e156b8bf9",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "3c1f27af-d33f-4e39-98a2-3198ab872486",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "65608699-22b5-4e39-bb31-eb4e77add104",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "c08cc41c-7778-493b-89f5-a02744dcd04c",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "178f091c-c548-4bbf-894f-0ad03b51539c",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "d6726725-5e69-43dd-84a8-25dbad2e6da3",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "03dfbe10-1daf-4cba-8212-dd10f539e078",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "4505045c-9d8d-49c1-a881-30be9a686e15",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "8e586466-6920-4d97-a192-24474558eb1d",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f163113c-a11c-49bf-8409-59b421db9ea2",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "cb841665-e00d-4d22-aa56-2b08d2ded81c",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "76b53c62-ddf7-4dda-bc52-43f11f061541",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "b5f30f4a-17f5-4d97-94c8-634919207312",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "6fcc14e9-eda2-480c-9dd2-90bd05b29007",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "aa2578a5-b39f-471d-8f2e-64f93f05a50c",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "816f3a67-75eb-460d-aa91-4bab4d5d10e8",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "9b41f1b1-2331-44d2-a5a8-cf7f18e89776",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "5f0d7869-bd3c-43e0-9b1a-14b9c5506855",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "b910b3db-1824-4319-89c3-1d5fa647480d",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f6f9dc78-0638-428e-8aa5-90cd3a7d9aaf",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "0601e796-dd4b-4498-ba3b-39335f2d9b8b",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "a9000717-a43c-498d-86e7-863b82139ad0",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "edf6ca78-fc25-4788-8335-023bbb3cd62c",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "5fac499d-95ff-4c2d-8ece-04d0af28bf2a",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "0f8d1c96-866e-4dd9-af85-d5620f752d7f",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "e3b1fa34-4a0d-49f8-9866-3bc19401bb5f",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "631b9e95-1d36-4c0e-86a5-b7f18ee0b206",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "9da32691-a86c-427f-95d9-8cb303efcb7c",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "cc6dd149-527b-4b6a-925e-fbad46181a4c",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "1b904c11-5de9-46e1-90fa-579ded542669",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "63ddae7d-633b-4d8c-9d03-308e0e70823e",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "29a0c39c-7025-434e-bd06-c957b4f1d111",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "829514b5-3961-4b42-9683-457801f2f51b",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "3d6b141c-9d17-484f-9424-ef8cfedf6420",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "08771ba1-e9bc-4813-b283-457039295662",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "e4604254-c265-41a3-8fed-b69c41f355aa",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "90a5a9c1-bec1-479d-9c4b-20290ffcf467",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "49273a08-7d10-40bb-98d0-b2d8fd9eb6f8",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "022b038c-eb9a-4b54-9556-ab9be867746d",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "89b3e625-22d8-4ecf-879e-835bf447bb80",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "44876df5-d93a-405f-865e-013d9885b2af",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "94177846-5fd0-4060-8c9b-229e493f0a10",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "7ed8db81-32f3-4136-bfc1-19c373e7714e",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "99d30ce0-497c-41cb-973c-7d187ce1ea21",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "590eddaf-aa91-4836-9544-81a168f5a674",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "0ce996c2-f911-4eaf-9c86-c272218f4f88",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f4e64e08-66d5-4508-8bc7-71e8df8a8395",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "9f911aa6-6139-4a32-8b45-b91c1583afa7",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "3337c65f-92ed-4050-b124-1d8c904a8802",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "21df28c1-8e40-4859-b1b0-c243b4202476",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "9868f486-f715-4866-86c3-b8cfad67faf9",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "ba2b98a1-ae45-4448-8d5a-efbf942a4e7d",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "aefed425-6996-4fab-8db1-cbed67b8d774",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "264ac2af-91d7-4c35-9e60-c97c434e7cda",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "d781e2ab-5b36-4b35-b990-c43f68504717",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f0f67c8e-ea7b-4151-8f5e-ff7f12edd1fb",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "27872ed3-ccf2-4be5-993b-4cc9950b3bb5",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "38601019-56b3-4cf4-bf34-dd5f204c560c",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "aad09c23-611d-41e6-8994-980b3f3720f5",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "4ba19bc4-eae9-4419-be6b-18d7b801990c",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "ae014d61-c3c7-4d4b-839d-38fe68642c6f",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "125a531f-5dd6-4b3f-abd2-fe6254e29fa7",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "735043bc-10a6-4fe8-98e5-f5c68c46503f",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "2c35ff62-9194-4db9-81ff-527239a4d5c1",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "9ef1004b-5ac6-4fdd-b759-228fa95c87b3",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "5414922d-685d-4e5d-8b05-ed3459d2a9be",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "a7351e78-93bb-46e5-9329-4544518baf46",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "2f855fe7-0193-427c-a7bb-83f5d442a8e7",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "d0121f6b-e183-4fc1-b2c9-d4c6173a13df",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "66c956eb-693d-426a-92ca-fb4581d257c4",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "8d93d9b4-6ce9-483a-a754-6f3791f81e24",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "1d3c8a31-9e30-4e97-b919-ad30a8ef7c63",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f73a528a-7bc6-41d4-ac76-231026cac42c",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "d598fe4f-9036-40e1-adeb-9a6c31d5b77b",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "28071664-3ab9-4a4a-aafe-9c4129cb3bde",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "09921db4-9b34-4a83-b5bc-f56d1c389700",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f4f91d6b-400d-41ea-bad5-741e855362c5",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "0a4c7779-439e-4676-82da-2cf6d1220e38",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "82a8ac0d-92ff-447c-b11d-59fba58543a9",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "06297363-40b8-4ef4-a416-593a71f52dbd",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "baba84b5-5adb-4f5c-a4c4-21d4f88ec3fe",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "5682a2ac-6de5-4e3b-ba5e-93afb9a1b607",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f5e9e57a-93b2-4e83-97fb-6071d7a81600",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "d4bf7d6d-fb9b-4840-bf56-c3568ca4b82a",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "a46b1d63-e95b-4d6a-86c9-de4aeb2939e4",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "3c92b541-05e5-4ab5-9b88-c9631c3123cf",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "216cd52d-a390-4c73-ab04-3f4319c67e99",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "59681bcf-a9a6-42c6-8641-9844a77dd4e7",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "180ae601-c870-43a4-a2e7-fbc524326c77",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "a313a491-e806-45c9-be25-1dfec589d704",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "a3fab489-4cb7-4d50-a886-b35e30f6a14a",
+      "role": "assistant",
+      "name": null,
+      "recipient": "functions.exec",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": [""]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "message_id": "2b60b421-1225-4c77-84bf-0ac409534f63",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "24acce95-3444-4c0f-8b5f-1833b801d829",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "ff22dc0c-9b9a-40ae-af4b-e8513a90600f",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "4d2a8390-b967-4a53-a7ea-9bd1656bf652",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "497676f1-7ac7-4d77-8ea7-43ee6dd1a625",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "ce632933-f28e-4150-b95a-25719a178fb6",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "975e944c-328b-4325-8560-3ef68c91c19b",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "9252eeea-2f0a-4da0-a0f1-5770642b64e5",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "c88e7ee9-e62b-4e84-8406-a04482199092",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "452d4dc4-4a2b-49be-8727-84d7d3b0e951",
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "460ca353-0ea8-415e-bc9e-89d4159bcb6a",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "93c28932-87ff-4ea7-9307-57b65ee48ca8",
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "66b72496-b359-4368-910b-b0f2348906f6",
+      "role": "tool",
+      "name": "functions.exec",
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "message_id": "f2faeac7-6e73-4094-ac5c-0a1d14dfc2b9",
+      "role": "assistant",
+      "name": null,
+      "recipient": "all",
+      "channel": "final",
+      "content": {
+        "content_type": "text",
+        "parts": [
+          "За фактичною реалізацією на цьому commit (`989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3`) це **не knowledge graph для LLM і не шар spec-driven development у вузькому сенсі**. Найточніше: **архітектурна специфікація + pattern language для керування системами, де LLM/модель бере участь у consequential runtime decisions**.\n\n### Що саме реалізовано\n\n1. **Центральний об'єкт — Thinking System.**  \n   UA визначає його як software system, де хоча б одна *Consequential Runtime Responsibility* частково залежить від probabilistic **Model Judgment**. Це може бути навіть проста модельна інтеграція; агентність, multi-agent orchestration чи dynamic routing не є необхідними.  \n   `SPECIFICATION.md`, `00-doctrine/uncertainty-in-the-controlled-object.md`, `00-doctrine/model-judgment-placement.md`.\n\n2. **Є формальна архітектурна модель control loop.**  \n   Репозиторій розкладає її на чотири *логічні capability families*:\n   - Constraints + Constraint Realizations;\n   - Sensors + evidence;\n   - Controllers + decision authority;\n   - Actuators + corrective action.\n\n   Причому це **не обов'язково чотири сервіси**: функції можуть бути розподілені між application code, platform services, evaluation systems, human workflows, release processes тощо.  \n   `README.md`, `02-ai-control-plane/README.md`.\n\n3. **Model Judgment має власну функціональну таксономію.**  \n   Реалізація розрізняє:\n   - Input Interpretation;\n   - Decision Logic;\n   - Output Mediation.\n\n   Це не pipeline і не обов'язкова трьохшарова архітектура — це спосіб локалізувати, **де саме probabilistic judgment змінює поведінку системи**.  \n   `00-doctrine/model-judgment-placement.md`.\n\n4. **Spec-driven aspect тут є, але він не є суттю системи.**  \n   Специфікація задає Requirements, Constraints, authority, Operating Envelope, DoR/DoD, Release Gate, reassessment тощо, а conformance описує, що система має вміти показати. Але сам репозиторій прямо говорить, що UA **не замінює Agile/Scrum/DevOps/QA/SDLC** і не є обов'язковим development process.  \n   `SPECIFICATION.md`.\n\n5. **Knowledge graph як runtime-механізм не видно.**  \n   Навпаки, структура repository — це звичайна ієрархія документів: `00-doctrine/`, `01-patterns/`, `02-ai-control-plane/`, `03-reference-architectures/`, `04-failure-modes/`, research тощо. Є cross-links, `canonical_for`, glossary та repository-intelligence machinery, але з прочитаних authoritative sources немає підстав називати UA «knowledge graph для LLM». Навіть Repository Intelligence описується як допоміжний маршрут пошуку/owner discovery, а не як сутність самої UA-архітектури.\n\n### Тобто я б описав це так\n\n**LLM/AI layer:** *Model Judgment*  \n↓  \n**архітектурна проблема:** як контролювати consequential behavior, який не можна повністю задати deterministic code  \n↓  \n**UA:** Constraints → realization → sensing/evidence → decision authority → actuation → reassessment  \n↓  \n**lifecycle:** organization → project → delivery → runtime.\n\nОтже, **UA — це control-oriented architecture/specification framework для AI-mediated software**, з окремими patterns і lifecycle. Його можна застосовувати при spec-driven development, але **воно саме не є просто “spec-driven development layer”**.\n\n**Прочитані джерела:** `AGENTS.md`, `.github/tests/repository_intelligence/AB-EVALUATION.md`, `README.md`, `SPECIFICATION.md`, `00-doctrine/uncertainty-in-the-controlled-object.md`, `00-doctrine/model-judgment-placement.md`, `00-doctrine/glossary.md`, `02-ai-control-plane/README.md` — усі на вказаному study ref.\n\n**Capture note:** inspected ref `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3`. GitHub connector повернув повні тексти для основних джерел; окремі великі multi-file responses були transport-truncated, тому я не трактував їхні обрізані частини як доказ. У Treatment застосовано нормальний RI route; для цієї відповіді достатньо було читання відомих authoritative owners, а RI compact surface не був потрібний, тому висновок спирається на безпосередньо прочитані джерела. Це не є оцінкою v11 transport/cost evidence."
+        ]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    }
+  ],
+  "organizer_source_observation": {
+    "commit_sha": "989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3",
+    "endpoint": "https://api.github.com/repos/UncertaintyArchitectureGroup/uncertainty-architecture/branches/main",
+    "meaning": "Organizer observation after receipt, not proof of source state inside the tested session.",
+    "observed_at": "2026-09-18T05:33:56.390Z"
+  }
+}

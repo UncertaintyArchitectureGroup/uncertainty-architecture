@@ -1,0 +1,492 @@
+{
+  "source_url": "https://chatgpt.com/share/6aabc837-7d0c-83eb-9c06-7fe0045bb65b",
+  "retrieved_at": "2026-09-17T11:04:35.383819+00:00",
+  "scope": "Selected public fields from the initial SMOKE-01 exchange only. System messages, private reasoning and later screenshot discussion are excluded. Plugin redactions are preserved. This is an extracted share snapshot, not unredacted connector output or a primary run record.",
+  "conversation_metadata": {
+    "default_model_slug": "auto",
+    "is_temporary_chat": false,
+    "is_do_not_remember": false,
+    "memory_scope": "global_enabled"
+  },
+  "model_metadata": {
+    "slug": "gpt-5-6",
+    "title": "GPT-5.6 Luna"
+  },
+  "messages": [
+    {
+      "role": "user",
+      "name": null,
+      "recipient": "all",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": [
+          "Experiment arm: RI-AB-TREATMENT\nStudy repository: UncertaintyArchitectureGroup/uncertainty-architecture\nRepository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture\nStudy ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3\nTask ID: SMOKE-01\nThis is an unscored client/transport rehearsal, not a primary A/B task. Use only the GitHub connector for repository access. Do not modify the repository or use a local checkout, shell retrieval, other chats, Project files, or experiment-branch materials. If GitHub access is unavailable, report that and stop rather than silently changing tools. Report any prior repository context already visible to you; do not claim to have verified hidden Memory settings.\nRead root AGENTS.md in full at the Study ref. Follow its benchmark clause, the referenced A/B protocol, the operational connector RI route and applicable scoped instructions. Direct repository reads must establish the Study ref; do not substitute a newer main commit.\nFor this transport probe only, exercise ordinary repository search, an exact-ref file read, and an attempt to obtain and verify the complete compact RI surface using the normal checkout/blob freshness evidence. If RI is unavailable, stale, truncated or unverifiable, record that condition and fall back to authoritative files. Do not present a successful partial read as verified complete delivery.\nTask: Find the repository documents that state which licenses apply to documentation and code. Briefly summarize what those documents say and cite the exact source paths. No external legal assessment is requested.\nReturn the short answer and a separate capture note listing the visible GitHub calls in order: operation, resource, ref and success/failure. Preserve the actual visible tool transcript where the client supports it. Include returned UTF-8 byte counts or input tokens only if actually exposed/measurable from complete returned content; otherwise write \"unavailable\". Do not estimate traffic from repository file sizes. State the verified checkout identity, RI delivery outcome, any visible truncation/access limitation and whether a complete tool capture is available. Do not include private reasoning."
+        ]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.read_resource",
+      "channel": "commentary",
+      "content": {
+        "content_type": "code",
+        "language": "json",
+        "text": "{\"uri\":\"/response/turn9\",\"start_line\":1,\"num_lines\":100}"
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.read_resource",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "api_tool.call_tool",
+      "channel": null,
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "tool",
+      "name": "api_tool.call_tool",
+      "recipient": "all",
+      "channel": "commentary",
+      "content": {
+        "content_type": "text",
+        "parts": ["The output of this plugin was redacted."]
+      },
+      "model_metadata": {}
+    },
+    {
+      "role": "assistant",
+      "name": null,
+      "recipient": "all",
+      "channel": "final",
+      "content": {
+        "content_type": "text",
+        "parts": [
+          "## Short answer\n\nAt the verified study checkout `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3`, the repository states a dual-license model:\n\n- **Documentation / specifications / architectural doctrine / diagrams / operating-model material:** **Creative Commons Attribution 4.0 International (CC BY 4.0)**. The governing summary is `LICENSING.md`, with the full license text in `LICENSE-DOCS.md`. fileciteturn13file0 fileciteturn14file0\n- **Code / scripts / reference implementations / executable artifacts:** **Apache License 2.0**. The governing summary is `LICENSING.md`, with the full license text in `LICENSE-CODE.md`. fileciteturn13file0 fileciteturn15file0\n\nThe repository tree at the study ref explicitly contains `LICENSING.md`, `LICENSE-DOCS.md`, and `LICENSE-CODE.md`. fileciteturn9file0\n\n### Capture note\n\n**Prior repository context:** none was visible before this run, apart from the repository/task metadata in the prompt. No hidden Memory setting was inspected or verified.\n\n**Verified checkout identity:** study ref `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3`; the recursive tree response independently reported that same SHA as its tree identity. fileciteturn9file0\n\n| # | Operation | Resource | Ref | Result |\n|---|---|---|---|---|\n| 1 | `fetch` | repository tree | `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3` | success; response display truncated |\n| 2 | `fetch_file` | `AGENTS.md` | study SHA | success, but display truncated |\n| 3 | `fetch_file` | `AGENTS.md` | study SHA | success; attempted fuller read |\n| 4 | `search` | `license` | default branch / no explicit ref | success, 0 results |\n| 5 | `fetch_file` | `.github/REPOSITORY-INTELLIGENCE.md` | study SHA | success, display truncated |\n| 6 | `search` | `Agent Context Surface` | default branch / no explicit ref | success, 0 results |\n| 7 | `fetch_file` | `.github/tests/repository_intelligence/AB-EVALUATION.md` | study SHA | success |\n| 8 | `fetch_file` | `.github/AGENTS.md` | study SHA | success |\n| 9 | `fetch` | recursive Git tree | study SHA | success; returned `truncated:false` and exposed compact-surface blob identity |\n| 10 | `fetch_blob` | `assets/repository-intelligence/agent-context.json` | blob `1b1c3f07ed7202d566fca1dda0004f89cb6e5219` | returned content; complete delivery could not be cryptographically verified from exposed measurements |\n| 11 | `fetch_file` | `LICENSING.md` | study SHA | success |\n| 12 | `fetch_file` | `LICENSE-DOCS.md` | study SHA | success, display truncated |\n| 13 | `fetch_file` | `LICENSE-CODE.md` | study SHA | success |\n| 14 | `fetch_blob` | `AGENTS.md` | blob `0652e812be1474f61081162c19b34bdbbc122f98` | success; full content visibly returned |\n| 15 | `fetch_blob` | `LICENSE-DOCS.md` | blob `4ea99c213c5c0c005ae4e80df8e52169d06896ec` | success; full content visibly returned |\n| 16 | `fetch_blob` | `LICENSE-CODE.md` | blob `7a4a3ea2424c09fbe48d455aed1eaa94d9124835` | success; full content visibly returned |\n\n**RI delivery:** the compact surface was located at `assets/repository-intelligence/agent-context.json`, and its blob identity was established from the study-ref tree. Its returned content appeared structurally complete, including its source-identity and producer fields, but the client did **not** expose a measurable complete-returned-content SHA-256/byte count with which to satisfy the protocol's `verified` criterion. Therefore I recorded RI as **unverified**, not successful verified delivery, and used authoritative license files as fallback. The A/B protocol explicitly requires fallback for missing, stale, or unverifiable RI. fileciteturn7file0\n\n**Visible limitations:** several `fetch_file` displays were truncated by the client response budget. The subsequent blob reads for `AGENTS.md`, `LICENSE-DOCS.md`, and `LICENSE-CODE.md` visibly returned their complete content. No repository modification, local checkout, shell retrieval, or non-GitHub repository access was used.\n\n**Traffic measurements:** returned UTF-8 byte counts / input tokens: **unavailable**. No estimates were made from repository file sizes.\n\n**Complete tool capture:** the client exposes the GitHub calls and returned tool transcript in this conversation; the individual truncated displays are preserved as shown above rather than reconstructed or estimated."
+        ]
+      },
+      "model_metadata": {
+        "model_slug": "gpt-5-6",
+        "resolved_model_slug": "gpt-5-6",
+        "default_model_slug": "auto"
+      }
+    }
+  ]
+}

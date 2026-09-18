@@ -1,0 +1,143 @@
+{
+  "scope": "Forced task-independent RI inventory, four convenience tasks, one realization per condition; not a strict v11 evaluation",
+  "source_commit": "989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3",
+  "scores_sha256": "814bbe444d5bda770c5fbeed0d16817c3efcb4b392ce46f840c35c23b32d2d66",
+  "pairs": [
+    {
+      "task_id": "N1",
+      "conditions": {
+        "A": {
+          "run_id": "R01",
+          "response_id": "6a0d6eb3a1b9",
+          "quality": 2,
+          "serious_error": false,
+          "reader_operations": 21,
+          "reader_response_utf8_bytes": 113118,
+          "initial_message_utf8_bytes": 2988,
+          "source_plus_initial_message_utf8_bytes": 116106
+        },
+        "B": {
+          "run_id": "R02",
+          "response_id": "8f2b5f831b1f",
+          "quality": 2,
+          "serious_error": false,
+          "reader_operations": 22,
+          "reader_response_utf8_bytes": 111404,
+          "initial_message_utf8_bytes": 10192,
+          "source_plus_initial_message_utf8_bytes": 121596
+        }
+      },
+      "quality_outcome": "tie"
+    },
+    {
+      "task_id": "N2",
+      "conditions": {
+        "A": {
+          "run_id": "R04",
+          "response_id": "ebaf28cc5baa",
+          "quality": 1,
+          "serious_error": false,
+          "reader_operations": 35,
+          "reader_response_utf8_bytes": 199146,
+          "initial_message_utf8_bytes": 3008,
+          "source_plus_initial_message_utf8_bytes": 202154
+        },
+        "B": {
+          "run_id": "R03",
+          "response_id": "6fc23c4c6b15",
+          "quality": 1,
+          "serious_error": false,
+          "reader_operations": 35,
+          "reader_response_utf8_bytes": 203413,
+          "initial_message_utf8_bytes": 10212,
+          "source_plus_initial_message_utf8_bytes": 213625
+        }
+      },
+      "quality_outcome": "tie"
+    },
+    {
+      "task_id": "C1",
+      "conditions": {
+        "A": {
+          "run_id": "R05",
+          "response_id": "1c6b9e94d68d",
+          "quality": 2,
+          "serious_error": false,
+          "reader_operations": 35,
+          "reader_response_utf8_bytes": 205301,
+          "initial_message_utf8_bytes": 3165,
+          "source_plus_initial_message_utf8_bytes": 208466
+        },
+        "B": {
+          "run_id": "R06",
+          "response_id": "675fcf491d47",
+          "quality": 2,
+          "serious_error": false,
+          "reader_operations": 37,
+          "reader_response_utf8_bytes": 222812,
+          "initial_message_utf8_bytes": 10369,
+          "source_plus_initial_message_utf8_bytes": 233181
+        }
+      },
+      "quality_outcome": "tie"
+    },
+    {
+      "task_id": "C2",
+      "conditions": {
+        "A": {
+          "run_id": "R08",
+          "response_id": "62a514702930",
+          "quality": 2,
+          "serious_error": false,
+          "reader_operations": 35,
+          "reader_response_utf8_bytes": 209215,
+          "initial_message_utf8_bytes": 3302,
+          "source_plus_initial_message_utf8_bytes": 212517
+        },
+        "B": {
+          "run_id": "R07",
+          "response_id": "ee826fef2406",
+          "quality": 2,
+          "serious_error": false,
+          "reader_operations": 36,
+          "reader_response_utf8_bytes": 214697,
+          "initial_message_utf8_bytes": 10506,
+          "source_plus_initial_message_utf8_bytes": 225203
+        }
+      },
+      "quality_outcome": "tie"
+    }
+  ],
+  "totals": {
+    "A": {
+      "reader_operations": 126,
+      "reader_response_utf8_bytes": 726780,
+      "initial_message_utf8_bytes": 12463,
+      "source_plus_initial_message_utf8_bytes": 739243,
+      "initial_ri_utf8_bytes": 0
+    },
+    "B": {
+      "reader_operations": 130,
+      "reader_response_utf8_bytes": 752326,
+      "initial_message_utf8_bytes": 41279,
+      "source_plus_initial_message_utf8_bytes": 793605,
+      "initial_ri_utf8_bytes": 28504
+    }
+  },
+  "family_decisions": [
+    {
+      "family": "navigation",
+      "task_ids": ["N1", "N2"],
+      "provisional_benefit_gate_passed": false
+    },
+    {
+      "family": "application",
+      "task_ids": ["C1", "C2"],
+      "provisional_benefit_gate_passed": false
+    }
+  ],
+  "decision": "No incremental quality benefit demonstrated; keep production guidance unchanged",
+  "model_tokens": null,
+  "latency": null,
+  "monetary_cost": null
+}

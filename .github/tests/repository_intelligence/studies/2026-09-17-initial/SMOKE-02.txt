@@ -1,0 +1,17 @@
+Experiment arm: RI-AB-TREATMENT
+Study repository: UncertaintyArchitectureGroup/uncertainty-architecture
+Repository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture
+Study ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3
+Task ID: SMOKE-02
+
+Unscored client-access rehearsal, outside the primary A/B sample.
+
+First check whether a callable GitHub connector is available in this session. Discover its tools if necessary. If none is available, return only "BLOCKED: GitHub connector unavailable" and stop. Do not substitute Google/web search, browsing, a local checkout or shell access. If repository access fails, report the actual error and stop without answering from memory.
+
+Through the GitHub connector, read root AGENTS.md in full at the Study ref and follow its benchmark clause, referenced A/B protocol, operational RI route and applicable scoped instructions. Keep this read-only. Do not use other chats, Project files or experiment-branch material. Disclose prior repository context if it is already visible; do not claim to verify hidden settings.
+
+For this probe, exercise ordinary repository search, exact-ref source reading and an attempt to obtain and verify the complete compact RI surface against the normal checked-checkout/blob evidence. If only RI is missing, truncated or unverifiable, fall back to ordinary GitHub source reads at the Study ref. A requested SHA or search-query SHA is not verified read evidence.
+
+Task: Find the repository documents that state which licenses apply to documentation and code. Briefly report their contents and exact source paths; no external legal assessment is requested.
+
+Return the answer plus the actual visible GitHub call sequence, resources, refs, errors and RI verification outcome. Keep requested ref separate from demonstrated read identity. Include tool captures where available; a narrative reconstruction is not a raw trace. Report bytes/tokens only when actually observable from returned data, otherwise "unavailable". Do not infer traffic from file sizes or fabricate missing evidence. Do not include private reasoning.

@@ -1,0 +1,15 @@
+Experiment arm: RI-AB-TREATMENT
+Study repository: UncertaintyArchitectureGroup/uncertainty-architecture
+Repository URL: https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture
+Study ref: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3
+Task ID: SMOKE-01
+
+This is an unscored client/transport rehearsal, not a primary A/B task. Use only the GitHub connector for repository access. Do not modify the repository or use a local checkout, shell retrieval, other chats, Project files, or experiment-branch materials. If GitHub access is unavailable, report that and stop rather than silently changing tools. Report any prior repository context already visible to you; do not claim to have verified hidden Memory settings.
+
+Read root AGENTS.md in full at the Study ref. Follow its benchmark clause, the referenced A/B protocol, the operational connector RI route and applicable scoped instructions. Direct repository reads must establish the Study ref; do not substitute a newer main commit.
+
+For this transport probe only, exercise ordinary repository search, an exact-ref file read, and an attempt to obtain and verify the complete compact RI surface using the normal checkout/blob freshness evidence. If RI is unavailable, stale, truncated or unverifiable, record that condition and fall back to authoritative files. Do not present a successful partial read as verified complete delivery.
+
+Task: Find the repository documents that state which licenses apply to documentation and code. Briefly summarize what those documents say and cite the exact source paths. No external legal assessment is requested.
+
+Return the short answer and a separate capture note listing the visible GitHub calls in order: operation, resource, ref and success/failure. Preserve the actual visible tool transcript where the client supports it. Include returned UTF-8 byte counts or input tokens only if actually exposed/measurable from complete returned content; otherwise write "unavailable". Do not estimate traffic from repository file sizes. State the verified checkout identity, RI delivery outcome, any visible truncation/access limitation and whether a complete tool capture is available. Do not include private reasoning.

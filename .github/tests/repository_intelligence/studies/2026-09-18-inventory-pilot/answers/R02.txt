@@ -1,0 +1,17 @@
+Основний власник питання — **Project Control Architecture and Viability Review**: саме цей патерн володіє рішенням про життєздатність, авторизацію та повторну авторизацію проєкту. Успішні перевірки моделі самі по собі не встановлюють допустимості продовження: відповідальність охоплює також людські повноваження, операційну спроможність і економіку контролю. Межу повноважень прямо визначає [§3 «Decision ownership»](01-patterns/project-control-architecture-and-viability-review.md#3-decision-ownership).
+
+**Основне джерело має статус `draft-normative`.** Потрібні розділи вже існують:
+
+- [§13 «Human Authority and capacity»](01-patterns/project-control-architecture-and-viability-review.md#13-human-authority-and-capacity) відповідає за реальну спроможність людей приймати рішення: інформацію, компетентність, час, права втручання, звичайний і піковий обсяг погоджень, затримку, навантаження резервного шляху та інцидентів.
+- [§14 «Control economics»](01-patterns/project-control-architecture-and-viability-review.md#14-control-economics) охоплює витрати на погодження, ескалацію, резервну роботу, хибні блокування, реагування, компенсацію та повторний перегляд.
+- [§15 «Project decision»](01-patterns/project-control-architecture-and-viability-review.md#15-project-decision) фіксує рішення, умови, межі, уповноваженого суб’єкта та чинність; [§17 «Runtime evidence and reauthorization»](01-patterns/project-control-architecture-and-viability-review.md#17-runtime-evidence-and-reauthorization) вимагає повторної авторизації, коли докази спростовують істотну основу дозволу, зокрема спроможність чи економіку. Можливі рішення включають перепроєктування, відкладення та No-Go.
+
+Три допоміжні джерела уточнюють різні межі відповідальності:
+
+1. **Nested Control Lifecycle**, [§7 «Reassessment logic»](00-doctrine/nested-control-lifecycle.md#7-reassessment-logic), статус `draft-normative`. Володіє маршрутизацією перегляду: локально виправне навантаження залишається на рівні delivery; деградація людського погодження чи fallback і вихід витрат за дозволені межі ведуть до повторної авторизації проєкту. Зміна спільної організаційної спроможності потребує організаційного перегляду.
+2. **Thinking System Review**, [§13 «Release Gate»](01-patterns/thinking-system-review.md#13-release-gate) і [§14 «Runtime operation and reassessment»](01-patterns/thinking-system-review.md#14-runtime-operation-and-reassessment), статус `draft-normative`. Володіє дозволом на конкретне розгортання та локальним переглядом. Release Gate оцінює також операційну спроможність у межах проєктної авторизації й може повернути питання на проєктний рівень.
+3. **Failure Modes and Anti-Patterns**, [§10 «Economic and capacity failure»](04-failure-modes/README.md#10-economic-and-capacity-failure), статус **draft-normative taxonomy; приклади — informative**. Класифікує саме описаний механізм: перевантаження людей, колапс fallback, витрати й компенсації, що руйнують економіку. Це діагностична підтримка, а не окремий власник дозволу продовжувати.
+
+Мейнтейнерові слід спрямувати змістовні уточнення до §§13–15 і 17 основного патерна. Конкретного носія права рішення слід визначити в проєктному записі за §15. У допоміжних джерелах достатньо перехресних посилань, якщо пропозиція лише пояснює цей сценарій і не змінює їхніх власних правил маршрутизації, релізу або класифікації. Окремий паралельний протокол життєздатності тут не потрібний.
+
+Карту звірено зі знімком `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3`; репозиторій не змінено.
