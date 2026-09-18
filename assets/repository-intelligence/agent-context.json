@@ -5320,11 +5320,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "075b50580686b718a1646483219eb732ab1e0c6f225b23f8140cfeed1818de2e",
+    "digest": "4efa1a2349ad39fc27562f522914c9b67500659e45a6a316df3f8a31c5edc9ed",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 124,
+    "input_count": 125,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5473,6 +5473,10 @@
       {
         "identity_mode": "content",
         "path": ".github/tests/repository_intelligence/studies/2026-09-17-initial/README.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/studies/2026-09-18-inventory-pilot/RESULTS.md"
       },
       {
         "identity_mode": "existence",

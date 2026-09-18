@@ -1,0 +1,17 @@
+Основний власник питання — **Project Control Architecture and Viability Review**, тобто огляд архітектури контролю та життєздатності проєкту. Його [§3 «Decision ownership»](01-patterns/project-control-architecture-and-viability-review.md#3-decision-ownership) прямо закріплює відповідальність за операційну спроможність, економіку контролю, авторизацію та повторну авторизацію проєкту. Статус документа — **draft-normative**, maturity — **active**: це чинний власник пропонованих норм, але не стабільна затверджена специфікація.
+
+Уточнення пропозиції слід спрямувати саме до його розділів:
+
+- [§13 «Human Authority and capacity»](01-patterns/project-control-architecture-and-viability-review.md#13-human-authority-and-capacity) — реальність людських повноважень, звичайний і піковий обсяг погоджень, затримки, навантаження резервного шляху та інцидентів.
+- [§14 «Control economics»](01-patterns/project-control-architecture-and-viability-review.md#14-control-economics) — повна вартість контролю, включно з людським розглядом, втраченою користю, резервною роботою, реагуванням, компенсацією та переоцінкою.
+- [§15 «Project decision»](01-patterns/project-control-architecture-and-viability-review.md#15-project-decision) і [§17 «Runtime evidence and reauthorization»](01-patterns/project-control-architecture-and-viability-review.md#17-runtime-evidence-and-reauthorization) — допустимі рішення та повторна авторизація, коли спроможність або економіка спростовують підстави попереднього дозволу. Тут передбачено умови, перепроєктування, відкладення та No-Go. Конкретні повноваження ухвалення рішення записуються в огляді; документ не призначає універсальної посади чи комітету.
+
+Три допоміжні джерела розмежовують суміжну відповідальність:
+
+1. **Nested Control Lifecycle**, [§7 «Reassessment logic»](00-doctrine/nested-control-lifecycle.md#7-reassessment-logic), — **draft-normative, active**. Володіє маршрутизацією переоцінки: локально виправне навантаження належить delivery; деградація людської чи резервної спроможності та вихід вартості за межі авторизації — рівню проєкту. Зміна спільної організаційної спроможності спрямовується на організаційний перегляд. Тут достатньо посилання; уточнення потрібне лише щодо меж між рівнями.
+
+2. **Thinking System Review**, [§12 «Definition of Done»](01-patterns/thinking-system-review.md#12-definition-of-done), [§13 «Release Gate»](01-patterns/thinking-system-review.md#13-release-gate), §14 «Runtime operation and reassessment», — **draft-normative, active**. Володіє повнотою реалізації й доказів, дозволом конкретного розгортання та локальною переоцінкою. Успішні перевірки не замінюють оцінки операційної спроможності; delivery не може прийняти спростовані проєктні припущення без проєктного перегляду. Для описаного питання достатньо посилання на основного власника.
+
+3. **Failure Modes and Anti-Patterns**, [§10 «Economic and capacity failure»](04-failure-modes/README.md#10-economic-and-capacity-failure), — **draft-normative, active** для таксономії; приклади **informative**. Розділ уже описує непосильний людський обсяг, колапс резервної спроможності та витрати, що знищують користь. Його відповідальність — класифікація механізму збою; він спрямовує до повторної авторизації, звуження, перепроєктування або No-Go. Достатньо перехресного посилання.
+
+Отже, обговорення має уточнювати наявне проєктне рішення та його підстави. Окремий паралельний набір правил у документації перевірок або каталозі збоїв дублював би вже визначеного власника.

@@ -1,0 +1,21 @@
+**Нову канонічну сутність «Єдиний паспорт запуску AI» ця пропозиція не обґрунтовує:** вона повторює вже розподілені рішення й створює конкуруюче джерело істини. Чинна модель має статус *draft-normative*; її межі та необов’язковість шаблонів визначає [специфікація](SPECIFICATION.md#7-conformance).
+
+| Відповідальність паспорта | Чинний власник і наявні поняття |
+|---|---|
+| Бізнесова доцільність | [Project Control Architecture and Viability Review](01-patterns/project-control-architecture-and-viability-review.md): результат, необхідність AI, альтернативи, економіка контролю, спроможність команди, Project Authorization та Architectural Veto. |
+| Дозволена автономія | [Проєктний огляд](01-patterns/project-control-architecture-and-viability-review.md#8-boundary-and-judgment-landscape): максимальна автономія, дозволені й заборонені повноваження. Delivery успадковує ці межі. |
+| Усі обмеження | [Project Constraint Architecture](01-patterns/project-control-architecture-and-viability-review.md#4-one-canonical-project-constraint-architecture): єдина проєктна база з ID, джерелами, сферою, припущеннями та повноваженнями зміни. Організаційні джерела підключаються посиланнями. |
+| Механізми виконання обмежень | [Thinking System Review](01-patterns/thinking-system-review.md#5-one-living-artifact-and-one-canonical-constraint-map): одна Constraint Realization Map із конкретними механізмами, версіями, поведінкою відмов і доказами. |
+| Результати перевірок | [DoD у Thinking System Review](01-patterns/thinking-system-review.md#12-definition-of-done): повнота реалізації та доказів; пов’язані результати тестів, оцінювань і перевірок операційної спроможності. |
+| Готовність реалізації | [Definition of Ready](01-patterns/thinking-system-review.md#10-definition-of-ready): окреме рішення про початок реалізації або обмеженого експерименту. |
+| Дозвіл на розгортання | [Release Gate](01-patterns/thinking-system-review.md#13-release-gate): рішення уповноваженої особи для конкретної сфери розгортання, активних версій, залишкового ризику й умов. |
+
+Варто зберегти й поняттєві межі: **Requirement** уже означає затверджений операційний контракт, **Operating Envelope** є його частиною. **Constraint** визначає дозволену межу, **Constraint Realization** реалізує її; Sensors дають докази, Controllers ухвалюють рішення, Actuators виконують дозволені зміни. Це визначено у [глосарії](00-doctrine/glossary.md) та [анатомії контролю](00-doctrine/control-loop-anatomy.md), а не потребує нового визначення в паспорті.
+
+Найменший узгоджений маршрут — використати [наявний проєктний шаблон](01-patterns/project-control-architecture-and-viability-review-template.md) для одного живого проєктного огляду та [шаблон Thinking System Review](01-patterns/thinking-system-review-template.md) для кожної обмеженої системи, функції або суттєвої зміни. Delivery посилається на версію проєктного дозволу й Constraint ID; не відтворює бізнесову аргументацію заново. Якщо потрібного поля справді бракує, спершу уточнюють відповідного власника, потім його шаблон.
+
+Project Authorization, DoR, DoD і Release Gate залишаються різними рішеннями. Delivery може звужувати межі, але не розширювати автономію чи послаблювати успадковане Hard Constraint. Нові докази спрямовують на локальний перегляд, Project Reauthorization або організаційний перегляд залежно від спростованої підстави — за [Nested Control Lifecycle](00-doctrine/nested-control-lifecycle.md#7-reassessment-logic).
+
+Назву «паспорт» можна використати для інформативного представлення або короткого навігаційного входу, бажано в [наявному індексі](01-patterns/README.md). Така сторінка лише маршрутизує до власників; шаблон відображає їхні правила, не додає незалежного протоколу, обов’язкового файла чи нового дозволу. Еквівалентні записи можуть залишатися в наявних системах; деталізація має бути пропорційною наслідкам і повноваженням.
+
+Перевірено commit `989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3`. Репозиторій не змінено.
