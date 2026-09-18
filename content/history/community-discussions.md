@@ -26,9 +26,11 @@ These entries are not independent endorsements. They are evidence that UA claims
 
 ## August–September 2026 — Thinking Systems public review
 
-The public discussion of *Thinking Systems — When the Controlled Object Changes* includes category-boundary questions, comparison with existing harness engineering, and practical concerns about evidence and human intervention. The [dated public-review intake](../research/notes/thinking-systems-public-review-2026-09.md) preserves source locators, attributed inputs, research-item routing and unverified coverage gaps.
+The public discussion of *Thinking Systems — When the Controlled Object Changes* includes category-boundary questions, comparison with existing harness engineering, and practical concerns about evidence and human intervention. Maximiliano Armesto also publicly shared the article after an earlier private pre-publication review; the resulting public thread includes discussion of evidence presentation and human-review capacity.
 
-The recorded inputs remain open questions or qualitative practitioner observations. No consensus, measured benefit or framework adoption is inferred. The separate [recognition ledger](external-recognition.md) records public reposts without turning critical discussion into endorsement.
+The [dated public-review intake](../research/notes/thinking-systems-public-review-2026-09.md) preserves source locators, attributed inputs and evidence limits. The earlier Armesto review remains a separate repository-only provenance record rather than being reframed as recognition.
+
+These public comments are research leads, not durable Research State Register transition evidence by themselves. No consensus, measured benefit, institutional adoption or framework validation is inferred.
 
 ## December 2025 — AI engineering as control theory
 
