@@ -1,8 +1,35 @@
+---
+title: Community Discussions and Public Stress Tests
+description: "Public critique and counterexamples concerning Uncertainty Architecture, including the Thinking Systems article and practitioner control questions."
+artifact_type: history-record
+status: informative
+maturity: active
+module: history
+topics:
+  - provenance
+  - evidence
+  - thinking-systems
+tags:
+  - ua/module/history
+  - ua/type/history-record
+  - ua/status/informative
+  - ua/topic/provenance
+  - ua/topic/evidence
+  - ua/topic/thinking-systems
+updated: 2026-09-18
+---
+
 # Community Discussions and Public Stress Tests
 
 This document records substantive public discussions that influenced how Uncertainty Architecture was explained, challenged, or refined.
 
 These entries are not independent endorsements. They are evidence that UA claims were exposed to practitioner critique, alternative proposals, and questions in public technical communities.
+
+## August–September 2026 — Thinking Systems public review
+
+The public discussion of *Thinking Systems — When the Controlled Object Changes* includes category-boundary questions, comparison with existing harness engineering, and practical concerns about evidence and human intervention. The [dated public-review intake](../research/notes/thinking-systems-public-review-2026-09.md) preserves source locators, attributed inputs, research-item routing and unverified coverage gaps.
+
+The recorded inputs remain open questions or qualitative practitioner observations. No consensus, measured benefit or framework adoption is inferred. The separate [recognition ledger](external-recognition.md) records public reposts without turning critical discussion into endorsement.
 
 ## December 2025 — AI engineering as control theory
 

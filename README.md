@@ -16,6 +16,14 @@ UA is designed primarily for small and medium-sized engineering organizations th
 
 In UA, **consequential** describes whether a runtime responsibility has material causal relevance to what the system does or affects, regardless of whether that responsibility is implemented deterministically or through Model Judgment. Thinking-System classification changes only when at least one such responsibility depends partly on probabilistic Model Judgment. The term **consequential** is not a synonym for high risk, harm, autonomy, regulation, or production readiness.
 
+## Latest publication, provenance and public review
+
+Read Vitalii Oborskyi's [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we) and the [repository PDF](content/research/publications/thinking-systems-when-the-controlled-object-changes.pdf).
+
+[Arkadiy Dobkin's public repost and extension](content/history/external-recognition.md#arkadiy-dobkin) and [Maximiliano Armesto's public discussion](content/history/external-recognition.md#maximiliano-armesto) are recorded alongside the separate [Thinking Systems formulation provenance](content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md). The [September 2026 public-review intake](content/research/notes/thinking-systems-public-review-2026-09.md) preserves substantive criticism and open tests, not only favorable reactions.
+
+See [Independent References and Recognition](content/history/external-recognition.md) for the full ledger and claim boundaries. Recognition and dialogue are not institutional endorsement, formal adoption or empirical validation.
+
 ## Why UA Exists
 
 Traditional software is engineered primarily as explicitly encoded behavior:

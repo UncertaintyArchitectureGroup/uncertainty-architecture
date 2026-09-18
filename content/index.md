@@ -1,5 +1,6 @@
 ---
 title: Uncertainty Architecture
+description: "Uncertainty Architecture research, Thinking Systems publications, formulation provenance, public critique and independent recognition."
 artifact_type: publishing-index
 status: informative
 maturity: active
@@ -7,20 +8,32 @@ module: publishing
 topics:
   - navigation
   - repository-architecture
+  - provenance
 tags:
   - ua/module/publishing
   - ua/type/publishing-index
   - ua/status/informative
   - ua/topic/navigation
+  - ua/topic/provenance
 canonical_for:
   - supporting-material-publishing-portal
-updated: 2026-07-26
+updated: 2026-09-18
 license: CC-BY-4.0
 ---
 
 # Uncertainty Architecture
 
 This page is the entry point for the repository's published supporting material. It is **not** a second specification or governance source.
+
+## Thinking Systems: publication, provenance and public review
+
+Read Vitalii Oborskyi's [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we), published August 27, 2026. The repository also holds a [PDF copy](research/publications/thinking-systems-when-the-controlled-object-changes.pdf).
+
+[Arkadiy Dobkin's public repost and extension](history/external-recognition.md#arkadiy-dobkin) and [Maximiliano Armesto's public discussion](history/external-recognition.md#maximiliano-armesto) are documented separately from the [provenance of the Thinking Systems formulation](research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md).
+
+The [September 2026 public-review intake](research/notes/thinking-systems-public-review-2026-09.md) preserves category counterexamples, harness-substitution questions and human-review evidence concerns alongside recognition. See the [complete recognition ledger](history/external-recognition.md) and [public discussion history](history/community-discussions.md).
+
+These records distinguish public recognition, intellectual provenance and open research questions. They do not establish institutional endorsement, formal adoption or empirical validation of UA.
 
 ## Canonical project sources
 

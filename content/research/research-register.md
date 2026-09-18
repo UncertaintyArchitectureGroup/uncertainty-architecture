@@ -19,7 +19,7 @@ tags:
 canonical_for:
   - research-state-register
 created: 2026-08-25
-updated: 2026-08-25
+updated: 2026-09-18
 license: CC-BY-4.0
 ---
 
@@ -42,7 +42,7 @@ Register state describes the **lifecycle of the research item**, not whether the
 - **Open** — the concern is identified and work has not yet reached a stable test or disposition.
 - **Under Validation** — a concrete formulation, terminology candidate, comparison, or hypothesis is being tested or challenged.
 - **Resolved** — the research question represented by this item has a current disposition or preserved provenance outcome; any framework effect is recorded separately where applicable.
-- **Superseded** — a later research item or formulation replaces this one while provenance is retained.
+- **Superseded** — a later research item or formulation replaces the current concern while provenance is retained.
 - **Rejected** — the item was deliberately tested or considered and is not being carried forward.
 
 A `Resolved` research item does **not** mean that a term, pattern, doctrine statement, or process has become normative. Likewise, an `Under Validation` item may concern a framework concept that is already active while testing only a narrower paper-level refinement or comparison.
@@ -73,6 +73,9 @@ Do **not** split every subclaim into its own ID. Subclaims that share provenance
 | `TS-CARRIER-001` | Material-relationship carrier sufficiency and proportional application | Artifact / process hypothesis | Article §5 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Complete Article §5 mapping and test whether existing records/tools can carry each material relationship without UA-specific duplicate artifacts or semantic loss |
 | `TS-COMP-001` | Four-horizon model relative to STAMP/STPA | Comparative hypothesis | Maximiliano Armesto review | Under Validation | Same review record; planned Article §6 landscape/substitution analysis | Perform bidirectional mapping and determine whether the four-horizon model adds useful lifecycle-decision specialization, merely renames existing semantics, or loses material relationships |
 | `TS-SUB-001` | Semantic substitution and reverse-mapping test for existing methods/compositions | Comparative method hypothesis | Article §6 blueprint synthesis | Open | [`open-engineering-specification-article-blueprint.md`](notes/open-engineering-specification-article-blueprint.md) | Test whether equivalent-or-stronger semantics can substitute for UA relationships and whether reverse mapping exposes relationships the UA-derived map omitted or distorted |
+| `TS-ECON-001` | Addressable-problem and domain-specific differentiation hypotheses | Economic hypothesis | Arkadiy Dobkin's public post-publication commentary | Open | [`thinking-systems-public-review-2026-09.md`](notes/thinking-systems-public-review-2026-09.md) | Test problem feasibility and net benefit against rules-only, human-led and strong generic baselines; test domain-specific differentiation rather than presume it |
+
+The [September 2026 public-review intake](notes/thinking-systems-public-review-2026-09.md) adds transition provenance for `TS-TERM-002`, `TS-SCOPE-001`, `TS-LIFE-001`, `TS-CARRIER-001` and `TS-SUB-001`. It supplies additional cases without changing their original provenance, owning analysis or existing lifecycle state. `TS-ECON-001` is a new open question, not an accepted framework claim. No source-to-framework decision is made by this intake.
 
 ## Machine-readable register
 
@@ -101,7 +104,10 @@ The block below is validated in CI. Human-readable rows above must express the s
       "origin_kind": "external-review",
       "provenance_record": "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Test the paper-level label and submit any canonical rename to separate framework terminology review."
+      "next_step": "Test the paper-level label and submit any canonical rename to separate framework terminology review.",
+      "transition_records": [
+        "content/research/notes/thinking-systems-public-review-2026-09.md"
+      ]
     },
     {
       "id": "TS-SCOPE-001",
@@ -114,7 +120,8 @@ The block below is validated in CI. Human-readable rows above must express the s
       "next_step": "Test whether fixed learned probabilistic functions and runtime judgment processes belong to one category without weakening the release-contract distinction; narrow or generalize the definition/thesis if necessary.",
       "transition_records": [
         "content/research/notes/thinking-systems-pre-publication-review-maximiliano-armesto.md",
-        "content/research/notes/thinking-systems-release-contract-scope-review.md"
+        "content/research/notes/thinking-systems-release-contract-scope-review.md",
+        "content/research/notes/thinking-systems-public-review-2026-09.md"
       ]
     },
     {
@@ -158,7 +165,10 @@ The block below is validated in CI. Human-readable rows above must express the s
       "origin_kind": "internal-synthesis",
       "provenance_record": "content/research/framework-traceability.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Validate the lifecycle ownership and authorization refinement before any status-bearing lifecycle change."
+      "next_step": "Validate the lifecycle ownership and authorization refinement before any status-bearing lifecycle change.",
+      "transition_records": [
+        "content/research/notes/thinking-systems-public-review-2026-09.md"
+      ]
     },
     {
       "id": "TS-CARRIER-001",
@@ -168,7 +178,10 @@ The block below is validated in CI. Human-readable rows above must express the s
       "origin_kind": "internal-synthesis",
       "provenance_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Complete Article 5 mapping and test the lightest credible carriers without semantic loss or duplicate UA-specific records."
+      "next_step": "Complete Article 5 mapping and test the lightest credible carriers without semantic loss or duplicate UA-specific records.",
+      "transition_records": [
+        "content/research/notes/thinking-systems-public-review-2026-09.md"
+      ]
     },
     {
       "id": "TS-COMP-001",
@@ -188,7 +201,20 @@ The block below is validated in CI. Human-readable rows above must express the s
       "origin_kind": "internal-synthesis",
       "provenance_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
       "owning_record": "content/research/notes/open-engineering-specification-article-blueprint.md",
-      "next_step": "Test equivalent-or-stronger semantic substitution and reverse mapping against the derived UA map."
+      "next_step": "Test equivalent-or-stronger semantic substitution and reverse mapping against the derived UA map.",
+      "transition_records": [
+        "content/research/notes/thinking-systems-public-review-2026-09.md"
+      ]
+    },
+    {
+      "id": "TS-ECON-001",
+      "title": "Addressable-problem and domain-specific differentiation hypotheses",
+      "item_class": "hypothesis",
+      "status": "open",
+      "origin_kind": "external-review",
+      "provenance_record": "content/research/notes/thinking-systems-public-review-2026-09.md",
+      "owning_record": "content/research/notes/thinking-systems-public-review-2026-09.md",
+      "next_step": "Test problem feasibility and net benefit against rules-only, human-led and strong generic baselines; test domain-specific differentiation rather than presume it."
     }
   ]
 }
