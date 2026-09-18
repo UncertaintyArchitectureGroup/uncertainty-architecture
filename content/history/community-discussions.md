@@ -1,6 +1,5 @@
 ---
 title: Community Discussions and Public Stress Tests
-description: "Public critique and counterexamples concerning Uncertainty Architecture, including the Thinking Systems article and practitioner control questions."
 artifact_type: history-record
 status: informative
 maturity: active

@@ -1,6 +1,5 @@
 ---
 title: "External Review Record — Maximiliano Armesto on the Thinking Systems Publication Draft"
-description: "Bounded provenance of Maximiliano Armesto's pre-publication Thinking Systems review: terminology, scope, proportionality and comparison questions."
 artifact_type: research-note
 status: research
 maturity: active

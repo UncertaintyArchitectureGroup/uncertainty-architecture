@@ -1,6 +1,5 @@
 ---
 title: "Formulation Provenance — Thinking Systems and the Arkadiy Dobkin Exchange"
-description: "The bounded provenance of the Thinking Systems formulation: Arkadiy Dobkin's earlier exchange, attribution confirmation and separate later public commentary."
 artifact_type: research-note
 status: research
 maturity: active

@@ -1,6 +1,5 @@
 ---
 title: "Thinking Systems — Public Review and Recognition Intake, September 2026"
-description: "Source-linked public review of Thinking Systems: Arkadiy Dobkin's extension, Maximiliano Armesto's discussion, category counterexamples, harness substitution and human-review evidence."
 artifact_type: research-note
 status: research
 maturity: active

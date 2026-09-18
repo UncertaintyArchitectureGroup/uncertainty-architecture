@@ -1,6 +1,5 @@
 ---
 title: Uncertainty Architecture
-description: "Uncertainty Architecture research, Thinking Systems publications, formulation provenance, public critique and independent recognition."
 artifact_type: publishing-index
 status: informative
 maturity: active

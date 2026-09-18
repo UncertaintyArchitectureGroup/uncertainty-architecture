@@ -1,6 +1,5 @@
 ---
 title: Independent References and Recognition
-description: "Public citations, interpretations and recognition of Uncertainty Architecture, with primary sources and explicit limits on endorsement and adoption claims."
 artifact_type: history-record
 status: informative
 maturity: active
