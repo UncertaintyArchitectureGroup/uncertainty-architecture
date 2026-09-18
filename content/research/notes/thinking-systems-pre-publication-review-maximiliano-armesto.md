@@ -19,7 +19,7 @@ tags:
 created: 2026-08-25
 updated: 2026-09-18
 license: CC-BY-4.0
-draft: false
+draft: true
 source_basis:
   - thinking-systems-publication-draft.md
   - open-engineering-specification-article-draft.md
@@ -34,8 +34,6 @@ analysts:
 # External Review Record — Maximiliano Armesto on the Thinking Systems Publication Draft
 
 > **Record boundary:** This note preserves the material research effect of a private pre-publication review. It is a maintainer-authored summary, not a verbatim publication of private correspondence. The review is treated as conceptual critique and provenance, not co-authorship, endorsement, framework authority, or empirical validation.
-
-**Publication visibility update, September 18, 2026:** this existing public-repository summary is now eligible for the published site. The dispositions below describe the earlier review and its reconciliation, not new framework decisions in the [September public-review intake](thinking-systems-public-review-2026-09.md). No new private correspondence is added.
 
 ## Review object
 
