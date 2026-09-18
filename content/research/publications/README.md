@@ -1,5 +1,5 @@
 ---
-title: Historical Research Publications
+title: Research Publications
 artifact_type: research-index
 status: research
 maturity: stable
@@ -15,13 +15,13 @@ tags:
   - ua/topic/thinking-systems
 ---
 
-# Historical Research Publications
+# Research Publications
 
 **Status:** Research archive
 
-This directory contains normalized repository editions of publications that contributed to the development of Uncertainty Architecture.
+This directory contains preserved and normalized repository editions of publications that contribute to the development of Uncertainty Architecture.
 
-The documents are preserved as historical research evidence. Their original arguments, category names, and publication titles are not automatically current specification language.
+Publication editions are research evidence, not automatically current specification language. Historical editions preserve earlier arguments and terminology; current frozen editions preserve what was externally published without becoming normative UA requirements.
 
 ## Current Thinking Systems publication
 
