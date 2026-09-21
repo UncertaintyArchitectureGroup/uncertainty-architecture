@@ -10,7 +10,8 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = "assets/presentations/pmday-2026/README.md"
-INPUTS = [SOURCE, "quartz/scripts/pmday-presentation.mjs", "quartz/scripts/build-pmday-pptx.mjs", "quartz/scripts/validate-pmday-pptx.py"]
+COVER = "assets/presentations/pmday-2026/artwork/ai-two-roles.png"
+INPUTS = [SOURCE, COVER, "quartz/scripts/pmday-presentation.mjs", "quartz/scripts/build-pmday-pptx.mjs", "quartz/scripts/validate-pmday-pptx.py"]
 NS = {"p": "http://schemas.openxmlformats.org/presentationml/2006/main", "a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 
 
@@ -22,6 +23,7 @@ def validate(pptx, manifest_path):
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest.get("schema_version") == 1, "Unsupported manifest"
     assert manifest["pptx_sha256"] == digest(pptx.read_bytes()), "PPTX checksum mismatch"
+    assert manifest.get("image_exceptions") == [{"slide": 1, "asset": COVER, "purpose": "Requested conceptual cover illustration"}], "Unapproved image exceptions"
     assert set(manifest["inputs"]) == set(INPUTS), "Missing or extra provenance input"
     for name in INPUTS:
         assert manifest["inputs"][name] == digest((ROOT / name).read_bytes()), f"Stale input: {name}"
@@ -40,8 +42,23 @@ def validate(pptx, manifest_path):
             slide = ET.fromstring(package.read(name))
             bg = slide.find("p:cSld/p:bg/p:bgPr/a:solidFill/a:srgbClr", NS)
             assert bg is not None and bg.get("val").upper() == "0B0F14", f"Slide {number}: dark solid background missing"
-            assert not slide.findall(".//a:blipFill", NS), f"Slide {number}: image fill forbidden"
-            assert not slide.findall(".//p:pic", NS), f"Slide {number}: image exceptions not approved"
+            pictures = slide.findall(".//p:pic", NS)
+            assert len(pictures) == (1 if number == 1 else 0), f"Slide {number}: image exceptions violated"
+            # One requested foreground illustration is allowed; no background or native-shape image fills.
+            assert not slide.findall(".//p:bg//a:blipFill", NS), f"Slide {number}: image background forbidden"
+            assert not slide.findall(".//p:sp//a:blipFill", NS), f"Slide {number}: image fill forbidden"
+            if pictures:
+                pic = pictures[0]
+                extent = pic.find("p:spPr/a:xfrm/a:ext", NS)
+                assert extent is not None and int(extent.get("cx")) <= 640*9525 and int(extent.get("cy")) <= 440*9525, "Cover image exceeds foreground boundary"
+                blip = pic.find("p:blipFill/a:blip", NS)
+                rid = blip.get("{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed") if blip is not None else None
+                rels = ET.fromstring(package.read("ppt/slides/_rels/slide1.xml.rels"))
+                targets = [r.get("Target") for r in rels if r.get("Id") == rid and r.get("TargetMode") in (None, "Internal") and r.get("Type", "").endswith("/image")]
+                assert len(targets) == 1 and re.fullmatch(r"(?:/ppt|\.\.)/media/[^/]+", targets[0]), "Cover image relationship invalid"
+                # OOXML permits package-absolute and slide-relative internal part names.
+                media = targets[0].lstrip("/") if targets[0].startswith("/") else "ppt/" + targets[0][3:]
+                assert digest(package.read(media)) == manifest["inputs"][COVER], "Cover image bytes differ from approved asset"
             assert not slide.findall(".//p:oleObj", NS), f"Slide {number}: OLE object forbidden"
             runs = [e.text or "" for e in slide.findall(".//a:t", NS)]
             normalized = " ".join(" ".join(runs).split())
@@ -64,9 +81,13 @@ def validate(pptx, manifest_path):
             if number in (11, 13):
                 assert len(tables) == 1, f"Slide {number}: native table required"
             if number == 4:
-                for required in ("17.3×", "2.8×", "1.3×", "79% → 86%", "18% → 31%", "2025", "2026"):
+                for required in ("17.3×", "2.8×", "1.3×", "79% → 86%", "18% → 31%", ">80%", "59%", "Moved-code share", "+81%", "2025", "2026"):
                     assert required in normalized, f"Evidence slide missing {required}"
+            if number == 3:
+                for required in ("THEORY OF CONSTRAINTS", "+92 / week", "Illustrative", "AI can affect every stage"):
+                    assert required in normalized, f"SDLC slide missing {required}"
             counts["slides"] += 1
+            counts["pictures"] += len(pictures)
             counts["tables"] += len(tables)
             counts["text_runs"] += len(runs)
         # Master/layout image backgrounds can hide outside the slide XML.

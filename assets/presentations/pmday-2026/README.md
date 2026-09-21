@@ -36,7 +36,7 @@ tags:
 
 Для актуальності додано новіші авторські публікації, навіть якщо їх ще немає в реєстрі Subprime: DORA 2025, METR за травень 2026, GitClear за червень 2026. Xu використано у v3 від 28 січня 2026, Agarwal — у v2 від 27 січня 2026. Нова дата версії не робить старі дані новими: це окремо зазначено.
 
-Перевірка означає звірку таблиць, підписів, одиниць вимірювання, дат, дизайну досліджень і арифметики. Вона не означає незалежне відтворення оцінок на сирих даних. Для NBER прочитано наданий оригінальний PDF і візуально звірено ключові таблицю та графіки. Для DORA використано публічне авторське резюме, для GitClear — публічний виклад і доступний графік; перевірка повного закритого звіту не заявляється.
+Перевірка означає звірку таблиць, підписів, одиниць вимірювання, дат, дизайну досліджень і арифметики. Вона не означає незалежне відтворення оцінок на сирих даних. Для NBER прочитано наданий оригінальний PDF і візуально звірено ключові таблицю та графіки. Для DORA використано публічне авторське резюме та завантажену офіційну інфографіку, для GitClear — публічний виклад і доступний графік; перевірка повного закритого звіту не заявляється.
 
 ### Стиль і технічний контракт PPTX
 
@@ -49,7 +49,7 @@ tags:
 - Заголовки 40 px (30 pt), довгі — у два зафіксовані рядки; головний текст 28–32 px; великі числа 44–66 px; щільні evidence labels 20–24 px. Для заголовків і схем залишати запас ширини, а не впритул до країв. Не приховувати substantive caveats у мікрошрифті.
 - Усі заголовки, абзаци, формули, блоки, стрілки, таблиці та схематичні криві — НАТИВНІ РЕДАГОВАНІ об'єкти PowerPoint.
 - Для даних використовувати native charts або точні числові підписи; для схем — shapes/connectors. Не rasterize SVG/Mermaid/HTML як зручний обхід.
-- Окреме зображення дозволене лише коли змістовний об'єкт неможливо адекватно зробити native tools. Воно не є фоном, не містить запеченого заголовка/тексту слайда і має записаний exception rationale. У поточній версії винятків немає: 0 зображень.
+- Окреме зображення дозволене для прямо погодженої концептуальної ілюстрації; інформаційні схеми й дані робити native tools. Воно не є фоном, не містить запеченого заголовка/тексту слайда і має записаний exception rationale. За запитом maintainer у поточній редакції дозволено один виняток: концептуальна imagegen-ілюстрація на слайді 1 (artwork/ai-two-roles.png). Вона не є фоном або джерелом даних; усі тексти, числа й схеми залишаються нативними. Prompt і походження — в artwork/PROVENANCE.md.
 - Рівно 14 слайдів із погодженими назвами й порядком. Статична версія самодостатня; анімації не є умовою розуміння.
 - English screen copy; українські speaker notes. Notes містять пояснення, джерела та обмеження, а не інструкції верстальнику.
 - Центральний MD — editable source; pptx-slide blocks нижче задають екранні формулювання/дані. Прозу та відповідний block оновлювати разом. PPTX — derived artifact, не друге джерело змісту.
@@ -81,15 +81,18 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
   "lanes": [
     [
       "HOW WE BUILD",
-      "AI-assisted engineering"
+      "AI-assisted engineering",
+      "More work can be generated.\nThe whole pipeline still matters."
     ],
     [
       "WHAT WE BUILD",
-      "Thinking Systems"
+      "Thinking Systems",
+      "The product delegates judgment.\nIts boundaries still matter."
     ]
   ],
   "takeaway": "They are related. They are not the same.",
-  "notes": "Відділити AI для розробки від Model Judgment усередині продукту. Перше змінює виробництво software, друге — поведінку системи. Не починати з реклами UA чи anti-AI тези."
+  "notes": "Відділити AI для розробки від Model Judgment усередині продукту. Перше змінює виробництво software, друге — поведінку системи. Не починати з реклами UA чи anti-AI тези.\nІлюстрація — концептуальна метафора двох ролей AI, не схема архітектури. AI-generated illustration, OpenAI imagegen, 21 September 2026. Джерело та prompt: artwork/PROVENANCE.md.",
+  "illustrationAlt": "Concept illustration: a cyan machine assembles software components beside an amber product enclosure with branching paths."
 }
 ```
 
@@ -101,13 +104,11 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
 
 Підзаголовок: **How we build software. And what software is.**
 
-Дві рівнозначні стрілки:
-- HOW WE BUILD → AI-assisted engineering
-- WHAT WE BUILD → Thinking Systems
+Два змістові блоки без стрілок:
+- HOW WE BUILD — AI-assisted engineering. More work can be generated. The whole pipeline still matters.
+- WHAT WE BUILD — Thinking Systems. The product delegates judgment. Its boundaries still matter.
 
-Нижче: **We tend to mix these two transformations. They are related. They are not the same.**
-
-**Композиція:** великий заголовок зверху; у центрі дві горизонтальні смуги, одна під одною, з однаковою візуальною вагою. Не з'єднувати їх причинною стрілкою. Ім'я й PMDay — невеликий підпис унизу. Жодних графіків adoption.
+**Композиція:** великий заголовок зверху, два блоки зліва, одна концептуальна ілюстрація справа: cyan-інструмент складання software і amber-продукт із branching judgment. Це художня метафора, не технічна схема чи виміряні дані. Увесь текст — окремі редаговані об'єкти. Ім'я й PMDay — підпис унизу.
 
 **Що говорити:** «Можна будувати звичайний детермінований сервіс за допомогою AI. А можна будувати сервіс, який сам делегує моделі частину рішень під час роботи. Перше змінює процес виробництва. Друге — поведінку продукту. Сьогодні нам потрібні обидві розмови, але не в одній купі».
 
@@ -124,15 +125,18 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
   "items": [
     [
       "Writing",
-      "Externalized Memory"
+      "Externalized\nMemory",
+      "Records we can retrieve"
     ],
     [
       "Computers",
-      "Externalized Calculation"
+      "Externalized\nCalculation",
+      "Rules we explicitly encode"
     ],
     [
       "Large Models",
-      "Externalized Cognition"
+      "Externalized\nCognition",
+      "Judgment shaped\nby context"
     ]
   ],
   "caveat": "No assumption of will, consciousness or human-like understanding is required.",
@@ -157,7 +161,7 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
 
 Фінальна фраза: **Developers now design the environment in which behavior is generated at runtime.**
 
-**Композиція:** три великі послідовні блоки: текст/пам'ять, обчислення, робота з мовою та контекстом. Останній блок виділити кольором, а не намалювати «штучний мозок». Нижній ряд про engineering consequence з'являється після пояснення трьох блоків.
+**Композиція:** три великі блоки зі стрілками, приєднаними до середини їхніх бічних граней: текст/пам'ять, обчислення, робота з мовою та контекстом. Останній блок виділити кольором, а не намалювати «штучний мозок». Нижній ряд про engineering consequence з'являється після пояснення трьох блоків.
 
 **Що говорити:** «Мені не потрібно доводити, що LLM думають як люди. Достатньо того, що вони виконують корисні cognition-like operations: інтерпретують запит, зіставляють контекст, пропонують код або план дій. Це дозволяє делегувати машині кроки, для яких раніше потрібна була людина або велика кількість спеціально написаних правил».
 
@@ -188,8 +192,20 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
     "Operate"
   ],
   "takeaway": "Local acceleration ≠ system throughput",
-  "caption": "If coding is the bottleneck, the bottleneck can move.",
-  "notes": "Навчальний приклад, не виміряні дані: writing capacity 20 змін/тиждень, review 10, integration 8. Зростання writing до 100 не змінює незмінну потужність integration. AI може прискорювати інші етапи; ефект треба перевіряти, а не припускати."
+  "notes": "Theory of Constraints (Goldratt): оптимізуємо потік через реальне обмеження системи. Якщо coding не bottleneck, його прискорення саме по собі не збільшує пропускну здатність delivery. Якщо був bottleneck, після зміни обмеження може переміститися. AI може змінювати Intent і Design так само, як Review, Test, Integration, Deploy та Operate; знак і величину ефекту треба вимірювати.\nНавчальний приклад, не дослідження: 100 зіставних змін надходять за тиждень, лише 8 інтегруються. За незмінної потужності та push без WIP limits/відкидання роботи загальний backlog зростає на 100 − 8 = 92 зміни за тиждень. Integration позначено як умовний bottleneck, не універсальний bottleneck команд.\nЦе не твердження, що будь-яка оптимізація не-bottleneck автоматично погіршує систему: економія витрат або вільна потужність теж можуть бути корисні. Черга виникає, коли реально збільшується надходження понад вихід. Rework, більші batches, затриманий feedback і тиск на review можуть погіршити якість; це механізм ризику, а не математично неминучий ефект. Джерела й межі: evidence/toc-wip.md.",
+  "scope": "AI can affect every stage. The net effect must be measured.",
+  "codeRate": "100 changes\nper week",
+  "constraintRate": "8 changes\nper week",
+  "toc": "Faster work outside the bottleneck\ndoes not increase delivery capacity.",
+  "risk": "Pushing more work into a fixed bottleneck builds\nWIP and waiting time. Quality can suffer under overload.",
+  "queueRate": "+92 / week",
+  "queueLabel": "unfinished changes\naccumulate",
+  "exampleCaveat": "Illustrative: 100 in, 8 out.\nFixed rates, comparable work.\nNo WIP limit, no discarded work.",
+  "sources": [
+    "https://dora.dev/capabilities/wip-limits/",
+    "https://dora.dev/capabilities/working-in-small-batches/",
+    "https://www.nber.org/papers/w35275"
+  ]
 }
 ```
 
@@ -201,11 +217,13 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
 
 Intent → Design → Code → Review → Test → Integrate → Deploy → Operate
 
-CODE підсвічений і позначений ↑↑↑; над Review / Test / Integrate / Operate — знаки питання.
+CODE підсвічений; питання стоять також над Intent і Design та рештою етапів. AI може впливати на весь SDLC, а не тільки на Code. Усі стрілки належать одному наскрізному процесу; додаткових стрілок над ним немає.
 
 Основна теза: **Local acceleration ≠ system throughput.**
 
-**Композиція:** процес займає центральні 70% висоти, не вісім карток із довгим текстом. Анімація спочатку прискорює Code, потім показує можливу чергу перед Review. Позначка: **Illustrative bottleneck — not a measured team result.**
+**Композиція:** SDLC у верхній половині; внизу — Theory of Constraints і видима арифметика backlog. Code: 100 змін/тиждень, умовний bottleneck Integration: 8/тиждень; +92 незавершені зміни/тиждень за push без WIP limit. Схема не потребує анімації. Це навчальний приклад із незмінною потужністю, не дані дослідження.
+
+**Theory of Constraints:** прискорення не-bottleneck не збільшує throughput за незмінного обмеження. Якщо реально подавати більше роботи, ніж bottleneck пропускає, накопичуються WIP і очікування. Під навантаженням можуть зростати rework і ризик погіршення якості. Не стверджувати автоматичну деградацію від будь-якої локальної оптимізації. Джерела й припущення: [ToC / WIP](evidence/toc-wip.md).
 
 **Конкретний навчальний приклад для нотаток:** умовна команда може написати 20 змін за тиждень, перевірити 10, інтегрувати 8. Якщо генерація стає 100 змін/тиждень, це саме по собі не збільшує межу інтеграції 8. Приклад припускає зіставні зміни та незмінну потужність інших етапів; це не дані дослідження.
 
@@ -235,10 +253,10 @@ CODE підсвічений і позначений ↑↑↑; над Review / T
       "releases"
     ]
   ],
-  "nberGeneration": "Autocomplete + sync + async agents",
+  "nberGeneration": "Cumulative estimates across\nautocomplete + sync + async",
   "nberCaveat": "Changed LOC = additions + deletions.\nSeparate async release effect not estimated.",
-  "marketHeadline": "More apps. No aggregate usage gain\nin these cohorts.",
-  "marketDetail": "New cohorts, first 3 months. Usage proxies, not welfare.",
+  "marketHeadline": "More apps. Aggregate usage\nflat or lower in these cohorts.",
+  "marketDetail": "New cohorts; first 3 months. Usage proxies.",
   "marketNumbers": [
     [
       "iOS: <10 ratings",
@@ -249,37 +267,45 @@ CODE підсвічений і позначений ↑↑↑; над Review / T
       "18% → 31%"
     ]
   ],
-  "cards": [
-    [
-      "METR · MAY 2026",
-      "1.4–2× work value",
-      "Self-reported survey; not causal uplift"
-    ],
-    [
-      "DORA · 2025",
-      "Throughput ↑   Stability ↓",
-      "Product performance ↑; associations"
-    ],
-    [
-      "GITCLEAR · JUN 2026",
-      "13% → 3.8%",
-      "Refactoring share; 2023 → YTD 2026"
-    ],
-    [
-      "XU + AGARWAL · 2026",
-      "Complexity +35% / +43%",
-      "Agarwal: complexity proxy.\nXu: contributor workload."
-    ]
-  ],
   "takeaway": "Code activity, delivery and user value are different outcomes.",
-  "notes": "NBER: понад 100 тисяч GitHub developers; matched event study, не RCT. Changed LOC = additions + deletions, не чисте зростання кодової бази.\nTable 5, друкована с. 33, тижні 21–30: Autocomplete — LOC +228.2%, commits +35.9%, PRs +11.0%, releases +10.2%. Synchronous agents — LOC +741.3%, commits +109.1%, PRs +65.5%, releases +20.3%. Asynchronous agents — LOC +658.3%, commits +33.6%, PRs +71.8%; releases не оцінено окремо. Figure 1, с. 3: cumulative LOC 17.3×, files 3.9×, commits 2.8×, PRs 2.5×, repos 1.5×, releases 1.3×. Не перемножувати компоненти.\nFigure 12, с. 41; §8.2, с. 42–43: iOS — 30–50 тисяч нових apps/month → близько 100 тисяч у квітні 2026; Android — 42 тисячі у січні 2025 → близько 60 тисяч у середині 2026; Chrome — 5 тисяч у 2023 → близько 13 тисяч у середині 2026. Total cohort usage за перші 3 місяці стабільне або знижується. Частка iOS apps із <10 ratings: 79→86%; Chrome extensions із <10 downloads: 18→31%. SourceForge без прискорення entry, не входить у три usage panels. Це не всі existing apps, не весь software market і не пряме вимірювання consumer welfare. Chrome decline передував agentic era.\nDORA 2025: позитивні associations AI adoption із throughput і product performance, негативні — зі stability; не підставляти коефіцієнти 2024 року.\nMETR, травень 2026: 349 technical workers; 1.4–2× median self-reported work value залежно від питання, 3× self-reported speed; є selection bias. Старий RCT 2025 із +19% часу — лише історичний контекст.\nGitClear 2026: refactoring share 13→3.8%, duplication приблизно +81%; observational proxies.\nXu, v3 від січня 2026, дані 2020–22: top activity quartile — commits −19%, reviews +6.5%; bottom quartile — commits +43.5%, PRs +17.7%; rework +2.4%. Це не кадрові грейди й не агенти 2026 року.\nAgarwal, v2, Table 2: complexity +34.85/+42.87%, warnings +17.73/+19.00%; зміна IDE-first warnings статистично незначуща. Не трактувати це як борг на одну фічу.",
+  "notes": "NBER: понад 100 тисяч GitHub developers; matched event study, не RCT. Changed LOC = additions + deletions, не чисте зростання кодової бази.\nTable 5, друкована с. 33, тижні 21–30: Autocomplete — LOC +228.2%, commits +35.9%, PRs +11.0%, releases +10.2%. Synchronous agents — LOC +741.3%, commits +109.1%, PRs +65.5%, releases +20.3%. Asynchronous agents — LOC +658.3%, commits +33.6%, PRs +71.8%; releases не оцінено окремо. Figure 1, с. 3: cumulative LOC 17.3×, files 3.9×, commits 2.8×, PRs 2.5×, repos 1.5×, releases 1.3×. Не перемножувати компоненти.\nFigure 12, с. 41; §8.2, с. 42–43: iOS — 30–50 тисяч нових apps/month → близько 100 тисяч у квітні 2026; Android — 42 тисячі у січні 2025 → близько 60 тисяч у середині 2026; Chrome — 5 тисяч у 2023 → близько 13 тисяч у середині 2026. Total cohort usage за перші 3 місяці стабільне або знижується. Частка iOS apps із <10 ratings: 79→86%; Chrome extensions із <10 downloads: 18→31%. SourceForge без прискорення entry, не входить у три usage panels. Це не всі existing apps, не весь software market і не пряме вимірювання consumer welfare. Chrome decline передував agentic era.\nDORA 2025: в офіційній інфографіці понад 80% респондентів повідомляють про підвищення продуктивності, 59% — про позитивний вплив на якість коду. Це частки респондентів, а не +80% швидкості чи +59% якості. Майже 5 000 респондентів. Авторське резюме окремо описує позитивну association adoption із delivery throughput і негативну зі stability. Delivery stability не тотожна code quality. Перевіреного числового коефіцієнта stability у доступному матеріалі немає; не приписуємо відсоток падіння та не переносимо coefficients 2024. Повний звіт за формою не отримано; інфографіку завантажено в evidence/originals/dora-2025-infographic.pdf. Деталі: evidence/dora-2025.md.\nMETR, травень 2026: 349 technical workers; 1.4–2× median self-reported work value залежно від питання, 3× self-reported speed; є selection bias. Старий RCT 2025 із +19% часу — лише історичний контекст.\nGitClear 2026: частка moved code у changed lines 13% (2023) → 3.8% (YTD 2026), не кількість refactoring tasks і не весь reuse. Частота duplicated blocks приблизно +81% за цей період. Copy/paste share 9.4% (2022) → 15.7% (H1 2026), інший baseline. У звіті 2025 на даних 2020–24 окремо описані зростання short-term churn, більше клонів і падіння moved-code share; числового churn effect із публічної сторінки не виводимо. Не змішувати churn, duplication та refactoring. Текст і графік 2026 суперечать щодо абсолютної одиниці duplication, тому залишаємо тільки відносні +81%. Це observational proxies, не причинний ефект AI. Деталі: evidence/gitclear.md.\nXu, v3 від січня 2026, дані 2020–22: top activity quartile — commits −19%, reviews +6.5%; bottom quartile — commits +43.5%, PRs +17.7%; rework +2.4%. Це не кадрові грейди й не агенти 2026 року.\nAgarwal, v2, Table 2: complexity +34.85/+42.87%, warnings +17.73/+19.00%; зміна IDE-first warnings статистично незначуща. Не трактувати це як борг на одну фічу.",
   "sources": [
     "https://www.nber.org/papers/w35275",
     "https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report",
     "https://metr.org/blog/2026-05-11-ai-usage-survey/",
     "https://www.gitclear.com/the_ai_code_quality_maintainability_gap",
     "https://arxiv.org/html/2510.10165v3",
-    "https://arxiv.org/html/2601.13597v2"
+    "https://arxiv.org/html/2601.13597v2",
+    "https://dora.dev/research/2025/2025-DORA-Report-Infographic.pdf",
+    "https://www.gitclear.com/ai_assistant_code_quality_2025_research"
+  ],
+  "doraMetrics": [
+    [
+      ">80%",
+      "report productivity\nimprovement"
+    ],
+    [
+      "59%",
+      "report code-quality\nimprovement"
+    ]
+  ],
+  "doraAssociation": "Self-reports. Adoption is also associated\nwith lower delivery stability.",
+  "gitclearMetrics": [
+    "Moved-code share: 13% → 3.8%",
+    "Duplicated blocks: +81%"
+  ],
+  "gitclearCaveat": "2023 vs YTD 2026. Reuse/refactoring proxy,\nnot a count of refactoring tasks.",
+  "otherCards": [
+    [
+      "METR · MAY 2026",
+      "1.4–2× work value",
+      "Median self-report; survey"
+    ],
+    [
+      "XU + AGARWAL · 2026",
+      "+35% / +43%",
+      "Agarwal: complexity proxy"
+    ]
   ]
 }
 ```
@@ -290,7 +316,7 @@ CODE підсвічений і позначений ↑↑↑; над Review / T
 
 ### Що саме має бути на екрані
 
-П'ять карток. Ліві 52% — одна велика NBER; праві 48% — чотири менші: METR, DORA, GitClear, Xu + Agarwal. Відкривати послідовно в межах того самого слайда; не розміщувати всі таблиці нижче на екрані.
+Дві колонки з чіткою вертикальною межею. Зліва — NBER та marketplace outcomes. Справа — окремі числові блоки DORA і GitClear, нижче компактні METR та Xu / Agarwal. Жодних стрілок між несумірними дослідженнями або outcomes; усі числа мають власні підписи. Докладні таблиці залишаються у нотатках.
 
 **Велика картка NBER — May 2026:**
 - **17.3× changed LOC**
@@ -303,9 +329,9 @@ CODE підсвічений і позначений ↑↑↑; над Review / T
 
 **METR — May 2026:** **1.4–2× self-reported work value**; підпис **Survey, not measured causal uplift**.
 
-**DORA — 2025:** **Throughput ↑ · Product performance ↑ · Stability ↓**; підпис **Associations, not an experiment**.
+**DORA — 2025:** **>80% report productivity improvement** і **59% report code-quality improvement**. Підпис: **Self-reports. Adoption is also associated with lower delivery stability.** Це частки респондентів, а не відсотки зміни швидкості/якості.
 
-**GitClear — June 2026:** **Refactoring-related share: 13% → 3.8%**; підпис **2023 → YTD 2026 · observational proxy**.
+**GitClear — June 2026:** **Moved-code share: 13% → 3.8%** і **Duplicated blocks: +81%**; підпис **2023 vs YTD 2026. Reuse/refactoring proxy, not a count of refactoring tasks.**
 
 **Xu + Agarwal — 2026 versions:** **Workload shifts. Complexity rises in studied samples.** Один числовий ряд: **Complexity +35% / +43%**; назвати Agent-first / IDE-first. Цифри Xu — в нотатках, щоб не перетворити картку на таблицю.
 
@@ -353,13 +379,13 @@ CODE підсвічений і позначений ↑↑↑; над Review / T
 
 ### Інші картки: числа й межі
 
-**DORA 2025.** Майже 5 000 респондентів; 90% використовують AI, понад 80% повідомляють про вищу продуктивність, 30% мало або зовсім не довіряють AI-коду. Зв'язок adoption із throughput і product performance позитивний, зі stability — негативний. Це не причинні коефіцієнти. Числа DORA 2024 сюди не переносимо. [Офіційне авторське резюме DORA 2025](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report).
+**DORA 2025.** [Офіційна інфографіка](evidence/originals/dora-2025-infographic.pdf) також містить **59%**, які повідомляють про покращення code quality. Це self-report, не зміна якості на 59%. Delivery stability — окремий outcome; говорити «якість коду впала» за цією association некоректно. Числовий коефіцієнт stability із доступних матеріалів не встановлено. [Детальний запис](evidence/dora-2025.md). Майже 5 000 респондентів; 90% використовують AI, понад 80% повідомляють про вищу продуктивність, 30% мало або зовсім не довіряють AI-коду. Зв'язок adoption із throughput і product performance позитивний, зі stability — негативний. Це не причинні коефіцієнти. Числа DORA 2024 сюди не переносимо. [Офіційне авторське резюме DORA 2025](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report).
 
 **METR, 11 травня 2026.** 349 technical workers; median self-reported work-value multiplier 1,4–2× залежно від формулювання питання, self-reported speed — 3×. Це не confidence interval і не об'єктивне вимірювання delivery. Вибірка самообрана. [METR survey](https://metr.org/blog/2026-05-11-ai-usage-survey/).
 
 Історичний контрольований результат METR 2025: 16 розробників, 246 задач, +19% часу з early-2025 AI. Залишити як датований контекст, не актуальний вирок сучасним агентам. [METR RCT](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/). У [лютневому оновленні 2026](https://metr.org/blog/2026-02-24-uplift-update/) самі автори вказують на selection bias; не виводити з нього надійний універсальний поточний відсоток.
 
-**GitClear, червень 2026.** Moved/refactoring-related share: 13% у 2023 → 3,8% YTD 2026; block duplication приблизно +81%. Це спостережні показники власної класифікації, не весь reuse і не встановлений причинний ефект AI. У тексті й графіку duplication є суперечність одиниць; тому абсолютні 40,3 і 73,0 не використовуємо як навантажену метрику. Відносна зміна узгоджується. [GitClear 2026](https://www.gitclear.com/the_ai_code_quality_maintainability_gap).
+**GitClear, червень 2026.** Moved-code share — частка переміщених рядків серед changed lines: proxy reuse/refactoring, а не кількість refactoring tasks. Short-term churn — окремий сигнал зі звіту 2025, який не підміняємо duplication. [Визначення, періоди й межі](evidence/gitclear.md). Moved/refactoring-related share: 13% у 2023 → 3,8% YTD 2026; block duplication приблизно +81%. Це спостережні показники власної класифікації, не весь reuse і не встановлений причинний ефект AI. У тексті й графіку duplication є суперечність одиниць; тому абсолютні 40,3 і 73,0 не використовуємо як навантажену метрику. Відносна зміна узгоджується. [GitClear 2026](https://www.gitclear.com/the_ai_code_quality_maintainability_gap).
 
 **Xu, v3, січень 2026.** У нижнього квартиля за попередньою активністю commits +43,5%, PRs +17,7%; у верхнього commits −19%, reviews +6,5%. Project-level PR rework +2,4%. Це activity quartiles, не Junior/Senior; reviews — кількість, не години. Дані 2020–2022 про ранній Copilot: використовуємо для механізму перерозподілу роботи, не оцінки агентів 2026. [Xu et al.](https://arxiv.org/html/2510.10165v3).
 

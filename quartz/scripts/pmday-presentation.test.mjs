@@ -50,11 +50,21 @@ test("source refuses missing slide, reordered layout and unapproved image except
 test("committed PPTX is fresh, editable and follows the dark-background contract", () => {
   const result = JSON.parse(execFileSync("python3", [validator], { encoding: "utf8" }))
   assert.equal(result.slides, 14)
-  assert.equal(result.pictures, 0)
+  assert.equal(result.pictures, 1)
   assert.equal(result.tables, 2)
 })
 
-for (const mutation of ["background", "picture", "table", "stale", "text-outside"]) {
+for (const mutation of [
+  "background",
+  "picture",
+  "table",
+  "stale",
+  "text-outside",
+  "cover-missing",
+  "cover-size",
+  "evidence-number",
+  "toc-missing",
+]) {
   test(`portable validator rejects ${mutation} regression`, async (t) => {
     const temporary = await mkdtemp(path.join(os.tmpdir(), "ua-pptx-test-"))
     t.after(() => rm(temporary, { recursive: true, force: true }))
@@ -69,6 +79,14 @@ ns={'p':'http://schemas.openxmlformats.org/presentationml/2006/main','a':'http:/
 with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
  for item in old.infolist():
   data=old.read(item.filename)
+  if item.filename=='ppt/slides/slide1.xml' and mutation.startswith('cover-'):
+   tree=E.fromstring(data)
+   pic=tree.find('.//p:pic',ns)
+   if mutation=='cover-size': pic.find('p:spPr/a:xfrm/a:ext',ns).set('cx','12192000')
+   if mutation=='cover-missing': tree.find('p:cSld/p:spTree',ns).remove(pic)
+   data=E.tostring(tree)
+  if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
+  if item.filename=='ppt/slides/slide3.xml' and mutation=='toc-missing': data=data.replace(b'THEORY OF CONSTRAINTS',b'MISSING')
   if item.filename=='ppt/slides/slide11.xml':
    tree=E.fromstring(data)
    if mutation=='text-outside': tree.find('.//p:sp/p:spPr/a:xfrm/a:off',ns).set('x','12192000')
@@ -94,7 +112,10 @@ with open(record,'w') as f: json.dump(m,f)
       encoding: "utf8",
     })
     assert.equal(result.status, 1, result.stdout + result.stderr)
-    assert.match(result.stderr, /background|exceptions|native table|Stale input|outside canvas/)
+    assert.match(
+      result.stderr,
+      /background|exceptions|native table|Stale input|outside canvas|foreground boundary|Evidence slide missing|SDLC slide missing/,
+    )
   })
 }
 

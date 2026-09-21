@@ -1,6 +1,6 @@
 # Editable PowerPoint export
 
-The PMDay deck is an informative presentation rendition, not a new UA doctrine or research edition. Its [central Markdown description](../assets/presentations/pmday-2026/README.md) owns the approved 14-slide order, style, screen copy, speaker notes, evidence limits and source URLs. Each `pptx-slide` JSON block is the render input for the corresponding slide. Update the prose and render block together.
+The PMDay deck is an informative presentation rendition, not a new UA doctrine or research edition. Its [central Markdown description](../assets/presentations/pmday-2026/README.md) owns the approved 14-slide order, style, screen copy, speaker notes, evidence limits and source URLs. Each `pptx-slide` JSON block is the render input for the corresponding slide. Update the prose and render block together. The [evidence base](../assets/presentations/pmday-2026/EVIDENCE.md) links local source notes, attributed CC BY originals and their retrieval checksums.
 
 ## Consolidation of PRs #113 and #129
 
@@ -11,7 +11,7 @@ This document owns the implemented contract. `PRESENTATION-PIPELINE.md` is a mig
 | Original #113 requirement | Current disposition |
 |---|---|
 | Markdown content separated from layout code | Implemented for the 14-slide PMDay deck |
-| Dark background and native editable slide objects | Implemented; no slide images or background pictures |
+| Dark background and native editable slide objects | Implemented; one requested foreground cover illustration, no background pictures or rasterized slides |
 | Reuse publication path safety, stage and preserve last valid output | Implemented for PPTX/manifest promotion; previews use new isolated directories |
 | Notes, checksums, slide count and package verification | Implemented |
 | Independent PPTX → PDF/PNG visual evidence | Implemented via `pptx:preview`; manual visual review remains necessary |
@@ -74,7 +74,7 @@ The first command leaves a checked candidate under `dist/pptx/`. The second inst
 
 - Exactly 14 slides in the source order, 16:9 at 1280×720 design pixels.
 - Every slide has solid `#0B0F14` background.
-- No slide/master/layout picture or image fill in this edition. Text and diagrams remain native. Any future image exception requires changing the explicit deck contract and validation deliberately.
+- One fixed foreground illustration on slide 1, requested by the maintainer, with asset checksum and provenance. The package must embed that exact image within the bounded cover region. No other slide/master/layout pictures or image fills. Titles, body text, numbers, diagrams and tables remain native.
 - Real PowerPoint tables on slides 11 and 13.
 - All slide titles, substantive notes and load-bearing evidence numbers are present.
 - Source/generator/validator hashes and the PPTX checksum match the manifest.
@@ -84,7 +84,7 @@ These checks do not establish research validity, perfect visual layout, Microsof
 
 ## Provenance and failure behavior
 
-The manifest binds the exact Markdown bytes and executable generation/validation inputs to the PPTX checksum. It intentionally does not claim a circular self-referential final commit SHA; Git supplies commit provenance after the pair is committed. A stale input fails CI rather than silently leaving an apparently current deck.
+The manifest binds the exact Markdown bytes, approved cover image and executable generation/validation inputs to the PPTX checksum. It intentionally does not claim a circular self-referential final commit SHA; Git supplies commit provenance after the pair is committed. A stale input fails CI rather than silently leaving an apparently current deck. Local evidence snapshots have their own retrieval manifest and are reference material, not executable render inputs.
 
 Generation stages new files and refuses mixed inputs if source bytes change during the run. Existing output is replaced only after checks pass. The existing publication pair installer verifies checksums, backs up both outputs and restores both after an installation failure. It checks the old pair's internal checksum, not its freshness against newly edited sources, so legitimate regeneration remains possible.
 

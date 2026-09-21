@@ -10,8 +10,10 @@ import { finalizePublicationPair } from "./render-publication-pdf.mjs"
 const root = path.resolve(fileURLToPath(new URL("../..", import.meta.url)))
 const directory = "assets/presentations/pmday-2026"
 const source = `${directory}/README.md`
+const cover = `${directory}/artwork/ai-two-roles.png`
 const inputs = [
   source,
+  cover,
   "quartz/scripts/pmday-presentation.mjs",
   "quartz/scripts/build-pmday-pptx.mjs",
   "quartz/scripts/validate-pmday-pptx.py",
@@ -83,7 +85,7 @@ async function main() {
   const checked = path.join(stage, "output", "ai-changes-both-sides.pptx")
   const manifest = path.join(stage, "output", "ai-changes-both-sides.manifest.json")
   await mkdir(path.dirname(checked), { recursive: true })
-  const deck = createDeck(Presentation, data)
+  const deck = createDeck(Presentation, data, { cover: await readFile(path.join(root, cover)) })
   await (await PresentationFile.exportPptx(deck)).save(draft)
   await finalizePresentation({
     workspaceDir: root,
@@ -126,7 +128,9 @@ async function main() {
     },
     pptx_sha256: sha(await readFile(checked)),
     slide_count: 14,
-    image_exceptions: [],
+    image_exceptions: [
+      { slide: 1, asset: cover, purpose: "Requested conceptual cover illustration" },
+    ],
     target_application: "Microsoft PowerPoint",
     visual_review: "required separately; structural validation is not visual acceptance",
   }

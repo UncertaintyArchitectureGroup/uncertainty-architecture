@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Refined PMDay slides 1–4: added a requested conceptual cover illustration, centered attached transition connectors, an explicit ToC/WIP example and AI-effect uncertainty across the SDLC, and separated DORA perceptions from delivery stability and GitClear moved-code/duplication metrics. Added attributed local CC BY evidence PDFs, searchable text, source notes and retrieval hashes. Slides 5–14 remain unchanged in this iteration.
+
 - Added the PMDay presentation evidence base with direct report/source links, version and slide mappings, methodological limits, historical source dispositions, and separate Subprime/UA reading paths. Moved the existing bibliography overview into that companion file and linked it from the deck source and assets index.
 
 - Consolidated the presentation workstream from PR #129 into PR #113, rebuilt the 14-slide PMDay layout with consistent margins and native diagrams, and added an independent exported-PPTX LibreOffice/Poppler preview with exact-artifact render evidence. Portable GitHub generation and the original 22-slide deck remain explicitly pending.

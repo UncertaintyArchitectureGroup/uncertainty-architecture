@@ -46,14 +46,17 @@ export function parseDeck(markdown) {
     }
     if (typeof data.notes !== "string" || !data.notes.trim())
       throw new Error(`Slide ${i + 1}: missing notes`)
-    if (data.images) throw new Error("This edition has no approved image exceptions")
+    if (data.images)
+      throw new Error(
+        "Only the fixed cover asset is approved; arbitrary image exceptions are forbidden",
+      )
     if (data.titleLines && data.titleLines.join(" ") !== section[2])
       throw new Error(`Slide ${i + 1}: title line breaks changed the approved title`)
     return { ...data, title: section[2] }
   })
 }
 
-export function createDeck(Presentation, data) {
+export function createDeck(Presentation, data, assets = {}) {
   const C = theme
   const deck = Presentation.create({ slideSize: { width: C.width, height: C.height } })
   function text(s, value, x, y, w, h, size = 28, color = C.white, bold = false, align = "left") {
@@ -166,93 +169,114 @@ export function createDeck(Presentation, data) {
           s,
           d.title.replace(" of Software", "\nof Software"),
           64,
-          64,
+          50,
           1110,
           144,
-          54,
+          50,
           C.white,
           true,
         )
-        text(s, d.subtitle, 64, 236, 1110, 48, 30, C.gray)
-        d.lanes.forEach(([label, result], i) => {
-          const y = 350 + i * 114,
-            color = i ? C.amber : C.cyan
-          text(s, label, 64, y, 340, 40, 26, color, true)
-          s.shapes.add({
-            geometry: "rightArrow",
-            position: { left: 408, top: y + 10, width: 96, height: 20 },
-            fill: color,
-            line: { fill: "none", width: 0 },
-          })
-          text(s, result, 544, y - 4, 660, 56, 34, C.white, true)
+        text(s, d.subtitle, 64, 219, 1110, 48, 28, C.gray)
+        if (!assets.cover) throw new Error("Approved cover illustration is required")
+        s.images.add({
+          blob: assets.cover,
+          contentType: "image/png",
+          alt: d.illustrationAlt,
+          fit: "contain",
+          position: { left: 598, top: 273, width: 618, height: 412 },
         })
-        text(s, d.takeaway, 64, 595, 1100, 40, 27, C.gray)
+        d.lanes.forEach(([label, result, detail], i) => {
+          const y = 324 + i * 160,
+            color = i ? C.amber : C.cyan
+          text(s, label, 64, y, 510, 34, 23, color, true)
+          text(s, result, 64, y + 38, 510, 44, 31, C.white, true)
+          text(s, detail, 64, y + 84, 495, 55, 24, C.gray)
+        })
         text(s, "Vitalii Oborskyi · PMDay", 64, 678, 1060, 26, 20, C.gray)
         break
       }
       case "phase": {
-        d.items.forEach(([name, meaning], i) => {
-          const x = 64 + i * 400,
+        const blocks = d.items.map(([name, meaning, example], i) => {
+          const x = 64 + i * 410,
             color = i === 2 ? C.amber : C.cyan
-          text(s, String(i + 1).padStart(2, "0"), x, 222, 80, 36, 24, color)
-          line(s, x, 280, x + 350, 280, color, 3)
-          text(s, name, x, 310, 350, 52, 34, C.white, true)
-          text(s, meaning.replace(" ", "\n"), x, 384, 350, 90, 29, color)
+          const block = rect(s, x, 231, 332, 245, color)
+          text(s, name, x + 24, 249, 284, 48, 31, C.white, true)
+          text(s, meaning, x + 24, 313, 284, 68, 27, color, true)
+          text(s, example, x + 24, 395, 284, 60, 23, C.gray)
+          return block
         })
-        text(s, d.caveat, 64, 538, 1120, 48, 23, C.gray)
+        // Centered connectors attach to the actual blocks, so no arrows float in space.
+        connect(s, blocks[0], blocks[1], C.cyan)
+        connect(s, blocks[1], blocks[2], C.amber)
+        text(s, d.caveat, 64, 522, 1120, 48, 22, C.gray)
         takeaway(s, d.takeaway)
         break
       }
       case "sdlc": {
+        text(s, d.scope, 64, 183, 1152, 36, 23, C.gray)
         const nodes = d.steps.map((v, i) =>
           box(
             s,
             v,
             64 + i * 145,
-            305,
+            270,
             130,
-            86,
-            i === 2 ? C.cyan : C.line,
+            82,
+            i === 2 ? C.cyan : i === 5 ? C.amber : C.line,
             v === "Integrate" ? 19 : 21,
           ),
         )
         nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
-        text(s, "↑↑↑", 354, 222, 130, 50, 40, C.cyan, true, "center")
-        for (const i of [3, 4, 5, 7])
-          text(s, "?", 64 + i * 145, 225, 130, 44, 30, C.amber, true, "center")
-        text(s, d.caption, 64, 458, 1118, 75, 30, C.gray)
-        takeaway(s, d.takeaway, C.cyan, 34)
+        for (const i of [0, 1, 3, 4, 5, 6, 7])
+          text(s, "?", 64 + i * 145, 225, 130, 32, 25, C.amber, true, "center")
+        text(s, d.codeRate, 340, 358, 158, 54, 21, C.cyan, true, "center")
+        text(s, d.constraintRate, 775, 358, 158, 54, 21, C.amber, true, "center")
+        text(s, "THEORY OF CONSTRAINTS", 64, 432, 738, 30, 22, C.cyan, true)
+        text(s, d.toc, 64, 470, 710, 92, 26, C.white, true)
+        text(s, d.risk, 64, 568, 720, 90, 23, C.gray)
+        line(s, 826, 432, 826, 651, C.line)
+        text(s, d.queueRate, 866, 445, 350, 68, 50, C.amber, true)
+        text(s, d.queueLabel, 866, 514, 350, 56, 25, C.white, true)
+        text(s, d.exampleCaveat, 866, 582, 350, 76, 20, C.gray)
         break
       }
       case "evidence": {
-        rect(s, 64, 190, 554, 386, C.cyan)
-        text(s, "NBER · 2026", 84, 208, 510, 30, 22, C.cyan, true)
+        line(s, 583, 194, 583, 650, C.line)
+        text(s, "NBER · 2026", 64, 195, 500, 30, 22, C.cyan, true)
         d.nberMetrics.forEach(([value, label], i) => {
-          const x = 84 + i * 174
-          text(s, value, x, 256, 158, 60, 44, C.white, true)
-          text(s, label, x, 320, 160, 30, 21, C.gray)
-          if (i < 2) line(s, x + 160, 267, x + 160, 342, C.line)
+          const x = 64 + i * 169
+          text(s, value, x, 246, 157, 60, 43, C.white, true)
+          text(s, label, x, 307, 157, 30, 21, C.gray)
         })
-        text(s, d.nberGeneration, 84, 370, 512, 36, 23, C.cyan, true)
-        text(s, d.nberCaveat, 84, 418, 512, 58, 20, C.gray)
-        line(s, 84, 490, 596, 490)
-        text(s, d.marketHeadline, 84, 500, 512, 60, 23, C.white, true)
-        d.cards.forEach(([source, value, caveat], i) => {
-          const x = 646 + (i % 2) * 288,
-            y = 190 + Math.floor(i / 2) * 199
-          rect(s, x, y, 270, 187, C.line, C.bg)
-          text(s, source, x + 16, y + 14, 238, 30, 18, C.cyan, true)
-          text(s, value, x + 16, y + 50, 238, 66, 25, C.white, true)
-          text(s, caveat, x + 16, y + 119, 238, 60, 18, C.gray)
-        })
-        // Market proxies are separate from the productivity estimates, not a conversion rate.
+        text(s, d.nberGeneration, 64, 352, 496, 54, 22, C.cyan, true)
+        text(s, d.nberCaveat, 64, 411, 496, 55, 20, C.gray)
+        text(s, d.marketHeadline, 64, 477, 496, 61, 24, C.white, true)
         d.marketNumbers.forEach(([label, value], i) => {
-          const x = 64 + i * 582
-          text(s, label, x, 584, 304, 30, 20, C.gray)
-          text(s, value, x + 308, 582, 246, 34, 24, C.amber, true, "right")
+          const y = 551 + i * 35
+          text(s, label, 64, y, 255, 29, 20, C.gray)
+          text(s, value, 319, y, 241, 29, 23, C.amber, true, "right")
         })
-        text(s, d.marketDetail, 64, 625, 1120, 28, 20, C.gray)
-        text(s, d.takeaway, 64, 665, 1095, 32, 24, C.white, true)
+        text(s, d.marketDetail, 64, 625, 496, 32, 20, C.gray)
+        text(s, "DORA · 2025", 616, 195, 600, 30, 22, C.cyan, true)
+        d.doraMetrics.forEach(([value, label], i) => {
+          const x = 616 + i * 300
+          text(s, value, x, 232, 282, 48, 35, C.white, true)
+          text(s, label, x, 280, 282, 51, 21, C.gray)
+        })
+        text(s, d.doraAssociation, 616, 340, 600, 43, 20, C.amber)
+        line(s, 616, 392, 1216, 392)
+        text(s, "GITCLEAR · JUN 2026", 616, 406, 600, 28, 22, C.cyan, true)
+        text(s, d.gitclearMetrics[0], 616, 443, 600, 37, 27, C.white, true)
+        text(s, d.gitclearMetrics[1], 616, 482, 600, 36, 27, C.white, true)
+        text(s, d.gitclearCaveat, 616, 521, 600, 39, 20, C.gray)
+        line(s, 616, 573, 1216, 573)
+        d.otherCards.forEach(([source, value, caveat], i) => {
+          const x = 616 + i * 306
+          text(s, source, x, 584, 294, 25, 20, C.cyan, true)
+          text(s, value, x, 611, 294, 33, 24, C.white, true)
+          text(s, caveat, x, 644, 294, 25, 20, C.gray)
+        })
+        text(s, d.takeaway, 64, 677, 1095, 27, 22, C.white, true)
         break
       }
       case "comprehension": {
