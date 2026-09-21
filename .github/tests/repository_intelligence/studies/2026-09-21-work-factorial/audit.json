@@ -2,10 +2,7 @@
   "source_files_verified": 388,
   "frozen_inputs_verified": 32,
   "completed_persisted_slots": 12,
-  "older_studies_unchanged": [
-    "2026-09-17-initial",
-    "2026-09-18-inventory-pilot"
-  ],
+  "older_studies_unchanged": ["2026-09-17-initial", "2026-09-18-inventory-pilot"],
   "observations": [
     {
       "run_id": "WF01",
@@ -38,36 +35,28 @@
     {
       "run_id": "WF05",
       "all_returned_source_and_ri_pages_complete": true,
-      "cited_paths_without_direct_full_read": [
-        "CHANGELOG.md"
-      ],
+      "cited_paths_without_direct_full_read": ["CHANGELOG.md"],
       "reader_errors": [],
       "access_deviations_section": "None"
     },
     {
       "run_id": "WF06",
       "all_returned_source_and_ri_pages_complete": true,
-      "cited_paths_without_direct_full_read": [
-        "CHANGELOG.md"
-      ],
+      "cited_paths_without_direct_full_read": ["CHANGELOG.md"],
       "reader_errors": [],
       "access_deviations_section": "None"
     },
     {
       "run_id": "WF07",
       "all_returned_source_and_ri_pages_complete": true,
-      "cited_paths_without_direct_full_read": [
-        "CHANGELOG.md"
-      ],
+      "cited_paths_without_direct_full_read": ["CHANGELOG.md"],
       "reader_errors": [],
       "access_deviations_section": "None"
     },
     {
       "run_id": "WF08",
       "all_returned_source_and_ri_pages_complete": true,
-      "cited_paths_without_direct_full_read": [
-        "CHANGELOG.md"
-      ],
+      "cited_paths_without_direct_full_read": ["CHANGELOG.md"],
       "reader_errors": [],
       "access_deviations_section": "Поточні live-стани PR/CI не надано; висновків про них немає."
     },
@@ -95,16 +84,12 @@
       "reader_errors": [
         {
           "operation": "read",
-          "arguments": [
-            ".github/scripts/repository_intelligence.py"
-          ],
+          "arguments": [".github/scripts/repository_intelligence.py"],
           "error": "Unavailable in this experimental condition"
         },
         {
           "operation": "read",
-          "arguments": [
-            ".github/tests/repository_intelligence/README.md"
-          ],
+          "arguments": [".github/tests/repository_intelligence/README.md"],
           "error": "Unavailable in this experimental condition"
         }
       ],
@@ -124,10 +109,7 @@
     {
       "run_id": "WF12",
       "all_returned_source_and_ri_pages_complete": true,
-      "cited_paths_without_direct_full_read": [
-        ".github/scripts/validate_metadata.py",
-        "AGENTS.md"
-      ],
+      "cited_paths_without_direct_full_read": [".github/scripts/validate_metadata.py", "AGENTS.md"],
       "reader_errors": [],
       "access_deviations_section": "Кореневі та scoped `AGENTS.md` і native RI недоступні за умовами доступу. Live PR/CI-контекст не надано."
     }

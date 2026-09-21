@@ -68,9 +68,7 @@
       "driver_response_utf8_bytes": 255757,
       "native_bootstrap_utf8_bytes": 567,
       "measured_input_utf8_bytes": 256324,
-      "original_agents_read": [
-        "AGENTS.md"
-      ],
+      "original_agents_read": ["AGENTS.md"],
       "read_coverage": {
         "source:AGENTS.md": true,
         "source:README.md": true,
@@ -164,9 +162,7 @@
       "driver_response_utf8_bytes": 371542,
       "native_bootstrap_utf8_bytes": 567,
       "measured_input_utf8_bytes": 372109,
-      "original_agents_read": [
-        "AGENTS.md"
-      ],
+      "original_agents_read": ["AGENTS.md"],
       "read_coverage": {
         "source:AGENTS.md": true,
         "source:README.md": true,
@@ -239,9 +235,7 @@
       "model_tokens": null,
       "latency": null,
       "billing": null,
-      "cited_existing_files_without_complete_read": [
-        "CHANGELOG.md"
-      ],
+      "cited_existing_files_without_complete_read": ["CHANGELOG.md"],
       "publication_commit": "c923cd771aad6115cec93dd1335ed1191228c798",
       "remote_tree_verified": true
     },
@@ -264,9 +258,7 @@
       "driver_response_utf8_bytes": 556888,
       "native_bootstrap_utf8_bytes": 567,
       "measured_input_utf8_bytes": 557455,
-      "original_agents_read": [
-        "AGENTS.md"
-      ],
+      "original_agents_read": ["AGENTS.md"],
       "read_coverage": {
         "source:AGENTS.md": true,
         "source:SPECIFICATION.md": true,
@@ -290,12 +282,7 @@
         "source:04-failure-modes/README.md": true,
         "source:02-ai-control-plane/README.md": true
       },
-      "native_operations": [
-        [
-          "artifact-preflight",
-          "AI Deployment Passport"
-        ]
-      ],
+      "native_operations": [["artifact-preflight", "AI Deployment Passport"]],
       "reader_boundary_findings": [],
       "reader_errors": [],
       "external_access_attested": false,
@@ -303,9 +290,7 @@
       "model_tokens": null,
       "latency": null,
       "billing": null,
-      "cited_existing_files_without_complete_read": [
-        "CHANGELOG.md"
-      ],
+      "cited_existing_files_without_complete_read": ["CHANGELOG.md"],
       "publication_commit": "76149f90cf788e3a8188655f76409fec0929e2fe",
       "remote_tree_verified": true
     },
@@ -358,9 +343,7 @@
       "model_tokens": null,
       "latency": null,
       "billing": null,
-      "cited_existing_files_without_complete_read": [
-        "CHANGELOG.md"
-      ],
+      "cited_existing_files_without_complete_read": ["CHANGELOG.md"],
       "publication_commit": "80ddcf3c00d2ee29a8f6a799da610f24bd21d50d",
       "remote_tree_verified": true
     },
@@ -384,9 +367,7 @@
       "driver_response_utf8_bytes": 388042,
       "native_bootstrap_utf8_bytes": 567,
       "measured_input_utf8_bytes": 388609,
-      "original_agents_read": [
-        "AGENTS.md"
-      ],
+      "original_agents_read": ["AGENTS.md"],
       "read_coverage": {
         "source:AGENTS.md": true,
         "source:03-reference-architectures/README.md": true,
@@ -417,9 +398,7 @@
       "model_tokens": null,
       "latency": null,
       "billing": null,
-      "cited_existing_files_without_complete_read": [
-        "CHANGELOG.md"
-      ],
+      "cited_existing_files_without_complete_read": ["CHANGELOG.md"],
       "publication_commit": "4a597c5ec631f593b5d47508d97c346ef5d92200",
       "remote_tree_verified": true
     },
@@ -443,10 +422,7 @@
       "driver_response_utf8_bytes": 212936,
       "native_bootstrap_utf8_bytes": 567,
       "measured_input_utf8_bytes": 213503,
-      "original_agents_read": [
-        ".github/AGENTS.md",
-        "AGENTS.md"
-      ],
+      "original_agents_read": [".github/AGENTS.md", "AGENTS.md"],
       "read_coverage": {
         "source:.github/AGENTS.md": true,
         "source:AGENTS.md": true,
@@ -508,16 +484,12 @@
       "reader_errors": [
         {
           "operation": "read",
-          "arguments": [
-            ".github/scripts/repository_intelligence.py"
-          ],
+          "arguments": [".github/scripts/repository_intelligence.py"],
           "error": "Unavailable in this experimental condition"
         },
         {
           "operation": "read",
-          "arguments": [
-            ".github/tests/repository_intelligence/README.md"
-          ],
+          "arguments": [".github/tests/repository_intelligence/README.md"],
           "error": "Unavailable in this experimental condition"
         }
       ],
@@ -556,10 +528,7 @@
       "driver_response_utf8_bytes": 208965,
       "native_bootstrap_utf8_bytes": 567,
       "measured_input_utf8_bytes": 209532,
-      "original_agents_read": [
-        "AGENTS.md",
-        ".github/AGENTS.md"
-      ],
+      "original_agents_read": ["AGENTS.md", ".github/AGENTS.md"],
       "read_coverage": {
         "source:AGENTS.md": true,
         "source:.github/AGENTS.md": true,
