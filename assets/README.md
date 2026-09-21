@@ -17,7 +17,7 @@ tags:
 
 This directory contains diagrams, illustrations, and visual references used across the repository.
 
-The [PMDay 2026 presentation](presentations/pmday-2026/README.md) keeps its approved 14-slide description, native editable PowerPoint review snapshot and provenance manifest together. Its build contract is [Editable PowerPoint export](../quartz/PPTX-EXPORT.md). This teaching rendition does not create specification authority.
+The [PMDay 2026 presentation](presentations/pmday-2026/README.md) keeps its approved 14-slide description, native editable PowerPoint review snapshot and provenance manifest together. Its [evidence base](presentations/pmday-2026/EVIDENCE.md) links the reports, source versions, slide claims and limitations. Its build contract is [Editable PowerPoint export](../quartz/PPTX-EXPORT.md). This teaching rendition does not create specification authority.
 
 Visuals should clarify boundaries, flows, control surfaces, evidence relationships, or repository navigation. They do not create normative requirements independently of the document that uses and classifies them.
 

@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Added the PMDay presentation evidence base with direct report/source links, version and slide mappings, methodological limits, historical source dispositions, and separate Subprime/UA reading paths. Moved the existing bibliography overview into that companion file and linked it from the deck source and assets index.
+
 - Consolidated the presentation workstream from PR #129 into PR #113, rebuilt the 14-slide PMDay layout with consistent margins and native diagrams, and added an independent exported-PPTX LibreOffice/Poppler preview with exact-artifact render evidence. Portable GitHub generation and the original 22-slide deck remain explicitly pending.
 
 - Added an editable PowerPoint publishing path for the maintainer-approved 14-slide PMDay deck: central Markdown with dark-background/native-object requirements, generated review snapshot, source hashes, portable OOXML/freshness checks and regression tests. Authoring uses the configured Codex runtime; existing CI verifies the snapshot and does not claim stock-runner regeneration or PowerPoint desktop acceptance. UA doctrine, research state and the PDF pipeline are unchanged.
