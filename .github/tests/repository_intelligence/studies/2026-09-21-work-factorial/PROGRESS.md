@@ -1,20 +1,22 @@
 # Durable progress
 
-No scored sessions dispatched. Frozen inputs will be published before dispatch.
+Input freeze: `48a1c9964de47ed3545824981ebaf96e4d6723c9`.
 
-| Slot | Task | Arm | Status |
-|---|---|---|---|
-| WF01 | F1 | NONE | not_started |
-| WF02 | F1 | AGENTS | not_started |
-| WF03 | F1 | RI | not_started |
-| WF04 | F1 | AGENTS_RI | not_started |
-| WF05 | F2 | RI | not_started |
-| WF06 | F2 | AGENTS_RI | not_started |
-| WF07 | F2 | NONE | not_started |
-| WF08 | F2 | AGENTS | not_started |
-| WF09 | F3 | AGENTS_RI | not_started |
-| WF10 | F3 | RI | not_started |
-| WF11 | F3 | AGENTS | not_started |
-| WF12 | F3 | NONE | not_started |
+Every linked first outcome and reader journal is retained in this Git history. No score or benefit inference is made during collection.
 
-No results, scoring or benefit conclusion yet. Earlier studies are separate.
+| Slot | Task | Arm | Status | First answer | Evidence |
+|---|---|---|---|---|---|
+| WF01 | F1 | NONE | answer_received | [text](answers/WF01.txt) | [journal and record](evidence/WF01.zip) |
+| WF02 | F1 | AGENTS | started | — | — |
+| WF03 | F1 | RI | started | — | — |
+| WF04 | F1 | AGENTS_RI | not_started | — | — |
+| WF05 | F2 | RI | not_started | — | — |
+| WF06 | F2 | AGENTS_RI | not_started | — | — |
+| WF07 | F2 | NONE | not_started | — | — |
+| WF08 | F2 | AGENTS | not_started | — | — |
+| WF09 | F3 | AGENTS_RI | not_started | — | — |
+| WF10 | F3 | RI | not_started | — | — |
+| WF11 | F3 | AGENTS | not_started | — | — |
+| WF12 | F3 | NONE | not_started | — | — |
+
+All source snapshots are fixed. Off-reader access and hidden platform context are not independently attestable. Earlier studies are separate.
