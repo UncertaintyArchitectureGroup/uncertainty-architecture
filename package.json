@@ -12,6 +12,8 @@
     "url": "https://github.com/jackyzha0/quartz.git"
   },
   "scripts": {
+    "pptx:pmday": "node quartz/scripts/build-pmday-pptx.mjs",
+    "pptx:verify": "python3 quartz/scripts/validate-pmday-pptx.py",
     "build": "npx quartz build",
     "pdf": "node quartz/scripts/export-pdf.mjs",
     "pdf:setup": "playwright install chromium",

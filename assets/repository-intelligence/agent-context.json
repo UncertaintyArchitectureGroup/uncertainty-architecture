@@ -5320,11 +5320,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "24ebc617db9872d9d3329bb23ab37b7f8eb63d3ad60b3f40c0c3f7e3dd6ec4bb",
+    "digest": "c1d0bf2872e0c89ec546691c5a7691888e841d956a4684a6260ce68cd2f5e74d",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 122,
+    "input_count": 123,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5812,6 +5812,10 @@
       },
       {
         "identity_mode": "content",
+        "path": "quartz/PPTX-EXPORT.md"
+      },
+      {
+        "identity_mode": "content",
         "path": "quartz/README.md"
       }
     ]
@@ -5829,6 +5833,8 @@
       "pdf:verify",
       "pdf:verify:figure8",
       "pdf:working-paper",
+      "pptx:pmday",
+      "pptx:verify",
       "profile",
       "publication:assets",
       "publication:bundle",

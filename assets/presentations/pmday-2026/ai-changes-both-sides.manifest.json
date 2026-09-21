@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "edition": "pmday-2026-review-candidate",
+  "source": "assets/presentations/pmday-2026/README.md",
+  "inputs": {
+    "assets/presentations/pmday-2026/README.md": "ea10ae7071fb6a19bb4cb3ac4a0158866bf8b8351b089f58d1ae70577c061b33",
+    "quartz/scripts/pmday-presentation.mjs": "0e0306e7f80d303f7fa16e22747d0fd5760072682a2c5c0e11287c386438160b",
+    "quartz/scripts/build-pmday-pptx.mjs": "bbc908fe1caa610c8bf8164b0e895ab27578a3a3823e12e86ed8ceda70132116",
+    "quartz/scripts/validate-pmday-pptx.py": "9ea072c4159971a497dbad1751d2acefcf2f59009a6ed589e68576959c8673c2"
+  },
+  "authoring_runtime": {
+    "package": "@oai/artifact-tool",
+    "version": "2.8.59",
+    "bundle": "26.903.11726"
+  },
+  "pptx_sha256": "e876d4947bb5cda118f4b9a45415b00c3d5cceb99ef3f2bb9d7ba8fc06bfba81",
+  "slide_count": 14,
+  "image_exceptions": [],
+  "target_application": "Microsoft PowerPoint",
+  "visual_review": "required separately; structural validation is not visual acceptance"
+}
