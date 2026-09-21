@@ -1,9 +1,11 @@
 # Work factorial study, 21 September 2026
 
-Status: execution inputs prepared; 0/12 scored sessions dispatched. The input
-archive must be published on this PR branch before dispatch. See
-[PROTOCOL.md](PROTOCOL.md) for the decision rules and limitations, and
-[PROGRESS.md](PROGRESS.md) for the durable slot ledger.
+Status: all 12 first answers and reader journals are remotely published in
+individual commits. A fresh separate assessor is evaluating the shuffled
+verbatim answers against the unchanged criteria; no quality conclusion is
+available yet. See [PROTOCOL.md](PROTOCOL.md) for fixed decision rules,
+[PROGRESS.md](PROGRESS.md) for every slot, and [SCORING.md](SCORING.md) for
+assessment provenance.
 
 This is a new execution of the three tasks and four conditions from the
 maintainer-approved September 18 clean preparation. It does not resume or

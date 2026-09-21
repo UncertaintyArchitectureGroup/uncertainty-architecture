@@ -1,0 +1,136 @@
+{
+  "source_files_verified": 388,
+  "frozen_inputs_verified": 32,
+  "completed_persisted_slots": 12,
+  "older_studies_unchanged": [
+    "2026-09-17-initial",
+    "2026-09-18-inventory-pilot"
+  ],
+  "observations": [
+    {
+      "run_id": "WF01",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [],
+      "reader_errors": [],
+      "access_deviations_section": "None"
+    },
+    {
+      "run_id": "WF02",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [],
+      "reader_errors": [],
+      "access_deviations_section": "None"
+    },
+    {
+      "run_id": "WF03",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [],
+      "reader_errors": [],
+      "access_deviations_section": "None"
+    },
+    {
+      "run_id": "WF04",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [],
+      "reader_errors": [],
+      "access_deviations_section": "None"
+    },
+    {
+      "run_id": "WF05",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [
+        "CHANGELOG.md"
+      ],
+      "reader_errors": [],
+      "access_deviations_section": "None"
+    },
+    {
+      "run_id": "WF06",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [
+        "CHANGELOG.md"
+      ],
+      "reader_errors": [],
+      "access_deviations_section": "None"
+    },
+    {
+      "run_id": "WF07",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [
+        "CHANGELOG.md"
+      ],
+      "reader_errors": [],
+      "access_deviations_section": "None"
+    },
+    {
+      "run_id": "WF08",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [
+        "CHANGELOG.md"
+      ],
+      "reader_errors": [],
+      "access_deviations_section": "Поточні live-стани PR/CI не надано; висновків про них немає."
+    },
+    {
+      "run_id": "WF09",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [
+        ".github/policy/metadata-contract.json",
+        ".github/scripts/repository_intelligence.py",
+        ".github/scripts/validate_metadata.py"
+      ],
+      "reader_errors": [],
+      "access_deviations_section": "None"
+    },
+    {
+      "run_id": "WF10",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [
+        ".github/policy/metadata-contract.json",
+        ".github/scripts/repository_intelligence.py",
+        ".github/scripts/validate_metadata.py",
+        ".github/tests/repository_intelligence/README.md",
+        "AGENTS.md"
+      ],
+      "reader_errors": [
+        {
+          "operation": "read",
+          "arguments": [
+            ".github/scripts/repository_intelligence.py"
+          ],
+          "error": "Unavailable in this experimental condition"
+        },
+        {
+          "operation": "read",
+          "arguments": [
+            ".github/tests/repository_intelligence/README.md"
+          ],
+          "error": "Unavailable in this experimental condition"
+        }
+      ],
+      "access_deviations_section": "Кореневі та scoped `AGENTS.md` не надані. Читання `.github/scripts/repository_intelligence.py` і `.github/tests/repository_intelligence/README.md` повернуло відмову доступу; їхню реалізацію та вміст незалежно не перевірено."
+    },
+    {
+      "run_id": "WF11",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [
+        ".github/policy/metadata-contract.json",
+        ".github/scripts/repository_intelligence.py",
+        ".github/scripts/validate_metadata.py"
+      ],
+      "reader_errors": [],
+      "access_deviations_section": "Live-стан PR/CI, поточні target/head/tested-merge SHA та фактична mergeability не надані."
+    },
+    {
+      "run_id": "WF12",
+      "all_returned_source_and_ri_pages_complete": true,
+      "cited_paths_without_direct_full_read": [
+        ".github/scripts/validate_metadata.py",
+        "AGENTS.md"
+      ],
+      "reader_errors": [],
+      "access_deviations_section": "Кореневі та scoped `AGENTS.md` і native RI недоступні за умовами доступу. Live PR/CI-контекст не надано."
+    }
+  ],
+  "limit": "This audits retained reader traffic and bytes, not all platform tools, hidden context, backend identity or cognition. Mentioning a file as a change target, excluded source or interpretation-path member is not automatically a missing critical-source read; review those mentions substantively."
+}
