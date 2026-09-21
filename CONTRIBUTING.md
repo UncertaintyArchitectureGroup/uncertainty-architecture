@@ -80,6 +80,52 @@ Metadata supports navigation, Obsidian queries, publishing, and machine retrieva
 
 Do not mechanically rewrite raw source snapshots or historical publication bodies merely to normalize metadata. The convention is applied incrementally when maintained documents are created or materially edited.
 
+### Repository-intelligence preflight
+
+The [operational agent route](.github/REPOSITORY-INTELLIGENCE.md#operational-agent-route) describes local and GitHub-connector use, freshness, source reading, and fallback. The tooling is orientation evidence; ordinary contribution and authority rules remain applicable.
+
+```bash
+python3 .github/scripts/repository_intelligence.py verify
+python3 .github/scripts/repository_intelligence.py context-for-task "contribution-workflow"
+python3 .github/scripts/repository_intelligence.py term-preflight "Behavioral Software"
+python3 .github/scripts/repository_intelligence.py artifact-preflight "PDF export"
+python3 .github/scripts/repository_intelligence.py validation-plan ".github/REPOSITORY-INTELLIGENCE.md"
+```
+
+After changing indexed inputs, regenerate the read surface and verify it:
+
+```bash
+python3 .github/scripts/repository_intelligence.py build --view agent --output assets/repository-intelligence/agent-context.json
+python3 .github/scripts/repository_intelligence.py verify
+```
+
+The [benchmark protocol and recorded observations](.github/tests/repository_intelligence/README.md) distinguish deterministic checks, observed retrieval misses, connector transport, and unmeasured agent decisions. Run the corpus with an output path outside the repository:
+
+```bash
+python3 .github/tests/repository_intelligence/test_agent_workflow.py
+python3 .github/scripts/benchmark_repository_intelligence.py --output /tmp/repository-intelligence-benchmark.json
+```
+
+The standard suite checks required scenario coverage, complete preflight inventories, and declared owner roles. Use `--suite exploratory --cases <corpus.json>` for a separately labelled exploratory corpus. In a clean committed checkout, `--record-checkout` adds the exact commit/blob evidence used by the connector route; CI enables it explicitly.
+
+### Repository Control Map and site publication
+
+`npm run build` emits the interactive map at `public/control-map/index.html` alongside the ordinary Quartz site. The map has Explore, Architecture, Impact, and Diagnostics views, source-pinned GitHub links, an HTML record list for keyboard access, and visibly unavailable live PR state. Its behavioral owner is the [repository-intelligence architecture](.github/REPOSITORY-INTELLIGENCE.md#control-map-implementation-and-publication).
+
+Regenerate and verify the compact surface before building after indexed-source edits. Ordinary builds identify themselves as previews. To build a published snapshot, use a committed checkout and its full SHA:
+
+```bash
+UA_MAP_ACCEPTED_REF="$(git rev-parse HEAD)" npm run build
+node quartz/scripts/verify-control-map.mjs public
+python3 .github/tests/repository_intelligence/test_control_map.py
+```
+
+The browser verification requires `./node_modules/.bin/playwright install chromium`. It checks desktop and touch-sized viewports, keyboard access, local filters, simulated cached-page restore/cleanup, project-subpath hosting, published feed/sitemap/404 URLs, missing/malformed data, and literal rendering of hostile source text. Lifecycle simulation does not prove real browser-cache behavior or physical iPad acceptance.
+
+PR builds upload `quartz-site-preview` and `control-map-browser-review` for seven days. The preview artifact contains `quartz-site-preview.tar.gz`, preserving existing source-asset filenames that the artifact service cannot upload individually. Extract the archive and serve its contents over HTTP to load the JSON; opening the HTML as a local `file:` URL is insufficient. For local use, `npm run serve` serves the generated map. Source Markdown remains in its existing repository locations.
+
+To activate public hosting after accepting the implementation, select **Settings → Pages → Source: GitHub Actions**, then set repository Actions variable `UA_PUBLISH_QUARTZ` to `true`. The next successful push to `main` publishes the complete filtered Quartz site. `quartz.config.ts` sets `baseUrl` to `uncertaintyarchitecturegroup.github.io/uncertainty-architecture` so feed, sitemap, and 404 URLs use the project site. If Pages settings use a custom domain or a different path, update that configuration and the publication URL expectations in the browser verifier before building. The expected map path is `/uncertainty-architecture/control-map/`. PR builds never deploy. Setting the variable to another value stops future deployments but does not remove an already published site.
+
 ### Local navigation validation
 
 Before pushing a change to framework navigation or compact breadcrumbs, run from the repository root:

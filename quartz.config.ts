@@ -12,6 +12,7 @@ const config: QuartzConfig = {
   configuration: {
     pageTitle: "Uncertainty Architecture",
     pageTitleSuffix: "",
+    baseUrl: "uncertaintyarchitecturegroup.github.io/uncertainty-architecture",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
@@ -89,6 +90,7 @@ const config: QuartzConfig = {
       Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
+      Plugin.RepositoryControlMap(),
       // Comment out CustomOgImages to speed up build time
       Plugin.CustomOgImages(),
     ],
