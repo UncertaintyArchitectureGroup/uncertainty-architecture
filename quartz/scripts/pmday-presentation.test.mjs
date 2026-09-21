@@ -63,6 +63,8 @@ for (const mutation of [
   "cover-missing",
   "cover-size",
   "evidence-number",
+  "nber-obsolete",
+  "agarwal-rounded",
   "toc-missing",
   "block-edge",
   "dora-interval",
@@ -92,6 +94,8 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
    if mutation=='cover-missing': tree.find('p:cSld/p:spTree',ns).remove(pic)
    data=E.tostring(tree)
   if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
+  if item.filename=='ppt/slides/slide4.xml' and mutation=='nber-obsolete': data=data.replace('25.5×'.encode(),'17.3×'.encode())
+  if item.filename=='ppt/slides/slide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85% / +42.87%',b'+35% / +43%')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='dora-interval': data=data.replace(b'+0.07 to +0.13',b'+0.77 to +0.83')
   if item.filename=='ppt/slides/slide2.xml' and mutation=='block-edge':
    tree=E.fromstring(data)

@@ -34,9 +34,9 @@ tags:
 
 Відправна точка — [реєстр evidence/SOURCES.md у Subprime](https://github.com/UncertaintyArchitectureGroup/The-Subprime-Code-Crisis/blob/main/evidence/SOURCES.md), його бібліографія, звіт та NBER evidence brief. Реєстр не означає, що кожен запис уже пройшов повний аудит: стан Registered відрізняється від Verified. Для чисел нижче пріоритет мають самі автори досліджень.
 
-Для актуальності додано новіші авторські публікації, навіть якщо їх ще немає в реєстрі Subprime: DORA 2025, METR за травень 2026, GitClear за червень 2026. Xu використано у v3 від 28 січня 2026, Agarwal — у v2 від 27 січня 2026. Нова дата версії не робить старі дані новими: це окремо зазначено.
+Для актуальності додано новіші авторські публікації, навіть якщо їх ще немає в реєстрі Subprime: DORA 2025, METR за травень 2026, GitClear за 2026; NBER — вереснева редакція 2026. Xu використано у v3 від 28 січня 2026, Agarwal — у v2 від 27 січня 2026. Нова дата версії не робить старі дані новими: це окремо зазначено.
 
-Перевірка означає звірку таблиць, підписів, одиниць вимірювання, дат, дизайну досліджень і арифметики. Вона не означає незалежне відтворення оцінок на сирих даних. Для NBER прочитано наданий оригінальний PDF і візуально звірено ключові таблицю та графіки. Для DORA використано повний звіт v.2025.2 із public mirror, авторське резюме та офіційну інфографіку. Для GitClear — публічний виклад і доступний графік; перевірка повного закритого GitClear whitepaper не заявляється.
+Перевірка означає звірку таблиць, підписів, одиниць вимірювання, дат, дизайну досліджень і арифметики. Вона не означає незалежне відтворення оцінок на сирих даних. Для NBER повторно завантажено поточний офіційний PDF із вересневою редакцією й візуально звірено Figure 1 та Table 6; старий наданий PDF не використовується для поточних чисел. Для DORA використано повний звіт v.2025.2 із public mirror, авторське резюме та офіційну інфографіку. Для GitClear — публічний виклад і доступний графік; перевірка повного закритого GitClear whitepaper не заявляється.
 
 ### Стиль і технічний контракт PPTX
 
@@ -262,11 +262,11 @@ CODE підсвічений; питання стоять також над Inten
   "layout": "evidence",
   "nberMetrics": [
     [
-      "17.3×",
+      "25.5×",
       "changed LOC"
     ],
     [
-      "2.8×",
+      "3.4×",
       "commits"
     ],
     [
@@ -275,21 +275,21 @@ CODE підсвічений; питання стоять також над Inten
     ]
   ],
   "nberGeneration": "Cumulative across three tool generations",
-  "nberCaveat": "Changed LOC = additions + deletions.\nAsync release effect not estimated.",
-  "marketHeadline": "More apps. Aggregate usage\nflat or lower in these cohorts.",
-  "marketDetail": "New cohorts; first 3 months. Usage proxies.",
+  "nberCaveat": "Fig. 1 rounded; LOC = additions + deletions.\nAsync release effect not estimated.",
+  "marketHeadline": "More apps. Usage does not\nkeep pace with new releases.",
+  "marketDetail": "Jan 2025 → Apr 2026; first 3 months.",
   "marketNumbers": [
     [
       "iOS: <10 ratings",
-      "79% → 86%"
+      "≈78% → 87%"
     ],
     [
       "Chrome: <10 downloads",
-      "18% → 31%"
+      "19% → 33%"
     ]
   ],
   "takeaway": "Code activity, delivery and user value are different outcomes.",
-  "notes": "NBER: понад 100 тисяч GitHub developers; matched event study, не RCT. Changed LOC = additions + deletions, не чисте зростання кодової бази.\nTable 5, друкована с. 33, тижні 21–30: Autocomplete — LOC +228.2%, commits +35.9%, PRs +11.0%, releases +10.2%. Synchronous agents — LOC +741.3%, commits +109.1%, PRs +65.5%, releases +20.3%. Asynchronous agents — LOC +658.3%, commits +33.6%, PRs +71.8%; releases не оцінено окремо. Figure 1, с. 3: cumulative LOC 17.3×, files 3.9×, commits 2.8×, PRs 2.5×, repos 1.5×, releases 1.3×. Не перемножувати компоненти.\nFigure 12, с. 41; §8.2, с. 42–43: iOS — 30–50 тисяч нових apps/month → близько 100 тисяч у квітні 2026; Android — 42 тисячі у січні 2025 → близько 60 тисяч у середині 2026; Chrome — 5 тисяч у 2023 → близько 13 тисяч у середині 2026. Total cohort usage за перші 3 місяці стабільне або знижується. Частка iOS apps із <10 ratings: 79→86%; Chrome extensions із <10 downloads: 18→31%. SourceForge без прискорення entry, не входить у три usage panels. Це не всі existing apps, не весь software market і не пряме вимірювання consumer welfare. Chrome decline передував agentic era.\nDORA 2025 v.2025.2: повний звіт отримано через публічне дзеркало; source URL, license і SHA-256 записано в evidence/sources.json. Figure 28, p.38: software delivery instability має standardized estimate приблизно +0.10 SD, 89% credible interval приблизно +0.07…+0.13, на +1 SD AI adoption. Це округлене зчитування графіка, не точна опублікована числова таблиця. Векторні координати та арифметика — evidence/dora-2025-figure28.json. Footnote 23, p.48 визначає стандартизацію. Appendix p.139: instability об’єднує change failure rate та deployment rework rate, тобто частку незапланованих deployments для виправлення user-facing bugs. Це оцінки респондентів у cross-sectional survey, не телеметрія CI/CD і не доведений причинний ефект. Не перекладати +0.10 SD як +10% failures. >80% і 59% — частки респондентів, які повідомляють про покращення productivity та code quality. Перевірений коефіцієнт 2024 +7.2% тут не підставляємо. Деталі: evidence/dora-2025.md.\nMETR, травень 2026: 349 technical workers; 1.4–2× median self-reported work value залежно від питання, 3× self-reported speed; є selection bias. Старий RCT 2025 із +19% часу — лише історичний контекст.\nGitClear 2026: частка moved code у changed lines 13% (2023) → 3.8% (YTD 2026), не кількість refactoring tasks і не весь reuse. Частота duplicated blocks приблизно +81% за цей період. Copy/paste share 9.4% (2022) → 15.7% (H1 2026), інший baseline. Публічне резюме GitClear 2026 прямо повідомляє +15% two-week code churn: частка нещодавно написаних рядків, переписаних/видалених упродовж двох тижнів. Це відносна зміна, не +15 відсоткових пунктів і не частка дефектів. Резюме не дає окремої пари базових значень churn. Function connectivity: 343 → 223 calls/1000 changed lines, 2023 → YTD 2026, приблизно −35%. Це щільність викликів, не весь reuse. Legacy update share: 1.7% → 0.46%; вступ каже 2022, детальний абзац 2023, тому baseline суперечливий і показник лишається в нотатках. Не змішувати churn, duplication та refactoring. Текст і графік 2026 суперечать щодо абсолютної одиниці duplication, тому залишаємо тільки відносні +81%. Це observational proxies, не причинний ефект AI. Деталі: evidence/gitclear.md.\nXu, v3 від січня 2026, дані 2020–22: top activity quartile — commits −19%, reviews +6.5%; bottom quartile — commits +43.5%, PRs +17.7%; rework +2.4%. Це не кадрові грейди й не агенти 2026 року.\nAgarwal, v2, Table 2: complexity +34.85/+42.87%, warnings +17.73/+19.00%; зміна IDE-first warnings статистично незначуща. Не трактувати це як борг на одну фічу.\nDORA: позитивний зв’язок AI adoption з throughput одночасно з негативним зі stability. Small batches, p.58: сильніший позитивний зв’язок AI із product performance та менше friction, хоча індивідуальні gains можуть бути меншими. ToC / review-testing-integration queues, p.81. Це мотивує системну оптимізацію на слайді 7, не доводить універсальну причинність.",
+  "notes": "NBER WP 35275: May 2026, revised September 2026; current official PDF downloaded 2026-09-21. Понад 500 тисяч GitHub developers; matched event study, не RCT. Попередні 17.3× / 2.8×, 79→86% та 18→31% належали старій редакції й замінені. Changed LOC = additions + deletions, не чисте зростання кодової бази.\nTable 6, друкована с.33 / PDF p.35, тижні 21–30: Autocomplete — LOC +234.3%, files +50.0%, commits +30.2%, PRs +18.3%, repos +11.9%, releases +9.0%. Sync — LOC +957.5%, files +265.0%, commits +153.2%, PRs +86.0%, repos +47.3%, releases +19.8%. Async — LOC +1254.9%, files +83.3%, commits +60.7%, PRs +68.5%, repos +19.2%; releases не оцінено окремо. Figure 1, друкована с.2 / PDF p.4: авторські округлені cumulative levels — LOC 25.5×, files 5.0×, commits 3.4×, PRs 2.7×, repos 1.8×, releases 1.3×. Арифметика за округленою Table 6: 1+(234.3+957.5+1254.9)/100=25.467; commits 1+(30.2+153.2+60.7)/100=3.441; releases 1+(9.0+19.8)/100=1.288. Не перемножувати компоненти і не видавати ці суми за точні raw-data estimates. Прочерк async releases не означає нульового ефекту.\nFigure 11, друкована с.44 / PDF p.46; §7.2, с.43–46: iOS нові apps/month приблизно 33–45 тисяч у 2023–early 2025 → 108 тисяч у квітні 2026; Android 42 тисячі у січні 2025 → 99 тисяч у mid-2026; Chrome приблизно семикратне зростання від 2023, що почалося до agentic era. SourceForge показує невелике зростання new projects і винесений у Figure OA-17, без надійної usage-панелі. Usage за перші 3 місяці: iOS cohort ratings приблизно стабільні; Android downloads помірно зростають, але значно повільніше за entry; Chrome downloads падають. Тому коректно «usage does not keep pace», а не «usage ніде не зростає».\n§7.2.3, друкована с.46 / PDF p.48: January 2025 → April 2026, частка iOS із <10 ratings приблизно 78% → 87%; Chrome із <10 downloads 19% → 33%; Android із ≤100 downloads приблизно 22% → 26%. Авторські цілі відсотки; не точні частки з raw data. Це порівняння нових когорт за перші 3 місяці, не всіх existing apps, не весь software market і не пряме вимірювання consumer welfare. Зміни часток приблизно +9/+14/+4 відсоткових пункти відповідно.\nDORA 2025 v.2025.2: повний звіт отримано через публічне дзеркало; source URL, license і SHA-256 записано в evidence/sources.json. Figure 28, p.38: software delivery instability має standardized estimate приблизно +0.10 SD, 89% credible interval приблизно +0.07…+0.13, на +1 SD AI adoption. Це округлене зчитування графіка, не точна опублікована числова таблиця. Векторні координати та арифметика — evidence/dora-2025-figure28.json. Footnote 23, p.48 визначає стандартизацію. Appendix p.139: instability об’єднує change failure rate та deployment rework rate, тобто частку незапланованих deployments для виправлення user-facing bugs. Це оцінки респондентів у cross-sectional survey, не телеметрія CI/CD і не доведений причинний ефект. Не перекладати +0.10 SD як +10% failures. >80% і 59% — частки респондентів, які повідомляють про покращення productivity та code quality. Перевірений коефіцієнт 2024 +7.2% тут не підставляємо. Деталі: evidence/dora-2025.md.\nMETR, 11 травня 2026: 349 technical workers; 1.4–2× medians across 3 self-reported work-value questions; це не credible/confidence interval, 3× self-reported speed; є selection bias. Старий RCT 2025 із +19% часу — лише історичний контекст.\nGitClear 2026: частка moved code у changed lines 13% (2023) → 3.8% (YTD 2026), не кількість refactoring tasks і не весь reuse. Частота duplicated blocks приблизно +81% за цей період. Copy/paste share 9.4% (2022) → 15.7% (H1 2026), інший baseline. Публічне резюме GitClear 2026 прямо повідомляє +15% two-week code churn: частка нещодавно написаних рядків, переписаних/видалених упродовж двох тижнів. Це відносна зміна, не +15 відсоткових пунктів і не частка дефектів. Резюме не дає окремої пари базових значень churn. Function connectivity: 343 → 223 calls/1000 changed lines, 2023 → YTD 2026, приблизно −35%. Це щільність викликів, не весь reuse. Legacy update share: 1.7% → 0.46%; вступ каже 2022, детальний абзац 2023, тому baseline суперечливий і показник лишається в нотатках. Не змішувати churn, duplication та refactoring. Текст і графік 2026 суперечать щодо абсолютної одиниці duplication, тому залишаємо тільки відносні +81%. Це observational proxies, не причинний ефект AI. Деталі: evidence/gitclear.md.\nXu, v3 від січня 2026, дані 2020–22: top activity quartile — commits −19%, reviews +6.5%; bottom quartile — commits +43.5%, PRs +17.7%; rework +2.4%. Це не кадрові грейди й не агенти 2026 року.\nAgarwal, v2, Table 2: complexity Agent-first +34.85% / IDE-first +42.87%, warnings +17.73/+19.00%; зміна IDE-first warnings статистично незначуща. Не трактувати це як борг на одну фічу.\nDORA: позитивний зв’язок AI adoption з throughput одночасно з негативним зі stability. Small batches, p.58: сильніший позитивний зв’язок AI із product performance та менше friction, хоча індивідуальні gains можуть бути меншими. ToC / review-testing-integration queues, p.81. Це мотивує системну оптимізацію на слайді 7, не доводить універсальну причинність.\nПовторна числова перевірка 2026-09-21: DORA Fig.28 vector coordinates та сторінку звірено повторно; коефіцієнт і межі лише приблизні. >80% збережено як авторський поріг: сума округлених bars 41+31+13=85 не встановлює точного агрегату. GitClear calls 343→223 дають приблизно −35%; +81% — авторське округлення, +15% churn — число з резюме без окремої baseline-пари. Точний місяць публікації GitClear не підтверджено на перевіреній сторінці, тому на екрані лише 2026. Див. EVIDENCE.md та відповідні локальні нотатки.",
   "sources": [
     "https://www.nber.org/papers/w35275",
     "https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report",
@@ -309,35 +309,37 @@ CODE підсвічений; питання стоять також над Inten
     ],
     [
       "Calls / 1k changed lines",
-      "−35%"
+      "343 → 223"
     ],
     [
       "Duplicated blocks",
-      "+81%"
+      "≈+81%"
     ],
     [
-      "Two-week code churn",
+      "Two-week churn (reported)",
       "+15%"
     ]
   ],
-  "gitclearCaveat": "Observed code proxies; not a causal AI estimate.",
+  "gitclearCaveat": "2023 → YTD 2026; churn baseline unstated. Observational.",
   "otherCards": [
     [
       "METR · MAY 2026",
       "1.4–2× work value",
-      "Median self-reported work value; survey, not causal uplift"
+      "Medians across 3 questions; self-reported, not causal."
     ],
     [
-      "XU + AGARWAL · 2026",
-      "+35% / +43%",
-      "Agarwal: complexity proxy. Xu: contributor workload shifts."
+      "AGARWAL · JAN 2026",
+      "+34.85% / +42.87%",
+      "Complexity: Agent-first / IDE-first. Xu: workload shifts."
     ]
   ],
   "doraInstability": "≈ +0.10 SD",
   "doraInterval": "89% credible interval ≈ +0.07 to +0.13",
   "doraMeasures": "Survey model, rounded reading of Fig. 28.\nSD = standard deviation, not a failure percentage.",
-  "doraPerceptions": "Report improvement: >80% productivity; 59% code quality.",
-  "doraHeadline": "Higher throughput\nLower delivery stability"
+  "doraPerceptions": "Respondents reporting improvement: >80% productivity; 59% quality.",
+  "doraHeadline": "Higher throughput\nLower delivery stability",
+  "nberSource": "NBER · SEP 2026 REVISION",
+  "gitclearSource": "GITCLEAR · 2026 SUMMARY"
 }
 ```
 
@@ -349,64 +351,63 @@ CODE підсвічений; питання стоять також над Inten
 
 Дві колонки з чіткою вертикальною межею. Зліва — NBER та marketplace outcomes. Справа — одночасний позитивний зв’язок AI із throughput і негативний зі stability у DORA; приблизний standardized coefficient є підписом. Нижче — чотири окремі метрики GitClear. Унизу спільний ряд METR та Xu / Agarwal. Жодних стрілок між несумірними дослідженнями або outcomes; усі числа мають власні підписи. Докладні таблиці залишаються у нотатках.
 
-**Велика картка NBER — May 2026:**
-- **17.3× changed LOC**
-- **2.8× commits**
-- **1.3× releases**
-- Видимий ряд: **Cumulative across three tool generations**
-- Нижній блок: **More apps. No aggregate usage increase in the observed cohorts.**
-- Один конкретний сигнал: **iOS apps with <10 ratings: 79% → 86%**.
-- Критична примітка: **Cumulative estimates; separate async release effect not identified.**
+**Велика картка NBER — September 2026 revision:**
+- **25.5× changed LOC**, **3.4× commits**, **1.3× releases** — округлені значення авторів із Figure 1.
+- Видимий ряд: **Cumulative across three tool generations**.
+- Примітка: **Fig. 1 rounded; LOC = additions + deletions. Async release effect not estimated.**
+- Marketplace headline: **More apps. Usage does not keep pace with new releases.**
+- **iOS: <10 ratings ≈78% → 87%; Chrome: <10 downloads 19% → 33%.**
+- Період порівняння когорт: **Jan 2025 → Apr 2026; first 3 months.**
 
-**METR — May 2026:** **1.4–2× self-reported work value**; підпис **Survey, not measured causal uplift**.
+**METR — May 2026:** **1.4–2× work value**. Це медіани відповідей на три питання, self-report, не causal uplift і не інтервал невизначеності.
 
-**DORA — 2025:** **Higher throughput / Lower delivery stability** при вищому AI adoption. Підпис: **≈ +0.10 SD delivery instability per +1 SD AI adoption**, **89% credible interval ≈ +0.07 to +0.13**. Округлене зчитування Figure 28, p.38; survey model, не CI/CD telemetry. Instability = change failures + unplanned bug-fix deployments. Окремим рядком: >80% report productivity improvement; 59% report code-quality improvement — частки респондентів, не відсотки зміни швидкості/якості.
+**DORA — 2025:** **Higher throughput / Lower delivery stability** при вищому AI adoption. Підпис: **≈ +0.10 SD delivery instability per +1 SD AI adoption**, **89% credible interval ≈ +0.07 to +0.13**. Повторно звірене округлене зчитування Figure 28, p.38, а не точний опублікований коефіцієнт. Survey model, не CI/CD telemetry. Instability = change failures + unplanned bug-fix deployments. Окремо: **>80% productivity; 59% quality** — частки респондентів, які повідомляють про покращення.
 
-**GitClear — June 2026:** **Moved-code share: 13% → 3.8%**, **Calls / 1k changed lines: −35%**, **Duplicated blocks: +81%**, **Two-week code churn: +15%**. Видимий підпис: **Observed code proxies; not a causal AI estimate.** Періоди й визначення пояснюються в нотатках: moved lines — proxy refactoring, function calls — connectivity, churn — швидка переробка.
+**GitClear — 2026 public summary:** **Moved-code share: 13% → 3.8%**, **Calls / 1k changed lines: 343 → 223**, **Duplicated blocks: ≈+81%**, **Two-week churn (reported): +15%**. Moved lines, calls і duplication порівнюють 2023 із YTD 2026; окремої baseline-пари churn немає. Показники observational. Місяць публікації не приписуємо без підтвердження.
 
-**Xu + Agarwal — 2026 versions:** **Workload shifts. Complexity rises in studied samples.** Один числовий ряд: **Complexity +35% / +43%**; назвати Agent-first / IDE-first. Цифри Xu — в нотатках, щоб не перетворити картку на таблицю.
+**Agarwal — January 2026, v2:** **+34.85% / +42.87%**, cognitive complexity для **Agent-first / IDE-first** відповідно, Table 2. Xu лишається окремим якісним сигналом про workload shifts; ці відсотки належать тільки Agarwal.
 
 Унизу слайда: **Code activity, delivery and user value are different outcomes.**
 
 ### NBER: повні перевірені цифри для нотаток
 
-Джерело: Demirer, Musolff & Yang, [Writing Code vs. Shipping Code, NBER WP 35275](https://www.nber.org/papers/w35275). Травень 2026; working paper. Понад 100 тисяч GitHub developers, телеметрія використання AI та matched event-study design; це не рандомізований експеримент.
+Джерело: Demirer, Musolff & Yang, [Writing Code vs. Shipping Code, NBER WP 35275](https://www.nber.org/papers/w35275). May 2026, **revised September 2026**, офіційний PDF отримано 21 вересня 2026. Понад **500 тисяч** GitHub developers, AI telemetry та matched event-study design; не RCT. Попередня редакція зі старими 17,3× / 2,8× більше не є основою слайда. [Версія та SHA-256](evidence/nber-35275.md).
 
-**Table 5, друкована сторінка 33.** Тижні 21–30 після adoption; нормалізація на середнє до adoption, 1% winsorization. У цій таблиці — компоненти ефекту, а не три кумулятивні підсумки.
+**Table 6, друкована с.33 / PDF p.35.** Тижні **21–30** після adoption; нормалізація на середнє до adoption, **1% winsorization**. Це компоненти, а не три кумулятивні підсумки.
 
 | Компонент | Changed LOC | Distinct files | Commits | Created PRs | Distinct repos | Releases |
 |---|---:|---:|---:|---:|---:|---:|
-| Autocomplete | +228,2% | +50,8% | +35,9% | +11,0% | +13,6% | +10,2% |
-| Synchronous agents | +741,3% | +187,0% | +109,1% | +65,5% | +25,5% | +20,3% |
-| Asynchronous agents | +658,3% | +52,4% | +33,6% | +71,8% | +13,8% | Не оцінено окремо |
+| Autocomplete | +234,3% | +50,0% | +30,2% | +18,3% | +11,9% | +9,0% |
+| Synchronous agents | +957,5% | +265,0% | +153,2% | +86,0% | +47,3% | +19,8% |
+| Asynchronous agents | +1254,9% | +83,3% | +60,7% | +68,5% | +19,2% | Не оцінено окремо |
 
-**Що означають покоління:** autocomplete доповнює код; synchronous agent працює з розробником інтерактивно; asynchronous agent отримує делеговану задачу і працює до її завершення автономніше, без постійного синхронного ведення.
+**Покоління:** autocomplete доповнює код; synchronous agent працює з розробником інтерактивно; asynchronous agent автономніше виконує делеговану задачу до завершення.
 
-**Figure 1, сторінка 3, кумулятивно до останнього покоління:** changed LOC 17,3×; файли 3,9×; commits 2,8×; PRs 2,5×; repositories 1,5×; releases 1,3×. Це авторський спосіб підсумувати компоненти, а не вимірювання «17,3-кратної корисності розробника».
+**Figure 1, друкована с.2 / PDF p.4:** cumulative levels **25,5× LOC; 5,0× files; 3,4× commits; 2,7× PRs; 1,8× repos; 1,3× releases**. Це авторські округлення. Суми за надрукованою Table 6: LOC 1 + (234,3 + 957,5 + 1254,9)/100 = 25,467×; commits 1 + (30,2 + 153,2 + 60,7)/100 = 3,441×; releases 1 + (9,0 + 19,8)/100 = 1,288×. Додаткові десяткові знаки цих сум не означають точніших raw-data estimates. Компоненти не перемножуються. Async releases не можна відділити від human-authored components; прочерк не доводить нульового ефекту.
 
-Зокрема, 228,2 + 741,3 + 658,3 = 1627,8% приросту; рівень відносно бази — 17,278× ≈ 17,3×. Для commits: 35,9 + 109,1 + 33,6 = 178,6%, тобто ≈2,8×. Для releases ідентифіковані компоненти дають 30,5%, тобто ≈1,3×; окремого async-компонента немає. НЕ трактувати прочерк як доведений нульовий ефект.
+**Changed LOC = additions + deletions**, не лише нові рядки й не чисте зростання кодової бази. Це не вимір бізнес-цінності.
 
-**LOC означає additions + deletions**, а не тільки нові рядки і не чисте зростання кодової бази. Сильно більша активність у коді не є прямо виміряним зростанням бізнес-цінності.
+### NBER: маркетплейси та кінцевий користувач
 
-### NBER: маркетплейси та кінцевий користувач — повернутий блок
+**Figure 11, друкована с.44 / PDF p.46; §7.2.2–7.2.3, друковані с.45–46 / PDF pp.47–48.**
 
-**Figure 12, друкована сторінка 41; розділи 8.2.2–8.2.3, сторінки 42–43.**
-
-| Майданчик | Нові публікації за місяць: приблизні рівні з тексту авторів | Використання нових когорт у перші 3 місяці |
+| Майданчик | Нові публікації: приблизні рівні з тексту авторів | Usage нових когорт за перші 3 місяці |
 |---|---|---|
-| Apple App Store | 30–50 тис. у 2023 — на початку 2025 → близько 100 тис. у квітні 2026 | Сукупна кількість ratings приблизно стабільна при порівнянні когорт 2024 і 2025 |
-| Google Play | Близько 42 тис. у січні 2025 → близько 60 тис. до середини 2026 | Сукупні downloads приблизно стабільні |
-| Chrome Web Store | Близько 5 тис. у 2023 → близько 13 тис. до середини 2026 | Download proxy знижується; спад почався ще до agentic era |
-| SourceForge | Прискорення кількості нових публікацій не виявлено | Не входить до трьох панелей usage у Figure 12 |
+| Apple App Store | 33–45 тис./місяць у 2023–early 2025 → близько 108 тис. у квітні 2026 | Cohort ratings приблизно стабільні між 2024 і 2025 |
+| Google Play | Близько 42 тис. у січні 2025 → 99 тис./місяць до mid-2026 | Downloads зростають помірно, значно повільніше за кількість нових apps |
+| Chrome Web Store | Приблизно семикратне зростання від 2023; прискорення почалося до agentic era | Cohort downloads падають; спад передував agentic era |
+| SourceForge | Невелике зростання нових projects; Appendix Figure OA-17 | Download counts замалі для змістовної usage-панелі |
 
-Частка застосунків/розширень, які за перші три місяці не досягли навіть невеликої аудиторії, протягом 2025 зросла:
-- iOS, менш як 10 ratings: приблизно **79% → 86%**, тобто +7 відсоткових пунктів.
-- Chrome, менш як 10 downloads: приблизно **18% → 31%**, тобто +13 відсоткових пунктів.
-- Android: автори описують менше зростання цієї частки; точного додаткового відсотка тут не приписуємо.
+**January 2025 → April 2026**, частки нових когорт за перші три місяці:
+- iOS, **<10 ratings: приблизно 78% → 87%** (≈+9 відсоткових пунктів).
+- Chrome, **<10 downloads: 19% → 33%** (+14 пунктів за надрукованими округленнями).
+- Android, **≤100 downloads: приблизно 22% → 26%** (≈+4 пункти).
 
-**Як це сказати усно:** «Дослідження доходить не тільки до commits і releases. Воно питає: чи хтось використовує додатковий software? Нових застосунків стає більше. Але у досліджених когортах сукупне використання за перші три місяці не зростає; частка релізів, які майже не знайшли аудиторії, збільшується».
+Автори друкують цілі відсотки; не приписуємо їм невідомих десяткових часток. Це порівняння когорт, не всіх застосунків у магазині. Ratings/downloads — proxies, не прямі welfare, revenue чи time-spent measures.
 
-**Межа висновку:** це показники нових когорт, а не всіх застосунків у магазині чи всього світового software. Ratings і download proxies — не пряме вимірювання user welfare, виручки або часу використання. Часовий збіг не ідентифікує AI як єдину причину. Коротке вікно не виключає пізніх вигод. Коректно: «помітного агрегованого приросту використання тут не видно», а не «AI нічого не дав користувачам».
+**Як сказати усно:** «Нових застосунків більше, але використання не встигає за їхньою кількістю. На iOS воно приблизно стабільне, на Android помірно зростає, у Chrome падає. Частка нових застосунків, які не досягли навіть невеликої аудиторії, збільшується».
+
+**Межа висновку:** не казати «використання ніде не зросло» або «користі немає». Часовий збіг не доводить AI як єдину причину; коротке вікно не виключає пізніших вигод.
 
 ### Інші картки: числа й межі
 
@@ -416,7 +417,7 @@ CODE підсвічений; питання стоять також над Inten
 
 Історичний контрольований результат METR 2025: 16 розробників, 246 задач, +19% часу з early-2025 AI. Залишити як датований контекст, не актуальний вирок сучасним агентам. [METR RCT](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/). У [лютневому оновленні 2026](https://metr.org/blog/2026-02-24-uplift-update/) самі автори вказують на selection bias; не виводити з нього надійний універсальний поточний відсоток.
 
-**GitClear, червень 2026.** Moved-code share — частка переміщених рядків серед changed lines: proxy reuse/refactoring, а не кількість refactoring tasks. Two-week churn **+15%** прямо наведено в публічному резюме 2026; це окрема від duplication метрика. Function calls **343 → 223 на 1000 changed lines**, приблизно **−35%**, 2023 → YTD 2026. Обидві метрики повернуто на екран. [Визначення, періоди й межі](evidence/gitclear.md). Moved/refactoring-related share: 13% у 2023 → 3,8% YTD 2026; function-call density −35%; block duplication приблизно +81%; two-week churn +15%. Це спостережні показники власної класифікації, не весь reuse і не встановлений причинний ефект AI. У тексті й графіку duplication є суперечність одиниць; тому абсолютні 40,3 і 73,0 не використовуємо як навантажену метрику. Відносна зміна узгоджується. [GitClear 2026](https://www.gitclear.com/the_ai_code_quality_maintainability_gap).
+**GitClear, публічне резюме 2026.** Moved-code share — частка переміщених рядків серед changed lines: proxy reuse/refactoring, а не кількість refactoring tasks. Two-week churn **+15%** прямо наведено в публічному резюме 2026; це окрема від duplication метрика. Function calls **343 → 223 на 1000 changed lines**, приблизно **−35%**, 2023 → YTD 2026. На екрані calls наведено як 343 → 223, без додаткового округлення до −35%. [Визначення, періоди й межі](evidence/gitclear.md). Moved/refactoring-related share: 13% у 2023 → 3,8% YTD 2026; function-call density −35%; block duplication приблизно +81%; two-week churn +15%. Це спостережні показники власної класифікації, не весь reuse і не встановлений причинний ефект AI. У тексті й графіку duplication є суперечність одиниць; тому абсолютні 40,3 і 73,0 не використовуємо як навантажену метрику. Відносна зміна узгоджується. [GitClear 2026](https://www.gitclear.com/the_ai_code_quality_maintainability_gap).
 
 **Xu, v3, січень 2026.** У нижнього квартиля за попередньою активністю commits +43,5%, PRs +17,7%; у верхнього commits −19%, reviews +6,5%. Project-level PR rework +2,4%. Це activity quartiles, не Junior/Senior; reviews — кількість, не години. Дані 2020–2022 про ранній Copilot: використовуємо для механізму перерозподілу роботи, не оцінки агентів 2026. [Xu et al.](https://arxiv.org/html/2510.10165v3).
 
@@ -1059,11 +1060,11 @@ It moves where engineering rigor has to live».
 
 ## Додаткова перевірка арифметики й формулювань
 
-- NBER, LOC: 1 + (228,2 + 741,3 + 658,3) / 100 = 17,278 → 17,3×.
-- NBER, commits: 1 + (35,9 + 109,1 + 33,6) / 100 = 2,786 → 2,8×.
-- NBER, releases: 1 + (10,2 + 20,3) / 100 = 1,305 → 1,3×; async окремо не ідентифіковано.
-- NBER: +1627,8% — приріст, 1727,8% базового рівня — рівень; це не однакові записи.
-- iOS: 86 − 79 = 7 відсоткових пунктів; Chrome: 31 − 18 = 13 пунктів.
+- NBER September revision, LOC: 1 + (234,3 + 957,5 + 1254,9) / 100 = 25,467 → 25,5×.
+- NBER, commits: 1 + (30,2 + 153,2 + 60,7) / 100 = 3,441 → 3,4×.
+- NBER, releases: 1 + (9,0 + 19,8) / 100 = 1,288 → 1,3×; async окремо не ідентифіковано.
+- NBER: +2446,7% — приріст, 2546,7% базового рівня — рівень; це суми округленої таблиці, не точні raw-data coefficients.
+- iOS: 87 − 78 = 9 відсоткових пунктів; Chrome: 33 − 19 = 14 пунктів; вихідні частки округлені авторами.
 - GitClear duplication: 73 / 40,3 − 1 ≈ 81,1%. Відносна арифметика правильна, абсолютна одиниця в публічних матеріалах неузгоджена.
 - Refactoring share 13% → 3,8%: падіння на 9,2 відсоткових пункту, не на 9,2% відносно бази.
 - Навчальний eval: 99 + 39 + 39 + 19 = 196; 196 / 200 = 98%; критична помилка не зникає від агрегування.

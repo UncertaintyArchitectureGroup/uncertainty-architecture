@@ -282,7 +282,7 @@ export function createDeck(Presentation, data, assets = {}) {
       }
       case "evidence": {
         line(s, 583, 194, 583, 608, C.line)
-        text(s, "NBER · 2026", 64, 195, 500, 30, 22, C.cyan, true)
+        text(s, d.nberSource, 64, 195, 500, 30, 22, C.cyan, true)
         d.nberMetrics.forEach(([value, label], i) => {
           const x = 64 + i * 169
           text(s, value, x, 246, 157, 60, 43, C.white, true)
@@ -317,7 +317,7 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.doraMeasures, 616, 362, 600, 45, 18, C.gray)
         text(s, d.doraPerceptions, 616, 406, 600, 25, 17, C.gray)
         line(s, 616, 441, 1216, 441)
-        text(s, "GITCLEAR · JUN 2026", 616, 452, 600, 28, 22, C.cyan, true)
+        text(s, d.gitclearSource, 616, 452, 600, 28, 22, C.cyan, true)
         d.gitclearMetrics.forEach(([label, value], i) => {
           const y = 483 + i * 26
           text(s, label, 616, y, 405, 27, 23, C.white)
@@ -328,7 +328,7 @@ export function createDeck(Presentation, data, assets = {}) {
         d.otherCards.forEach(([source, value, caveat], i) => {
           const x = 64 + i * 582
           text(s, source, x, 628, 304, 27, 20, C.cyan, true)
-          text(s, value, x + 308, 626, 244, 30, 23, C.white, true, "right")
+          text(s, value, x + 308, 626, 244, 30, i ? 21 : 23, C.white, true, "right")
           text(s, caveat, x, 658, 552, 25, 18, C.gray)
         })
         text(s, d.takeaway, 64, 689, 1095, 26, 20, C.white, true)

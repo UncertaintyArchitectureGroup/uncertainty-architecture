@@ -98,7 +98,7 @@ def validate(pptx, manifest_path):
             if number in (11, 13):
                 assert len(tables) == 1, f"Slide {number}: native table required"
             if number == 4:
-                for required in ("17.3×", "2.8×", "1.3×", "79% → 86%", "18% → 31%", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "+81%", "−35%", "+15%", "Higher throughput", "Lower delivery stability", "2025", "2026"):
+                for required in ("SEP 2026 REVISION", "25.5×", "3.4×", "1.3×", "≈78% → 87%", "19% → 33%", "Jan 2025 → Apr 2026", "first 3 months", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "13% → 3.8%", "Calls / 1k changed lines", "343 → 223", "≈+81%", "+15%", "1.4–2×", "3 questions", "+34.85% / +42.87%", "Agent-first / IDE-first", "Higher throughput", "Lower delivery stability", "2025", "2026"):
                     assert required in normalized, f"Evidence slide missing {required}"
             if number == 3:
                 assert not any(e.get("type", "none") != "none" for e in slide.findall(".//a:tailEnd", NS) + slide.findall(".//a:headEnd", NS)), "SDLC slide must not contain arrowheads"

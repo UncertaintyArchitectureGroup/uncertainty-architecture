@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Rechecked every visible number on PMDay slide 4 against primary sources: updated NBER to its September 2026 revision and corrected the marketplace usage interpretation, preserved published Agarwal percentages with group labels, displayed GitClear call-density endpoints, and documented which DORA/GitClear values remain rounded or cannot be independently recomputed from the public summary. Updated source provenance, notes, export acceptance fixtures and the editable deck.
+
 - Revised PMDay slides 3–7 from maintainer feedback: removed SDLC arrowheads, separated throughput/stability and four GitClear signals, smoothed the conceptual generation curve with fixed scenario comprehension capacity, made AI recovery failure and human diagnosis explicit, and moved strengthened Watch / Explore practices to the equilibrium slide. Preserved prior cover/layout work and retained source evidence; no UA doctrine or research-state change.
 
 - Reworked PMDay slides 1–4 after presentation review: replaced the abstract cover with concrete developer/user scenes, widened symmetric block margins, and added an explicit before/after 8-to-100 changes example. Added the full DORA 2025 v.2025.2 PDF and text with its CC BY-NC-SA attribution, and a traceable approximate Figure 28 instability estimate with units and an 89% credible interval. Delivery uses a version-specific filename to distinguish revisions.

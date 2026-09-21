@@ -78,7 +78,7 @@ The first command leaves a checked candidate under `dist/pptx/`. The second inst
 - Block rows on slides 2 and 3 stay within symmetric safe margins of at least 96 px.
 - Slide 3 uses short neutral links without arrowheads. Slide 5 uses one smooth native generation path and a flat human-capacity scenario line; it is explicitly illustrative. Slide 6 includes the human diagnosis/fix/recovery path. Watch / Explore belong to slide 7.
 - Real PowerPoint tables on slides 11 and 13.
-- All slide titles, substantive notes and load-bearing evidence numbers are present.
+- All slide titles, substantive notes and load-bearing evidence numbers are present. The current slide 4 acceptance fixture uses NBER’s September 2026 revision (25.5× / 3.4× / 1.3×), published marketplace shares and Agarwal’s unrounded-to-integers Table 2 percentages; mutation checks reject obsolete NBER and rounded Agarwal replacements. DORA chart readings retain approximation signs.
 - Source/generator/validator hashes and the PPTX checksum match the manifest.
 - Authoring finalization additionally checks package integrity, geometry, font policy and re-import.
 

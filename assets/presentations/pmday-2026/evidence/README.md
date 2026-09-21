@@ -22,7 +22,7 @@ These files make the cited evidence readable without repeating web retrieval. No
 
 | Source | Read locally | Downloaded original |
 |---|---|---|
-| NBER WP 35275 | [NBER note](nber-35275.md) | Official links and supplied-PDF checksum in the note; no redistribution permission established |
+| NBER WP 35275 | [NBER note](nber-35275.md) | Official September-revision URL and downloaded-PDF checksum in the note; no redistribution permission established |
 | DORA 2025 | [DORA note, Figure 28 values and definitions](dora-2025.md) | [Full v.2025.2 PDF in ZIP](originals/dora-2025-v2025.2.pdf.zip) · [Extracted text](originals/dora-2025-v2025.2.txt), Google LLC, **CC BY-NC-SA 4.0**, from an attributed public mirror. Also [official infographic PDF](originals/dora-2025-infographic.pdf), CC BY 4.0. |
 | GitClear 2025 / 2026 | [Definitions, periods and findings](gitclear.md) | Public summaries reviewed; closed whitepapers not obtained |
 | METR May 2026 | [Survey note](metr-2026.md) | Linked original; full-text redistribution permission not established |

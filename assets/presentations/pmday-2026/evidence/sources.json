@@ -5,11 +5,7 @@
     {
       "id": "agarwal-v2",
       "title": "AI IDEs or Autonomous Agents? Measuring the Impact of Coding Agents on Software Development",
-      "authors": [
-        "Shyam Agarwal",
-        "Hao He",
-        "Bogdan Vasilescu"
-      ],
+      "authors": ["Shyam Agarwal", "Hao He", "Bogdan Vasilescu"],
       "version": "arXiv:2601.13597v2, 2026-01-27",
       "source_url": "https://arxiv.org/pdf/2601.13597v2",
       "license": "CC BY 4.0",
@@ -34,9 +30,7 @@
     {
       "id": "dora-2025-infographic",
       "title": "2025 DORA Report Infographic",
-      "authors": [
-        "Google LLC / DORA"
-      ],
+      "authors": ["Google LLC / DORA"],
       "version": "2025 infographic, retrieved 2026-09-21",
       "source_url": "https://dora.dev/research/2025/2025-DORA-Report-Infographic.pdf",
       "license": "CC BY 4.0",
@@ -55,9 +49,7 @@
     {
       "id": "dora-2025-full",
       "title": "State of AI-assisted Software Development",
-      "authors": [
-        "Google LLC / DORA"
-      ],
+      "authors": ["Google LLC / DORA"],
       "version": "v. 2025.2",
       "source_url": "https://www.shaunabram.com/wp-content/uploads/2025/10/2025_state_of_ai_assisted_software_development.pdf",
       "official_landing_url": "https://dora.dev/research/2025/dora-report/",
@@ -83,6 +75,27 @@
         }
       ],
       "retrieved_at": "2026-09-21"
+    },
+    {
+      "id": "nber-35275-september-2026",
+      "title": "Writing Code vs. Shipping Code: Productivity Effects Across Generations of AI Coding Tools",
+      "authors": ["Mert Demirer", "Leon Musolff", "Liyuan Yang"],
+      "version": "May 2026, Revised September 2026",
+      "source_url": "https://www.nber.org/system/files/working_papers/w35275/w35275.pdf",
+      "license": "All rights reserved; full source not redistributed",
+      "retrieved_at": "2026-09-21",
+      "external_snapshot": {
+        "sha256": "a11c3c7442a4299b54654ba303e791c92166e807d2b6e4f12af50087ee713711",
+        "bytes": 1437135,
+        "retained_in_repository": false
+      },
+      "supersedes_external_snapshot_sha256": "edf1a41a6e4e4cf562571b5fac79eac07693281f88d460a81ee9f8ce1a1c65bb",
+      "checked_locations": [
+        "Cover and abstract: September revision; more than 500,000 developers",
+        "Figure 1, printed p.2 / PDF p.4",
+        "Table 6, printed p.33 / PDF p.35",
+        "Figure 11 and section 7.2.3, printed pp.44–46 / PDF pp.46–48"
+      ]
     }
   ]
 }
