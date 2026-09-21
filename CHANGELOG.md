@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Replaced PMDay typography with maintainer-requested Roboto Regular/Bold across all 14 slides, embedded the licensed fonts and added portable font integrity checks. Preserved slide wording, numbers, notes and geometry; refreshed the slides 1–8 freeze under the explicit font-only follow-up request after rendered review.
+
 - Clarified both GitClear proxies on PMDay slide 4 with definitions, absolute/relative decreases and conditional interpretation, then froze slides 1–8 at the maintainer's explicit request. Added source/package dependency checks to the existing PPTX validator. Reworked slides 9–14 around Product/BA acceptance, QA/developer statistical evidence, concrete delivery gates, architect-owned control paths and the Project Manager's experiment/evidence process; qualified the standards claim with primary sources and kept the original 14 titles/order.
 
 - Rechecked every visible number on PMDay slide 4 against primary sources: updated NBER to its September 2026 revision and corrected the marketplace usage interpretation, preserved published Agarwal percentages with group labels, displayed GitClear call-density endpoints, and documented which DORA/GitClear values remain rounded or cannot be independently recomputed from the public summary. Updated source provenance, notes, export acceptance fixtures and the editable deck.

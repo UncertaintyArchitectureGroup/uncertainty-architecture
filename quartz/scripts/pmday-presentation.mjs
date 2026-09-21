@@ -10,7 +10,7 @@ export const theme = {
   cyan: "#28C7F7",
   amber: "#F5B61C",
   red: "#FF6B75",
-  font: "DejaVu Sans",
+  font: "Roboto",
   width: 1280,
   height: 720,
 }

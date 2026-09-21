@@ -81,10 +81,10 @@ The first command leaves a checked candidate under `dist/pptx/`. The second inst
 - Slide 3 uses short neutral links without arrowheads. Slide 5 uses one smooth native generation path and a flat human-capacity scenario line; it is explicitly illustrative. Slide 6 includes the human diagnosis/fix/recovery path. Watch / Explore belong to slide 7.
 - Real PowerPoint tables on slides 11 and 13.
 - All slide titles, substantive notes and load-bearing evidence numbers are present. The current slide 4 acceptance fixture uses NBER’s September 2026 revision (25.5× / 3.4× / 1.3×), published marketplace shares and Agarwal’s unrounded-to-integers Table 2 percentages; mutation checks reject obsolete NBER and rounded Agarwal replacements. DORA chart readings retain approximation signs.
-- Source/generator/validator hashes and the PPTX checksum match the manifest.
+- Source/generator/validator/font-archive hashes and the PPTX checksum match the manifest. Roboto Regular/Bold font relationships and embedded bytes must match the licensed archive.
 - Authoring finalization additionally checks package integrity, geometry, font policy and re-import.
 
-These checks do not establish research validity, perfect visual layout, Microsoft PowerPoint application compatibility or semantic equivalence between prose and render blocks. No PowerPoint desktop acceptance is claimed without opening it there. DejaVu Sans must be installed on the presentation machine or replaced with an agreed font followed by new visual review.
+These checks do not establish research validity, perfect visual layout, Microsoft PowerPoint application compatibility or semantic equivalence between prose and render blocks. No PowerPoint desktop acceptance is claimed without opening it there. The maintainer-requested Roboto Regular/Bold faces are fully embedded as EOT font data. The licensed archive includes the exact static TTF files required for authoring; install both and refresh the font cache before generation. Independent LibreOffice rendering was also checked without locally installed Roboto. The arrow character uses application font fallback because Roboto lacks that glyph; native PowerPoint acceptance remains pending.
 
 ## Provenance and failure behavior
 

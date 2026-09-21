@@ -5320,7 +5320,7 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "427c2e432e83f5148bb6d2ff9915ae2cc51420e0efd8c3fda00ddc40a9bc6172",
+    "digest": "d7edc9efbf521702151664ce49756550b933f5402c3c75fda070482d294e9c17",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],

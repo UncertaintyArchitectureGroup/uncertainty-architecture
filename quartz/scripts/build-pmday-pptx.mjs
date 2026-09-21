@@ -11,13 +11,16 @@ const root = path.resolve(fileURLToPath(new URL("../..", import.meta.url)))
 const directory = "assets/presentations/pmday-2026"
 const source = `${directory}/README.md`
 const cover = `${directory}/artwork/ai-two-roles.png`
+const fonts = `${directory}/artwork/roboto-fonts.zip`
 const inputs = [
   source,
   cover,
+  fonts,
   `${directory}/frozen-slides.json`,
   "quartz/scripts/pmday-presentation.mjs",
   "quartz/scripts/build-pmday-pptx.mjs",
   "quartz/scripts/validate-pmday-pptx.py",
+  "quartz/scripts/pmday-fonts.py",
 ]
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex")
 
@@ -83,14 +86,20 @@ async function main() {
   await assertSafeOutputPath(root, dist, path.join(dist, "stage-placeholder"))
   const stage = await mkdtemp(path.join(dist, "pmday-"))
   const draft = path.join(stage, "candidate.pptx")
+  const embedded = path.join(stage, "embedded.pptx")
   const checked = path.join(stage, "output", "ai-changes-both-sides.pptx")
   const manifest = path.join(stage, "output", "ai-changes-both-sides.manifest.json")
   await mkdir(path.dirname(checked), { recursive: true })
   const deck = createDeck(Presentation, data, { cover: await readFile(path.join(root, cover)) })
   await (await PresentationFile.exportPptx(deck)).save(draft)
+  execFileSync(
+    python,
+    [path.join(root, "quartz/scripts/pmday-fonts.py"), draft, embedded, path.join(root, fonts)],
+    { stdio: "inherit" },
+  )
   await finalizePresentation({
     workspaceDir: root,
-    candidatePath: draft,
+    candidatePath: embedded,
     finalPath: checked,
     explicitTotalSlideCount: 14,
     requiredNativeTableOwnerSlides: [11, 13],
@@ -113,7 +122,7 @@ async function main() {
       "--require-native-table-slide",
       "13",
     ],
-    fontPolicy: { basis: "design", families: [theme.font] },
+    fontPolicy: { basis: "user_request", families: [theme.font] },
     verifyArtifactToolImport: true,
     receiptPath: path.join(stage, "validation.json"),
   })

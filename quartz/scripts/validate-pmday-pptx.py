@@ -12,7 +12,8 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = "assets/presentations/pmday-2026/README.md"
 COVER = "assets/presentations/pmday-2026/artwork/ai-two-roles.png"
-INPUTS = [SOURCE, COVER, "assets/presentations/pmday-2026/frozen-slides.json", "quartz/scripts/pmday-presentation.mjs", "quartz/scripts/build-pmday-pptx.mjs", "quartz/scripts/validate-pmday-pptx.py"]
+FONTS = "assets/presentations/pmday-2026/artwork/roboto-fonts.zip"
+INPUTS = [SOURCE, COVER, FONTS, "assets/presentations/pmday-2026/frozen-slides.json", "quartz/scripts/pmday-presentation.mjs", "quartz/scripts/build-pmday-pptx.mjs", "quartz/scripts/validate-pmday-pptx.py", "quartz/scripts/pmday-fonts.py"]
 NS = {"p": "http://schemas.openxmlformats.org/presentationml/2006/main", "a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 
 
@@ -92,6 +93,34 @@ def validate_frozen(source, package):
     actual = frozen_package_hashes(package)
     changed = sorted(set(actual) ^ set(record["package_parts"]) | {name for name in actual if actual[name] != record["package_parts"].get(name)})
     assert not changed, f"Frozen slides 1–8: rendered content/dependency changed: {', '.join(changed)}"
+
+
+def validate_fonts(package):
+    presentation = ET.fromstring(package.read("ppt/presentation.xml"))
+    assert presentation.get("embedTrueTypeFonts") == "1" and presentation.get("saveSubsetFonts") == "0", "Roboto: full font embedding must be enabled"
+    fonts = presentation.findall("p:embeddedFontLst/p:embeddedFont", NS)
+    assert len(fonts) == 1 and fonts[0].find("p:font", NS).get("typeface") == "Roboto", "Roboto: embedded family missing"
+    types = ET.fromstring(package.read("[Content_Types].xml"))
+    assert any(e.get("Extension") == "fntdata" and e.get("ContentType") == "application/x-fontdata" for e in types), "Roboto: font content type missing"
+    rels = ET.fromstring(package.read("ppt/_rels/presentation.xml.rels"))
+    with zipfile.ZipFile(ROOT / FONTS) as archive:
+        provenance = json.loads(archive.read("PROVENANCE.json"))
+        for name, expected in provenance["sha256"].items():
+            assert digest(archive.read(name)) == expected, f"Roboto: stale archived asset {name}"
+        for style in ("Regular", "Bold"):
+            reference = fonts[0].find(f"p:{style.lower()}", NS)
+            assert reference is not None, f"Roboto: {style} reference missing"
+            matches = [r for r in rels if r.get("Id") == reference.get(f"{{{REL_NS}}}id")]
+            assert len(matches) == 1, f"Roboto: {style} relationship missing or duplicated"
+            rel = matches[0]
+            assert rel.get("Type") == f"{REL_NS}/font" and rel.get("TargetMode", "Internal") == "Internal", f"Roboto: {style} font relationship invalid"
+            target = posixpath.normpath(posixpath.join("ppt", rel.get("Target"))).lstrip("/")
+            assert target == f"ppt/fonts/Roboto-{style}.fntdata", f"Roboto: {style} font target invalid"
+            assert target in package.namelist() and package.read(target) == archive.read(f"Roboto-{style}.fntdata"), f"Roboto: {style} embedded bytes missing or corrupted"
+    for name in package.namelist():
+        if re.fullmatch(r"ppt/(slides|notesSlides)/[^/]+\.xml", name):
+            faces = [e.get("typeface") for e in ET.fromstring(package.read(name)).iter() if "typeface" in e.attrib]
+            assert (faces or name.startswith("ppt/notesSlides/")) and set(faces) <= {"Roboto"}, f"Roboto: unexpected text font in {name}"
 
 
 def validate(pptx, manifest_path):
@@ -201,6 +230,7 @@ def validate(pptx, manifest_path):
                 root = ET.fromstring(package.read(name))
                 assert not root.findall(".//a:blipFill", NS), f"Image fill in {name}"
                 assert not root.findall(".//p:pic", NS), f"Picture in {name}"
+        validate_fonts(package)
         validate_frozen(source, package)
     return counts
 
