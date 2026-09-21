@@ -1,0 +1,86 @@
+[
+  {
+    "answer_id": "Q-ecd4da3e",
+    "run_id": "WF09",
+    "task_id": "F3",
+    "arm": "AGENTS_RI",
+    "sha256": "d353b6f0c65118de0dbcbe1169bca4763f00356af36afc3a1473d532197ba629"
+  },
+  {
+    "answer_id": "Q-010e9ad4",
+    "run_id": "WF02",
+    "task_id": "F1",
+    "arm": "AGENTS",
+    "sha256": "3b8ad40dc738c1d41a0aad2dad1dce83e2ac5ba623384963e13afdb314d3b216"
+  },
+  {
+    "answer_id": "Q-034918fd",
+    "run_id": "WF08",
+    "task_id": "F2",
+    "arm": "AGENTS",
+    "sha256": "28a45153954435fde84f487ff3b8b2621879dbc16601d17c3b102c24596356a4"
+  },
+  {
+    "answer_id": "Q-823b1a88",
+    "run_id": "WF10",
+    "task_id": "F3",
+    "arm": "RI",
+    "sha256": "dcfef35b3cdda262fa26901d75bf96b11d17de051484eab3a8281a6add57bee5"
+  },
+  {
+    "answer_id": "Q-4dc00d2b",
+    "run_id": "WF07",
+    "task_id": "F2",
+    "arm": "NONE",
+    "sha256": "4bf134a032cebef2e0d9b33a9c440170318c9b993c8ee77257f8efae0ae5f374"
+  },
+  {
+    "answer_id": "Q-ebb4f1f8",
+    "run_id": "WF01",
+    "task_id": "F1",
+    "arm": "NONE",
+    "sha256": "bd33a1016ae17cf4a96816bbc72d2b55d28dc658e6580c5940bec1608de2e860"
+  },
+  {
+    "answer_id": "Q-4ba4534c",
+    "run_id": "WF06",
+    "task_id": "F2",
+    "arm": "AGENTS_RI",
+    "sha256": "6409121bb80be7ed60333037cb3a3fa42d0816547c3d340dcdc37fa9686e1c1c"
+  },
+  {
+    "answer_id": "Q-07820d67",
+    "run_id": "WF11",
+    "task_id": "F3",
+    "arm": "AGENTS",
+    "sha256": "00fdc9ba31d29a0cd34b96545b08848ab569d429e2a69a6aac0ae132d84bd504"
+  },
+  {
+    "answer_id": "Q-fef64eac",
+    "run_id": "WF03",
+    "task_id": "F1",
+    "arm": "RI",
+    "sha256": "0a02e587381ed1a031a3e99911ff64dbdd0a29ea9952838a5cd4cd2ac8336602"
+  },
+  {
+    "answer_id": "Q-56a0fe20",
+    "run_id": "WF05",
+    "task_id": "F2",
+    "arm": "RI",
+    "sha256": "ee0de45991eefa0fc626e453be6f4c6a88cd15f53b8b7f9b25b827395cf1f7e0"
+  },
+  {
+    "answer_id": "Q-1a456670",
+    "run_id": "WF04",
+    "task_id": "F1",
+    "arm": "AGENTS_RI",
+    "sha256": "94b186085ac403b5253aa1c36eb1d9712926bab1f13dd1dc5ff8c562e204090c"
+  },
+  {
+    "answer_id": "Q-4a417485",
+    "run_id": "WF12",
+    "task_id": "F3",
+    "arm": "NONE",
+    "sha256": "6497172a1714e1136801413eb015920e402c73ebda06df36c5bfab80fd371dd0"
+  }
+]

@@ -19,5 +19,11 @@ Instructions restrict access; they do not provide OS isolation or independent
 human replication. Verbatim access-deviation sections in WF10 and WF12 reveal
 absent aids, so full blinding is not claimed. These sections are not redacted.
 
-Status: first assessment pending. Its exact bytes and hash will be preserved
-before joining scores to conditions or applying the frozen benefit gates.
+Status: complete. The [first assessment](assessment-first.zip) was hashed and
+published at `c86409d9377b4737f7d980a12c2fe260527f1dc3` before joining scores to
+conditions. Its SHA-256 is
+`e1a0cfb390367f01b79f85a280ce0eb321fec9a9caa8154d5bec912592391454`.
+All 12 answers scored 2/2; all five criteria per answer were met, with no serious
+errors or required substantive corrections. See [SCORES.md](SCORES.md) for the
+criterion table, [mapping](assessment-mapping.json), and [RESULTS.md](RESULTS.md)
+for the unchanged primary gates and limits. No scores were revised.

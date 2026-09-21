@@ -5320,7 +5320,7 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "a0de54ff2bbd681c7ed672c40698935181f1ebea05faa3d5ce6d59063c1393fb",
+    "digest": "15cf0edd0c1e943f4d80fef3e0f09eec34f5d172cd4dd7646f4c4502377aee99",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
@@ -5480,7 +5480,7 @@
       },
       {
         "identity_mode": "content",
-        "path": ".github/tests/repository_intelligence/studies/2026-09-21-work-factorial/README.md"
+        "path": ".github/tests/repository_intelligence/studies/2026-09-21-work-factorial/RESULTS.md"
       },
       {
         "identity_mode": "existence",
