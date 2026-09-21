@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Deepened PMDay slides 9–14 using the supplied Designing Non-Deterministic Systems deck: business tolerance contracts, calibrated Golden Sets/Eval Gates, behavior versioning, cost/latency budgets, architectural feasibility and the project experiment loop. Retained all previous slide copy and extended the notes; slides 1–8 and their freeze remain unchanged. Added slide-level source mapping and qualified the historical teaching shorthand.
+
 - Replaced PMDay typography with maintainer-requested Roboto Regular/Bold across all 14 slides, embedded the licensed fonts and added portable font integrity checks. Preserved slide wording, numbers, notes and geometry; refreshed the slides 1–8 freeze under the explicit font-only follow-up request after rendered review.
 
 - Clarified both GitClear proxies on PMDay slide 4 with definitions, absolute/relative decreases and conditional interpretation, then froze slides 1–8 at the maintainer's explicit request. Added source/package dependency checks to the existing PPTX validator. Reworked slides 9–14 around Product/BA acceptance, QA/developer statistical evidence, concrete delivery gates, architect-owned control paths and the Project Manager's experiment/evidence process; qualified the standards claim with primary sources and kept the original 14 titles/order.

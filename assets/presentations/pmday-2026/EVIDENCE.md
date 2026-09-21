@@ -73,6 +73,19 @@ GitClear на слайді датовано лише **2026**: точний мі
 
 **Стара презентація:** наданий maintainer PDF *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era*, slides 17–20 (Product responsibility, architect, QA, *Welcome to the Laboratory*). Використано рольові питання й empirical loop як педагогічний контекст. Не копіюємо старі надмірні метафори: Scrum вже емпіричний, requirements ширші за envelope, готовність до експерименту не дозволяє production, evidence не доводить універсальну correctness. Оригінальний PDF не редагується й не перевидається цією зміною.
 
+**Поглиблене зіставлення з PDF:** після запиту maintainer деталізувати, не видаляючи попередній зміст, перевірено також slides 4–16 і closing. Наданий PDF байт-ідентичний збереженому `content/raw` (SHA-256 `891fbf94d30077b1e940c20c4b5ea1a6803b769a2a63c163e97fc00a6af23fa7`).
+
+| Поточний слайд | Слайди старого PDF | Що повернуто у видимий зміст |
+|---|---|---|
+| 9 — Requirements | 5, 7, 17 | Корисна варіативність, незмінний обов’язковий зміст, tolerance contract для rework/cost/latency та escalation. Prompt не є повною acceptance specification. |
+| 10 — Evaluation | 14, 19 | Golden Set, Eval Gate, калібрування evaluator із domain experts та incident-to-regression loop. Статистичний приклад і severity не змінено. |
+| 11 — Delivery gates | 6, 9, 13 | Версії поведінки поза application code, quality/cost/latency budgets, coverage/uncertainty/baseline, block/canary/scoped release, синтаксична проти семантичної перевірки. |
+| 12 — Architecture | 10, 11, 15, 16, 18 | Vendor changes, isolation, human-response capacity, fallible semantic checks і звуження/зупинка нежиттєздатного AI path. Feedback topology та попередні controls збережено. |
+| 13 — Project process | 20 | Feasibility experiments поряд із delivery, конкретна trial hypothesis, evaluation time, time box дослідження до обіцянки production capability. |
+| 14 — Synthesis | 22 | Практичний початок на одному workflow: tolerances, calibrated Golden Set, Eval Gate та rehearsed fallback, разом із попереднім HOW / WHAT. |
+
+Розгорнуті українські нотатки пояснюють причинні зв’язки та приклад IT-асистента. Старі нотатки доповнено, усі попередні екранні тези збережено. Не переносимо буквально сильні старі твердження: variation не є автоматично bug; feedback сам не доводить stability/safety; semantic evaluator не є hard guarantee; provider replacement не зберігає поведінку; Golden Set не обов’язково репрезентує production traffic. Архітектурне veto — обґрунтований engineering висновок у межах визначених decision rights. Нових емпіричних чисел чи універсальних порогів не додано.
+
 **UA owners для слайдів 11–14:** [Requirements, Correctness and Bugs](../../../00-doctrine/requirements-correctness-and-bugs.md), [Thinking System Review](../../../01-patterns/thinking-system-review.md), [Control-Loop Capability Anatomy](../../../00-doctrine/control-loop-anatomy.md), [Nested Control Lifecycle](../../../00-doctrine/nested-control-lifecycle.md). Схема слайда 12 показує scoped tool path із permission gate, reference, observation, decision та effective correction, не обов'язкову deployment topology.
 
 ## Історичний контекст і редакторський відбір

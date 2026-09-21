@@ -419,39 +419,44 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "boundaries": {
-        text(s, d.role, 64, 184, 1152, 32, 22, C.cyan, true)
-        line(s, 526, 234, 526, 479)
-        text(s, d.oldHeading, 64, 236, 438, 30, 19, C.gray, true)
-        const a = box(s, d.old[0], 64, 292, 176, 66, C.gray, 26)
-        const b = box(s, d.old[1], 308, 292, 194, 66, C.gray, 26)
+        text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
+        line(s, 508, 220, 508, 440)
+        text(s, d.oldHeading, 64, 220, 420, 30, 19, C.gray, true)
+        const a = box(s, d.old[0], 64, 259, 169, 58, C.gray, 26)
+        const b = box(s, d.old[1], 302, 259, 182, 58, C.gray, 26)
         connect(s, a, b, C.gray)
-        text(s, d.oldDetail, 64, 380, 438, 63, 27, C.white)
-        text(s, d.roleDetail, 64, 449, 438, 55, 19, C.gray)
-        text(s, d.newHeading, 556, 236, 660, 30, 19, C.cyan, true)
+        text(s, d.oldDetail, 64, 330, 420, 57, 25, C.white)
+        text(s, d.roleDetail, 64, 400, 420, 45, 19, C.gray)
+        text(s, d.newHeading, 536, 220, 680, 30, 19, C.cyan, true)
         d.boundaries.forEach(([label, detail], i) => {
-          const y = 282 + i * 75,
+          const y = 255 + i * 63,
             color = [C.cyan, C.amber, C.red][i]
-          line(s, 556, y + 4, 556, y + 58, color, 4)
-          text(s, label, 574, y, 642, 27, 20, color, true)
-          text(s, detail, 574, y + 30, 642, 32, 23, C.white)
+          line(s, 536, y + 4, 536, y + 53, color, 4)
+          text(s, label, 554, y, 662, 24, 20, color, true)
+          text(s, detail, 554, y + 25, 662, 31, 23, C.white)
         })
-        line(s, 64, 520, 1216, 520)
-        text(s, d.gap, 64, 533, 1152, 31, 23, C.white)
-        text(s, d.research, 64, 572, 1152, 27, 19, C.gray)
-        takeaway(s, d.takeaway, C.white, 27)
+        line(s, 64, 454, 1216, 454)
+        text(s, d.envelopeHeading, 64, 463, 1152, 26, 21, C.amber, true)
+        d.envelope.forEach((v, i) =>
+          text(s, v, 64 + (i % 2) * 596, 500 + Math.floor(i / 2) * 31, 552, 27, 22, C.white),
+        )
+        text(s, d.specification, 64, 568, 1152, 28, 21, C.gray)
+        text(s, d.gap, 64, 603, 1152, 27, 20, C.white)
+        text(s, d.research, 64, 636, 1152, 25, 18, C.gray)
+        text(s, d.takeaway, 64, 667, 1118, 32, 25, C.white, true)
         break
       }
       case "evaluation": {
-        text(s, d.role, 64, 184, 1152, 32, 22, C.cyan, true)
-        line(s, 623, 232, 623, 443)
-        text(s, d.frequency, 64, 234, 530, 31, 22, C.cyan, true)
-        text(s, d.observed, 64, 275, 530, 56, 43, C.white, true)
-        text(s, d.rateLabel, 64, 334, 530, 28, 21, C.gray)
-        text(s, d.interval, 64, 374, 530, 29, 23, C.cyan)
+        text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
+        line(s, 623, 221, 623, 413)
+        text(s, d.frequency, 64, 222, 530, 29, 22, C.cyan, true)
+        text(s, d.observed, 64, 258, 530, 54, 43, C.white, true)
+        text(s, d.rateLabel, 64, 315, 530, 27, 21, C.gray)
+        text(s, d.interval, 64, 347, 530, 28, 23, C.cyan)
         // Wilson interval for the explicitly illustrative 4/200 binomial sample.
         const axisX = 94,
           axisW = 460,
-          axisY = 424
+          axisY = 395
         line(s, axisX, axisY, axisX + axisW, axisY, C.line, 2)
         const lower = axisX + (axisW * 0.7804426416) / 6
         const upper = axisX + (axisW * 5.028708691) / 6
@@ -460,72 +465,86 @@ export function createDeck(Presentation, data, assets = {}) {
         line(s, upper, axisY - 7, upper, axisY + 7, C.cyan, 3)
         rect(s, axisX + (axisW * 2) / 6 - 5, axisY - 5, 10, 10, C.white, C.white)
         ;[0, 2, 4, 6].forEach((v) =>
-          text(s, `${v}%`, axisX + (axisW * v) / 6 - 19, 438, 40, 23, 17, C.gray, false, "center"),
+          text(s, `${v}%`, axisX + (axisW * v) / 6 - 19, 410, 40, 23, 17, C.gray, false, "center"),
         )
-        text(s, d.severity, 660, 234, 556, 31, 22, C.amber, true)
-        d.harms.forEach((v, i) => text(s, v, 660, 281 + i * 50, 556, 36, 25, i ? C.red : C.white))
-        text(s, d.decision, 660, 394, 556, 48, 27, C.red, true)
-        text(s, d.sample, 64, 475, 1152, 27, 18, C.gray)
-        text(s, d.businessQuestion, 64, 512, 1152, 34, 22, C.white, true)
+        text(s, d.severity, 660, 222, 556, 29, 22, C.amber, true)
+        d.harms.forEach((v, i) => text(s, v, 660, 263 + i * 45, 556, 35, 25, i ? C.red : C.white))
+        text(s, d.decision, 660, 363, 556, 46, 27, C.red, true)
+        text(s, d.sample, 64, 443, 1152, 25, 18, C.gray)
+        text(s, d.instruments, 64, 478, 1152, 29, 20, C.cyan, true)
+        text(s, d.calibration, 64, 511, 1152, 27, 20, C.white)
+        text(s, d.businessQuestion, 64, 550, 1152, 31, 21, C.white, true)
         d.responsibilities.forEach(([role, detail], i) => {
           const x = 64 + i * 397
-          text(s, role, x, 549, 370, 23, 17, i === 2 ? C.amber : C.cyan, true)
-          text(s, detail, x, 574, 370, 24, 18, C.gray)
+          text(s, role, x, 590, 370, 23, 17, i === 2 ? C.amber : C.cyan, true)
+          text(s, detail, x, 615, 370, 24, 18, C.gray)
         })
-        takeaway(s, d.takeaway, C.white, 26)
+        line(s, 64, 648, 1216, 648)
+        text(s, d.takeaway, 64, 658, 1118, 39, 24, C.white, true)
         break
       }
       case "risk": {
-        text(s, d.role, 64, 184, 1152, 36, 22, C.cyan, true)
-        table(s, d.table, 64, 239, 1152, 304, [154, 502, 496], 22, 8)
-        text(s, d.caption, 64, 558, 1152, 35, 21, C.gray)
-        takeaway(s, d.takeaway, C.white, 28)
+        text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
+        text(s, d.behavior, 64, 214, 1152, 28, 20, C.gray)
+        table(s, d.table, 64, 256, 1152, 328, [154, 502, 496], 21, 7)
+        text(s, d.syntax, 64, 593, 1152, 28, 21, C.amber)
+        text(s, d.caption, 64, 628, 1152, 27, 20, C.gray)
+        text(s, d.takeaway, 64, 664, 1118, 34, 26, C.white, true)
         break
       }
       case "control": {
-        text(s, d.role, 64, 184, 1152, 36, 22, C.cyan, true)
+        text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
+        text(s, d.gate, 64, 216, 1152, 28, 20, C.gray)
         const nodes = d.steps.map((v, i) =>
-          box(s, v, 64 + i * 300, 259, 252, 78, i === 2 ? C.amber : C.cyan, 24),
+          box(s, v, 64 + i * 300, 258, 252, 72, i === 2 ? C.amber : C.cyan, 24),
         )
         nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
-        text(s, d.gate, 64, 222, 1152, 29, 20, C.gray)
-        const reference = box(s, d.reference, 664, 397, 252, 43, C.gray, 18)
-        const obs = box(s, d.loop[0], 964, 475, 252, 70, C.cyan, 25)
-        const dec = box(s, d.loop[1], 664, 475, 252, 70, C.amber, 23)
-        const act = box(s, d.loop[2], 364, 475, 252, 70, C.amber, 23)
+        text(s, d.architectureHeading, 64, 357, 274, 26, 18, C.cyan, true)
+        d.architecture.forEach((v, i) => text(s, v, 64, 388 + i * 34, 274, 31, 19, C.gray))
+        const reference = box(s, d.reference, 664, 372, 252, 38, C.gray, 18)
+        const obs = box(s, d.loop[0], 964, 444, 252, 60, C.cyan, 25)
+        const dec = box(s, d.loop[1], 664, 444, 252, 60, C.amber, 23)
+        const act = box(s, d.loop[2], 364, 444, 252, 60, C.amber, 23)
         connect(s, nodes[3], obs, C.cyan, "bottom", "top")
         connect(s, obs, dec, C.amber, "left", "right")
         connect(s, reference, dec, C.gray, "bottom", "top")
         connect(s, dec, act, C.amber, "left", "right")
         connect(s, act, nodes[1], C.amber, "top", "bottom")
-        text(s, d.actions, 64, 557, 1152, 28, 22, C.white)
-        text(s, d.caption, 64, 589, 1152, 27, 19, C.gray)
-        line(s, 64, 620, 1216, 620)
-        text(s, d.takeaway, 64, 635, 1118, 50, 26, C.white, true)
+        text(s, d.actions, 64, 519, 1152, 28, 22, C.white)
+        text(s, d.caption, 64, 554, 1152, 27, 19, C.gray)
+        text(s, d.veto, 64, 590, 1152, 36, 21, C.amber)
+        line(s, 64, 639, 1216, 639)
+        text(s, d.takeaway, 64, 649, 1118, 46, 26, C.white, true)
         break
       }
       case "roles": {
-        text(s, d.role, 64, 184, 1152, 36, 22, C.cyan, true)
+        text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
+        text(s, d.process, 64, 216, 1152, 27, 21, C.white)
         const nodes = d.steps.map((v, i) =>
-          box(s, v, 64 + i * 300, 235, 252, 60, i === 3 ? C.amber : C.cyan, 25),
+          box(s, v, 64 + i * 300, 255, 252, 50, i === 3 ? C.amber : C.cyan, 25),
         )
         nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
-        text(s, d.cycle, 64, 308, 1152, 27, 21, C.gray)
-        table(s, d.table, 64, 350, 1152, 238, [213, 469, 470], 20, 7)
-        takeaway(s, d.takeaway, C.white, 28)
+        text(s, d.cycle, 64, 317, 1152, 27, 20, C.gray)
+        text(s, d.trial, 64, 350, 1152, 28, 21, C.cyan)
+        table(s, d.table, 64, 388, 1152, 230, [213, 469, 470], 20, 7)
+        text(s, d.planningRule, 64, 626, 1152, 28, 20, C.amber)
+        text(s, d.takeaway, 64, 665, 1118, 32, 25, C.white, true)
         break
       }
       case "synthesis": {
         d.columns.forEach(([head, subtitle, list], i) => {
           const x = 64 + i * 600,
             color = i ? C.amber : C.cyan
-          text(s, head, x, 207, 550, 36, 23, color, true)
-          text(s, subtitle, x, 260, 550, 52, 36, C.white, true)
-          line(s, x, 334, x + 550, 334, color)
-          list.forEach((v, j) => text(s, v, x, 354 + j * 44, 550, 40, 25, C.gray))
+          text(s, head, x, 190, 550, 34, 23, color, true)
+          text(s, subtitle, x, 234, 550, 48, 36, C.white, true)
+          line(s, x, 302, x + 550, 302, color)
+          list.forEach((v, j) => text(s, v, x, 321 + j * 44, 550, 40, 25, C.gray))
         })
-        text(s, d.cycle, 64, 558, 1152, 32, 25, C.white)
-        takeaway(s, d.takeaway, C.white, 30)
+        text(s, d.firstStepHeading, 64, 517, 1152, 25, 19, C.cyan, true)
+        text(s, d.firstStep, 64, 548, 1152, 31, 22, C.white)
+        text(s, d.cycle, 64, 601, 1152, 31, 23, C.gray)
+        line(s, 64, 646, 1216, 646)
+        text(s, d.takeaway, 64, 658, 1118, 38, 28, C.white, true)
         break
       }
       default:
