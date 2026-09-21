@@ -16,7 +16,7 @@ tags:
   - ua/topic/thinking-systems
   - ua/topic/terminology
 created: 2026-08-25
-updated: 2026-08-25
+updated: 2026-09-18
 license: CC-BY-4.0
 draft: true
 related:
@@ -24,6 +24,7 @@ related:
   - open-engineering-specification-article-blueprint.md
   - open-engineering-specification-article-draft.md
   - thinking-systems-publication-draft.md
+  - thinking-systems-public-review-2026-09.md
 analysts:
   - "Vitalii Oborskyi"
 ---
@@ -44,7 +45,7 @@ The attribution is intentionally narrow:
 
 - **credited to Dobkin:** the formulation that helped name and sharpen the research boundary;
 - **not attributed to Dobkin:** authorship of the UA-specific Thinking-System definition, Consequential Runtime Responsibility, the controlled-object argument, the capability model, four-horizon lifecycle model, or the resulting paper;
-- **not implied:** endorsement, agreement, co-authorship, framework authority, or validation of UA.
+- **not implied by that exchange:** endorsement, agreement, co-authorship, framework authority, or validation of UA. Later public statements are assessed separately below.
 
 ## Current research status
 
@@ -55,6 +56,12 @@ The phrase is now used by UA as the current system-category term, with the canon
 ## Pre-publication attribution confirmation
 
 Before release of the standalone publication adaptation, Dobkin reviewed the planned attribution and publication text. He indicated that he was comfortable with both and did not want additional review time to delay publication, while reserving the possibility of later substantive critique. He also suggested a cleaner editorial placement for the credit in the article's Acknowledgements. This updates the existing formulation-provenance record only; it does not create a new research hypothesis, constitute substantive validation, or imply endorsement.
+
+## Later public recognition and extension
+
+A subsequent [public repost with commentary](https://www.linkedin.com/posts/arkadiydobkin_uncertainty-architecture-thinking-systems-activity-7500661925790240768--I1H), inspected on September 18, 2026, is now recorded in [Independent References and Recognition](../../history/external-recognition.md#arkadiy-dobkin). Its candidate research implications are preserved in the [September public-review intake](thinking-systems-public-review-2026-09.md) without assigning durable Research State Register identities at intake.
+
+The later public event does not retroactively make the earlier private exchange publicly verifiable. It also does not reassign authorship of the definition or paper. This bounded note remains available in the repository but is not promoted into the published Quartz surface because its central provenance claim is maintainer-attested rather than independently evidenced.
 
 ## Why this record exists
 

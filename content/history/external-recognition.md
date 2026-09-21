@@ -15,11 +15,29 @@ tags:
   - ua/topic/evidence
 canonical_for:
   - external-recognition-ledger
+updated: 2026-09-18
 ---
 
 # Independent References and Recognition
 
 This document records public third-party references to Uncertainty Architecture (UA). It is an evidence ledger, not a claim of formal adoption, partnership, or universal validation.
+
+## Arkadiy Dobkin
+
+### Thinking Systems — public repost with commentary
+
+**Source inspected:** September 18, 2026. The public view exposes a relative age; an exact post timestamp is not asserted here.
+
+Arkadiy Dobkin reposted Vitalii Oborskyi's *Thinking Systems — When the Controlled Object Changes*, recommended reading it, restated the distinction between design-time optimization and bounding judgment during operation, and added propositions about newly addressable problems and domain/client-specific differentiation.
+
+**What this establishes:** a public third-party reference, recommendation, restatement and additional commentary.
+
+**What it does not establish:** formal EPAM endorsement or adoption, co-authorship, validation of the whole UA specification, or empirical confirmation of the economic hypotheses.
+
+- [Primary source: Arkadiy Dobkin's repost with commentary](https://www.linkedin.com/posts/arkadiydobkin_uncertainty-architecture-thinking-systems-activity-7500661925790240768--I1H)
+- Maintainer-supplied navigation alias: https://lnkd.in/p/dSEf5jfX
+- [Public feedback intake and possible research relevance](../research/notes/thinking-systems-public-review-2026-09.md)
+- [Earlier formulation provenance on GitHub](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) — a separate, maintainer-attested exchange, not independently proved by this later public event.
 
 ## Christophe Kolb and Taller
 

@@ -201,6 +201,8 @@ UA keeps different kinds of evidence separate:
 
 Visibility, recommendations, advisory relationships, invited talks, and synthesized examples are not treated as certification, institutional endorsement, formal adoption, or production evidence. The evidence policy and complete historical index are maintained in [`content/history/`](content/history/).
 
+For the latest publication-facing evidence, see [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we), [Arkadiy Dobkin's public repost and commentary](content/history/external-recognition.md#arkadiy-dobkin), the [August–September public discussion](content/history/community-discussions.md#augustseptember-2026--thinking-systems-public-review), and the [September 2026 public-feedback intake](content/research/notes/thinking-systems-public-review-2026-09.md). The earlier formulation provenance is preserved as a [repository-only bounded record](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md).
+
 GitHub is the canonical home for doctrine and specification changes. Useful contributions include operational failure reports, worked applications, pattern proposals, critiques of terminology or control assumptions, evidence about Human Authority and control cost, and provenance corrections.
 
 For contribution and review guidance:

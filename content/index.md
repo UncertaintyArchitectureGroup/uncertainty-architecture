@@ -7,20 +7,32 @@ module: publishing
 topics:
   - navigation
   - repository-architecture
+  - provenance
 tags:
   - ua/module/publishing
   - ua/type/publishing-index
   - ua/status/informative
   - ua/topic/navigation
+  - ua/topic/provenance
 canonical_for:
   - supporting-material-publishing-portal
-updated: 2026-07-26
+updated: 2026-09-18
 license: CC-BY-4.0
 ---
 
 # Uncertainty Architecture
 
 This page is the entry point for the repository's published supporting material. It is **not** a second specification or governance source.
+
+## Thinking Systems: publication, provenance and public review
+
+Read Vitalii Oborskyi's [Thinking Systems — When the Controlled Object Changes](https://www.linkedin.com/pulse/thinking-systems-when-controlled-object-changes-vitalii-oborskyi-6k4we), published August 27, 2026. The repository also preserves the [frozen Markdown publication edition](research/publications/thinking-systems-when-the-controlled-object-changes.md) and a [PDF copy](research/publications/thinking-systems-when-the-controlled-object-changes.pdf).
+
+[Public recognition](history/external-recognition.md), [public discussion](history/community-discussions.md), and the [repository-only provenance of the Thinking Systems formulation](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/content/research/notes/thinking-systems-formulation-provenance-arkadiy-dobkin.md) are documented separately.
+
+The [September 2026 public-feedback intake](research/notes/thinking-systems-public-review-2026-09.md) preserves bounded observations, category counterexamples, harness-substitution questions and human-review evidence leads without changing research state. See the [complete recognition ledger](history/external-recognition.md) and [public discussion history](history/community-discussions.md).
+
+These records distinguish public recognition, intellectual provenance and open research questions. They do not establish institutional endorsement, formal adoption or empirical validation of UA.
 
 ## Canonical project sources
 
