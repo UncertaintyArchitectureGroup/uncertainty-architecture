@@ -1,0 +1,31 @@
+Новий нормативний «AI Deployment Passport» не потрібен. Бракує наскрізного дворівневого worked example, а канонічні власники вже визначені. Копіювання термінів, checklist і моделі рішень створить дублювання та ризик розходження вимог. За `SPECIFICATION.md` §3–5 приклади й шаблони не встановлюють самостійних вимог; чинна доктрина та патерни мають статус draft-normative, а не стабільного стандарту.
+
+Твердження про повне покриття помилкове. `03-reference-architectures/worked-thinking-system-review-support-triage.md` містить заповнений delivery-review: Judgment Nodes, Constraint Realization Map, DoR, DoD, Release Gate та runtime reassessment. Проте `PCAVR-SUP-001 v1.0` у ньому — ілюстративне посилання з коротким inherited baseline, не окремий опрацьований project-review. Сам документ пояснює, що ідентифікатори не є додатковими артефактами репозиторію. `03-reference-architectures/README.md` і `ROADMAP.md` прямо залишають дворівневе застосування наступним завданням.
+
+Розподіл відповідальності вже достатній:
+
+| Зміст | Канонічне джерело |
+|---|---|
+| Терміни | `00-doctrine/glossary.md` |
+| Успадкування, рівні рішень, переоцінка | `00-doctrine/nested-control-lifecycle.md` |
+| Constraint, realization, Sensor, Controller, Actuator | `00-doctrine/control-loop-anatomy.md` |
+| Project Constraint Architecture, життєздатність, авторизація, переавторизація | `01-patterns/project-control-architecture-and-viability-review.md` |
+| Delivery-realization, DoR, DoD, Release Gate | `01-patterns/thinking-system-review.md` |
+
+Мінімальний план:
+
+1. **Розміщення.** Додати, наприклад, `03-reference-architectures/worked-project-delivery-internal-assistant.md`: `artifact_type: reference-architecture`, `status: reference`, `module: reference-architectures`; решта метаданих — за `DOCUMENT-METADATA.md`. Один файл може містити два чітко розділені review з власними версіями та рішеннями. Не заявляти нове канонічне володіння термінами чи lifecycle. Назву «Passport», якщо вона потрібна читачам, залишити лише назвою короткого навігаційного резюме з посиланнями.
+
+2. **Project-частина.** За `01-patterns/project-control-architecture-and-viability-review-template.md` показати мету внутрішнього асистента, необхідність Model Judgment, ручну й детерміновану альтернативи, межі даних/користувачів/інструментів, матеріальні сценарії, спроможність контролю, Human Authority, затримки та економіку. Організаційна заборона розширювати доступ має мати джерело, версію, власника і право винятку. Єдина Project Constraint Architecture повинна вивести з неї конкретний Constraint, а рішення — зафіксувати дозволений обсяг, умови, залишковий ризик і версійований пакет успадкування.
+
+3. **Delivery-частина.** Використати `01-patterns/thinking-system-review-template.md`, заповнюючи конкретні рішення замість копіювання повного універсального checklist. Продемонструвати зв’язок умовних `ORG-ACCESS v1 → PC-01 → D-01`: асистент працює лише в межах прав поточного користувача; реалізація перевіряє ідентичність та ACL перед отриманням контексту й викликами інструментів, не має механізму зміни прав і відмовляє при невідомій авторизації. Єдина Constraint Realization Map фіксує повний шлях, припущення, bypass/failure/unavailable behavior, активні версії, докази й повноваження зміни. Prompt не робить цю заборону Hard Constraint; семантичні soft-обмеження треба записати окремо. Project authorization, DoR, DoD і deployment-specific Release Gate залишаються різними рішеннями.
+
+4. **Runtime і переавторизація.** Додати короткий сценарій: після зміни конектора сигнал показує втрату перевірки користувацьких ACL. Sensor дає версійовані журнали та стан реалізації; уповноважений Controller наказує призупинити шлях; Actuator вимикає конектор, а наступне спостереження підтверджує ефект. Локально виправний дефект веде до delivery reassessment. Неможливість зберегти цей контроль або його прийнятну вартість руйнує project basis і потребує переавторизації з явним результатом: звуження, redesign, додаткові докази або No-Go. Запит дозволити ширший доступ потребує організаційного рішення; project-рішення не скасовує заборону.
+
+5. **Зв’язки й перевірки.** Додати посилання з індексу reference-архітектур, оновити фактичний прогрес у `ROADMAP.md` і notable change у `CHANGELOG.md`. Матеріальні висновки застосування узгодити з `content/research/framework-traceability.md` за `content/research/review-process.md`. Перевірити наскрізні ID/версії, повноваження, негативні сценарії доступу, обхід, втрату залежності, fallback і виконання вимкнення. Запланувати metadata/canonical-ownership, navigation, offline links/anchors, change-coupling; за змінами — repository-contract, Mermaid-render і Quartz build, як визначено `CONTRIBUTING.md` та відповідними workflow.
+
+Усі компанії, пороги, метрики, дати й результати слід явно позначити синтетичними. Для виробничих висновків потрібні перевірні deployment/configuration snapshots, результати випробувань, журнали, рішення відповідальних осіб та реальні дані про навантаження й ефективність контролю. Навіть повний приклад не доводить ефективність UA. Нові гіпотези розподілу організаційної/project-влади у research залишаються невирішеними й не замінюють чинних власників. Перевірки тут не запускалися; поточні live-стани PR/CI не надані.
+
+Access deviations
+
+None
