@@ -1,6 +1,6 @@
 # Editable PowerPoint export
 
-The PMDay deck is an informative presentation rendition, not a new UA doctrine or research edition. Its [central Markdown description](../assets/presentations/pmday-2026/README.md) owns the approved 14-slide order, style, screen copy, speaker notes, evidence limits and source URLs. Each `pptx-slide` JSON block is the render input for the corresponding slide. Update the prose and render block together. The [evidence base](../assets/presentations/pmday-2026/EVIDENCE.md) links local source notes, attributed CC BY originals and their retrieval checksums.
+The PMDay deck is an informative presentation rendition, not a new UA doctrine or research edition. Its [central Markdown description](../assets/presentations/pmday-2026/README.md) owns the approved 14-slide order, style, screen copy, speaker notes, evidence limits and source URLs. Each `pptx-slide` JSON block is the render input for the corresponding slide. Update the prose and render block together. The [evidence base](../assets/presentations/pmday-2026/EVIDENCE.md) links local source notes, attributed Creative Commons originals and their retrieval checksums.
 
 ## Consolidation of PRs #113 and #129
 
@@ -74,7 +74,9 @@ The first command leaves a checked candidate under `dist/pptx/`. The second inst
 
 - Exactly 14 slides in the source order, 16:9 at 1280×720 design pixels.
 - Every slide has solid `#0B0F14` background.
-- One fixed foreground illustration on slide 1, requested by the maintainer, with asset checksum and provenance. The package must embed that exact image within the bounded cover region. No other slide/master/layout pictures or image fills. Titles, body text, numbers, diagrams and tables remain native.
+- One fixed foreground illustration on slide 1, requested by the maintainer, with asset checksum and provenance. The package must embed that exact image within the bounded panoramic cover region (96 px side margins; below the title). No other slide/master/layout pictures or image fills. Titles, body text, numbers, diagrams and tables remain native.
+- Block rows on slides 2 and 3 stay within symmetric safe margins of at least 96 px.
+- Slide 3 uses short neutral links without arrowheads. Slide 5 uses one smooth native generation path and a flat human-capacity scenario line; it is explicitly illustrative. Slide 6 includes the human diagnosis/fix/recovery path. Watch / Explore belong to slide 7.
 - Real PowerPoint tables on slides 11 and 13.
 - All slide titles, substantive notes and load-bearing evidence numbers are present.
 - Source/generator/validator hashes and the PPTX checksum match the manifest.

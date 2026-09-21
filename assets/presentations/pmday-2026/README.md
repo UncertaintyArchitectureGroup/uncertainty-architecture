@@ -36,7 +36,7 @@ tags:
 
 Для актуальності додано новіші авторські публікації, навіть якщо їх ще немає в реєстрі Subprime: DORA 2025, METR за травень 2026, GitClear за червень 2026. Xu використано у v3 від 28 січня 2026, Agarwal — у v2 від 27 січня 2026. Нова дата версії не робить старі дані новими: це окремо зазначено.
 
-Перевірка означає звірку таблиць, підписів, одиниць вимірювання, дат, дизайну досліджень і арифметики. Вона не означає незалежне відтворення оцінок на сирих даних. Для NBER прочитано наданий оригінальний PDF і візуально звірено ключові таблицю та графіки. Для DORA використано публічне авторське резюме та завантажену офіційну інфографіку, для GitClear — публічний виклад і доступний графік; перевірка повного закритого звіту не заявляється.
+Перевірка означає звірку таблиць, підписів, одиниць вимірювання, дат, дизайну досліджень і арифметики. Вона не означає незалежне відтворення оцінок на сирих даних. Для NBER прочитано наданий оригінальний PDF і візуально звірено ключові таблицю та графіки. Для DORA використано повний звіт v.2025.2 із public mirror, авторське резюме та офіційну інфографіку. Для GitClear — публічний виклад і доступний графік; перевірка повного закритого GitClear whitepaper не заявляється.
 
 ### Стиль і технічний контракт PPTX
 
@@ -81,18 +81,16 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
   "lanes": [
     [
       "HOW WE BUILD",
-      "AI-assisted engineering",
-      "More work can be generated.\nThe whole pipeline still matters."
+      "AI helps a developer write software."
     ],
     [
       "WHAT WE BUILD",
-      "Thinking Systems",
-      "The product delegates judgment.\nIts boundaries still matter."
+      "AI interprets a user’s request at runtime."
     ]
   ],
   "takeaway": "They are related. They are not the same.",
-  "notes": "Відділити AI для розробки від Model Judgment усередині продукту. Перше змінює виробництво software, друге — поведінку системи. Не починати з реклами UA чи anti-AI тези.\nІлюстрація — концептуальна метафора двох ролей AI, не схема архітектури. AI-generated illustration, OpenAI imagegen, 21 September 2026. Джерело та prompt: artwork/PROVENANCE.md.",
-  "illustrationAlt": "Concept illustration: a cyan machine assembles software components beside an amber product enclosure with branching paths."
+  "notes": "Відділити AI для розробки від Model Judgment усередині продукту. Перше змінює виробництво software, друге — поведінку системи. Не починати з реклами UA чи anti-AI тези.\nІлюстрація показує конкретні ролі: зліва розробник працює з AI coding assistant, справа користувач просить продукт скласти план подорожі. AI-generated illustration, OpenAI imagegen, 21 September 2026. Вона не задає архітектуру системи. Prompt: artwork/PROVENANCE.md.",
+  "illustrationAlt": "Two concrete scenes: a developer uses an AI coding assistant; a user asks an AI-powered travel application to plan a trip."
 }
 ```
 
@@ -105,10 +103,10 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
 Підзаголовок: **How we build software. And what software is.**
 
 Два змістові блоки без стрілок:
-- HOW WE BUILD — AI-assisted engineering. More work can be generated. The whole pipeline still matters.
-- WHAT WE BUILD — Thinking Systems. The product delegates judgment. Its boundaries still matter.
+- HOW WE BUILD — AI helps a developer write software.
+- WHAT WE BUILD — AI interprets a user’s request at runtime.
 
-**Композиція:** великий заголовок зверху, два блоки зліва, одна концептуальна ілюстрація справа: cyan-інструмент складання software і amber-продукт із branching judgment. Це художня метафора, не технічна схема чи виміряні дані. Увесь текст — окремі редаговані об'єкти. Ім'я й PMDay — підпис унизу.
+**Композиція:** великий заголовок зверху, широка ілюстрація двох конкретних сцен: зліва розробник із AI coding assistant; справа користувач просить AI-продукт спланувати подорож. Підписи під сценами пояснюють HOW / WHAT. Це художня метафора, не технічна схема чи виміряні дані. Увесь текст — окремі редаговані об'єкти. Ім'я й PMDay — підпис унизу.
 
 **Що говорити:** «Можна будувати звичайний детермінований сервіс за допомогою AI. А можна будувати сервіс, який сам делегує моделі частину рішень під час роботи. Перше змінює процес виробництва. Друге — поведінку продукту. Сьогодні нам потрібні обидві розмови, але не в одній купі».
 
@@ -126,12 +124,12 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
     [
       "Writing",
       "Externalized\nMemory",
-      "Records we can retrieve"
+      "Records we\ncan retrieve"
     ],
     [
       "Computers",
       "Externalized\nCalculation",
-      "Rules we explicitly encode"
+      "Rules we\nexplicitly encode"
     ],
     [
       "Large Models",
@@ -161,7 +159,7 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
 
 Фінальна фраза: **Developers now design the environment in which behavior is generated at runtime.**
 
-**Композиція:** три великі блоки зі стрілками, приєднаними до середини їхніх бічних граней: текст/пам'ять, обчислення, робота з мовою та контекстом. Останній блок виділити кольором, а не намалювати «штучний мозок». Нижній ряд про engineering consequence з'являється після пояснення трьох блоків.
+**Композиція:** три рівні блоки завширшки 300 px з однаковими зовнішніми полями 112 px та проміжками 78 px, зі стрілками, приєднаними до середини їхніх бічних граней: текст/пам'ять, обчислення, робота з мовою та контекстом. Останній блок виділити кольором, а не намалювати «штучний мозок». Нижній ряд про engineering consequence з'являється після пояснення трьох блоків.
 
 **Що говорити:** «Мені не потрібно доводити, що LLM думають як люди. Достатньо того, що вони виконують корисні cognition-like operations: інтерпретують запит, зіставляють контекст, пропонують код або план дій. Це дозволяє делегувати машині кроки, для яких раніше потрібна була людина або велика кількість спеціально написаних правил».
 
@@ -192,19 +190,42 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
     "Operate"
   ],
   "takeaway": "Local acceleration ≠ system throughput",
-  "notes": "Theory of Constraints (Goldratt): оптимізуємо потік через реальне обмеження системи. Якщо coding не bottleneck, його прискорення саме по собі не збільшує пропускну здатність delivery. Якщо був bottleneck, після зміни обмеження може переміститися. AI може змінювати Intent і Design так само, як Review, Test, Integration, Deploy та Operate; знак і величину ефекту треба вимірювати.\nНавчальний приклад, не дослідження: 100 зіставних змін надходять за тиждень, лише 8 інтегруються. За незмінної потужності та push без WIP limits/відкидання роботи загальний backlog зростає на 100 − 8 = 92 зміни за тиждень. Integration позначено як умовний bottleneck, не універсальний bottleneck команд.\nЦе не твердження, що будь-яка оптимізація не-bottleneck автоматично погіршує систему: економія витрат або вільна потужність теж можуть бути корисні. Черга виникає, коли реально збільшується надходження понад вихід. Rework, більші batches, затриманий feedback і тиск на review можуть погіршити якість; це механізм ризику, а не математично неминучий ефект. Джерела й межі: evidence/toc-wip.md.",
-  "scope": "AI can affect every stage. The net effect must be measured.",
-  "codeRate": "100 changes\nper week",
-  "constraintRate": "8 changes\nper week",
-  "toc": "Faster work outside the bottleneck\ndoes not increase delivery capacity.",
-  "risk": "Pushing more work into a fixed bottleneck builds\nWIP and waiting time. Quality can suffer under overload.",
-  "queueRate": "+92 / week",
-  "queueLabel": "unfinished changes\naccumulate",
-  "exampleCaveat": "Illustrative: 100 in, 8 out.\nFixed rates, comparable work.\nNo WIP limit, no discarded work.",
+  "notes": "Theory of Constraints (Goldratt): оптимізуємо потік через реальне обмеження системи. Якщо coding не bottleneck, його прискорення саме по собі не збільшує пропускну здатність delivery. Якщо був bottleneck, після зміни обмеження може переміститися. AI може змінювати Intent і Design так само, як Review, Test, Integration, Deploy та Operate; знак і величину ефекту треба вимірювати.\nНавчальний приклад, не дослідження. ДО AI: code виробляє 8 змін/тиждень, review може опрацювати 8, integration може інтегрувати 8. Потік збалансований. ПІСЛЯ AI: генерація коду зростає до 100 зіставних змін/тиждень, але review та integration лишаються на 8. Інші етапи не прискорилися автоматично. За незмінної потужності та push без WIP limits/відкидання роботи загальний backlog зростає на 100 − 8 = 92 зміни за тиждень. Integration позначено як умовний bottleneck, не універсальний bottleneck команд.\nЦе не твердження, що будь-яка оптимізація не-bottleneck автоматично погіршує систему: економія витрат або вільна потужність теж можуть бути корисні. Черга виникає, коли реально збільшується надходження понад вихід. Rework, більші batches, затриманий feedback і тиск на review можуть погіршити якість; це механізм ризику, а не математично неминучий ефект. Джерела й межі: evidence/toc-wip.md.\nНа слайді немає фонового зображення чи стрілок: етапи з’єднані короткими нейтральними лініями.",
+  "scope": "AI can affect every stage. Downstream gains are not automatic.",
+  "toc": "Delivery stays at 8/week. WIP grows; overload can reduce quality.",
+  "exampleCaveat": "Push system: no WIP limit, no discarded work.",
   "sources": [
     "https://dora.dev/capabilities/wip-limits/",
     "https://dora.dev/capabilities/working-in-small-batches/",
     "https://www.nber.org/papers/w35275"
+  ],
+  "exampleHeading": "Illustrative team: changes per week; comparable work, fixed downstream capacity.",
+  "exampleStages": [
+    "Code",
+    "Review",
+    "Integrate"
+  ],
+  "exampleRows": [
+    [
+      "BEFORE",
+      "Balanced flow",
+      [
+        "8",
+        "8",
+        "8"
+      ],
+      "0"
+    ],
+    [
+      "AFTER AI",
+      "Other stages have\nnot sped up",
+      [
+        "100",
+        "8",
+        "8"
+      ],
+      "+92"
+    ]
   ]
 }
 ```
@@ -217,15 +238,15 @@ Generated review snapshot: [ai-changes-both-sides.pptx](ai-changes-both-sides.pp
 
 Intent → Design → Code → Review → Test → Integrate → Deploy → Operate
 
-CODE підсвічений; питання стоять також над Intent і Design та рештою етапів. AI може впливати на весь SDLC, а не тільки на Code. Усі стрілки належать одному наскрізному процесу; додаткових стрілок над ним немає.
+CODE підсвічений; питання стоять також над Intent і Design та рештою етапів. AI може впливати на весь SDLC, а не тільки на Code. Усі зв’язки показані короткими нейтральними лініями без наконечників; стрілок і фонових зображень на слайді немає.
 
 Основна теза: **Local acceleration ≠ system throughput.**
 
-**Композиція:** SDLC у верхній половині; внизу — Theory of Constraints і видима арифметика backlog. Code: 100 змін/тиждень, умовний bottleneck Integration: 8/тиждень; +92 незавершені зміни/тиждень за push без WIP limit. Схема не потребує анімації. Це навчальний приклад із незмінною потужністю, не дані дослідження.
+**Композиція:** компактний SDLC із рівними полями 96 px; нижче явні ряди BEFORE та AFTER AI. До AI: Code 8 → Review 8 → Integrate 8, backlog 0. Після AI: Code 100 → Review 8 → Integrate 8, backlog +92/тиждень за push без WIP limit. Review та integration не прискорюються автоматично. Схема не потребує анімації. Це навчальний приклад із незмінною потужністю, не дані дослідження.
 
 **Theory of Constraints:** прискорення не-bottleneck не збільшує throughput за незмінного обмеження. Якщо реально подавати більше роботи, ніж bottleneck пропускає, накопичуються WIP і очікування. Під навантаженням можуть зростати rework і ризик погіршення якості. Не стверджувати автоматичну деградацію від будь-якої локальної оптимізації. Джерела й припущення: [ToC / WIP](evidence/toc-wip.md).
 
-**Конкретний навчальний приклад для нотаток:** умовна команда може написати 20 змін за тиждень, перевірити 10, інтегрувати 8. Якщо генерація стає 100 змін/тиждень, це саме по собі не збільшує межу інтеграції 8. Приклад припускає зіставні зміни та незмінну потужність інших етапів; це не дані дослідження.
+**Конкретний навчальний приклад для нотаток:** умовна команда пише 8 змін за тиждень, перевіряє 8 та інтегрує 8. Якщо генерація стає 100 змін/тиждень, це саме по собі не збільшує межу інтеграції 8. Приклад припускає зіставні зміни та незмінну потужність інших етапів; це не дані дослідження.
 
 **Що говорити:** «Якщо coding не був bottleneck, прискорення coding не дає такого самого прискорення delivery. Якщо був — обмеження переміститься. AI може допомогти також у review, testing, design чи operations. Але їхнє прискорення треба перевіряти, а не вважати автоматичним наслідком швидшої генерації».
 
@@ -253,8 +274,8 @@ CODE підсвічений; питання стоять також над Inten
       "releases"
     ]
   ],
-  "nberGeneration": "Cumulative estimates across\nautocomplete + sync + async",
-  "nberCaveat": "Changed LOC = additions + deletions.\nSeparate async release effect not estimated.",
+  "nberGeneration": "Cumulative across three tool generations",
+  "nberCaveat": "Changed LOC = additions + deletions.\nAsync release effect not estimated.",
   "marketHeadline": "More apps. Aggregate usage\nflat or lower in these cohorts.",
   "marketDetail": "New cohorts; first 3 months. Usage proxies.",
   "marketNumbers": [
@@ -268,7 +289,7 @@ CODE підсвічений; питання стоять також над Inten
     ]
   ],
   "takeaway": "Code activity, delivery and user value are different outcomes.",
-  "notes": "NBER: понад 100 тисяч GitHub developers; matched event study, не RCT. Changed LOC = additions + deletions, не чисте зростання кодової бази.\nTable 5, друкована с. 33, тижні 21–30: Autocomplete — LOC +228.2%, commits +35.9%, PRs +11.0%, releases +10.2%. Synchronous agents — LOC +741.3%, commits +109.1%, PRs +65.5%, releases +20.3%. Asynchronous agents — LOC +658.3%, commits +33.6%, PRs +71.8%; releases не оцінено окремо. Figure 1, с. 3: cumulative LOC 17.3×, files 3.9×, commits 2.8×, PRs 2.5×, repos 1.5×, releases 1.3×. Не перемножувати компоненти.\nFigure 12, с. 41; §8.2, с. 42–43: iOS — 30–50 тисяч нових apps/month → близько 100 тисяч у квітні 2026; Android — 42 тисячі у січні 2025 → близько 60 тисяч у середині 2026; Chrome — 5 тисяч у 2023 → близько 13 тисяч у середині 2026. Total cohort usage за перші 3 місяці стабільне або знижується. Частка iOS apps із <10 ratings: 79→86%; Chrome extensions із <10 downloads: 18→31%. SourceForge без прискорення entry, не входить у три usage panels. Це не всі existing apps, не весь software market і не пряме вимірювання consumer welfare. Chrome decline передував agentic era.\nDORA 2025: в офіційній інфографіці понад 80% респондентів повідомляють про підвищення продуктивності, 59% — про позитивний вплив на якість коду. Це частки респондентів, а не +80% швидкості чи +59% якості. Майже 5 000 респондентів. Авторське резюме окремо описує позитивну association adoption із delivery throughput і негативну зі stability. Delivery stability не тотожна code quality. Перевіреного числового коефіцієнта stability у доступному матеріалі немає; не приписуємо відсоток падіння та не переносимо coefficients 2024. Повний звіт за формою не отримано; інфографіку завантажено в evidence/originals/dora-2025-infographic.pdf. Деталі: evidence/dora-2025.md.\nMETR, травень 2026: 349 technical workers; 1.4–2× median self-reported work value залежно від питання, 3× self-reported speed; є selection bias. Старий RCT 2025 із +19% часу — лише історичний контекст.\nGitClear 2026: частка moved code у changed lines 13% (2023) → 3.8% (YTD 2026), не кількість refactoring tasks і не весь reuse. Частота duplicated blocks приблизно +81% за цей період. Copy/paste share 9.4% (2022) → 15.7% (H1 2026), інший baseline. У звіті 2025 на даних 2020–24 окремо описані зростання short-term churn, більше клонів і падіння moved-code share; числового churn effect із публічної сторінки не виводимо. Не змішувати churn, duplication та refactoring. Текст і графік 2026 суперечать щодо абсолютної одиниці duplication, тому залишаємо тільки відносні +81%. Це observational proxies, не причинний ефект AI. Деталі: evidence/gitclear.md.\nXu, v3 від січня 2026, дані 2020–22: top activity quartile — commits −19%, reviews +6.5%; bottom quartile — commits +43.5%, PRs +17.7%; rework +2.4%. Це не кадрові грейди й не агенти 2026 року.\nAgarwal, v2, Table 2: complexity +34.85/+42.87%, warnings +17.73/+19.00%; зміна IDE-first warnings статистично незначуща. Не трактувати це як борг на одну фічу.",
+  "notes": "NBER: понад 100 тисяч GitHub developers; matched event study, не RCT. Changed LOC = additions + deletions, не чисте зростання кодової бази.\nTable 5, друкована с. 33, тижні 21–30: Autocomplete — LOC +228.2%, commits +35.9%, PRs +11.0%, releases +10.2%. Synchronous agents — LOC +741.3%, commits +109.1%, PRs +65.5%, releases +20.3%. Asynchronous agents — LOC +658.3%, commits +33.6%, PRs +71.8%; releases не оцінено окремо. Figure 1, с. 3: cumulative LOC 17.3×, files 3.9×, commits 2.8×, PRs 2.5×, repos 1.5×, releases 1.3×. Не перемножувати компоненти.\nFigure 12, с. 41; §8.2, с. 42–43: iOS — 30–50 тисяч нових apps/month → близько 100 тисяч у квітні 2026; Android — 42 тисячі у січні 2025 → близько 60 тисяч у середині 2026; Chrome — 5 тисяч у 2023 → близько 13 тисяч у середині 2026. Total cohort usage за перші 3 місяці стабільне або знижується. Частка iOS apps із <10 ratings: 79→86%; Chrome extensions із <10 downloads: 18→31%. SourceForge без прискорення entry, не входить у три usage panels. Це не всі existing apps, не весь software market і не пряме вимірювання consumer welfare. Chrome decline передував agentic era.\nDORA 2025 v.2025.2: повний звіт отримано через публічне дзеркало; source URL, license і SHA-256 записано в evidence/sources.json. Figure 28, p.38: software delivery instability має standardized estimate приблизно +0.10 SD, 89% credible interval приблизно +0.07…+0.13, на +1 SD AI adoption. Це округлене зчитування графіка, не точна опублікована числова таблиця. Векторні координати та арифметика — evidence/dora-2025-figure28.json. Footnote 23, p.48 визначає стандартизацію. Appendix p.139: instability об’єднує change failure rate та deployment rework rate, тобто частку незапланованих deployments для виправлення user-facing bugs. Це оцінки респондентів у cross-sectional survey, не телеметрія CI/CD і не доведений причинний ефект. Не перекладати +0.10 SD як +10% failures. >80% і 59% — частки респондентів, які повідомляють про покращення productivity та code quality. Перевірений коефіцієнт 2024 +7.2% тут не підставляємо. Деталі: evidence/dora-2025.md.\nMETR, травень 2026: 349 technical workers; 1.4–2× median self-reported work value залежно від питання, 3× self-reported speed; є selection bias. Старий RCT 2025 із +19% часу — лише історичний контекст.\nGitClear 2026: частка moved code у changed lines 13% (2023) → 3.8% (YTD 2026), не кількість refactoring tasks і не весь reuse. Частота duplicated blocks приблизно +81% за цей період. Copy/paste share 9.4% (2022) → 15.7% (H1 2026), інший baseline. Публічне резюме GitClear 2026 прямо повідомляє +15% two-week code churn: частка нещодавно написаних рядків, переписаних/видалених упродовж двох тижнів. Це відносна зміна, не +15 відсоткових пунктів і не частка дефектів. Резюме не дає окремої пари базових значень churn. Function connectivity: 343 → 223 calls/1000 changed lines, 2023 → YTD 2026, приблизно −35%. Це щільність викликів, не весь reuse. Legacy update share: 1.7% → 0.46%; вступ каже 2022, детальний абзац 2023, тому baseline суперечливий і показник лишається в нотатках. Не змішувати churn, duplication та refactoring. Текст і графік 2026 суперечать щодо абсолютної одиниці duplication, тому залишаємо тільки відносні +81%. Це observational proxies, не причинний ефект AI. Деталі: evidence/gitclear.md.\nXu, v3 від січня 2026, дані 2020–22: top activity quartile — commits −19%, reviews +6.5%; bottom quartile — commits +43.5%, PRs +17.7%; rework +2.4%. Це не кадрові грейди й не агенти 2026 року.\nAgarwal, v2, Table 2: complexity +34.85/+42.87%, warnings +17.73/+19.00%; зміна IDE-first warnings статистично незначуща. Не трактувати це як борг на одну фічу.\nDORA: позитивний зв’язок AI adoption з throughput одночасно з негативним зі stability. Small batches, p.58: сильніший позитивний зв’язок AI із product performance та менше friction, хоча індивідуальні gains можуть бути меншими. ToC / review-testing-integration queues, p.81. Це мотивує системну оптимізацію на слайді 7, не доводить універсальну причинність.",
   "sources": [
     "https://www.nber.org/papers/w35275",
     "https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report",
@@ -277,36 +298,46 @@ CODE підсвічений; питання стоять також над Inten
     "https://arxiv.org/html/2510.10165v3",
     "https://arxiv.org/html/2601.13597v2",
     "https://dora.dev/research/2025/2025-DORA-Report-Infographic.pdf",
-    "https://www.gitclear.com/ai_assistant_code_quality_2025_research"
+    "https://www.gitclear.com/ai_assistant_code_quality_2025_research",
+    "https://www.shaunabram.com/wp-content/uploads/2025/10/2025_state_of_ai_assisted_software_development.pdf",
+    "https://dora.dev/research/2025/questions/"
   ],
-  "doraMetrics": [
+  "gitclearMetrics": [
     [
-      ">80%",
-      "report productivity\nimprovement"
+      "Moved-code share",
+      "13% → 3.8%"
     ],
     [
-      "59%",
-      "report code-quality\nimprovement"
+      "Calls / 1k changed lines",
+      "−35%"
+    ],
+    [
+      "Duplicated blocks",
+      "+81%"
+    ],
+    [
+      "Two-week code churn",
+      "+15%"
     ]
   ],
-  "doraAssociation": "Self-reports. Adoption is also associated\nwith lower delivery stability.",
-  "gitclearMetrics": [
-    "Moved-code share: 13% → 3.8%",
-    "Duplicated blocks: +81%"
-  ],
-  "gitclearCaveat": "2023 vs YTD 2026. Reuse/refactoring proxy,\nnot a count of refactoring tasks.",
+  "gitclearCaveat": "Observed code proxies; not a causal AI estimate.",
   "otherCards": [
     [
       "METR · MAY 2026",
       "1.4–2× work value",
-      "Median self-report; survey"
+      "Median self-reported work value; survey, not causal uplift"
     ],
     [
       "XU + AGARWAL · 2026",
       "+35% / +43%",
-      "Agarwal: complexity proxy"
+      "Agarwal: complexity proxy. Xu: contributor workload shifts."
     ]
-  ]
+  ],
+  "doraInstability": "≈ +0.10 SD",
+  "doraInterval": "89% credible interval ≈ +0.07 to +0.13",
+  "doraMeasures": "Survey model, rounded reading of Fig. 28.\nSD = standard deviation, not a failure percentage.",
+  "doraPerceptions": "Report improvement: >80% productivity; 59% code quality.",
+  "doraHeadline": "Higher throughput\nLower delivery stability"
 }
 ```
 
@@ -316,26 +347,26 @@ CODE підсвічений; питання стоять також над Inten
 
 ### Що саме має бути на екрані
 
-Дві колонки з чіткою вертикальною межею. Зліва — NBER та marketplace outcomes. Справа — окремі числові блоки DORA і GitClear, нижче компактні METR та Xu / Agarwal. Жодних стрілок між несумірними дослідженнями або outcomes; усі числа мають власні підписи. Докладні таблиці залишаються у нотатках.
+Дві колонки з чіткою вертикальною межею. Зліва — NBER та marketplace outcomes. Справа — одночасний позитивний зв’язок AI із throughput і негативний зі stability у DORA; приблизний standardized coefficient є підписом. Нижче — чотири окремі метрики GitClear. Унизу спільний ряд METR та Xu / Agarwal. Жодних стрілок між несумірними дослідженнями або outcomes; усі числа мають власні підписи. Докладні таблиці залишаються у нотатках.
 
 **Велика картка NBER — May 2026:**
 - **17.3× changed LOC**
 - **2.8× commits**
 - **1.3× releases**
-- Видимий ряд: **Autocomplete + synchronous + asynchronous agents**
+- Видимий ряд: **Cumulative across three tool generations**
 - Нижній блок: **More apps. No aggregate usage increase in the observed cohorts.**
 - Один конкретний сигнал: **iOS apps with <10 ratings: 79% → 86%**.
 - Критична примітка: **Cumulative estimates; separate async release effect not identified.**
 
 **METR — May 2026:** **1.4–2× self-reported work value**; підпис **Survey, not measured causal uplift**.
 
-**DORA — 2025:** **>80% report productivity improvement** і **59% report code-quality improvement**. Підпис: **Self-reports. Adoption is also associated with lower delivery stability.** Це частки респондентів, а не відсотки зміни швидкості/якості.
+**DORA — 2025:** **Higher throughput / Lower delivery stability** при вищому AI adoption. Підпис: **≈ +0.10 SD delivery instability per +1 SD AI adoption**, **89% credible interval ≈ +0.07 to +0.13**. Округлене зчитування Figure 28, p.38; survey model, не CI/CD telemetry. Instability = change failures + unplanned bug-fix deployments. Окремим рядком: >80% report productivity improvement; 59% report code-quality improvement — частки респондентів, не відсотки зміни швидкості/якості.
 
-**GitClear — June 2026:** **Moved-code share: 13% → 3.8%** і **Duplicated blocks: +81%**; підпис **2023 vs YTD 2026. Reuse/refactoring proxy, not a count of refactoring tasks.**
+**GitClear — June 2026:** **Moved-code share: 13% → 3.8%**, **Calls / 1k changed lines: −35%**, **Duplicated blocks: +81%**, **Two-week code churn: +15%**. Видимий підпис: **Observed code proxies; not a causal AI estimate.** Періоди й визначення пояснюються в нотатках: moved lines — proxy refactoring, function calls — connectivity, churn — швидка переробка.
 
 **Xu + Agarwal — 2026 versions:** **Workload shifts. Complexity rises in studied samples.** Один числовий ряд: **Complexity +35% / +43%**; назвати Agent-first / IDE-first. Цифри Xu — в нотатках, щоб не перетворити картку на таблицю.
 
-Унизу слайда: **These studies do not prove “AI makes engineering worse.” More code faster is not the same measurement as more value delivered.**
+Унизу слайда: **Code activity, delivery and user value are different outcomes.**
 
 ### NBER: повні перевірені цифри для нотаток
 
@@ -379,13 +410,13 @@ CODE підсвічений; питання стоять також над Inten
 
 ### Інші картки: числа й межі
 
-**DORA 2025.** [Офіційна інфографіка](evidence/originals/dora-2025-infographic.pdf) також містить **59%**, які повідомляють про покращення code quality. Це self-report, не зміна якості на 59%. Delivery stability — окремий outcome; говорити «якість коду впала» за цією association некоректно. Числовий коефіцієнт stability із доступних матеріалів не встановлено. [Детальний запис](evidence/dora-2025.md). Майже 5 000 респондентів; 90% використовують AI, понад 80% повідомляють про вищу продуктивність, 30% мало або зовсім не довіряють AI-коду. Зв'язок adoption із throughput і product performance позитивний, зі stability — негативний. Це не причинні коефіцієнти. Числа DORA 2024 сюди не переносимо. [Офіційне авторське резюме DORA 2025](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report).
+**DORA 2025.** [Офіційна інфографіка](evidence/originals/dora-2025-infographic.pdf) також містить **59%**, які повідомляють про покращення code quality. Це self-report, не зміна якості на 59%. Delivery stability — окремий outcome; говорити «якість коду впала» за цією association некоректно. Повний v.2025.2, Figure 28, p.38 тепер перевірено: приблизно +0.10 SD instability на +1 SD AI adoption, 89% credible interval приблизно +0.07…+0.13. Це зчитування графіка з округленням, не +10% failures, не telemetry й не causal estimate. Визначення та розрахунок див. у локальній нотатці. [Детальний запис](evidence/dora-2025.md). Майже 5 000 респондентів; 90% використовують AI, понад 80% повідомляють про вищу продуктивність, 30% мало або зовсім не довіряють AI-коду. Зв'язок adoption із throughput і product performance позитивний, зі stability — негативний. Це не причинні коефіцієнти. Числа DORA 2024 сюди не переносимо. [Офіційне авторське резюме DORA 2025](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report).
 
 **METR, 11 травня 2026.** 349 technical workers; median self-reported work-value multiplier 1,4–2× залежно від формулювання питання, self-reported speed — 3×. Це не confidence interval і не об'єктивне вимірювання delivery. Вибірка самообрана. [METR survey](https://metr.org/blog/2026-05-11-ai-usage-survey/).
 
 Історичний контрольований результат METR 2025: 16 розробників, 246 задач, +19% часу з early-2025 AI. Залишити як датований контекст, не актуальний вирок сучасним агентам. [METR RCT](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/). У [лютневому оновленні 2026](https://metr.org/blog/2026-02-24-uplift-update/) самі автори вказують на selection bias; не виводити з нього надійний універсальний поточний відсоток.
 
-**GitClear, червень 2026.** Moved-code share — частка переміщених рядків серед changed lines: proxy reuse/refactoring, а не кількість refactoring tasks. Short-term churn — окремий сигнал зі звіту 2025, який не підміняємо duplication. [Визначення, періоди й межі](evidence/gitclear.md). Moved/refactoring-related share: 13% у 2023 → 3,8% YTD 2026; block duplication приблизно +81%. Це спостережні показники власної класифікації, не весь reuse і не встановлений причинний ефект AI. У тексті й графіку duplication є суперечність одиниць; тому абсолютні 40,3 і 73,0 не використовуємо як навантажену метрику. Відносна зміна узгоджується. [GitClear 2026](https://www.gitclear.com/the_ai_code_quality_maintainability_gap).
+**GitClear, червень 2026.** Moved-code share — частка переміщених рядків серед changed lines: proxy reuse/refactoring, а не кількість refactoring tasks. Two-week churn **+15%** прямо наведено в публічному резюме 2026; це окрема від duplication метрика. Function calls **343 → 223 на 1000 changed lines**, приблизно **−35%**, 2023 → YTD 2026. Обидві метрики повернуто на екран. [Визначення, періоди й межі](evidence/gitclear.md). Moved/refactoring-related share: 13% у 2023 → 3,8% YTD 2026; function-call density −35%; block duplication приблизно +81%; two-week churn +15%. Це спостережні показники власної класифікації, не весь reuse і не встановлений причинний ефект AI. У тексті й графіку duplication є суперечність одиниць; тому абсолютні 40,3 і 73,0 не використовуємо як навантажену метрику. Відносна зміна узгоджується. [GitClear 2026](https://www.gitclear.com/the_ai_code_quality_maintainability_gap).
 
 **Xu, v3, січень 2026.** У нижнього квартиля за попередньою активністю commits +43,5%, PRs +17,7%; у верхнього commits −19%, reviews +6,5%. Project-level PR rework +2,4%. Це activity quartiles, не Junior/Senior; reviews — кількість, не години. Дані 2020–2022 про ранній Copilot: використовуємо для механізму перерозподілу роботи, не оцінки агентів 2026. [Xu et al.](https://arxiv.org/html/2510.10165v3).
 
@@ -411,44 +442,42 @@ CODE підсвічений; питання стоять також над Inten
     "Human comprehension capacity"
   ],
   "questions": [
-    "Can we generate it?",
-    "Can we review it?",
-    "Can we own it for 5 years?"
+    [
+      "Can we generate faster?",
+      "YES"
+    ],
+    [
+      "Can review keep pace?",
+      "NOT AT THIS RATE"
+    ],
+    [
+      "Will we understand it\nin 5 years?",
+      "?"
+    ]
   ],
   "takeaway": "Generation scales differently from comprehension.",
-  "caption": "Conceptual illustration; not measured trend data.",
-  "notes": "AI може допомагати й comprehension. Криві не виміряні, людська спроможність не є незмінною. Comprehension debt — рамка ризику: прийняті зміни випереджають розуміння системи. Complexity, volume, duplication, ownership, architecture comprehension — signals, не прямий вимір боргу."
+  "caption": "Illustrative overload scenario. Not measured trends or a five-year forecast.",
+  "notes": "Концептуальний сценарій: генерація зростає значно швидше за майже незмінну спроможність цієї команди розуміти й перевіряти код. Горизонтальна людська лінія — припущення сценарію, не біологічна межа: AI, навчання й кращі інструменти можуть допомагати comprehension. YES стосується прискорення генерації; NOT AT THIS RATE — нездатності review в цьому сценарії встигати за заданим потоком. Знак питання про 5 років — ризик довгострокового розуміння, не емпіричний прогноз втрати знань. Comprehension debt тут рамка ризику, не готова метрика. Ні NBER, ні GitClear не вимірювали ці криві."
 }
 ```
 
 **Час:** 2:30.
 
-**Роль:** повернути власну сильну тезу доповіді — асиметрію між генерацією та здатністю команди розуміти й підтримувати прийняте.
+**Роль:** показати асиметрію між генерацією й колективною здатністю розуміти, перевіряти та підтримувати прийнятий код.
 
-**На екрані:** дві схематичні криві:
-- Machine code generation capacity — швидко вгору.
-- Human comprehension capacity — повільніше.
+**На екрані:** плавна висхідна лінія generation capacity і горизонтальна comprehension capacity. Без числової шкали. Обидві лінії — native editable paths. Сценарій явно позначено як illustrative overload, не виміряний тренд чи прогноз на п’ять років.
 
-Між ними — заштрихована область: **Potential comprehension gap**.
+| Питання | Відповідь у показаному сценарії |
+|---|---|
+| Can we generate faster? | YES |
+| Can review keep pace? | NOT AT THIS RATE |
+| Will we understand it in 5 years? | ? |
 
-Три питання:
-- Can we generate it?
-- Can we review it?
-- Can we own it for 5 years?
+**Композиція:** графік ліворуч, відповіді праворуч. Горизонтальна людська лінія показує фіксовану командну capacity у цьому сценарії; це не вічна межа людського розуміння.
 
-Головна теза: **Generation scales differently from comprehension.**
+**Що говорити:** «Генерувати швидше ми можемо. Але за цього темпу review вже не встигає. Чи збережемо достатнє розуміння системи через п’ять років? Відповідь залежить від процесу, який побудуємо зараз. AI також може допомагати comprehension, але цей ефект треба перевіряти окремо від generated volume».
 
-**Композиція:** графік займає ліві дві третини; три питання — праворуч. Вісь X — adoption/time, Y — умовна capacity. Без числової шкали; видима позначка **Conceptual illustration — not measured trend data**. Не малювати горизонтальну «вічну межу» людського розуміння.
-
-**Що говорити:** «AI може допомагати і з comprehension: пояснювати код, знаходити залежності, будувати документацію. Але з того, що він генерує більше, не випливає, що команда настільки ж швидко набуває здатності пояснити, перевірити й змінити все прийняте».
-
-Далі: «Comprehension debt — наша рамка ризику: система накопичує зміни швидше, ніж формується надійне розуміння її поведінки та меж. Це не готова наукова метрика».
-
-**Конкретні сигнали для нотаток:** зміни без зрозумілого owner; review без пояснення впливу; невідомі залежності; зростання незрозумілого коду; розбіжність документації та реалізації. Complexity, volume, duplication і reuse — допоміжні indicators, не прямі вимірювачі людського розуміння.
-
-**Зв'язок із попереднім:** дані NBER і quality studies мотивують питання про comprehension, але самі не вимірюють цей gap.
-
-**Перехід:** «Найжорсткіша перевірка такого боргу відбувається не під час демо, а під час інциденту».
+**Перехід:** «Перевірка цього розуміння настає тоді, коли кодогенератор не може вирішити production-інцидент».
 
 ## 6. The Team Is the Last Line of Defense
 
@@ -456,53 +485,47 @@ CODE підсвічений; питання стоять також над Inten
 {
   "number": 6,
   "layout": "recovery",
-  "incident": [
-    "Production is down.",
-    "Three agent fixes fail.",
-    "Now what?"
-  ],
   "takeaway": "If AI cannot recover the system, the team still must.",
-  "watch": "Complexity / volume / duplication / reuse / ownership / comprehension",
-  "explore": "SDD / living architecture docs / code + docs / repository intelligence",
-  "notes": "Умовний сценарій, не case study. Перевірити, хто розуміє інваріанти й залежності, хто може обмежити наслідки, зупинити зміни, відкотити й відновити систему. SDD = spec-driven development. Документація та repository intelligence — гіпотези/інструменти, не доведена універсальна відповідь."
+  "notes": "AI кодогенератор сам є технічною системою: обмеження контексту, доступних інструментів, модельних можливостей і надійності роблять його потенційною точкою відмови у delivery та recovery. Особливо в складному проекті ця залежність належить risk analysis і плану реагування. Умовний інцидент: сервіс недоступний; AI не знаходить придатного fix у межах дозволеного бюджету спроб. Команда спершу обмежує наслідки, використовує безпечний rollback/fallback де можливо, зупиняє безрезультатний цикл. Далі люди відновлюють розуміння задуму, інваріантів і залежностей, локалізують причину та пропонують fix. Перевірка repair і відновлення відбуваються під incident owner. Containment може йти паралельно з діагностикою; схема показує відповідальність, а не обов’язкове очікування відмови AI перед реагуванням. Генератор може продовжувати допомагати, але команда мусить мати перевірену спроможність діяти без його успіху. Не кожна людина пам’ятає всі рядки: потрібна достатня колективна спроможність. Watch / Explore перенесено на слайд 7.",
+  "premise": "AI code generators are technical systems with limits.",
+  "risk": "Their failure to fix an incident belongs in the project risk model.",
+  "steps": [
+    [
+      "Production\nincident",
+      "Contain impact.\nRoll back or use\nfallback where safe."
+    ],
+    [
+      "AI cannot\nrecover",
+      "Stop at the agreed\nretry limit. Preserve\ntraces and changes."
+    ],
+    [
+      "Team diagnoses\n& proposes fix",
+      "Reconstruct intent,\ndependencies and\nsystem invariants."
+    ],
+    [
+      "Validate fix\nand restore",
+      "Test the repair.\nRestore under incident\nowner authority."
+    ]
+  ],
+  "caption": "Hypothetical scenario. Rehearse the human recovery path before production."
 }
 ```
 
 **Час:** 2:30.
 
-**Роль:** зробити відповідальність команди операційною, а не моральною декларацією.
+**Роль:** перетворити ownership на конкретну спроможність діагностувати, виправляти та відновлювати систему.
 
-**На екрані:**
+**На екрані:** AI code generators are technical systems with limits. Їхню нездатність усунути інцидент слід враховувати як ризик проекту.
 
-Production is down.\
-The agent tries three fixes.\
-None works.\
-**Now what?**
+Чотири послідовні етапи: **Production incident → AI cannot recover → Team diagnoses and proposes fix → Validate fix and restore**. Під кожним — конкретні дії. Схема native/editable; hypothetical-сценарій позначений явно.
 
-Коротка схема: AI Agent → failed recovery → TEAM.
+**Що говорити:** «Контекстне вікно, інструменти й можливості моделі не безмежні. Коли генератор не знаходить виправлення, відповідальність не зникає. Команда має розібратись у коді та залежностях, локалізувати причину і запропонувати перевірений fix. Таку можливість не можна вперше перевіряти на продакшні».
 
-Під нею: **Does anyone still understand the system well enough to take over?**
+**Порядок реагування:** containment починається одразу; безпечний rollback/fallback може йти паралельно з діагностикою. Безрезультатні спроби AI зупиняються за погодженим бюджетом, traces зберігаються. Incident owner контролює рішення про відновлення.
 
-Головна теза: **If AI cannot recover the system, the team still must.**
+**Практична перевірка:** команда вміє пояснити задум та інваріанти, має актуальні залежності/owner map, перевірені тести й runbook, а також відпрацьований шлях recovery без успішного AI-fix.
 
-**Композиція:** на перших 40 секундах лише incident-сценарій і точка передачі людині. Потім у нижній третині відкриваються два короткі рядки:
-- Watch: complexity · volume · duplication · reuse · ownership · architecture comprehension
-- Explore: SDD · living architecture docs · code + docs · repository intelligence
-
-Позначити сценарій як hypothetical, не видавати його за досліджений кейс.
-
-**Що говорити:** «Використовувати AI під час recovery цілком нормально. Питання в тому, що робить команда, коли він не знаходить рішення. Чи знає вона, як обмежити наслідки, зупинити зміни, відкотити систему, знайти інваріанти й відновити сервіс?»
-
-**Практична перевірка ownership:**
-1. Людина може пояснити задум зміни, залежності й найнебезпечніші failure modes.
-2. Є тести/спостережуваність, runbook і перевірений шлях rollback або fallback.
-3. Відомо, хто має право зупиняти, приймати ризик і повертати систему до роботи.
-
-**SDD і супутні практики:** тут SDD = spec-driven development. Living documentation та code/documentation co-generation — гіпотези й інструменти. Згенерована документація не стає правильною автоматично. Потрібні перевірка актуальності та вправи на recovery.
-
-**Що не стверджуємо:** кожна людина не мусить пам'ятати кожен рядок. Потрібна достатня колективна спроможність відновлення. Ми ще не знаємо, яка комбінація практик стане найкращою рівновагою.
-
-**Перехід:** «Отже, задача не повернути старий процес, а знайти новий стійкий баланс».
+**Перехід:** «Це задає, за чим спостерігати й які практики випробовувати в новому SDLC».
 
 ## 7. We Are Searching for a New SDLC Equilibrium
 
@@ -513,51 +536,87 @@ None works.\
   "columns": [
     [
       "OLD EQUILIBRIUM",
-      "Human writes\nHuman reviews\nHuman tests\nHuman operates"
+      "Human-led flow"
     ],
     [
       "TODAY",
-      "AI generation ↑↑\nReview adapting\nTesting adapting\nOwnership adapting"
+      "Generation outpaces review"
     ],
     [
       "NEW EQUILIBRIUM",
-      "?"
+      "Sustainable flow?"
     ]
   ],
-  "takeaway": "But this is only half of the transition.",
-  "caption": "AI is entering the software itself.",
-  "notes": "Невідоме не те, чи AI допомагає взагалі. Позитивні результати реальні. Ми ще шукаємо умови стійкої конверсії локальних gains у командну продуктивність. Old equilibrium — спрощення, не заперечення попередньої автоматизації.",
+  "takeaway": "The new equilibrium must preserve understanding and recovery.",
+  "caption": "Measure delivery and recovery. Next: AI inside the product.",
+  "notes": "Watch і Explore перенесено зі слайда 6 та конкретизовано. Watch: review age, batch size, WIP; churn/duplication/reuse/complexity; зміни без owner та застаріла документація; практична здатність людей діагностувати й відновити систему. Це індикатори, не готовий індекс comprehension. Explore: small batches/WIP limits, spec-driven development та living architecture з code+docs review, repository intelligence для залежностей/owners, recovery drills без успішного AI. Для кожної практики перевіряти end-to-end lead time, rework, stability і recovery, а не generated LOC. DORA 2025 p.58 мотивує small batches, p.81 розглядає ToC і downstream queues. Документація й RI не мають тут доведеної універсальної ефективності. Потрібні baseline, актуальність і практична перевірка. Old equilibrium спрощений; попередня автоматизація не заперечується. Pivot: AI змінює не лише спосіб розробки, а й сам продукт.",
   "titleLines": [
     "We Are Searching for a New",
     "SDLC Equilibrium"
+  ],
+  "watchRows": [
+    [
+      "Flow pressure",
+      "Review age, batch size and WIP"
+    ],
+    [
+      "Rework and structure",
+      "Churn, duplication, reuse, complexity"
+    ],
+    [
+      "Ownership gaps",
+      "Unowned changes and stale docs"
+    ],
+    [
+      "Recovery readiness",
+      "Unaided diagnosis and restore time"
+    ]
+  ],
+  "exploreRows": [
+    [
+      "Small batches and WIP limits",
+      "Keep intake within review capacity"
+    ],
+    [
+      "Specs and living architecture",
+      "Review code and docs together"
+    ],
+    [
+      "Repository intelligence",
+      "Trace dependencies and owners"
+    ],
+    [
+      "Human recovery drills",
+      "Diagnose and fix without the agent"
+    ]
+  ],
+  "sources": [
+    "https://dora.dev/capabilities/wip-limits/",
+    "https://www.shaunabram.com/wp-content/uploads/2025/10/2025_state_of_ai_assisted_software_development.pdf"
   ]
 }
 ```
 
 **Час:** 2:00.
 
-**Роль:** завершити HOW we build і перейти до WHAT we build.
+**Роль:** завершити HOW we build конкретними сигналами й перевірюваними практиками, потім перейти до WHAT we build.
 
-**На екрані:** три колонки:
+**На екрані:** компактний ряд OLD EQUILIBRIUM / TODAY / NEW EQUILIBRIUM. Під ним дві змістові колонки:
 
-| OLD EQUILIBRIUM | TODAY | NEW EQUILIBRIUM |
-|---|---|---|
-| Human writes | AI generation ↑↑ | ? |
-| Human reviews | Review adapting | |
-| Human tests | Evals/tests adapting | |
-| Human operates | Ownership adapting | |
+| Watch | Explore |
+|---|---|
+| Review age, batch size, WIP | Small batches та WIP limits |
+| Churn, duplication, reuse, complexity | SDD та living architecture з code+docs review |
+| Зміни без owner, stale docs | Repository intelligence: залежності й owners |
+| Діагностика й відновлення без успішного AI | Human recovery drills |
 
-Під ними: **We don’t yet know how consistently local AI gains convert into sustainable system productivity.**
+**Що говорити:** «Це сигнали й практики для перевірки. Результат оцінюємо за end-to-end delivery, rework, stability і здатністю відновити систему. Згенерована документація не гарантує розуміння. Граф репозиторію теж має сенс лише тоді, коли допомагає знаходити правильні залежності й рішення».
 
-Після паузи: **But this is only half of the transition.**
+DORA 2025, p.58: малі порції змін посилюють позитивний зв’язок AI із product performance та зменшують friction; індивідуальні gains можуть бути меншими. P.81: ToC і черги review/testing/integration. Це аргументи для системної оптимізації, а не універсальна гарантія всіх практик у Explore.
 
-**Композиція:** old зменшеної контрастності, today — активний центр, future — відкритий контур, а не вже спроєктований ідеальний workflow. Не малювати графік неминучої катастрофи або гарантованого прогресу.
+**Композиція:** Watch і Explore займають основну площу; новий equilibrium лишається відкритим питанням. Не вводимо нових посад, реєстрів або обов’язкових інструментів.
 
-**Що говорити:** «Нові дані вже показують позитивні результати. Невідоме не те, чи AI взагалі допомагає. Невідоме — за яких умов локальні gains стабільно стають командною продуктивністю, без накопичення неприйнятного rework, ризику чи втрати ownership».
-
-Старий equilibrium — спрощений людсько-центричний образ, не твердження, що до AI не було автоматизації.
-
-**Pivot дослівно:** «AI isn’t only changing how we build software. It is entering the software itself».
+**Pivot:** «AI змінює не лише те, як ми пишемо software. Він входить у сам software».
 
 # ACT II — AI змінює WHAT we build
 

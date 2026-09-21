@@ -31,6 +31,10 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Revised PMDay slides 3–7 from maintainer feedback: removed SDLC arrowheads, separated throughput/stability and four GitClear signals, smoothed the conceptual generation curve with fixed scenario comprehension capacity, made AI recovery failure and human diagnosis explicit, and moved strengthened Watch / Explore practices to the equilibrium slide. Preserved prior cover/layout work and retained source evidence; no UA doctrine or research-state change.
+
+- Reworked PMDay slides 1–4 after presentation review: replaced the abstract cover with concrete developer/user scenes, widened symmetric block margins, and added an explicit before/after 8-to-100 changes example. Added the full DORA 2025 v.2025.2 PDF and text with its CC BY-NC-SA attribution, and a traceable approximate Figure 28 instability estimate with units and an 89% credible interval. Delivery uses a version-specific filename to distinguish revisions.
+
 - Refined PMDay slides 1–4: added a requested conceptual cover illustration, centered attached transition connectors, an explicit ToC/WIP example and AI-effect uncertainty across the SDLC, and separated DORA perceptions from delivery stability and GitClear moved-code/duplication metrics. Added attributed local CC BY evidence PDFs, searchable text, source notes and retrieval hashes. Slides 5–14 remain unchanged in this iteration.
 
 - Added the PMDay presentation evidence base with direct report/source links, version and slide mappings, methodological limits, historical source dispositions, and separate Subprime/UA reading paths. Moved the existing bibliography overview into that companion file and linked it from the deck source and assets index.

@@ -29,3 +29,7 @@ This is **not** a rule that every non-bottleneck improvement necessarily degrade
 ## Illustrative arithmetic, not observed team data
 
 Assume comparable work items, steady inflow of 100 changes/week, integrated outflow of 8/week, fixed capacity, no discard and no WIP admission limit. Inventory grows by **100 − 8 = 92 changes/week** across unfinished work. Integration is the hypothetical bottleneck here; it is not asserted to be the bottleneck of every team. A quality decrease is a possible operational consequence, not implied by the subtraction alone.
+
+## Before and after in the current slide
+
+Before AI, code, review and integration each handle 8 comparable changes per week, with no backlog accumulation. After code generation rises to 100, review and integration remain at 8 in this example. The extra 92 changes queue before review; total unfinished work grows by 92/week. Faster code generation does not itself increase the other stages’ capacity. This is an illustrative fixed-capacity push system, not measured team data.

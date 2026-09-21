@@ -51,6 +51,38 @@
         }
       ],
       "retrieved_at": "2026-09-21"
+    },
+    {
+      "id": "dora-2025-full",
+      "title": "State of AI-assisted Software Development",
+      "authors": [
+        "Google LLC / DORA"
+      ],
+      "version": "v. 2025.2",
+      "source_url": "https://www.shaunabram.com/wp-content/uploads/2025/10/2025_state_of_ai_assisted_software_development.pdf",
+      "official_landing_url": "https://dora.dev/research/2025/dora-report/",
+      "distribution_note": "Public mirror linked by its hosting article; primary Google report. Version, relevant figure, appendix and license inspected; byte identity with the gated official download was not established.",
+      "license": "CC BY-NC-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "license_evidence": "Original PDF, page 141",
+      "files": [
+        {
+          "path": "originals/dora-2025-v2025.2.pdf.zip",
+          "transformation": "ZIP container for the unmodified download; no changes to PDF bytes",
+          "sha256": "bdf494cdff3bdda869ab8318634a3c6de051a274584440ee352b07e394935b01",
+          "bytes": 11986269,
+          "archive_member": "dora-2025-v2025.2.pdf",
+          "archive_member_sha256": "50dcd067440ffd18b4640c6faa31e3f488bc76942a4cfb549f1b4aeed90f05e9",
+          "archive_member_bytes": 15491276
+        },
+        {
+          "path": "originals/dora-2025-v2025.2.txt",
+          "transformation": "pypdf full-text extraction with PDF page markers; no editorial corrections",
+          "sha256": "c0a6b542df1e914f6c3332205465fbd5cd853cf66701335f0573e8ec88b8d4b6",
+          "bytes": 306303
+        }
+      ],
+      "retrieved_at": "2026-09-21"
     }
   ]
 }

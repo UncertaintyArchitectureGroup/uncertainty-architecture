@@ -50,7 +50,11 @@ def validate(pptx, manifest_path):
             if pictures:
                 pic = pictures[0]
                 extent = pic.find("p:spPr/a:xfrm/a:ext", NS)
-                assert extent is not None and int(extent.get("cx")) <= 640*9525 and int(extent.get("cy")) <= 440*9525, "Cover image exceeds foreground boundary"
+                offset = pic.find("p:spPr/a:xfrm/a:off", NS)
+                assert extent is not None and offset is not None, "Cover image geometry missing"
+                px, py = int(offset.get("x")), int(offset.get("y"))
+                pw, ph = int(extent.get("cx")), int(extent.get("cy"))
+                assert px >= 96*9525 and py >= 225*9525 and 0 < pw <= 1088*9525 and 0 < ph <= 370*9525 and px+pw <= 1184*9525 and py+ph <= 602*9525, "Cover image exceeds foreground boundary"
                 blip = pic.find("p:blipFill/a:blip", NS)
                 rid = blip.get("{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed") if blip is not None else None
                 rels = ET.fromstring(package.read("ppt/slides/_rels/slide1.xml.rels"))
@@ -75,17 +79,43 @@ def validate(pptx, manifest_path):
                 x, y = int(offset.get("x")), int(offset.get("y"))
                 w, h = int(extent.get("cx")), int(extent.get("cy"))
                 assert x >= 0 and y >= 0 and w > 0 and h > 0 and x+w <= 12192000 and y+h <= 6858000, f"Slide {number}: text outside canvas"
+            # The requested block rows have symmetric outer margins. Check their
+            # exported geometry, not only the source layout constants.
+            if number in (2, 3):
+                for shape in slide.findall(".//p:sp", NS):
+                    geom = shape.find("p:spPr/a:prstGeom", NS)
+                    if geom is None or geom.get("prst") != "rect" or shape.find("p:spPr/a:solidFill", NS) is None:
+                        continue
+                    transform = shape.find("p:spPr/a:xfrm", NS)
+                    if transform is None:
+                        continue
+                    offset, extent = transform.find("a:off", NS), transform.find("a:ext", NS)
+                    x, w = int(offset.get("x")), int(extent.get("cx"))
+                    assert x >= 96*9525 and x+w <= 1184*9525, f"Slide {number}: block outside safe margins"
             notes = ET.fromstring(package.read(f"ppt/notesSlides/notesSlide{number}.xml"))
             assert sum(len(e.text or "") for e in notes.findall(".//a:t", NS)) > 80, f"Slide {number}: notes missing"
             tables = slide.findall(".//a:tbl", NS)
             if number in (11, 13):
                 assert len(tables) == 1, f"Slide {number}: native table required"
             if number == 4:
-                for required in ("17.3×", "2.8×", "1.3×", "79% → 86%", "18% → 31%", ">80%", "59%", "Moved-code share", "+81%", "2025", "2026"):
+                for required in ("17.3×", "2.8×", "1.3×", "79% → 86%", "18% → 31%", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "+81%", "−35%", "+15%", "Higher throughput", "Lower delivery stability", "2025", "2026"):
                     assert required in normalized, f"Evidence slide missing {required}"
             if number == 3:
-                for required in ("THEORY OF CONSTRAINTS", "+92 / week", "Illustrative", "AI can affect every stage"):
+                assert not any(e.get("type", "none") != "none" for e in slide.findall(".//a:tailEnd", NS) + slide.findall(".//a:headEnd", NS)), "SDLC slide must not contain arrowheads"
+                for required in ("THEORY OF CONSTRAINTS", "BEFORE", "AFTER AI", "+92", "Illustrative", "AI can affect every stage", "not sped up"):
                     assert required in normalized, f"SDLC slide missing {required}"
+            if number == 5:
+                paths = slide.findall(".//a:custGeom/a:pathLst/a:path", NS)
+                assert any(len(p.findall("a:lnTo", NS)) >= 80 for p in paths), "Comprehension curve missing smooth native path"
+                for required in ("YES", "NOT AT THIS RATE", "5 years?", "?"):
+                    assert required in normalized, f"Comprehension slide missing {required}"
+            if number == 6:
+                assert "WATCH" not in normalized.upper() and "EXPLORE" not in normalized.upper(), "Recovery slide still contains Watch / Explore"
+                for required in ("technical systems with limits", "Team diagnoses", "proposes fix", "Validate fix"):
+                    assert required in normalized, f"Recovery slide missing {required}"
+            if number == 7:
+                for required in ("WATCH", "EXPLORE", "WIP limits", "Repository intelligence", "Human recovery drills"):
+                    assert required in normalized, f"Equilibrium slide missing {required}"
             counts["slides"] += 1
             counts["pictures"] += len(pictures)
             counts["tables"] += len(tables)

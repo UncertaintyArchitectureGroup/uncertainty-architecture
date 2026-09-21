@@ -58,7 +58,9 @@ export function parseDeck(markdown) {
 
 export function createDeck(Presentation, data, assets = {}) {
   const C = theme
-  const deck = Presentation.create({ slideSize: { width: C.width, height: C.height } })
+  const deck = Presentation.create({
+    slideSize: { width: C.width, height: C.height },
+  })
   function text(s, value, x, y, w, h, size = 28, color = C.white, bold = false, align = "left") {
     const shape = s.shapes.add({
       geometry: "textbox",
@@ -169,40 +171,39 @@ export function createDeck(Presentation, data, assets = {}) {
           s,
           d.title.replace(" of Software", "\nof Software"),
           64,
-          50,
+          36,
           1110,
-          144,
-          50,
+          132,
+          46,
           C.white,
           true,
         )
-        text(s, d.subtitle, 64, 219, 1110, 48, 28, C.gray)
+        text(s, d.subtitle, 64, 179, 1110, 44, 27, C.gray)
         if (!assets.cover) throw new Error("Approved cover illustration is required")
         s.images.add({
           blob: assets.cover,
           contentType: "image/png",
           alt: d.illustrationAlt,
           fit: "contain",
-          position: { left: 598, top: 273, width: 618, height: 412 },
+          position: { left: 96, top: 231, width: 1088, height: 363 },
         })
-        d.lanes.forEach(([label, result, detail], i) => {
-          const y = 324 + i * 160,
+        d.lanes.forEach(([label, detail], i) => {
+          const x = 96 + i * 584,
             color = i ? C.amber : C.cyan
-          text(s, label, 64, y, 510, 34, 23, color, true)
-          text(s, result, 64, y + 38, 510, 44, 31, C.white, true)
-          text(s, detail, 64, y + 84, 495, 55, 24, C.gray)
+          text(s, label, x, 602, 504, 31, 22, color, true)
+          text(s, detail, x, 637, 504, 35, 24, C.white)
         })
         text(s, "Vitalii Oborskyi · PMDay", 64, 678, 1060, 26, 20, C.gray)
         break
       }
       case "phase": {
         const blocks = d.items.map(([name, meaning, example], i) => {
-          const x = 64 + i * 410,
+          const x = 112 + i * 378,
             color = i === 2 ? C.amber : C.cyan
-          const block = rect(s, x, 231, 332, 245, color)
-          text(s, name, x + 24, 249, 284, 48, 31, C.white, true)
-          text(s, meaning, x + 24, 313, 284, 68, 27, color, true)
-          text(s, example, x + 24, 395, 284, 60, 23, C.gray)
+          const block = rect(s, x, 231, 300, 245, color)
+          text(s, name, x + 24, 249, 252, 48, 30, C.white, true)
+          text(s, meaning, x + 24, 313, 252, 68, 27, color, true)
+          text(s, example, x + 24, 395, 252, 60, 23, C.gray)
           return block
         })
         // Centered connectors attach to the actual blocks, so no arrows float in space.
@@ -213,144 +214,194 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "sdlc": {
-        text(s, d.scope, 64, 183, 1152, 36, 23, C.gray)
+        text(s, d.scope, 96, 180, 1088, 34, 22, C.gray)
         const nodes = d.steps.map((v, i) =>
           box(
             s,
             v,
-            64 + i * 145,
-            270,
-            130,
-            82,
-            i === 2 ? C.cyan : i === 5 ? C.amber : C.line,
-            v === "Integrate" ? 19 : 21,
+            96 + i * 138,
+            245,
+            122,
+            56,
+            i === 2 ? C.cyan : C.line,
+            v === "Integrate" ? 18 : 19,
           ),
         )
-        nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
+        // Plain links avoid arrowheads being rendered as a spanning arrow by slide viewers.
+        nodes.slice(1).forEach((_, i) => line(s, 218 + i * 138, 273, 234 + i * 138, 273, C.gray))
         for (const i of [0, 1, 3, 4, 5, 6, 7])
-          text(s, "?", 64 + i * 145, 225, 130, 32, 25, C.amber, true, "center")
-        text(s, d.codeRate, 340, 358, 158, 54, 21, C.cyan, true, "center")
-        text(s, d.constraintRate, 775, 358, 158, 54, 21, C.amber, true, "center")
-        text(s, "THEORY OF CONSTRAINTS", 64, 432, 738, 30, 22, C.cyan, true)
-        text(s, d.toc, 64, 470, 710, 92, 26, C.white, true)
-        text(s, d.risk, 64, 568, 720, 90, 23, C.gray)
-        line(s, 826, 432, 826, 651, C.line)
-        text(s, d.queueRate, 866, 445, 350, 68, 50, C.amber, true)
-        text(s, d.queueLabel, 866, 514, 350, 56, 25, C.white, true)
-        text(s, d.exampleCaveat, 866, 582, 350, 76, 20, C.gray)
+          text(s, "?", 96 + i * 138, 216, 122, 25, 21, C.amber, true, "center")
+        text(s, d.exampleHeading, 96, 322, 1088, 30, 20, C.gray)
+        d.exampleStages.forEach((v, i) =>
+          text(s, v, 340 + i * 218, 360, 172, 30, 22, C.white, true, "center"),
+        )
+        text(s, "BACKLOG", 1006, 360, 178, 30, 20, C.gray, true, "center")
+        d.exampleRows.forEach(([label, caption, rates, backlog], row) => {
+          const y = 399 + row * 104
+          text(s, label, 96, y + 3, 220, 31, 22, row ? C.cyan : C.gray, true)
+          text(s, caption, 96, y + 37, 220, 43, 18, C.gray)
+          const stages = rates.map((rate, i) => {
+            const color = row && i === 0 ? C.cyan : row ? C.amber : C.line
+            const shape = rect(s, 340 + i * 218, y, 172, 68, color)
+            text(
+              s,
+              rate,
+              352 + i * 218,
+              y + 7,
+              148,
+              54,
+              36,
+              row && i === 0 ? C.cyan : C.white,
+              true,
+              "center",
+            )
+            return shape
+          })
+          stages
+            .slice(1)
+            .forEach((_, i) => line(s, 512 + i * 218, y + 34, 558 + i * 218, y + 34, C.gray))
+          text(s, backlog, 1006, y + 3, 178, 49, 39, row ? C.amber : C.gray, true, "center")
+          text(
+            s,
+            row ? "unfinished / week" : "no accumulation",
+            1006,
+            y + 51,
+            178,
+            28,
+            17,
+            C.gray,
+            false,
+            "center",
+          )
+        })
+        line(s, 96, 599, 1184, 599)
+        text(s, "THEORY OF CONSTRAINTS", 96, 612, 535, 27, 20, C.cyan, true)
+        text(s, d.toc, 96, 645, 1088, 40, 25, C.white, true)
+        text(s, d.exampleCaveat, 670, 612, 514, 30, 18, C.gray, false, "right")
         break
       }
       case "evidence": {
-        line(s, 583, 194, 583, 650, C.line)
+        line(s, 583, 194, 583, 608, C.line)
         text(s, "NBER · 2026", 64, 195, 500, 30, 22, C.cyan, true)
         d.nberMetrics.forEach(([value, label], i) => {
           const x = 64 + i * 169
           text(s, value, x, 246, 157, 60, 43, C.white, true)
           text(s, label, x, 307, 157, 30, 21, C.gray)
         })
-        text(s, d.nberGeneration, 64, 352, 496, 54, 22, C.cyan, true)
-        text(s, d.nberCaveat, 64, 411, 496, 55, 20, C.gray)
-        text(s, d.marketHeadline, 64, 477, 496, 61, 24, C.white, true)
+        text(s, d.nberGeneration, 64, 349, 496, 32, 21, C.cyan, true)
+        text(s, d.nberCaveat, 64, 384, 496, 51, 20, C.gray)
+        text(s, d.marketHeadline, 64, 447, 496, 61, 24, C.white, true)
         d.marketNumbers.forEach(([label, value], i) => {
-          const y = 551 + i * 35
+          const y = 518 + i * 34
           text(s, label, 64, y, 255, 29, 20, C.gray)
           text(s, value, 319, y, 241, 29, 23, C.amber, true, "right")
         })
-        text(s, d.marketDetail, 64, 625, 496, 32, 20, C.gray)
+        text(s, d.marketDetail, 64, 585, 496, 26, 19, C.gray)
         text(s, "DORA · 2025", 616, 195, 600, 30, 22, C.cyan, true)
-        d.doraMetrics.forEach(([value, label], i) => {
-          const x = 616 + i * 300
-          text(s, value, x, 232, 282, 48, 35, C.white, true)
-          text(s, label, x, 280, 282, 51, 21, C.gray)
+        d.doraHeadline
+          .split("\n")
+          .forEach((value, i) =>
+            text(s, value, 616, 230 + i * 33, 600, 32, 27, i ? C.amber : C.white, true),
+          )
+        text(
+          s,
+          `${d.doraInstability} instability per +1 SD AI adoption`,
+          616,
+          304,
+          600,
+          26,
+          19,
+          C.amber,
+        )
+        text(s, d.doraInterval, 616, 332, 600, 24, 18, C.gray)
+        text(s, d.doraMeasures, 616, 362, 600, 45, 18, C.gray)
+        text(s, d.doraPerceptions, 616, 406, 600, 25, 17, C.gray)
+        line(s, 616, 441, 1216, 441)
+        text(s, "GITCLEAR · JUN 2026", 616, 452, 600, 28, 22, C.cyan, true)
+        d.gitclearMetrics.forEach(([label, value], i) => {
+          const y = 483 + i * 26
+          text(s, label, 616, y, 405, 27, 23, C.white)
+          text(s, value, 1015, y, 201, 27, 24, C.white, true, "right")
         })
-        text(s, d.doraAssociation, 616, 340, 600, 43, 20, C.amber)
-        line(s, 616, 392, 1216, 392)
-        text(s, "GITCLEAR · JUN 2026", 616, 406, 600, 28, 22, C.cyan, true)
-        text(s, d.gitclearMetrics[0], 616, 443, 600, 37, 27, C.white, true)
-        text(s, d.gitclearMetrics[1], 616, 482, 600, 36, 27, C.white, true)
-        text(s, d.gitclearCaveat, 616, 521, 600, 39, 20, C.gray)
-        line(s, 616, 573, 1216, 573)
+        text(s, d.gitclearCaveat, 616, 591, 600, 21, 18, C.gray)
+        line(s, 64, 618, 1216, 618)
         d.otherCards.forEach(([source, value, caveat], i) => {
-          const x = 616 + i * 306
-          text(s, source, x, 584, 294, 25, 20, C.cyan, true)
-          text(s, value, x, 611, 294, 33, 24, C.white, true)
-          text(s, caveat, x, 644, 294, 25, 20, C.gray)
+          const x = 64 + i * 582
+          text(s, source, x, 628, 304, 27, 20, C.cyan, true)
+          text(s, value, x + 308, 626, 244, 30, 23, C.white, true, "right")
+          text(s, caveat, x, 658, 552, 25, 18, C.gray)
         })
-        text(s, d.takeaway, 64, 677, 1095, 27, 22, C.white, true)
+        text(s, d.takeaway, 64, 689, 1095, 26, 20, C.white, true)
         break
       }
       case "comprehension": {
-        line(s, 88, 486, 792, 486, C.gray)
-        line(s, 88, 486, 88, 222, C.gray)
-        const curves = [
-          [
-            [100, 469],
-            [240, 441],
-            [390, 388],
-            [545, 302],
-            [745, 223],
-          ],
-          [
-            [100, 469],
-            [240, 457],
-            [390, 439],
-            [545, 414],
-            [745, 385],
-          ],
-        ]
-        curves.forEach((points, index) =>
-          points
-            .slice(1)
-            .forEach((p, i) => line(s, ...points[i], ...p, index ? C.amber : C.cyan, 4)),
-        )
+        line(s, 88, 493, 790, 493, C.gray)
+        line(s, 88, 493, 88, 228, C.gray)
+        // One dense native path samples a smooth conceptual curve. The nearly
+        // fixed human capacity is an explicit scenario assumption, not measured data.
+        const commands = Array.from({ length: 121 }, (_, i) => {
+          const t = i / 120
+          const point = { x: 645 * t, y: 230 - 230 * (0.18 * t + 0.82 * t * t) }
+          return i ? { lineTo: point } : { moveTo: point }
+        })
+        s.shapes.add({
+          geometry: "custom",
+          position: { left: 100, top: 235, width: 645, height: 230 },
+          fill: "none",
+          line: { fill: C.cyan, width: 4, style: "solid" },
+          customPaths: [{ width: 645, height: 230, commands }],
+        })
+        line(s, 100, 465, 745, 465, C.amber, 4)
         text(s, d.curves[0], 110, 193, 630, 38, 25, C.cyan, true)
-        text(s, d.curves[1], 108, 502, 680, 34, 23, C.amber)
-        text(s, "Potential\ncomprehension gap", 540, 310, 240, 64, 22, C.gray)
-        d.questions.forEach((q, i) =>
-          text(s, q, 850, 229 + i * 115, 350, 84, 30, i === 2 ? C.white : C.gray, i === 2),
-        )
-        text(s, d.caption, 88, 552, 1090, 34, 21, C.gray)
+        text(s, d.curves[1], 108, 510, 680, 34, 23, C.amber)
+        text(s, "Potential\ncomprehension gap", 525, 370, 260, 64, 22, C.gray)
+        text(s, "Adoption / time", 585, 493, 205, 25, 16, C.gray, false, "right")
+        d.questions.forEach(([question, answer], i) => {
+          const y = 220 + i * 115
+          text(s, question, 845, y, 370, 62, 25, C.gray)
+          text(s, answer, 845, y + 61, 370, 40, i === 2 ? 41 : 28, i ? C.amber : C.cyan, true)
+        })
+        text(s, d.caption, 88, 561, 1100, 30, 20, C.gray)
         takeaway(s, d.takeaway)
         break
       }
       case "recovery": {
-        d.incident.forEach((v, i) =>
-          text(
-            s,
-            v,
-            64,
-            222 + i * 78,
-            700,
-            64,
-            i === 2 ? 48 : 34,
-            i === 2 ? C.amber : C.white,
-            i === 2,
-          ),
-        )
-        const a = box(s, "AI AGENT", 910, 216, 280, 74, C.red, 28)
-        const b = box(s, "TEAM", 910, 386, 280, 78, C.amber, 34)
-        connect(s, a, b, C.amber, "bottom", "top")
-        text(s, "Recovery\nfails", 778, 308, 220, 66, 23, C.gray)
-        text(s, "Hypothetical incident", 64, 459, 610, 30, 20, C.gray)
-        text(s, "Watch", 64, 512, 118, 30, 22, C.amber, true)
-        text(s, d.watch, 196, 501, 1014, 52, 23, C.gray)
-        text(s, "Explore", 64, 562, 118, 30, 22, C.cyan, true)
-        text(s, d.explore, 196, 551, 1014, 52, 23, C.gray)
+        text(s, d.premise, 64, 190, 1152, 43, 29, C.white, true)
+        text(s, d.risk, 64, 238, 1152, 42, 25, C.gray)
+        const nodes = d.steps.map(([label, detail], i) => {
+          const x = 64 + i * 300
+          const color = i === 1 ? C.red : i === 2 ? C.amber : C.cyan
+          const node = box(s, label, x, 324, 252, 88, color, 25)
+          text(s, detail, x, 436, 252, 109, 22, C.gray)
+          return node
+        })
+        nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, i === 1 ? C.amber : C.gray))
+        text(s, d.caption, 64, 559, 1152, 31, 20, C.gray)
         takeaway(s, d.takeaway)
         break
       }
       case "equilibrium": {
-        d.columns.forEach(([head, body], i) => {
-          const x = 64 + i * 400,
-            color = i === 1 ? C.cyan : C.gray
-          text(s, head, x, 218, 352, 50, 23, color, true)
-          line(s, x, 284, x + 352, 284, color)
-          if (i === 2) text(s, body, x, 331, 352, 168, 118, C.amber, true, "center")
-          else body.split("\n").forEach((v, j) => text(s, v, x, 323 + j * 52, 352, 44, 28, C.white))
+        d.columns.forEach(([heading, summary], i) => {
+          const x = 64 + i * 398
+          text(s, heading, x, 194, 356, 29, 21, i === 1 ? C.cyan : C.gray, true)
+          text(s, summary, x, 229, 356, 42, 22, i === 2 ? C.amber : C.white)
+        })
+        line(s, 64, 292, 1216, 292)
+        ;[
+          ["WATCH", d.watchRows, C.amber],
+          ["EXPLORE", d.exploreRows, C.cyan],
+        ].forEach(([heading, rows, color], column) => {
+          const x = 64 + column * 596
+          text(s, heading, x, 308, 552, 35, 27, color, true)
+          rows.forEach(([label, detail], i) => {
+            const y = 357 + i * 56
+            text(s, label, x, y, 552, 28, 23, C.white, true)
+            text(s, detail, x, y + 28, 552, 26, 20, C.gray)
+          })
         })
         line(s, 64, 602, 1216, 602)
-        text(s, d.takeaway, 64, 615, 1120, 42, 31, C.white, true)
-        text(s, d.caption, 64, 661, 1120, 34, 27, C.cyan)
+        text(s, d.takeaway, 64, 615, 1120, 42, 28, C.white, true)
+        text(s, d.caption, 64, 664, 1120, 30, 23, C.cyan)
         break
       }
       case "thinking": {

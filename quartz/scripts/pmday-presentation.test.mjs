@@ -64,6 +64,12 @@ for (const mutation of [
   "cover-size",
   "evidence-number",
   "toc-missing",
+  "block-edge",
+  "dora-interval",
+  "sdlc-arrow",
+  "curve-kink",
+  "recovery-owner",
+  "equilibrium-drill",
 ]) {
   test(`portable validator rejects ${mutation} regression`, async (t) => {
     const temporary = await mkdtemp(path.join(os.tmpdir(), "ua-pptx-test-"))
@@ -86,7 +92,27 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
    if mutation=='cover-missing': tree.find('p:cSld/p:spTree',ns).remove(pic)
    data=E.tostring(tree)
   if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
+  if item.filename=='ppt/slides/slide4.xml' and mutation=='dora-interval': data=data.replace(b'+0.07 to +0.13',b'+0.77 to +0.83')
+  if item.filename=='ppt/slides/slide2.xml' and mutation=='block-edge':
+   tree=E.fromstring(data)
+   for shape in tree.findall('.//p:sp',ns):
+    geom=shape.find('p:spPr/a:prstGeom',ns)
+    if geom is not None and geom.get('prst')=='rect' and shape.find('p:spPr/a:solidFill',ns) is not None:
+     shape.find('p:spPr/a:xfrm/a:off',ns).set('x','0')
+     break
+   data=E.tostring(tree)
   if item.filename=='ppt/slides/slide3.xml' and mutation=='toc-missing': data=data.replace(b'THEORY OF CONSTRAINTS',b'MISSING')
+  if item.filename=='ppt/slides/slide3.xml' and mutation=='sdlc-arrow':
+   tree=E.fromstring(data)
+   E.SubElement(tree.find('.//a:ln',ns),'{'+ns['a']+'}tailEnd',{'type':'triangle'})
+   data=E.tostring(tree)
+  if item.filename=='ppt/slides/slide5.xml' and mutation=='curve-kink':
+   tree=E.fromstring(data)
+   for path in tree.findall('.//a:custGeom/a:pathLst/a:path',ns):
+    for vertex in path.findall('a:lnTo',ns)[3:]: path.remove(vertex)
+   data=E.tostring(tree)
+  if item.filename=='ppt/slides/slide6.xml' and mutation=='recovery-owner': data=data.replace(b'proposes fix',b'waits for AI')
+  if item.filename=='ppt/slides/slide7.xml' and mutation=='equilibrium-drill': data=data.replace(b'Human recovery drills',b'Just trust the agent')
   if item.filename=='ppt/slides/slide11.xml':
    tree=E.fromstring(data)
    if mutation=='text-outside': tree.find('.//p:sp/p:spPr/a:xfrm/a:off',ns).set('x','12192000')
@@ -114,7 +140,7 @@ with open(record,'w') as f: json.dump(m,f)
     assert.equal(result.status, 1, result.stdout + result.stderr)
     assert.match(
       result.stderr,
-      /background|exceptions|native table|Stale input|outside canvas|foreground boundary|Evidence slide missing|SDLC slide missing/,
+      /background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing/,
     )
   })
 }
@@ -155,7 +181,9 @@ test("independent preview failure preserves the last committed pair", async () =
   const manifest = path.join(folder, "ai-changes-both-sides.manifest.json")
   const before = [await readFile(pptx), await readFile(manifest)]
   await assert.rejects(
-    renderIndependentPreview(pptx, { UA_SOFFICE: "/missing-ua-renderer/soffice" }),
+    renderIndependentPreview(pptx, {
+      UA_SOFFICE: "/missing-ua-renderer/soffice",
+    }),
     /ENOENT/,
   )
   assert.deepEqual([await readFile(pptx), await readFile(manifest)], before)
