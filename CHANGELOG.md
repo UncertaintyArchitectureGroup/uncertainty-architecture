@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Clarified both GitClear proxies on PMDay slide 4 with definitions, absolute/relative decreases and conditional interpretation, then froze slides 1–8 at the maintainer's explicit request. Added source/package dependency checks to the existing PPTX validator. Reworked slides 9–14 around Product/BA acceptance, QA/developer statistical evidence, concrete delivery gates, architect-owned control paths and the Project Manager's experiment/evidence process; qualified the standards claim with primary sources and kept the original 14 titles/order.
+
 - Rechecked every visible number on PMDay slide 4 against primary sources: updated NBER to its September 2026 revision and corrected the marketplace usage interpretation, preserved published Agarwal percentages with group labels, displayed GitClear call-density endpoints, and documented which DORA/GitClear values remain rounded or cannot be independently recomputed from the public summary. Updated source provenance, notes, export acceptance fixtures and the editable deck.
 
 - Revised PMDay slides 3–7 from maintainer feedback: removed SDLC arrowheads, separated throughput/stability and four GitClear signals, smoothed the conceptual generation curve with fixed scenario comprehension capacity, made AI recovery failure and human diagnosis explicit, and moved strengthened Watch / Explore practices to the equilibrium slide. Preserved prior cover/layout work and retained source evidence; no UA doctrine or research-state change.

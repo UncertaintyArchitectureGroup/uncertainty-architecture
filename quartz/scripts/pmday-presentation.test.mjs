@@ -172,8 +172,50 @@ test("title line breaks preserve the approved wording", () => {
 })
 
 test("independent renderer rejects an exported word split", () => {
-  assert.doesNotThrow(() => verifyRenderedText("Test Integrate Deploy"))
+  assert.doesNotThrow(() => verifyRenderedText("Test Integrate Deploy Button A Window B"))
   assert.throws(() => verifyRenderedText("Test Integrat\ne Deploy"), /missing or split/)
+  assert.throws(() => verifyRenderedText("Integrate Button\nA Window B"), /Button A/)
+  assert.throws(() => verifyRenderedText("Integrate Button A Window\nB"), /Window B/)
+})
+
+test("slide freeze rejects source, geometry, note, relationship and shared-theme edits but permits slide 9", () => {
+  execFileSync("python3", [
+    "-c",
+    `
+import copy,importlib.util,io,json,zipfile,xml.etree.ElementTree as E
+from pathlib import Path
+spec=importlib.util.spec_from_file_location('pptx_validator',${JSON.stringify(validator)})
+v=importlib.util.module_from_spec(spec); spec.loader.exec_module(v)
+source=(v.ROOT/v.SOURCE).read_text()
+record=json.loads((v.ROOT/v.FREEZE).read_text())
+assert v.frozen_source_hashes(source)==record['source_sections']
+assert v.frozen_source_hashes(source.replace('## 2. This Is a Real Phase Transition','## 2. Accidental edit'))!=record['source_sections']
+assert v.frozen_source_hashes(source.replace('Button A','Other button'))==record['source_sections']
+with zipfile.ZipFile(v.ROOT/'assets/presentations/pmday-2026/ai-changes-both-sides.pptx') as z:
+ original={n:z.read(n) for n in z.namelist()}
+def check(parts):
+ stream=io.BytesIO()
+ with zipfile.ZipFile(stream,'w') as z:
+  for name,data in parts.items(): z.writestr(name,data)
+ with zipfile.ZipFile(stream) as z: v.validate_frozen(source,z)
+check(original)
+mutations=[]
+parts=original.copy(); tree=E.fromstring(parts['ppt/slides/slide2.xml'])
+off=tree.find('.//p:sp/p:spPr/a:xfrm/a:off',v.NS); off.set('x',str(int(off.get('x'))+9525))
+parts['ppt/slides/slide2.xml']=E.tostring(tree); mutations.append(parts)
+parts=original.copy(); tree=E.fromstring(parts['ppt/notesSlides/notesSlide4.xml']); tree.find('.//a:t',v.NS).text='Accidentally rewritten notes'
+parts['ppt/notesSlides/notesSlide4.xml']=E.tostring(tree); mutations.append(parts)
+parts=original.copy(); tree=E.fromstring(parts['ppt/theme/theme1.xml']); tree.find('.//a:srgbClr',v.NS).set('val','123456')
+parts['ppt/theme/theme1.xml']=E.tostring(tree); mutations.append(parts)
+parts=original.copy(); name='ppt/slides/_rels/slide2.xml.rels'; parts[name]=parts[name].replace(b'notesSlide2.xml',b'notesSlide3.xml'); mutations.append(parts)
+for parts in mutations:
+ try: check(parts)
+ except AssertionError as error: assert 'Frozen slides' in str(error)
+ else: raise AssertionError('Protected mutation passed')
+parts=original.copy(); parts['ppt/slides/slide9.xml']=parts['ppt/slides/slide9.xml'].replace(b'Button A',b'Button C'); check(parts)
+print('Freeze checks passed')
+`,
+  ])
 })
 
 test("independent preview rejects an external source", async () => {

@@ -123,7 +123,7 @@ export function createDeck(Presentation, data, assets = {}) {
     line(s, 64, 602, 1216, 602)
     text(s, value, 64, 620, 1118, 70, size, color, true)
   }
-  function table(s, values, x, y, w, h, widths) {
+  function table(s, values, x, y, w, h, widths, font = 25, padding = 12) {
     const t = s.tables.add({
       rows: values.length,
       columns: values[0].length,
@@ -142,12 +142,12 @@ export function createDeck(Presentation, data, assets = {}) {
         cell.fill = r === 0 ? "#1A2734" : C.bg
         cell.text.style = {
           typeface: C.font,
-          fontSize: r === 0 ? 23 : 25,
+          fontSize: r === 0 ? 21 : font,
           color: c === values[0].length - 1 ? C.cyan : C.white,
           bold: r === 0 || c === 0,
           verticalAlignment: "middle",
           autoFit: "none",
-          insets: { left: 18, right: 18, top: 12, bottom: 12 },
+          insets: { left: 18, right: 18, top: padding, bottom: padding },
         }
       }
     }
@@ -317,13 +317,15 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.doraMeasures, 616, 362, 600, 45, 18, C.gray)
         text(s, d.doraPerceptions, 616, 406, 600, 25, 17, C.gray)
         line(s, 616, 441, 1216, 441)
-        text(s, d.gitclearSource, 616, 452, 600, 28, 22, C.cyan, true)
-        d.gitclearMetrics.forEach(([label, value], i) => {
-          const y = 483 + i * 26
-          text(s, label, 616, y, 405, 27, 23, C.white)
-          text(s, value, 1015, y, 201, 27, 24, C.white, true, "right")
+        text(s, d.gitclearSource, 616, 446, 600, 28, 21, C.cyan, true)
+        d.gitclearMetrics.slice(0, 2).forEach(([label, value], i) => {
+          const y = 477 + i * 48
+          text(s, label, 616, y, 391, 27, 22, C.white)
+          text(s, value, 1007, y, 209, 27, 24, C.white, true, "right")
+          text(s, d.gitclearDetails[i], 616, y + 27, 600, 21, 17, C.gray)
         })
-        text(s, d.gitclearCaveat, 616, 591, 600, 21, 18, C.gray)
+        text(s, d.gitclearSecondary, 616, 574, 600, 22, 19, C.white)
+        text(s, d.gitclearCaveat, 616, 598, 600, 20, 17, C.amber)
         line(s, 64, 618, 1216, 618)
         d.otherCards.forEach(([source, value, caveat], i) => {
           const x = 64 + i * 582
@@ -417,58 +419,100 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "boundaries": {
-        text(s, "OLD", 64, 209, 330, 32, 23, C.gray, true)
-        text(s, d.old.replace(" → ", "\n→ "), 64, 286, 330, 130, 36, C.white, true)
-        text(s, "NEW", 436, 209, 720, 32, 23, C.cyan, true)
-        rect(s, 436, 265, 550, 297, C.amber, C.bg, 2)
-        text(s, d.escalate, 458, 284, 510, 38, 25, C.amber)
-        rect(s, 458, 343, 506, 196, C.cyan, C.panel, 2)
-        text(s, d.allowed, 478, 356, 466, 34, 20, C.cyan, true)
-        d.topics.forEach((v, i) => text(s, v, 478, 400 + i * 30, 466, 29, 22, C.white))
-        rect(s, 1010, 353, 206, 118, C.red, C.bg, 2)
-        text(s, d.outside, 1026, 383, 174, 52, 21, C.red, true, "center")
-        takeaway(s, d.takeaway)
+        text(s, d.role, 64, 184, 1152, 32, 22, C.cyan, true)
+        line(s, 526, 234, 526, 479)
+        text(s, d.oldHeading, 64, 236, 438, 30, 19, C.gray, true)
+        const a = box(s, d.old[0], 64, 292, 176, 66, C.gray, 26)
+        const b = box(s, d.old[1], 308, 292, 194, 66, C.gray, 26)
+        connect(s, a, b, C.gray)
+        text(s, d.oldDetail, 64, 380, 438, 63, 27, C.white)
+        text(s, d.roleDetail, 64, 449, 438, 55, 19, C.gray)
+        text(s, d.newHeading, 556, 236, 660, 30, 19, C.cyan, true)
+        d.boundaries.forEach(([label, detail], i) => {
+          const y = 282 + i * 75,
+            color = [C.cyan, C.amber, C.red][i]
+          line(s, 556, y + 4, 556, y + 58, color, 4)
+          text(s, label, 574, y, 642, 27, 20, color, true)
+          text(s, detail, 574, y + 30, 642, 32, 23, C.white)
+        })
+        line(s, 64, 520, 1216, 520)
+        text(s, d.gap, 64, 533, 1152, 31, 23, C.white)
+        text(s, d.research, 64, 572, 1152, 27, 19, C.gray)
+        takeaway(s, d.takeaway, C.white, 27)
         break
       }
       case "evaluation": {
-        text(s, d.old, 64, 203, 1120, 42, 27, C.gray)
-        const nodes = d.steps.map((v, i) =>
-          box(s, v, 64 + i * 236, 280, 208, 86, i === 3 ? C.amber : C.cyan, 24),
+        text(s, d.role, 64, 184, 1152, 32, 22, C.cyan, true)
+        line(s, 623, 232, 623, 443)
+        text(s, d.frequency, 64, 234, 530, 31, 22, C.cyan, true)
+        text(s, d.observed, 64, 275, 530, 56, 43, C.white, true)
+        text(s, d.rateLabel, 64, 334, 530, 28, 21, C.gray)
+        text(s, d.interval, 64, 374, 530, 29, 23, C.cyan)
+        // Wilson interval for the explicitly illustrative 4/200 binomial sample.
+        const axisX = 94,
+          axisW = 460,
+          axisY = 424
+        line(s, axisX, axisY, axisX + axisW, axisY, C.line, 2)
+        const lower = axisX + (axisW * 0.7804426416) / 6
+        const upper = axisX + (axisW * 5.028708691) / 6
+        line(s, lower, axisY, upper, axisY, C.cyan, 4)
+        line(s, lower, axisY - 7, lower, axisY + 7, C.cyan, 3)
+        line(s, upper, axisY - 7, upper, axisY + 7, C.cyan, 3)
+        rect(s, axisX + (axisW * 2) / 6 - 5, axisY - 5, 10, 10, C.white, C.white)
+        ;[0, 2, 4, 6].forEach((v) =>
+          text(s, `${v}%`, axisX + (axisW * v) / 6 - 19, 438, 40, 23, 17, C.gray, false, "center"),
         )
-        nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
-        text(s, d.overall, 64, 423, 454, 68, 51, C.cyan, true)
-        text(s, d.critical, 562, 418, 640, 50, 29, C.white, true)
-        text(s, d.decision, 562, 480, 640, 48, 32, C.red, true)
-        text(s, d.caption, 64, 548, 1120, 38, 21, C.gray)
-        takeaway(s, d.takeaway)
+        text(s, d.severity, 660, 234, 556, 31, 22, C.amber, true)
+        d.harms.forEach((v, i) => text(s, v, 660, 281 + i * 50, 556, 36, 25, i ? C.red : C.white))
+        text(s, d.decision, 660, 394, 556, 48, 27, C.red, true)
+        text(s, d.sample, 64, 475, 1152, 27, 18, C.gray)
+        text(s, d.businessQuestion, 64, 512, 1152, 34, 22, C.white, true)
+        d.responsibilities.forEach(([role, detail], i) => {
+          const x = 64 + i * 397
+          text(s, role, x, 549, 370, 23, 17, i === 2 ? C.amber : C.cyan, true)
+          text(s, detail, x, 574, 370, 24, 18, C.gray)
+        })
+        takeaway(s, d.takeaway, C.white, 26)
         break
       }
       case "risk": {
-        table(s, d.table, 64, 208, 1152, 326, [166, 350, 636])
-        text(s, d.caption, 64, 552, 1120, 37, 23, C.gray)
-        takeaway(s, d.takeaway, C.white, 31)
+        text(s, d.role, 64, 184, 1152, 36, 22, C.cyan, true)
+        table(s, d.table, 64, 239, 1152, 304, [154, 502, 496], 22, 8)
+        text(s, d.caption, 64, 558, 1152, 35, 21, C.gray)
+        takeaway(s, d.takeaway, C.white, 28)
         break
       }
       case "control": {
+        text(s, d.role, 64, 184, 1152, 36, 22, C.cyan, true)
         const nodes = d.steps.map((v, i) =>
-          box(s, v, 64 + i * 236, 220, 208, 80, i === 3 ? C.amber : C.cyan, 24),
+          box(s, v, 64 + i * 300, 259, 252, 78, i === 2 ? C.amber : C.cyan, 24),
         )
         nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
-        const obs = box(s, d.loop[0], 1008, 410, 208, 80, C.cyan, 26)
-        const dec = box(s, d.loop[1], 700, 410, 236, 80, C.amber, 25)
-        const act = box(s, d.loop[2], 300, 410, 280, 80, C.amber, 25)
-        connect(s, nodes[4], obs, C.cyan, "bottom", "top")
+        text(s, d.gate, 64, 222, 1152, 29, 20, C.gray)
+        const reference = box(s, d.reference, 664, 397, 252, 43, C.gray, 18)
+        const obs = box(s, d.loop[0], 964, 475, 252, 70, C.cyan, 25)
+        const dec = box(s, d.loop[1], 664, 475, 252, 70, C.amber, 23)
+        const act = box(s, d.loop[2], 364, 475, 252, 70, C.amber, 23)
+        connect(s, nodes[3], obs, C.cyan, "bottom", "top")
         connect(s, obs, dec, C.amber, "left", "right")
+        connect(s, reference, dec, C.gray, "bottom", "top")
         connect(s, dec, act, C.amber, "left", "right")
-        connect(s, act, nodes[1], C.amber, "top", "bottom", "elbow")
-        text(s, d.actions, 64, 520, 1144, 36, 26, C.white)
-        text(s, d.caption, 64, 567, 1144, 30, 21, C.gray)
-        takeaway(s, d.takeaway)
+        connect(s, act, nodes[1], C.amber, "top", "bottom")
+        text(s, d.actions, 64, 557, 1152, 28, 22, C.white)
+        text(s, d.caption, 64, 589, 1152, 27, 19, C.gray)
+        line(s, 64, 620, 1216, 620)
+        text(s, d.takeaway, 64, 635, 1118, 50, 26, C.white, true)
         break
       }
       case "roles": {
-        table(s, d.table, 64, 211, 1152, 360, [178, 344, 630])
-        takeaway(s, d.takeaway)
+        text(s, d.role, 64, 184, 1152, 36, 22, C.cyan, true)
+        const nodes = d.steps.map((v, i) =>
+          box(s, v, 64 + i * 300, 235, 252, 60, i === 3 ? C.amber : C.cyan, 25),
+        )
+        nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
+        text(s, d.cycle, 64, 308, 1152, 27, 21, C.gray)
+        table(s, d.table, 64, 350, 1152, 238, [213, 469, 470], 20, 7)
+        takeaway(s, d.takeaway, C.white, 28)
         break
       }
       case "synthesis": {
@@ -478,10 +522,10 @@ export function createDeck(Presentation, data, assets = {}) {
           text(s, head, x, 207, 550, 36, 23, color, true)
           text(s, subtitle, x, 260, 550, 52, 36, C.white, true)
           line(s, x, 334, x + 550, 334, color)
-          list.forEach((v, j) => text(s, v, x, 354 + j * 44, 550, 40, 26, C.gray))
+          list.forEach((v, j) => text(s, v, x, 354 + j * 44, 550, 40, 25, C.gray))
         })
+        text(s, d.cycle, 64, 558, 1152, 32, 25, C.white)
         takeaway(s, d.takeaway, C.white, 30)
-        // The closing sentence is spoken; it remains in the source and notes.
         break
       }
       default:

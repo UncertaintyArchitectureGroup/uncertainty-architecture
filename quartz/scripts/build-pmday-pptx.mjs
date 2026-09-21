@@ -14,6 +14,7 @@ const cover = `${directory}/artwork/ai-two-roles.png`
 const inputs = [
   source,
   cover,
+  `${directory}/frozen-slides.json`,
   "quartz/scripts/pmday-presentation.mjs",
   "quartz/scripts/build-pmday-pptx.mjs",
   "quartz/scripts/validate-pmday-pptx.py",

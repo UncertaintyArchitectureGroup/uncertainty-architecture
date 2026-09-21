@@ -45,6 +45,8 @@ npm run test:publication
 
 Verification is portable: Node.js 22 and Python 3 standard library are sufficient. Existing Build Integrity already runs the publication-test glob, including PPTX source/mutation tests and the committed snapshot check. No new workflow or runner permission is required.
 
+The central Markdown now owns the maintainer-requested **slides 1–8 freeze**, established after the GitClear explanation on slide 4. Read that scope before editing. The portable validator enforces its observable subset through `frozen-slides.json`: exact source-section hashes and normalized package-part hashes for the protected slides, notes and dependency closure, including shared presentation settings, layouts, masters, themes and cover bytes. Generated relationship/creation IDs are normalized by meaning; content, geometry, relationship targets and asset bytes are not ignored. Slides 9–14 remain editable. The freeze record is itself a manifest input; generation cannot silently replace it. There is no auto-refresh or bypass flag. This protects against accidental changes, not an independent human-authorization boundary.
+
 ## Independent exported-file preview
 
 The prior authoring preview did not catch all layout problems. `npm run pptx:preview` opens the exported PPTX through LibreOffice, produces a PDF and one PNG per slide, and binds the render evidence to the exact PPTX checksum. It also checks the SDLC label that previously broke across lines. Inspect every PNG at readable size; a successful conversion is not visual acceptance.

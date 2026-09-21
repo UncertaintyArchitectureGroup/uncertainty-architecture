@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import posixpath
 from pathlib import Path
 import re
 import sys
@@ -11,12 +12,86 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = "assets/presentations/pmday-2026/README.md"
 COVER = "assets/presentations/pmday-2026/artwork/ai-two-roles.png"
-INPUTS = [SOURCE, COVER, "quartz/scripts/pmday-presentation.mjs", "quartz/scripts/build-pmday-pptx.mjs", "quartz/scripts/validate-pmday-pptx.py"]
+INPUTS = [SOURCE, COVER, "assets/presentations/pmday-2026/frozen-slides.json", "quartz/scripts/pmday-presentation.mjs", "quartz/scripts/build-pmday-pptx.mjs", "quartz/scripts/validate-pmday-pptx.py"]
 NS = {"p": "http://schemas.openxmlformats.org/presentationml/2006/main", "a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
+
+
+FREEZE = "assets/presentations/pmday-2026/frozen-slides.json"
+REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+CREATION_ID = "{http://schemas.microsoft.com/office/drawing/2014/main}creationId"
+
+
+def frozen_source_hashes(source):
+    sections = re.findall(r"^## (\d+)\. [^\n]+\n[\s\S]*?(?=^## \d+\. |\Z)", source, re.M)
+    assert sections == [str(i) for i in range(1, 15)], "Frozen source: invalid slide order"
+    blocks = re.finditer(r"^## (\d+)\. [^\n]+\n[\s\S]*?(?=^## \d+\. |\Z)", source, re.M)
+    return {m[1]: digest(m[0].encode()) for m in blocks if int(m[1]) <= 8}
+
+
+def frozen_package_hashes(package):
+    """Hash slides 1–8 and their dependency closure, ignoring only generated IDs.
+
+    Relationships are resolved to their semantic type/target, not UUIDs. Shared
+    presentation settings are included; its slide list is restricted to 1–8.
+    Notes, layout/master/theme, cover bytes and relationship rewiring are covered.
+    This is an accidental-change guard, not independent authorization evidence.
+    """
+    result = {}
+    pending = ["ppt/presentation.xml"]
+    while pending:
+        name = pending.pop()
+        if name in result:
+            continue
+        data = package.read(name)
+        directory, filename = posixpath.split(name)
+        relname = posixpath.join(directory, "_rels", filename + ".rels")
+        rels = {}
+        if relname in package.namelist():
+            for rel in ET.fromstring(package.read(relname)):
+                target = rel.get("Target")
+                mode = rel.get("TargetMode", "Internal")
+                target = target if mode == "External" else posixpath.normpath(posixpath.join(directory, target)).lstrip("/")
+                if name == "ppt/presentation.xml" and rel.get("Type").endswith("/slide"):
+                    match = re.fullmatch(r"ppt/slides/slide(\d+)\.xml", target)
+                    assert match is not None, "Frozen presentation: unexpected slide target"
+                    if int(match[1]) > 8:
+                        continue
+                rels[rel.get("Id")] = [rel.get("Type"), mode, target]
+                if mode != "External":
+                    pending.append(target)
+            result[relname] = digest(json.dumps(sorted(rels.values()), ensure_ascii=False).encode())
+        if name.endswith(".xml"):
+            tree = ET.fromstring(data)
+            if name == "ppt/presentation.xml":
+                slide_ids = tree.find("p:sldIdLst", NS)
+                assert slide_ids is not None and len(slide_ids) == 14, "Frozen presentation: invalid slide list"
+                for child in list(slide_ids)[8:]:
+                    slide_ids.remove(child)
+            for element in tree.iter():
+                if element.tag == CREATION_ID:
+                    element.set("id", "generated")
+                if element.tag == "{http://schemas.microsoft.com/office/powerpoint/2010/main}creationId":
+                    element.set("val", "generated")
+                for key, value in list(element.attrib.items()):
+                    if key.startswith("{" + REL_NS + "}"):
+                        assert value in rels, f"Frozen package: unresolved relationship in {name}"
+                        element.set(key, json.dumps(rels[value], ensure_ascii=False))
+            data = ET.tostring(tree, encoding="utf-8")
+        result[name] = digest(data)
+    return dict(sorted(result.items()))
+
+
+def validate_frozen(source, package):
+    record = json.loads((ROOT / FREEZE).read_text(encoding="utf-8"))
+    assert record.get("schema_version") == 1 and record.get("slides") == list(range(1, 9)), "Invalid frozen-slide record"
+    assert record["source_sections"] == frozen_source_hashes(source), "Frozen slides 1–8: source changed; explicit maintainer request required"
+    actual = frozen_package_hashes(package)
+    changed = sorted(set(actual) ^ set(record["package_parts"]) | {name for name in actual if actual[name] != record["package_parts"].get(name)})
+    assert not changed, f"Frozen slides 1–8: rendered content/dependency changed: {', '.join(changed)}"
 
 
 def validate(pptx, manifest_path):
@@ -98,7 +173,7 @@ def validate(pptx, manifest_path):
             if number in (11, 13):
                 assert len(tables) == 1, f"Slide {number}: native table required"
             if number == 4:
-                for required in ("SEP 2026 REVISION", "25.5×", "3.4×", "1.3×", "≈78% → 87%", "19% → 33%", "Jan 2025 → Apr 2026", "first 3 months", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "13% → 3.8%", "Calls / 1k changed lines", "343 → 223", "≈+81%", "+15%", "1.4–2×", "3 questions", "+34.85% / +42.87%", "Agent-first / IDE-first", "Higher throughput", "Lower delivery stability", "2025", "2026"):
+                for required in ("SEP 2026 REVISION", "25.5×", "3.4×", "1.3×", "≈78% → 87%", "19% → 33%", "Jan 2025 → Apr 2026", "first 3 months", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "13% → 3.8%", "Calls / 1k changed lines", "343 → 223", "−9.2 pp (−70.8%)", "−120 (≈−35%)", "not a quality verdict", "≈+81%", "+15%", "1.4–2×", "3 questions", "+34.85% / +42.87%", "Agent-first / IDE-first", "Higher throughput", "Lower delivery stability", "2025", "2026"):
                     assert required in normalized, f"Evidence slide missing {required}"
             if number == 3:
                 assert not any(e.get("type", "none") != "none" for e in slide.findall(".//a:tailEnd", NS) + slide.findall(".//a:headEnd", NS)), "SDLC slide must not contain arrowheads"
@@ -126,6 +201,7 @@ def validate(pptx, manifest_path):
                 root = ET.fromstring(package.read(name))
                 assert not root.findall(".//a:blipFill", NS), f"Image fill in {name}"
                 assert not root.findall(".//p:pic", NS), f"Picture in {name}"
+        validate_frozen(source, package)
     return counts
 
 

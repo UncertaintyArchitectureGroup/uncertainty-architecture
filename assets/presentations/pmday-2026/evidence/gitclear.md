@@ -41,10 +41,19 @@ Churn concerns recently written code being revised/removed; duplication concerns
 
 ## Current slide interpretation
 
-The four visible rows separate moved lines, function calls, block duplication and two-week churn. Public text rechecked on 2026-09-21 in the sections *New code increasingly stands alone*, *Legacy code: not gone, just forgotten*, and the introductory summary. The heading graph indexes reuse/risk signals to 2023, while the introductory legacy baseline says 2022. Do not silently apply one period to every signal. The historical 2025 note above describes the older report; it does not negate the explicitly reported 2026 churn result.
+The four visible metrics separate moved lines, function calls, block duplication and two-week churn. Public text rechecked on 2026-09-21 in the sections *New code increasingly stands alone*, *Legacy code: not gone, just forgotten*, and the introductory summary. The heading graph indexes reuse/risk signals to 2023, while the introductory legacy baseline says 2022. Do not silently apply one period to every signal. The historical 2025 note above describes the older report; it does not negate the explicitly reported 2026 churn result.
 
 ## Numerical recheck, 2026-09-21
 
 The public summary directly prints 13% and 3.8%, 343 and 223, +81% and +15%. The slide now displays the **343 → 223 calls per 1,000 changed lines** pair; `(223/343 − 1) × 100 = −34.9854…%`, so −35% was a correct rounded relative decrease. Duplication is explicitly approximate on the slide: `(73.0/40.3 − 1) × 100 = 81.1414…%`; this arithmetic does not resolve the source's conflicting absolute units. Churn **+15%** remains labeled as reported: a separate baseline pair is unavailable in the public summary, so it cannot be independently recomputed from that page. These are not percentage-point changes.
 
 The checked page does not establish an exact publication month. The visible heading therefore says **2026 summary**, replacing the previously assigned June date. The moved/calls/duplication period is **2023 → YTD 2026**; the slide explicitly distinguishes the unstated churn baseline. No raw-data replication or full-whitepaper verification is claimed.
+
+## Meaning and direction of the two proxies
+
+The public [signal definitions](https://www.gitclear.com/industry_stats/ai_code_quality_signal_graphs) describe moved-line share as a refactoring proxy and method-call density as connectivity between newly authored and existing code. Rechecked 2026-09-21.
+
+- Moved share: `3.8 − 13 = −9.2` percentage points; `(3.8 / 13 − 1) × 100 = −70.769…%`, displayed as **−70.8%**. It counts moved lines, not refactoring tasks or all beneficial restructuring.
+- Calls: `223 − 343 = −120` per 1,000 changed lines; `(223 / 343 − 1) × 100 = −34.9854…%`, displayed as **≈−35%**. These are code-level function/method invocations, not API traffic, rate limits or requests per second.
+
+The talk's interpretation is conditional: less restructuring/connectivity can flag maintainability and reuse concerns, but moving code is not always an improvement and lower coupling can be intentional. Neither proxy alone decides quality, captures all refactoring/reuse, or establishes AI causality. Slide 4 states this visibly. The churn asterisk keeps its unavailable raw baseline separate from the 2023→YTD 2026 comparisons.

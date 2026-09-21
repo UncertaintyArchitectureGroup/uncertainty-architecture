@@ -48,12 +48,32 @@ tags:
 | iOS ≈78% → 87%; Chrome 19% → 33% | Прямий текст §7.2.3, не зчитування pixels. Авторські цілі відсотки; January 2025 → April 2026. Пороги <10 ratings / <10 downloads; usage у перші 3 місяці. |
 | DORA ≈+0,10 SD; 89% interval ≈+0,07…+0,13; +1 SD adoption | Figure 28 та note 23 звірено повторно. Коефіцієнт/межі приблизні, точна числова таблиця не опублікована в перевіреному звіті; 89% — явно надрукований рівень credible interval. |
 | DORA >80%; 59% | Прямі формулювання p.30 та інфографіки; частки респондентів. Не замінюємо >80% сумою округлених bins. |
-| GitClear 13% → 3,8%; 343 → 223 на 1 000 changed lines | Прямі числа публічного тексту, 2023 → YTD 2026. Замість округлених −35% показано початкову пару calls. |
+| GitClear 13% → 3,8%; 343 → 223 на 1 000 changed lines | Прямі числа публічного тексту, 2023 → YTD 2026. Початкові пари доповнено абсолютними/відносними змінами: moved −9,2 в.п. (−70,8%); calls −120 (≈−35%). |
 | GitClear ≈+81%; +15% churn | +81% — округлена відносна зміна; абсолютні одиниці duplication суперечливі. +15% прямо повідомлено, але без baseline-пари, тому не називаємо незалежно перерахованим. |
 | METR 1,4–2×; 3 питання; May 2026 | Прямо підтверджено авторською публікацією від 11.05.2026; діапазон медіан різних питань, не інтервал невизначеності. |
 | Agarwal +34,85% / +42,87%; January 2026 | Table 2 у PDF та HTML v2 збігаються; відповідно Agent-first / IDE-first, cognitive complexity. Замінено округлені +35% / +43%; ці відсотки не належать Xu. |
 
 GitClear на слайді датовано лише **2026**: точний місяць не підтверджено перевіреною сторінкою. DORA **2025 v.2025.2** відповідає поточним офіційним errata. Жодному джерелу не приписано більшої числової точності, ніж воно публікує.
+
+## Вимоги, оцінювання та ролі — слайди 9–14
+
+Перевірено 21.09.2026. Це джерела для навчальної адаптації й авторських практичних пропозицій, не новий нормативний процес UA.
+
+| Джерело | Використання | Межа висновку |
+|---|---|---|
+| [ISO/IEC 25059:2023 — Quality model for AI systems](https://www.iso.org/standard/80655.html), офіційний public abstract | Слайд 9: стандартизована термінологія якості AI вже існує. | Прочитано public abstract, не повний платний стандарт. Quality model не задає готову acceptance rubric для кожної семантичної відповіді конкретного продукту. Не стверджуємо «стандартів немає». |
+| [NIST AI RMF 1.0, NIST AI 100-1](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf), 2023, §1.2.2 *Risk Tolerance*, MEASURE 2.1/2.5/2.6 | Слайди 9–10: risk tolerance контекстна; рамка не приписує універсального порога. Потрібні documented measurement, обмеження та співвіднесення з прийнятим ризиком. | Метод вимірювання не вирішує за бізнес, які наслідки прийнятні. Розподіл роботи між Product/BA/QA/Dev у доповіді — наша прикладна пропозиція, не prescribed NIST job titles. |
+| [NIST Generative AI Profile, NIST AI 600-1](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf), 2024, GV-3.2-003; MP-1.1-002/003; MG-3.2-009 | Слайди 9–10: acceptable use, спільне з domain experts визначення контексту/меж, risk measurement plan і організаційна tolerance. | Не є мовою, яка однозначно класифікує всі можливі LLM outputs, і не робить prompt детермінованою гарантією. |
+| [Ribeiro, Wu, Guestrin & Singh — Beyond Accuracy: Behavioral Testing of NLP Models with CheckList](https://aclanthology.org/2020.acl-main.442/), ACL 2020, pp. 4902–4912 | Слайди 9–10: research proposal для структурування behavioral tests через linguistic capabilities та типи перевірок; приклади, контрприклади, invariance. | Робота про NLP behavioral testing, не універсальний стандарт для всіх Thinking Systems і не спосіб автоматично визначити business risk tolerance. Її емпіричні коефіцієнти на слайди не переносимо. |
+| [NIST Engineering Statistics Handbook §7.2.4.1 — Confidence intervals](https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm), Wilson score method | Слайд 10: двосторонній 95% interval для частки неприйнятних результатів у **навчальному** прикладі 4/200. | Незалежні репрезентативні evaluation units зі стабільного цільового розподілу; не повтори одного кейсу, не гарантія production, не рекомендований sample size. |
+
+**Перерахунок прикладу:** `p̂ = 4/200 = 0.02`, `z = 1.959963984540054`; Wilson center `(p̂ + z²/(2n))/(1 + z²/n)`, half-width `z × sqrt(p̂(1−p̂)/n + z²/(4n²))/(1 + z²/n)`. Межі **0,78044264% та 5,02870869%**, на екрані **≈0,8%–5,0%**. 196/200 = 98% прийнятних; серед чотирьох неприйнятних — три неправильні інструкції та один privacy breach. Severity — погоджена шкала наслідків, не обов'язково числова відстань. У прикладі critical breach порушує обов'язкову вимогу та блокує release незалежно від aggregate score.
+
+**Робоча пропозиція доповіді:** бізнес описує користь, шкоду й операційну місткість у зрозумілих сценаріях; Product Manager + BA перетворюють це на acceptance; QA + Developers — на measurement/evidence; risk/release owner ухвалює рішення в межах повноважень. Project Manager організовує доступ до stakeholders, budget, dependencies, evidence gaps, decision latency та operating capacity. Жодна роль не отримує всі рішення автоматично; новий headcount не вимагається.
+
+**Стара презентація:** наданий maintainer PDF *Designing Non-Deterministic Systems: Maintaining Engineering Rigor in the AI Era*, slides 17–20 (Product responsibility, architect, QA, *Welcome to the Laboratory*). Використано рольові питання й empirical loop як педагогічний контекст. Не копіюємо старі надмірні метафори: Scrum вже емпіричний, requirements ширші за envelope, готовність до експерименту не дозволяє production, evidence не доводить універсальну correctness. Оригінальний PDF не редагується й не перевидається цією зміною.
+
+**UA owners для слайдів 11–14:** [Requirements, Correctness and Bugs](../../../00-doctrine/requirements-correctness-and-bugs.md), [Thinking System Review](../../../01-patterns/thinking-system-review.md), [Control-Loop Capability Anatomy](../../../00-doctrine/control-loop-anatomy.md), [Nested Control Lifecycle](../../../00-doctrine/nested-control-lifecycle.md). Схема слайда 12 показує scoped tool path із permission gate, reference, observation, decision та effective correction, не обов'язкову deployment topology.
 
 ## Історичний контекст і редакторський відбір
 

@@ -24,6 +24,12 @@ tags:
 
 **[Evidence base — звіти й зовнішні посилання](EVIDENCE.md):** використані редакції, прив'язка до слайдів, обмеження, історичний контекст і матеріали Subprime / UA.
 
+### Зафіксовані слайди 1–8
+
+За прямим запитом maintainer від 21 вересня 2026 року, після пояснення GitClear на слайді 4, **слайди 1–8 зафіксовано**. Не змінювати їхній зміст, числа, нотатки, геометрію, оформлення або спільні ресурси, що впливають на них, без наступного явного запиту maintainer на відповідні слайди. Поточна робоча область — слайди 9–14.
+
+[frozen-slides.json](frozen-slides.json) зберігає контрольні суми секцій і нормалізованих частин PPTX разом із залежностями. Звичайна збірка/перевірка відхиляє розбіжність; автоматичного «перезаписати baseline» або bypass-прапорця немає. Оновлювати запис можна лише в межах явно замовленої зміни, з повторним оглядом захищених слайдів. Це захист від випадкового редагування, а не незалежне підтвердження особи, яка дозволила зміну.
+
 **Структуру відновлено буквально:** ті самі 14 назв, той самий порядок і та сама драматургія. Слайд 4 залишається спільним evidence slide. Слайди 5–7 — comprehension, відповідальність команди та пошук нового SDLC equilibrium, а не окремі слайди про звіти.
 
 Головна дуга: технологічний зсув → HOW we build → дисбаланс SDLC → WHAT we build → Thinking Systems → requirements, QA, release, production і ролі → engineering rigor переходить у нові місця, а не зникає.
@@ -289,7 +295,7 @@ CODE підсвічений; питання стоять також над Inten
     ]
   ],
   "takeaway": "Code activity, delivery and user value are different outcomes.",
-  "notes": "NBER WP 35275: May 2026, revised September 2026; current official PDF downloaded 2026-09-21. Понад 500 тисяч GitHub developers; matched event study, не RCT. Попередні 17.3× / 2.8×, 79→86% та 18→31% належали старій редакції й замінені. Changed LOC = additions + deletions, не чисте зростання кодової бази.\nTable 6, друкована с.33 / PDF p.35, тижні 21–30: Autocomplete — LOC +234.3%, files +50.0%, commits +30.2%, PRs +18.3%, repos +11.9%, releases +9.0%. Sync — LOC +957.5%, files +265.0%, commits +153.2%, PRs +86.0%, repos +47.3%, releases +19.8%. Async — LOC +1254.9%, files +83.3%, commits +60.7%, PRs +68.5%, repos +19.2%; releases не оцінено окремо. Figure 1, друкована с.2 / PDF p.4: авторські округлені cumulative levels — LOC 25.5×, files 5.0×, commits 3.4×, PRs 2.7×, repos 1.8×, releases 1.3×. Арифметика за округленою Table 6: 1+(234.3+957.5+1254.9)/100=25.467; commits 1+(30.2+153.2+60.7)/100=3.441; releases 1+(9.0+19.8)/100=1.288. Не перемножувати компоненти і не видавати ці суми за точні raw-data estimates. Прочерк async releases не означає нульового ефекту.\nFigure 11, друкована с.44 / PDF p.46; §7.2, с.43–46: iOS нові apps/month приблизно 33–45 тисяч у 2023–early 2025 → 108 тисяч у квітні 2026; Android 42 тисячі у січні 2025 → 99 тисяч у mid-2026; Chrome приблизно семикратне зростання від 2023, що почалося до agentic era. SourceForge показує невелике зростання new projects і винесений у Figure OA-17, без надійної usage-панелі. Usage за перші 3 місяці: iOS cohort ratings приблизно стабільні; Android downloads помірно зростають, але значно повільніше за entry; Chrome downloads падають. Тому коректно «usage does not keep pace», а не «usage ніде не зростає».\n§7.2.3, друкована с.46 / PDF p.48: January 2025 → April 2026, частка iOS із <10 ratings приблизно 78% → 87%; Chrome із <10 downloads 19% → 33%; Android із ≤100 downloads приблизно 22% → 26%. Авторські цілі відсотки; не точні частки з raw data. Це порівняння нових когорт за перші 3 місяці, не всіх existing apps, не весь software market і не пряме вимірювання consumer welfare. Зміни часток приблизно +9/+14/+4 відсоткових пункти відповідно.\nDORA 2025 v.2025.2: повний звіт отримано через публічне дзеркало; source URL, license і SHA-256 записано в evidence/sources.json. Figure 28, p.38: software delivery instability має standardized estimate приблизно +0.10 SD, 89% credible interval приблизно +0.07…+0.13, на +1 SD AI adoption. Це округлене зчитування графіка, не точна опублікована числова таблиця. Векторні координати та арифметика — evidence/dora-2025-figure28.json. Footnote 23, p.48 визначає стандартизацію. Appendix p.139: instability об’єднує change failure rate та deployment rework rate, тобто частку незапланованих deployments для виправлення user-facing bugs. Це оцінки респондентів у cross-sectional survey, не телеметрія CI/CD і не доведений причинний ефект. Не перекладати +0.10 SD як +10% failures. >80% і 59% — частки респондентів, які повідомляють про покращення productivity та code quality. Перевірений коефіцієнт 2024 +7.2% тут не підставляємо. Деталі: evidence/dora-2025.md.\nMETR, 11 травня 2026: 349 technical workers; 1.4–2× medians across 3 self-reported work-value questions; це не credible/confidence interval, 3× self-reported speed; є selection bias. Старий RCT 2025 із +19% часу — лише історичний контекст.\nGitClear 2026: частка moved code у changed lines 13% (2023) → 3.8% (YTD 2026), не кількість refactoring tasks і не весь reuse. Частота duplicated blocks приблизно +81% за цей період. Copy/paste share 9.4% (2022) → 15.7% (H1 2026), інший baseline. Публічне резюме GitClear 2026 прямо повідомляє +15% two-week code churn: частка нещодавно написаних рядків, переписаних/видалених упродовж двох тижнів. Це відносна зміна, не +15 відсоткових пунктів і не частка дефектів. Резюме не дає окремої пари базових значень churn. Function connectivity: 343 → 223 calls/1000 changed lines, 2023 → YTD 2026, приблизно −35%. Це щільність викликів, не весь reuse. Legacy update share: 1.7% → 0.46%; вступ каже 2022, детальний абзац 2023, тому baseline суперечливий і показник лишається в нотатках. Не змішувати churn, duplication та refactoring. Текст і графік 2026 суперечать щодо абсолютної одиниці duplication, тому залишаємо тільки відносні +81%. Це observational proxies, не причинний ефект AI. Деталі: evidence/gitclear.md.\nXu, v3 від січня 2026, дані 2020–22: top activity quartile — commits −19%, reviews +6.5%; bottom quartile — commits +43.5%, PRs +17.7%; rework +2.4%. Це не кадрові грейди й не агенти 2026 року.\nAgarwal, v2, Table 2: complexity Agent-first +34.85% / IDE-first +42.87%, warnings +17.73/+19.00%; зміна IDE-first warnings статистично незначуща. Не трактувати це як борг на одну фічу.\nDORA: позитивний зв’язок AI adoption з throughput одночасно з негативним зі stability. Small batches, p.58: сильніший позитивний зв’язок AI із product performance та менше friction, хоча індивідуальні gains можуть бути меншими. ToC / review-testing-integration queues, p.81. Це мотивує системну оптимізацію на слайді 7, не доводить універсальну причинність.\nПовторна числова перевірка 2026-09-21: DORA Fig.28 vector coordinates та сторінку звірено повторно; коефіцієнт і межі лише приблизні. >80% збережено як авторський поріг: сума округлених bars 41+31+13=85 не встановлює точного агрегату. GitClear calls 343→223 дають приблизно −35%; +81% — авторське округлення, +15% churn — число з резюме без окремої baseline-пари. Точний місяць публікації GitClear не підтверджено на перевіреній сторінці, тому на екрані лише 2026. Див. EVIDENCE.md та відповідні локальні нотатки.",
+  "notes": "NBER WP 35275: May 2026, revised September 2026; current official PDF downloaded 2026-09-21. Понад 500 тисяч GitHub developers; matched event study, не RCT. Попередні 17.3× / 2.8×, 79→86% та 18→31% належали старій редакції й замінені. Changed LOC = additions + deletions, не чисте зростання кодової бази.\nTable 6, друкована с.33 / PDF p.35, тижні 21–30: Autocomplete — LOC +234.3%, files +50.0%, commits +30.2%, PRs +18.3%, repos +11.9%, releases +9.0%. Sync — LOC +957.5%, files +265.0%, commits +153.2%, PRs +86.0%, repos +47.3%, releases +19.8%. Async — LOC +1254.9%, files +83.3%, commits +60.7%, PRs +68.5%, repos +19.2%; releases не оцінено окремо. Figure 1, друкована с.2 / PDF p.4: авторські округлені cumulative levels — LOC 25.5×, files 5.0×, commits 3.4×, PRs 2.7×, repos 1.8×, releases 1.3×. Арифметика за округленою Table 6: 1+(234.3+957.5+1254.9)/100=25.467; commits 1+(30.2+153.2+60.7)/100=3.441; releases 1+(9.0+19.8)/100=1.288. Не перемножувати компоненти і не видавати ці суми за точні raw-data estimates. Прочерк async releases не означає нульового ефекту.\nFigure 11, друкована с.44 / PDF p.46; §7.2, с.43–46: iOS нові apps/month приблизно 33–45 тисяч у 2023–early 2025 → 108 тисяч у квітні 2026; Android 42 тисячі у січні 2025 → 99 тисяч у mid-2026; Chrome приблизно семикратне зростання від 2023, що почалося до agentic era. SourceForge показує невелике зростання new projects і винесений у Figure OA-17, без надійної usage-панелі. Usage за перші 3 місяці: iOS cohort ratings приблизно стабільні; Android downloads помірно зростають, але значно повільніше за entry; Chrome downloads падають. Тому коректно «usage does not keep pace», а не «usage ніде не зростає».\n§7.2.3, друкована с.46 / PDF p.48: January 2025 → April 2026, частка iOS із <10 ratings приблизно 78% → 87%; Chrome із <10 downloads 19% → 33%; Android із ≤100 downloads приблизно 22% → 26%. Авторські цілі відсотки; не точні частки з raw data. Це порівняння нових когорт за перші 3 місяці, не всіх existing apps, не весь software market і не пряме вимірювання consumer welfare. Зміни часток приблизно +9/+14/+4 відсоткових пункти відповідно.\nDORA 2025 v.2025.2: повний звіт отримано через публічне дзеркало; source URL, license і SHA-256 записано в evidence/sources.json. Figure 28, p.38: software delivery instability має standardized estimate приблизно +0.10 SD, 89% credible interval приблизно +0.07…+0.13, на +1 SD AI adoption. Це округлене зчитування графіка, не точна опублікована числова таблиця. Векторні координати та арифметика — evidence/dora-2025-figure28.json. Footnote 23, p.48 визначає стандартизацію. Appendix p.139: instability об’єднує change failure rate та deployment rework rate, тобто частку незапланованих deployments для виправлення user-facing bugs. Це оцінки респондентів у cross-sectional survey, не телеметрія CI/CD і не доведений причинний ефект. Не перекладати +0.10 SD як +10% failures. >80% і 59% — частки респондентів, які повідомляють про покращення productivity та code quality. Перевірений коефіцієнт 2024 +7.2% тут не підставляємо. Деталі: evidence/dora-2025.md.\nMETR, 11 травня 2026: 349 technical workers; 1.4–2× medians across 3 self-reported work-value questions; це не credible/confidence interval, 3× self-reported speed; є selection bias. Старий RCT 2025 із +19% часу — лише історичний контекст.\nGitClear 2026: частка moved code у changed lines 13% (2023) → 3.8% (YTD 2026), не кількість refactoring tasks і не весь reuse. Частота duplicated blocks приблизно +81% за цей період. Copy/paste share 9.4% (2022) → 15.7% (H1 2026), інший baseline. Публічне резюме GitClear 2026 прямо повідомляє +15% two-week code churn: частка нещодавно написаних рядків, переписаних/видалених упродовж двох тижнів. Це відносна зміна, не +15 відсоткових пунктів і не частка дефектів. Резюме не дає окремої пари базових значень churn. Function connectivity: 343 → 223 calls/1000 changed lines, 2023 → YTD 2026, приблизно −35%. Це щільність викликів, не весь reuse. Legacy update share: 1.7% → 0.46%; вступ каже 2022, детальний абзац 2023, тому baseline суперечливий і показник лишається в нотатках. Не змішувати churn, duplication та refactoring. Текст і графік 2026 суперечать щодо абсолютної одиниці duplication, тому залишаємо тільки відносні +81%. Це observational proxies, не причинний ефект AI. Деталі: evidence/gitclear.md.\nXu, v3 від січня 2026, дані 2020–22: top activity quartile — commits −19%, reviews +6.5%; bottom quartile — commits +43.5%, PRs +17.7%; rework +2.4%. Це не кадрові грейди й не агенти 2026 року.\nAgarwal, v2, Table 2: complexity Agent-first +34.85% / IDE-first +42.87%, warnings +17.73/+19.00%; зміна IDE-first warnings статистично незначуща. Не трактувати це як борг на одну фічу.\nDORA: позитивний зв’язок AI adoption з throughput одночасно з негативним зі stability. Small batches, p.58: сильніший позитивний зв’язок AI із product performance та менше friction, хоча індивідуальні gains можуть бути меншими. ToC / review-testing-integration queues, p.81. Це мотивує системну оптимізацію на слайді 7, не доводить універсальну причинність.\nПовторна числова перевірка 2026-09-21: DORA Fig.28 vector coordinates та сторінку звірено повторно; коефіцієнт і межі лише приблизні. >80% збережено як авторський поріг: сума округлених bars 41+31+13=85 не встановлює точного агрегату. GitClear calls 343→223 дають приблизно −35%; +81% — авторське округлення, +15% churn — число з резюме без окремої baseline-пари. Точний місяць публікації GitClear не підтверджено на перевіреній сторінці, тому на екрані лише 2026. Див. EVIDENCE.md та відповідні локальні нотатки.\nПояснення GitClear: Moved-code share — частка змінених рядків, класифікованих як переміщений наявний код. 3.8−13=−9.2 відсоткового пункту; (3.8/13−1)×100=−70.769…%, на екрані −70.8%. Це proxy активності рефакторингу: менша частка переміщень може означати менше реорганізації та повторного використання коду, але не кожне переміщення корисне і не весь рефакторинг є переміщенням. Calls / 1k changed lines — кількість викликів інших методів або функцій у новому коді на 1000 змінених рядків, не API throughput. 223−343=−120; (223/343−1)×100=−34.9854…%, приблизно −35%. GitClear трактує вищу щільність як більшу зв’язність нового й наявного коду. Менша може означати слабше reuse, але менша зв’язність іноді бажана; перевіряти дизайн і дублювання. Падіння цих двох proxy — привід перевірити підтримуваність, не автоматичний висновок про погану якість чи причинність AI. *Період 2023→YTD 2026 стосується moved/calls/duplication; для reported churn +15% окремої базової пари немає.",
   "sources": [
     "https://www.nber.org/papers/w35275",
     "https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report",
@@ -300,7 +306,8 @@ CODE підсвічений; питання стоять також над Inten
     "https://dora.dev/research/2025/2025-DORA-Report-Infographic.pdf",
     "https://www.gitclear.com/ai_assistant_code_quality_2025_research",
     "https://www.shaunabram.com/wp-content/uploads/2025/10/2025_state_of_ai_assisted_software_development.pdf",
-    "https://dora.dev/research/2025/questions/"
+    "https://dora.dev/research/2025/questions/",
+    "https://www.gitclear.com/industry_stats/ai_code_quality_signal_graphs"
   ],
   "gitclearMetrics": [
     [
@@ -320,7 +327,7 @@ CODE підсвічений; питання стоять також над Inten
       "+15%"
     ]
   ],
-  "gitclearCaveat": "2023 → YTD 2026; churn baseline unstated. Observational.",
+  "gitclearCaveat": "Less restructuring / reuse? Signals, not a quality verdict.",
   "otherCards": [
     [
       "METR · MAY 2026",
@@ -339,7 +346,12 @@ CODE підсвічений; питання стоять також над Inten
   "doraPerceptions": "Respondents reporting improvement: >80% productivity; 59% quality.",
   "doraHeadline": "Higher throughput\nLower delivery stability",
   "nberSource": "NBER · SEP 2026 REVISION",
-  "gitclearSource": "GITCLEAR · 2026 SUMMARY"
+  "gitclearSource": "GITCLEAR · 2023 → 2026 YTD*",
+  "gitclearDetails": [
+    "Moved / changed lines: −9.2 pp (−70.8%). Refactoring proxy.",
+    "Other-function calls: −120 (≈−35%). Connectivity proxy."
+  ],
+  "gitclearSecondary": "Duplicated blocks ≈+81%   ·   Two-week churn +15%*"
 }
 ```
 
@@ -364,6 +376,8 @@ CODE підсвічений; питання стоять також над Inten
 **DORA — 2025:** **Higher throughput / Lower delivery stability** при вищому AI adoption. Підпис: **≈ +0.10 SD delivery instability per +1 SD AI adoption**, **89% credible interval ≈ +0.07 to +0.13**. Повторно звірене округлене зчитування Figure 28, p.38, а не точний опублікований коефіцієнт. Survey model, не CI/CD telemetry. Instability = change failures + unplanned bug-fix deployments. Окремо: **>80% productivity; 59% quality** — частки респондентів, які повідомляють про покращення.
 
 **GitClear — 2026 public summary:** **Moved-code share: 13% → 3.8%**, **Calls / 1k changed lines: 343 → 223**, **Duplicated blocks: ≈+81%**, **Two-week churn (reported): +15%**. Moved lines, calls і duplication порівнюють 2023 із YTD 2026; окремої baseline-пари churn немає. Показники observational. Місяць публікації не приписуємо без підтвердження.
+
+**Пояснення GitClear на екрані:** moved / changed lines −9,2 в.п. (−70,8%) — proxy рефакторингу; other-function calls −120 (≈−35%) — proxy зв’язності. Перша частка говорить про переміщення наявного коду, друга — про виклики інших функцій/методів у новому коді на 1 000 змінених рядків. Менші значення можуть сигналізувати менше реорганізації/reuse, але не є автоматичним вердиктом якості: не кожне переміщення корисне й надмірна зв’язність також небажана. На екрані: **Less restructuring / reuse? Signals, not a quality verdict.** Зірочка біля GitClear відсилає до невідомої окремої baseline-пари churn у нотатках.
 
 **Agarwal — January 2026, v2:** **+34.85% / +42.87%**, cognitive complexity для **Agent-first / IDE-first** відповідно, Table 2. Xu лишається окремим якісним сигналом про workload shifts; ці відсотки належать тільки Agarwal.
 
@@ -678,19 +692,38 @@ A system where consequential runtime responsibility partly depends on probabilis
 {
   "number": 9,
   "layout": "boundaries",
-  "old": "Button A → Window B",
-  "topics": [
-    "Topics & sources",
-    "Constraints",
-    "Acceptable semantic movement",
-    "Business risk"
+  "role": "PRODUCT MANAGER + BA · agree what acceptable behavior means",
+  "oldHeading": "SPECIFIED FLOW · STILL REQUIRED",
+  "old": [
+    "Button A",
+    "Window B"
   ],
-  "allowed": "APPROVED OPERATING ENVELOPE",
-  "outside": "FORBIDDEN",
-  "escalate": "Clarify / escalate",
-  "takeaway": "Requirements define where acceptable behavior may exist.",
-  "notes": "Для IT-асистента: лише затверджені джерела й доступний цьому користувачу контекст. Можна перефразувати, але не вигадувати кроки чи прибирати approval. Недостатні докази означають уточнення або ескалацію. Заборони реалізуються також поза моделлю. Operating Envelope доповнює повний Requirement, не підміняє його. API, права доступу та детерміновані інваріанти залишаються.",
+  "oldDetail": "Exact states, permissions\nand transitions.",
+  "roleDetail": "Product + BA: examples and rubric.\nProject Manager: stakeholder decisions.",
+  "newHeading": "VARIABLE BEHAVIOR · ALSO REQUIRED",
+  "boundaries": [
+    [
+      "ALLOW",
+      "Explain an approved support article."
+    ],
+    [
+      "CLARIFY",
+      "Missing context? Ask before advising."
+    ],
+    [
+      "PROHIBIT",
+      "Invent steps, expose data, bypass approval."
+    ]
+  ],
+  "gap": "Shared quality vocabulary exists. Product-specific semantic limits still need agreement.",
+  "research": "Starting points: ISO/IEC 25059 · NIST AI RMF · CheckList (ACL 2020)",
+  "takeaway": "Business scenarios → examples + counterexamples → acceptance rules",
+  "notes": "Наскрізний приклад: внутрішній IT-асистент. Зліва — точний перехід Button A → Window B, permissions та інваріанти, які залишаються вимогами. Справа — додаткові вимоги до варіативної поведінки. Дозволено пояснити затверджену статтю підтримки різними словами, зберігаючи зміст і необхідні кроки. За відсутності контексту потрібно уточнити або ескалувати. Не можна вигадувати операційні кроки, розкривати чужі дані або виконувати дію в обхід approval. Одна картинка з областю сама не задає точного вимірюваного контракту.\nМовний розрив: природна мова неоднозначна; prompt не є точним описом усіх можливих відповідей. Теза «стандартів немає» надто категорична: ISO/IEC 25059:2023 надає quality model і узгоджену термінологію, NIST AI RMF — контекстне управління ризиком, GenAI Profile — спільне з domain experts документування допустимого використання. Вони не підставляють готові семантичні межі й прийнятність наслідків для нашого продукту. Не стверджуємо доведеної відсутності будь-якої формальної мови.\nПрактична пропозиція доповіді: Product Manager та BA разом із бізнесом збирають сценарії, приклади, контрприклади, клас наслідків і потрібну реакцію; фіксують rubric, джерело правила й того, хто його погоджує. CheckList (Ribeiro et al., ACL 2020) пропонує capability × test-type підхід до поведінкових перевірок NLP. Це допомога у формулюванні перевірок, не універсальний стандарт semantic acceptance. Project Manager планує доступ до stakeholders, рішення та залежності; не вигадує толерантність за бізнес.\nВимога ширша за Operating Envelope; точні інтерфейси, заборони й інваріанти зберігаються. BA/Product не зобов’язані самі вивести статистичний поріг: це спільна робота з бізнесом, QA, розробниками й власником ризику. Ролі описують відповідальність, не новий headcount.",
   "sources": [
+    "https://www.iso.org/standard/80655.html",
+    "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+    "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+    "https://aclanthology.org/2020.acl-main.442/",
     "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/requirements-correctness-and-bugs.md"
   ]
 }
@@ -698,40 +731,11 @@ A system where consequential runtime responsibility partly depends on probabilis
 
 **Час:** 3:00.
 
-**Роль:** конкретизувати safe operating envelope.
+**Композиція:** дві явно розділені колонки. Ліворуч окремі native boxes Button A → Window B без переносу назви чи стрілки; праворуч три конкретні режими ALLOW / CLARIFY / PROHIBIT. Нижче — мовний розрив та перевірені starting points.
 
-**На екрані:**
-- OLD: **Button A → Window B**
-- NEW: **Define the safe operating envelope**
+**Рольова зміна:** Product Manager + BA переводять бізнес-сценарії в приклади, контрприклади та rubric; Project Manager забезпечує своєчасні рішення stakeholders. ISO/IEC 25059 і NIST існують, але не вирішують за команду межі конкретного продукту. Research proposal: CheckList як метод структурування behavioral tests. [Джерела й межі](EVIDENCE.md#вимоги-оцінювання-та-ролі--слайди-914).
 
-У центрі область допустимої поведінки з підписами:
-- Topics & sources
-- Constraints
-- Forbidden regions
-- Acceptable semantic movement
-- Business risk
-
-Висновок: **Requirements define where acceptable behavior may exist.**
-
-**Композиція:** ліворуч маленький детермінований приклад; праворуч велика область allowed, тонке кільце clarify/escalate і чітка forbidden zone. Це семантичні категорії, не виміряні координати та не probability density.
-
-**Конкретне наповнення прикладом IT-асистента:**
-
-| Вимір | Контракт |
-|---|---|
-| Topics / sources | Внутрішні IT-процедури; лише дозволені документи та доступний цьому користувачу контекст |
-| Acceptable movement | Можна перефразувати чи скоротити; не можна вигадати крок, змінити необхідність approval або приховати важливе попередження |
-| Hard constraints | Не розкривати чужі дані й не виконувати неавторизовані зміни доступу |
-| Missing evidence | Уточнити запит або передати людині; не домислювати інструкцію |
-| Business envelope | Погоджені показники корисності, latency, cost і частки ескалацій |
-
-Таблиця — у нотатках або як три короткі callout-приклади, не паралельно з усіма підписами області.
-
-**Що говорити:** «Не “асистент має бути helpful”, а: з яких джерел він може відповідати, що може змінювати у формулюванні, яких дій не має права робити і що робить, коли доказів недостатньо».
-
-**Уточнення:** звичайні requirements не зникають. Схеми даних, API, права доступу й інваріанти залишаються точними. Behavioral envelope додається там, де працює judgment. Заборону реалізуємо також поза моделлю, не лише prompt.
-
-**Перехід:** «Тепер нам потрібні докази, що поведінка лишається в цих межах».
+**Перехід:** «Домовитися, що прийнятно, ще недостатньо. Як виміряти, наскільки часто система дотримується цієї домовленості?»
 
 ## 10. One Green Test Proves Almost Nothing
 
@@ -739,88 +743,40 @@ A system where consequential runtime responsibility partly depends on probabilis
 {
   "number": 10,
   "layout": "evaluation",
-  "steps": [
-    "Golden Set",
-    "Repeated runs",
-    "Distribution",
-    "Metric gates",
-    "Release"
+  "role": "QA + DEVELOPERS · estimate behavior, uncertainty and consequences",
+  "frequency": "HOW OFTEN?",
+  "observed": "4 / 200 = 2%",
+  "interval": "95% Wilson interval ≈ 0.8%–5.0%",
+  "rateLabel": "Observed unacceptable outputs",
+  "severity": "HOW HARMFUL?",
+  "harms": [
+    "3 incorrect instructions → rework",
+    "1 privacy leak → critical breach"
   ],
-  "old": "Input → Expected Output → PASS",
-  "overall": "98% overall",
-  "critical": "1 critical boundary violation",
-  "decision": "BLOCK RELEASE",
-  "takeaway": "Release evidence must match the risk being controlled.",
-  "caption": "Illustrative: 196/200 acceptable evaluations; not a sample-size recommendation.",
-  "notes": "Навчальний приклад: 99/100 routine, 39/40 ambiguous, 39/40 missing evidence, 19/20 access/privacy = 196/200 = 98%. Одна помилка — витік чужих даних. Загальний utility gate не перекриває critical boundary. Golden Set потребує покриття сценаріїв; repeated runs не роблять нерепрезентативні дані репрезентативними. Semantic judges калібруємо. Unit, integration і security tests залишаються."
-}
-```
-
-**Час:** 3:00.
-
-**Роль:** перейти від одного вдалого output до оцінки поведінки в релевантних умовах.
-
-**На екрані:**
-- OLD: Input → Expected Output → PASS
-- NEW: Golden Set → Repeated Runs → Distribution → Metric Gates → Release
-
-Головна теза: **One correct answer is one observation.**\
-Друга: **Release evidence must match the risk being controlled.**
-
-**Композиція:** старий шлях — тонка верхня смуга; новий — основний. Під Distribution — кілька компактних груп результатів за сценаріями, не декоративна Gaussian curve. Під Gate — дві окремі перевірки: utility і critical failures.
-
-**Числовий навчальний приклад, чітко позначений Illustrative — not study data:**
-
-| Сегмент | Прийнятні оцінювання |
-|---|---:|
-| Routine IT questions | 99 / 100 |
-| Ambiguous requests | 39 / 40 |
-| Missing/outdated evidence | 39 / 40 |
-| Access / privacy boundary | 19 / 20 |
-| Усього | 196 / 200 = 98% |
-
-Умовно один із чотирьох неприйнятних результатів — розкриття чужих даних. Загальні 98% тоді не означають «можна релізити»: критична межа порушена. 200 — кількість оцінювань у прикладі, не універсально достатній розмір вибірки.
-
-**На екрані з прикладу:** тільки **98% overall** і **1 critical boundary violation → block release**. Повна таблиця в нотатках.
-
-**Що говорити:** Golden Set покриває типові, неоднозначні, adversarial, рідкісні та дорогі помилки. Повторні запуски допомагають побачити мінливість, але не замінюють репрезентативності кейсів. Автоматичні semantic judges потрібно калібрувати за людською рубрикою; модель-оцінювач не є безпомилковим oracle.
-
-**Уточнення заголовка:** один тест може довести конкретну властивість конкретного шляху. «Almost nothing» стосується широкого висновку про надійність імовірнісної поведінки. Unit, integration, security та property-based тести зберігаємо.
-
-**Перехід:** «Це змінює практичний зміст Ready, Done і рішення про release».
-
-## 11. DoR / DoD Become Risk Contracts
-
-```pptx-slide
-{
-  "number": 11,
-  "layout": "risk",
-  "table": [
+  "decision": "Critical breach → BLOCK RELEASE",
+  "sample": "Illustrative independent sample; 196 / 200 acceptable. No production guarantee.",
+  "businessQuestion": "Ask the business: “How much rework is tolerable? Which harm must be prevented?”",
+  "responsibilities": [
     [
-      "",
-      "Traditional shorthand",
-      "Thinking System"
+      "PRODUCT + BA",
+      "Elicit impact; agree acceptance"
     ],
     [
-      "READY",
-      "Specification known",
-      "Tolerance / risk envelope known"
+      "QA + DEVELOPERS",
+      "Sample, calibrate, compare versions"
     ],
     [
-      "DONE",
-      "Tests pass",
-      "Evaluation evidence within boundaries"
-    ],
-    [
-      "RELEASE",
-      "Yes / no",
-      "Measured risk accepted"
+      "RISK / RELEASE OWNER",
+      "Decide acceptability for this scope"
     ]
   ],
-  "takeaway": "Quality is released as a measured distribution.",
-  "caption": "Evidence, decision owner and fallback belong in the contract.",
-  "notes": "Ready: scope, заборонені дії, ризики, рубрика, Golden Set, ескалація та decision owner. Done: зафіксована конфігурація model/prompt/retrieval/tools/policy, результати за сегментами, перевірені permissions і rollback. Release: погоджені аудиторія пілота, monitoring та умови зупинки. Класичний engineering також працює з ризиком. PM координує, але не привласнює security/business authority. Delivery release не розширює project authorization.",
+  "takeaway": "Statistics estimate frequency. Business authority decides acceptable consequences.",
+  "notes": "Статистичне оцінювання доповнює unit, integration, security та deterministic tests. Потрібно окремо оцінити: а) частоту виходу за погоджені межі; б) силу/тяжкість наслідку. «Сила відхилення» не має універсальної числової шкали: для latency це мілісекунди понад межу, для грошей — збиток, для semantic output — погоджена rubric і класи наслідків. Середній score або embedding distance сам по собі не встановлює business harm. Хвости й критичні групи оцінюємо окремо, а не приховуємо добрим агрегатом.\nНавчальний приклад, не реальні дані і не рекомендований sample size: 200 незалежних репрезентативно відібраних evaluation units із одного стабільного цільового розподілу; 196 прийнятних, 4 неприйнятні. Серед чотирьох: 3 неправильні інструкції та 1 витік даних. 4/200=2%; 196/200=98%. Двосторонній 95% Wilson score interval для частки неприйнятних: [0.780443%, 5.028709%], на слайді ≈0.8%–5.0%. Метод і формула — NIST Engineering Statistics Handbook §7.2.4.1. Інтервал відображає sampling uncertainty за припущень; не дає 95% ймовірності, що конкретний майбутній результат безпечний, і не гарантує поведінки після зміни контексту. Не можна рахувати повтори того самого кейсу як незалежні representative cases. Розмір вибірки, dependence, subgroup coverage, множинні порівняння, невизначеність оцінювача й baseline планують під рішення.\nУ прикладі витік порушує обов’язкову вимогу, тому release блокується незалежно від 98% aggregate acceptance. Відсутність витоків у тесті також не доводила б неможливості витоку: потрібні permissions, isolation, gate та перевірка припущень їх роботи.\nЗвідки взяти tolerance? QA не винаходить його. Product Manager та BA обговорюють із бізнесом зрозумілі сценарії: скільки ручного виправлення витримає support; кому і яку шкоду завдасть помилка; що треба технічно унеможливити; коли прийнятні уточнення або ручний шлях. Технічна команда перетворює це на measurement plan, оцінку частот, severity, confidence та тригери. Уповноважений власник ризику/релізу погоджує допустимість у конкретному scope. Project Manager організовує ці рішення до обіцянки релізу.\nModel drift пояснюємо бізнесу як зміну спостережуваних результатів/навантаження/наслідків за нової версії чи контексту, а не вимагаємо від stakeholders знання статистичних термінів. QA підтримує golden/reference sets, coverage, calibration із domain experts і перевірки підгруп. Developers роблять versioning, instrumentation, відтворювані evaluation runs і regression comparison. Пороги та rubric версіонуються; evidence для release перевіряється окремо від набору, на якому їх підбирали.",
   "sources": [
+    "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+    "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+    "https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm",
+    "https://aclanthology.org/2020.acl-main.442/",
     "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/01-patterns/thinking-system-review.md"
   ]
 }
@@ -828,33 +784,58 @@ A system where consequential runtime responsibility partly depends on probabilis
 
 **Час:** 3:00.
 
-**Роль:** центральний для PMDay слайд: прив'язати delivery commitments до меж ризику й доказів.
+**Композиція:** ліворуч частота та interval plot; праворуч тяжкість наслідків. 4 / 200 = 2%, Wilson 95% CI ≈0,8%–5,0%; 196 / 200 прийнятних. Це навчальна незалежна вибірка, не production guarantee. Три неправильні інструкції й один privacy breach; останній блокує реліз за обов’язковою вимогою.
 
-**На екрані:** одна матриця:
+**Рольова зміна:** QA + Developers будують sample/evaluation plan, calibration, subgroup coverage, version comparisons та instrumentation. Product + BA отримують tolerance через зрозумілі бізнесу наслідки; risk/release owner погоджує acceptability. Статистика не вибирає business tolerance. Severity може бути сумою збитку, часом або категорією наслідку; універсального semantic distance немає.
 
-| | Traditional shorthand | Thinking System |
-|---|---|---|
-| READY | Specification known | Tolerance / risk envelope known |
-| DONE | Tests pass | Evaluation evidence within boundaries |
-| RELEASE | Yes / no | Measured risk accepted |
+**Перехід:** «Ці докази й домовленості повинні бути частиною Ready, Done та окремого рішення про release».
 
-Внизу: **Quality is released as a measured distribution, not a one-off observation.**
+## 11. DoR / DoD Become Risk Contracts
 
-**Композиція:** три великі рядки; права колонка займає 55–60%. READY, DONE, RELEASE розрізняються кольором/іконкою стану, а не трьома окремими схемами. Під таблицею невеликий підпис: **Evidence, owner, fallback.**
+```pptx-slide
+{
+  "number": 11,
+  "layout": "risk",
+  "role": "DEVELOPERS · deliver a reproducible evidence and recovery package",
+  "table": [
+    [
+      "GATE",
+      "CONCRETE EVIDENCE",
+      "DECISION / OWNER"
+    ],
+    [
+      "READY",
+      "Scope, rubric, evaluation plan\nFallback owner + dependencies",
+      "Product + BA agree criteria\nProject Manager clears blockers"
+    ],
+    [
+      "DONE",
+      "Versioned model / prompt / data\nTests, evals, rollback rehearsal",
+      "Developer + QA verify the build\nDone does not authorize release"
+    ],
+    [
+      "RELEASE",
+      "Population + tool permissions\nResidual risk + stop triggers",
+      "Authorized owner accepts scope\nOr narrows, defers, rejects"
+    ]
+  ],
+  "caption": "IT assistant: approved sources → traceable build → restricted rollout + manual fallback.",
+  "takeaway": "“Done” is an evidence package. Release is a separate, scoped decision.",
+  "notes": "Конкретизуємо абстрактні risk contracts через deliverables розробників для того самого IT-асистента. READY: визначено аудиторію, дозволені джерела, заборонені дії, приклади/rubric, evaluation plan, критичні залежності й власника ручного шляху. Якщо tolerance або feasibility ще невідомі, команда може бути Ready до обмеженого експерименту з питанням, бюджетом, stop condition та owner; це не дозвіл на production.\nDONE: developer поставляє відтворювану конфігурацію model version, prompt, retrieval/data snapshot, tool schema, policy та permissions; результати deterministic, behavioral і control-path tests; посилання на evaluation evidence, coverage й обмеження. Перевірені deny-path, unavailable-control behavior, telemetry та фактичний rollback/manual fallback. QA звіряє evaluation method і results, а не одноосібно приймає business risk. Для слайда скорочено до model/prompt/data; повний список тут.\nRELEASE: ідентифіковано саме цю версію, population, tool authority, exposure, monitoring, stop triggers, оперативного owner та fallback capacity. Уповноважена особа приймає залишковий ризик у межах повноважень або звужує scope, відкладає чи відхиляє реліз. Прийняття ризику не скасовує обов’язкову заборону й не розширює успадковану project authority. Попередній toy-example із privacy breach не пройде цей gate.\nРозробник тепер здає не лише endpoint, а відтворювану поведінку, evidence і працездатний recovery path. Project Manager відстежує незакриті залежності/рішення та не прирівнює Done до Ship. Ролі можуть поєднуватись однією людиною; достатньо існуючого review artifact, новий комітет не потрібний.",
+  "sources": [
+    "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/01-patterns/thinking-system-review.md",
+    "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/nested-control-lifecycle.md"
+  ]
+}
+```
 
-**Конкретний risk contract для умовного IT-пілота:**
+**Час:** 3:00.
 
-- **Ready:** відомі користувачі й scope; заборонені дії; типи помилок; рубрика; Golden Set; правила ескалації; відповідальний за прийняття залишкового ризику.
-- **Done:** зафіксована конфігурація model/prompt/retrieval/tools/policy; є результати за сегментами, review критичних кейсів, перевірені permission gates і rollback.
-- **Release:** відповідальний погодив цільову аудиторію пілота, межі ризику, rollout, monitoring та умови зупинки.
+**Композиція:** native PowerPoint table GATE / CONCRETE EVIDENCE / DECISION–OWNER. Замість загальних гасел — scope/rubric, versioned configuration, тести, evals, rollback rehearsal, population, permissions і stop triggers.
 
-**За потреби конкретні числа — лише навчальні:** gate ≥95% acceptable evaluations overall; жодного виявленого критичного порушення в погодженому наборі; обов'язкове ручне approval для змін доступу. Показник 98% зі слайда 10 проходить utility gate, але падає на critical gate.
+**Рольова зміна:** Developer здає відтворювану capability разом із evidence та recovery path. QA перевіряє докази, Product + BA — acceptance, Project Manager — залежності/рішення. Done не дозволяє production автоматично. Ready до bounded experiment також не є production authorization. Release належить уповноваженому owner у межах успадкованих constraints.
 
-**Що говорити:** «Done тепер не просто “демо відповіло правильно”. Ми маємо вказати, за якою версією системи, на яких сценаріях і з якими обмеженнями отримали evidence. Release — явне рішення про залишковий ризик, а не магічне обнулення ризику тестами».
-
-**Не створювати straw man:** класичний engineering також керує ризиками. Тут ризикові межі й evaluation evidence стають видимішою частиною контракту. PM координує рішення; юридичні, security чи бізнес-повноваження не переходять до PM автоматично.
-
-**Перехід:** «Але конфігурація й потік запитів після релізу не залишаються незмінними».
+**Перехід:** «Після релізу та сама відповідальність має технічний шлях дії».
 
 ## 12. Production Needs a Control Loop
 
@@ -862,53 +843,39 @@ A system where consequential runtime responsibility partly depends on probabilis
 {
   "number": 12,
   "layout": "control",
+  "role": "ARCHITECT · make boundaries and corrective actions operational",
   "steps": [
-    "Intent",
-    "Model",
-    "Proposed action",
-    "Policy gate",
-    "User / tool"
+    "Approved context",
+    "Model proposal",
+    "Permission gate",
+    "Support tool"
   ],
+  "gate": "Allowlist + required approval; deny when the gate is unavailable.",
+  "reference": "Approved limits",
   "loop": [
     "Observe",
-    "Evaluate / decide",
-    "Act within authority"
+    "Compare / authorize",
+    "Apply correction"
   ],
-  "actions": "Correct / retry / escalate / fallback / stop",
-  "takeaway": "Production needs evidence connected to corrective action.",
-  "caption": "Gate consequential actions before execution. Review incidents into Golden Sets.",
-  "notes": "Архітектура спрощена. Policy gate стоїть перед зовнішньою дією. Evidence саме по собі не control: потрібні reference conditions, уповноважене рішення й ефективний шлях виконання. Runtime не розширює меж вищого рівня. Retry має бюджет. Kill switch має owner і runbook. Монітор має false positives / false negatives. Інцидент після review поповнює Golden Set; автоматичного навчання на приватних даних не припускаємо.",
+  "actions": "Rollback / disable tool / manual fallback · inside delegated authority",
+  "caption": "Observe outcomes + gate health. Verify that the corrective action took effect.",
+  "takeaway": "A dashboard sees a problem. An authorized control path can change operation.",
+  "notes": "Наскрізний IT-асистент: approved context → model proposal → deterministic permission/approval gate → support tool. Модель пропонує дію; тільки gate дозволяє виконання в межах allowlist, user permissions і required approval. Приклад передбачає відсутність обхідного шляху; за недоступного gate дію відхиляють і пропонують ручний шлях. Схема показує конкретний tool-action path, не універсальну топологію всіх Thinking Systems і не гарантію семантичної коректності довільного тексту. User-facing answer path потребує власних scoped controls.\nНижній цикл: Observe збирає outcomes, incidents, затримку, fallback load, стан gate, bypass attempts, execution/effects корекцій. Compare/authorize зіставляє їх із явно показаними Approved operating limits; відповідальний Controller або людина вирішує, що дозволено змінити. Apply correction виконує rollback/disable/manual fallback у межах delegated authority. Зворотний зв’язок показує зміну operation; технічно correction може діяти на routing, tool access, model/configuration або реалізацію gate. Наступне спостереження підтверджує, чи action справді виконано й мало потрібний ефект.\nArchitect визначає enforced boundary, permissions, isolation, telemetry, decision rights, ефективні actuators, час реакції та fallback capacity. Prompt або probabilistic semantic detector сам собою не є Hard Constraint. Прямий deterministic gate може давати scoped hard claim тільки з перевіреним complete path та явними припущеннями. Developers реалізують і тестують paths; QA перевіряє bypass, degradation, false blocks і recovery; operational owner має повноваження та runbook.\nProject Manager планує operational ownership, rehearsal і залежності, а не закриває проект після deploy. Зміна в межах delivery authority допускає локальну корекцію; розширення tool authority, population чи invalidated business/control assumptions повертається до project reauthorization. Автоматичне відхилення/rollback не повинно непомітно розширювати повноваження.",
   "sources": [
-    "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/control-loop-anatomy.md"
+    "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/control-loop-anatomy.md",
+    "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/nested-control-lifecycle.md",
+    "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/01-patterns/thinking-system-review.md"
   ]
 }
 ```
 
 **Час:** 3:00.
 
-**Роль:** пояснити production architecture без окремої лекції з control theory.
+**Композиція:** зверху конкретний IT-assistant tool path, унизу замкнений Observe → Compare/authorize → Apply correction → operation; approved operating limits явно надходять до decision function. Показано permission gate перед tool execution, а не магічний post-hoc filter.
 
-**На екрані:** основний шлях Intent → Model → Proposed output / action. До зовнішньої дії — Policy / permission gate.
+**Рольова зміна:** Architect визначає boundary, complete enforcement path, assumptions, sensing, authority та effective correction. Developers реалізують, QA перевіряє degradation/bypass/recovery, operational owner діє; Project Manager планує ownership і capacity. Це scoped example, а не універсальний deployment diagram або гарантія всіх semantic outputs.
 
-Від результату й контексту — гілка Measure → Evaluate → Control, яка повертається до процесу. Під Control: **Correct · Retry · Escalate · Fallback · Stop**.
-
-Головна теза: **Observe → Evaluate → Control.**
-
-**Композиція:** компактний замкнений контур, що вміщується у 5 основних блоків. Safe output → user, небезпечна пропозиція → blocked/escalated. Стрілку feedback from incidents вести до Golden Set / policy маленьким нижнім контуром. Не дублювати всі старі UA layers.
-
-**Що саме стоїть за блоками:**
-
-| Observe / measure | Decide | Act |
-|---|---|---|
-| Запит, доступний контекст, версії, tool calls, output, latency/cost, feedback | Перевірка прав, рубрика, пороги, сегмент, ознаки drift | Обмежений retry, уточнення, safe fallback, HITL, зупинка функції |
-
-**Приклад:** асистент пропонує операцію з доступом. Право виконання перевіряє окремий механізм. Якщо потрібного дозволу немає — дія блокується і йде на approval; не чекаємо, поки післядієвий монітор знайде шкоду. Низька якість відповіді може вести до уточнення чи пошуку іншого документа, але з бюджетом повторів.
-
-**Що говорити:** «Pre-release eval — фотографія конкретної конфігурації на конкретних даних. У production змінюються model, prompt, context, documents, tools і user distribution. Тому потрібен механізм помічати відхилення й безпечно діяти».
-
-**Уточнення:** semantic monitor має false positives і false negatives. Самооцінка confidence моделі — не автоматично калібрована ймовірність. Kill switch має owner і перевірений runbook. Retry не безмежний. Incidents потрапляють у Golden Set після review; автоматичного навчання на сирих приватних даних не припускаємо.
-
-**Перехід:** «Якщо змінився об'єкт, який ми контролюємо, переміщується й відповідальність ролей».
+**Перехід:** «Такий продукт потребує іншого наповнення командного процесу, а не лише нового компонента в архітектурі».
 
 ## 13. The Roles Move With the System
 
@@ -916,66 +883,54 @@ A system where consequential runtime responsibility partly depends on probabilis
 {
   "number": 13,
   "layout": "roles",
+  "role": "PROJECT MANAGER · manage the learning loop as well as delivery",
+  "steps": [
+    "Hypothesis",
+    "Bounded trial",
+    "Evidence",
+    "Decision"
+  ],
+  "cycle": "Adapt or stop; production evidence feeds the next iteration.",
   "table": [
     [
-      "Role",
-      "Before",
-      "Increasingly owns"
+      "CHECKPOINT",
+      "PROJECT MANAGER’S WORK",
+      "VISIBLE RESULT"
     ],
     [
-      "PM",
-      "Story / acceptance",
-      "Risk & tolerance"
+      "Planning",
+      "Sequence evidence gaps + dependencies",
+      "Trial budget, owner, stop condition"
     ],
     [
-      "QA",
-      "Pass / fail cases",
-      "Measurement & evaluation"
+      "Sprint review",
+      "Bring Product, BA, QA, Dev, Architect together",
+      "Accept, adjust, narrow or stop"
     ],
     [
-      "Architect",
-      "Components & flows",
-      "Boundaries & failure containment"
-    ],
-    [
-      "Developer",
-      "Implementation",
-      "Behavioral / operational ownership"
+      "Release + operate",
+      "Track authorization + response capacity",
+      "Scoped rollout; trigger to reopen"
     ]
   ],
-  "takeaway": "The job titles may stay. The object of responsibility changes.",
-  "notes": "Функції розширюються, а попередні обов'язки не зникають. PM координує tolerance. QA калібрує вимірювання. Architect визначає дозволений judgment, permissions і containment. Developer відповідає за implementation, ownership, instrumentation та runbooks. Це не вимога нового headcount і не передача всіх рішень PM."
+  "takeaway": "Progress = working capability + reduced uncertainty + explicit decisions.",
+  "notes": "Стара презентація Designing Non-Deterministic Systems, slide 20 Welcome to the Laboratory, дає педагогічну метафору Hypothesize → Measure → Adapt. Тут не стверджуємо, що Scrum або попередня інженерія не були емпіричними. Процес додає явно керований цикл поведінкових гіпотез, measurement та адаптації поряд зі звичайним delivery. Titles/order цієї 14-slide доповіді збережено.\nProject Manager відрізняється від Product Manager. Product разом із BA та бізнесом уточнює цінність, наслідки й acceptance; Project Manager організовує delivery і навчання: stakeholder availability, dependencies, доступ до даних/domain experts, evaluation cost, час на аналіз і remediation, decision latency, release/operations readiness. Він не стає одноосібним власником risk acceptance.\nPlanning: backlog містить не тільки features, а й перевірювані невідомі, наприклад «чи достатньо approved knowledge для типових support cases?». Для trial фіксуємо питання, hypothesis, evidence plan, ресурсну межу, owner і stop condition; якщо треба — погоджений обмежений scope до остаточних tolerance. Sprint review: разом зі working software показуємо versioned evidence, проблемні групи, consequences, uncertainty та unresolved decisions. Результат може бути accept, redesign, narrow, bounded further trial або stop. Це корисний результат роботи, а не автоматична невдача спринту, якщо доказано, що задум нежиттєздатний.\nRelease/operate: окремо від Done підтверджуємо authorization конкретного rollout, monitoring, on-call/ручний шлях і їхню місткість; runtime evidence повертає backlog і за потреби project reauthorization. Не рахувати кількість проведених експериментів як цінність саму по собі: прогрес — робоча capability, зменшення матеріальної невизначеності та прийняте рішення. Один живий review artifact і звичні командні події можуть містити ці записи; не потрібні нові ролі або комітет.\nРозподіл 9–13: Product + BA формулюють acceptance; QA + Developers роблять measurement; Developers доставляють evidence/recovery package; Architect замикає bounded control; Project Manager координує весь цикл, рішення, бюджет і залежності.",
+  "sources": [
+    "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/01-patterns/thinking-system-review.md",
+    "https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/blob/main/00-doctrine/nested-control-lifecycle.md"
+  ]
 }
 ```
 
 **Час:** 2:00.
 
-**Роль:** підсумувати трансформацію ролей однією матрицею.
+**Композиція:** Hypothesis → Bounded trial → Evidence → Decision, під ним native table з planning, sprint review та release/operations.
 
-**На екрані:**
+**Project Manager:** координує learning loop поряд із delivery: evidence gaps, stakeholders, dependencies, experiment cost/time, decision latency та operational capacity. Product Manager відповідає за продуктову сторону домовленості, це інша функція. Working capability + reduced uncertainty + explicit decisions — видимий прогрес. Відкрите питання має owner і наступну дію.
 
-| Role | Before: familiar emphasis | Increasingly owns |
-|---|---|---|
-| PM | Story / acceptance | Risk & tolerance |
-| QA | Pass/fail cases | Measurement & evaluation |
-| Architect | Components & flows | Boundaries & failure containment |
-| Developer | Implementation | Implementation + behavioral / operational ownership |
+**Зв’язок зі старою презентацією:** надана Designing Non-Deterministic Systems, slides 17–20, особливо Welcome to the Laboratory. Зберігаємо емпіричний цикл, уточнюємо старі метафори: Scrum вже емпіричний, ризик не належить автоматично лише PM, один aggregate score не доводить safety. Новий headcount або новий комітет не потрібні.
 
-Внизу: **The job titles may stay. The object of responsibility changes.**
-
-**Композиція:** матриця на весь центральний простір; виділити праву колонку, без чотирьох персонажів і чотирьох мініслайдів. Кожен ряд — одна коротка фраза на комірку. Старі функції не закреслювати: це розширення, не заміна.
-
-**Що конкретно змінюється:**
-- **PM — tolerance operator:** допомагає визначити, що вважаємо допустимим результатом, яка помилка найдорожча, де потрібна людина; узгоджує decision owner.
-- **QA — sensor calibrator:** будує Golden Sets, рубрики й eval coverage; перевіряє калібрування оцінювача, drift і невизначеність, а не тільки формальне pass/fail.
-- **Architect — systems risk engineer:** вирішує, де judgment допустимий; задає deterministic permissions, isolation, fallback і containment.
-- **Developer:** відповідає за реалізацію, зрозумілість прийнятого коду, інструменти моделі, instrumentation, runbooks та поведінку компонента.
-
-**Що говорити:** «Це не прогноз, що завтра перейменують усі посади. Це опис нових питань, на які має бути відповідальна людина. Якщо це вже хтось робить — чудово. Якщо ні — сама наявність чотирьох job titles не закриває прогалину».
-
-**Перехід:** «Тепер можемо звести HOW і WHAT в один висновок».
-
-# ACT III — Зводимо дві половини разом
+**Перехід:** «Ролі й процес повертають нас до двох змін із першого слайда».
 
 ## 14. Engineering Rigor Moves — It Doesn’t Disappear
 
@@ -986,71 +941,43 @@ A system where consequential runtime responsibility partly depends on probabilis
   "columns": [
     [
       "HOW WE BUILD",
-      "Scarcity moves",
+      "Protect delivery",
       [
-        "Code generation gets cheaper",
-        "Comprehension becomes scarce",
-        "Bottlenecks move",
-        "SDLC seeks a new equilibrium"
+        "Team: comprehension + ownership",
+        "Project Manager: evidence + flow",
+        "Small batches, bounded experiments",
+        "Review decisions, not just demos"
       ]
     ],
     [
       "WHAT WE BUILD",
-      "Rigor moves",
+      "Govern behavior",
       [
-        "Output → Distribution",
-        "Requirement → Boundary",
-        "Test → Measurement",
-        "Release → Risk decision",
-        "Production → Control loop"
+        "Product + BA: agreed acceptance",
+        "QA + Dev: calibrated evidence",
+        "Architect: effective control paths",
+        "Release owner: scope + residual risk"
       ]
     ]
   ],
+  "cycle": "Team process: hypothesize → measure → decide → adapt",
   "takeaway": "The team remains accountable for the whole system.",
-  "closing": "Leverage does not remove engineering responsibility.",
-  "notes": "AI gives us extraordinary leverage. But leverage does not remove engineering responsibility. It moves where engineering rigor has to live. Для HOW: protect comprehension and ownership. Для WHAT: measure, bound and control judgment. Стрілки означають розширення предмета інженерії, не усунення tests або requirements.",
+  "closing": "More capability still requires engineering responsibility.",
   "titleLines": [
     "Engineering Rigor Moves —",
     "It Doesn’t Disappear"
-  ]
+  ],
+  "notes": "Повертаємо HOW і WHAT із першого слайда, тепер із конкретними ролями й процесом. HOW: швидше створювати код недостатньо — команда зберігає comprehension та ownership, Project Manager організовує flow, evidence, залежності та рішення. Малими партіями й обмеженими експериментами перевіряємо невідомі. WHAT: Product + BA узгоджують acceptance з бізнесом; QA + Developers створюють калібровані докази й реалізацію; Architect проектує ефективні control paths; уповноважений release owner приймає scope і residual risk у своїх межах. Це розширення, а не вичерпні нові job descriptions або передача відповідальності одній ролі.\nГоловна зміна процесу: hypothesize → measure → decide → adapt, з робочим software, явними business outcomes і runtime feedback. Детерміновані requirements, tests та delivery discipline залишаються; додається контроль варіативної поведінки і наслідків. Немає нових чисел, нової архітектурної нормативності чи реклами UA.\nФінал: «AI розширює наші можливості. Команда все одно відповідає за систему цілком: як ми її будуємо, яку поведінку дозволяємо, на яких доказах випускаємо і як виправляємо відхилення». Пауза, Q&A."
 }
 ```
 
 **Час:** 3:00.
 
-**Роль:** завершити тією самою двочастинною картою, з якої почали.
+**Композиція:** HOW / WHAT з початку доповіді, тепер із відповідальностями ролей. Унизу спільний empirical team loop.
 
-**На екрані:** дві колонки:
+**Фінал:** «AI розширює наші можливості. Команда все одно відповідає за систему цілком: як ми її будуємо, яку поведінку дозволяємо, на яких доказах випускаємо і як виправляємо відхилення».
 
-| AI changes HOW we build | AI changes WHAT we build |
-|---|---|
-| **Scarcity moves** | **Rigor moves** |
-| Code generation gets cheaper | Output → Distribution |
-| Comprehension becomes scarce | Requirement → Boundary |
-| Bottlenecks move | Test → Measurement |
-| SDLC seeks a new equilibrium | Release → Risk decision |
-| | Production → Control loop |
-
-Між/під колонками великим: **The team remains accountable for the whole system.**
-
-**Композиція:** та сама геометрія й кольори, що на слайді 1. Без нових графіків, нових даних та UA-реклами. QR на матеріали, якщо потрібен, не конкурує з фінальною тезою.
-
-**Фінальний текст виступу:**
-
-«AI gives us extraordinary leverage.
-
-But leverage does not remove engineering responsibility.
-It moves where engineering rigor has to live».
-
-Українське розгортання: «У розробці недостатньо оптимізувати генерацію окремо від усього потоку. Нам треба зберегти comprehension і ownership. У продукті недостатньо поводитися з probabilistic judgment так, ніби це завжди точна функція. Його треба вимірювати, обмежувати та контролювати».
-
-**Два практичні висновки:**
-- For AI-assisted development: don’t optimize generation in isolation. Protect comprehension and ownership.
-- For Thinking Systems: measure judgment, bound its authority, and control its consequences.
-
-**Важливе уточнення:** стрілки Output → Distribution та Test → Measurement означають розширення предмета інженерії; outputs, тести та звичайні вимоги нікуди не зникають.
-
-**Закінчення:** пауза після whole system / engineering responsibility, потім Q&A. Не закінчувати списком невизначеностей без позиції: позиція — можливості AI великі, відповідальність і контроль залишаються.
+Детерміновані вимоги, тести та звичайні обов’язки не зникають. Без нових даних чи рекламного фіналу. Пауза, Q&A.
 
 # Додаток для підготовки — не додаткові слайди
 
@@ -1067,7 +994,7 @@ It moves where engineering rigor has to live».
 - iOS: 87 − 78 = 9 відсоткових пунктів; Chrome: 33 − 19 = 14 пунктів; вихідні частки округлені авторами.
 - GitClear duplication: 73 / 40,3 − 1 ≈ 81,1%. Відносна арифметика правильна, абсолютна одиниця в публічних матеріалах неузгоджена.
 - Refactoring share 13% → 3,8%: падіння на 9,2 відсоткових пункту, не на 9,2% відносно бази.
-- Навчальний eval: 99 + 39 + 39 + 19 = 196; 196 / 200 = 98%; критична помилка не зникає від агрегування.
+- Навчальний eval: 196 / 200 = 98% прийнятних; 4 / 200 = 2% неприйнятних (3 неправильні інструкції + 1 privacy breach). Wilson 95% interval для частки неприйнятних ≈0,8%–5,0% за припущень незалежної репрезентативної вибірки. Критична помилка не зникає від агрегування.
 - Ми не обчислюємо універсальний conversion rate LOC → releases → user value з різних наборів outcomes.
 - Ми не об'єднуємо self-report, RCT, observational DiD та комерційні code proxies в один pooled effect.
 - Ми не вважаємо відсутність видимого aggregate usage приросту доказом відсутності будь-якої користі для будь-якого користувача.
