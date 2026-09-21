@@ -5320,11 +5320,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "4efa1a2349ad39fc27562f522914c9b67500659e45a6a316df3f8a31c5edc9ed",
+    "digest": "7df1af64d3c0892a878cf2adb15455f9ab2369b54c644f3b28766a769c5ff5dc",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 125,
+    "input_count": 126,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5477,6 +5477,10 @@
       {
         "identity_mode": "content",
         "path": ".github/tests/repository_intelligence/studies/2026-09-18-inventory-pilot/RESULTS.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/studies/2026-09-21-work-factorial/README.md"
       },
       {
         "identity_mode": "existence",

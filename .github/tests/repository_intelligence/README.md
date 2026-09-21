@@ -79,3 +79,5 @@ The separate [forced inventory pilot](studies/2026-09-18-inventory-pilot/RESULTS
 3. Record actual connector reads/searches, opened sources, and available token measurements; assess proposals and material decisions against owning sources with maintainer review.
 4. Exercise missing/stale context, language/paraphrase cases, a valid new artifact, near-synonyms, and the actual iPad/client fallback path. Record failures and unavailable measurements explicitly.
 5. Decide whether measured mistakes or cost justify a specific retrieval change. Do not mark the independent benchmark or the architecture stop/go gate complete solely because this fixture job is green.
+
+The separately authorized [September 21 Work factorial study](studies/2026-09-21-work-factorial/README.md) uses the prepared three tasks and four AGENTS/RI conditions. Native Work access restrictions are instructional, with logged reader enforcement rather than exclusive tool isolation. Inputs are published before dispatch and every first outcome is checkpointed to PR #125. Collection and scoring status are recorded in its progress ledger; no new benefit claim is made during collection.

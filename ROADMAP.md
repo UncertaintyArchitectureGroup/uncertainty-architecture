@@ -259,3 +259,5 @@ The next worked application should show:
 - how duplication and parallel registries are avoided.
 
 The project optimizes for durable clarity, traceability, and practical usefulness rather than repository volume.
+
+A new [Work factorial execution](.github/tests/repository_intelligence/studies/2026-09-21-work-factorial/README.md) is authorized for three prepared tasks across NONE, AGENTS, RI and AGENTS+RI. It explicitly records the instructional-isolation limit and checkpoints every completed session to PR #125. The primary question remains RI benefit over AGENTS; results and independent arm-hidden scoring are pending, and production guidance is unchanged.
