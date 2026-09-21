@@ -15,8 +15,8 @@ Every linked first outcome and reader journal is retained in this Git history. N
 | WF07 | F2 | NONE | answer_received | [text](answers/WF07.txt) | [journal and record](evidence/WF07.zip) |
 | WF08 | F2 | AGENTS | answer_received | [text](answers/WF08.txt) | [journal and record](evidence/WF08.zip) |
 | WF09 | F3 | AGENTS_RI | answer_received | [text](answers/WF09.txt) | [journal and record](evidence/WF09.zip) |
-| WF10 | F3 | RI | started | — | — |
+| WF10 | F3 | RI | answer_received | [text](answers/WF10.txt) | [journal and record](evidence/WF10.zip) |
 | WF11 | F3 | AGENTS | started | — | — |
-| WF12 | F3 | NONE | not_started | — | — |
+| WF12 | F3 | NONE | started | — | — |
 
 All source snapshots are fixed. Off-reader access and hidden platform context are not independently attestable. Earlier studies are separate.
