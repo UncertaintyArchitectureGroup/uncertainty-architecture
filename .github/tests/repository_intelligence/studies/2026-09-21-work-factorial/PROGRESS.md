@@ -7,9 +7,9 @@ Every linked first outcome and reader journal is retained in this Git history. N
 | Slot | Task | Arm | Status | First answer | Evidence |
 |---|---|---|---|---|---|
 | WF01 | F1 | NONE | answer_received | [text](answers/WF01.txt) | [journal and record](evidence/WF01.zip) |
-| WF02 | F1 | AGENTS | started | — | — |
+| WF02 | F1 | AGENTS | answer_received | [text](answers/WF02.txt) | [journal and record](evidence/WF02.zip) |
 | WF03 | F1 | RI | started | — | — |
-| WF04 | F1 | AGENTS_RI | not_started | — | — |
+| WF04 | F1 | AGENTS_RI | started | — | — |
 | WF05 | F2 | RI | not_started | — | — |
 | WF06 | F2 | AGENTS_RI | not_started | — | — |
 | WF07 | F2 | NONE | not_started | — | — |
