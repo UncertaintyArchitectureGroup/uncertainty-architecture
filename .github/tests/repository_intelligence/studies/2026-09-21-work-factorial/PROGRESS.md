@@ -13,9 +13,9 @@ Every linked first outcome and reader journal is retained in this Git history. N
 | WF05 | F2 | RI | answer_received | [text](answers/WF05.txt) | [journal and record](evidence/WF05.zip) |
 | WF06 | F2 | AGENTS_RI | answer_received | [text](answers/WF06.txt) | [journal and record](evidence/WF06.zip) |
 | WF07 | F2 | NONE | answer_received | [text](answers/WF07.txt) | [journal and record](evidence/WF07.zip) |
-| WF08 | F2 | AGENTS | started | — | — |
+| WF08 | F2 | AGENTS | answer_received | [text](answers/WF08.txt) | [journal and record](evidence/WF08.zip) |
 | WF09 | F3 | AGENTS_RI | started | — | — |
-| WF10 | F3 | RI | not_started | — | — |
+| WF10 | F3 | RI | started | — | — |
 | WF11 | F3 | AGENTS | not_started | — | — |
 | WF12 | F3 | NONE | not_started | — | — |
 
