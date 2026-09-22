@@ -261,3 +261,8 @@ The next worked application should show:
 The project optimizes for durable clarity, traceability, and practical usefulness rather than repository volume.
 
 The [Work factorial study](.github/tests/repository_intelligence/studies/2026-09-21-work-factorial/RESULTS.md) completed 12 sessions across NONE, AGENTS, RI and AGENTS+RI, with each first outcome durably checkpointed to PR #125. Separate first scores were frozen before mapping: all 12 answers scored 2/2. RI over AGENTS showed no quality improvement, 9.2% fewer source/RI operations and 33.8% more input bytes; neither benefit gate passed. This bounded study is complete, existing optional guidance is unchanged, and general RI benefit/full acceptance remain open under the documented sampling, score-ceiling, isolation, residual-blinding and backend limits.
+
+The [September 22 task calibration pilot](.github/tests/repository_intelligence/studies/2026-09-22-task-calibration/README.md)
+is preparing a bounded baseline-only check of harder practical tasks and more
+specific scoring. It does not close the RI effectiveness question; any nominated
+task families require new held-out tasks in a separately frozen comparison.

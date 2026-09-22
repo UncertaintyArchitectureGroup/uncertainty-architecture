@@ -81,3 +81,9 @@ The separate [forced inventory pilot](studies/2026-09-18-inventory-pilot/RESULTS
 5. Decide whether measured mistakes or cost justify a specific retrieval change. Do not mark the independent benchmark or the architecture stop/go gate complete solely because this fixture job is green.
 
 The separately authorized [September 21 Work factorial study](studies/2026-09-21-work-factorial/RESULTS.md) completed all 12 first answers across three tasks and four AGENTS/RI conditions, publishing each outcome and journal to PR #125. Separate assessment was frozen before mapping: all answers scored 2/2, so every contrast ties on the frozen criteria. RI over AGENTS used 9.2% fewer source/RI operations but 33.8% more supplied UTF-8 input bytes; neither primary benefit gate passed. Existing optional guidance remains unchanged. Instructional isolation, residual unblinding, unknown exact backend, the small convenience sample and score ceiling prevent general effectiveness or equivalence claims.
+
+A separate [September 22 baseline calibration pilot](studies/2026-09-22-task-calibration/README.md)
+is preparing four new task candidates and two fresh baseline sessions each.
+It evaluates task difficulty, itemized scoring and legitimate-change controls;
+it has no RI treatment arm and cannot establish benefit. Inputs will be frozen
+before dispatch and every first outcome published separately in Draft PR #125.
