@@ -407,15 +407,32 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "thinking": {
-        text(s, "THINKING SYSTEMS", 64, 202, 1118, 32, 23, C.cyan, true)
-        text(s, d.definition, 64, 251, 1104, 100, 32, C.white, true)
+        text(s, "THINKING SYSTEMS", 64, 176, 1118, 28, 21, C.cyan, true)
+        text(s, d.definition, 64, 212, 1152, 62, 27, C.white, true)
         d.labels.forEach((v, i) => {
           const x = 64 + i * 600
-          text(s, v, x, 388, 540, 40, 24, C.gray)
-          text(s, d.formulae[i], x, 447, 540, 80, 59, i ? C.amber : C.cyan, true)
+          text(s, v, x, 292, 552, 31, 23, C.gray)
+          text(s, d.formulae[i], x, 328, 552, 67, 52, i ? C.amber : C.cyan, true)
         })
-        text(s, d.caption, 64, 554, 1118, 32, 22, C.gray)
+        // Requested conceptual distribution, not a fitted density or observed sample.
+        line(s, 640, 292, 640, 552)
+        line(s, 100, 510, 570, 510, C.gray)
+        rect(s, 324, 410, 26, 100, C.cyan, C.cyan, 0)
+        text(s, d.graphLabels[0], 140, 518, 400, 26, 21, C.cyan, true, "center")
+        const heights = [16, 28, 48, 76, 105, 122, 105, 76, 48, 28, 16]
+        heights.forEach((h, i) => {
+          const color = i < 2 || i > 8 ? C.amber : C.cyan
+          rect(s, 780 + i * 29, 510 - h, 21, h, color, color, 0)
+        })
+        line(s, 695, 510, 1206, 510, C.gray)
+        text(s, d.graphLabels[2], 687, 524, 145, 39, 17, C.amber, false, "center")
+        text(s, d.graphLabels[1], 839, 521, 225, 28, 20, C.cyan, true, "center")
+        text(s, d.graphLabels[2], 1071, 524, 145, 39, 17, C.amber, false, "center")
+        text(s, d.deterministicDetail, 64, 563, 552, 27, 20, C.white)
+        text(s, d.probabilisticDetail, 664, 563, 552, 27, 20, C.white)
         takeaway(s, d.takeaway)
+        text(s, d.caption, 64, 608, 1152, 25, 19, C.gray)
+        text(s, d.graphCaption, 64, 676, 1118, 24, 18, C.gray)
         break
       }
       case "boundaries": {
@@ -428,29 +445,47 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.oldDetail, 64, 330, 420, 57, 25, C.white)
         text(s, d.roleDetail, 64, 400, 420, 45, 19, C.gray)
         text(s, d.newHeading, 536, 220, 680, 30, 19, C.cyan, true)
-        text(s, d.regionCaption, 536, 252, 680, 24, 18, C.gray)
-        // A conceptual set of permitted outputs, not a numeric semantic-distance axis.
-        rect(s, 548, 282, 656, 94, C.cyan, "#10212C", 2)
-        text(s, d.boundaries[0][0], 564, 291, 76, 25, 18, C.cyan, true)
-        text(s, d.boundaries[0][1], 652, 291, 538, 25, 21, C.white)
-        d.regionExamples.forEach((v, i) => {
+        // Match the supplied possibility-space topology using editable geometry.
+        // The perspective plane is conceptual, with no universal semantic-distance scale.
+        for (let i = 0; i < 5; i++) line(s, 557, 279 + i * 32, 1205, 279 + i * 32)
+        for (let i = 0; i < 6; i++) line(s, 557 + i * 110, 409, 611 + i * 110, 267)
+        line(s, 557, 411, 1205, 411, C.gray)
+        line(s, 557, 411, 557, 263, C.gray)
+        const plane = (x, y, w, h, slant, color, fill) =>
           s.shapes.add({
-            geometry: "ellipse",
-            position: { left: 568 + i * 312, top: 341, width: 9, height: 9 },
-            fill: C.cyan,
-            line: { fill: "none", width: 0 },
+            geometry: "custom",
+            position: { left: x, top: y, width: w, height: h },
+            fill,
+            line: { fill: color, width: 2, style: "solid" },
+            customPaths: [
+              {
+                width: w,
+                height: h,
+                commands: [
+                  { moveTo: { x: slant, y: 0 } },
+                  { lineTo: { x: w, y: 0 } },
+                  { lineTo: { x: w - slant, y: h } },
+                  { lineTo: { x: 0, y: h } },
+                  { close: {} },
+                ],
+              },
+            ],
           })
-          text(s, v, 586 + i * 312, 330, 285, 29, 19, C.cyan)
+        plane(615, 277, 470, 120, 44, C.amber, "#24231B")
+        plane(701, 305, 322, 80, 23, C.cyan, "#122934")
+        text(s, d.regionCaption, 746, 249, 440, 26, 19, C.amber, true)
+        text(s, d.regionInner, 724, 310, 278, 23, 18, C.cyan, true, "center")
+        d.regionExamples.forEach((v, i) => {
+          text(s, v, 730, 339 + i * 22, 270, 21, 17, C.white, false, "center")
         })
-        line(s, 548, 382, 1204, 382, C.amber, 2)
-        text(s, d.boundaries[1][0], 548, 387, 93, 25, 18, C.amber, true)
-        text(s, d.boundaries[1][1], 652, 387, 552, 25, 20, C.white)
-        text(s, d.boundaries[2][0], 548, 417, 93, 25, 18, C.red, true)
-        text(s, d.boundaries[2][1], 652, 417, 552, 25, 20, C.white)
-        line(s, 64, 454, 1216, 454)
-        text(s, d.envelopeHeading, 64, 463, 1152, 26, 21, C.amber, true)
+        rect(s, 1166, 329, 10, 10, C.red, C.red, 0)
+        text(s, d.regionOutside, 1086, 347, 130, 43, 18, C.red, false, "center")
+        text(s, d.regionAxis, 557, 413, 659, 24, 17, C.gray)
+        text(s, d.regionPolicy, 536, 442, 680, 25, 16, C.white)
+        line(s, 64, 477, 1216, 477)
+        text(s, d.envelopeHeading, 64, 482, 1152, 26, 20, C.amber, true)
         d.envelope.forEach((v, i) =>
-          text(s, v, 64 + (i % 2) * 596, 500 + Math.floor(i / 2) * 31, 552, 27, 22, C.white),
+          text(s, v, 64 + (i % 2) * 596, 513 + Math.floor(i / 2) * 28, 552, 26, 21, C.white),
         )
         text(s, d.specification, 64, 568, 1152, 28, 21, C.gray)
         text(s, d.gap, 64, 603, 1152, 27, 20, C.white)
@@ -460,10 +495,32 @@ export function createDeck(Presentation, data, assets = {}) {
       }
       case "evaluation": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        text(s, d.frequency, 64, 218, 540, 29, 22, C.cyan, true)
+        text(s, d.bugHeading, 64, 221, 470, 25, 18, C.amber, true)
+        text(s, d.bugDefinition, 64, 251, 470, 68, 28, C.white, true)
+        text(s, d.bugModel, 64, 326, 485, 53, 21, C.gray)
+        text(s, d.bugCode, 64, 384, 485, 24, 17, C.gray)
+        const accepted = "#57CB8F"
+        text(s, d.toleranceHeading, 704, 221, 396, 25, 18, accepted, true, "center")
+        rect(s, 802, 253, 231, 134, "none", "#132A23", 0)
+        const bars = [15, 23, 36, 52, 72, 98, 121, 103, 77, 54, 35, 24, 15]
+        bars.forEach((h, i) => {
+          const color = i < 4 || i > 10 ? C.red : accepted
+          rect(s, 682 + i * 32, 387 - h, 23, h, color, color, 0)
+        })
+        line(s, 802, 251, 802, 388, accepted)
+        line(s, 1033, 251, 1033, 388, accepted)
+        line(s, 598, 389, 1216, 389, C.gray)
+        line(s, 1082, 370, 1110, 338, C.red)
+        text(s, d.bugLabel, 1116, 288, 100, 57, 18, C.red)
+        text(s, d.outsideLabel, 594, 393, 200, 24, 17, C.red, false, "center")
+        text(s, d.insideLabel, 810, 393, 212, 24, 19, accepted, true, "center")
+        text(s, d.outsideLabel, 1037, 393, 179, 24, 17, C.red, false, "center")
+        text(s, d.schematicCaption, 594, 419, 622, 23, 16, C.gray)
+        line(s, 64, 451, 1216, 451)
+        text(s, d.frequency, 64, 456, 540, 26, 19, C.cyan, true)
         // Exact categories from the illustrative 200-output sample; no fitted density.
         s.charts.add("bar", {
-          position: { left: 64, top: 249, width: 540, height: 218 },
+          position: { left: 64, top: 484, width: 540, height: 129 },
           categories: d.chartCategories,
           series: [
             {
@@ -480,7 +537,7 @@ export function createDeck(Presentation, data, assets = {}) {
                 text: value,
                 position: "outEnd",
                 showValue: false,
-                textStyle: { typeface: C.font, fontSize: 17, fill: C.white, bold: true },
+                textStyle: { typeface: C.font, fontSize: 16, fill: C.white, bold: true },
               })),
             },
           ],
@@ -491,43 +548,34 @@ export function createDeck(Presentation, data, assets = {}) {
           plotAreaFill: C.bg,
           plotAreaLine: { fill: "none", width: 0 },
           xAxis: {
-            textStyle: { typeface: C.font, fontSize: 17, fill: C.gray },
+            textStyle: { typeface: C.font, fontSize: 16, fill: C.gray },
             line: { fill: C.line, width: 1 },
             majorGridlines: null,
           },
           yAxis: {
             min: 0,
             max: 200,
-            majorUnit: 50,
+            majorUnit: 100,
             numberFormatCode: "0",
-            textStyle: { typeface: C.font, fontSize: 16, fill: C.gray },
+            textStyle: { typeface: C.font, fontSize: 15, fill: C.gray },
             line: { fill: "none", width: 0 },
             majorGridlines: { fill: C.line, width: 1 },
           },
           dataLabels: {
             showValue: true,
             position: "outEnd",
-            textStyle: { typeface: C.font, fontSize: 17, fill: C.white, bold: true },
+            textStyle: { typeface: C.font, fontSize: 16, fill: C.white, bold: true },
           },
         })
-        text(s, d.chartAxis, 64, 468, 540, 25, 18, C.gray)
-        line(s, 625, 218, 625, 483)
-        text(s, d.severity, 660, 218, 556, 29, 22, C.amber, true)
-        text(s, d.observed, 660, 253, 556, 49, 39, C.white, true)
-        text(s, d.rateLabel, 660, 301, 556, 25, 20, C.gray)
-        text(s, d.interval, 660, 329, 556, 27, 23, C.cyan)
-        d.harms.forEach((v, i) => text(s, v, 660, 367 + i * 36, 556, 31, 24, i ? C.red : C.white))
-        text(s, d.decision, 660, 442, 556, 34, 25, C.red, true)
-        text(s, d.sample, 64, 500, 1152, 24, 18, C.gray)
-        text(s, d.instruments, 64, 531, 1152, 28, 20, C.cyan, true)
-        text(s, d.calibration, 64, 562, 1152, 27, 20, C.white)
-        text(s, d.businessQuestion, 64, 594, 1152, 29, 20, C.white, true)
-        d.responsibilities.forEach(([role, detail], i) => {
-          const x = 64 + i * 397
-          text(s, role, x, 628, 370, 21, 16, i === 2 ? C.amber : C.cyan, true)
-          text(s, detail, x, 651, 370, 22, 17, C.gray)
-        })
-        text(s, d.takeaway, 64, 683, 1118, 25, 22, C.white, true)
+        line(s, 625, 461, 625, 605)
+        text(s, d.observed, 660, 456, 244, 39, 31, C.white, true)
+        text(s, d.rateLabel, 909, 463, 307, 28, 18, C.gray)
+        text(s, d.interval, 660, 497, 556, 27, 22, C.cyan)
+        d.harms.forEach((v, i) => text(s, v, 660, 529 + i * 27, 556, 25, 20, i ? C.red : C.white))
+        text(s, d.decision, 660, 584, 556, 28, 23, C.red, true)
+        text(s, d.instruments, 64, 621, 1152, 26, 19, C.cyan, true)
+        text(s, d.calibration, 64, 651, 1152, 25, 19, C.white)
+        text(s, d.ownershipLine, 64, 681, 1118, 27, 21, C.white, true)
         break
       }
       case "risk": {

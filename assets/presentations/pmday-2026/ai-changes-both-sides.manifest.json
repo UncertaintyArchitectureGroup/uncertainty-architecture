@@ -3,11 +3,11 @@
   "edition": "pmday-2026-review-candidate",
   "source": "assets/presentations/pmday-2026/README.md",
   "inputs": {
-    "assets/presentations/pmday-2026/README.md": "b29bf756c845b049bc74777bb34cee9edee6585c304a2fd1883d670576af20c7",
+    "assets/presentations/pmday-2026/README.md": "58ed23e726b4bc6b3719af7210bbb9b31fb58163b9f34462c9df63ed0cf13ec3",
     "assets/presentations/pmday-2026/artwork/ai-two-roles.png": "fee952d5eb696de3cdcd4609b42587545a56330577acdca8359b76a4d4b22de7",
     "assets/presentations/pmday-2026/artwork/roboto-fonts.zip": "8bd50f19390cbfeb6fa323ba124274de89e84fdd228f43d60bce2f9ca4cb05ff",
-    "assets/presentations/pmday-2026/frozen-slides.json": "06835b4844ae23f73120082331c4da506295a984e27220c44efe2d0578f9a868",
-    "quartz/scripts/pmday-presentation.mjs": "231ce0be4bff0569cefa541e27114eddad85aeeb1180e486f3f5c01347eae996",
+    "assets/presentations/pmday-2026/frozen-slides.json": "b9eec7e9e3a224e18fb5f0256f9464628b8b14856cfb6445cf93897dcaeef6df",
+    "quartz/scripts/pmday-presentation.mjs": "5a6b2d64e450607580d467d744c0ba3a833cca8cfe48c8d37e7b8f791e9fcb7b",
     "quartz/scripts/build-pmday-pptx.mjs": "15f83daf67519cde5550df538c42db5d9f406c61c9298014fe81155db668944e",
     "quartz/scripts/validate-pmday-pptx.py": "6baea96f3a0b4a3658f2b383a2444b67b08869990592d9a14572477f5b6edb99",
     "quartz/scripts/pmday-fonts.py": "45041f9747843c7a8d72a7ef3ab02c5d555dc180f465f6262501a094cbd231dc"
@@ -17,7 +17,7 @@
     "version": "2.8.59",
     "bundle": "26.903.11726"
   },
-  "pptx_sha256": "5fc0b6691109d5b33cee5e7059c627181cd7d1fdf3de8de1e7a0b42c6eb05c7d",
+  "pptx_sha256": "2f6a305604935ddba151674780dad7beb83f274fdf6d85966c4017294a45dbc5",
   "slide_count": 14,
   "image_exceptions": [
     {

@@ -1,7 +1,16 @@
 {
   "schema_version": 1,
-  "slides": [1, 2, 3, 4, 5, 6, 7, 8],
-  "authorization": "Maintainer request, 2026-09-21: clarify slide 4, then freeze slides 1–8. Subsequent explicit request the same day authorizes only changing the font to Roboto on all 14 slides. Source content, numbers, notes and object geometry preserved; refreshed after independent rendered review. Future changes still require an explicit request.",
+  "slides": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "authorization": "Maintainer request, 2026-09-21: clarify slide 4, then freeze slides 1–8. Subsequent explicit request the same day authorizes only changing the font to Roboto on all 14 slides. Source content, numbers, notes and object geometry preserved; refreshed after independent rendered review. Future changes still require an explicit request. Explicit maintainer request, 2026-09-22: add a distribution explanation to slide 8 based on slide 3 of the supplied old presentation. Only slide 8 source, slide XML and note XML are refreshed after visual review; slides 1–7 and shared dependencies unchanged. Protection for slides 1–8 remains active.",
   "source_sections": {
     "1": "7b0feed3c7ffc6a3a5f190132ac8921a643df4052c23eb077417d6dcdb420051",
     "2": "a8ca05943bd47577ebbd074a13c33bf132c0aee7aecfaf00aa7612c705526473",
@@ -10,7 +19,7 @@
     "5": "f2aa3f50148b5ae8170f55c67edacf00c3a480d14ad779764712ba6fec7b2c0a",
     "6": "742bd372f746eb187877f0e3c3f4c93365f6f10848d0c5ec2da8a3bbe14b58b2",
     "7": "168180288cfa2e8258b9b1e9d19f0a9c4999f0f5eebe115a1c2295274e533545",
-    "8": "02cfaf021257b6a23e1ba1dbb2d4261e43d3adb81b47fee12846c303199983aa"
+    "8": "4127f71d6177cdce5de155879dc0161f09d29f316e8268d153d3e55a6d98ea3a"
   },
   "package_parts": {
     "ppt/_rels/presentation.xml.rels": "ae09b09d63ce566745d117d0c7f4a18896efc7788795aa5684e9c82c50bd286f",
@@ -35,7 +44,7 @@
     "ppt/notesSlides/notesSlide5.xml": "ea0f5dd76046ac4565cef0b21b39b32e1ab3922fd884d965ac8076b5ee5067c7",
     "ppt/notesSlides/notesSlide6.xml": "373d767111ceaf4c6c08b5f7ab51df70a5b92533629617df89b61b7837bbb031",
     "ppt/notesSlides/notesSlide7.xml": "e51924b7b1bbe37e4b8d28621a71ae86ef47f8da5e7a93c4de874c07910a341e",
-    "ppt/notesSlides/notesSlide8.xml": "e6e5c29762aff66429fff6fc7e1a25e12eec155d335cdcab10ba1979e15427e7",
+    "ppt/notesSlides/notesSlide8.xml": "d052acbf177abb86a2d77e2bc35186157ec03e4641412e17e9652db11146f179",
     "ppt/presProps.xml": "21fe0e5ec5183c22628a9caf6388c9cada32d993476554926fdd60975d663d33",
     "ppt/presentation.xml": "d8c5c06da33013fba2510490e51e306fe2828222dad7623e281926b210699425",
     "ppt/slideLayouts/_rels/slideLayout1.xml.rels": "8b26f4bc8edd7700ebc58c3f18f2448ea8a1014e1062df215176205797bf5074",
@@ -58,7 +67,7 @@
     "ppt/slides/slide5.xml": "45dd0398f5521050ffe4435208c18b244cd6cb00ba141d0789cac677f53836d1",
     "ppt/slides/slide6.xml": "4e27d6ca9888368089b747d75f4ec77d99bebb5b57b08f46c450e77342299dfa",
     "ppt/slides/slide7.xml": "66c9276432d6d6256124c2503335029457cff39fea5b6ee1b5a6b9f7f8594be7",
-    "ppt/slides/slide8.xml": "21577b686c966498ad119096c7cfb2503ab611d497bbd8630b2ad60df9922559",
+    "ppt/slides/slide8.xml": "4e97c0a213d7eb3cef9f80038e78672936dea5e8faebd86989a42a7bbba79646",
     "ppt/tableStyles.xml": "82c3a94d91ce972fa9bdc69f8ab4ab360a091f7a5da6c698e6fb6665bfc8e81d",
     "ppt/theme/theme1.xml": "654265d2b2d678783baae6d0ac95fce1591a65982f1fc1fc8f47953d1ada4266"
   }

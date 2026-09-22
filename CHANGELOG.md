@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Rebuilt PMDay slides 8–10 from the supplied old talk’s slides 3–5: a schematic result distribution, a perspective possibility space with approved boundaries, and a system-level bug explanation with an operating band and violations. Preserved the separate editable 196/3/1 sample, Wilson interval, prior notes and all other slides. Refreshed only the slide 8 freeze baseline under the maintainer’s explicit request; protection remains active for 1–8.
+
 - Reworked PMDay slides 9–14 to show the acceptable-behavior region, an editable 196/3/1 outcome-frequency chart, traditional versus extended delivery gates, complete control and Human Authority before exposed trials, the Project Manager’s expanding responsibilities, and a continuing laboratory cycle across both AI-assisted SDLC and Thinking Systems. Preserved the frozen slides 1–8, Roboto, original titles and prior speaker notes.
 
 - Deepened PMDay slides 9–14 using the supplied Designing Non-Deterministic Systems deck: business tolerance contracts, calibrated Golden Sets/Eval Gates, behavior versioning, cost/latency budgets, architectural feasibility and the project experiment loop. Retained all previous slide copy and extended the notes; slides 1–8 and their freeze remain unchanged. Added slide-level source mapping and qualified the historical teaching shorthand.
