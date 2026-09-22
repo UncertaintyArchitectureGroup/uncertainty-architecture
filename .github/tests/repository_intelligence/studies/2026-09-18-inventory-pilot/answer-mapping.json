@@ -1,0 +1,42 @@
+{
+  "6a0d6eb3a1b9": {
+    "run_id": "R01",
+    "task_id": "N1",
+    "arm": "A"
+  },
+  "8f2b5f831b1f": {
+    "run_id": "R02",
+    "task_id": "N1",
+    "arm": "B"
+  },
+  "6fc23c4c6b15": {
+    "run_id": "R03",
+    "task_id": "N2",
+    "arm": "B"
+  },
+  "ebaf28cc5baa": {
+    "run_id": "R04",
+    "task_id": "N2",
+    "arm": "A"
+  },
+  "1c6b9e94d68d": {
+    "run_id": "R05",
+    "task_id": "C1",
+    "arm": "A"
+  },
+  "675fcf491d47": {
+    "run_id": "R06",
+    "task_id": "C1",
+    "arm": "B"
+  },
+  "ee826fef2406": {
+    "run_id": "R07",
+    "task_id": "C2",
+    "arm": "B"
+  },
+  "62a514702930": {
+    "run_id": "R08",
+    "task_id": "C2",
+    "arm": "A"
+  }
+}

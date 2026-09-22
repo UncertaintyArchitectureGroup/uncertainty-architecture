@@ -1,0 +1,186 @@
+{
+  "scorer": "pilot_scorer",
+  "scored_before_arm_reveal": true,
+  "packet_sha256": "631c6d846932695280b7d000f68b27b877ff429dfe7cb038424921674ab28caf",
+  "residual_unblinding": "No response-to-arm mapping, other runs, inventory, prior studies or network sources were inspected, and no arm assignment was inferred. The allowed AGENTS.md contains generic RI-AB-CONTROL/RI-AB-TREATMENT labels and route descriptions; this reveals mechanism vocabulary but no response assignment. Repeated task prompts expose response pairs, and prose style may provide incidental cues. Interpretive ambiguities: section lists and negative safeguards were judged semantically rather than by exhaustive keyword repetition; proposal-specific rejection of a duplicate passport was not treated as an absolute ban on independent artifacts. In the passport answers, missing ownership of concrete Judgment Nodes and the local Requirement was treated as substantive incompleteness under the frozen criterion, not merely missing terminology. No impossible criterion was identified.",
+  "scores": [
+    {
+      "response_id": "1c6b9e94d68d",
+      "quality": 2,
+      "serious_error": false,
+      "criterion_findings": [
+        "Meets: classifies material inventory and expenditure influence as Thinking System; approval and absent API authority do not remove that influence or establish autonomy/readiness (glossary).",
+        "Meets: maps interpretation, summarization and quantity recommendation to the three correct placements and explicitly permits one combined Judgment Node (placement §§2,4).",
+        "Meets: purchaser is substantive Controller/Human Authority and code/API is Actuator; approval enforcement is distinguished from semantic correctness (anatomy §§6–8).",
+        "Meets: records context, authority, unacceptable outcomes, owner, Constraint source/ID, assumptions, approval/transaction duties and manual recovery in compact existing reviews (boundary §6).",
+        "Meets: links original/recommendation, changes, versions, errors and actual API execution to an authorized recipient and stopping/manual/corrective actions, rather than mere logging (anatomy §§5–7).",
+        "Meets: rushed approval invalidates substantive review while category remains unchanged; calls for restored review or restriction and reauthorization when the project basis fails, without asserting readiness (lifecycle §7)."
+      ],
+      "overall_rationale": "Substantively complete and source-grounded; correctly distinguishes consequential influence, human authorization, deterministic execution and effective feedback. No listed serious error.",
+      "source_paths": [
+        "00-doctrine/glossary.md",
+        "00-doctrine/model-judgment-placement.md",
+        "00-doctrine/control-loop-anatomy.md",
+        "01-patterns/judgment-node-boundary.md",
+        "01-patterns/project-control-architecture-and-viability-review.md",
+        "01-patterns/thinking-system-review.md",
+        "00-doctrine/nested-control-lifecycle.md"
+      ]
+    },
+    {
+      "response_id": "62a514702930",
+      "quality": 2,
+      "serious_error": false,
+      "criterion_findings": [
+        "Meets: separates the 98% Requirement, tenant and human-approval Constraints, gateway realization, evaluator evidence, observed 99.3%, and authorization; none grants new authority (Requirement §2; anatomy §§3–4).",
+        "Meets: explicitly requires project reauthorization for removing administrator approval and rejects limited population or delivery title as authority to expand scope (lifecycle §7).",
+        "Meets: distinguishes DoD evidence completeness from deployment authorization; requires a versioned project baseline, updated project/delivery reviews and a subsequent deployment-specific Release Gate (project §§15–16; delivery §§12–13).",
+        "Meets: tenant guarantee is conditional on identity, coverage, bypass and failure assumptions; same-tenant membership does not establish document entitlement, and a deterministic score comparison does not guarantee semantic correctness (boundary §9).",
+        "Meets: separates evaluator/Sensor, decision/Controller and ACL/Actuator; connects gateway health and actual grants to owners, response times, stopping, revocation, human fallback and effect verification. It does not claim revocation reverses disclosure (anatomy §§5–8).",
+        "Meets: retains administrator approval while reviewing wrong-access scenarios and evidence gaps, permits testing without automatic grants, and requires no fixed service count or universal threshold (project §§9,15; specification §2)."
+      ],
+      "overall_rationale": "Complete analysis of the authority change and scoped guarantees, with a proportionate authorized next step. No listed serious error.",
+      "source_paths": [
+        "00-doctrine/requirements-correctness-and-bugs.md",
+        "00-doctrine/control-loop-anatomy.md",
+        "00-doctrine/nested-control-lifecycle.md",
+        "01-patterns/judgment-node-boundary.md",
+        "01-patterns/project-control-architecture-and-viability-review.md",
+        "01-patterns/thinking-system-review.md",
+        "SPECIFICATION.md"
+      ]
+    },
+    {
+      "response_id": "675fcf491d47",
+      "quality": 2,
+      "serious_error": false,
+      "criterion_findings": [
+        "Meets: establishes material causal influence despite approval, fixed workflow and absent API credentials; explicitly separates category from high risk, autonomy and readiness (glossary).",
+        "Meets: correctly assigns all three placements and says they may share one Judgment Node without separate components (placement §§2,4).",
+        "Meets: recognizes the stated purchaser competence, information, time and power; separates Controller authorization from API execution and says the approval gate does not guarantee quantities or meaningful review (anatomy §§6–8).",
+        "Meets: proposes compact node/context/authority/owner/configuration and Constraint-realization records, binds approval to quantities, preserves transaction rules and identifies manual fallback; explicit Constraint-ID wording is absent but the shared linked review structure preserves the connection (boundary §6; delivery §5).",
+        "Meets: connects originals, recommendations, edits, approval, actual orders, errors and blocking health to a responsible Controller, corrective/manual/stop actions and verified effects (anatomy §§5–7).",
+        "Meets: treats rushed approval as degradation of substantive Human Authority, calls for restoring or restricting operation and project reauthorization, preserves Thinking System classification and states that test evidence is unavailable (project §13; lifecycle §7)."
+      ],
+      "overall_rationale": "Meets the substantive architectural expectations with owning sources and a concrete feedback path. No listed serious error.",
+      "source_paths": [
+        "00-doctrine/glossary.md",
+        "00-doctrine/model-judgment-placement.md",
+        "00-doctrine/control-loop-anatomy.md",
+        "01-patterns/judgment-node-boundary.md",
+        "01-patterns/project-control-architecture-and-viability-review.md",
+        "01-patterns/thinking-system-review.md",
+        "00-doctrine/nested-control-lifecycle.md"
+      ]
+    },
+    {
+      "response_id": "6a0d6eb3a1b9",
+      "quality": 2,
+      "serious_error": false,
+      "criterion_findings": [
+        "Meets: selects the project review as primary owner and specifically routes substantive changes to §§3,13–15,17 for human/fallback capacity, economics, project decisions and reauthorization.",
+        "Meets: lifecycle §7 supplies the correct local/project/organizational routing and ties organizational review to shared-capability change rather than automatic escalation; citing §7 rather than also §5 is sufficient.",
+        "Meets: delivery §§12–14 own implementation/evidence completeness, deployment release and local reassessment; successful checks cannot bypass project-capacity review (delivery §4).",
+        "Meets: failure-mode §10 is described as supporting classification and routes back to project decisions; its role is not confused with authorization. The §6 mechanism is represented through the substantive-authority discussion.",
+        "Meets: links the primary and three supporting owners, correctly identifies draft-normative status and informative examples, and recommends cross-references without a duplicate process or invented thresholds."
+      ],
+      "overall_rationale": "Accurate ownership map, status treatment and refinement-versus-link routing. No listed serious error.",
+      "source_paths": [
+        "01-patterns/project-control-architecture-and-viability-review.md",
+        "00-doctrine/nested-control-lifecycle.md",
+        "01-patterns/thinking-system-review.md",
+        "04-failure-modes/README.md",
+        "SPECIFICATION.md"
+      ]
+    },
+    {
+      "response_id": "6fc23c4c6b15",
+      "quality": 1,
+      "serious_error": false,
+      "criterion_findings": [
+        "Meets: assigns business value, autonomy, authorization and Project Constraint Architecture to the project review and preserves versioned inheritance (project §§3–4,15–16).",
+        "Partial: correctly routes the realization map, DoR, DoD and deployment Release Gate to Thinking System Review, but never assigns concrete Judgment Nodes or the local Requirement to that owner; delivery-local reassessment ownership is also not made explicit (delivery §§3–5,10–14).",
+        "Meets: preserves one project architecture and one delivery realization map, with version/Constraint-ID references rather than renewed business authorization per feature (lifecycle §§5–6).",
+        "Meets: uses glossary and owning patterns for Requirement, Constraint, realization and phase decisions, and explicitly denies the passport authority to redefine them.",
+        "Meets in scope: rejects the described duplicate canonical entity, uses existing living reviews and permits informative templates/navigation. Independent-lifecycle exceptions are not explained explicitly, but the rejection is proposal-specific, not an absolute ban (lifecycle §9).",
+        "Meets: provides owning links and distinguishes draft-normative patterns from informative templates; no demanded edits, demand claims or novelty claims."
+      ],
+      "overall_rationale": "The duplication verdict and authority safeguards are correct, with no serious error. A maintainer should complete the frozen ownership map by explicitly routing local Judgment Nodes, Requirement and local reassessment to Thinking System Review.",
+      "source_paths": [
+        "AGENTS.md",
+        "SPECIFICATION.md",
+        "00-doctrine/glossary.md",
+        "00-doctrine/control-loop-anatomy.md",
+        "00-doctrine/nested-control-lifecycle.md",
+        "01-patterns/project-control-architecture-and-viability-review.md",
+        "01-patterns/thinking-system-review.md"
+      ]
+    },
+    {
+      "response_id": "8f2b5f831b1f",
+      "quality": 2,
+      "serious_error": false,
+      "criterion_findings": [
+        "Meets: primary owner is the project review, with §§3,13–15,17 correctly covering viable Human Authority/fallback capacity, economics, authorization and reauthorization.",
+        "Meets: lifecycle §7 separates locally correctable delivery load, project-invalidating human/fallback/economic changes and shared-capability organizational changes; it does not automatically escalate everything.",
+        "Meets substantively: identifies delivery Release Gate and local reassessment, limits the gate to project authorization, and states that successful model checks cannot decide project viability. DoD/evidence completeness is not separately expanded, but the required decision separation is preserved (delivery §§4,12–14).",
+        "Meets: failure-mode §10 classifies the described capacity/economic failure and is explicitly diagnostic support, not a continuation-authority owner (failure modes §§6,10).",
+        "Meets: gives verifiable section links, correct draft-normative/informative-example distinctions and directs refinements to the primary owner with supporting cross-links rather than a parallel protocol."
+      ],
+      "overall_rationale": "Source-grounded ownership map and correct escalation boundaries. Minor compression of delivery evidence terminology does not change the correct ownership or authorization reasoning. No listed serious error.",
+      "source_paths": [
+        "01-patterns/project-control-architecture-and-viability-review.md",
+        "00-doctrine/nested-control-lifecycle.md",
+        "01-patterns/thinking-system-review.md",
+        "04-failure-modes/README.md",
+        "SPECIFICATION.md"
+      ]
+    },
+    {
+      "response_id": "ebaf28cc5baa",
+      "quality": 1,
+      "serious_error": false,
+      "criterion_findings": [
+        "Meets: maps business viability, project autonomy, canonical Project Constraint Architecture, project authorization and versioned inheritance to the project review (project §§3–4,15–16).",
+        "Partial: correctly maps concrete realization, evidence/DoD, DoR and Release Gate to Thinking System Review and preserves separate decisions, but does not assign concrete Judgment Nodes or the local Requirement to that owner; local reassessment is mentioned through lifecycle routing (delivery §§3–5,10–14).",
+        "Meets: maintains one project architecture and one delivery realization map, links project authorization versions and Constraint IDs, and rejects repeating the business case per feature.",
+        "Meets: accurately distinguishes Requirement/Operating Envelope, Constraint/realization and evidence/decision/execution using the glossary and anatomy; canonical meanings are not moved into a passport.",
+        "Meets in scope: rejects the proposed competing owner and permits an informative passport/navigation view over existing living reviews. It does not explicitly state the independent-lifecycle exception, but does not prohibit separately justified artifacts (lifecycle §9; specification §2).",
+        "Meets: links owning patterns, states draft-normative status and describes templates/navigation as informative representations without independent requirements; no demand or novelty claims."
+      ],
+      "overall_rationale": "Correct duplication and inheritance reasoning, without a listed serious error. The frozen ownership map remains incomplete because concrete Judgment Nodes and the local Requirement are not assigned to Thinking System Review.",
+      "source_paths": [
+        "AGENTS.md",
+        "SPECIFICATION.md",
+        "00-doctrine/glossary.md",
+        "00-doctrine/control-loop-anatomy.md",
+        "00-doctrine/nested-control-lifecycle.md",
+        "01-patterns/project-control-architecture-and-viability-review.md",
+        "01-patterns/thinking-system-review.md"
+      ]
+    },
+    {
+      "response_id": "ee826fef2406",
+      "quality": 2,
+      "serious_error": false,
+      "criterion_findings": [
+        "Meets: separates the 98% behavioral Requirement, authority/tenant Constraints, gateway and approval realizations, sample evidence, proposed score rule and authorization decisions (Requirement §2; anatomy §§3–4).",
+        "Meets: explicitly requires project reauthorization for expanded autonomous grants; reduced launch population and delivery role cannot substitute for that authority (lifecycle §7).",
+        "Meets: distinguishes DoD from deployment authorization and specifies a new versioned project baseline, delivery realization-map/evidence updates and a separate conditional Release Gate (delivery §§12–13; project §16).",
+        "Meets: conditions tenant enforcement on identity, complete coverage, bypass prevention and failure behavior; distinguishes within-tenant entitlement and probabilistic semantic judgment from deterministic threshold execution, with separate guarantee claims (constraint capability).",
+        "Meets: evaluator is Sensor, delegated threshold decision is Controller, ACL API is Actuator; actual grants, gateway state and versions feed owners and effective revocation/manual/stop paths with effect checks. No claim that revocation reverses disclosure (anatomy §§5–8).",
+        "Meets: keeps administrator approval, reviews wrong-access consequences/reversibility/latency/capacity/economics, then conditions any bounded launch on authorization and evidence; no fixed service count or readiness claim (project §§9,15; specification §2)."
+      ],
+      "overall_rationale": "Complete, correctly scoped treatment of authority, evidence, guarantees, release and corrective control. No listed serious error.",
+      "source_paths": [
+        "00-doctrine/requirements-correctness-and-bugs.md",
+        "00-doctrine/control-loop-anatomy.md",
+        "00-doctrine/nested-control-lifecycle.md",
+        "01-patterns/project-control-architecture-and-viability-review.md",
+        "01-patterns/thinking-system-review.md",
+        "02-ai-control-plane/01-constraints/README.md",
+        "SPECIFICATION.md"
+      ]
+    }
+  ]
+}

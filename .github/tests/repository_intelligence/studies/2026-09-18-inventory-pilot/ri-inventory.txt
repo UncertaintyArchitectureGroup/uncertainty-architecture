@@ -1,0 +1,97 @@
+RI inventory view v1. Source: 989fc1398fc221ffca4e1f7a141b2c03bfc7cfb3. Derived navigation only; read owning sources before deciding.
+All 48 artifact rows: path | title | status | active canonical_for claims. Empty status means not provided, not normative.
+.github/REPOSITORY-INTELLIGENCE.md | Repository Intelligence and Agent Context Architecture |  |
+00-doctrine/README.md | Core Doctrine | draft-normative | doctrine-module
+00-doctrine/control-loop-anatomy.md | Control-Loop Capability Anatomy | draft-normative | control-loop-capability-anatomy
+00-doctrine/glossary.md | Uncertainty Architecture Glossary | draft-normative | doctrine-vocabulary
+00-doctrine/model-judgment-placement.md | Model Judgment Placement | draft-normative | model-judgment-placement-taxonomy
+00-doctrine/nested-control-lifecycle.md | Nested Control Lifecycle | draft-normative | nested-control-lifecycle
+00-doctrine/requirements-correctness-and-bugs.md | Requirements, Correctness, and Bugs in Thinking Systems | draft-normative | bug-model;correctness-model;requirement-model
+00-doctrine/uncertainty-in-the-controlled-object.md | Uncertainty in the Controlled Object | draft-normative | controlled-object-shift
+01-patterns/README.md | Interface and Control Patterns | draft-normative | patterns-module
+01-patterns/judgment-node-boundary.md | Judgment Node Boundary | draft-normative | judgment-node-boundary-pattern
+01-patterns/project-control-architecture-and-viability-review-template.md | Project Control Architecture and Viability Review Template | informative |
+01-patterns/project-control-architecture-and-viability-review.md | Project Control Architecture and Viability Review | draft-normative | project-control-architecture-and-viability-review-pattern
+01-patterns/thinking-system-review-template.md | Thinking System Review Template | informative | thinking-system-review-template
+01-patterns/thinking-system-review.md | Thinking System Review | draft-normative | thinking-system-review-pattern
+02-ai-control-plane/00-actuators/README.md | Actuator Capabilities | draft-normative |
+02-ai-control-plane/00-actuators/prompts/README.md | Prompt Interfaces | informative |
+02-ai-control-plane/01-constraints/README.md | Constraint Capability Family | draft-normative | constraint-capability
+02-ai-control-plane/01-constraints/constraint-realization-catalog.md | Constraint Realization Catalog | informative |
+02-ai-control-plane/01-sensors/README.md | Sensors Path Compatibility Notice | informative |
+02-ai-control-plane/01-sensors/eval/README.md | Evaluation and Drift Analysis | informative |
+02-ai-control-plane/01-sensors/golden-sets/README.md | Golden Scenarios and Reference Cases | informative |
+02-ai-control-plane/01-sensors/metrics/README.md | Metrics with Skepticism | informative |
+02-ai-control-plane/02-controller/README.md | Controller Path Compatibility Notice | informative |
+02-ai-control-plane/02-controller/roles/README.md | Controller Responsibility Bundles | informative |
+02-ai-control-plane/02-sensors/README.md | Sensor and Evidence Capabilities | draft-normative |
+02-ai-control-plane/03-controller/README.md | Controller and Decision Authority | draft-normative |
+02-ai-control-plane/README.md | The AI Control Plane | draft-normative | control-plane-module
+03-reference-architectures/README.md | Reference Architectures | reference | reference-architectures-module
+03-reference-architectures/judgment-placement-examples.md | Judgment Placement Reference Architectures | reference |
+03-reference-architectures/worked-thinking-system-review-support-triage.md | Worked Thinking System Review: Human-Supervised Support Triage and Grounded Reply Drafting | reference |
+04-failure-modes/README.md | Failure Modes and Anti-Patterns | draft-normative | failure-modes-module
+AGENTS.md | Operational Protocol for AI Contributors | informative | ai-agent-repository-guide
+CONTRIBUTING.md | Contributing to Uncertainty Architecture | informative | contribution-workflow
+DOCUMENT-METADATA.md | UA Document Metadata and Tagging Convention | informative | document-metadata;tag-vocabulary
+ROADMAP.md | Uncertainty Architecture Roadmap | informative | project-roadmap
+SPECIFICATION.md | Uncertainty Architecture Specification | draft-normative | conformance-model;document-status-model;specification-boundary
+content/index.md | Uncertainty Architecture | informative | supporting-material-publishing-portal
+content/research/AGENTS.md | Research Drafting Protocol for AI Contributors | informative |
+content/research/framework-traceability.md | Research-to-Framework Traceability | research |
+content/research/index.md | Uncertainty Architecture Research Track | research | research-track
+content/research/notes/README.md | UA Research Notes | research |
+content/research/publication-record-template.md | [Publication title] | informative |
+content/research/research-analysis-template.md | Analysis: [Source title] | informative |
+content/research/research-register.md | Research State Register | research | research-state-register
+content/research/review-process.md | UA Research Review Process | informative |
+quartz/PDF-EXPORT.md | PDF export |  |
+quartz/PLATFORM-RENDITIONS.md | Medium and LinkedIn rendition export |  |
+quartz/README.md | Quartz Integration Architecture |  |
+All 46 glossary terms below are owned by 00-doctrine/glossary.md. Format: term | anchor | explicit predecessors.
+Thinking System | thinking-system | Behavioral Applications;Behavioral Software
+Linear Software | linear-software |
+Consequential Runtime Responsibility | consequential-runtime-responsibility |
+Deterministic Core | deterministic-core |
+Model Judgment | model-judgment |
+Judgment Node | judgment-node |
+Input Interpretation | input-interpretation |
+Decision Logic | decision-logic |
+Output Mediation | output-mediation |
+Uncertainty Boundary | uncertainty-boundary |
+Invariant | invariant |
+Constraint | constraint |
+Hard Constraint | hard-constraint |
+Soft Constraint | soft-constraint |
+Constraint Realization | constraint-realization |
+Nested Control Lifecycle | nested-control-lifecycle |
+Control-Loop Capability Anatomy | control-loop-capability-anatomy |
+AI Control Plane | ai-control-plane |
+Actuator | actuator |
+Sensor | sensor |
+Controller | controller |
+Open-Loop System | open-loop-system |
+Closed-Loop System | closed-loop-system |
+Operating Envelope | operating-envelope |
+Evidence | evidence |
+Evaluation | evaluation |
+Golden Scenario | golden-scenario |
+Drift | drift |
+Deviation Signal | deviation-signal |
+Release Gate | release-gate |
+Escalation | escalation |
+Containment | containment |
+Fallback | fallback |
+Rollback | rollback |
+Human Authority | human-authority |
+Requirement | requirement |
+Correctness | correctness |
+Deterministic Defect | deterministic-defect |
+Behavioral Deviation | behavioral-deviation |
+Bug | bug |
+Accepted Residual Behavior | accepted-residual-behavior |
+Project Authorization | project-authorization |
+Project Reauthorization | project-reauthorization |
+Architectural Veto | architectural-veto |
+Definition of Ready | definition-of-ready |
+Definition of Done | definition-of-done |

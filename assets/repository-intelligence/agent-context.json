@@ -5320,11 +5320,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "24ebc617db9872d9d3329bb23ab37b7f8eb63d3ad60b3f40c0c3f7e3dd6ec4bb",
+    "digest": "8de8bfc1953ab31917f6b3fbcaf126362d790e3798fbec43750cd1e5e6e9e9cf",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 122,
+    "input_count": 127,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5465,6 +5465,26 @@
       {
         "identity_mode": "content",
         "path": ".github/tests/repository_intelligence/README.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/studies/2026-09-17-initial/ANALYSIS.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/studies/2026-09-17-initial/README.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/studies/2026-09-18-inventory-pilot/RESULTS.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/studies/2026-09-21-work-factorial/RESULTS.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/tests/repository_intelligence/studies/2026-09-22-task-calibration/README.md"
       },
       {
         "identity_mode": "existence",

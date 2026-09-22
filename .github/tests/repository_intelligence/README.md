@@ -70,8 +70,20 @@ For the first real post-merge PR, run the producer from a separate checkout of t
 
 ## Independent acceptance still required
 
+The [initial experiment record](studies/2026-09-17-initial/README.md) preserves post-#119 rehearsals and the maintainer-approved descriptive comparison, with 12 tasks / 24 messages frozen before outcomes. Collection is interrupted at 20/24 original attempts plus 2 separate supplemental attempts, including refusals and user-assisted recovery. Its [organizer analysis](studies/2026-09-17-initial/ANALYSIS.md) finds incremental RI benefit inconclusive because exposure, model parity, isolation and costs are unverified. This study does not meet the [v11 protocol](AB-EVALUATION.md)'s full evidence prerequisites; its independent scoring remains pending.
+
+The separate [forced inventory pilot](studies/2026-09-18-inventory-pilot/RESULTS.md) completed four new tasks / eight fresh native-agent sessions, with a task-independent 7,126-byte RI inventory literally supplied in each B starting message. Separate authoring and arm-hidden scoring produced four quality ties (2/2, 1/1, 2/2, 2/2), no serious errors and no benefit-gate pass in either task family. Recorded reader responses plus initial messages were about 7.4% larger in B; these are bytes, not model tokens, latency or money. The result supports no mandatory inventory-loading change and leaves existing optional guidance intact. It concerns this inventory presentation, not full RI/graph usefulness or formal v11 acceptance; backend identity, instructional isolation and the small convenience sample remain limitations. The original study inputs and captures are unchanged.
+
 1. Have a separate assessor author or select held-out tasks without adapting them to observed rankings, then freeze their expected evidence and corpus hash before the run.
 2. Run manual-live and compact-preflight routes in separate fresh sessions at the same Git state, preserving the original query and every source-grounded retry.
 3. Record actual connector reads/searches, opened sources, and available token measurements; assess proposals and material decisions against owning sources with maintainer review.
 4. Exercise missing/stale context, language/paraphrase cases, a valid new artifact, near-synonyms, and the actual iPad/client fallback path. Record failures and unavailable measurements explicitly.
 5. Decide whether measured mistakes or cost justify a specific retrieval change. Do not mark the independent benchmark or the architecture stop/go gate complete solely because this fixture job is green.
+
+The separately authorized [September 21 Work factorial study](studies/2026-09-21-work-factorial/RESULTS.md) completed all 12 first answers across three tasks and four AGENTS/RI conditions, publishing each outcome and journal to PR #125. Separate assessment was frozen before mapping: all answers scored 2/2, so every contrast ties on the frozen criteria. RI over AGENTS used 9.2% fewer source/RI operations but 33.8% more supplied UTF-8 input bytes; neither primary benefit gate passed. Existing optional guidance remains unchanged. Instructional isolation, residual unblinding, unknown exact backend, the small convenience sample and score ceiling prevent general effectiveness or equivalence claims.
+
+A separate [September 22 baseline calibration pilot](studies/2026-09-22-task-calibration/README.md)
+is preparing four new task candidates and two fresh baseline sessions each.
+It evaluates task difficulty, itemized scoring and legitimate-change controls;
+it has no RI treatment arm and cannot establish benefit. Inputs will be frozen
+before dispatch and every first outcome published separately in Draft PR #125.

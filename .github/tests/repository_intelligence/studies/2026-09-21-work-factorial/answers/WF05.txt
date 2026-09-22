@@ -1,0 +1,33 @@
+Потрібен **двохрівневий reference worked application**, а підстав створювати нового нормативного власника «AI Deployment Passport» немає. Прогалина стосується демонстрації вже визначеної моделі. Копіювання термінів, checklist і правил рішень створить паралельне джерело, яке може розійтися з каноном.
+
+`03-reference-architectures/worked-thinking-system-review-support-triage.md` прямо визначає себе як delivery-level Thinking System Review. Він містить конкретну Constraint Realization Map, DoR, експеримент, DoD, обмежений Release Gate та маршрути переоцінки. Посилання на `PCAVR-SUP-001 v1.0` і перелік успадкованих `PK-*` — ілюстративний project baseline, а не повністю виконаний project review із аналізом альтернатив, здійсненності контролю, місткості й економіки. Його історія також не демонструє завершеного рішення про переавторизацію. `03-reference-architectures/README.md` і `ROADMAP.md` прямо називають двохрівневий приклад наступною роботою.
+
+Розподіл канонічної відповідальності вже встановлений:
+
+| Предмет | Власник |
+|---|---|
+| Терміни | `00-doctrine/glossary.md` |
+| Організація → project → delivery → runtime, успадкування й переоцінка | `00-doctrine/nested-control-lifecycle.md` |
+| Project Constraint Architecture, життєздатність, авторизація й переавторизація | `01-patterns/project-control-architecture-and-viability-review.md` |
+| Реалізація, DoR, DoD, Release Gate, локальна переоцінка | `01-patterns/thinking-system-review.md` |
+| Constraint та реалізація, точність hard/soft claims | `02-ai-control-plane/01-constraints/README.md` |
+
+Ці власники мають статус draft-normative; їх не слід представляти як стабільний стандарт. `SPECIFICATION.md` відокремлює reference від вимог і дозволяє еквівалентні записи замість обов’язкового шаблону.
+
+Мінімальний план:
+
+1. **Розміщення.** Додати, наприклад, `03-reference-architectures/worked-project-and-delivery-internal-assistant.md`. Це запропонований шлях. Використати `artifact_type: reference-architecture`, `status: reference`, `module: reference-architectures`, доречні topics/tags за `DOCUMENT-METADATA.md`; не заявляти нове `canonical_for` для наявних обов’язків. Один файл може містити дві окремо ідентифіковані, версійовані review-секції. Окремі реєстри й паспорт для малого кейсу не потрібні.
+
+2. **Project-секція.** Адаптувати `01-patterns/project-control-architecture-and-viability-review-template.md`: мета внутрішнього асистента, потреба в Model Judgment, ручна/детермінована альтернатива, межі користувачів і даних, матеріальні сценарії, одна Project Constraint Architecture, можливість зібрати докази, Human Authority, затримка реагування, fallback, витрати й місткість. Зафіксувати рішення, уповноважену особу, умови, залишковий ризик і версійний пакет успадкування. Організаційну заборону розширювати доступ зв’язати з джерелом, версією та правами зміни/винятку.
+
+3. **Delivery-секція.** Використати `01-patterns/thinking-system-review-template.md` і посилатися на project baseline. Простежити одне обмеження через сталі ID: організаційне джерело → project Constraint → delivery realization → активна конфігурація → runtime evidence → рішення. Конкретизувати перевірку прав користувача при retrieval, обмежені credentials, allowlist інструментів і поведінку за недоступної авторизації. Описати повний шлях, припущення, bypass/failure/conflict, health evidence і повноваження зміни. Заборона в prompt сама не дає Hard Constraint; семантичні soft claims відокремити. DoR, DoD і Release Gate посилаються на одну карту; завершення реалізації не означає дозволу на deployment.
+
+4. **Runtime та рішення.** Запланувати короткий ілюстративний епізод: сигнал зміни permissions або обходу перевірки, активні версії, Sensor, Controller, виконаний Actuator і спостережуваний результат. За `00-doctrine/control-loop-anatomy.md` лог сам не є контролем. Локальний дефект за чинної project-основи веде до delivery reassessment; нездійсненність межі, розширення повноважень чи втрата реальної review-місткості — до project reauthorization; зміна організаційного джерела/спільної identity-capability — до organizational review. Показати рішення, обґрунтування, authority і наступну версію. Переавторизація не дозволяє нижчому рівню скасувати організаційну заборону.
+
+5. **Зв’язки й перевірки.** Додати навігацію з `03-reference-architectures/README.md`, посилання на власників і шаблони; оновити `ROADMAP.md` та `CHANGELOG.md` відповідно до фактично завершеної роботи. Перевірити ID/версії, відсутність дублювання checklist, успадкування повноважень, окремі hard/soft claims і три маршрути переоцінки. За `CONTRIBUTING.md` запланувати `validate_metadata.py --mode all`, `metadata_contract/test_metadata.py`, `validate_navigation.py`, diff-aware `validate_change_coupling.py`, локальні links/anchors; для діаграм — Mermaid/build validation. Це план, тести не запускалися.
+
+Усі вигадані організації, ID, дати, пороги, логи й результати позначити ілюстративними. Виробничі висновки потребують перевірних permission/bypass-тестів, конфігурацій, runtime-записів, фактичної місткості людей і рішень уповноважених осіб. Таких доказів цей приклад не надає; ефективність у реальній команді залишається непідтвердженою. Поточні live-стани PR/CI не перевірялися.
+
+Access deviations
+
+None
