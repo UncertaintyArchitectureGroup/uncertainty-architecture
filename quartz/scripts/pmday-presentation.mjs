@@ -428,13 +428,25 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.oldDetail, 64, 330, 420, 57, 25, C.white)
         text(s, d.roleDetail, 64, 400, 420, 45, 19, C.gray)
         text(s, d.newHeading, 536, 220, 680, 30, 19, C.cyan, true)
-        d.boundaries.forEach(([label, detail], i) => {
-          const y = 255 + i * 63,
-            color = [C.cyan, C.amber, C.red][i]
-          line(s, 536, y + 4, 536, y + 53, color, 4)
-          text(s, label, 554, y, 662, 24, 20, color, true)
-          text(s, detail, 554, y + 25, 662, 31, 23, C.white)
+        text(s, d.regionCaption, 536, 252, 680, 24, 18, C.gray)
+        // A conceptual set of permitted outputs, not a numeric semantic-distance axis.
+        rect(s, 548, 282, 656, 94, C.cyan, "#10212C", 2)
+        text(s, d.boundaries[0][0], 564, 291, 76, 25, 18, C.cyan, true)
+        text(s, d.boundaries[0][1], 652, 291, 538, 25, 21, C.white)
+        d.regionExamples.forEach((v, i) => {
+          s.shapes.add({
+            geometry: "ellipse",
+            position: { left: 568 + i * 312, top: 341, width: 9, height: 9 },
+            fill: C.cyan,
+            line: { fill: "none", width: 0 },
+          })
+          text(s, v, 586 + i * 312, 330, 285, 29, 19, C.cyan)
         })
+        line(s, 548, 382, 1204, 382, C.amber, 2)
+        text(s, d.boundaries[1][0], 548, 387, 93, 25, 18, C.amber, true)
+        text(s, d.boundaries[1][1], 652, 387, 552, 25, 20, C.white)
+        text(s, d.boundaries[2][0], 548, 417, 93, 25, 18, C.red, true)
+        text(s, d.boundaries[2][1], 652, 417, 552, 25, 20, C.white)
         line(s, 64, 454, 1216, 454)
         text(s, d.envelopeHeading, 64, 463, 1152, 26, 21, C.amber, true)
         d.envelope.forEach((v, i) =>
@@ -448,48 +460,86 @@ export function createDeck(Presentation, data, assets = {}) {
       }
       case "evaluation": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        line(s, 623, 221, 623, 413)
-        text(s, d.frequency, 64, 222, 530, 29, 22, C.cyan, true)
-        text(s, d.observed, 64, 258, 530, 54, 43, C.white, true)
-        text(s, d.rateLabel, 64, 315, 530, 27, 21, C.gray)
-        text(s, d.interval, 64, 347, 530, 28, 23, C.cyan)
-        // Wilson interval for the explicitly illustrative 4/200 binomial sample.
-        const axisX = 94,
-          axisW = 460,
-          axisY = 395
-        line(s, axisX, axisY, axisX + axisW, axisY, C.line, 2)
-        const lower = axisX + (axisW * 0.7804426416) / 6
-        const upper = axisX + (axisW * 5.028708691) / 6
-        line(s, lower, axisY, upper, axisY, C.cyan, 4)
-        line(s, lower, axisY - 7, lower, axisY + 7, C.cyan, 3)
-        line(s, upper, axisY - 7, upper, axisY + 7, C.cyan, 3)
-        rect(s, axisX + (axisW * 2) / 6 - 5, axisY - 5, 10, 10, C.white, C.white)
-        ;[0, 2, 4, 6].forEach((v) =>
-          text(s, `${v}%`, axisX + (axisW * v) / 6 - 19, 410, 40, 23, 17, C.gray, false, "center"),
-        )
-        text(s, d.severity, 660, 222, 556, 29, 22, C.amber, true)
-        d.harms.forEach((v, i) => text(s, v, 660, 263 + i * 45, 556, 35, 25, i ? C.red : C.white))
-        text(s, d.decision, 660, 363, 556, 46, 27, C.red, true)
-        text(s, d.sample, 64, 443, 1152, 25, 18, C.gray)
-        text(s, d.instruments, 64, 478, 1152, 29, 20, C.cyan, true)
-        text(s, d.calibration, 64, 511, 1152, 27, 20, C.white)
-        text(s, d.businessQuestion, 64, 550, 1152, 31, 21, C.white, true)
+        text(s, d.frequency, 64, 218, 540, 29, 22, C.cyan, true)
+        // Exact categories from the illustrative 200-output sample; no fitted density.
+        s.charts.add("bar", {
+          position: { left: 64, top: 249, width: 540, height: 218 },
+          categories: d.chartCategories,
+          series: [
+            {
+              name: "Observed outputs",
+              values: d.chartCounts,
+              fill: C.cyan,
+              points: [C.cyan, C.amber, C.red].map((fill, idx) => ({
+                idx,
+                fill,
+                line: { fill: "none", width: 0 },
+              })),
+              dataLabelOverrides: d.chartLabels.map((value, idx) => ({
+                idx,
+                text: value,
+                position: "outEnd",
+                showValue: false,
+                textStyle: { typeface: C.font, fontSize: 17, fill: C.white, bold: true },
+              })),
+            },
+          ],
+          hasLegend: false,
+          barOptions: { direction: "column", grouping: "clustered", gapWidth: 95 },
+          chartFill: C.bg,
+          chartLine: { fill: "none", width: 0 },
+          plotAreaFill: C.bg,
+          plotAreaLine: { fill: "none", width: 0 },
+          xAxis: {
+            textStyle: { typeface: C.font, fontSize: 17, fill: C.gray },
+            line: { fill: C.line, width: 1 },
+            majorGridlines: null,
+          },
+          yAxis: {
+            min: 0,
+            max: 200,
+            majorUnit: 50,
+            numberFormatCode: "0",
+            textStyle: { typeface: C.font, fontSize: 16, fill: C.gray },
+            line: { fill: "none", width: 0 },
+            majorGridlines: { fill: C.line, width: 1 },
+          },
+          dataLabels: {
+            showValue: true,
+            position: "outEnd",
+            textStyle: { typeface: C.font, fontSize: 17, fill: C.white, bold: true },
+          },
+        })
+        text(s, d.chartAxis, 64, 468, 540, 25, 18, C.gray)
+        line(s, 625, 218, 625, 483)
+        text(s, d.severity, 660, 218, 556, 29, 22, C.amber, true)
+        text(s, d.observed, 660, 253, 556, 49, 39, C.white, true)
+        text(s, d.rateLabel, 660, 301, 556, 25, 20, C.gray)
+        text(s, d.interval, 660, 329, 556, 27, 23, C.cyan)
+        d.harms.forEach((v, i) => text(s, v, 660, 367 + i * 36, 556, 31, 24, i ? C.red : C.white))
+        text(s, d.decision, 660, 442, 556, 34, 25, C.red, true)
+        text(s, d.sample, 64, 500, 1152, 24, 18, C.gray)
+        text(s, d.instruments, 64, 531, 1152, 28, 20, C.cyan, true)
+        text(s, d.calibration, 64, 562, 1152, 27, 20, C.white)
+        text(s, d.businessQuestion, 64, 594, 1152, 29, 20, C.white, true)
         d.responsibilities.forEach(([role, detail], i) => {
           const x = 64 + i * 397
-          text(s, role, x, 590, 370, 23, 17, i === 2 ? C.amber : C.cyan, true)
-          text(s, detail, x, 615, 370, 24, 18, C.gray)
+          text(s, role, x, 628, 370, 21, 16, i === 2 ? C.amber : C.cyan, true)
+          text(s, detail, x, 651, 370, 22, 17, C.gray)
         })
-        line(s, 64, 648, 1216, 648)
-        text(s, d.takeaway, 64, 658, 1118, 39, 24, C.white, true)
+        text(s, d.takeaway, 64, 683, 1118, 25, 22, C.white, true)
         break
       }
       case "risk": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
         text(s, d.behavior, 64, 214, 1152, 28, 20, C.gray)
-        table(s, d.table, 64, 256, 1152, 328, [154, 502, 496], 21, 7)
-        text(s, d.syntax, 64, 593, 1152, 28, 21, C.amber)
-        text(s, d.caption, 64, 628, 1152, 27, 20, C.gray)
-        text(s, d.takeaway, 64, 664, 1118, 34, 26, C.white, true)
+        const gates = table(s, d.table, 64, 249, 1152, 352, [115, 237, 500, 300], 19, 4)
+        ;[40, 102, 102, 108].forEach((h, i) => {
+          gates.rows[i].height = h
+        })
+        text(s, d.syntax, 64, 609, 1152, 27, 21, C.amber)
+        text(s, d.caption, 64, 640, 1152, 26, 20, C.gray)
+        text(s, d.takeaway, 64, 675, 1118, 29, 25, C.white, true)
         break
       }
       case "control": {
@@ -499,52 +549,61 @@ export function createDeck(Presentation, data, assets = {}) {
           box(s, v, 64 + i * 300, 258, 252, 72, i === 2 ? C.amber : C.cyan, 24),
         )
         nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
-        text(s, d.architectureHeading, 64, 357, 274, 26, 18, C.cyan, true)
-        d.architecture.forEach((v, i) => text(s, v, 64, 388 + i * 34, 274, 31, 19, C.gray))
+        text(s, d.architectureHeading, 64, 355, 280, 44, 18, C.cyan, true)
+        d.architecture.forEach((v, i) => text(s, v, 64, 403 + i * 31, 280, 28, 19, C.gray))
         const reference = box(s, d.reference, 664, 372, 252, 38, C.gray, 18)
-        const obs = box(s, d.loop[0], 964, 444, 252, 60, C.cyan, 25)
-        const dec = box(s, d.loop[1], 664, 444, 252, 60, C.amber, 23)
-        const act = box(s, d.loop[2], 364, 444, 252, 60, C.amber, 23)
+        const obs = box(s, d.loop[0], 964, 434, 252, 72, C.cyan, 25)
+        const dec = box(s, d.loop[1], 664, 434, 252, 72, C.amber, 20)
+        const act = box(s, d.loop[2], 364, 434, 252, 72, C.amber, 23)
         connect(s, nodes[3], obs, C.cyan, "bottom", "top")
         connect(s, obs, dec, C.amber, "left", "right")
         connect(s, reference, dec, C.gray, "bottom", "top")
         connect(s, dec, act, C.amber, "left", "right")
         connect(s, act, nodes[1], C.amber, "top", "bottom")
-        text(s, d.actions, 64, 519, 1152, 28, 22, C.white)
-        text(s, d.caption, 64, 554, 1152, 27, 19, C.gray)
-        text(s, d.veto, 64, 590, 1152, 36, 21, C.amber)
-        line(s, 64, 639, 1216, 639)
-        text(s, d.takeaway, 64, 649, 1118, 46, 26, C.white, true)
+        text(s, d.humanHeading, 64, 521, 1152, 26, 20, C.cyan, true)
+        text(s, d.humanDetail, 64, 551, 1152, 28, 21, C.white)
+        text(s, d.actions, 64, 582, 1152, 26, 20, C.gray)
+        text(s, d.trialRule, 64, 615, 1152, 26, 20, C.white)
+        text(s, d.trialLimits, 64, 643, 1152, 25, 20, C.amber)
+        text(s, d.takeaway, 64, 678, 1118, 28, 24, C.white, true)
         break
       }
       case "roles": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        text(s, d.process, 64, 216, 1152, 27, 21, C.white)
-        const nodes = d.steps.map((v, i) =>
-          box(s, v, 64 + i * 300, 255, 252, 50, i === 3 ? C.amber : C.cyan, 25),
-        )
-        nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
-        text(s, d.cycle, 64, 317, 1152, 27, 20, C.gray)
-        text(s, d.trial, 64, 350, 1152, 28, 21, C.cyan)
-        table(s, d.table, 64, 388, 1152, 230, [213, 469, 470], 20, 7)
-        text(s, d.planningRule, 64, 626, 1152, 28, 20, C.amber)
-        text(s, d.takeaway, 64, 665, 1118, 32, 25, C.white, true)
+        text(s, d.foundation, 64, 216, 1152, 32, 22, C.white)
+        text(s, "THREE OVERLAPPING HORIZONS", 64, 254, 1152, 26, 19, C.gray, true)
+        const horizons = table(s, d.table, 64, 289, 1152, 310, [211, 490, 451], 20, 6)
+        ;[40, 90, 90, 90].forEach((h, i) => {
+          horizons.rows[i].height = h
+        })
+        text(s, d.statisticalLiteracy, 64, 613, 1152, 29, 21, C.amber)
+        text(s, d.roleBoundary, 64, 647, 1152, 28, 20, C.gray)
+        text(s, d.takeaway, 64, 682, 1118, 27, 23, C.white, true)
         break
       }
       case "synthesis": {
-        d.columns.forEach(([head, subtitle, list], i) => {
-          const x = 64 + i * 600,
-            color = i ? C.amber : C.cyan
-          text(s, head, x, 190, 550, 34, 23, color, true)
-          text(s, subtitle, x, 234, 550, 48, 36, C.white, true)
-          line(s, x, 302, x + 550, 302, color)
-          list.forEach((v, j) => text(s, v, x, 321 + j * 44, 550, 40, 25, C.gray))
+        text(s, d.factoryHeading, 64, 204, 460, 28, 21, C.gray, true)
+        text(s, d.factoryFlow, 64, 248, 460, 35, 25, C.white, true)
+        text(s, d.factoryDetail, 64, 294, 460, 58, 23, C.gray)
+        text(s, d.labHeading, 64, 389, 460, 28, 21, C.cyan, true)
+        text(s, d.labDetail, 64, 430, 460, 61, 24, C.white)
+        line(s, 540, 207, 540, 491)
+        const h = box(s, d.labSteps[0], 582, 220, 242, 68, C.cyan, 22)
+        const m = box(s, d.labSteps[1], 954, 220, 242, 68, C.cyan, 24)
+        const dcn = box(s, d.labSteps[2], 954, 414, 242, 68, C.amber, 24)
+        const a = box(s, d.labSteps[3], 582, 414, 242, 68, C.amber, 24)
+        connect(s, h, m, C.cyan)
+        connect(s, m, dcn, C.cyan, "bottom", "top")
+        connect(s, dcn, a, C.amber, "left", "right")
+        connect(s, a, h, C.amber, "top", "bottom")
+        text(s, d.loopCenter, 630, 318, 515, 67, 25, C.white, true, "center")
+        line(s, 64, 513, 1216, 513)
+        d.applications.forEach(([head, detail], i) => {
+          const y = 526 + i * 66
+          text(s, head, 64, y, 1152, 26, 20, i ? C.amber : C.cyan, true)
+          text(s, detail, 64, y + 29, 1152, 28, 21, C.white)
         })
-        text(s, d.firstStepHeading, 64, 517, 1152, 25, 19, C.cyan, true)
-        text(s, d.firstStep, 64, 548, 1152, 31, 22, C.white)
-        text(s, d.cycle, 64, 601, 1152, 31, 23, C.gray)
-        line(s, 64, 646, 1216, 646)
-        text(s, d.takeaway, 64, 658, 1118, 38, 28, C.white, true)
+        text(s, d.takeaway, 64, 673, 1118, 31, 25, C.white, true)
         break
       }
       default:

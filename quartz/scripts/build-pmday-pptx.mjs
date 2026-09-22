@@ -103,7 +103,8 @@ async function main() {
     finalPath: checked,
     explicitTotalSlideCount: 14,
     requiredNativeTableOwnerSlides: [11, 13],
-    requiredNativeChartOwnerSlides: [],
+    requiredNativeChartOwnerSlides: [10],
+    materializeLiteralChartWorkbooks: true,
     pythonExecutable: python,
     integrityValidatorPath: path.join(
       skill,
