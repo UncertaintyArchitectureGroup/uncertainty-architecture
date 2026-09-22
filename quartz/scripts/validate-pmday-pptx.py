@@ -1,6 +1,7 @@
 """Portable OOXML acceptance checks; no rendering or authoring dependency required."""
 import argparse
 import hashlib
+import io
 import json
 import posixpath
 from pathlib import Path
@@ -21,6 +22,7 @@ def digest(data):
 
 
 FREEZE = "assets/presentations/pmday-2026/frozen-slides.json"
+FROZEN_SLIDE_COUNT = 11
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 CREATION_ID = "{http://schemas.microsoft.com/office/drawing/2014/main}creationId"
 
@@ -29,15 +31,17 @@ def frozen_source_hashes(source):
     sections = re.findall(r"^## (\d+)\. [^\n]+\n[\s\S]*?(?=^## \d+\. |\Z)", source, re.M)
     assert sections == [str(i) for i in range(1, 15)], "Frozen source: invalid slide order"
     blocks = re.finditer(r"^## (\d+)\. [^\n]+\n[\s\S]*?(?=^## \d+\. |\Z)", source, re.M)
-    return {m[1]: digest(m[0].encode()) for m in blocks if int(m[1]) <= 8}
+    return {m[1]: digest(m[0].encode()) for m in blocks if int(m[1]) <= FROZEN_SLIDE_COUNT}
 
 
 def frozen_package_hashes(package):
-    """Hash slides 1–8 and their dependency closure, ignoring only generated IDs.
+    """Hash slides 1–11 and their dependency closure.
 
     Relationships are resolved to their semantic type/target, not UUIDs. Shared
-    presentation settings are included; its slide list is restricted to 1–8.
-    Notes, layout/master/theme, cover bytes and relationship rewiring are covered.
+    presentation settings are included; its slide list is restricted to 1–11.
+    Notes, layouts, themes, chart data and relationship rewiring are covered.
+    Ignore generated IDs and workbook ZIP packaging, preserving every workbook
+    member's exact bytes. Export timestamps/compression can change the ZIP alone.
     This is an accidental-change guard, not independent authorization evidence.
     """
     result = {}
@@ -58,7 +62,7 @@ def frozen_package_hashes(package):
                 if name == "ppt/presentation.xml" and rel.get("Type").endswith("/slide"):
                     match = re.fullmatch(r"ppt/slides/slide(\d+)\.xml", target)
                     assert match is not None, "Frozen presentation: unexpected slide target"
-                    if int(match[1]) > 8:
+                    if int(match[1]) > FROZEN_SLIDE_COUNT:
                         continue
                 rels[rel.get("Id")] = [rel.get("Type"), mode, target]
                 if mode != "External":
@@ -69,7 +73,7 @@ def frozen_package_hashes(package):
             if name == "ppt/presentation.xml":
                 slide_ids = tree.find("p:sldIdLst", NS)
                 assert slide_ids is not None and len(slide_ids) == 14, "Frozen presentation: invalid slide list"
-                for child in list(slide_ids)[8:]:
+                for child in list(slide_ids)[FROZEN_SLIDE_COUNT:]:
                     slide_ids.remove(child)
             for element in tree.iter():
                 if element.tag == CREATION_ID:
@@ -81,17 +85,22 @@ def frozen_package_hashes(package):
                         assert value in rels, f"Frozen package: unresolved relationship in {name}"
                         element.set(key, json.dumps(rels[value], ensure_ascii=False))
             data = ET.tostring(tree, encoding="utf-8")
+        elif name.endswith(".xlsx"):
+            with zipfile.ZipFile(io.BytesIO(data)) as workbook:
+                names = workbook.namelist()
+                assert len(names) == len(set(names)), "Frozen workbook: duplicate members"
+                data = json.dumps({n: digest(workbook.read(n)) for n in sorted(names)}).encode()
         result[name] = digest(data)
     return dict(sorted(result.items()))
 
 
 def validate_frozen(source, package):
     record = json.loads((ROOT / FREEZE).read_text(encoding="utf-8"))
-    assert record.get("schema_version") == 1 and record.get("slides") == list(range(1, 9)), "Invalid frozen-slide record"
-    assert record["source_sections"] == frozen_source_hashes(source), "Frozen slides 1–8: source changed; explicit maintainer request required"
+    assert record.get("schema_version") == 1 and record.get("slides") == list(range(1, FROZEN_SLIDE_COUNT + 1)), "Invalid frozen-slide record"
+    assert record["source_sections"] == frozen_source_hashes(source), "Frozen slides 1–11: source changed; explicit maintainer request required"
     actual = frozen_package_hashes(package)
     changed = sorted(set(actual) ^ set(record["package_parts"]) | {name for name in actual if actual[name] != record["package_parts"].get(name)})
-    assert not changed, f"Frozen slides 1–8: rendered content/dependency changed: {', '.join(changed)}"
+    assert not changed, f"Frozen slides 1–11: rendered content/dependency changed: {', '.join(changed)}"
 
 
 def validate_fonts(package):

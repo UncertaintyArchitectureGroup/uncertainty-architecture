@@ -209,7 +209,7 @@ test("independent renderer rejects an exported word split", () => {
   assert.throws(() => verifyRenderedText("Integrate Button A Window\nB"), /Window B/)
 })
 
-test("slide freeze rejects source, geometry, note, relationship and shared-theme edits but permits slide 9", () => {
+test("slide freeze protects 1–11, chart/workbook and table while permitting 12–14", () => {
   execFileSync("python3", [
     "-c",
     `
@@ -221,7 +221,9 @@ source=(v.ROOT/v.SOURCE).read_text()
 record=json.loads((v.ROOT/v.FREEZE).read_text())
 assert v.frozen_source_hashes(source)==record['source_sections']
 assert v.frozen_source_hashes(source.replace('## 2. This Is a Real Phase Transition','## 2. Accidental edit'))!=record['source_sections']
-assert v.frozen_source_hashes(source.replace('Button A','Other button'))==record['source_sections']
+assert v.frozen_source_hashes(source.replace('Button A','Other button'))!=record['source_sections']
+assert v.frozen_source_hashes(source.replace('Production Needs a Control Loop','Changed editable title'))==record['source_sections']
+assert record['slides']==list(range(1,12))
 with zipfile.ZipFile(v.ROOT/'assets/presentations/pmday-2026/ai-changes-both-sides.pptx') as z:
  original={n:z.read(n) for n in z.namelist()}
 def check(parts):
@@ -239,11 +241,27 @@ parts['ppt/notesSlides/notesSlide4.xml']=E.tostring(tree); mutations.append(part
 parts=original.copy(); tree=E.fromstring(parts['ppt/theme/theme1.xml']); tree.find('.//a:srgbClr',v.NS).set('val','123456')
 parts['ppt/theme/theme1.xml']=E.tostring(tree); mutations.append(parts)
 parts=original.copy(); name='ppt/slides/_rels/slide2.xml.rels'; parts[name]=parts[name].replace(b'notesSlide2.xml',b'notesSlide3.xml'); mutations.append(parts)
+for number in (9,10,11):
+ parts=original.copy();name=f'ppt/slides/slide{number}.xml';tree=E.fromstring(parts[name]);tree.find('.//a:t',v.NS).text='Unapproved protected text';parts[name]=E.tostring(tree);mutations.append(parts)
+ parts=original.copy();name=f'ppt/notesSlides/notesSlide{number}.xml';tree=E.fromstring(parts[name]);tree.find('.//a:t',v.NS).text='Unapproved protected notes';parts[name]=E.tostring(tree);mutations.append(parts)
+parts=original.copy();name='ppt/slides/slide11.xml';tree=E.fromstring(parts[name]);tree.find('.//a:tbl//a:t',v.NS).text='Unapproved table cell';parts[name]=E.tostring(tree);mutations.append(parts)
+parts=original.copy();name='ppt/slides/charts/chart1.xml';assert b'>196<' in parts[name];parts[name]=parts[name].replace(b'>196<',b'>195<');mutations.append(parts)
+parts=original.copy();name='ppt/embeddings/chart-data-snapshot-001.xlsx'
+with zipfile.ZipFile(io.BytesIO(parts[name])) as w: members={n:w.read(n) for n in w.namelist()}
+assert b'>196<' in members['xl/worksheets/sheet1.xml']
+def pack_workbook(files):
+ stream=io.BytesIO()
+ with zipfile.ZipFile(stream,'w',zipfile.ZIP_STORED) as w:
+  for n in sorted(files,reverse=True): w.writestr(zipfile.ZipInfo(n,(2020,1,1,0,0,0)),files[n])
+ return stream.getvalue()
+parts[name]=pack_workbook(members);assert parts[name]!=original[name];check(parts)
+changed=members.copy();changed['xl/worksheets/sheet1.xml']=changed['xl/worksheets/sheet1.xml'].replace(b'>196<',b'>195<');parts[name]=pack_workbook(changed);mutations.append(parts)
 for parts in mutations:
  try: check(parts)
  except AssertionError as error: assert 'Frozen slides' in str(error)
  else: raise AssertionError('Protected mutation passed')
-parts=original.copy(); parts['ppt/slides/slide9.xml']=parts['ppt/slides/slide9.xml'].replace(b'Button A',b'Button C'); check(parts)
+for number in (12,13,14):
+ parts=original.copy();name=f'ppt/slides/slide{number}.xml';tree=E.fromstring(parts[name]);tree.find('.//a:t',v.NS).text='Editable slide';parts[name]=E.tostring(tree);check(parts)
 print('Freeze checks passed')
 `,
   ])

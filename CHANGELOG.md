@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Extended the maintainer-approved PMDay freeze from slides 1–8 to 1–11 without changing any slide content or layout. Protected the newly included chart/workbook and table; workbook package normalization ignores only ZIP packaging while preserving every contained file. Added mutation coverage for 9–11 and verified 12–14 remain editable. Recorded a proposed narrative improvement for 12–13 without applying it to the deck.
+
 - Switched PMDay to standard Arial references across slides, charts and themes at the maintainer’s request; preserved protected slide 1–8 content and geometry. Integrated the old talk’s business-tolerance ownership into slide 9, four-row statistical DoR/DoD comparison into 11, and runtime containment/fallback plus architectural veto into 12. Preserved every prior note; updated the existing font contract and authorized freeze baseline.
 
 - Rebuilt PMDay slides 8–10 from the supplied old talk’s slides 3–5: a schematic result distribution, a perspective possibility space with approved boundaries, and a system-level bug explanation with an operating band and violations. Preserved the separate editable 196/3/1 sample, Wilson interval, prior notes and all other slides. Refreshed only the slide 8 freeze baseline under the maintainer’s explicit request; protection remains active for 1–8.
