@@ -163,7 +163,7 @@ test("PPTX pair verification refuses a checksum mismatch", async (t) => {
   )
 })
 
-test("portable font checks reject absent, corrupted, mismatched and fallback font data", () => {
+test("portable font checks reject mixed faces, stale themes and embedded font data", () => {
   execFileSync("python3", [
     "-c",
     `
@@ -179,17 +179,17 @@ def check(parts):
  with zipfile.ZipFile(stream) as z: v.validate_fonts(z)
 check(original)
 mutations=[]
-parts=original.copy();del parts['ppt/fonts/Roboto-Regular.fntdata'];mutations.append(parts)
-parts=original.copy();parts['ppt/fonts/Roboto-Bold.fntdata']=b'corrupted';mutations.append(parts)
-parts=original.copy();name='ppt/_rels/presentation.xml.rels';parts[name]=parts[name].replace(b'fonts/Roboto-Regular.fntdata',b'fonts/Roboto-Bold.fntdata');mutations.append(parts)
-parts=original.copy();name='ppt/slides/slide14.xml';parts[name]=parts[name].replace(b'typeface="Roboto"',b'typeface="DejaVu Sans"');mutations.append(parts)
-parts=original.copy();name='ppt/presentation.xml';tree=E.fromstring(parts[name]);tree.remove(tree.find('p:embeddedFontLst',v.NS));parts[name]=E.tostring(tree);mutations.append(parts)
-parts=original.copy();name='[Content_Types].xml';parts[name]=parts[name].replace(b'application/x-fontdata',b'application/octet-stream');mutations.append(parts)
+for name in ('ppt/slides/slide14.xml','ppt/notesMasters/theme/theme3.xml','ppt/slideMasters/theme/theme2.xml','ppt/slides/charts/chart1.xml'):
+ parts=original.copy();assert b'typeface="Arial"' in parts[name];parts[name]=parts[name].replace(b'typeface="Arial"',b'typeface="Roboto"');mutations.append(parts)
+parts=original.copy();parts['ppt/fonts/unapproved.fntdata']=b'unapproved';mutations.append(parts)
+parts=original.copy();name='ppt/slides/slide14.xml';tree=E.fromstring(parts[name])
+for e in tree.iter(): e.attrib.pop('typeface',None)
+parts[name]=E.tostring(tree);mutations.append(parts)
 for parts in mutations:
  try: check(parts)
- except AssertionError as error: assert 'Roboto:' in str(error)
- else: raise AssertionError('Invalid embedded font passed')
-print('Roboto font mutation checks passed')
+ except AssertionError as error: assert 'Arial:' in str(error)
+ else: raise AssertionError('Invalid standard font contract passed')
+print('Arial font mutation checks passed')
 `,
   ])
 })

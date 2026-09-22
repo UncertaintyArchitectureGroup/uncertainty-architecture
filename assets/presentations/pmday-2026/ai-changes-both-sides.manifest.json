@@ -3,21 +3,20 @@
   "edition": "pmday-2026-review-candidate",
   "source": "assets/presentations/pmday-2026/README.md",
   "inputs": {
-    "assets/presentations/pmday-2026/README.md": "58ed23e726b4bc6b3719af7210bbb9b31fb58163b9f34462c9df63ed0cf13ec3",
+    "assets/presentations/pmday-2026/README.md": "ce4a534eac6c9fb9bf10461333086c0dd1c64c312155ed8e7f3ffa66cdc8f40e",
     "assets/presentations/pmday-2026/artwork/ai-two-roles.png": "fee952d5eb696de3cdcd4609b42587545a56330577acdca8359b76a4d4b22de7",
-    "assets/presentations/pmday-2026/artwork/roboto-fonts.zip": "8bd50f19390cbfeb6fa323ba124274de89e84fdd228f43d60bce2f9ca4cb05ff",
-    "assets/presentations/pmday-2026/frozen-slides.json": "b9eec7e9e3a224e18fb5f0256f9464628b8b14856cfb6445cf93897dcaeef6df",
-    "quartz/scripts/pmday-presentation.mjs": "5a6b2d64e450607580d467d744c0ba3a833cca8cfe48c8d37e7b8f791e9fcb7b",
-    "quartz/scripts/build-pmday-pptx.mjs": "15f83daf67519cde5550df538c42db5d9f406c61c9298014fe81155db668944e",
-    "quartz/scripts/validate-pmday-pptx.py": "6baea96f3a0b4a3658f2b383a2444b67b08869990592d9a14572477f5b6edb99",
-    "quartz/scripts/pmday-fonts.py": "45041f9747843c7a8d72a7ef3ab02c5d555dc180f465f6262501a094cbd231dc"
+    "assets/presentations/pmday-2026/frozen-slides.json": "434095f4800a3b7d204ab71674290a8bac34cfe9f9938405cb7bd5a1f891ea41",
+    "quartz/scripts/pmday-presentation.mjs": "67f38161f7f392bae51a10e3e4eb26624a78cdd42d1fda577b4b6b48c1e03d9b",
+    "quartz/scripts/build-pmday-pptx.mjs": "d352e017fb3efae003ac678e484fc3b73de278a461eaffb7cf6005702e3494fa",
+    "quartz/scripts/validate-pmday-pptx.py": "a352c040c6b889abfeb58f1d5ee50f0de529f1bac237d130b035a0d82c6f1433",
+    "quartz/scripts/pmday-fonts.py": "d1972b913510cb5c805643b7b66025a3a5c50912ffe93f8a8bd066e598644b9e"
   },
   "authoring_runtime": {
     "package": "@oai/artifact-tool",
     "version": "2.8.59",
     "bundle": "26.903.11726"
   },
-  "pptx_sha256": "2f6a305604935ddba151674780dad7beb83f274fdf6d85966c4017294a45dbc5",
+  "pptx_sha256": "0290ec73855c97cedb48cbdebc112b319ab059a456d22359142aced86af8e1e0",
   "slide_count": 14,
   "image_exceptions": [
     {

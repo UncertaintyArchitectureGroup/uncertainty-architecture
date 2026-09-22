@@ -11,11 +11,9 @@ const root = path.resolve(fileURLToPath(new URL("../..", import.meta.url)))
 const directory = "assets/presentations/pmday-2026"
 const source = `${directory}/README.md`
 const cover = `${directory}/artwork/ai-two-roles.png`
-const fonts = `${directory}/artwork/roboto-fonts.zip`
 const inputs = [
   source,
   cover,
-  fonts,
   `${directory}/frozen-slides.json`,
   "quartz/scripts/pmday-presentation.mjs",
   "quartz/scripts/build-pmday-pptx.mjs",
@@ -86,20 +84,20 @@ async function main() {
   await assertSafeOutputPath(root, dist, path.join(dist, "stage-placeholder"))
   const stage = await mkdtemp(path.join(dist, "pmday-"))
   const draft = path.join(stage, "candidate.pptx")
-  const embedded = path.join(stage, "embedded.pptx")
+  const standardFonts = path.join(stage, "standard-fonts.pptx")
   const checked = path.join(stage, "output", "ai-changes-both-sides.pptx")
   const manifest = path.join(stage, "output", "ai-changes-both-sides.manifest.json")
   await mkdir(path.dirname(checked), { recursive: true })
-  const deck = createDeck(Presentation, data, { cover: await readFile(path.join(root, cover)) })
+  const deck = createDeck(Presentation, data, {
+    cover: await readFile(path.join(root, cover)),
+  })
   await (await PresentationFile.exportPptx(deck)).save(draft)
-  execFileSync(
-    python,
-    [path.join(root, "quartz/scripts/pmday-fonts.py"), draft, embedded, path.join(root, fonts)],
-    { stdio: "inherit" },
-  )
+  execFileSync(python, [path.join(root, "quartz/scripts/pmday-fonts.py"), draft, standardFonts], {
+    stdio: "inherit",
+  })
   await finalizePresentation({
     workspaceDir: root,
-    candidatePath: embedded,
+    candidatePath: standardFonts,
     finalPath: checked,
     explicitTotalSlideCount: 14,
     requiredNativeTableOwnerSlides: [11, 13],
@@ -140,7 +138,11 @@ async function main() {
     pptx_sha256: sha(await readFile(checked)),
     slide_count: 14,
     image_exceptions: [
-      { slide: 1, asset: cover, purpose: "Requested conceptual cover illustration" },
+      {
+        slide: 1,
+        asset: cover,
+        purpose: "Requested conceptual cover illustration",
+      },
     ],
     target_application: "Microsoft PowerPoint",
     visual_review: "required separately; structural validation is not visual acceptance",
@@ -149,7 +151,9 @@ async function main() {
   for (const name of inputs)
     if (identity[name] !== sha(await readFile(path.join(root, name))))
       throw new Error(`Source changed during generation: ${name}`)
-  await writeFile(manifest, JSON.stringify(record, null, 2) + "\n", { flag: "wx" })
+  await writeFile(manifest, JSON.stringify(record, null, 2) + "\n", {
+    flag: "wx",
+  })
   execFileSync(
     python,
     [

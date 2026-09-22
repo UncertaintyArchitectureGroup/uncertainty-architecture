@@ -10,7 +10,7 @@ export const theme = {
   cyan: "#28C7F7",
   amber: "#F5B61C",
   red: "#FF6B75",
-  font: "Roboto",
+  font: "Arial",
   width: 1280,
   height: 720,
 }
@@ -343,7 +343,10 @@ export function createDeck(Presentation, data, assets = {}) {
         // fixed human capacity is an explicit scenario assumption, not measured data.
         const commands = Array.from({ length: 121 }, (_, i) => {
           const t = i / 120
-          const point = { x: 645 * t, y: 230 - 230 * (0.18 * t + 0.82 * t * t) }
+          const point = {
+            x: 645 * t,
+            y: 230 - 230 * (0.18 * t + 0.82 * t * t),
+          }
           return i ? { lineTo: point } : { moveTo: point }
         })
         s.shapes.add({
@@ -537,12 +540,21 @@ export function createDeck(Presentation, data, assets = {}) {
                 text: value,
                 position: "outEnd",
                 showValue: false,
-                textStyle: { typeface: C.font, fontSize: 16, fill: C.white, bold: true },
+                textStyle: {
+                  typeface: C.font,
+                  fontSize: 16,
+                  fill: C.white,
+                  bold: true,
+                },
               })),
             },
           ],
           hasLegend: false,
-          barOptions: { direction: "column", grouping: "clustered", gapWidth: 95 },
+          barOptions: {
+            direction: "column",
+            grouping: "clustered",
+            gapWidth: 95,
+          },
           chartFill: C.bg,
           chartLine: { fill: "none", width: 0 },
           plotAreaFill: C.bg,
@@ -564,7 +576,12 @@ export function createDeck(Presentation, data, assets = {}) {
           dataLabels: {
             showValue: true,
             position: "outEnd",
-            textStyle: { typeface: C.font, fontSize: 16, fill: C.white, bold: true },
+            textStyle: {
+              typeface: C.font,
+              fontSize: 16,
+              fill: C.white,
+              bold: true,
+            },
           },
         })
         line(s, 625, 461, 625, 605)
@@ -581,38 +598,53 @@ export function createDeck(Presentation, data, assets = {}) {
       case "risk": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
         text(s, d.behavior, 64, 214, 1152, 28, 20, C.gray)
-        const gates = table(s, d.table, 64, 249, 1152, 352, [115, 237, 500, 300], 19, 4)
-        ;[40, 102, 102, 108].forEach((h, i) => {
+        const gates = table(s, d.table, 64, 249, 1152, 366, [115, 237, 500, 300], 18, 3)
+        ;[38, 84, 56, 84, 104].forEach((h, i) => {
           gates.rows[i].height = h
         })
-        text(s, d.syntax, 64, 609, 1152, 27, 21, C.amber)
-        text(s, d.caption, 64, 640, 1152, 26, 20, C.gray)
+        text(s, d.syntax, 64, 620, 1152, 25, 20, C.amber)
+        text(s, d.caption, 64, 648, 1152, 25, 19, C.gray)
         text(s, d.takeaway, 64, 675, 1118, 29, 25, C.white, true)
         break
       }
       case "control": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        text(s, d.gate, 64, 216, 1152, 28, 20, C.gray)
-        const nodes = d.steps.map((v, i) =>
-          box(s, v, 64 + i * 300, 258, 252, 72, i === 2 ? C.amber : C.cyan, 24),
-        )
-        nodes.slice(1).forEach((n, i) => connect(s, nodes[i], n, C.gray))
-        text(s, d.architectureHeading, 64, 355, 280, 44, 18, C.cyan, true)
-        d.architecture.forEach((v, i) => text(s, v, 64, 403 + i * 31, 280, 28, 19, C.gray))
-        const reference = box(s, d.reference, 664, 372, 252, 38, C.gray, 18)
-        const obs = box(s, d.loop[0], 964, 434, 252, 72, C.cyan, 25)
-        const dec = box(s, d.loop[1], 664, 434, 252, 72, C.amber, 20)
-        const act = box(s, d.loop[2], 364, 434, 252, 72, C.amber, 23)
-        connect(s, nodes[3], obs, C.cyan, "bottom", "top")
-        connect(s, obs, dec, C.amber, "left", "right")
-        connect(s, reference, dec, C.gray, "bottom", "top")
-        connect(s, dec, act, C.amber, "left", "right")
-        connect(s, act, nodes[1], C.amber, "top", "bottom")
-        text(s, d.humanHeading, 64, 521, 1152, 26, 20, C.cyan, true)
-        text(s, d.humanDetail, 64, 551, 1152, 28, 21, C.white)
-        text(s, d.actions, 64, 582, 1152, 26, 20, C.gray)
-        text(s, d.trialRule, 64, 615, 1152, 26, 20, C.white)
-        text(s, d.trialLimits, 64, 643, 1152, 25, 20, C.amber)
+        text(s, d.flowHeading, 64, 215, 368, 26, 18, C.gray, true)
+        const reference = box(s, d.reference, 466, 219, 180, 38, C.gray, 17)
+        const proposal = box(s, d.runtime[0], 64, 283, 148, 70, C.cyan, 21)
+        const monitor = box(s, d.runtime[1], 250, 283, 176, 70, C.cyan, 20)
+        const gate = box(s, d.runtime[2], 466, 283, 180, 70, C.amber, 20)
+        const deliver = box(s, d.runtime[3], 706, 283, 150, 70, C.cyan, 21)
+        connect(s, proposal, monitor, C.gray)
+        connect(s, monitor, gate, C.gray)
+        connect(s, reference, gate, C.gray, "bottom", "top")
+        connect(s, gate, deliver, C.cyan)
+        text(s, "PASS", 658, 286, 44, 22, 14, C.cyan, true)
+        const stop = box(s, d.stop, 466, 389, 180, 62, C.red, 20)
+        const fallback = box(s, d.fallback, 64, 389, 362, 62, C.amber, 19)
+        connect(s, gate, stop, C.red, "bottom", "top")
+        text(s, "BREACH / UNAVAILABLE", 466, 361, 180, 23, 13, C.red, true, "center")
+        connect(s, stop, fallback, C.amber, "left", "right")
+        const observe = box(s, d.observe, 706, 389, 150, 62, C.cyan, 18)
+        connect(s, deliver, observe, C.cyan, "bottom", "top")
+        line(s, 781, 451, 781, 479, C.cyan)
+        line(s, 781, 479, 48, 479, C.cyan)
+        line(s, 48, 479, 48, 318, C.cyan)
+        const returnPoint = rect(s, 48, 317.5, 1, 1, "none", "none", 0)
+        connect(s, returnPoint, proposal, C.cyan)
+        text(s, d.feedback, 64, 485, 792, 39, 18, C.cyan)
+        line(s, 884, 216, 884, 526)
+        text(s, d.architectureHeading, 912, 215, 304, 26, 18, C.red, true)
+        d.pressures.forEach(([head, detail], i) => {
+          text(s, head, 912, 251 + i * 65, 304, 24, 20, C.white, true)
+          text(s, detail, 912, 277 + i * 65, 304, 32, 17, C.gray)
+        })
+        text(s, d.veto, 912, 453, 304, 70, 19, C.red, true)
+        line(s, 64, 534, 1216, 534)
+        text(s, d.humanHeading, 64, 541, 1152, 25, 19, C.cyan, true)
+        text(s, d.humanDetail, 64, 570, 1152, 26, 21, C.white)
+        text(s, d.gate, 64, 604, 1152, 27, 19, C.gray)
+        text(s, d.trialRule, 64, 637, 1152, 28, 20, C.amber)
         text(s, d.takeaway, 64, 678, 1118, 28, 24, C.white, true)
         break
       }

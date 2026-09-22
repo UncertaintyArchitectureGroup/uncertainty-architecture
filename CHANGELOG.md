@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Switched PMDay to standard Arial references across slides, charts and themes at the maintainer’s request; preserved protected slide 1–8 content and geometry. Integrated the old talk’s business-tolerance ownership into slide 9, four-row statistical DoR/DoD comparison into 11, and runtime containment/fallback plus architectural veto into 12. Preserved every prior note; updated the existing font contract and authorized freeze baseline.
+
 - Rebuilt PMDay slides 8–10 from the supplied old talk’s slides 3–5: a schematic result distribution, a perspective possibility space with approved boundaries, and a system-level bug explanation with an operating band and violations. Preserved the separate editable 196/3/1 sample, Wilson interval, prior notes and all other slides. Refreshed only the slide 8 freeze baseline under the maintainer’s explicit request; protection remains active for 1–8.
 
 - Reworked PMDay slides 9–14 to show the acceptable-behavior region, an editable 196/3/1 outcome-frequency chart, traditional versus extended delivery gates, complete control and Human Authority before exposed trials, the Project Manager’s expanding responsibilities, and a continuing laboratory cycle across both AI-assisted SDLC and Thinking Systems. Preserved the frozen slides 1–8, Roboto, original titles and prior speaker notes.

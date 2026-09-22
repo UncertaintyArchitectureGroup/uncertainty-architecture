@@ -161,3 +161,16 @@ Subprime дає synthesis і provenance для слайдів 3–7; числа 
 Native bars на концептуальних схемах — редагована геометрія, не вигадані емпіричні дані. Лише окремий sample chart має числові дані та workbook: 196 + 3 + 1 = 200, частки 98%, 1,5%, 0,5%, сукупна частота 2%. Wilson interval не змінений. Схематична крива не апроксимує ці три категорії. Семантичні дефекти можуть виникати без зміни application code; один рідкісний результат не встановлює drift без baseline та порівнюваних даних.
 
 Збережено Roboto, 14 назв і порядок, усі попередні speaker notes. Перекомпоновані екранні пояснення лишаються у джерелі й розгорнутих нотатках. Поточний запит явно дозволяє зміну слайда 8; його захисний baseline оновлено після огляду. Слайди 1–7 та 11–14 не змінені. Це локальна корекція змісту й композиції в наявних власниках, без нової доктрини, дослідницького статусу чи додаткових постійних agent instructions.
+
+
+## Уточнення 22 вересня 2026: стандартний шрифт і старі слайди 5, 14–16
+
+Нумерація запиту не рахує обкладинку. Безпосередньо оглянуті PDF pages 6, 15, 16 та 17 оригіналу: From Static Requirements to Statistical Gates; Designing Stochastic Resilience; System Boundary States; PM: From Story Owner to Distribution Economist. Оригінал не змінено.
+
+- Слайд 9: бізнес-цінність, прийнятна частота **і** тяжкість помилок, cost envelope, liability / escalation / fallback. Розділено Product Manager та Project Manager; збережено область можливих поведінок.
+- Слайд 11: Ready / Budget / Done / Release–Operate, старий і розширений контракти, людські залежності, статистичне evidence, production feedback. Розмір вибірки чи один confidence interval не є самостійним доказом безпеки.
+- Слайд 12: fallible semantic monitor, deterministic tool gate, stop/isolate, safe fallback, human review, спостереження ефектів та дозволена корекція. Latency overhead, token/review economics і provider changes формують feasibility boundary; canary не замінює control path.
+
+Канонічні власники змісту — Control-Loop Capability Anatomy, Nested Control Lifecycle та Thinking System Review; це навчальна адаптація, без нової доктрини чи research-state change. Усі попередні нотатки збережені як точні префікси. Зміст source blocks поза 9, 11 та 12 незмінний.
+
+За прямим запитом стандартного шрифту вибрано Arial: [Apple system fonts](https://developer.apple.com/fonts/system-fonts/), [Microsoft Arial](https://learn.microsoft.com/en-us/typography/font-list/arial), [Google Slides text API](https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations.pages/text). Arial менш округлий за Roboto, але має спільну платформну доступність. PPTX містить Arial references в тексті, charts і themes, без proprietary font binaries. Це свідома заміна попереднього embedded-Roboto контракту, а не видалення перевірок заради проходження CI; mutation tests захищають явні й успадковані font references. В Linux preview Arial підміняється Nimbus Sans; native acceptance у PowerPoint, Keynote і Google Slides не заявляється. Захист 1–8 діє надалі після явного font-only refresh з перевіркою точного змісту, notes і geometry.
