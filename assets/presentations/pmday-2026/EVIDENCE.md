@@ -275,3 +275,14 @@ Maintainer відхилив спрощення 4/11/13 та повідомив �
 - **13:** основна теза — обидва HOW/WHAT зсуви змінюють flow, bottlenecks, ролі та operating model. PM має розуміти цей баланс, відстежувати нові dependencies, забезпечувати owners/capacity/closure evidence й інтегрувати зміни в delivery plan. Expertise gap — нижній ілюстративний приклад: незнайома мова стає critical dependency й впливає на estimates / acceptance / recovery. Це практичний напрям розвитку ролі, не універсально prescribed job description.
 
 Додатково звірено надані Beyond Embeddings і On-Device/Cloud checklist щодо risk-proportionate control, operating cost, latency, evaluation та human-response capacity. Нових empirical results або doctrine/research-state змін немає. Обсяг цієї ітерації лише 4/10/11/13; всі попередні notes зберігаються точними prefixes.
+
+
+## Повернення порівняння вимог, v18, 23.09.2026
+
+Maintainer уточнив головну тезу слайда 9: fixed transition (A opens B за визначеного стану) проти простору допустимих inputs/context/outputs/actions. Безпосередньо прочитано старий PDF page 5 *Designing the Space of Possibilities*. Приклад IT-асистента більше не підміняє загальне порівняння; його попередні notes залишаються точним prefix. Пунктирні native contours і точки є концептуальними, не виміряною probability geometry. QA / Dev, Product / PO, BA і PM зберігають видиму роль.
+
+Повторно перевірено офіційні public abstracts [ISO/IEC 25059:2023](https://www.iso.org/standard/80655.html) (quality model / vocabulary) та [ISO/IEC TS 25058:2024](https://www.iso.org/standard/82570.html) (AI quality-evaluation guidance), а також [NIST AI RMF Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/). Повні платні ISO тексти не перевірено; ISO FDIS 25059 поки under development, не видана заміна у перевіреному каталозі. Product-specific criteria → examples/counterexamples → rubric/evaluation є поясненням практичної адаптації, не дослівним приписом стандарту.
+
+Більше комбінацій може ускладнити specification, coverage і виявлення заборонених outcomes до production. Це не самостійний доказ вищої частоти дефектів. Production rate залежить від usage distribution, probability mass порушень та контролю. Схема не спрощує всю класичну розробку до однієї прямої; це порівняння конкретного fixed scenario з model-mediated variation. Exact permissions, schemas та invariants зберігаються; описана semantic boundary ще не є доказом її реалізації. Межі відповідають [Requirements, Correctness, and Bugs](../../../00-doctrine/requirements-correctness-and-bugs.md); doctrine/research state не змінюється.
+
+Причина відхилення локальна: наскрізний приклад витіснив мету порівняльного слайда. Виправлено existing source/layout/evidence owners; жодної нової persistent agent guidance або subjective CI policy не запропоновано. Existing rendered-label regression адаптовано до Press A / Window B. Freeze refresh лише source/slide/notes 9 після review; усі інші слайди незмінні.

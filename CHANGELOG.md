@@ -31,6 +31,7 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Restored PMDay slide 9's requirements comparison for v18: a specified A→B transition versus a space of admissible inputs and output variants, explicit prohibitions, semantic-boundary uncertainty, standards-to-product translation and coverage risk. Preserve the prior notes and other slides; refresh only the reviewed slide 9 freeze and adapt the existing rendered-label regression.
 - Updated only PMDay slide 4 for v17: GitClear 2021/2026 moved/copy-paste snapshots, actual +73% churn through 2024, projected +110% for 2025, and reported +15% indexed to 2023 for 2026. Verify full 2025 Appendix A1 and the 2026 author chart, retain cross-edition caveats and other evidence blocks, preserve other slides and prior notes, and refresh only the reviewed slide 4 freeze.
 - Corrected PMDay v16 at the maintainer's request: restore slide 4's prior evidence layout and distinguish reported 2026 churn from the older doubling projection; make slide 10 count/share labels single-line and transparent with regression coverage; restore statistical DoR/DoD/release contracts on 11; make both HOW/WHAT shifts and operating-model evolution primary on 13, retaining expertise gaps as an example of new PM dependencies. Preserve all other slides, prior note prefixes and chart/workbook values; narrowly refresh the authorized 4/10/11 freeze after visual review.
 

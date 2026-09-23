@@ -222,10 +222,10 @@ test("title line breaks preserve the approved wording", () => {
 })
 
 test("independent renderer rejects an exported word split", () => {
-  assert.doesNotThrow(() => verifyRenderedText("Test Integrate Deploy Request Verify user"))
+  assert.doesNotThrow(() => verifyRenderedText("Test Integrate Deploy Press A Window B"))
   assert.throws(() => verifyRenderedText("Test Integrat\ne Deploy"), /missing or split/)
-  assert.throws(() => verifyRenderedText("Integrate Requ\nest Verify user"), /Request/)
-  assert.throws(() => verifyRenderedText("Integrate Request Verify\nuser"), /Verify user/)
+  assert.throws(() => verifyRenderedText("Integrate Press\nA Window B"), /Press A/)
+  assert.throws(() => verifyRenderedText("Integrate Press A Window\nB"), /Window B/)
 })
 
 test("slide freeze protects 1–11, chart/workbook and table while permitting 12–15", () => {

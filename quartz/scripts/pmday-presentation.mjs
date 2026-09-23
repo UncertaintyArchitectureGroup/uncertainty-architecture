@@ -457,26 +457,33 @@ export function createDeck(Presentation, data, assets = {}) {
       }
       case "boundaries": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        line(s, 508, 220, 508, 440)
-        text(s, d.oldHeading, 64, 220, 420, 30, 19, C.gray, true)
-        const a = box(s, d.old[0], 64, 259, 169, 58, C.gray, 26)
-        const b = box(s, d.old[1], 302, 259, 182, 58, C.gray, 26)
+        line(s, 508, 220, 508, 458)
+        text(s, d.oldHeading, 64, 220, 420, 30, 20, C.gray, true)
+        const a = box(s, d.old[0], 64, 271, 169, 58, C.gray, 26)
+        const b = box(s, d.old[1], 302, 271, 182, 58, C.gray, 26)
         connect(s, a, b, C.gray)
-        text(s, d.oldDetail, 64, 330, 420, 57, 25, C.white)
-        text(s, d.roleDetail, 64, 397, 420, 67, 20, C.gray)
-        text(s, d.newHeading, 536, 220, 680, 30, 19, C.cyan, true)
-        // Match the supplied possibility-space topology using editable geometry.
-        // The perspective plane is conceptual, with no universal semantic-distance scale.
-        for (let i = 0; i < 5; i++) line(s, 557, 279 + i * 32, 1205, 279 + i * 32)
-        for (let i = 0; i < 6; i++) line(s, 557 + i * 110, 409, 611 + i * 110, 267)
-        line(s, 557, 411, 1205, 411, C.gray)
-        line(s, 557, 411, 557, 263, C.gray)
-        const plane = (x, y, w, h, slant, color, fill) =>
+        // Schematic deviations near the specified transition; no frequency or scale.
+        for (const [x, y] of [
+          [254, 264],
+          [278, 337],
+        ]) {
+          line(s, x - 4, y - 4, x + 4, y + 4, C.red, 2)
+          line(s, x - 4, y + 4, x + 4, y - 4, C.red, 2)
+        }
+        text(s, d.oldDetail, 64, 348, 420, 61, 25, C.white)
+        text(s, d.oldCoverage, 64, 414, 420, 48, 20, C.gray)
+        text(s, d.newHeading, 536, 220, 680, 30, 20, C.cyan, true)
+        text(s, d.inputScope, 557, 252, 659, 26, 19, C.white)
+        // Editable possibility space. Dashed contours communicate semantic
+        // specification/evaluation limits, not an empirically measured boundary.
+        for (let i = 0; i < 4; i++) line(s, 557, 300 + i * 35, 1205, 300 + i * 35)
+        for (let i = 0; i < 6; i++) line(s, 557 + i * 110, 414, 605 + i * 110, 286)
+        const plane = (x, y, w, h, slant, color, fill, style = "solid") =>
           s.shapes.add({
             geometry: "custom",
             position: { left: x, top: y, width: w, height: h },
             fill,
-            line: { fill: color, width: 2, style: "solid" },
+            line: { fill: color, width: 2, style },
             customPaths: [
               {
                 width: w,
@@ -491,24 +498,26 @@ export function createDeck(Presentation, data, assets = {}) {
               },
             ],
           })
-        plane(615, 277, 470, 120, 44, C.amber, "#24231B")
-        plane(701, 305, 322, 80, 23, C.cyan, "#122934")
-        text(s, d.regionCaption, 746, 249, 440, 26, 19, C.amber, true)
-        text(s, d.regionInner, 724, 310, 278, 23, 18, C.cyan, true, "center")
+        plane(610, 289, 470, 123, 44, C.amber, "#24231B", "dashed")
+        plane(684, 315, 339, 75, 23, C.cyan, "#122934", "dashed")
+        text(s, d.regionBoundaryCases, 658, 290, 393, 22, 16, C.amber, false, "center")
+        text(s, d.regionInner, 709, 320, 290, 24, 19, C.cyan, true, "center")
         d.regionExamples.forEach((v, i) => {
-          text(s, v, 730, 339 + i * 22, 270, 21, 17, C.white, false, "center")
+          rect(s, 717 + i * 99, 361, 5, 5, C.cyan, C.cyan, 0)
+          text(s, v, 725 + i * 99, 350, 91, 28, 17, C.white)
         })
-        rect(s, 1166, 329, 10, 10, C.red, C.red, 0)
-        text(s, d.regionOutside, 1086, 347, 130, 43, 18, C.red, false, "center")
-        text(s, d.regionAxis, 557, 413, 659, 24, 17, C.gray)
-        text(s, d.regionPolicy, 536, 442, 680, 25, 16, C.white)
-        line(s, 64, 477, 1216, 477)
-        text(s, d.envelopeHeading, 64, 492, 1152, 28, 22, C.amber, true)
-        d.envelope.forEach((v, i) =>
-          text(s, v, 64 + (i % 2) * 596, 534 + Math.floor(i / 2) * 35, 552, 30, 21, C.white),
-        )
-        text(s, d.specification, 64, 616, 1152, 28, 20, C.gray)
-        text(s, d.takeaway, 64, 667, 1118, 32, 25, C.white, true)
+        rect(s, 1166, 320, 10, 10, C.red, C.red, 0)
+        text(s, d.regionOutside, 1086, 341, 130, 47, 18, C.red, false, "center")
+        text(s, d.regionCaption, 557, 418, 659, 24, 20, C.amber)
+        text(s, d.regionAxis, 557, 445, 659, 23, 17, C.gray)
+        text(s, d.oldFoot, 64, 467, 420, 22, 16, C.gray)
+        line(s, 64, 494, 1216, 494)
+        text(s, d.envelopeHeading, 64, 505, 1152, 28, 22, C.amber, true)
+        text(s, d.complexity, 64, 539, 1152, 29, 23, C.white)
+        text(s, d.productionRisk, 64, 572, 1152, 27, 20, C.gray)
+        text(s, d.research, 64, 610, 1152, 25, 19, C.cyan)
+        text(s, d.gap, 64, 637, 1152, 25, 20, C.white)
+        text(s, d.roleDetail, 64, 670, 1118, 24, 18, C.gray)
         break
       }
       case "evaluation": {
