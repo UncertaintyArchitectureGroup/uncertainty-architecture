@@ -11,9 +11,13 @@ const root = path.resolve(fileURLToPath(new URL("../..", import.meta.url)))
 const directory = "assets/presentations/pmday-2026"
 const source = `${directory}/README.md`
 const cover = `${directory}/artwork/ai-two-roles.png`
+const qrUa = `${directory}/artwork/qr-ua.png`
+const qrSubprime = `${directory}/artwork/qr-subprime.png`
 const inputs = [
   source,
   cover,
+  qrUa,
+  qrSubprime,
   `${directory}/frozen-slides.json`,
   "quartz/scripts/pmday-presentation.mjs",
   "quartz/scripts/build-pmday-pptx.mjs",
@@ -90,6 +94,8 @@ async function main() {
   await mkdir(path.dirname(checked), { recursive: true })
   const deck = createDeck(Presentation, data, {
     cover: await readFile(path.join(root, cover)),
+    qrUa: await readFile(path.join(root, qrUa)),
+    qrSubprime: await readFile(path.join(root, qrSubprime)),
   })
   await (await PresentationFile.exportPptx(deck)).save(draft)
   execFileSync(python, [path.join(root, "quartz/scripts/pmday-fonts.py"), draft, standardFonts], {
@@ -99,7 +105,7 @@ async function main() {
     workspaceDir: root,
     candidatePath: standardFonts,
     finalPath: checked,
-    explicitTotalSlideCount: 14,
+    explicitTotalSlideCount: 15,
     requiredNativeTableOwnerSlides: [11, 13],
     requiredNativeChartOwnerSlides: [10],
     materializeLiteralChartWorkbooks: true,
@@ -136,13 +142,15 @@ async function main() {
       bundle: process.env.CODEX_PRIMARY_RUNTIME_BUNDLE_VERSION || "unreported",
     },
     pptx_sha256: sha(await readFile(checked)),
-    slide_count: 14,
+    slide_count: 15,
     image_exceptions: [
       {
         slide: 1,
         asset: cover,
         purpose: "Requested conceptual cover illustration",
       },
+      { slide: 15, asset: qrUa, purpose: "Requested UA repository QR code" },
+      { slide: 15, asset: qrSubprime, purpose: "Requested Subprime repository QR code" },
     ],
     target_application: "Microsoft PowerPoint",
     visual_review: "required separately; structural validation is not visual acceptance",

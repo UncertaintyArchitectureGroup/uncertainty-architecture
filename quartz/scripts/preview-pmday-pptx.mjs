@@ -71,7 +71,7 @@ export async function renderIndependentPreview(pptx, env = process.env) {
   run(pdftoppm, ["-scale-to", "1440", "-png", pdf, path.join(stage, "slide")])
   const pngs = (await readdir(stage)).filter((name) => /^slide-\d+\.png$/.test(name)).sort()
   for (const name of pngs) verifyPng(await readFile(path.join(stage, name)))
-  if (pngs.length !== 14) throw new Error(`Expected 14 rendered pages, found ${pngs.length}`)
+  if (pngs.length !== 15) throw new Error(`Expected 15 rendered pages, found ${pngs.length}`)
   if (sha(await readFile(snapshot)) !== sha(bytes) || sha(await readFile(source)) !== sha(bytes))
     throw new Error("PPTX changed during preview")
   const report = {

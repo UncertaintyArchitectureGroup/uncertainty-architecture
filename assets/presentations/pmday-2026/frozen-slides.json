@@ -13,9 +13,9 @@
     10,
     11
   ],
-  "authorization": "Maintainer request, 2026-09-21: clarify slide 4, then freeze slides 1–8. Subsequent explicit request the same day authorizes only changing the font to Roboto on all 14 slides. Source content, numbers, notes and object geometry preserved; refreshed after independent rendered review. Future changes still require an explicit request. Explicit maintainer request, 2026-09-22: add a distribution explanation to slide 8 based on slide 3 of the supplied old presentation. Only slide 8 source, slide XML and note XML are refreshed after visual review; slides 1–7 and shared dependencies unchanged. Protection for slides 1–8 remains active. Explicit maintainer request, 2026-09-22 (subsequent): switch all slides to a standard cross-application font. Arial references replace Roboto and embedded font data. Protected source sections, notes, text, geometry and all other dependencies match exactly after only this font normalization. All 14 independently rendered slides reviewed; Linux resolves Arial to Nimbus Sans, so native application acceptance remains pending. Protection for slides 1–8 remains active. Explicit maintainer request, 2026-09-22 (next follow-up): freeze slides 1–11 at the accepted v11 rendition. No slide content, notes or geometry changes. Extend dependency coverage to chart/workbook on 10 and table on 11. Normalize workbook ZIP packaging only, preserving exact bytes of every member. Slides 12–14 remain editable.",
+  "authorization": "Maintainer request, 2026-09-21: clarify slide 4, then freeze slides 1–8. Subsequent explicit request the same day authorizes only changing the font to Roboto on all 14 slides. Source content, numbers, notes and object geometry preserved; refreshed after independent rendered review. Future changes still require an explicit request. Explicit maintainer request, 2026-09-22: add a distribution explanation to slide 8 based on slide 3 of the supplied old presentation. Only slide 8 source, slide XML and note XML are refreshed after visual review; slides 1–7 and shared dependencies unchanged. Protection for slides 1–8 remains active. Explicit maintainer request, 2026-09-22 (subsequent): switch all slides to a standard cross-application font. Arial references replace Roboto and embedded font data. Protected source sections, notes, text, geometry and all other dependencies match exactly after only this font normalization. All 14 independently rendered slides reviewed; Linux resolves Arial to Nimbus Sans, so native application acceptance remains pending. Protection for slides 1–8 remains active. Explicit maintainer request, 2026-09-22 (next follow-up): freeze slides 1–11 at the accepted v11 rendition. No slide content, notes or geometry changes. Extend dependency coverage to chart/workbook on 10 and table on 11. Normalize workbook ZIP packaging only, preserving exact bytes of every member. Slides 12–14 remain editable. Explicit maintainer request, 2026-09-23: add short introduction/email/LinkedIn to slide 1 and correct slide 11 to compare DoR and DoD with cost included in criteria. After independent visual review, refresh only source sections 1/11 and their slide/notes parts plus slide 1 contact hyperlinks. Slides 2–10 and every shared dependency remain exact. The same request adds resource slide 15. Protection 1–11 remains active; 12–15 remain editable.",
   "source_sections": {
-    "1": "7b0feed3c7ffc6a3a5f190132ac8921a643df4052c23eb077417d6dcdb420051",
+    "1": "2466645db16034655fa6b53f180140b489bcad391af398b311947ba05df7793b",
     "2": "a8ca05943bd47577ebbd074a13c33bf132c0aee7aecfaf00aa7612c705526473",
     "3": "32a0878e0a5ab36f64fbe20dae460d457b1c0a1a99144ef55261aeda1ea93613",
     "4": "3cb5f27188c34afe5273c957b16ff8de3d6b0b51ce1d8462ce92faf63a55870d",
@@ -25,7 +25,7 @@
     "8": "4127f71d6177cdce5de155879dc0161f09d29f316e8268d153d3e55a6d98ea3a",
     "9": "79af7d91240ff88cb2bbfc3c4580f4bc964078729eecd061c7f1305c44763fb0",
     "10": "1f9d6423958122cfe9d8eb73cb56970e7b7f5b15921ab1be05d8b62dcffb5136",
-    "11": "f74e6dea626319a813d712a16ebca4c572667759b1f744a39a049570811ff5c2"
+    "11": "dc1ed1f49852019266966a88afe1a2b800f8bb08e4cf1bafed2c1210c2724fa0"
   },
   "package_parts": {
     "ppt/_rels/presentation.xml.rels": "8c4e7901dd234778b025b0298278e59d95eb7929eccc70a93e45eaf9a1a9809f",
@@ -45,9 +45,9 @@
     "ppt/notesSlides/_rels/notesSlide7.xml.rels": "5e5b0281ad50d0632654527c69188651dfdeecee276855edab0b8c7da3af6c3c",
     "ppt/notesSlides/_rels/notesSlide8.xml.rels": "bfc31e83d609374370cdf4b9ae80bf077ac0c05c6989a460d24b11bccde0619e",
     "ppt/notesSlides/_rels/notesSlide9.xml.rels": "ad654f5e0dc53170fee5cdb18f2d78da9c083407c42450c07fec871804d23c11",
-    "ppt/notesSlides/notesSlide1.xml": "c14697fb0d8e415003bceb92aeb6dd0e107985b472e742523677f78fa9bbf5a7",
+    "ppt/notesSlides/notesSlide1.xml": "b59d40a60b5b0561227454902ce62860b0a9762bba67e489129138ce0b8edf88",
     "ppt/notesSlides/notesSlide10.xml": "15febdf6d4050f89e5fb4f629ff5488c48b33f29ab3159aa6797aa12bf5b6850",
-    "ppt/notesSlides/notesSlide11.xml": "0d99a4b759ae1bd896d7b9cc3b76781eb58aca9c059ebb7c874d76554edde5fe",
+    "ppt/notesSlides/notesSlide11.xml": "f82f5ac601ffdbb0b6be11e8ad217f56b0b5b15e5ef497d6a6c35e45f38c3e47",
     "ppt/notesSlides/notesSlide2.xml": "194494847968e39bb5978245a0ef839da765c489c01baa517d683a1db9c1a968",
     "ppt/notesSlides/notesSlide3.xml": "bcea6822fb85d759e2d26770a41576741453f6d56e6a4b02ab284f24c5c2339a",
     "ppt/notesSlides/notesSlide4.xml": "577887cdfa0bfe053cd92798ac5b95e738addfb3291f380610a0c90b9bcaa6b6",
@@ -63,7 +63,7 @@
     "ppt/slideMasters/_rels/slideMaster1.xml.rels": "a450aace7219b7c302e64f8d94ad9b2ab9ed9bea9cd100bc123d836c1f979d40",
     "ppt/slideMasters/slideMaster1.xml": "94e9a524169945e8193f73353ae266d23aac5275ead812cf0e10cb65bc1c5723",
     "ppt/slideMasters/theme/theme2.xml": "209c802c4be04651d176a75b5b646f08040b71450661a08d5b2ac6de7001f9c0",
-    "ppt/slides/_rels/slide1.xml.rels": "a9f9567dd2014f91f037a3f29841baf379c992f938fe76ea4bb36c08677034e6",
+    "ppt/slides/_rels/slide1.xml.rels": "0b53fad9031eaf193cd7bf5b3243dedebf33d9fdb937b44412ea9ad4c093db75",
     "ppt/slides/_rels/slide10.xml.rels": "4f58ce2d868c6d51373654963ee920d4d990872a453e40331c23265e149c87df",
     "ppt/slides/_rels/slide11.xml.rels": "5f5ec8fd2dd5b14eac7f4902dba6881dcc5ef9664361666c39633aff1f4c6aae",
     "ppt/slides/_rels/slide2.xml.rels": "706be7f52b50a66f7155d5092f76f8bc83215b17447da42574236ae66c971580",
@@ -76,9 +76,9 @@
     "ppt/slides/_rels/slide9.xml.rels": "8dbf6e5f2026e3fbaf79f79a8c10db0c9bed99d12923c372699730aac7e1f809",
     "ppt/slides/charts/_rels/chart1.xml.rels": "c4d531cd31f473dad7b4a15f769767b0a0fa88e72561f9e3da17bbfd4bb9c725",
     "ppt/slides/charts/chart1.xml": "72cc4d7a5d71ed3340f99a65f6c0449e5c3ccfd614096120c577a5f431688537",
-    "ppt/slides/slide1.xml": "dfeb53ad84d363134e644fe47fd1ceeaad5763153d0a03061adbb003f4bdf528",
+    "ppt/slides/slide1.xml": "34057998681cd76fa0e11d7ad1a59143bc412e7463e8abdf50884b549cb88c96",
     "ppt/slides/slide10.xml": "80b64fe4f666d1ccf8ba4401ecc537abaf2392f5953bd4fee514f23e2bf14b9a",
-    "ppt/slides/slide11.xml": "ea4da600f108c417aad8d80220641a460f570a6b5a6e073851ce8d0141577be6",
+    "ppt/slides/slide11.xml": "10ef6b5f2b167de67cc7ae299ce379e27ca99bec8acb095f522380774023693c",
     "ppt/slides/slide2.xml": "6c1a39777b42251d3e5822f030cc1f3fb042dcfbb2e590ef8cdc01db18f112a2",
     "ppt/slides/slide3.xml": "667dd16fd351216447f6aaca61103e3dadf2e2883fe639b41da6215ac34c3378",
     "ppt/slides/slide4.xml": "df435a8b21b3b01ce32cd0da829d26bcb067fa0cab5d8976b9cae7759b3a8401",

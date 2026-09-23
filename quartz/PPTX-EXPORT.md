@@ -1,6 +1,6 @@
 # Editable PowerPoint export
 
-The PMDay deck is an informative presentation rendition, not a new UA doctrine or research edition. Its [central Markdown description](../assets/presentations/pmday-2026/README.md) owns the approved 14-slide order, style, screen copy, speaker notes, evidence limits and source URLs. Each `pptx-slide` JSON block is the render input for the corresponding slide. Update the prose and render block together. The [evidence base](../assets/presentations/pmday-2026/EVIDENCE.md) links local source notes, attributed Creative Commons originals and their retrieval checksums.
+The PMDay deck is an informative presentation rendition, not a new UA doctrine or research edition. Its [central Markdown description](../assets/presentations/pmday-2026/README.md) owns the approved 14-slide narrative plus the requested closing resources slide, style, screen copy, speaker notes, evidence limits and source URLs. Each `pptx-slide` JSON block is the render input for the corresponding slide. Update the prose and render block together. The [evidence base](../assets/presentations/pmday-2026/EVIDENCE.md) links local source notes, attributed Creative Commons originals and their retrieval checksums.
 
 ## Consolidation of PRs #113 and #129
 
@@ -10,8 +10,8 @@ This document owns the implemented contract. `PRESENTATION-PIPELINE.md` is a mig
 
 | Original #113 requirement | Current disposition |
 |---|---|
-| Markdown content separated from layout code | Implemented for the 14-slide PMDay deck |
-| Dark background and native editable slide objects | Implemented; one requested foreground cover illustration, no background pictures or rasterized slides |
+| Markdown content separated from layout code | Implemented for the 15-slide PMDay deck |
+| Dark background and native editable slide objects | Implemented; one requested foreground cover illustration and two closing QR codes, no background pictures or rasterized slides |
 | Reuse publication path safety, stage and preserve last valid output | Implemented for PPTX/manifest promotion; previews use new isolated directories |
 | Notes, checksums, slide count and package verification | Implemented |
 | Independent PPTX → PDF/PNG visual evidence | Implemented via `pptx:preview`; manual visual review remains necessary |
@@ -33,7 +33,7 @@ The generated review snapshot and manifest are committed under `assets/presentat
 
 1. Edit the central Markdown, keeping the approved titles/order and updating the relevant render block.
 2. Generate a new candidate in the authoring environment.
-3. Render all 14 slides and inspect each at full size. Fix crowding, wrong connectors or unreadable text before acceptance.
+3. Render all 15 slides and inspect each at full size. Fix crowding, wrong connectors or unreadable text before acceptance.
 4. Promote the checked candidate and matching manifest together.
 5. Commit source, generator changes if any, PPTX and manifest in the same PR.
 
@@ -45,7 +45,7 @@ npm run test:publication
 
 Verification is portable: Node.js 22 and Python 3 standard library are sufficient. Existing Build Integrity already runs the publication-test glob, including PPTX source/mutation tests and the committed snapshot check. No new workflow or runner permission is required.
 
-The central Markdown owns the maintainer-requested **slides 1–11 freeze**, extended from 1–8 by the explicit September 22 follow-up. The existing record retains the earlier authorization history. Exact source-section hashes and normalized package-part hashes protect slides, notes and their entire dependency closure, including shared presentation settings, layouts, masters, themes, cover, the slide 10 chart and its embedded workbook, and the slide 11 table. Generated relationship/creation IDs are normalized by meaning. Workbook ZIP compression, entry order and timestamps are ignored, but every member path and its exact bytes are protected; values, formulas, styles, relationships and workbook metadata remain covered. Source, content, geometry and other asset bytes are not ignored. Slides 12–14 remain editable. The freeze record is a manifest input; generation cannot silently replace it, and there is no auto-refresh or bypass flag. This protects against accidental changes, not an independent human-authorization boundary.
+The central Markdown owns the maintainer-requested **slides 1–11 freeze**, extended from 1–8 by the explicit September 22 follow-up. The existing record retains the earlier authorization history. Exact source-section hashes and normalized package-part hashes protect slides, notes and their entire dependency closure, including shared presentation settings, layouts, masters, themes, cover, the slide 10 chart and its embedded workbook, and the slide 11 table. Generated relationship/creation IDs are normalized by meaning. Workbook ZIP compression, entry order and timestamps are ignored, but every member path and its exact bytes are protected; values, formulas, styles, relationships and workbook metadata remain covered. Source, content, geometry and other asset bytes are not ignored. Slides 12–15 remain editable. The freeze record is a manifest input; generation cannot silently replace it, and there is no auto-refresh or bypass flag. This protects against accidental changes, not an independent human-authorization boundary.
 
 ## Independent exported-file preview
 
@@ -74,9 +74,9 @@ The first command leaves a checked candidate under `dist/pptx/`. The second inst
 
 ## Observable acceptance contract
 
-- Exactly 14 slides in the source order, 16:9 at 1280×720 design pixels.
+- Exactly 15 slides in the source order, 16:9 at 1280×720 design pixels.
 - Every slide has solid `#0B0F14` background.
-- One fixed foreground illustration on slide 1, requested by the maintainer, with asset checksum and provenance. The package must embed that exact image within the bounded panoramic cover region (96 px side margins; below the title). No other slide/master/layout pictures or image fills. Titles, body text, numbers, diagrams and tables remain native.
+- One fixed foreground illustration on slide 1, requested by the maintainer, with asset checksum and provenance. The package must embed that exact image within the bounded panoramic cover region (96 px side margins; below the title). Two fixed, checksum-bound QR images on slide 15 encode the requested UA/Subprime repository URLs, with native clickable destinations. No other slide/master/layout pictures or image fills. Titles, body text, numbers, diagrams and tables remain native.
 - Block rows on slides 2 and 3 stay within symmetric safe margins of at least 96 px.
 - Slide 3 uses short neutral links without arrowheads. Slide 5 uses one smooth native generation path and a flat human-capacity scenario line; it is explicitly illustrative. Slide 6 includes the human diagnosis/fix/recovery path. Watch / Explore belong to slide 7.
 - Slides 8–10 adapt the supplied historical slides 3–5 as native conceptual diagrams: possible-result distribution, a perspective operating space, and violations outside an approved band. These diagrams carry explicit schematic labels, have no measured numerical axes and do not assert a normal distribution or universal semantic-distance metric. Their bar heights are illustrative geometry, separate from the sample chart.
@@ -94,3 +94,6 @@ The manifest binds the exact Markdown bytes, approved cover image and executable
 Generation stages new files and refuses mixed inputs if source bytes change during the run. Existing output is replaced only after checks pass. The existing publication pair installer verifies checksums, backs up both outputs and restores both after an installation failure. It checks the old pair's internal checksum, not its freshness against newly edited sources, so legitimate regeneration remains possible.
 
 The deck's source remains a teaching adaptation. It does not modify source state in Subprime, redefine UA terminology, promote research or turn illustrative thresholds into universal requirements.
+
+
+The September 23 request explicitly authorizes the slide 1 contact addition and slide 11 DoR/DoD correction within the 1–11 freeze. Their reviewed source/package entries are refreshed narrowly; slides 2–10, their chart/workbook and shared resources remain exact. The same request authorizes a resource-only slide 15. QR assets carry exact URL and generation provenance in the existing artwork record; the portable validator checks their bytes, placement and closing hyperlink destinations.

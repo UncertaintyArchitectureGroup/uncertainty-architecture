@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Revised PMDay slides 11–14 around DoR/DoD, control feasibility, PM knowledge dependencies and the continuous laboratory operating model. Added requested author contacts and a closing resource slide with exact UA/Subprime QR codes and native links. Preserved the original 14-slide order and protected slides 2–10; refreshed only the explicitly authorized slide 1/11 freeze entries after review. Source notes distinguish new primary evidence from illustrative management scenarios. Reconciled the active source contract and asset index with the 15-slide, three-image result; slide content and exported PPTX bytes are unchanged by this documentation correction.
+
 - Extended the maintainer-approved PMDay freeze from slides 1–8 to 1–11 without changing any slide content or layout. Protected the newly included chart/workbook and table; workbook package normalization ignores only ZIP packaging while preserving every contained file. Added mutation coverage for 9–11 and verified 12–14 remain editable. Recorded a proposed narrative improvement for 12–13 without applying it to the deck.
 
 - Switched PMDay to standard Arial references across slides, charts and themes at the maintainer’s request; preserved protected slide 1–8 content and geometry. Integrated the old talk’s business-tolerance ownership into slide 9, four-row statistical DoR/DoD comparison into 11, and runtime containment/fallback plus architectural veto into 12. Preserved every prior note; updated the existing font contract and authorized freeze baseline.

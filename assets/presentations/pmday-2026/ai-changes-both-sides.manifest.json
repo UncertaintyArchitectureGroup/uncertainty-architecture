@@ -3,12 +3,14 @@
   "edition": "pmday-2026-review-candidate",
   "source": "assets/presentations/pmday-2026/README.md",
   "inputs": {
-    "assets/presentations/pmday-2026/README.md": "17d21b9ea8a85ef271cbfd6892ba28161aa79903dafa683d830fea8374d76416",
+    "assets/presentations/pmday-2026/README.md": "784cc2ca39fef2ab6ffea8ba7d37e5199f230a7f75b6e301a12c464f4a2a5360",
     "assets/presentations/pmday-2026/artwork/ai-two-roles.png": "fee952d5eb696de3cdcd4609b42587545a56330577acdca8359b76a4d4b22de7",
-    "assets/presentations/pmday-2026/frozen-slides.json": "c1a0f111acb9bfe8fee7986d6987737a6d4f7dd826bfcf86f97c39dd01eaba5e",
-    "quartz/scripts/pmday-presentation.mjs": "67f38161f7f392bae51a10e3e4eb26624a78cdd42d1fda577b4b6b48c1e03d9b",
-    "quartz/scripts/build-pmday-pptx.mjs": "d352e017fb3efae003ac678e484fc3b73de278a461eaffb7cf6005702e3494fa",
-    "quartz/scripts/validate-pmday-pptx.py": "1c37c237960e09cea21c5460982a40f726722207e90571dfba5cba1d733e2227",
+    "assets/presentations/pmday-2026/artwork/qr-ua.png": "f4039e8fc6b51dbdf09cd87d88dcb182e8b458505d6ee14db052171ca7b6d154",
+    "assets/presentations/pmday-2026/artwork/qr-subprime.png": "e1dbc72048352c901ac612bb403f57c32fdbbe787fea1c7c243c55858cf71db7",
+    "assets/presentations/pmday-2026/frozen-slides.json": "6932a7e80f3880a23d4f7256bcf7e2af1f69a6d94658de5d23fa878e74e8f241",
+    "quartz/scripts/pmday-presentation.mjs": "1347345ae6f7f281c8baabe3115d4332f2fa6fb67e4fedf1c9fc1fb353284ec6",
+    "quartz/scripts/build-pmday-pptx.mjs": "7e49b83cd132aaf338c7cf9d6fc94a6bdab503a201881a9afd2c9a629d960b3c",
+    "quartz/scripts/validate-pmday-pptx.py": "873dfe574b7590becadaf3a447550baab13507b626e08b2d2d77b26e1f87b3dd",
     "quartz/scripts/pmday-fonts.py": "d1972b913510cb5c805643b7b66025a3a5c50912ffe93f8a8bd066e598644b9e"
   },
   "authoring_runtime": {
@@ -16,13 +18,23 @@
     "version": "2.8.59",
     "bundle": "26.903.11726"
   },
-  "pptx_sha256": "4a646c5187cd5639071f530cf17466a6cffe6afe7ad8731e1edf9013ffca64ff",
-  "slide_count": 14,
+  "pptx_sha256": "1470a3f66629a0098ea36d38b1ed6da22b36d1e736366419189f2f44574eac9e",
+  "slide_count": 15,
   "image_exceptions": [
     {
       "slide": 1,
       "asset": "assets/presentations/pmday-2026/artwork/ai-two-roles.png",
       "purpose": "Requested conceptual cover illustration"
+    },
+    {
+      "slide": 15,
+      "asset": "assets/presentations/pmday-2026/artwork/qr-ua.png",
+      "purpose": "Requested UA repository QR code"
+    },
+    {
+      "slide": 15,
+      "asset": "assets/presentations/pmday-2026/artwork/qr-subprime.png",
+      "purpose": "Requested Subprime repository QR code"
     }
   ],
   "target_application": "Microsoft PowerPoint",

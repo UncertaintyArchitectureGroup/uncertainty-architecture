@@ -13,7 +13,9 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = "assets/presentations/pmday-2026/README.md"
 COVER = "assets/presentations/pmday-2026/artwork/ai-two-roles.png"
-INPUTS = [SOURCE, COVER, "assets/presentations/pmday-2026/frozen-slides.json", "quartz/scripts/pmday-presentation.mjs", "quartz/scripts/build-pmday-pptx.mjs", "quartz/scripts/validate-pmday-pptx.py", "quartz/scripts/pmday-fonts.py"]
+QR_UA = "assets/presentations/pmday-2026/artwork/qr-ua.png"
+QR_SUBPRIME = "assets/presentations/pmday-2026/artwork/qr-subprime.png"
+INPUTS = [SOURCE, COVER, QR_UA, QR_SUBPRIME, "assets/presentations/pmday-2026/frozen-slides.json", "quartz/scripts/pmday-presentation.mjs", "quartz/scripts/build-pmday-pptx.mjs", "quartz/scripts/validate-pmday-pptx.py", "quartz/scripts/pmday-fonts.py"]
 NS = {"p": "http://schemas.openxmlformats.org/presentationml/2006/main", "a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 
 
@@ -29,7 +31,7 @@ CREATION_ID = "{http://schemas.microsoft.com/office/drawing/2014/main}creationId
 
 def frozen_source_hashes(source):
     sections = re.findall(r"^## (\d+)\. [^\n]+\n[\s\S]*?(?=^## \d+\. |\Z)", source, re.M)
-    assert sections == [str(i) for i in range(1, 15)], "Frozen source: invalid slide order"
+    assert sections == [str(i) for i in range(1, 16)], "Frozen source: invalid slide order"
     blocks = re.finditer(r"^## (\d+)\. [^\n]+\n[\s\S]*?(?=^## \d+\. |\Z)", source, re.M)
     return {m[1]: digest(m[0].encode()) for m in blocks if int(m[1]) <= FROZEN_SLIDE_COUNT}
 
@@ -72,7 +74,7 @@ def frozen_package_hashes(package):
             tree = ET.fromstring(data)
             if name == "ppt/presentation.xml":
                 slide_ids = tree.find("p:sldIdLst", NS)
-                assert slide_ids is not None and len(slide_ids) == 14, "Frozen presentation: invalid slide list"
+                assert slide_ids is not None and len(slide_ids) == 15, "Frozen presentation: invalid slide list"
                 for child in list(slide_ids)[FROZEN_SLIDE_COUNT:]:
                     slide_ids.remove(child)
             for element in tree.iter():
@@ -125,18 +127,18 @@ def validate(pptx, manifest_path):
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest.get("schema_version") == 1, "Unsupported manifest"
     assert manifest["pptx_sha256"] == digest(pptx.read_bytes()), "PPTX checksum mismatch"
-    assert manifest.get("image_exceptions") == [{"slide": 1, "asset": COVER, "purpose": "Requested conceptual cover illustration"}], "Unapproved image exceptions"
+    assert manifest.get("image_exceptions") == [{"slide": 1, "asset": COVER, "purpose": "Requested conceptual cover illustration"}, {"slide": 15, "asset": QR_UA, "purpose": "Requested UA repository QR code"}, {"slide": 15, "asset": QR_SUBPRIME, "purpose": "Requested Subprime repository QR code"}], "Unapproved image exceptions"
     assert set(manifest["inputs"]) == set(INPUTS), "Missing or extra provenance input"
     for name in INPUTS:
         assert manifest["inputs"][name] == digest((ROOT / name).read_bytes()), f"Stale input: {name}"
     source = (ROOT / SOURCE).read_text(encoding="utf-8")
     titles = [m[1] for m in re.findall(r"^## (\d+)\. (.+)$", source, re.M)]
-    assert len(titles) == 14, "Source must contain 14 slides"
+    assert len(titles) == 15, "Source must contain 15 slides"
     counts = {"slides": 0, "pictures": 0, "tables": 0, "text_runs": 0}
     with zipfile.ZipFile(pptx) as package:
         assert len(package.namelist()) == len(set(package.namelist())), "Duplicate package members"
         slides = sorted((n for n in package.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)), key=lambda n: int(re.search(r"slide(\d+)", n)[1]))
-        assert len(slides) == 14, "PPTX must contain 14 slides"
+        assert len(slides) == 15, "PPTX must contain 15 slides"
         presentation = ET.fromstring(package.read("ppt/presentation.xml"))
         size = presentation.find("p:sldSz", NS)
         assert (size.get("cx"), size.get("cy")) == ("12192000", "6858000"), "Expected 16:9 design canvas"
@@ -145,11 +147,11 @@ def validate(pptx, manifest_path):
             bg = slide.find("p:cSld/p:bg/p:bgPr/a:solidFill/a:srgbClr", NS)
             assert bg is not None and bg.get("val").upper() == "0B0F14", f"Slide {number}: dark solid background missing"
             pictures = slide.findall(".//p:pic", NS)
-            assert len(pictures) == (1 if number == 1 else 0), f"Slide {number}: image exceptions violated"
+            assert len(pictures) == (1 if number == 1 else 2 if number == 15 else 0), f"Slide {number}: image exceptions violated"
             # One requested foreground illustration is allowed; no background or native-shape image fills.
             assert not slide.findall(".//p:bg//a:blipFill", NS), f"Slide {number}: image background forbidden"
             assert not slide.findall(".//p:sp//a:blipFill", NS), f"Slide {number}: image fill forbidden"
-            if pictures:
+            if number == 1:
                 pic = pictures[0]
                 extent = pic.find("p:spPr/a:xfrm/a:ext", NS)
                 offset = pic.find("p:spPr/a:xfrm/a:off", NS)
@@ -165,6 +167,22 @@ def validate(pptx, manifest_path):
                 # OOXML permits package-absolute and slide-relative internal part names.
                 media = targets[0].lstrip("/") if targets[0].startswith("/") else "ppt/" + targets[0][3:]
                 assert digest(package.read(media)) == manifest["inputs"][COVER], "Cover image bytes differ from approved asset"
+            if number == 15:
+                rels = ET.fromstring(package.read("ppt/slides/_rels/slide15.xml.rels"))
+                for pic, asset in zip(pictures, (QR_UA, QR_SUBPRIME)):
+                    transform = pic.find("p:spPr/a:xfrm", NS)
+                    extent, offset = transform.find("a:ext", NS), transform.find("a:off", NS)
+                    w, h = int(extent.get("cx")), int(extent.get("cy"))
+                    x, y = int(offset.get("x")), int(offset.get("y"))
+                    assert 160*9525 <= w == h <= 280*9525 and x >= 64*9525 and x+w <= 1216*9525 and y >= 200*9525 and y+h <= 636*9525, "QR image geometry invalid"
+                    rid = pic.find("p:blipFill/a:blip", NS).get("{" + REL_NS + "}embed")
+                    target = [r.get("Target") for r in rels if r.get("Id") == rid and r.get("TargetMode") in (None, "Internal") and r.get("Type", "").endswith("/image")]
+                    assert len(target) == 1, "QR image relationship invalid"
+                    media = target[0].lstrip("/") if target[0].startswith("/") else posixpath.normpath(posixpath.join("ppt/slides", target[0]))
+                    assert digest(package.read(media)) == manifest["inputs"][asset], "QR image bytes differ from approved asset"
+                expected = {"https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture", "https://github.com/UncertaintyArchitectureGroup/The-Subprime-Code-Crisis", "mailto:oborskyivitalii@gmail.com", "https://www.linkedin.com/in/vitaliioborskyi/"}
+                actual = {r.get("Target") for r in rels if r.get("Type", "").endswith("/hyperlink") and r.get("TargetMode") == "External"}
+                assert actual == expected, "Closing hyperlink destinations changed"
             assert not slide.findall(".//p:oleObj", NS), f"Slide {number}: OLE object forbidden"
             runs = [e.text or "" for e in slide.findall(".//a:t", NS)]
             normalized = " ".join(" ".join(runs).split())

@@ -25,9 +25,9 @@ test("authoring maps supplied runtime paths for finalizer subprocesses", () => {
   assert.equal(env.RUNTIME_BIN_DIR, "/runtime/dependencies/bin/override")
 })
 
-test("approved 14-slide source has its original narrative order and complete notes", () => {
+test("approved 15-slide source preserves the original narrative order and complete notes", () => {
   const slides = parseDeck(source)
-  assert.equal(slides.length, 14)
+  assert.equal(slides.length, 15)
   assert.equal(slides[4].title, "The New Scarcity Is Human Comprehension")
   assert.equal(slides[5].title, "The Team Is the Last Line of Defense")
   assert.equal(slides[6].title, "We Are Searching for a New SDLC Equilibrium")
@@ -36,7 +36,7 @@ test("approved 14-slide source has its original narrative order and complete not
 })
 
 test("source refuses missing slide, reordered layout and unapproved image exception", () => {
-  assert.throws(() => parseDeck(source.replace("## 14. ", "## Removed. ")), /14 approved/)
+  assert.throws(() => parseDeck(source.replace("## 14. ", "## Removed. ")), /15 approved/)
   assert.throws(() => parseDeck(source.replace('"layout": "cover"', '"layout": "sdlc"')), /order/)
   assert.throws(
     () =>
@@ -49,8 +49,8 @@ test("source refuses missing slide, reordered layout and unapproved image except
 
 test("committed PPTX is fresh, editable and follows the dark-background contract", () => {
   const result = JSON.parse(execFileSync("python3", [validator], { encoding: "utf8" }))
-  assert.equal(result.slides, 14)
-  assert.equal(result.pictures, 1)
+  assert.equal(result.slides, 15)
+  assert.equal(result.pictures, 3)
   assert.equal(result.tables, 2)
 })
 
@@ -62,6 +62,8 @@ for (const mutation of [
   "text-outside",
   "cover-missing",
   "cover-size",
+  "qr-bytes",
+  "closing-link",
   "evidence-number",
   "nber-obsolete",
   "agarwal-rounded",
@@ -93,6 +95,9 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
    if mutation=='cover-size': pic.find('p:spPr/a:xfrm/a:ext',ns).set('cx','12192000')
    if mutation=='cover-missing': tree.find('p:cSld/p:spTree',ns).remove(pic)
    data=E.tostring(tree)
+  if item.filename=='ppt/slides/slide15.xml' and mutation=='qr-bytes':
+   tree=E.fromstring(data);pics=tree.findall('.//p:pic',ns);a=pics[0].find('p:blipFill/a:blip',ns);b=pics[1].find('p:blipFill/a:blip',ns);a.set('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed',b.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed'));data=E.tostring(tree)
+  if item.filename=='ppt/slides/_rels/slide15.xml.rels' and mutation=='closing-link': data=data.replace(b'https://github.com/UncertaintyArchitectureGroup/The-Subprime-Code-Crisis',b'https://example.invalid/wrong')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='nber-obsolete': data=data.replace('25.5×'.encode(),'17.3×'.encode())
   if item.filename=='ppt/slides/slide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85% / +42.87%',b'+35% / +43%')
@@ -144,7 +149,7 @@ with open(record,'w') as f: json.dump(m,f)
     assert.equal(result.status, 1, result.stdout + result.stderr)
     assert.match(
       result.stderr,
-      /background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing/,
+      /background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink/,
     )
   })
 }
@@ -209,7 +214,7 @@ test("independent renderer rejects an exported word split", () => {
   assert.throws(() => verifyRenderedText("Integrate Button A Window\nB"), /Window B/)
 })
 
-test("slide freeze protects 1–11, chart/workbook and table while permitting 12–14", () => {
+test("slide freeze protects 1–11, chart/workbook and table while permitting 12–15", () => {
   execFileSync("python3", [
     "-c",
     `
@@ -260,7 +265,7 @@ for parts in mutations:
  try: check(parts)
  except AssertionError as error: assert 'Frozen slides' in str(error)
  else: raise AssertionError('Protected mutation passed')
-for number in (12,13,14):
+for number in (12,13,14,15):
  parts=original.copy();name=f'ppt/slides/slide{number}.xml';tree=E.fromstring(parts[name]);tree.find('.//a:t',v.NS).text='Editable slide';parts[name]=E.tostring(tree);check(parts)
 print('Freeze checks passed')
 `,

@@ -1,6 +1,6 @@
 // Native editable PowerPoint rendition of the maintainer-approved Markdown.
 // Content lives in pptx-slide blocks; this module owns geometry, not research claims.
-export const slideCount = 14
+export const slideCount = 15
 export const theme = {
   bg: "#0B0F14",
   panel: "#141C26",
@@ -30,13 +30,14 @@ const layouts = [
   "control",
   "roles",
   "synthesis",
+  "resources",
 ]
 
 export function parseDeck(markdown) {
   const sections = [
     ...markdown.matchAll(/^## (\d+)\. (.+)\n([\s\S]*?)(?=^## \d+\. |$(?![\s\S]))/gm),
   ]
-  if (sections.length !== slideCount) throw new Error("Expected exactly 14 approved slide sections")
+  if (sections.length !== slideCount) throw new Error("Expected exactly 15 approved slide sections")
   return sections.map((section, i) => {
     const blocks = [...section[3].matchAll(/```pptx-slide\n([\s\S]*?)\n```/g)]
     if (blocks.length !== 1) throw new Error(`Slide ${i + 1}: expected one pptx-slide block`)
@@ -48,7 +49,7 @@ export function parseDeck(markdown) {
       throw new Error(`Slide ${i + 1}: missing notes`)
     if (data.images)
       throw new Error(
-        "Only the fixed cover asset is approved; arbitrary image exceptions are forbidden",
+        "Only the fixed cover and closing QR assets are approved; arbitrary image exceptions are forbidden",
       )
     if (data.titleLines && data.titleLines.join(" ") !== section[2])
       throw new Error(`Slide ${i + 1}: title line breaks changed the approved title`)
@@ -185,15 +186,21 @@ export function createDeck(Presentation, data, assets = {}) {
           contentType: "image/png",
           alt: d.illustrationAlt,
           fit: "contain",
-          position: { left: 96, top: 231, width: 1088, height: 363 },
+          position: { left: 96, top: 231, width: 1088, height: 300 },
         })
         d.lanes.forEach(([label, detail], i) => {
           const x = 96 + i * 584,
             color = i ? C.amber : C.cyan
-          text(s, label, x, 602, 504, 31, 22, color, true)
-          text(s, detail, x, 637, 504, 35, 24, C.white)
+          text(s, label, x, 540, 504, 31, 22, color, true)
+          text(s, detail, x, 575, 504, 35, 24, C.white)
         })
-        text(s, "Vitalii Oborskyi · PMDay", 64, 678, 1060, 26, 20, C.gray)
+        line(s, 64, 618, 1216, 618)
+        text(s, d.author, 64, 631, 260, 30, 24, C.white, true)
+        text(s, d.bio, 344, 632, 872, 29, 20, C.gray)
+        const mail = text(s, d.email, 64, 674, 432, 25, 19, C.cyan)
+        mail.text.get(d.email).link = { uri: `mailto:${d.email}`, isExternal: true }
+        const linkedin = text(s, d.linkedin, 518, 674, 636, 25, 19, C.cyan)
+        linkedin.text.get(d.linkedin).link = { uri: d.linkedin, isExternal: true }
         break
       }
       case "phase": {
@@ -597,93 +604,143 @@ export function createDeck(Presentation, data, assets = {}) {
       }
       case "risk": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        text(s, d.behavior, 64, 214, 1152, 28, 20, C.gray)
-        const gates = table(s, d.table, 64, 249, 1152, 366, [115, 237, 500, 300], 18, 3)
-        ;[38, 84, 56, 84, 104].forEach((h, i) => {
+        text(s, d.behavior, 64, 213, 1152, 28, 21, C.gray)
+        const gates = table(s, d.table, 64, 250, 1152, 292, [164, 400, 588], 21, 8)
+        ;[40, 126, 126].forEach((h, i) => {
           gates.rows[i].height = h
         })
-        text(s, d.syntax, 64, 620, 1152, 25, 20, C.amber)
-        text(s, d.caption, 64, 648, 1152, 25, 19, C.gray)
-        text(s, d.takeaway, 64, 675, 1118, 29, 25, C.white, true)
+        text(s, d.releaseHeading, 64, 553, 1152, 26, 19, C.amber, true)
+        text(s, d.release, 64, 582, 1152, 28, 21, C.white)
+        text(s, d.incident, 64, 613, 1152, 28, 20, C.cyan)
+        text(s, d.caption, 64, 645, 1152, 25, 18, C.gray)
+        text(s, d.takeaway, 64, 676, 1118, 28, 22, C.white, true)
         break
       }
       case "control": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        text(s, d.flowHeading, 64, 215, 368, 26, 18, C.gray, true)
-        const reference = box(s, d.reference, 466, 219, 180, 38, C.gray, 17)
-        const proposal = box(s, d.runtime[0], 64, 283, 148, 70, C.cyan, 21)
-        const monitor = box(s, d.runtime[1], 250, 283, 176, 70, C.cyan, 20)
-        const gate = box(s, d.runtime[2], 466, 283, 180, 70, C.amber, 20)
-        const deliver = box(s, d.runtime[3], 706, 283, 150, 70, C.cyan, 21)
-        connect(s, proposal, monitor, C.gray)
-        connect(s, monitor, gate, C.gray)
-        connect(s, reference, gate, C.gray, "bottom", "top")
-        connect(s, gate, deliver, C.cyan)
-        text(s, "PASS", 658, 286, 44, 22, 14, C.cyan, true)
-        const stop = box(s, d.stop, 466, 389, 180, 62, C.red, 20)
-        const fallback = box(s, d.fallback, 64, 389, 362, 62, C.amber, 19)
-        connect(s, gate, stop, C.red, "bottom", "top")
-        text(s, "BREACH / UNAVAILABLE", 466, 361, 180, 23, 13, C.red, true, "center")
-        connect(s, stop, fallback, C.amber, "left", "right")
-        const observe = box(s, d.observe, 706, 389, 150, 62, C.cyan, 18)
-        connect(s, deliver, observe, C.cyan, "bottom", "top")
-        line(s, 781, 451, 781, 479, C.cyan)
-        line(s, 781, 479, 48, 479, C.cyan)
-        line(s, 48, 479, 48, 318, C.cyan)
-        const returnPoint = rect(s, 48, 317.5, 1, 1, "none", "none", 0)
-        connect(s, returnPoint, proposal, C.cyan)
-        text(s, d.feedback, 64, 485, 792, 39, 18, C.cyan)
-        line(s, 884, 216, 884, 526)
-        text(s, d.architectureHeading, 912, 215, 304, 26, 18, C.red, true)
+        text(s, d.perimeterHeading, 64, 216, 800, 26, 19, C.cyan, true)
+        rect(s, 64, 250, 800, 287, C.line, "none")
+        text(s, d.reference, 88, 255, 752, 28, 20, C.amber, true, "center")
+        const core = box(s, d.core, 88, 295, 232, 63, C.cyan, 22)
+        const sensor = box(s, d.sensor, 600, 295, 240, 63, C.cyan, 21)
+        const controller = box(s, d.controller, 600, 437, 240, 63, C.amber, 21)
+        const actuator = box(s, d.actuator, 88, 437, 232, 63, C.amber, 21)
+        connect(s, core, sensor, C.cyan)
+        connect(s, sensor, controller, C.cyan, "bottom", "top")
+        line(s, 720, 500, 720, 522, C.amber)
+        line(s, 720, 522, 204, 522, C.amber)
+        const returnPoint = rect(s, 203.5, 521, 1, 1, "none", "none", 0)
+        connect(s, returnPoint, actuator, C.amber, "top", "bottom")
+        connect(s, actuator, core, C.amber, "top", "bottom")
+        const human = box(s, d.human, 352, 380, 216, 110, C.gray, 18)
+        connect(s, human, controller, C.gray, "right", "left", "elbow")
+        text(s, d.humanDetail, 344, 337, 236, 39, 16, C.gray, false, "center")
+        line(s, 891, 218, 891, 537)
+        text(s, d.vetoHeading, 918, 216, 298, 28, 20, C.red, true)
+        text(s, d.veto, 918, 253, 298, 120, 26, C.white, true)
+        text(s, d.vetoAction, 918, 385, 298, 63, 24, C.red, true)
+        text(s, d.vetoDetail, 918, 456, 298, 78, 19, C.gray)
+        text(s, d.complexityHeading, 64, 548, 1152, 26, 19, C.gray, true)
         d.pressures.forEach(([head, detail], i) => {
-          text(s, head, 912, 251 + i * 65, 304, 24, 20, C.white, true)
-          text(s, detail, 912, 277 + i * 65, 304, 32, 17, C.gray)
+          const x = 64 + i * 390
+          text(s, head, x, 578, 372, 26, 21, C.white, true)
+          text(s, detail, x, 607, 372, 39, 18, C.gray)
         })
-        text(s, d.veto, 912, 453, 304, 70, 19, C.red, true)
-        line(s, 64, 534, 1216, 534)
-        text(s, d.humanHeading, 64, 541, 1152, 25, 19, C.cyan, true)
-        text(s, d.humanDetail, 64, 570, 1152, 26, 21, C.white)
-        text(s, d.gate, 64, 604, 1152, 27, 19, C.gray)
-        text(s, d.trialRule, 64, 637, 1152, 28, 20, C.amber)
-        text(s, d.takeaway, 64, 678, 1118, 28, 24, C.white, true)
+        text(s, d.trialRule, 64, 649, 1152, 27, 19, C.amber)
+        text(s, d.takeaway, 64, 680, 1118, 27, 23, C.white, true)
         break
       }
       case "roles": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        text(s, d.foundation, 64, 216, 1152, 32, 22, C.white)
-        text(s, "THREE OVERLAPPING HORIZONS", 64, 254, 1152, 26, 19, C.gray, true)
-        const horizons = table(s, d.table, 64, 289, 1152, 310, [211, 490, 451], 20, 6)
-        ;[40, 90, 90, 90].forEach((h, i) => {
+        text(s, d.foundation, 64, 213, 1152, 28, 21, C.gray)
+        text(s, d.caseHeading, 64, 247, 1152, 26, 19, C.amber, true)
+        const examples = d.caseSteps.map((v, i) =>
+          box(s, v, 64 + i * 410, 281, 332, 54, i === 2 ? C.red : C.line, 21),
+        )
+        connect(s, examples[0], examples[1], C.gray)
+        connect(s, examples[1], examples[2], C.red)
+        text(s, d.caseAction, 64, 343, 1152, 28, 21, C.white, true)
+        const horizons = table(s, d.table, 64, 385, 1152, 210, [236, 458, 458], 19, 4)
+        ;[36, 58, 58, 58].forEach((h, i) => {
           horizons.rows[i].height = h
         })
-        text(s, d.statisticalLiteracy, 64, 613, 1152, 29, 21, C.amber)
-        text(s, d.roleBoundary, 64, 647, 1152, 28, 20, C.gray)
+        text(s, d.statisticalLiteracy, 64, 609, 1152, 29, 21, C.amber)
+        text(s, d.roleBoundary, 64, 646, 1152, 28, 20, C.gray)
         text(s, d.takeaway, 64, 682, 1118, 27, 23, C.white, true)
         break
       }
       case "synthesis": {
-        text(s, d.factoryHeading, 64, 204, 460, 28, 21, C.gray, true)
-        text(s, d.factoryFlow, 64, 248, 460, 35, 25, C.white, true)
-        text(s, d.factoryDetail, 64, 294, 460, 58, 23, C.gray)
-        text(s, d.labHeading, 64, 389, 460, 28, 21, C.cyan, true)
-        text(s, d.labDetail, 64, 430, 460, 61, 24, C.white)
-        line(s, 540, 207, 540, 491)
-        const h = box(s, d.labSteps[0], 582, 220, 242, 68, C.cyan, 22)
-        const m = box(s, d.labSteps[1], 954, 220, 242, 68, C.cyan, 24)
-        const dcn = box(s, d.labSteps[2], 954, 414, 242, 68, C.amber, 24)
-        const a = box(s, d.labSteps[3], 582, 414, 242, 68, C.amber, 24)
+        text(s, d.factoryHeading, 64, 195, 438, 28, 21, C.gray, true)
+        text(s, d.factoryFlow, 64, 235, 438, 34, 25, C.white, true)
+        text(s, d.factoryDetail, 64, 275, 438, 52, 22, C.gray)
+        text(s, d.labHeading, 64, 354, 438, 28, 21, C.cyan, true)
+        text(s, d.labDetail, 64, 393, 438, 55, 23, C.white)
+        line(s, 530, 199, 530, 448)
+        const h = box(s, d.labSteps[0], 568, 209, 230, 60, C.cyan, 21)
+        const m = box(s, d.labSteps[1], 976, 209, 230, 60, C.cyan, 22)
+        const dcn = box(s, d.labSteps[2], 976, 385, 230, 60, C.amber, 22)
+        const a = box(s, d.labSteps[3], 568, 385, 230, 60, C.amber, 22)
         connect(s, h, m, C.cyan)
         connect(s, m, dcn, C.cyan, "bottom", "top")
         connect(s, dcn, a, C.amber, "left", "right")
         connect(s, a, h, C.amber, "top", "bottom")
-        text(s, d.loopCenter, 630, 318, 515, 67, 25, C.white, true, "center")
-        line(s, 64, 513, 1216, 513)
-        d.applications.forEach(([head, detail], i) => {
-          const y = 526 + i * 66
-          text(s, head, 64, y, 1152, 26, 20, i ? C.amber : C.cyan, true)
-          text(s, detail, 64, y + 29, 1152, 28, 21, C.white)
+        text(s, d.loopCenter, 622, 293, 526, 62, 24, C.white, true, "center")
+        line(s, 64, 465, 1216, 465)
+        text(s, d.teamHeading, 64, 475, 1152, 27, 19, C.cyan, true)
+        d.ceremonies.forEach(([head, detail], i) => {
+          const x = 64 + i * 293
+          text(s, head, x, 509, 273, 25, 19, C.white, true)
+          text(s, detail, x, 540, 273, 48, 19, C.gray)
         })
-        text(s, d.takeaway, 64, 673, 1118, 31, 25, C.white, true)
+        line(s, 64, 599, 1216, 599)
+        d.applications.forEach(([head, detail], i) => {
+          text(s, head, 64, 609 + i * 30, 367, 26, 19, i ? C.amber : C.cyan, true)
+          text(s, detail, 441, 609 + i * 30, 775, 26, 20, C.white)
+        })
+        text(s, d.takeaway, 64, 680, 1118, 28, 23, C.white, true)
+        break
+      }
+      case "resources": {
+        text(s, d.subtitle, 64, 182, 1152, 35, 25, C.gray)
+        d.resources.forEach(([title, description, url, label], i) => {
+          const x = 64 + i * 608
+          text(s, title, x, 237, 544, 40, 29, i ? C.amber : C.cyan, true, "center")
+          text(s, description, x, 281, 544, 56, 23, C.white, false, "center")
+          const qr = i ? assets.qrSubprime : assets.qrUa
+          if (!qr) throw new Error("Requested closing QR asset is required")
+          s.images.add({
+            blob: qr,
+            contentType: "image/png",
+            alt: `QR code: ${url}`,
+            fit: "contain",
+            position: { left: x + 164, top: 350, width: 216, height: 216 },
+          })
+          const prefix = text(
+            s,
+            "github.com/UncertaintyArchitectureGroup/",
+            x,
+            579,
+            544,
+            25,
+            18,
+            C.gray,
+            false,
+            "center",
+          )
+          prefix.text.get("github.com/UncertaintyArchitectureGroup/").link = {
+            uri: url,
+            isExternal: true,
+          }
+          const link = text(s, label, x, 608, 544, 28, 22, i ? C.amber : C.cyan, true, "center")
+          link.text.get(label).link = { uri: url, isExternal: true }
+        })
+        line(s, 640, 237, 640, 636)
+        line(s, 64, 653, 1216, 653)
+        text(s, d.author, 64, 667, 236, 28, 21, C.white, true)
+        const mail = text(s, d.email, 315, 667, 345, 28, 18, C.cyan)
+        mail.text.get(d.email).link = { uri: `mailto:${d.email}`, isExternal: true }
+        const link = text(s, d.linkedin, 676, 667, 478, 28, 17, C.cyan)
+        link.text.get(d.linkedin).link = { uri: d.linkedin, isExternal: true }
         break
       }
       default:
