@@ -97,3 +97,5 @@ The deck's source remains a teaching adaptation. It does not modify source state
 
 
 The September 23 request explicitly authorizes the slide 1 contact addition and slide 11 DoR/DoD correction within the 1–11 freeze. Their reviewed source/package entries are refreshed narrowly; slides 2–10, their chart/workbook and shared resources remain exact. The same request authorizes a resource-only slide 15. QR assets carry exact URL and generation provenance in the existing artwork record; the portable validator checks their bytes, placement and closing hyperlink destinations.
+
+The subsequent September 23 critical-review request authorizes role and narrative refinements on slides 8–14. The v14 refresh is restricted to changed slide/notes parts and source sections for 8–11 after visual review. Slides 1–7, all shared resources, the slide 10 chart/workbook, all numerical evidence and closing slide 15 remain unchanged. This is an editorial teaching adaptation; no role-keyword gate or new organizational requirement is introduced.

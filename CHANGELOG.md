@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Critically revised PMDay slides 8–14 to connect the behavioral contract, evaluation evidence, shared readiness/completion, release authority, operational ownership and delivery dependencies. Made Product Owner and Project Manager explicit on slide 9, separated representative sampling from curated evaluation scenarios, and closed with one actionable workflow. Preserved slides 1–7/15 and all numerical evidence; narrowly refreshed authorized frozen 8–11 after review.
+
 - Revised PMDay slides 11–14 around DoR/DoD, control feasibility, PM knowledge dependencies and the continuous laboratory operating model. Added requested author contacts and a closing resource slide with exact UA/Subprime QR codes and native links. Preserved the original 14-slide order and protected slides 2–10; refreshed only the explicitly authorized slide 1/11 freeze entries after review. Source notes distinguish new primary evidence from illustrative management scenarios. Reconciled the active source contract and asset index with the 15-slide, three-image result; slide content and exported PPTX bytes are unchanged by this documentation correction.
 
 - Extended the maintainer-approved PMDay freeze from slides 1–8 to 1–11 without changing any slide content or layout. Protected the newly included chart/workbook and table; workbook package normalization ignores only ZIP packaging while preserving every contained file. Added mutation coverage for 9–11 and verified 12–14 remain editable. Recorded a proposed narrative improvement for 12–13 without applying it to the deck.

@@ -417,7 +417,7 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "thinking": {
-        text(s, "THINKING SYSTEMS", 64, 176, 1118, 28, 21, C.cyan, true)
+        text(s, d.role, 64, 176, 1118, 28, 21, C.cyan, true)
         text(s, d.definition, 64, 212, 1152, 62, 27, C.white, true)
         d.labels.forEach((v, i) => {
           const x = 64 + i * 600
@@ -453,7 +453,7 @@ export function createDeck(Presentation, data, assets = {}) {
         const b = box(s, d.old[1], 302, 259, 182, 58, C.gray, 26)
         connect(s, a, b, C.gray)
         text(s, d.oldDetail, 64, 330, 420, 57, 25, C.white)
-        text(s, d.roleDetail, 64, 400, 420, 45, 19, C.gray)
+        text(s, d.roleDetail, 64, 397, 420, 67, 18, C.gray)
         text(s, d.newHeading, 536, 220, 680, 30, 19, C.cyan, true)
         // Match the supplied possibility-space topology using editable geometry.
         // The perspective plane is conceptual, with no universal semantic-distance scale.
@@ -599,7 +599,7 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.decision, 660, 584, 556, 28, 23, C.red, true)
         text(s, d.instruments, 64, 621, 1152, 26, 19, C.cyan, true)
         text(s, d.calibration, 64, 651, 1152, 25, 19, C.white)
-        text(s, d.ownershipLine, 64, 681, 1118, 27, 21, C.white, true)
+        text(s, d.ownershipLine, 64, 681, 1118, 27, 20, C.white, true)
         break
       }
       case "risk": {
@@ -690,14 +690,14 @@ export function createDeck(Presentation, data, assets = {}) {
         d.ceremonies.forEach(([head, detail], i) => {
           const x = 64 + i * 293
           text(s, head, x, 509, 273, 25, 19, C.white, true)
-          text(s, detail, x, 540, 273, 48, 19, C.gray)
+          text(s, detail, x, 540, 273, 48, 18, C.gray)
         })
         line(s, 64, 599, 1216, 599)
         d.applications.forEach(([head, detail], i) => {
           text(s, head, 64, 609 + i * 30, 367, 26, 19, i ? C.amber : C.cyan, true)
           text(s, detail, 441, 609 + i * 30, 775, 26, 20, C.white)
         })
-        text(s, d.takeaway, 64, 680, 1118, 28, 23, C.white, true)
+        text(s, d.takeaway, 64, 680, 1118, 28, 22, C.white, true)
         break
       }
       case "resources": {
