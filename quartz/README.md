@@ -39,6 +39,7 @@ For an upgrade: record the proposed upstream tag/SHA, classify each local adapta
 | `quartz/publication/` | Treat profiles as publishing contracts and update verifiers/fixtures with intentional changes |
 | [`PDF-EXPORT.md`](PDF-EXPORT.md) | Human-readable PDF rendering, provenance, finalization, and verification contract |
 | [`PLATFORM-RENDITIONS.md`](PLATFORM-RENDITIONS.md) | Human-readable LinkedIn/Medium packaging contract |
+| [`PPTX-EXPORT.md`](PPTX-EXPORT.md) | Native editable PowerPoint authoring, source freshness and portable snapshot verification; authoring runtime is not available on stock GitHub runners |
 | `.github/` policy/tests/workflows | Deterministic repository enforcement and CI orchestration, governed by scoped [`.github/AGENTS.md`](../.github/AGENTS.md) |
 | `public/`, `dist/` | Generated output; never editable sources unless an explicit publication/history record requires the artifact |
 
@@ -62,6 +63,8 @@ flowchart TD
 ```
 
 `npm run build` produces the ordinary Quartz site. `npm run pdf -- <content/file.md>` invokes the generic PDF exporter. Publication-specific wrappers add strict provenance, furniture, manifests, verification, and platform packaging while keeping Markdown canonical.
+
+The PMDay PowerPoint path reads its central Markdown under `assets/presentations/`, creates native editable slide objects in the configured authoring runtime, and commits a checked PPTX/manifest pair at the maintainer's request. `npm run pptx:verify` and the ordinary publication regression glob check that snapshot without the authoring backend. `npm run pptx:preview` independently renders an exported package through LibreOffice and Poppler into ignored PDF/PNG review evidence. PR #113 owns the continuing workstream; its original portable/multi-deck/22-slide requirements remain explicitly pending in the PPTX contract. PDF/site generation is unchanged.
 
 The `RepositoryControlMap` emitter adds `control-map/` and calls `.github/scripts/build_repository_control_map.py`. That adapter reuses the existing projection, bounded snapshot reader, impact results, and validation route. The map client is bundled only for its standalone page; ordinary article pages retain the existing Quartz graph. See the [architecture owner](../.github/REPOSITORY-INTELLIGENCE.md#control-map-implementation-and-publication) for state, authority, diagnostic, and publication boundaries, and [CONTRIBUTING](../CONTRIBUTING.md#repository-control-map-and-site-publication) for activation. The existing build-integrity workflow owns preview artifacts, browser verification, and opt-in Pages deployment after successful main checks.
 
