@@ -123,6 +123,25 @@ def validate_fonts(package):
                 assert latin is not None and latin.get("typeface") == "Arial", f"Arial: missing {style} default"
 
 
+def validate_chart_labels(package):
+    """Keep count/share labels unambiguous across PPTX consumers."""
+    ns = {**NS, "c": "http://schemas.openxmlformats.org/drawingml/2006/chart"}
+    chart = ET.fromstring(package.read("ppt/slides/charts/chart1.xml"))
+    assert not chart.findall(".//c:ser/c:dLbls/c:dLbl", ns), "Chart labels: custom labels may wrap inconsistently"
+    slide = ET.fromstring(package.read("ppt/slides/slide10.xml"))
+    expected = ("196 (98%)", "3 (1.5%)", "1 (0.5%)")
+    for value in expected:
+        labels = [shape for shape in slide.findall(".//p:sp", ns)
+                  if "".join(e.text or "" for e in shape.findall(".//a:t", ns)) == value]
+        assert len(labels) == 1, "Chart labels: joined, multiline or incorrect count/share"
+        label = labels[0]
+        assert label.find("p:spPr/a:noFill", ns) is not None, "Chart labels: explicit transparent fill required"
+        assert label.find("p:spPr/a:ln/a:noFill", ns) is not None, "Chart labels: explicit transparent outline required"
+        assert int(label.find("p:spPr/a:xfrm/a:ext", ns).get("cx")) >= 125 * 9525, "Chart labels: insufficient width"
+    defaults = chart.find(".//c:barChart/c:dLbls/c:showVal", ns)
+    assert defaults is not None and defaults.get("val") == "0", "Chart labels: duplicate automatic value enabled"
+
+
 def validate(pptx, manifest_path):
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest.get("schema_version") == 1, "Unsupported manifest"
@@ -218,8 +237,7 @@ def validate(pptx, manifest_path):
             if number in (11, 13):
                 assert len(tables) == 1, f"Slide {number}: native table required"
             if number == 4:
-                # v15 keeps primary evidence visible and supporting numbers in notes.
-                for required in ("SEP 2026 REVISION", "25.5×", "3.4×", "1.3×", "≈78% → 87%", "19% → 33%", "Jan 2025 → Apr 2026", "first 3 months", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey association", "Moved-code share", "13% → 3.8%", "Calls / 1k changed lines", "343 → 223", "proxies", "≈+81%", "+15%", "Higher throughput", "Lower delivery stability", "2025", "2026"):
+                for required in ("SEP 2026 REVISION", "25.5×", "3.4×", "1.3×", "≈78% → 87%", "19% → 33%", "Jan 2025 → Apr 2026", "first 3 months", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "13% → 3.8%", "Calls / 1k changed lines", "343 → 223", "−9.2 pp (−70.8%)", "−120 (≈−35%)", "not a quality verdict", "≈+81%", "+15%", "1.4–2×", "3 questions", "+34.85% / +42.87%", "Agent-first / IDE-first", "Higher throughput", "Lower delivery stability", "2025", "2026"):
                     assert required in normalized, f"Evidence slide missing {required}"
                 note_text = " ".join(e.text or "" for e in notes.findall(".//a:t", NS))
                 for required in (">80%", "59%", "−9.2 pp", "−70.8%", "−120", "−35%", "1.4–2×", "+34.85%", "+42.87%", "Agent-first", "IDE-first"):
@@ -251,6 +269,7 @@ def validate(pptx, manifest_path):
                 assert not root.findall(".//a:blipFill", NS), f"Image fill in {name}"
                 assert not root.findall(".//p:pic", NS), f"Picture in {name}"
         validate_fonts(package)
+        validate_chart_labels(package)
         validate_frozen(source, package)
     return counts
 

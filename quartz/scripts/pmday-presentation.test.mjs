@@ -74,6 +74,9 @@ for (const mutation of [
   "curve-kink",
   "recovery-owner",
   "equilibrium-drill",
+  "chart-label-joined",
+  "chart-label-fill",
+  "chart-label-value",
 ]) {
   test(`portable validator rejects ${mutation} regression`, async (t) => {
     const temporary = await mkdtemp(path.join(os.tmpdir(), "ua-pptx-test-"))
@@ -98,9 +101,9 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
   if item.filename=='ppt/slides/slide15.xml' and mutation=='qr-bytes':
    tree=E.fromstring(data);pics=tree.findall('.//p:pic',ns);a=pics[0].find('p:blipFill/a:blip',ns);b=pics[1].find('p:blipFill/a:blip',ns);a.set('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed',b.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed'));data=E.tostring(tree)
   if item.filename=='ppt/slides/_rels/slide15.xml.rels' and mutation=='closing-link': data=data.replace(b'https://github.com/UncertaintyArchitectureGroup/The-Subprime-Code-Crisis',b'https://example.invalid/wrong')
-  if item.filename=='ppt/notesSlides/notesSlide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
+  if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='nber-obsolete': data=data.replace('25.5×'.encode(),'17.3×'.encode())
-  if item.filename=='ppt/notesSlides/notesSlide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85%',b'+35%').replace(b'+42.87%',b'+43%')
+  if item.filename=='ppt/slides/slide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85%',b'+35%').replace(b'+42.87%',b'+43%')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='dora-interval': data=data.replace(b'+0.07 to +0.13',b'+0.77 to +0.83')
   if item.filename=='ppt/slides/slide2.xml' and mutation=='block-edge':
    tree=E.fromstring(data)
@@ -122,6 +125,17 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
    data=E.tostring(tree)
   if item.filename=='ppt/slides/slide6.xml' and mutation=='recovery-owner': data=data.replace(b'proposes fix',b'waits for AI')
   if item.filename=='ppt/slides/slide7.xml' and mutation=='equilibrium-drill': data=data.replace(b'Human recovery drills',b'Just trust the agent')
+  if item.filename=='ppt/slides/slide10.xml' and mutation in ('chart-label-joined','chart-label-fill'):
+   tree=E.fromstring(data)
+   label=next(x for x in tree.findall('.//p:sp',ns) if ''.join(t.text or '' for t in x.findall('.//a:t',ns))=='196 (98%)')
+   if mutation=='chart-label-joined': label.find('.//a:t',ns).text='19698%'
+   if mutation=='chart-label-fill':
+    props=label.find('p:spPr',ns);props.remove(props.find('a:noFill',ns))
+   data=E.tostring(tree)
+  if item.filename=='ppt/slides/charts/chart1.xml' and mutation=='chart-label-value':
+   tree=E.fromstring(data); cn={**ns,'c':'http://schemas.openxmlformats.org/drawingml/2006/chart'}
+   tree.find('.//c:barChart/c:dLbls/c:showVal',cn).set('val','1')
+   data=E.tostring(tree)
   if item.filename=='ppt/slides/slide11.xml':
    tree=E.fromstring(data)
    if mutation=='text-outside': tree.find('.//p:sp/p:spPr/a:xfrm/a:off',ns).set('x','12192000')
@@ -149,7 +163,7 @@ with open(record,'w') as f: json.dump(m,f)
     assert.equal(result.status, 1, result.stdout + result.stderr)
     assert.match(
       result.stderr,
-      /background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink/,
+      /background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink|Chart labels/,
     )
   })
 }

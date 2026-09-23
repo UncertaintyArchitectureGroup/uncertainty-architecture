@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Corrected PMDay v16 at the maintainer's request: restore slide 4's prior evidence layout and distinguish reported 2026 churn from the older doubling projection; make slide 10 count/share labels single-line and transparent with regression coverage; restore statistical DoR/DoD/release contracts on 11; make both HOW/WHAT shifts and operating-model evolution primary on 13, retaining expertise gaps as an example of new PM dependencies. Preserve all other slides, prior note prefixes and chart/workbook values; narrowly refresh the authorized 4/10/11 freeze after visual review.
+
 - Applied the substantive PMDay review in v15: prioritize three evidence contrasts on slide 4 while retaining supporting numbers in notes; carry one illustrative access-recovery assistant through requirements, evaluation, readiness and runtime control; show permissions and required approval before execution, proportional control and an architectural veto; make Project Manager coordination outcomes concrete. Preserve slide titles/order, all prior notes, unchanged slides 1–3/5–7/15 and chart/workbook data. Refresh only the authorized 4/8–11 freeze entries after rendered review.
 
 - Critically revised PMDay slides 8–14 to connect the behavioral contract, evaluation evidence, shared readiness/completion, release authority, operational ownership and delivery dependencies. Made Product Owner and Project Manager explicit on slide 9, separated representative sampling from curated evaluation scenarios, and closed with one actionable workflow. Preserved slides 1–7/15 and all numerical evidence; narrowly refreshed authorized frozen 8–11 after review.

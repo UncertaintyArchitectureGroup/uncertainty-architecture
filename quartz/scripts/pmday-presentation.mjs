@@ -198,9 +198,15 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.author, 64, 631, 260, 30, 24, C.white, true)
         text(s, d.bio, 344, 632, 872, 29, 20, C.gray)
         const mail = text(s, d.email, 64, 674, 432, 25, 19, C.cyan)
-        mail.text.get(d.email).link = { uri: `mailto:${d.email}`, isExternal: true }
+        mail.text.get(d.email).link = {
+          uri: `mailto:${d.email}`,
+          isExternal: true,
+        }
         const linkedin = text(s, d.linkedin, 518, 674, 636, 25, 19, C.cyan)
-        linkedin.text.get(d.linkedin).link = { uri: d.linkedin, isExternal: true }
+        linkedin.text.get(d.linkedin).link = {
+          uri: d.linkedin,
+          isExternal: true,
+        }
         break
       }
       case "phase": {
@@ -288,41 +294,59 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "evidence": {
-        line(s, 440, 195, 440, 590)
-        line(s, 838, 195, 838, 590)
-        text(s, d.nberSource, 64, 195, 352, 30, 20, C.cyan, true)
-        text(s, d.nberGeneration, 64, 233, 352, 28, 18, C.gray)
+        line(s, 583, 194, 583, 608, C.line)
+        text(s, d.nberSource, 64, 195, 500, 30, 22, C.cyan, true)
         d.nberMetrics.forEach(([value, label], i) => {
-          text(s, value, 64, 276 + i * 64, 156, 52, 42, C.white, true)
-          text(s, label, 228, 288 + i * 64, 188, 32, 22, C.gray)
+          const x = 64 + i * 169
+          text(s, value, x, 246, 157, 60, 43, C.white, true)
+          text(s, label, x, 307, 157, 30, 21, C.gray)
         })
-        text(s, d.nberCaveat, 64, 466, 352, 44, 17, C.gray)
-        text(s, d.marketHeadline, 64, 521, 352, 26, 19, C.white, true)
+        text(s, d.nberGeneration, 64, 349, 496, 32, 21, C.cyan, true)
+        text(s, d.nberCaveat, 64, 384, 496, 51, 20, C.gray)
+        text(s, d.marketHeadline, 64, 447, 496, 61, 24, C.white, true)
         d.marketNumbers.forEach(([label, value], i) => {
-          text(s, label, 64, 551 + i * 28, 224, 25, 17, C.gray)
-          text(s, value, 288, 551 + i * 28, 128, 25, 20, C.amber, true, "right")
+          const y = 518 + i * 34
+          text(s, label, 64, y, 255, 29, 20, C.gray)
+          text(s, value, 319, y, 241, 29, 23, C.amber, true, "right")
         })
-        text(s, d.marketDetail, 64, 609, 352, 24, 16, C.gray)
-        text(s, "DORA · 2025", 464, 195, 350, 30, 20, C.cyan, true)
+        text(s, d.marketDetail, 64, 585, 496, 26, 19, C.gray)
+        text(s, "DORA · 2025", 616, 195, 600, 30, 22, C.cyan, true)
         d.doraHeadline
           .split("\n")
           .forEach((value, i) =>
-            text(s, value, 464, 259 + i * 41, 350, 36, 28, i ? C.amber : C.white, true),
+            text(s, value, 616, 230 + i * 33, 600, 32, 27, i ? C.amber : C.white, true),
           )
-        text(s, d.doraInstability, 464, 369, 350, 50, 40, C.amber, true)
-        text(s, "instability per +1 SD AI adoption", 464, 425, 350, 30, 20, C.gray)
-        text(s, d.doraInterval, 464, 479, 350, 58, 23, C.white)
-        text(s, d.doraMeasures, 464, 565, 350, 55, 18, C.gray)
-        text(s, d.gitclearSource, 862, 195, 354, 30, 20, C.cyan, true)
+        text(
+          s,
+          `${d.doraInstability} instability per +1 SD AI adoption`,
+          616,
+          304,
+          600,
+          26,
+          19,
+          C.amber,
+        )
+        text(s, d.doraInterval, 616, 332, 600, 24, 18, C.gray)
+        text(s, d.doraMeasures, 616, 362, 600, 45, 18, C.gray)
+        text(s, d.doraPerceptions, 616, 406, 600, 25, 17, C.gray)
+        line(s, 616, 441, 1216, 441)
+        text(s, d.gitclearSource, 616, 446, 600, 28, 21, C.cyan, true)
         d.gitclearMetrics.slice(0, 2).forEach(([label, value], i) => {
-          text(s, label, 862, 257 + i * 112, 354, 30, 23, C.gray)
-          text(s, value, 862, 294 + i * 112, 354, 48, 38, C.white, true)
+          const y = 477 + i * 48
+          text(s, label, 616, y, 391, 27, 22, C.white)
+          text(s, value, 1007, y, 209, 27, 24, C.white, true, "right")
+          text(s, d.gitclearDetails[i], 616, y + 27, 600, 21, 17, C.gray)
         })
-        text(s, "Duplicated blocks ≈+81%\nTwo-week churn +15%*", 862, 492, 354, 59, 23, C.white)
-        text(s, d.gitclearCaveat, 862, 574, 354, 46, 17, C.amber)
-        line(s, 64, 642, 1216, 642)
-        text(s, d.comparisonCaveat, 64, 649, 1152, 25, 19, C.gray)
-        text(s, d.takeaway, 64, 681, 1118, 29, 26, C.white, true)
+        text(s, d.gitclearSecondary, 616, 574, 600, 22, 19, C.white)
+        text(s, d.gitclearCaveat, 616, 598, 600, 20, 17, C.amber)
+        line(s, 64, 618, 1216, 618)
+        d.otherCards.forEach(([source, value, caveat], i) => {
+          const x = 64 + i * 582
+          text(s, source, x, 628, 304, 27, 20, C.cyan, true)
+          text(s, value, x + 308, 626, 244, 30, i ? 21 : 23, C.white, true, "right")
+          text(s, caveat, x, 658, 552, 25, 18, C.gray)
+        })
+        text(s, d.takeaway, 64, 689, 1095, 26, 20, C.white, true)
         break
       }
       case "comprehension": {
@@ -511,7 +535,7 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.frequency, 64, 456, 540, 26, 19, C.cyan, true)
         // Exact categories from the illustrative 200-output sample; no fitted density.
         s.charts.add("bar", {
-          position: { left: 64, top: 484, width: 540, height: 129 },
+          position: { left: 64, top: 504, width: 540, height: 109 },
           categories: d.chartCategories,
           series: [
             {
@@ -522,18 +546,6 @@ export function createDeck(Presentation, data, assets = {}) {
                 idx,
                 fill,
                 line: { fill: "none", width: 0 },
-              })),
-              dataLabelOverrides: d.chartLabels.map((value, idx) => ({
-                idx,
-                text: value,
-                position: "outEnd",
-                showValue: false,
-                textStyle: {
-                  typeface: C.font,
-                  fontSize: 16,
-                  fill: C.white,
-                  bold: true,
-                },
               })),
             },
           ],
@@ -562,7 +574,9 @@ export function createDeck(Presentation, data, assets = {}) {
             majorGridlines: { fill: C.line, width: 1 },
           },
           dataLabels: {
-            showValue: true,
+            showValue: false,
+            fill: "none",
+            line: { fill: "none", width: 0 },
             position: "outEnd",
             textStyle: {
               typeface: C.font,
@@ -572,6 +586,11 @@ export function createDeck(Presentation, data, assets = {}) {
             },
           },
         })
+        // Native text boxes avoid consumer-specific custom chart-label wrapping.
+        // Counts and shares remain sourced from the same approved slide block.
+        d.chartLabels.forEach((value, i) =>
+          text(s, value, 115 + i * 164, i === 0 ? 484 : 551, 140, 24, 16, C.white, true, "center"),
+        )
         line(s, 625, 461, 625, 605)
         text(s, d.observed, 660, 456, 244, 39, 31, C.white, true)
         text(s, d.rateLabel, 909, 463, 307, 28, 18, C.gray)
@@ -586,15 +605,12 @@ export function createDeck(Presentation, data, assets = {}) {
       case "risk": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
         text(s, d.behavior, 64, 213, 1152, 28, 21, C.gray)
-        const gates = table(s, d.table, 64, 250, 1152, 292, [164, 400, 588], 21, 8)
-        ;[40, 126, 126].forEach((h, i) => {
+        const gates = table(s, d.table, 64, 253, 1152, 344, [145, 420, 587], 20, 7)
+        ;[40, 102, 102, 100].forEach((h, i) => {
           gates.rows[i].height = h
         })
-        text(s, d.releaseHeading, 64, 553, 1152, 26, 19, C.amber, true)
-        text(s, d.release, 64, 582, 1152, 28, 21, C.white)
-        text(s, d.incident, 64, 613, 1152, 28, 20, C.cyan)
-        text(s, d.caption, 64, 645, 1152, 25, 18, C.gray)
-        text(s, d.takeaway, 64, 676, 1118, 28, 22, C.white, true)
+        text(s, d.caption, 64, 610, 1152, 27, 18, C.gray)
+        text(s, d.takeaway, 64, 650, 1118, 57, 25, C.white, true)
         break
       }
       case "control": {
@@ -627,21 +643,20 @@ export function createDeck(Presentation, data, assets = {}) {
       }
       case "roles": {
         text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        text(s, d.foundation, 64, 213, 1152, 28, 21, C.gray)
-        text(s, d.caseHeading, 64, 247, 1152, 26, 19, C.amber, true)
+        text(s, d.foundation, 64, 214, 1152, 37, 27, C.white, true)
+        const horizons = table(s, d.table, 64, 272, 1152, 194, [164, 494, 494], 21, 7)
+        ;[38, 78, 78].forEach((h, i) => {
+          horizons.rows[i].height = h
+        })
+        text(s, d.pmHeading, 64, 484, 1152, 28, 21, C.cyan, true)
+        text(s, d.pmAction, 64, 521, 1152, 32, 23, C.white)
+        text(s, d.caseHeading, 64, 569, 1152, 25, 18, C.amber, true)
         const examples = d.caseSteps.map((v, i) =>
-          box(s, v, 64 + i * 410, 281, 332, 54, i === 2 ? C.red : C.line, 21),
+          box(s, v, 64 + i * 410, 602, 332, 55, i === 2 ? C.red : C.line, 20),
         )
         connect(s, examples[0], examples[1], C.gray)
         connect(s, examples[1], examples[2], C.red)
-        text(s, d.caseAction, 64, 343, 1152, 28, 21, C.white, true)
-        const horizons = table(s, d.table, 64, 385, 1152, 210, [236, 458, 458], 19, 4)
-        ;[36, 58, 58, 58].forEach((h, i) => {
-          horizons.rows[i].height = h
-        })
-        text(s, d.statisticalLiteracy, 64, 609, 1152, 29, 21, C.amber)
-        text(s, d.roleBoundary, 64, 646, 1152, 28, 20, C.gray)
-        text(s, d.takeaway, 64, 682, 1118, 27, 23, C.white, true)
+        text(s, d.caseAction, 64, 673, 1118, 35, 21, C.gray)
         break
       }
       case "synthesis": {
@@ -713,7 +728,10 @@ export function createDeck(Presentation, data, assets = {}) {
         line(s, 64, 653, 1216, 653)
         text(s, d.author, 64, 667, 236, 28, 21, C.white, true)
         const mail = text(s, d.email, 315, 667, 345, 28, 18, C.cyan)
-        mail.text.get(d.email).link = { uri: `mailto:${d.email}`, isExternal: true }
+        mail.text.get(d.email).link = {
+          uri: `mailto:${d.email}`,
+          isExternal: true,
+        }
         const link = text(s, d.linkedin, 676, 667, 478, 28, 17, C.cyan)
         link.text.get(d.linkedin).link = { uri: d.linkedin, isExternal: true }
         break

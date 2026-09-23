@@ -57,3 +57,8 @@ The public [signal definitions](https://www.gitclear.com/industry_stats/ai_code_
 - Calls: `223 − 343 = −120` per 1,000 changed lines; `(223 / 343 − 1) × 100 = −34.9854…%`, displayed as **≈−35%**. These are code-level function/method invocations, not API traffic, rate limits or requests per second.
 
 The talk's interpretation is conditional: less restructuring/connectivity can flag maintainability and reuse concerns, but moving code is not always an improvement and lower coupling can be intentional. Neither proxy alone decides quality, captures all refactoring/reuse, or establishes AI causality. Slide 4 states this visibly. The churn asterisk keeps its unavailable raw baseline separate from the 2023→YTD 2026 comparisons.
+
+
+## Churn comparison rechecked, 2026-09-23
+
+The older [Coding on Copilot public abstract](https://www.gitclear.com/coding_on_copilot_data_shows_ais_downward_pressure_on_code_quality) covers 2020–2023 and **projects** roughly twice the two-week churn in 2024 relative to 2021. That is approximately +100% relative growth in a projection, not an observed 2024 endpoint. The [2026 summary](https://www.gitclear.com/the_ai_code_quality_maintainability_gap) explicitly reports +15%, without separate churn endpoints. Different periods, samples and forecast/observation status prevent a direct comparison or a claim that churn improved. Slide 4 now makes the missing standalone baseline explicit. No full-whitepaper or raw-data verification is claimed.
