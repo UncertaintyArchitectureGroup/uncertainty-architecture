@@ -55,6 +55,17 @@ tags:
 
 GitClear на слайді датовано лише **2026**: точний місяць не підтверджено перевіреною сторінкою. DORA **2025 v.2025.2** відповідає поточним офіційним errata. Жодному джерелу не приписано більшої числової точності, ніж воно публікує.
 
+## Уточнення GitClear для v17, 23.09.2026
+
+Поточний стан уточнює попередні записи вище: тепер прочитано [повний офіційний 2025 PDF](https://gitclear-public.s3.us-west-2.amazonaws.com/GitClear-AI-Copilot-Code-Quality-2025.pdf), Appendix A1, PDF page index 23. Для 2026 перевірено public summary та авторський index chart, не повний whitepaper. Детальний власник чисел і caveats — [GitClear evidence note](evidence/gitclear.md).
+
+- Snapshots 2021→2026: moved **24.65%→3.8% YTD (≈−85%)**, copy/paste **8.66%→15.7% H1 (≈+81%)**. Різні випуски/вибірки, не єдиний часовий ряд і не causal AI effect.
+- Churn 2021→2024: **3.27%→5.67%, +73.39% фактично**. **6.87%, +110.09% проти 2021 — прогноз 2025**.
+- **+15% churn має baseline 2023**, що прямо позначено на авторському index chart. Абсолютний churn endpoint 2026 не наведено; старе формулювання «baseline unspecified» замінено. Не екстраполювати endpoint через різні editions.
+- Calls **343→223 / 1k changed lines** та duplicated blocks **≈+81%** залишаються порівняннями 2023→2026. Для duplication збережено застереження про суперечливі абсолютні одиниці.
+
+Попередні speaker notes залишено як історичні prefixes; поточне пояснення додано наприкінці. Freeze оновлюється лише для дозволеного слайда 4 після візуального огляду; інші слайди та package dependencies збережено.
+
 ## Вимоги, оцінювання та ролі — слайди 9–14
 
 Перевірено 21.09.2026. Це джерела для навчальної адаптації й авторських практичних пропозицій, не новий нормативний процес UA.
@@ -258,7 +269,7 @@ Native bars на концептуальних схемах — редагова�
 
 Maintainer відхилив спрощення 4/11/13 та повідомив про злитий chart label 19698% на 10. Причина локальна: під час спрощення приклад підмінив головну тезу й загальну рамку, а multiline custom chart label залежав від споживача PPTX. Виправлено existing content/layout/validation owners; нової persistent agent guidance не запропоновано або застосовано.
 
-- **4:** повернуто v14 двоколонкову композицію з NBER, marketplace, DORA, GitClear, METR та Agarwal. Збережено пояснення двох GitClear proxy й арифметику. [Повторна звірка churn](evidence/gitclear.md#churn-comparison-rechecked-2026-09-23) відділяє старий прогноз ~2× (2024 проти 2021) від reported +15% у 2026 без окремих endpoints; на екрані baseline caveat явний.
+- **4:** повернуто v14 двоколонкову композицію з NBER, marketplace, DORA, GitClear, METR та Agarwal. Збережено пояснення двох GitClear proxy й арифметику. [Повторна звірка churn](evidence/gitclear.md#churn-observed-forecast-and-indexed) відділяє старий прогноз ~2× (2024 проти 2021) від reported +15% у 2026 без окремих endpoints; на екрані baseline caveat явний.
 - **10:** raw LF усередині одного rich-text run міг склеювати count і share. Тепер окремі native editable text boxes над native chart — `196 (98%)`, `3 (1.5%)`, `1 (0.5%)`, без заливки/рамки та дублюючого automatic value. 196/3/1, workbook, відсотки, 4/200 і Wilson interval незмінні. Custom chart labels вимкнено: навіть single-line rich text переносився у LibreOffice. Portable regression перевіряє текст, ширину, прозорість text boxes і вимкнені automatic values; rendered review перевіряє результат. Actual native app acceptance не стверджується.
 - **11:** безпосередньо прочитано сторінку 6 наданого старого PDF, що відповідає скриншоту From Static Requirements to Statistical Gates. Відновлено широке порівняння Ready/Done/Release: behavioral tolerances, prohibited zones, cost budget усередині conditions, Golden Set / sampling, Eval Gates, coverage / uncertainty, accepted risk, complete operable control / HITL і incident feedback. Не повернуто історичні надмірні твердження, що large sample «proves» safety або що traditional delivery зводиться до happy path. Cost не став окремою сутністю на рівні DoR/DoD.
 - **13:** основна теза — обидва HOW/WHAT зсуви змінюють flow, bottlenecks, ролі та operating model. PM має розуміти цей баланс, відстежувати нові dependencies, забезпечувати owners/capacity/closure evidence й інтегрувати зміни в delivery plan. Expertise gap — нижній ілюстративний приклад: незнайома мова стає critical dependency й впливає на estimates / acceptance / recovery. Це практичний напрям розвитку ролі, не універсально prescribed job description.

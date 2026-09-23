@@ -237,7 +237,7 @@ def validate(pptx, manifest_path):
             if number in (11, 13):
                 assert len(tables) == 1, f"Slide {number}: native table required"
             if number == 4:
-                for required in ("SEP 2026 REVISION", "25.5×", "3.4×", "1.3×", "≈78% → 87%", "19% → 33%", "Jan 2025 → Apr 2026", "first 3 months", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "13% → 3.8%", "Calls / 1k changed lines", "343 → 223", "−9.2 pp (−70.8%)", "−120 (≈−35%)", "not a quality verdict", "≈+81%", "+15%", "1.4–2×", "3 questions", "+34.85% / +42.87%", "Agent-first / IDE-first", "Higher throughput", "Lower delivery stability", "2025", "2026"):
+                for required in ("SEP 2026 REVISION", "25.5×", "3.4×", "1.3×", "≈78% → 87%", "19% → 33%", "Jan 2025 → Apr 2026", "first 3 months", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "24.65% → 3.8% (−85%)", "Copy/paste share", "8.66% → 15.7% (+81%)", "343 → 223 / 1k", "Different editions / samples", "no causal estimate of AI", "2021 → 2024 actual: 3.27% → 5.67% (+73%)", "2025 forecast: 6.87% (+110% vs 2021); not observed", "vs 2023 index; absolute rate unavailable", "≈+81%", "+15%", "1.4–2×", "3 questions", "+34.85% / +42.87%", "Agent-first / IDE-first", "Higher throughput", "Lower delivery stability", "2025", "2026"):
                     assert required in normalized, f"Evidence slide missing {required}"
                 note_text = " ".join(e.text or "" for e in notes.findall(".//a:t", NS))
                 for required in (">80%", "59%", "−9.2 pp", "−70.8%", "−120", "−35%", "1.4–2×", "+34.85%", "+42.87%", "Agent-first", "IDE-first"):

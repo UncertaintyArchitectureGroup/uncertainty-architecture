@@ -314,31 +314,34 @@ export function createDeck(Presentation, data, assets = {}) {
         d.doraHeadline
           .split("\n")
           .forEach((value, i) =>
-            text(s, value, 616, 230 + i * 33, 600, 32, 27, i ? C.amber : C.white, true),
+            text(s, value, 616, 225 + i * 28, 600, 29, 26, i ? C.amber : C.white, true),
           )
         text(
           s,
           `${d.doraInstability} instability per +1 SD AI adoption`,
           616,
-          304,
+          285,
           600,
-          26,
-          19,
+          24,
+          18,
           C.amber,
         )
-        text(s, d.doraInterval, 616, 332, 600, 24, 18, C.gray)
-        text(s, d.doraMeasures, 616, 362, 600, 45, 18, C.gray)
-        text(s, d.doraPerceptions, 616, 406, 600, 25, 17, C.gray)
-        line(s, 616, 441, 1216, 441)
-        text(s, d.gitclearSource, 616, 446, 600, 28, 21, C.cyan, true)
-        d.gitclearMetrics.slice(0, 2).forEach(([label, value], i) => {
-          const y = 477 + i * 48
-          text(s, label, 616, y, 391, 27, 22, C.white)
-          text(s, value, 1007, y, 209, 27, 24, C.white, true, "right")
-          text(s, d.gitclearDetails[i], 616, y + 27, 600, 21, 17, C.gray)
+        text(s, d.doraInterval, 616, 310, 600, 22, 17, C.gray)
+        text(s, d.doraMeasures, 616, 334, 600, 40, 17, C.gray)
+        text(s, d.doraPerceptions, 616, 376, 600, 22, 17, C.gray)
+        line(s, 616, 402, 1216, 402)
+        text(s, d.gitclearSource, 616, 406, 600, 25, 20, C.cyan, true)
+        d.gitclearMetrics.forEach(([label, value], i) => {
+          const y = 434 + i * 25
+          text(s, label, 616, y, 285, 25, 20, C.white)
+          text(s, value, 901, y, 315, 25, 21, C.white, true, "right")
         })
-        text(s, d.gitclearSecondary, 616, 574, 600, 22, 19, C.white)
-        text(s, d.gitclearCaveat, 616, 598, 600, 20, 17, C.amber)
+        text(s, d.gitclearCaveat, 616, 487, 600, 20, 17, C.amber)
+        text(s, d.gitclearChurnTitle, 616, 510, 600, 21, 18, C.cyan, true)
+        d.gitclearChurn.forEach((value, i) =>
+          text(s, value, 616, 533 + i * 21, 600, 21, 18, i ? C.gray : C.white, i === 0),
+        )
+        text(s, d.gitclearSecondary, 616, 598, 600, 20, 17, C.gray)
         line(s, 64, 618, 1216, 618)
         d.otherCards.forEach(([source, value, caveat], i) => {
           const x = 64 + i * 582
