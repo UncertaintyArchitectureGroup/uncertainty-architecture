@@ -288,59 +288,41 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "evidence": {
-        line(s, 583, 194, 583, 608, C.line)
-        text(s, d.nberSource, 64, 195, 500, 30, 22, C.cyan, true)
+        line(s, 440, 195, 440, 590)
+        line(s, 838, 195, 838, 590)
+        text(s, d.nberSource, 64, 195, 352, 30, 20, C.cyan, true)
+        text(s, d.nberGeneration, 64, 233, 352, 28, 18, C.gray)
         d.nberMetrics.forEach(([value, label], i) => {
-          const x = 64 + i * 169
-          text(s, value, x, 246, 157, 60, 43, C.white, true)
-          text(s, label, x, 307, 157, 30, 21, C.gray)
+          text(s, value, 64, 276 + i * 64, 156, 52, 42, C.white, true)
+          text(s, label, 228, 288 + i * 64, 188, 32, 22, C.gray)
         })
-        text(s, d.nberGeneration, 64, 349, 496, 32, 21, C.cyan, true)
-        text(s, d.nberCaveat, 64, 384, 496, 51, 20, C.gray)
-        text(s, d.marketHeadline, 64, 447, 496, 61, 24, C.white, true)
+        text(s, d.nberCaveat, 64, 466, 352, 44, 17, C.gray)
+        text(s, d.marketHeadline, 64, 521, 352, 26, 19, C.white, true)
         d.marketNumbers.forEach(([label, value], i) => {
-          const y = 518 + i * 34
-          text(s, label, 64, y, 255, 29, 20, C.gray)
-          text(s, value, 319, y, 241, 29, 23, C.amber, true, "right")
+          text(s, label, 64, 551 + i * 28, 224, 25, 17, C.gray)
+          text(s, value, 288, 551 + i * 28, 128, 25, 20, C.amber, true, "right")
         })
-        text(s, d.marketDetail, 64, 585, 496, 26, 19, C.gray)
-        text(s, "DORA · 2025", 616, 195, 600, 30, 22, C.cyan, true)
+        text(s, d.marketDetail, 64, 609, 352, 24, 16, C.gray)
+        text(s, "DORA · 2025", 464, 195, 350, 30, 20, C.cyan, true)
         d.doraHeadline
           .split("\n")
           .forEach((value, i) =>
-            text(s, value, 616, 230 + i * 33, 600, 32, 27, i ? C.amber : C.white, true),
+            text(s, value, 464, 259 + i * 41, 350, 36, 28, i ? C.amber : C.white, true),
           )
-        text(
-          s,
-          `${d.doraInstability} instability per +1 SD AI adoption`,
-          616,
-          304,
-          600,
-          26,
-          19,
-          C.amber,
-        )
-        text(s, d.doraInterval, 616, 332, 600, 24, 18, C.gray)
-        text(s, d.doraMeasures, 616, 362, 600, 45, 18, C.gray)
-        text(s, d.doraPerceptions, 616, 406, 600, 25, 17, C.gray)
-        line(s, 616, 441, 1216, 441)
-        text(s, d.gitclearSource, 616, 446, 600, 28, 21, C.cyan, true)
+        text(s, d.doraInstability, 464, 369, 350, 50, 40, C.amber, true)
+        text(s, "instability per +1 SD AI adoption", 464, 425, 350, 30, 20, C.gray)
+        text(s, d.doraInterval, 464, 479, 350, 58, 23, C.white)
+        text(s, d.doraMeasures, 464, 565, 350, 55, 18, C.gray)
+        text(s, d.gitclearSource, 862, 195, 354, 30, 20, C.cyan, true)
         d.gitclearMetrics.slice(0, 2).forEach(([label, value], i) => {
-          const y = 477 + i * 48
-          text(s, label, 616, y, 391, 27, 22, C.white)
-          text(s, value, 1007, y, 209, 27, 24, C.white, true, "right")
-          text(s, d.gitclearDetails[i], 616, y + 27, 600, 21, 17, C.gray)
+          text(s, label, 862, 257 + i * 112, 354, 30, 23, C.gray)
+          text(s, value, 862, 294 + i * 112, 354, 48, 38, C.white, true)
         })
-        text(s, d.gitclearSecondary, 616, 574, 600, 22, 19, C.white)
-        text(s, d.gitclearCaveat, 616, 598, 600, 20, 17, C.amber)
-        line(s, 64, 618, 1216, 618)
-        d.otherCards.forEach(([source, value, caveat], i) => {
-          const x = 64 + i * 582
-          text(s, source, x, 628, 304, 27, 20, C.cyan, true)
-          text(s, value, x + 308, 626, 244, 30, i ? 21 : 23, C.white, true, "right")
-          text(s, caveat, x, 658, 552, 25, 18, C.gray)
-        })
-        text(s, d.takeaway, 64, 689, 1095, 26, 20, C.white, true)
+        text(s, "Duplicated blocks ≈+81%\nTwo-week churn +15%*", 862, 492, 354, 59, 23, C.white)
+        text(s, d.gitclearCaveat, 862, 574, 354, 46, 17, C.amber)
+        line(s, 64, 642, 1216, 642)
+        text(s, d.comparisonCaveat, 64, 649, 1152, 25, 19, C.gray)
+        text(s, d.takeaway, 64, 681, 1118, 29, 26, C.white, true)
         break
       }
       case "comprehension": {
@@ -440,9 +422,10 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.graphLabels[2], 1071, 524, 145, 39, 17, C.amber, false, "center")
         text(s, d.deterministicDetail, 64, 563, 552, 27, 20, C.white)
         text(s, d.probabilisticDetail, 664, 563, 552, 27, 20, C.white)
-        takeaway(s, d.takeaway)
-        text(s, d.caption, 64, 608, 1152, 25, 19, C.gray)
-        text(s, d.graphCaption, 64, 676, 1118, 24, 18, C.gray)
+        line(s, 64, 602, 1216, 602)
+        text(s, d.takeaway, 64, 633, 1118, 54, 26, C.white, true)
+        text(s, d.caption, 64, 606, 1152, 24, 18, C.gray)
+        text(s, d.graphCaption, 64, 695, 1118, 19, 16, C.gray)
         break
       }
       case "boundaries": {
@@ -453,7 +436,7 @@ export function createDeck(Presentation, data, assets = {}) {
         const b = box(s, d.old[1], 302, 259, 182, 58, C.gray, 26)
         connect(s, a, b, C.gray)
         text(s, d.oldDetail, 64, 330, 420, 57, 25, C.white)
-        text(s, d.roleDetail, 64, 397, 420, 67, 18, C.gray)
+        text(s, d.roleDetail, 64, 397, 420, 67, 20, C.gray)
         text(s, d.newHeading, 536, 220, 680, 30, 19, C.cyan, true)
         // Match the supplied possibility-space topology using editable geometry.
         // The perspective plane is conceptual, with no universal semantic-distance scale.
@@ -493,13 +476,11 @@ export function createDeck(Presentation, data, assets = {}) {
         text(s, d.regionAxis, 557, 413, 659, 24, 17, C.gray)
         text(s, d.regionPolicy, 536, 442, 680, 25, 16, C.white)
         line(s, 64, 477, 1216, 477)
-        text(s, d.envelopeHeading, 64, 482, 1152, 26, 20, C.amber, true)
+        text(s, d.envelopeHeading, 64, 492, 1152, 28, 22, C.amber, true)
         d.envelope.forEach((v, i) =>
-          text(s, v, 64 + (i % 2) * 596, 513 + Math.floor(i / 2) * 28, 552, 26, 21, C.white),
+          text(s, v, 64 + (i % 2) * 596, 534 + Math.floor(i / 2) * 35, 552, 30, 21, C.white),
         )
-        text(s, d.specification, 64, 568, 1152, 28, 21, C.gray)
-        text(s, d.gap, 64, 603, 1152, 27, 20, C.white)
-        text(s, d.research, 64, 636, 1152, 25, 18, C.gray)
+        text(s, d.specification, 64, 616, 1152, 28, 20, C.gray)
         text(s, d.takeaway, 64, 667, 1118, 32, 25, C.white, true)
         break
       }
@@ -617,37 +598,31 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "control": {
-        text(s, d.role, 64, 176, 1152, 32, 22, C.cyan, true)
-        text(s, d.perimeterHeading, 64, 216, 800, 26, 19, C.cyan, true)
-        rect(s, 64, 250, 800, 287, C.line, "none")
-        text(s, d.reference, 88, 255, 752, 28, 20, C.amber, true, "center")
-        const core = box(s, d.core, 88, 295, 232, 63, C.cyan, 22)
-        const sensor = box(s, d.sensor, 600, 295, 240, 63, C.cyan, 21)
-        const controller = box(s, d.controller, 600, 437, 240, 63, C.amber, 21)
-        const actuator = box(s, d.actuator, 88, 437, 232, 63, C.amber, 21)
-        connect(s, core, sensor, C.cyan)
-        connect(s, sensor, controller, C.cyan, "bottom", "top")
-        line(s, 720, 500, 720, 522, C.amber)
-        line(s, 720, 522, 204, 522, C.amber)
-        const returnPoint = rect(s, 203.5, 521, 1, 1, "none", "none", 0)
-        connect(s, returnPoint, actuator, C.amber, "top", "bottom")
-        connect(s, actuator, core, C.amber, "top", "bottom")
-        const human = box(s, d.human, 352, 380, 216, 110, C.gray, 18)
-        connect(s, human, controller, C.gray, "right", "left", "elbow")
-        text(s, d.humanDetail, 344, 337, 236, 39, 16, C.gray, false, "center")
-        line(s, 891, 218, 891, 537)
-        text(s, d.vetoHeading, 918, 216, 298, 28, 20, C.red, true)
-        text(s, d.veto, 918, 253, 298, 120, 26, C.white, true)
-        text(s, d.vetoAction, 918, 385, 298, 63, 24, C.red, true)
-        text(s, d.vetoDetail, 918, 456, 298, 78, 19, C.gray)
-        text(s, d.complexityHeading, 64, 548, 1152, 26, 19, C.gray, true)
-        d.pressures.forEach(([head, detail], i) => {
-          const x = 64 + i * 390
-          text(s, head, x, 578, 372, 26, 21, C.white, true)
-          text(s, detail, x, 607, 372, 39, 18, C.gray)
+        text(s, d.role, 64, 176, 1152, 32, 21, C.cyan, true)
+        text(s, d.perimeterHeading, 64, 218, 1152, 26, 21, C.white, true)
+        const flow = d.steps.map((label, i) =>
+          box(s, label, 64 + i * 302, 278, 246, 74, i === 1 ? C.amber : C.cyan, 22),
+        )
+        flow.slice(1).forEach((node, i) => connect(s, flow[i], node, C.cyan))
+        const human = box(s, d.human, 64, 439, 246, 69, C.gray, 21)
+        connect(s, human, flow[1], C.gray, "right", "left", "elbow")
+        text(s, d.humanDetail, 64, 513, 246, 44, 17, C.gray, false, "center")
+        const fallback = box(s, d.fallback, 366, 439, 246, 69, C.amber, 21)
+        connect(s, flow[1], fallback, C.amber, "bottom", "top")
+        text(s, d.gateLabel, 501, 383, 155, 45, 18, C.amber)
+        const controller = box(s, d.controller, 970, 439, 246, 69, C.amber, 21)
+        const actuator = box(s, d.actuator, 668, 439, 246, 69, C.amber, 21)
+        connect(s, flow[3], controller, C.cyan, "bottom", "top")
+        connect(s, controller, actuator, C.amber, "left", "right")
+        connect(s, actuator, flow[2], C.amber, "top", "bottom")
+        text(s, d.controlCaveat, 348, 522, 868, 30, 20, C.white, true)
+        line(s, 64, 568, 1216, 568)
+        text(s, d.proportionHeading, 64, 577, 1152, 25, 19, C.cyan, true)
+        d.proportion.forEach(([head, detail], i) => {
+          text(s, head, 64 + i * 596, 610, 552, 25, 19, C.white, true)
+          text(s, detail, 64 + i * 596, 640, 552, 27, 21, C.gray)
         })
-        text(s, d.trialRule, 64, 649, 1152, 27, 19, C.amber)
-        text(s, d.takeaway, 64, 680, 1118, 27, 23, C.white, true)
+        text(s, d.vetoAction, 64, 679, 1118, 29, 22, C.red, true)
         break
       }
       case "roles": {

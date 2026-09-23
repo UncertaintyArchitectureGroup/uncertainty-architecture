@@ -25,7 +25,7 @@ export function verifyRenderedText(text) {
   // Regression for the narrow SDLC node whose final letter wrapped in export.
   if (!/\bIntegrate\b/.test(text))
     throw new Error("Rendered SDLC label Integrate is missing or split")
-  for (const label of ["Button A", "Window B"])
+  for (const label of ["Request", "Verify user"])
     if (!text.includes(label))
       throw new Error(`Rendered requirements label ${label} is missing or split`)
 }

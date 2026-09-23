@@ -98,9 +98,9 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
   if item.filename=='ppt/slides/slide15.xml' and mutation=='qr-bytes':
    tree=E.fromstring(data);pics=tree.findall('.//p:pic',ns);a=pics[0].find('p:blipFill/a:blip',ns);b=pics[1].find('p:blipFill/a:blip',ns);a.set('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed',b.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed'));data=E.tostring(tree)
   if item.filename=='ppt/slides/_rels/slide15.xml.rels' and mutation=='closing-link': data=data.replace(b'https://github.com/UncertaintyArchitectureGroup/The-Subprime-Code-Crisis',b'https://example.invalid/wrong')
-  if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
+  if item.filename=='ppt/notesSlides/notesSlide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='nber-obsolete': data=data.replace('25.5×'.encode(),'17.3×'.encode())
-  if item.filename=='ppt/slides/slide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85% / +42.87%',b'+35% / +43%')
+  if item.filename=='ppt/notesSlides/notesSlide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85%',b'+35%').replace(b'+42.87%',b'+43%')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='dora-interval': data=data.replace(b'+0.07 to +0.13',b'+0.77 to +0.83')
   if item.filename=='ppt/slides/slide2.xml' and mutation=='block-edge':
    tree=E.fromstring(data)
@@ -208,10 +208,10 @@ test("title line breaks preserve the approved wording", () => {
 })
 
 test("independent renderer rejects an exported word split", () => {
-  assert.doesNotThrow(() => verifyRenderedText("Test Integrate Deploy Button A Window B"))
+  assert.doesNotThrow(() => verifyRenderedText("Test Integrate Deploy Request Verify user"))
   assert.throws(() => verifyRenderedText("Test Integrat\ne Deploy"), /missing or split/)
-  assert.throws(() => verifyRenderedText("Integrate Button\nA Window B"), /Button A/)
-  assert.throws(() => verifyRenderedText("Integrate Button A Window\nB"), /Window B/)
+  assert.throws(() => verifyRenderedText("Integrate Requ\nest Verify user"), /Request/)
+  assert.throws(() => verifyRenderedText("Integrate Request Verify\nuser"), /Verify user/)
 })
 
 test("slide freeze protects 1–11, chart/workbook and table while permitting 12–15", () => {
