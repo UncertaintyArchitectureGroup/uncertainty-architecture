@@ -1,6 +1,6 @@
 ---
 title: "Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes"
-artifact_type: research-note
+artifact_type: research-publication
 status: research
 maturity: stable
 module: research
@@ -14,36 +14,31 @@ topics:
   - runtime-control
 tags:
   - ua/module/research
-  - ua/type/research-note
+  - ua/type/research-publication
   - ua/status/research
   - ua/topic/thinking-systems
   - ua/topic/model-judgment
   - ua/topic/uncertainty-boundary
   - ua/topic/control-loop
-created: 2026-08-17
-updated: 2026-09-18
+publication_date: 2026-08-27
+repository_date: 2026-09-18
 language: en
-license: CC-BY-4.0
-draft: true
 authors:
   - "Vitalii Oborskyi"
-source_basis:
-  - open-engineering-specification-article-draft.md
-  - open-engineering-specification-article-blueprint.md
-related:
-  - ../index.md
-  - ../../../00-doctrine/glossary.md
-  - ../../../00-doctrine/uncertainty-in-the-controlled-object.md
-  - ../../../00-doctrine/model-judgment-placement.md
-  - ../../../00-doctrine/control-loop-anatomy.md
-  - ../../../00-doctrine/nested-control-lifecycle.md
+repository_edition: frozen-author-source-archive
+source_file: "../notes/thinking-systems-publication-draft.md"
+source_blob_sha: "131e958af9e0696519bd1542a74ac38c53060cb7"
+license: CC-BY-4.0
+draft: false
 ---
+
+> **Repository publication record.** External publication is confirmed on LinkedIn and Medium, with a PDF rendition also published. The LinkedIn publication date visible to the repository review is **2026-08-27**. Exact external URLs and any remaining platform-specific publication metadata will be added when the maintainer supplies them. The substantive Markdown source was confirmed by the maintainer on **2026-09-18** to be unchanged since publication and is frozen for publication provenance; future research development continues in the living long-form manuscript rather than by rewriting this edition.
+>
+> **Edition identity.** This archive was created from Git blob `131e958af9e0696519bd1542a74ac38c53060cb7` of `content/research/notes/thinking-systems-publication-draft.md`. The archived article body below preserves the substantive wording from that source. Repository publication metadata is added outside the article body, and the two repository-relative links to the living manuscript and blueprint are normalized to their current `../notes/` locations; no claim-bearing wording is changed.
 
 # Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes
 
-> **Publication-source status.** This Markdown is the frozen authoring source for the externally published LinkedIn and Medium renditions and the published PDF rendition. The maintainer confirmed on September 18, 2026 that its substantive text did not change after publication and will not be used for further research development. The preserved repository edition is [under `content/research/publications/`](../publications/thinking-systems-when-the-controlled-object-changes.md); exact external URLs and remaining platform metadata will be added when supplied. Future substantive development continues in the living long-form manuscript.
->
-> **Derivation note.** This is a shorter standalone adaptation of the living working paper [_Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities_](open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
+> **Publication note.** This is a shorter standalone adaptation of the living working paper [_Uncertainty Architecture: Engineering Thinking Systems with Consequential Runtime Responsibilities_](../notes/open-engineering-specification-article-draft.md). The body below deliberately stays close to the argument and terminology already established in that paper's merged Sections 1–4. It compresses detail for publication, but it is not intended to create a second conceptual version of the research. Later sections of the working paper remain unfinished so external criticism of this bounded argument can still change the larger research.
 
 ## Who this article is for
 
@@ -497,7 +492,7 @@ There is also a recursive aspect to the work. Increasingly, this paper and the U
 
 That is **not validation**. A framework cannot prove itself by being used to write about itself. But it creates another working environment in which weak boundaries, unclear authority, bad evidence routing, or false confidence become visible quickly.
 
-The larger [working paper](open-engineering-specification-article-draft.md) and its [editorial blueprint](open-engineering-specification-article-blueprint.md) remain public in the repository. The next sections are intentionally open to change.
+The larger [working paper](open-engineering-specification-article-draft.md) and its [editorial blueprint](../notes/open-engineering-specification-article-blueprint.md) remain public in the repository. The next sections are intentionally open to change.
 
 ## Acknowledgments and Provenance
 

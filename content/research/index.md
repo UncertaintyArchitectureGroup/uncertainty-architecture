@@ -17,7 +17,7 @@ tags:
 canonical_for:
   - research-track
 created: 2026-07-24
-updated: 2026-08-25
+updated: 2026-09-18
 license: CC-BY-4.0
 ---
 
@@ -143,7 +143,7 @@ See the [Research State Register](research-register.md) for cross-document resea
 
 ## Current research direction
 
-Five normalized publication editions are preserved under [`publications/`](publications/). Earlier root-level planning briefs are classified under [`notes/`](notes/) and remain research tasks rather than completed findings.
+Six publication editions are preserved under [`publications/`](publications/), including the frozen *Thinking Systems — When the Controlled Object Changes* content edition. Its LinkedIn and Medium publication are confirmed, with exact platform URLs and remaining publication metadata pending maintainer reconciliation. Earlier root-level planning briefs are classified under [`notes/`](notes/) and remain research tasks rather than completed findings.
 
 Two additional synthesis sources are tracked:
 

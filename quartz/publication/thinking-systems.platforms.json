@@ -111,8 +111,12 @@
       "path": ""
     },
     {
-      "label": "Standalone repository article source",
+      "label": "Frozen publication authoring source",
       "path": "content/research/notes/thinking-systems-publication-draft.md"
+    },
+    {
+      "label": "Frozen repository publication edition",
+      "path": "content/research/publications/thinking-systems-when-the-controlled-object-changes.md"
     },
     {
       "label": "Living long-form working paper",

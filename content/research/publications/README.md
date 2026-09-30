@@ -1,5 +1,5 @@
 ---
-title: Historical Research Publications
+title: Research Publications
 artifact_type: research-index
 status: research
 maturity: stable
@@ -15,19 +15,19 @@ tags:
   - ua/topic/thinking-systems
 ---
 
-# Historical Research Publications
+# Research Publications
 
 **Status:** Research archive
 
-This directory contains normalized repository editions of publications that contributed to the development of Uncertainty Architecture.
+This directory contains preserved and normalized repository editions of publications that contribute to the development of Uncertainty Architecture.
 
-The documents are preserved as historical research evidence. Their original arguments, category names, and publication titles are not automatically current specification language.
+Publication editions are research evidence, not automatically current specification language. Historical editions preserve earlier arguments and terminology; current frozen editions preserve what was externally published without becoming normative UA requirements.
 
-## Active publication adaptation under review
+## Current Thinking Systems publication
 
-The current standalone publication adaptation, [*Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes*](../notes/thinking-systems-publication-draft.md), remains an unpublished research draft under `content/research/notes/`.
+[*Uncertainty Architecture: Thinking Systems — When the Controlled Object Changes*](thinking-systems-when-the-controlled-object-changes.md) has been published externally on LinkedIn and Medium, with a PDF rendition also published. The LinkedIn publication date currently verified by the repository is **August 27, 2026**. Exact external URLs and remaining platform-specific publication metadata are intentionally pending until the maintainer supplies them.
 
-This link exposes the active review surface without treating the draft as a preserved publication edition. During review, PDFs and platform images are generated as CI artifacts and are not preserved in this archive. After actual publication, the exact published content edition must be copied into this directory before feedback-driven substantive changes are made.
+The maintainer confirmed on September 18, 2026 that the publication Markdown did not change after publication. The repository therefore freezes that source as the preserved content edition in this directory. Future substantive research development belongs in the living long-form manuscript; the frozen publication edition should change only for provenance metadata or an explicitly documented correction/new edition.
 
 ## Terminology migration
 
@@ -45,6 +45,7 @@ Generic uses of words such as *behavior*, *behavioral constraint*, or *behaviora
 
 ## Repository editions
 
+- [`thinking-systems-when-the-controlled-object-changes.md`](thinking-systems-when-the-controlled-object-changes.md) — frozen 2026 Thinking Systems publication edition; LinkedIn/Medium URL reconciliation pending. The repository also preserves its [PDF rendition](thinking-systems-when-the-controlled-object-changes.pdf).
 - [`architecting-uncertainty-a-modern-guide-to-llm-based-software.md`](architecting-uncertainty-a-modern-guide-to-llm-based-software.md)
 - [`arkhitektura-nevyznachenosti-suchasnyi-pidkhid-do-proiektuvannia-llm-zastosunkiv.md`](arkhitektura-nevyznachenosti-suchasnyi-pidkhid-do-proiektuvannia-llm-zastosunkiv.md)
 - [`uncertainty-architecture-a-modern-approach-to-designing-llm-applications.md`](uncertainty-architecture-a-modern-approach-to-designing-llm-applications.md)
