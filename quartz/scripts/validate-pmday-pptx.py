@@ -156,6 +156,25 @@ def validate_notes(notes, data, number):
     assert " ".join(actual.split()) == " ".join(expected.split()), f"Slide {number}: notes differ from canonical source"
 
 
+def internal_targets(package, owner, kind):
+    """Resolve actual OOXML links, including package-absolute part names."""
+    directory, filename = posixpath.split(owner)
+    relname = posixpath.join(directory, "_rels", filename + ".rels")
+    relationships = ET.fromstring(package.read(relname))
+    ids = [rel.get("Id") for rel in relationships]
+    assert all(ids) and len(ids) == len(set(ids)), f"{owner}: ambiguous relationship IDs"
+    targets = {}
+    for rel in relationships:
+        if rel.get("Type") != REL_NS + "/" + kind:
+            continue
+        target = rel.get("Target")
+        assert rel.get("TargetMode", "Internal") == "Internal" and target, f"{owner}: invalid {kind} relationship"
+        name = posixpath.normpath(posixpath.join(directory, target)).lstrip("/")
+        assert not name.startswith("../") and name in package.namelist(), f"{owner}: unresolved {kind} relationship"
+        targets[rel.get("Id")] = name
+    return targets
+
+
 def validate(pptx, manifest_path):
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest.get("schema_version") == 1, "Unsupported manifest"
@@ -175,6 +194,11 @@ def validate(pptx, manifest_path):
         slides = sorted((n for n in package.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)), key=lambda n: int(re.search(r"slide(\d+)", n)[1]))
         assert len(slides) == 15, "PPTX must contain 15 slides"
         presentation = ET.fromstring(package.read("ppt/presentation.xml"))
+        slide_ids = presentation.find("p:sldIdLst", NS)
+        assert slide_ids is not None, "Slide order: presentation list missing"
+        targets = internal_targets(package, "ppt/presentation.xml", "slide")
+        order = [targets.get(slide.get("{" + REL_NS + "}id")) for slide in slide_ids]
+        assert order == slides, "Slide order: presentation relationships differ from canonical sequence"
         size = presentation.find("p:sldSz", NS)
         assert (size.get("cx"), size.get("cy")) == ("12192000", "6858000"), "Expected 16:9 design canvas"
         for number, name in enumerate(slides, 1):
@@ -247,7 +271,9 @@ def validate(pptx, manifest_path):
                     offset, extent = transform.find("a:off", NS), transform.find("a:ext", NS)
                     x, w = int(offset.get("x")), int(extent.get("cx"))
                     assert x >= 96*9525 and x+w <= 1184*9525, f"Slide {number}: block outside safe margins"
-            notes = ET.fromstring(package.read(f"ppt/notesSlides/notesSlide{number}.xml"))
+            note_targets = internal_targets(package, name, "notesSlide")
+            assert len(note_targets) == 1, f"Slide {number}: exactly one notes relationship required"
+            notes = ET.fromstring(package.read(next(iter(note_targets.values()))))
             assert sum(len(e.text or "") for e in notes.findall(".//a:t", NS)) > 80, f"Slide {number}: notes missing"
             validate_notes(notes, source_slides[number - 1], number)
             tables = slide.findall(".//a:tbl", NS)

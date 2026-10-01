@@ -112,6 +112,10 @@ test("committed PPTX is fresh, editable and follows the dark-background contract
 })
 
 for (const mutation of [
+  "slide-order",
+  "notes-swapped",
+  "notes-unlinked",
+  "notes-external",
   "evidence-small-text",
   "equilibrium-small-text",
   "snapshot-edition-order",
@@ -154,6 +158,16 @@ ns={'p':'http://schemas.openxmlformats.org/presentationml/2006/main','a':'http:/
 with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
  for item in old.infolist():
   data=old.read(item.filename)
+  if item.filename=='ppt/presentation.xml' and mutation=='slide-order':
+   tree=E.fromstring(data);order=tree.find('p:sldIdLst',ns);children=list(order);children[11],children[12]=children[12],children[11];order[:]=children;data=E.tostring(tree)
+  if item.filename in ('ppt/slides/_rels/slide12.xml.rels','ppt/slides/_rels/slide13.xml.rels') and mutation=='notes-swapped':
+   number=12 if 'slide12.xml' in item.filename else 13
+   data=data.replace(f'notesSlide{number}.xml'.encode(),f'notesSlide{25-number}.xml'.encode())
+  if item.filename=='ppt/slides/_rels/slide12.xml.rels' and mutation in ('notes-unlinked','notes-external'):
+   tree=E.fromstring(data);rel=next(r for r in tree if r.get('Type','').endswith('/notesSlide'))
+   if mutation=='notes-unlinked': tree.remove(rel)
+   else: rel.set('TargetMode','External')
+   data=E.tostring(tree)
   if item.filename=='ppt/slides/slide1.xml' and mutation.startswith('cover-'):
    tree=E.fromstring(data)
    pic=tree.find('.//p:pic',ns)
@@ -232,7 +246,7 @@ with open(record,'w') as f: json.dump(m,f)
     assert.equal(result.status, 1, result.stdout + result.stderr)
     assert.match(
       result.stderr,
-      /readable text floor|background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink|Chart labels|notes differ from canonical source/,
+      /Slide order|notes relationship|notesSlide relationship|readable text floor|background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink|Chart labels|notes differ from canonical source/,
     )
   })
 }

@@ -10,7 +10,7 @@
     "assets/presentations/pmday-2026/frozen-slides.json": "466c402cac791c1b42d7146a44699c6b4f6a7ff0f14fab3bc5a6eced95d5fe00",
     "quartz/scripts/pmday-presentation.mjs": "9250b7b763f32e277fd4bb4abb37556d9f01c59a8ceae398d4cd63313e53fe49",
     "quartz/scripts/build-pmday-pptx.mjs": "9bd6136ca7de314664ebd8f4b472f472674943594ce2d5cd3602be979ca5ad89",
-    "quartz/scripts/validate-pmday-pptx.py": "ec7fc83a52f7dec221d70919cc8b37e8f0f1bea879f317b8a552b43bb4163124",
+    "quartz/scripts/validate-pmday-pptx.py": "8ab7b168cb63ef6a4a6e9434d3d95ed68185cea574e8a0954aaa24ac9af5aeba",
     "quartz/scripts/pmday-fonts.py": "d1972b913510cb5c805643b7b66025a3a5c50912ffe93f8a8bd066e598644b9e"
   },
   "authoring_runtime": {
