@@ -28,11 +28,11 @@ Used on slide 4. Rechecked 2026-09-23 using the **full official 2025 PDF**, the 
 
 | Indicator | 2021: 2025 report A1 | 2026: public summary | Arithmetic comparison |
 |---|---:|---:|---|
-| Moved-code share of changed lines | 24.65% | 3.8% YTD | −20.85 percentage points; −84.58%, shown as −85% |
-| Copy/paste share | 8.66% | 15.7% H1 | +7.04 percentage points; +81.29%, shown as +81% |
+| Moved-code share of changed lines | 24.65% | 3.8% YTD | −20.85 percentage points; −84.58%, rounded to −85% in notes only |
+| Copy/paste share | 8.66% | 15.7% H1 | +7.04 percentage points; +81.29%, rounded to +81% in notes only |
 | Two-week churn | 3.27% | Absolute rate unavailable | No exact 2021→2026 calculation |
 
-These are **cross-edition snapshots with different samples**, not one harmonized panel or an estimate of AI causality. Even the overlapping year changes: 2023 moved share is **15.88% in 2025 A1** versus **13% in the 2026 summary**. Consequently, never multiply an older churn rate by 1.15 to invent a 2026 endpoint. The visible slide keeps this caveat beside the two snapshot rows.
+These are **cross-edition snapshots with different samples**, not one harmonized panel or an estimate of AI causality. Even the overlapping year changes: 2023 moved share is **15.88% in 2025 A1** versus **13% in the 2026 summary**. Consequently, never multiply an older churn rate by 1.15 to invent a 2026 endpoint. The v34 slide presents separate edition columns and a visible cross-sample warning. The arithmetic remains in notes only, because a relative difference between these endpoints is not an estimated trend in a comparable sample. The older headline percentages are preserved as editorial history.
 
 2021 is a baseline before **widespread adoption**, not a full year with no AI coding tools: [GitHub announced Copilot technical preview on June 29, 2021](https://github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer/).
 
@@ -42,8 +42,8 @@ Churn denotes authored/pushed lines substantially revised or reverted within two
 
 | Period/status | Published rates | Relative change |
 |---|---|---|
-| **Observed 2021→2024**, 2025 A1 | 3.27% → 5.67% | `(5.67/3.27−1)×100 = +73.39%`, or +2.40 pp; slide rounds to +73% |
-| **Forecast for 2025**, versus 2021, same A1 | 3.27% → projected 6.87% | +110.09%; slide rounds to +110%, explicitly forecast / not observed |
+| **Observed 2021→2024**, 2025 A1 | 3.27% → 5.67% | `(5.67/3.27−1)×100 = +73.39%`, or +2.40 pp; notes round to +73% |
+| **Forecast for 2025**, versus 2021, same A1 | 3.27% → projected 6.87% | +110.09%; notes round to +110%, explicitly forecast / not observed |
 | **2023→2026 index**, 2026 public summary/chart | 2023 = 100; 2026 ≈115 | Reported +15%; no absolute 2026 rate provided |
 
 The forecast explains the remembered growth above 100%. The older [January 2024 abstract](https://www.gitclear.com/coding_on_copilot_data_shows_ais_downward_pressure_on_code_quality) also projected roughly doubled churn in 2024 versus 2021. Neither projection is an observed 2026 value. +15% does not show that churn improved against 2021; its baseline, report vintage and sample differ.

@@ -33,6 +33,154 @@ const layouts = [
   "resources",
 ]
 
+// Only fields consumed by the active layout belong in pptx-slide blocks.
+// Superseded fields live in Markdown history so edits cannot silently do nothing.
+const commonFields = new Set(["number", "layout", "notes", "sources", "titleLines"])
+const layoutFields = {
+  cover: new Set(["author", "bio", "email", "illustrationAlt", "lanes", "linkedin", "subtitle"]),
+  phase: new Set(["caveat", "items", "takeaway"]),
+  sdlc: new Set([
+    "exampleCaveat",
+    "exampleHeading",
+    "exampleRows",
+    "exampleStages",
+    "scope",
+    "steps",
+    "toc",
+  ]),
+  evidence: new Set([
+    "doraAssociation",
+    "doraDefinition",
+    "doraHeadline",
+    "doraMeasures",
+    "doraSource",
+    "framing",
+    "gitclearCaveat",
+    "gitclearEditions",
+    "gitclearSource",
+    "gitclearTable",
+    "marketDetail",
+    "marketHeadline",
+    "marketNumbers",
+    "nberCaveat",
+    "nberGeneration",
+    "nberMetrics",
+    "nberSource",
+    "otherCards",
+  ]),
+  comprehension: new Set(["caption", "curves", "questions", "takeaway"]),
+  recovery: new Set(["caption", "premise", "risk", "steps", "takeaway"]),
+  equilibrium: new Set([
+    "caption",
+    "columns",
+    "exploreHeading",
+    "exploreRows",
+    "takeaway",
+    "watchHeading",
+    "watchRows",
+  ]),
+  thinking: new Set([
+    "caption",
+    "definition",
+    "deterministicDetail",
+    "formulae",
+    "graphCaption",
+    "graphLabels",
+    "labels",
+    "probabilisticDetail",
+    "role",
+    "takeaway",
+  ]),
+  boundaries: new Set([
+    "complexity",
+    "envelopeHeading",
+    "gap",
+    "inputScope",
+    "newHeading",
+    "old",
+    "oldCoverage",
+    "oldDetail",
+    "oldFoot",
+    "oldHeading",
+    "productionRisk",
+    "regionAxis",
+    "regionBoundaryCases",
+    "regionCaption",
+    "regionExamples",
+    "regionInner",
+    "regionOutside",
+    "research",
+    "role",
+    "roleDetail",
+  ]),
+  evaluation: new Set([
+    "bugCode",
+    "bugDefinition",
+    "bugHeading",
+    "bugLabel",
+    "bugModel",
+    "calibration",
+    "chartCategories",
+    "chartCounts",
+    "chartLabels",
+    "decision",
+    "frequency",
+    "harms",
+    "insideLabel",
+    "instruments",
+    "interval",
+    "observed",
+    "outsideLabel",
+    "ownershipLine",
+    "rateLabel",
+    "role",
+    "schematicCaption",
+    "toleranceHeading",
+  ]),
+  risk: new Set(["behavior", "caption", "role", "table", "takeaway"]),
+  control: new Set([
+    "actuator",
+    "controlCaveat",
+    "controller",
+    "fallback",
+    "framing",
+    "gateLabel",
+    "human",
+    "humanDetail",
+    "perimeterHeading",
+    "pressures",
+    "role",
+    "steps",
+    "vetoAction",
+  ]),
+  roles: new Set([
+    "caseAction",
+    "caseHeading",
+    "caseSteps",
+    "foundation",
+    "pmAction",
+    "pmHeading",
+    "role",
+    "table",
+  ]),
+  synthesis: new Set([
+    "applications",
+    "ceremonies",
+    "closing",
+    "factoryDetail",
+    "factoryFlow",
+    "factoryHeading",
+    "labDetail",
+    "labHeading",
+    "labSteps",
+    "loopCenter",
+    "releaseCheckpoint",
+    "takeaway",
+    "teamHeading",
+  ]),
+  resources: new Set(["author", "email", "laneHeadings", "linkedin", "resources"]),
+}
+
 export function parseDeck(markdown) {
   const sections = [
     ...markdown.matchAll(/^## (\d+)\. (.+)\n([\s\S]*?)(?=^## \d+\. |$(?![\s\S]))/gm),
@@ -51,6 +199,11 @@ export function parseDeck(markdown) {
       throw new Error(
         "Only the fixed cover and closing QR assets are approved; arbitrary image exceptions are forbidden",
       )
+    const unknown = Object.keys(data).filter(
+      (key) => !commonFields.has(key) && !layoutFields[data.layout].has(key),
+    )
+    if (unknown.length)
+      throw new Error(`Slide ${i + 1}: unknown render field(s): ${unknown.join(", ")}`)
     if (data.titleLines && data.titleLines.join(" ") !== section[2])
       throw new Error(`Slide ${i + 1}: title line breaks changed the approved title`)
     return { ...data, title: section[2] }
@@ -341,71 +494,44 @@ export function createDeck(Presentation, data, assets = {}) {
       }
       case "evidence": {
         text(s, d.framing, 64, 121, 1152, 28, 21, C.gray)
-        line(s, 583, 194, 583, 608, C.line)
-        text(s, d.nberSource, 64, 195, 500, 30, 11.8 / 0.75, C.cyan, true)
+        line(s, 583, 183, 583, 566, C.line)
+        text(s, d.nberSource, 64, 180, 504, 29, 19, C.cyan, true)
         d.nberMetrics.forEach(([value, label], i) => {
           const x = 64 + i * 169
-          text(s, value, x, 246, 157, 60, 43, C.white, true)
-          text(s, label, x, 307, 157, 30, 21, C.gray)
+          text(s, value, x, 219, 157, 53, 40, C.white, true)
+          text(s, label, x, 273, 157, 29, 21, C.gray)
         })
-        text(s, d.nberGeneration, 64, 349, 496, 32, 21, C.cyan, true)
-        text(s, d.nberCaveat, 64, 384, 496, 51, 20, C.gray)
-        text(s, d.marketHeadline, 64, 447, 496, 61, 24, C.white, true)
+        text(s, d.nberGeneration, 64, 314, 504, 30, 20, C.cyan, true)
+        text(s, d.nberCaveat, 64, 349, 504, 53, 19, C.gray)
+        text(s, d.marketHeadline, 64, 418, 504, 32, 23, C.white, true)
         d.marketNumbers.forEach(([label, value], i) => {
-          const y = 518 + i * 34
-          text(s, label, 64, y, 255, 29, 20, C.gray)
-          text(s, value, 319, y, 241, 29, 23, C.amber, true, "right")
+          const y = 458 + i * 32
+          text(s, label, 64, y, 259, 29, 21, C.gray)
+          text(s, value, 323, y, 245, 29, 23, C.amber, true, "right")
         })
-        text(s, d.marketDetail, 64, 585, 496, 26, 19, C.gray)
-        text(s, d.doraSource, 616, 195, 600, 30, 12.8 / 0.75, C.cyan, true)
-        d.doraHeadline
-          .split("\n")
-          .forEach((value, i) =>
-            text(
-              s,
-              value,
-              616,
-              221.76 + i * 31.68,
-              600,
-              29,
-              (i ? 13.3 : 14.5) / 0.75,
-              i ? C.amber : C.white,
-              true,
-            ),
-          )
-        text(
-          s,
-          `${d.doraInstability} instability per +1 SD AI adoption`,
-          616,
-          287.04,
-          600,
-          24,
-          11.2 / 0.75,
-          C.amber,
-        )
-        text(s, d.doraDefinition, 616, 313.92, 600, 22, 10.4 / 0.75, C.gray)
-        text(s, d.doraMeasures, 616, 340.8, 600, 40.32, 9.69 / 0.75, C.gray)
-        line(s, 616, 402, 1216, 402)
-        text(s, d.gitclearSource, 616, 406, 600, 25, 10.3 / 0.75, C.cyan, true)
-        d.gitclearMetrics.forEach(([label, value], i) => {
-          const y = 434 + i * 25
-          text(s, label, 616, y, 285, 25, 9.8 / 0.75, C.white)
-          text(s, value, 901, y, 315, 25, (i ? 9.69 : 9.9) / 0.75, C.white, true, "right")
+        text(s, d.marketDetail, 64, 526, 504, 42, 18, C.gray)
+        text(s, d.doraSource, 616, 180, 600, 29, 20, C.cyan, true)
+        text(s, d.doraHeadline, 616, 216, 600, 54, 21, C.white, true)
+        text(s, d.doraAssociation, 616, 276, 600, 28, 20, C.amber, true)
+        text(s, d.doraDefinition, 616, 307, 600, 24, 18, C.gray)
+        text(s, d.doraMeasures, 616, 333, 600, 24, 18, C.gray)
+        line(s, 616, 367, 1216, 367)
+        text(s, d.gitclearSource, 616, 374, 600, 28, 20, C.cyan, true)
+        // Separate edition columns intentionally avoid a cross-sample trend arrow.
+        const snapshots = table(s, d.gitclearTable, 616, 408, 600, 99, [250, 160, 190], 20, 2)
+        ;[0, 1, 2].forEach((i) => {
+          snapshots.rows[i].height = 33
         })
-        text(s, d.gitclearCaveat, 616, 487, 600, 20, 9.1 / 0.75, C.amber)
-        text(s, d.gitclearChurnTitle, 616, 510, 600, 21, 18, C.cyan, true)
-        d.gitclearChurn.forEach((value, i) =>
-          text(s, value, 616, 533 + i * 21, 600, 21, 18, i ? C.gray : C.white, i === 0),
-        )
-        text(s, d.gitclearSecondary, 616, 598, 600, 20, 17, C.gray)
-        line(s, 64, 618, 1216, 618)
-        d.otherCards.forEach(([source, value, caveat], i) => {
+        text(s, d.gitclearEditions, 616, 512, 600, 25, 18, C.gray)
+        text(s, d.gitclearCaveat, 616, 538, 600, 25, 18, C.amber)
+        line(s, 64, 577, 1216, 577)
+        d.otherCards.forEach(([source, value, detail, caveat], i) => {
           const x = 64 + i * 582
-          text(s, source, x, 628, 304, 27, 10.8 / 0.75, C.cyan, true)
-          text(s, value, x + 308, 626, 244, 30, (i ? 11.6 : 13.2) / 0.75, C.white, true, "right")
-          text(s, caveat, x, i ? 652.8 : 658, 552, i ? 26.11 : 25, i ? 12 : 18, C.gray)
+          text(s, source, x, 586, 552, 26, 19, C.cyan, true)
+          text(s, value, x, 619, 552, 28, i ? 20 : 23, C.white, true)
+          text(s, detail, x, 650, 552, 24, 19, i ? C.white : C.gray)
+          text(s, caveat, x, 677, 552, 24, 18, C.gray)
         })
-        text(s, d.takeaway, 64, 693.12, 1095, 17.28, 10.4 / 0.75, C.white, true)
         break
       }
       case "comprehension": {
@@ -460,26 +586,25 @@ export function createDeck(Presentation, data, assets = {}) {
       case "equilibrium": {
         d.columns.forEach(([heading, summary], i) => {
           const x = 64 + i * 398
-          text(s, heading, x, 194, 356, 29, 21, i === 1 ? C.cyan : C.gray, true)
-          text(s, summary, x, 229, 356, 42, 22, i === 2 ? C.amber : C.white)
+          text(s, heading, x, 185, 356, 29, 21, i === 1 ? C.cyan : C.gray, true)
+          text(s, summary, x, 223, 356, 42, 22, i === 2 ? C.amber : C.white)
         })
-        line(s, 64, 292, 1216, 292)
+        line(s, 64, 278, 1216, 278)
         ;[
           [d.watchHeading, d.watchRows, C.amber],
           [d.exploreHeading, d.exploreRows, C.cyan],
         ].forEach(([heading, rows, color], column) => {
           const x = 64 + column * 596
-          text(s, heading, x, 308, 552, 35, 15.5 / 0.75, color, true)
+          text(s, heading, x, 295, 552, 33, 23, color, true)
           rows.forEach(([label, detail], i) => {
-            const y = 357 + i * 56
-            text(s, label, x, y, 552, 28, 13 / 0.75, C.white, true)
-            const sizes = column ? [11, 10.8, 10.7, 10.6] : [11.2, 10.8, 10.9, 10.7]
-            text(s, detail, x, y + 28, 552, 26, sizes[i] / 0.75, C.gray)
+            const y = 342 + i * 72
+            text(s, label, x, y, 552, 25, 20, C.white, true)
+            text(s, detail, x, y + 27, 552, 46, 20, C.gray)
           })
         })
-        line(s, 64, 602, 1216, 602)
-        text(s, d.takeaway, 64, 615, 1120, 42, 20, C.white, true)
-        text(s, d.caption, 64, 664, 1120, 37.5, 11.6 / 0.75, C.cyan)
+        line(s, 64, 639, 1216, 639)
+        text(s, d.takeaway, 64, 648, 1120, 29, 23, C.white, true)
+        text(s, d.caption, 64, 684, 1095, 25, 18, C.cyan)
         break
       }
       case "thinking": {

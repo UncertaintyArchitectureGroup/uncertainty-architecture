@@ -251,14 +251,25 @@ def validate(pptx, manifest_path):
             assert sum(len(e.text or "") for e in notes.findall(".//a:t", NS)) > 80, f"Slide {number}: notes missing"
             validate_notes(notes, source_slides[number - 1], number)
             tables = slide.findall(".//a:tbl", NS)
-            if number in (11, 13):
+            if number in (4, 11, 13):
                 assert len(tables) == 1, f"Slide {number}: native table required"
+            if number in (4, 7):
+                # This floor protects the reviewed caveats and body copy; it does
+                # not replace visual review of wrapping or available space.
+                for run in slide.findall(".//a:r", NS):
+                    value = "".join(e.text or "" for e in run.findall("a:t", NS))
+                    if not value.strip() or value == f"{number:02}":
+                        continue
+                    props = run.find("a:rPr", NS)
+                    assert props is not None and int(props.get("sz", "0")) >= 1350, f"Slide {number}: readable text floor is 13.5 pt"
             if number == 4:
-                for required in ('NBER · SEP 2026', '>500K GITHUB DEVS', '4 MARKETPLACES', '25.5×', '3.4×', '1.3×', '≈78% → 87%', '19% → 33%', 'Jan 2025 → Apr 2026', 'first 3 months', '4,867 SURVEY RESPONDENTS', 'SELF-REPORTED: >80% productivity', '59% code quality', 'higher throughput + delivery instability', '≈ +0.10 SD', 'Instability = failed production changes + unplanned fix deployments', 'Survey model; association, not causal', 'Moved-code = refactoring / reuse proxy', '2021→YTD 2026 · 24.65%→3.8% (−85%)', 'Copy/paste = duplication proxy', '2021→first half 2026 · 8.66%→15.7% (+81%)', '343 → 223 / 1k', 'Different editions / samples: limited comparability; no causal estimate of AI', '2021 → 2024 actual: 3.27% → 5.67% (+73%)', '2025 forecast: 6.87% (+110% vs 2021); not observed', 'vs 2023 index; absolute rate unavailable', '≈+81%', '+15%', '349 TECHNICAL WORKERS', '1.4–2× self-reported work value', '3 questions', '1,197 REPOS', 'Agent-first +34.85% · Prior AI-IDE +42.87%', 'cognitive complexity after agent adoption vs matched controls', '19,236 repo-months'):
+                for required in ('NBER · SEP 2026', '>500K GITHUB DEVS', '4 marketplaces', '25.5×', '3.4×', '1.3×', '≈78% → 87%', '19% → 33%', 'Jan 2025–Apr 2026', 'first 3 months', 'n = 4,867', 'SELF-REPORTED: >80% productivity', '59% code quality', 'Higher adoption ↔ throughput + instability', 'Instability: failed production changes + unplanned fixes', 'Survey association; no causal estimate', 'SHARES OF CHANGED LINES', '¹2025 report', '²2026 report; different samples', 'Snapshots only; no comparable trend or causal estimate', 'n = 349', '1.4–2× self-reported work value', 'three questions', 'Technical workers; no causal estimate', '1,197 REPOS', 'Agent-first +34.85% · Prior AI-IDE +42.87%', 'Cognitive complexity after agent adoption', 'Matched controls; 19,236 repo-months'):
                     assert required in normalized, f"Evidence slide missing {required}"
-                assert "Xu" not in normalized, "Evidence slide missing v33 cleanup: Xu belongs in notes only"
+                assert all(value not in normalized for value in ("−85%", "+81%", "Xu")), "Evidence slide missing v34 cleanup: cross-edition arithmetic and secondary evidence belong in notes"
+                cells = ["".join(e.text or "" for e in cell.findall(".//a:t", NS)) for cell in tables[0].findall("a:tr/a:tc", NS)]
+                assert cells == [value for row in source_slides[3]["gitclearTable"] for value in row], "Evidence slide missing correct snapshot edition/value mapping"
                 note_text = " ".join(e.text or "" for e in notes.findall(".//a:t", NS))
-                for required in ("89% credible interval", "+0.07…+0.13", ">80%", "59%", "−9.2 pp", "−70.8%", "−120", "−35%", "1.4–2×", "+34.85%", "+42.87%", "Agent-first", "IDE-first"):
+                for required in ("89% credible interval", "+0.07…+0.13", ">80%", "59%", "−9.2 pp", "−70.8%", "−120", "−35%", "1.4–2×", "+34.85%", "+42.87%", "Agent-first", "IDE-first", "211M lines", "623M changes", "2021 → 2024 actual: 3.27% → 5.67% (+73%)", "2025 forecast: 6.87% (+110% vs 2021); not observed", "vs 2023 index; absolute rate unavailable", "≈+81%", "+15%", "≈ +0.10 SD", "15.88%", "13%", "−84.58%", "+81.29%"):
                     assert required in note_text, f"Evidence slide missing supporting note: {required}"
             if number == 3:
                 assert not any(e.get("type", "none") != "none" for e in slide.findall(".//a:tailEnd", NS) + slide.findall(".//a:headEnd", NS)), "SDLC slide must not contain arrowheads"
@@ -274,7 +285,7 @@ def validate(pptx, manifest_path):
                 for required in ("technical systems with limits", "Team diagnoses", "proposes fix", "Validate fix"):
                     assert required in normalized, f"Recovery slide missing {required}"
             if number == 7:
-                for required in ("WATCH / MEASURE", "EXPLORE / TEST", "WIP/intake limits", "knowledge bases / RAG / ontologies", "recovery drills", "Candidate countermeasures — not proven fixes"):
+                for required in ("WATCH / MEASURE", "EXPLORE / TEST", "Small batches and WIP limits", "Knowledge retrieval for people + agents", "recovery drills", "Candidate countermeasures — not proven fixes"):
                     assert required in normalized, f"Equilibrium slide missing {required}"
             counts["slides"] += 1
             counts["pictures"] += len(pictures)

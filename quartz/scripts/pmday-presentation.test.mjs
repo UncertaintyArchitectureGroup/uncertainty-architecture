@@ -47,14 +47,43 @@ test("source refuses missing slide, reordered layout and unapproved image except
   )
 })
 
+test("source rejects unknown and retired render fields instead of silently ignoring edits", () => {
+  for (const slide of parseDeck(source)) {
+    const marker = `"layout": "${slide.layout}"`
+    assert.throws(
+      () => parseDeck(source.replace(marker, `${marker}, "misspelledCopy": "unrendered"`)),
+      new RegExp(`Slide ${slide.number}: unknown render field\\(s\\): misspelledCopy`),
+    )
+  }
+  assert.throws(
+    () =>
+      parseDeck(
+        source.replace(
+          '"layout": "control"',
+          '"layout": "control", "architectureHeading": "THREE PRESSURES → VETO"',
+        ),
+      ),
+    /Slide 12: unknown render field.*architectureHeading/,
+  )
+  // A recognized field still remains editable; this is not another freeze.
+  const edited = source.replace(
+    '"Human authority\\nwhen required"',
+    '"Human approval\\nwhen required"',
+  )
+  assert.equal(parseDeck(edited)[11].human, "Human approval\nwhen required")
+})
+
 test("committed PPTX is fresh, editable and follows the dark-background contract", () => {
   const result = JSON.parse(execFileSync("python3", [validator], { encoding: "utf8" }))
   assert.equal(result.slides, 15)
   assert.equal(result.pictures, 3)
-  assert.equal(result.tables, 2)
+  assert.equal(result.tables, 3)
 })
 
 for (const mutation of [
+  "evidence-small-text",
+  "equilibrium-small-text",
+  "snapshot-edition-order",
   "background",
   "picture",
   "table",
@@ -102,6 +131,10 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
   if item.filename=='ppt/slides/slide15.xml' and mutation=='qr-bytes':
    tree=E.fromstring(data);pics=tree.findall('.//p:pic',ns);a=pics[0].find('p:blipFill/a:blip',ns);b=pics[1].find('p:blipFill/a:blip',ns);a.set('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed',b.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed'));data=E.tostring(tree)
   if item.filename=='ppt/slides/_rels/slide15.xml.rels' and mutation=='closing-link': data=data.replace(b'https://github.com/UncertaintyArchitectureGroup/The-Subprime-Code-Crisis',b'https://example.invalid/wrong')
+  if (item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-small-text') or (item.filename=='ppt/slides/slide7.xml' and mutation=='equilibrium-small-text'):
+   tree=E.fromstring(data);tree.find('.//a:rPr',ns).set('sz','900');data=E.tostring(tree)
+  if item.filename=='ppt/slides/slide4.xml' and mutation=='snapshot-edition-order':
+   tree=E.fromstring(data);cells=tree.findall('.//a:tbl/a:tr/a:tc',ns);a=cells[4].find('.//a:t',ns);b=cells[5].find('.//a:t',ns);a.text,b.text=b.text,a.text;data=E.tostring(tree)
   if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='nber-obsolete': data=data.replace('25.5×'.encode(),'17.3×'.encode())
   if item.filename=='ppt/slides/slide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85%',b'+35%').replace(b'+42.87%',b'+43%')
@@ -166,7 +199,7 @@ with open(record,'w') as f: json.dump(m,f)
     assert.equal(result.status, 1, result.stdout + result.stderr)
     assert.match(
       result.stderr,
-      /background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink|Chart labels|notes differ from canonical source/,
+      /readable text floor|background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink|Chart labels|notes differ from canonical source/,
     )
   })
 }
