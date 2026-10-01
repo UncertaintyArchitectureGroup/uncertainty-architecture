@@ -42,6 +42,45 @@ export async function verifyPptxPair(pptx, manifest) {
   return record
 }
 
+export async function finalizePptxCandidate(
+  { stage, candidatePath, finalPath, python, skill },
+  finalizeImpl,
+) {
+  return finalizeImpl({
+    // Chart snapshot adapters place their scratch files inside this workspace.
+    workspaceDir: stage,
+    candidatePath,
+    finalPath,
+    explicitTotalSlideCount: 15,
+    requiredNativeTableOwnerSlides: [4, 11, 13],
+    requiredNativeChartOwnerSlides: [10],
+    materializeLiteralChartWorkbooks: true,
+    pythonExecutable: python,
+    integrityValidatorPath: path.join(
+      skill,
+      "container_tools/inspect_presentation_package_integrity.py",
+    ),
+    layoutValidatorPath: path.join(
+      skill,
+      "container_tools/inspect_presentation_layout_geometry.py",
+    ),
+    layoutArgs: [
+      "--expected-slide-size-emu",
+      "12192000,6858000",
+      "--validate-heading-fit",
+      "--require-native-table-slide",
+      "4",
+      "--require-native-table-slide",
+      "11",
+      "--require-native-table-slide",
+      "13",
+    ],
+    fontPolicy: { basis: "user_request", families: [theme.font] },
+    verifyArtifactToolImport: true,
+    receiptPath: path.join(stage, "validation.json"),
+  })
+}
+
 async function main() {
   if (!process.env.CODEX_PRIMARY_RUNTIME_ROOT)
     throw new Error(
@@ -101,38 +140,10 @@ async function main() {
   execFileSync(python, [path.join(root, "quartz/scripts/pmday-fonts.py"), draft, standardFonts], {
     stdio: "inherit",
   })
-  await finalizePresentation({
-    workspaceDir: root,
-    candidatePath: standardFonts,
-    finalPath: checked,
-    explicitTotalSlideCount: 15,
-    requiredNativeTableOwnerSlides: [4, 11, 13],
-    requiredNativeChartOwnerSlides: [10],
-    materializeLiteralChartWorkbooks: true,
-    pythonExecutable: python,
-    integrityValidatorPath: path.join(
-      skill,
-      "container_tools/inspect_presentation_package_integrity.py",
-    ),
-    layoutValidatorPath: path.join(
-      skill,
-      "container_tools/inspect_presentation_layout_geometry.py",
-    ),
-    layoutArgs: [
-      "--expected-slide-size-emu",
-      "12192000,6858000",
-      "--validate-heading-fit",
-      "--require-native-table-slide",
-      "4",
-      "--require-native-table-slide",
-      "11",
-      "--require-native-table-slide",
-      "13",
-    ],
-    fontPolicy: { basis: "user_request", families: [theme.font] },
-    verifyArtifactToolImport: true,
-    receiptPath: path.join(stage, "validation.json"),
-  })
+  await finalizePptxCandidate(
+    { stage, candidatePath: standardFonts, finalPath: checked, python, skill },
+    finalizePresentation,
+  )
   const record = {
     schema_version: 1,
     edition: "pmday-2026-review-candidate",

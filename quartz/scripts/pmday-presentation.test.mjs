@@ -1,13 +1,13 @@
 import assert from "node:assert/strict"
 import { execFileSync, spawnSync } from "node:child_process"
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
+import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises"
 import os from "node:os"
 import path from "node:path"
 import test from "node:test"
 import { fileURLToPath } from "node:url"
 import { renderIndependentPreview, verifyRenderedText, verifyPng } from "./preview-pmday-pptx.mjs"
 import { parseDeck } from "./pmday-presentation.mjs"
-import { verifyPptxPair, runtimeEnvironment } from "./build-pmday-pptx.mjs"
+import { finalizePptxCandidate, verifyPptxPair, runtimeEnvironment } from "./build-pmday-pptx.mjs"
 
 const root = path.resolve(fileURLToPath(new URL("../..", import.meta.url)))
 const folder = path.join(root, "assets/presentations/pmday-2026")
@@ -24,6 +24,37 @@ test("authoring maps supplied runtime paths for finalizer subprocesses", () => {
   assert.equal(env.RUNTIME_NODE_MODULES, "/runtime/modules")
   assert.equal(env.RUNTIME_BIN_DIR, "/runtime/dependencies/bin/override")
 })
+
+for (const fail of [false, true]) {
+  test(`finalizer scratch stays in the build stage on ${fail ? "failure" : "success"}`, async (t) => {
+    const repository = await mkdtemp(path.join(os.tmpdir(), "ua-pptx-stage-"))
+    t.after(() => rm(repository, { recursive: true, force: true }))
+    const stage = path.join(repository, "dist/pptx/build")
+    const candidatePath = path.join(stage, "candidate.pptx")
+    const finalPath = path.join(stage, "output/deck.pptx")
+    const published = path.join(repository, "published.pptx")
+    await mkdir(path.dirname(finalPath), { recursive: true })
+    await writeFile(candidatePath, "new candidate")
+    await writeFile(published, "last valid deck")
+    const before = (await readdir(repository)).sort()
+    const operation = finalizePptxCandidate(
+      { stage, candidatePath, finalPath, python: "/runtime/python", skill: "/runtime/skill" },
+      async (options) => {
+        // Model the adapter's filesystem side effect at the supplied boundary.
+        const scratch = await mkdtemp(path.join(options.workspaceDir, ".chart-data-"))
+        await writeFile(path.join(scratch, "candidate.pptx"), "chart snapshot")
+        if (fail) throw new Error("chart validation failed")
+        await writeFile(options.finalPath, "checked candidate")
+      },
+    )
+    if (fail) await assert.rejects(operation, /chart validation failed/)
+    else await operation
+    assert.deepEqual((await readdir(repository)).sort(), before)
+    assert.ok((await readdir(stage)).some((name) => name.startsWith(".chart-data-")))
+    assert.equal(await readFile(published, "utf8"), "last valid deck")
+    assert.equal(await readFile(candidatePath, "utf8"), "new candidate")
+  })
+}
 
 test("approved 15-slide source preserves the original narrative order and complete notes", () => {
   const slides = parseDeck(source)
@@ -94,6 +125,7 @@ for (const mutation of [
   "qr-bytes",
   "closing-link",
   "evidence-number",
+  "dora-denominator",
   "nber-obsolete",
   "agarwal-rounded",
   "toc-missing",
@@ -136,6 +168,7 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
   if item.filename=='ppt/slides/slide4.xml' and mutation=='snapshot-edition-order':
    tree=E.fromstring(data);cells=tree.findall('.//a:tbl/a:tr/a:tc',ns);a=cells[4].find('.//a:t',ns);b=cells[5].find('.//a:t',ns);a.text,b.text=b.text,a.text;data=E.tostring(tree)
   if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
+  if item.filename=='ppt/slides/slide4.xml' and mutation=='dora-denominator': data=data.replace(b'Respondents reporting improvement:',b'SELF-REPORTED:')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='nber-obsolete': data=data.replace('25.5×'.encode(),'17.3×'.encode())
   if item.filename=='ppt/slides/slide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85%',b'+35%').replace(b'+42.87%',b'+43%')
   if item.filename=='ppt/notesSlides/notesSlide14.xml' and mutation=='notes-content':

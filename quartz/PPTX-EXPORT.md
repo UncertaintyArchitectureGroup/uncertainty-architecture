@@ -27,7 +27,7 @@ The original plan and its decisions remain retrievable in [the recorded #113 sou
 
 Quartz/Chromium PDF printing cannot preserve native PowerPoint objects. The PPTX path therefore sits alongside the existing publication scripts, without changing Quartz core or the PDF contract. It reuses the existing path-safety and rollback-capable pair installer. There is no slide-image conversion step.
 
-The generated review snapshot and manifest are committed under `assets/presentations/pmday-2026/` at the maintainer's explicit request. This is a bounded exception for a deliverable, not a claim that the talk has already been presented or externally published. Staging output and visual QA stay under ignored `dist/pptx/`.
+The generated review snapshot and manifest are committed under `assets/presentations/pmday-2026/` at the maintainer's explicit request. This is a bounded exception for a deliverable, not a claim that the talk has already been presented or externally published. Staging output and visual QA stay under ignored `dist/pptx/`. The finalizer's workspace is the individual build stage, including chart snapshot intermediates retained after success or failure; these must not create untracked files at repository root.
 
 ## Editing and verification
 
@@ -123,3 +123,9 @@ The maintainer's 2026-10-01 “Виправ все” authorizes the three revie
 Only slides 4 and 7 change visibly. Slide 4 retains its two-column composition and five evidence sources. A native GitClear table gives 2021 and 2026 their own edition columns, with a visible cross-sample warning; relative arithmetic, sample sizes, secondary signals and observed/forecast/indexed churn details remain in notes. Slide 7 uses shorter descriptions with the complete watch/test lists retained in notes. All substantive visible text on 4/7 has a 13.5 pt floor; slide 7 row descriptions use 15 pt. The page number is excluded. This objective check does not establish projector legibility or replace visual review.
 
 Regressions reject unknown/retired source fields, undersized evidence/equilibrium copy and swapped snapshot edition cells. Existing full-notes, provenance and freeze checks remain. The explicit authorization covers mechanical source-section cleanup plus reviewed slide/notes 4 and 7 package changes; all other rendered slides and shared dependencies must match the preceding v33 package. No automatic freeze refresh or bypass is added.
+
+## Follow-up review corrections, v35
+
+The maintainer's subsequent 2026-10-01 “Виправляй” authorizes two local corrections. Slide 4 explicitly labels DORA's percentages as shares of respondents reporting improvement. The original values, two-line layout and font size remain; every note and all other slide/dependency parts match v34. Only source section 4 and reviewed slide 4 XML refresh the existing freeze.
+
+The existing finalization boundary supplies the individual build stage as the helper workspace. Portable regressions exercise scratch-file creation on both successful and failed finalization, and a slide mutation removes the respondent label while retaining the percentages. Real authoring remains a separate integration check in the configured runtime. No new workflow, dependency or agent-guidance rule is added.

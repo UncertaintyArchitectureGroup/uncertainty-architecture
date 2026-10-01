@@ -24,11 +24,15 @@ tags:
 
 **[Evidence base — звіти й зовнішні посилання](EVIDENCE.md):** використані редакції, прив'язка до слайдів, обмеження, історичний контекст і матеріали Subprime / UA.
 
+### Review corrections, v35, 1 October 2026
+
+The maintainer's subsequent “Виправляй” authorizes the two follow-up findings. Slide 4 now explicitly labels DORA's >80% and 59% as shares of respondents reporting improvement, preserving the numbers, font size and layout. All other slides and every note remain unchanged from v34. The generator confines finalizer intermediates to its existing private build stage. Only source section 4 and its reviewed slide XML may refresh the 1–11 freeze; no automatic refresh or bypass is added.
+
 ### Review corrections, v34, 1 October 2026
 
 The maintainer's “Виправ все” explicitly authorizes all three findings from the substantive review: migrate inactive render fields to history and reject unknown active fields; present GitClear 2021/2026 as separate cross-edition snapshots; improve slides 4 and 7 readability. The two-column composition, five evidence sources, 15-slide order and all prior notes remain. Secondary figures and expanded watch/test lists move to notes. Only slides 4 and 7 change visibly. Mechanical source cleanup also affects other sections, with their rendered content preserved.
 
-The active `pptx-slide` blocks and **Current composition, v34** paragraphs own the current rendition. Archived JSON blocks and collapsed earlier descriptions are history. The 1–11 freeze remains active; its source entries and the reviewed 4/7 slide/notes parts are refreshed only after inspection under this explicit request.
+The active `pptx-slide` blocks and **Current composition** paragraphs own the current rendition, with the v35 DORA clarification above. Archived JSON blocks and collapsed earlier descriptions are history. The 1–11 freeze remains active; its source entries and the reviewed 4/7 slide/notes parts were refreshed only after inspection under this explicit request.
 
 ### Approved v33 synchronization, 1 October 2026
 
@@ -414,7 +418,7 @@ CODE підсвічений; питання стоять також над Inten
     ]
   ],
   "doraMeasures": "Survey association; no causal estimate.",
-  "doraHeadline": "SELF-REPORTED: >80% productivity ↑\n59% code quality ↑",
+  "doraHeadline": "Respondents reporting improvement:\nProductivity >80% · Code quality 59%",
   "nberSource": "NBER · SEP 2026 · >500K GITHUB DEVS",
   "gitclearSource": "GITCLEAR · SHARES OF CHANGED LINES",
   "doraSource": "DORA · 2025 · n = 4,867",
@@ -474,7 +478,9 @@ These fields belong to superseded layouts. They are not render inputs or current
 
 </details>
 
-### Current composition, v34
+### Current composition, v35
+
+DORA percentages explicitly denote respondents reporting improvement, not the magnitude of a productivity or code-quality gain. The values and two-line typography are unchanged.
 
 Keep the two-column evidence composition and all five studies. NBER separates code activity from marketplace use. DORA keeps self-reported productivity/quality and the non-causal delivery-instability association visible. GitClear uses separate 2021/2026 edition columns without a connecting trend arrow or relative-change headline. The sample-comparability warning stays on screen. METR and Agarwal retain outcome/cohort labels. Notes retain sample sizes, proxy definitions, secondary GitClear/churn figures and the DORA standardized estimate. All substantive visible text is at least 13.5 pt.
 

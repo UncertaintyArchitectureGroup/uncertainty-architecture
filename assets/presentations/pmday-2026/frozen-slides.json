@@ -13,12 +13,12 @@
     10,
     11
   ],
-  "authorization": "Maintainer request on 2026-10-01 to sync approved v33 and accumulated v19–v33 edits from the linked review. Source-of-truth PPTX SHA-256: 024feed3305fb87d76f4c46bcaf5256e6d97cbdc48aed1bbb71383df73095b49. Reviewed regenerated v33 rendition with artifact-tool 2.8.74: all visible copy/notes and chart/workbook values retained; serializer-generated connector ordering/IDs, empty runs, note paragraph encoding and font-scheme label differ from the supplied package. Freeze guards remain unchanged. Subsequent maintainer instruction on 2026-10-01, “Виправ все”, authorizes the substantive review corrections: mechanical inactive-field cleanup throughout the source, GitClear edition snapshots and readable slides 4/7. Reviewed candidate SHA-256 7f0208a4d44d597fa5ab9ffd2895e78265c53d8c53656fe2e81acd5d15523877. LibreOffice export inspected; only slide/notes 4 and 7 parts changed, all other rendered slides/dependencies match the preceding v33. Source-section hashes reflect cleanup and current-composition labels. No automatic refresh or bypass.",
+  "authorization": "Maintainer request on 2026-10-01 to sync approved v33 and accumulated v19–v33 edits from the linked review. Source-of-truth PPTX SHA-256: 024feed3305fb87d76f4c46bcaf5256e6d97cbdc48aed1bbb71383df73095b49. Reviewed regenerated v33 rendition with artifact-tool 2.8.74: all visible copy/notes and chart/workbook values retained; serializer-generated connector ordering/IDs, empty runs, note paragraph encoding and font-scheme label differ from the supplied package. Freeze guards remain unchanged. Subsequent maintainer instruction on 2026-10-01, “Виправ все”, authorizes the substantive review corrections: mechanical inactive-field cleanup throughout the source, GitClear edition snapshots and readable slides 4/7. Reviewed candidate SHA-256 7f0208a4d44d597fa5ab9ffd2895e78265c53d8c53656fe2e81acd5d15523877. LibreOffice export inspected; only slide/notes 4 and 7 parts changed, all other rendered slides/dependencies match the preceding v33. Source-section hashes reflect cleanup and current-composition labels. No automatic refresh or bypass. Subsequent 2026-10-01 “Виправляй” authorizes v35: clarify the DORA respondent-share denominator and isolate generator intermediates. Reviewed candidate SHA-256 0de5561db4030e814fc6e1df59a1689d07d921b40c8bba9efecace2b89abd05a. LibreOffice-rendered slide 4 inspected; only source section 4 and slide 4 XML changed. All other slide/dependency parts and every note match v34. Freeze scope and guards remain unchanged.",
   "source_sections": {
     "1": "dc70ee695779fe56fd7d2041359bfd5d1b6d598b772817ffb537a6fcde08e6f0",
     "2": "fa17885e2442a877f3598329506ebb4b7aa945a46c1177003e1352179fdd3b16",
     "3": "493b92f8626bf5e83e151eeb171cf97eed4cf17e42c025b1b825c1afe0ab6727",
-    "4": "c5bca6f9ea96f26b64eb9e762d6422f5bfcc5e71356ef693014f49fe9144b69a",
+    "4": "b83f37fc6b8b74833ce853e1119bcc25ed63984514064f5fe2a0c0b45c186a65",
     "5": "e5a610e1b235b24fe075ce906a8e2db39d717756fa88ce968266a6e61ce6d7ce",
     "6": "742bd372f746eb187877f0e3c3f4c93365f6f10848d0c5ec2da8a3bbe14b58b2",
     "7": "1d6d5d48c0ef6662629845c6efa6b9ebbbde489672e8ce1befc2fa4fa2624916",
@@ -81,7 +81,7 @@
     "ppt/slides/slide11.xml": "cea35de870f45b8231565bc5449056c100a78ff61e775aba2344119274e60c52",
     "ppt/slides/slide2.xml": "3ecc8ff11dab5adf2b531989a8c79410f4c40cf2b4fef69f9b9c6e55146c2d0e",
     "ppt/slides/slide3.xml": "667dd16fd351216447f6aaca61103e3dadf2e2883fe639b41da6215ac34c3378",
-    "ppt/slides/slide4.xml": "6f7b363964cfe8e15d02d3130118622a55c1a5e54556e146d528e38d6393df83",
+    "ppt/slides/slide4.xml": "d92f98d65a2ecc4f58a735b0acb9eda89e8ab7e7a6c1b7a2bb2f3130e78251e0",
     "ppt/slides/slide5.xml": "d4175ac40a6aaa7c8835818e16e49424de7d70b0593bd50746124a0102a85254",
     "ppt/slides/slide6.xml": "92d4440c2053d00c3f3f33458047292d3188ca0269b507392bbb93cab148e041",
     "ppt/slides/slide7.xml": "5901918e244dd5380a0a91739c0dcc57b4379a7a9f1499e89466af6cf4f0d27e",

@@ -31,6 +31,8 @@ Publications, talks, community discussions, and independent references belong un
 
 ### Added
 
+- Corrected PMDay v35 follow-up findings: identify DORA percentages as respondent shares on slide 4 and confine finalizer chart intermediates to the private build stage. Add denominator-removal and success/failure staging regressions; retain all notes, other slides and shared assets, with a narrowly reviewed slide 4 freeze refresh.
+
 - Applied the substantive PMDay review as v34: archive unused render fields and reject unknown layout keys; show GitClear 2021/2026 as separate edition snapshots; improve slides 4/7 text size while preserving detailed evidence and watch/test lists in notes. Add unknown-field, minimum-size and snapshot-column regressions. Preserve all other rendered slides and shared assets, with an explicitly reviewed freeze refresh.
 
 - Synchronized the approved PMDay v33 presentation with its Markdown, native layouts and acceptance checks: opening titles, research sample/metric labels, measured-flow and candidate-countermeasure content, semantic/permission control paths, PM commitments, release authorization and HOW/WHAT resource order. Preserved v33 notes and the editable outcome chart/workbook, tables and artwork. Reconciled with current main; retained the existing Draft pipeline scope and explicit authoring/CI boundary.

@@ -3,14 +3,14 @@
   "edition": "pmday-2026-review-candidate",
   "source": "assets/presentations/pmday-2026/README.md",
   "inputs": {
-    "assets/presentations/pmday-2026/README.md": "9adefa26da1ea37a352830fa74ff3a1b9960b80105a189d4232b5fc63f7bf98d",
+    "assets/presentations/pmday-2026/README.md": "d29e937e4aeff501b5083ae6fcab2e05728ea7e377249f9fd8e71c12a4bf6f0b",
     "assets/presentations/pmday-2026/artwork/ai-two-roles.png": "fee952d5eb696de3cdcd4609b42587545a56330577acdca8359b76a4d4b22de7",
     "assets/presentations/pmday-2026/artwork/qr-ua.png": "f4039e8fc6b51dbdf09cd87d88dcb182e8b458505d6ee14db052171ca7b6d154",
     "assets/presentations/pmday-2026/artwork/qr-subprime.png": "e1dbc72048352c901ac612bb403f57c32fdbbe787fea1c7c243c55858cf71db7",
-    "assets/presentations/pmday-2026/frozen-slides.json": "d13cb59a3e2a9133568d674669c2a61e27a6cef5ec7f479d70dd91d969f9a028",
+    "assets/presentations/pmday-2026/frozen-slides.json": "466c402cac791c1b42d7146a44699c6b4f6a7ff0f14fab3bc5a6eced95d5fe00",
     "quartz/scripts/pmday-presentation.mjs": "9250b7b763f32e277fd4bb4abb37556d9f01c59a8ceae398d4cd63313e53fe49",
-    "quartz/scripts/build-pmday-pptx.mjs": "f9634c76691de1071fbf4e0708f409a1edaad79b8d1e3bd84bd84858fb4810f6",
-    "quartz/scripts/validate-pmday-pptx.py": "8af3a833c7348de9de8564011abf9a8a2e22085062a3bed62d4a795275e85b2e",
+    "quartz/scripts/build-pmday-pptx.mjs": "9bd6136ca7de314664ebd8f4b472f472674943594ce2d5cd3602be979ca5ad89",
+    "quartz/scripts/validate-pmday-pptx.py": "ec7fc83a52f7dec221d70919cc8b37e8f0f1bea879f317b8a552b43bb4163124",
     "quartz/scripts/pmday-fonts.py": "d1972b913510cb5c805643b7b66025a3a5c50912ffe93f8a8bd066e598644b9e"
   },
   "authoring_runtime": {
@@ -18,7 +18,7 @@
     "version": "2.8.74",
     "bundle": "26.921.11914"
   },
-  "pptx_sha256": "62027bf515fe473afc1a57fd0195c59fbce32b2517fd9aa31c40f6c15d29ca6c",
+  "pptx_sha256": "d40acf0d3e716eb1324acb3ff1b21a6b43d0225687b84984a818a9518f098ecc",
   "slide_count": 15,
   "image_exceptions": [
     {
