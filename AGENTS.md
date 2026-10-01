@@ -77,6 +77,10 @@ State the inspected ref and material access limitations before editing only when
 For substantive work, recover or create the owning issue and read its original
 intent, decisions, acceptance checks and dependencies before editing. Follow
 [issue intake and closure](CONTRIBUTING.md#issue-intake-and-durable-intent).
+The issue records intent; PRs and commits implement it. Ask focused questions
+when requested issue intent is materially unclear. Keep assumptions explicit,
+preserve dated decisions, and check execution against the issue at implementation,
+review and closure, using the procedure owned by CONTRIBUTING.
 Research inputs require the impact report and applicable maintainer decision
 before substantive integration. Keep research lifecycle and framework disposition
 in their canonical registers, independently of issue status.

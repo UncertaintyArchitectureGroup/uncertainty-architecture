@@ -239,7 +239,9 @@ Tooling must serve the specification rather than redefine it. No universal SDK, 
 introduces durable task intent and reviewed input reports under CONTRIBUTING.
 [The dated backlog audit](.github/ISSUE-BACKLOG-AUDIT.md) links open PR follow-ups,
 registered research questions, application work and remaining integrity candidates.
-Issues track work; the Research State Register and framework traceability retain
+Issues preserve intent, with focused clarification of material open choices.
+PRs and commits implement that intent and are checked against its acceptance.
+The Research State Register and framework traceability retain
 their epistemic/decision roles.
 
 Cross-project PMDay distribution is planned for the personal repository. Preserve
