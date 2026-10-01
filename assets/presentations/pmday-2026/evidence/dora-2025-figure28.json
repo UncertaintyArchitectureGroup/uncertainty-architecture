@@ -1,0 +1,30 @@
+{
+  "source": "originals/dora-2025-v2025.2.pdf.zip",
+  "figure": 28,
+  "pdf_page": 38,
+  "method": "Linear reading of original PDF vector geometry, corroborated by rendered page; rounded values are approximate, not a published numeric table.",
+  "x_axis_pdf_points": {
+    "zero": 275.5578918457031,
+    "0.20": 547.1956787109375
+  },
+  "instability_pdf_points": {
+    "mean": 407.58160400390625,
+    "lower": 366.64300537109375,
+    "upper": 450.13800048828125
+  },
+  "rounded_slide_values": {
+    "standardized_estimate": 0.1,
+    "credible_interval_89_percent": [
+      0.07,
+      0.13
+    ]
+  },
+  "unit": "SD of delivery instability per +1 SD AI adoption (p.48 footnote 23)",
+  "definition": "Composite of respondent-estimated change failure rate and deployment rework rate; p.139. Not CI/CD telemetry, not a percentage or percentage-point effect.",
+  "chart_reading_unrounded": {
+    "mean": 0.09720570446533866,
+    "lower": 0.06706365456480472,
+    "upper": 0.1285388978148252
+  },
+  "archive_member": "dora-2025-v2025.2.pdf"
+}

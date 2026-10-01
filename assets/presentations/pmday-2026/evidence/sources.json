@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "scope": "Downloaded source snapshots; claim interpretation lives in the linked notes",
+  "sources": [
+    {
+      "id": "agarwal-v2",
+      "title": "AI IDEs or Autonomous Agents? Measuring the Impact of Coding Agents on Software Development",
+      "authors": ["Shyam Agarwal", "Hao He", "Bogdan Vasilescu"],
+      "version": "arXiv:2601.13597v2, 2026-01-27",
+      "source_url": "https://arxiv.org/pdf/2601.13597v2",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_evidence": "https://arxiv.org/abs/2601.13597v2; notice in original PDF",
+      "files": [
+        {
+          "path": "originals/agarwal-2601.13597v2.pdf",
+          "transformation": "unmodified download",
+          "sha256": "b6a59f6989710c6ed67e4b0bf8c69eac1bed600aa481d246789a426d00c9819a",
+          "bytes": 581288
+        },
+        {
+          "path": "originals/agarwal-2601.13597v2.txt",
+          "transformation": "pypdf text extraction with page markers; layout not preserved",
+          "sha256": "bb09796ceb70d768f4dfe53117c753ddd6d7c0db2138e5cf68aa651cbc06979f",
+          "bytes": 34722
+        }
+      ],
+      "retrieved_at": "2026-09-21"
+    },
+    {
+      "id": "dora-2025-infographic",
+      "title": "2025 DORA Report Infographic",
+      "authors": ["Google LLC / DORA"],
+      "version": "2025 infographic, retrieved 2026-09-21",
+      "source_url": "https://dora.dev/research/2025/2025-DORA-Report-Infographic.pdf",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_evidence": "https://dora.dev/research/2025/ footer; no contrary notice on infographic",
+      "files": [
+        {
+          "path": "originals/dora-2025-infographic.pdf",
+          "transformation": "unmodified download; no extractable text layer",
+          "sha256": "bea0808e54e9a0a7d2ee1e8f0ea60874c6960115f26329018eeeda7401781f30",
+          "bytes": 649223
+        }
+      ],
+      "retrieved_at": "2026-09-21"
+    },
+    {
+      "id": "dora-2025-full",
+      "title": "State of AI-assisted Software Development",
+      "authors": ["Google LLC / DORA"],
+      "version": "v. 2025.2",
+      "source_url": "https://www.shaunabram.com/wp-content/uploads/2025/10/2025_state_of_ai_assisted_software_development.pdf",
+      "official_landing_url": "https://dora.dev/research/2025/dora-report/",
+      "distribution_note": "Public mirror linked by its hosting article; primary Google report. Version, relevant figure, appendix and license inspected; byte identity with the gated official download was not established.",
+      "license": "CC BY-NC-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "license_evidence": "Original PDF, page 141",
+      "files": [
+        {
+          "path": "originals/dora-2025-v2025.2.pdf.zip",
+          "transformation": "ZIP container for the unmodified download; no changes to PDF bytes",
+          "sha256": "bdf494cdff3bdda869ab8318634a3c6de051a274584440ee352b07e394935b01",
+          "bytes": 11986269,
+          "archive_member": "dora-2025-v2025.2.pdf",
+          "archive_member_sha256": "50dcd067440ffd18b4640c6faa31e3f488bc76942a4cfb549f1b4aeed90f05e9",
+          "archive_member_bytes": 15491276
+        },
+        {
+          "path": "originals/dora-2025-v2025.2.txt",
+          "transformation": "pypdf full-text extraction with PDF page markers; no editorial corrections",
+          "sha256": "c0a6b542df1e914f6c3332205465fbd5cd853cf66701335f0573e8ec88b8d4b6",
+          "bytes": 306303
+        }
+      ],
+      "retrieved_at": "2026-09-21"
+    },
+    {
+      "id": "nber-35275-september-2026",
+      "title": "Writing Code vs. Shipping Code: Productivity Effects Across Generations of AI Coding Tools",
+      "authors": ["Mert Demirer", "Leon Musolff", "Liyuan Yang"],
+      "version": "May 2026, Revised September 2026",
+      "source_url": "https://www.nber.org/system/files/working_papers/w35275/w35275.pdf",
+      "license": "All rights reserved; full source not redistributed",
+      "retrieved_at": "2026-09-21",
+      "external_snapshot": {
+        "sha256": "a11c3c7442a4299b54654ba303e791c92166e807d2b6e4f12af50087ee713711",
+        "bytes": 1437135,
+        "retained_in_repository": false
+      },
+      "supersedes_external_snapshot_sha256": "edf1a41a6e4e4cf562571b5fac79eac07693281f88d460a81ee9f8ce1a1c65bb",
+      "checked_locations": [
+        "Cover and abstract: September revision; more than 500,000 developers",
+        "Figure 1, printed p.2 / PDF p.4",
+        "Table 6, printed p.33 / PDF p.35",
+        "Figure 11 and section 7.2.3, printed pp.44–46 / PDF pp.46–48"
+      ]
+    }
+  ]
+}

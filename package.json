@@ -12,6 +12,8 @@
     "url": "https://github.com/jackyzha0/quartz.git"
   },
   "scripts": {
+    "pptx:pmday": "node quartz/scripts/build-pmday-pptx.mjs",
+    "pptx:verify": "python3 quartz/scripts/validate-pmday-pptx.py",
     "build": "npx quartz build",
     "pdf": "node quartz/scripts/export-pdf.mjs",
     "pdf:setup": "playwright install chromium",
@@ -35,7 +37,8 @@
     "publication:furniture": "node quartz/scripts/render-platform-furniture.mjs",
     "publication:copy-ready": "node quartz/scripts/render-copy-ready.mjs",
     "publication:bundle": "npm run publication:assets && npm run publication:platforms && npm run publication:protect-links && npm run publication:furniture && npm run publication:copy-ready",
-    "publication:verify-package": "node quartz/scripts/verify-publication-package.mjs"
+    "publication:verify-package": "node quartz/scripts/verify-publication-package.mjs",
+    "pptx:preview": "node quartz/scripts/preview-pmday-pptx.mjs"
   },
   "engines": {
     "npm": ">=10.9.2",
