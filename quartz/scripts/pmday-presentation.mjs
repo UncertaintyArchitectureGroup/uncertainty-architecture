@@ -124,6 +124,62 @@ export function createDeck(Presentation, data, assets = {}) {
     line(s, 64, 602, 1216, 602)
     text(s, value, 64, 620, 1118, 70, size, color, true)
   }
+  // Fixed routes retain the approved control diagram's explicit rejection,
+  // human-approval and fallback-telemetry paths. Automatic elbows cross labels.
+  function route(s, points, color, dashed = false) {
+    const xs = points.map(([x]) => x),
+      ys = points.map(([, y]) => y)
+    const left = Math.min(...xs),
+      top = Math.min(...ys)
+    const width = Math.max(...xs) - left,
+      height = Math.max(...ys) - top
+    s.shapes.add({
+      geometry: "custom",
+      position: { left, top, width, height },
+      fill: "none",
+      line: { fill: color, width: dashed ? 1.7 : 2, style: dashed ? "dashed" : "solid" },
+      customPaths: [
+        {
+          width,
+          height,
+          commands: points.map(([x, y], i) => ({
+            [i ? "lineTo" : "moveTo"]: { x: x - left, y: y - top },
+          })),
+        },
+      ],
+    })
+    const [x, y] = points.at(-1),
+      [px, py] = points.at(-2)
+    const dx = Math.sign(x - px),
+      dy = Math.sign(y - py)
+    const triangle = [
+      [x, y],
+      [x - dx * 5 - dy * 2, y - dy * 5 + dx * 2],
+      [x - dx * 5 + dy * 2, y - dy * 5 - dx * 2],
+    ]
+    const tx = Math.min(...triangle.map(([a]) => a)),
+      ty = Math.min(...triangle.map(([, b]) => b))
+    const tw = Math.max(...triangle.map(([a]) => a)) - tx,
+      th = Math.max(...triangle.map(([, b]) => b)) - ty
+    s.shapes.add({
+      geometry: "custom",
+      position: { left: tx, top: ty, width: tw, height: th },
+      fill: color,
+      line: { fill: "none", width: 0 },
+      customPaths: [
+        {
+          width: tw,
+          height: th,
+          commands: [
+            ...triangle.map(([a, b], i) => ({
+              [i ? "lineTo" : "moveTo"]: { x: a - tx, y: b - ty },
+            })),
+            { close: {} },
+          ],
+        },
+      ],
+    })
+  }
   function table(s, values, x, y, w, h, widths, font = 25, padding = 12) {
     const t = s.tables.add({
       rows: values.length,
@@ -168,17 +224,7 @@ export function createDeck(Presentation, data, assets = {}) {
     s.speakerNotes.setVisible(true)
     switch (d.layout) {
       case "cover": {
-        text(
-          s,
-          d.title.replace(" of Software", "\nof Software"),
-          64,
-          36,
-          1110,
-          132,
-          46,
-          C.white,
-          true,
-        )
+        text(s, d.titleLines?.join("\n") || d.title, 64, 36, 1110, 132, 46, C.white, true)
         text(s, d.subtitle, 64, 179, 1110, 44, 27, C.gray)
         if (!assets.cover) throw new Error("Approved cover illustration is required")
         s.images.add({
@@ -294,8 +340,9 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "evidence": {
+        text(s, d.framing, 64, 121, 1152, 28, 21, C.gray)
         line(s, 583, 194, 583, 608, C.line)
-        text(s, d.nberSource, 64, 195, 500, 30, 22, C.cyan, true)
+        text(s, d.nberSource, 64, 195, 500, 30, 11.8 / 0.75, C.cyan, true)
         d.nberMetrics.forEach(([value, label], i) => {
           const x = 64 + i * 169
           text(s, value, x, 246, 157, 60, 43, C.white, true)
@@ -310,33 +357,42 @@ export function createDeck(Presentation, data, assets = {}) {
           text(s, value, 319, y, 241, 29, 23, C.amber, true, "right")
         })
         text(s, d.marketDetail, 64, 585, 496, 26, 19, C.gray)
-        text(s, "DORA · 2025", 616, 195, 600, 30, 22, C.cyan, true)
+        text(s, d.doraSource, 616, 195, 600, 30, 12.8 / 0.75, C.cyan, true)
         d.doraHeadline
           .split("\n")
           .forEach((value, i) =>
-            text(s, value, 616, 225 + i * 28, 600, 29, 26, i ? C.amber : C.white, true),
+            text(
+              s,
+              value,
+              616,
+              221.76 + i * 31.68,
+              600,
+              29,
+              (i ? 13.3 : 14.5) / 0.75,
+              i ? C.amber : C.white,
+              true,
+            ),
           )
         text(
           s,
           `${d.doraInstability} instability per +1 SD AI adoption`,
           616,
-          285,
+          287.04,
           600,
           24,
-          18,
+          11.2 / 0.75,
           C.amber,
         )
-        text(s, d.doraInterval, 616, 310, 600, 22, 17, C.gray)
-        text(s, d.doraMeasures, 616, 334, 600, 40, 17, C.gray)
-        text(s, d.doraPerceptions, 616, 376, 600, 22, 17, C.gray)
+        text(s, d.doraDefinition, 616, 313.92, 600, 22, 10.4 / 0.75, C.gray)
+        text(s, d.doraMeasures, 616, 340.8, 600, 40.32, 9.69 / 0.75, C.gray)
         line(s, 616, 402, 1216, 402)
-        text(s, d.gitclearSource, 616, 406, 600, 25, 20, C.cyan, true)
+        text(s, d.gitclearSource, 616, 406, 600, 25, 10.3 / 0.75, C.cyan, true)
         d.gitclearMetrics.forEach(([label, value], i) => {
           const y = 434 + i * 25
-          text(s, label, 616, y, 285, 25, 20, C.white)
-          text(s, value, 901, y, 315, 25, 21, C.white, true, "right")
+          text(s, label, 616, y, 285, 25, 9.8 / 0.75, C.white)
+          text(s, value, 901, y, 315, 25, (i ? 9.69 : 9.9) / 0.75, C.white, true, "right")
         })
-        text(s, d.gitclearCaveat, 616, 487, 600, 20, 17, C.amber)
+        text(s, d.gitclearCaveat, 616, 487, 600, 20, 9.1 / 0.75, C.amber)
         text(s, d.gitclearChurnTitle, 616, 510, 600, 21, 18, C.cyan, true)
         d.gitclearChurn.forEach((value, i) =>
           text(s, value, 616, 533 + i * 21, 600, 21, 18, i ? C.gray : C.white, i === 0),
@@ -345,11 +401,11 @@ export function createDeck(Presentation, data, assets = {}) {
         line(s, 64, 618, 1216, 618)
         d.otherCards.forEach(([source, value, caveat], i) => {
           const x = 64 + i * 582
-          text(s, source, x, 628, 304, 27, 20, C.cyan, true)
-          text(s, value, x + 308, 626, 244, 30, i ? 21 : 23, C.white, true, "right")
-          text(s, caveat, x, 658, 552, 25, 18, C.gray)
+          text(s, source, x, 628, 304, 27, 10.8 / 0.75, C.cyan, true)
+          text(s, value, x + 308, 626, 244, 30, (i ? 11.6 : 13.2) / 0.75, C.white, true, "right")
+          text(s, caveat, x, i ? 652.8 : 658, 552, i ? 26.11 : 25, i ? 12 : 18, C.gray)
         })
-        text(s, d.takeaway, 64, 689, 1095, 26, 20, C.white, true)
+        text(s, d.takeaway, 64, 693.12, 1095, 17.28, 10.4 / 0.75, C.white, true)
         break
       }
       case "comprehension": {
@@ -409,20 +465,21 @@ export function createDeck(Presentation, data, assets = {}) {
         })
         line(s, 64, 292, 1216, 292)
         ;[
-          ["WATCH", d.watchRows, C.amber],
-          ["EXPLORE", d.exploreRows, C.cyan],
+          [d.watchHeading, d.watchRows, C.amber],
+          [d.exploreHeading, d.exploreRows, C.cyan],
         ].forEach(([heading, rows, color], column) => {
           const x = 64 + column * 596
-          text(s, heading, x, 308, 552, 35, 27, color, true)
+          text(s, heading, x, 308, 552, 35, 15.5 / 0.75, color, true)
           rows.forEach(([label, detail], i) => {
             const y = 357 + i * 56
-            text(s, label, x, y, 552, 28, 23, C.white, true)
-            text(s, detail, x, y + 28, 552, 26, 20, C.gray)
+            text(s, label, x, y, 552, 28, 13 / 0.75, C.white, true)
+            const sizes = column ? [11, 10.8, 10.7, 10.6] : [11.2, 10.8, 10.9, 10.7]
+            text(s, detail, x, y + 28, 552, 26, sizes[i] / 0.75, C.gray)
           })
         })
         line(s, 64, 602, 1216, 602)
-        text(s, d.takeaway, 64, 615, 1120, 42, 28, C.white, true)
-        text(s, d.caption, 64, 664, 1120, 30, 23, C.cyan)
+        text(s, d.takeaway, 64, 615, 1120, 42, 20, C.white, true)
+        text(s, d.caption, 64, 664, 1120, 37.5, 11.6 / 0.75, C.cyan)
         break
       }
       case "thinking": {
@@ -626,31 +683,117 @@ export function createDeck(Presentation, data, assets = {}) {
         break
       }
       case "control": {
+        text(s, d.framing, 64, 121, 1152, 28, 21, C.gray)
         text(s, d.role, 64, 176, 1152, 32, 21, C.cyan, true)
         text(s, d.perimeterHeading, 64, 218, 1152, 26, 21, C.white, true)
-        const flow = d.steps.map((label, i) =>
-          box(s, label, 64 + i * 302, 278, 246, 74, i === 1 ? C.amber : C.cyan, 22),
+        route(
+          s,
+          [
+            [64, 473.5],
+            [48, 473.5],
+            [48, 260],
+            [597.5, 260],
+            [597.5, 278],
+          ],
+          C.gray,
         )
-        flow.slice(1).forEach((node, i) => connect(s, flow[i], node, C.cyan))
-        const human = box(s, d.human, 64, 439, 246, 69, C.gray, 21)
-        connect(s, human, flow[1], C.gray, "right", "left", "elbow")
+        route(
+          s,
+          [
+            [597.5, 352],
+            [597.5, 382],
+            [489, 382],
+            [489, 439],
+          ],
+          C.amber,
+        )
+        route(
+          s,
+          [
+            [363.5, 352],
+            [363.5, 403],
+            [489, 403],
+            [489, 439],
+          ],
+          C.amber,
+        )
+        route(
+          s,
+          [
+            [791, 439],
+            [791, 412],
+            [837, 412],
+            [837, 352],
+          ],
+          C.amber,
+        )
+        route(
+          s,
+          [
+            [612, 473.5],
+            [638, 473.5],
+            [638, 516],
+            [1230, 516],
+            [1230, 315],
+            [1216, 315],
+          ],
+          C.cyan,
+          true,
+        )
+        const geometry = [
+          [64, 172],
+          [266, 195],
+          [491, 213],
+          [734, 206],
+          [970, 246],
+        ]
+        const flow = d.steps.map((label, i) => {
+          const [x, w] = geometry[i]
+          const shape = rect(s, x, 278, w, 74, i === 1 || i === 2 ? C.amber : C.cyan)
+          const t = text(
+            s,
+            label,
+            x + (i === 1 || i === 3 ? 10 : 12),
+            i === 1 ? 283 : 286,
+            w - (i === 1 || i === 3 ? 20 : 24),
+            i === 1 ? 64 : 58,
+            i === 0 ? 22 : i <= 2 ? 20 : 21,
+            C.white,
+            true,
+            "center",
+          )
+          if (i === 1) {
+            t.text.get("against criteria").fontSize = 18
+            t.text.get("(fallible)").fontSize = 16
+            t.text.get("(fallible)").bold = false
+            t.text.get("(fallible)").fill = C.gray
+          }
+          return shape
+        })
+        flow.slice(1).forEach((node, i) =>
+          s.shapes.connect(flow[i], node, {
+            kind: "straight",
+            fromSide: "right",
+            toSide: "left",
+            line: { fill: C.cyan, width: 2, style: "solid" },
+            tail: { type: "triangle", width: "sm", length: "sm" },
+          }),
+        )
+        box(s, d.human, 64, 439, 246, 69, C.gray, 21)
         text(s, d.humanDetail, 64, 513, 246, 44, 17, C.gray, false, "center")
-        const fallback = box(s, d.fallback, 366, 439, 246, 69, C.amber, 21)
-        connect(s, flow[1], fallback, C.amber, "bottom", "top")
-        text(s, d.gateLabel, 501, 383, 155, 45, 18, C.amber)
-        const controller = box(s, d.controller, 970, 439, 246, 69, C.amber, 21)
+        box(s, d.fallback, 366, 439, 246, 69, C.amber, 21)
+        text(s, d.gateLabel, 503, 388, 157, 43, 16, C.amber)
+        const controller = box(s, d.controller, 970, 439, 246, 69, C.amber, 20)
         const actuator = box(s, d.actuator, 668, 439, 246, 69, C.amber, 21)
-        connect(s, flow[3], controller, C.cyan, "bottom", "top")
+        connect(s, flow[4], controller, C.cyan, "bottom", "top")
         connect(s, controller, actuator, C.amber, "left", "right")
-        connect(s, actuator, flow[2], C.amber, "top", "bottom")
         text(s, d.controlCaveat, 348, 522, 868, 30, 20, C.white, true)
         line(s, 64, 568, 1216, 568)
-        text(s, d.proportionHeading, 64, 577, 1152, 25, 19, C.cyan, true)
-        d.proportion.forEach(([head, detail], i) => {
-          text(s, head, 64 + i * 596, 610, 552, 25, 19, C.white, true)
-          text(s, detail, 64 + i * 596, 640, 552, 27, 21, C.gray)
+        d.pressures.forEach(([head, detail], i) => {
+          text(s, head, 64 + i * 396, 578, 360, 25, 20, C.cyan, true)
+          text(s, detail, 64 + i * 396, 607, 360, 47, 19, C.gray)
         })
-        text(s, d.vetoAction, 64, 679, 1118, 29, 22, C.red, true)
+        text(s, d.vetoAction, 64, 674, 1118, 34, 23, C.red, true)
         break
       }
       case "roles": {
@@ -690,23 +833,29 @@ export function createDeck(Presentation, data, assets = {}) {
         line(s, 64, 465, 1216, 465)
         text(s, d.teamHeading, 64, 475, 1152, 27, 19, C.cyan, true)
         d.ceremonies.forEach(([head, detail], i) => {
-          const x = 64 + i * 293
-          text(s, head, x, 509, 273, 25, 19, C.white, true)
-          text(s, detail, x, 540, 273, 48, 18, C.gray)
+          const x = [64, 300, 520, 1000][i],
+            w = [216, 214, 220, 216][i]
+          text(s, head, x, 509, w, 25, 19, C.white, true)
+          text(s, detail, x, 540, w, 48, 17, C.gray)
         })
+        rect(s, 764, 507, 218, 82, C.amber)
+        text(s, d.releaseCheckpoint[0], 774, 513, 198, 26, 17, C.amber, true, "center")
+        text(s, d.releaseCheckpoint[1], 774, 542, 198, 40, 17, C.white, false, "center")
         line(s, 64, 599, 1216, 599)
         d.applications.forEach(([head, detail], i) => {
-          text(s, head, 64, 609 + i * 30, 367, 26, 19, i ? C.amber : C.cyan, true)
-          text(s, detail, 441, 609 + i * 30, 775, 26, 20, C.white)
+          text(s, head, 64, 606 + i * 25, 367, 26, 19, i ? C.amber : C.cyan, true)
+          text(s, detail, 441, 606 + i * 25, 775, 26, 20, C.white)
         })
-        text(s, d.takeaway, 64, 680, 1118, 28, 22, C.white, true)
+        text(s, d.takeaway, 64, 658, 1118, 22, 17, C.gray)
+        text(s, d.closing, 64, 684, 1118, 29, 25, C.white, true)
         break
       }
       case "resources": {
-        text(s, d.subtitle, 64, 182, 1152, 35, 25, C.gray)
         d.resources.forEach(([title, description, url, label], i) => {
-          const x = 64 + i * 608
-          text(s, title, x, 237, 544, 40, 29, i ? C.amber : C.cyan, true, "center")
+          const x = 672 - i * 608,
+            color = i ? C.cyan : C.amber
+          text(s, d.laneHeadings[i], x, 190, 544, 30, 21, color, true, "center")
+          text(s, title, x, 237, 544, 40, 29, color, true, "center")
           text(s, description, x, 281, 544, 56, 23, C.white, false, "center")
           const qr = i ? assets.qrSubprime : assets.qrUa
           if (!qr) throw new Error("Requested closing QR asset is required")
@@ -733,7 +882,7 @@ export function createDeck(Presentation, data, assets = {}) {
             uri: url,
             isExternal: true,
           }
-          const link = text(s, label, x, 608, 544, 28, 22, i ? C.amber : C.cyan, true, "center")
+          const link = text(s, label, x, 608, 544, 28, 22, color, true, "center")
           link.text.get(label).link = { uri: url, isExternal: true }
         })
         line(s, 640, 237, 640, 636)

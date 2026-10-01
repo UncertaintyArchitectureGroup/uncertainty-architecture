@@ -142,6 +142,20 @@ def validate_chart_labels(package):
     assert defaults is not None and defaults.get("val") == "0", "Chart labels: duplicate automatic value enabled"
 
 
+def validate_notes(notes, data, number):
+    """Check the complete canonical notes, including line/paragraph separators."""
+    bodies = [shape for shape in notes.findall(".//p:sp", NS)
+              if shape.find('p:nvSpPr/p:nvPr/p:ph[@type="body"]', NS) is not None]
+    assert len(bodies) == 1, f"Slide {number}: notes body missing"
+    paragraphs = []
+    for paragraph in bodies[0].findall("p:txBody/a:p", NS):
+        paragraphs.append("".join("\n" if e.tag == "{" + NS["a"] + "}br" else e.text or ""
+                                  for e in paragraph.iter() if e.tag in ("{" + NS["a"] + "}t", "{" + NS["a"] + "}br")))
+    actual = "\n".join(paragraphs)
+    expected = data["notes"] + ("\n\nSources:\n" + "\n".join(data["sources"]) if data.get("sources") else "")
+    assert " ".join(actual.split()) == " ".join(expected.split()), f"Slide {number}: notes differ from canonical source"
+
+
 def validate(pptx, manifest_path):
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest.get("schema_version") == 1, "Unsupported manifest"
@@ -153,6 +167,8 @@ def validate(pptx, manifest_path):
     source = (ROOT / SOURCE).read_text(encoding="utf-8")
     titles = [m[1] for m in re.findall(r"^## (\d+)\. (.+)$", source, re.M)]
     assert len(titles) == 15, "Source must contain 15 slides"
+    source_slides = [json.loads(block) for block in re.findall(r"```pptx-slide\n([\s\S]*?)\n```", source)]
+    assert [block["number"] for block in source_slides] == list(range(1, 16)), "Source block order invalid"
     counts = {"slides": 0, "pictures": 0, "tables": 0, "text_runs": 0}
     with zipfile.ZipFile(pptx) as package:
         assert len(package.namelist()) == len(set(package.namelist())), "Duplicate package members"
@@ -233,14 +249,16 @@ def validate(pptx, manifest_path):
                     assert x >= 96*9525 and x+w <= 1184*9525, f"Slide {number}: block outside safe margins"
             notes = ET.fromstring(package.read(f"ppt/notesSlides/notesSlide{number}.xml"))
             assert sum(len(e.text or "") for e in notes.findall(".//a:t", NS)) > 80, f"Slide {number}: notes missing"
+            validate_notes(notes, source_slides[number - 1], number)
             tables = slide.findall(".//a:tbl", NS)
             if number in (11, 13):
                 assert len(tables) == 1, f"Slide {number}: native table required"
             if number == 4:
-                for required in ("SEP 2026 REVISION", "25.5×", "3.4×", "1.3×", "≈78% → 87%", "19% → 33%", "Jan 2025 → Apr 2026", "first 3 months", ">80%", "59%", "≈ +0.10 SD", "89% credible interval", "+0.07 to +0.13", "Survey model", "Moved-code share", "24.65% → 3.8% (−85%)", "Copy/paste share", "8.66% → 15.7% (+81%)", "343 → 223 / 1k", "Different editions / samples", "no causal estimate of AI", "2021 → 2024 actual: 3.27% → 5.67% (+73%)", "2025 forecast: 6.87% (+110% vs 2021); not observed", "vs 2023 index; absolute rate unavailable", "≈+81%", "+15%", "1.4–2×", "3 questions", "+34.85% / +42.87%", "Agent-first / IDE-first", "Higher throughput", "Lower delivery stability", "2025", "2026"):
+                for required in ('NBER · SEP 2026', '>500K GITHUB DEVS', '4 MARKETPLACES', '25.5×', '3.4×', '1.3×', '≈78% → 87%', '19% → 33%', 'Jan 2025 → Apr 2026', 'first 3 months', '4,867 SURVEY RESPONDENTS', 'SELF-REPORTED: >80% productivity', '59% code quality', 'higher throughput + delivery instability', '≈ +0.10 SD', 'Instability = failed production changes + unplanned fix deployments', 'Survey model; association, not causal', 'Moved-code = refactoring / reuse proxy', '2021→YTD 2026 · 24.65%→3.8% (−85%)', 'Copy/paste = duplication proxy', '2021→first half 2026 · 8.66%→15.7% (+81%)', '343 → 223 / 1k', 'Different editions / samples: limited comparability; no causal estimate of AI', '2021 → 2024 actual: 3.27% → 5.67% (+73%)', '2025 forecast: 6.87% (+110% vs 2021); not observed', 'vs 2023 index; absolute rate unavailable', '≈+81%', '+15%', '349 TECHNICAL WORKERS', '1.4–2× self-reported work value', '3 questions', '1,197 REPOS', 'Agent-first +34.85% · Prior AI-IDE +42.87%', 'cognitive complexity after agent adoption vs matched controls', '19,236 repo-months'):
                     assert required in normalized, f"Evidence slide missing {required}"
+                assert "Xu" not in normalized, "Evidence slide missing v33 cleanup: Xu belongs in notes only"
                 note_text = " ".join(e.text or "" for e in notes.findall(".//a:t", NS))
-                for required in (">80%", "59%", "−9.2 pp", "−70.8%", "−120", "−35%", "1.4–2×", "+34.85%", "+42.87%", "Agent-first", "IDE-first"):
+                for required in ("89% credible interval", "+0.07…+0.13", ">80%", "59%", "−9.2 pp", "−70.8%", "−120", "−35%", "1.4–2×", "+34.85%", "+42.87%", "Agent-first", "IDE-first"):
                     assert required in note_text, f"Evidence slide missing supporting note: {required}"
             if number == 3:
                 assert not any(e.get("type", "none") != "none" for e in slide.findall(".//a:tailEnd", NS) + slide.findall(".//a:headEnd", NS)), "SDLC slide must not contain arrowheads"
@@ -256,7 +274,7 @@ def validate(pptx, manifest_path):
                 for required in ("technical systems with limits", "Team diagnoses", "proposes fix", "Validate fix"):
                     assert required in normalized, f"Recovery slide missing {required}"
             if number == 7:
-                for required in ("WATCH", "EXPLORE", "WIP limits", "Repository intelligence", "Human recovery drills"):
+                for required in ("WATCH / MEASURE", "EXPLORE / TEST", "WIP/intake limits", "knowledge bases / RAG / ontologies", "recovery drills", "Candidate countermeasures — not proven fixes"):
                     assert required in normalized, f"Equilibrium slide missing {required}"
             counts["slides"] += 1
             counts["pictures"] += len(pictures)

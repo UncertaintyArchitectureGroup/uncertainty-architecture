@@ -70,6 +70,7 @@ for (const mutation of [
   "toc-missing",
   "block-edge",
   "dora-interval",
+  "notes-content",
   "sdlc-arrow",
   "curve-kink",
   "recovery-owner",
@@ -104,7 +105,9 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
   if item.filename=='ppt/slides/slide4.xml' and mutation=='evidence-number': data=data.replace(b'59%',b'99%')
   if item.filename=='ppt/slides/slide4.xml' and mutation=='nber-obsolete': data=data.replace('25.5×'.encode(),'17.3×'.encode())
   if item.filename=='ppt/slides/slide4.xml' and mutation=='agarwal-rounded': data=data.replace(b'+34.85%',b'+35%').replace(b'+42.87%',b'+43%')
-  if item.filename=='ppt/slides/slide4.xml' and mutation=='dora-interval': data=data.replace(b'+0.07 to +0.13',b'+0.77 to +0.83')
+  if item.filename=='ppt/notesSlides/notesSlide14.xml' and mutation=='notes-content':
+   tree=E.fromstring(data);tree.find('.//a:t',ns).text='Incomplete imported notes';data=E.tostring(tree)
+  if item.filename=='ppt/notesSlides/notesSlide4.xml' and mutation=='dora-interval': data=data.replace('+0.07…+0.13'.encode(),'+0.77…+0.83'.encode())
   if item.filename=='ppt/slides/slide2.xml' and mutation=='block-edge':
    tree=E.fromstring(data)
    for shape in tree.findall('.//p:sp',ns):
@@ -124,7 +127,7 @@ with zipfile.ZipFile(source) as old, zipfile.ZipFile(target,'w') as new:
     for vertex in path.findall('a:lnTo',ns)[3:]: path.remove(vertex)
    data=E.tostring(tree)
   if item.filename=='ppt/slides/slide6.xml' and mutation=='recovery-owner': data=data.replace(b'proposes fix',b'waits for AI')
-  if item.filename=='ppt/slides/slide7.xml' and mutation=='equilibrium-drill': data=data.replace(b'Human recovery drills',b'Just trust the agent')
+  if item.filename=='ppt/slides/slide7.xml' and mutation=='equilibrium-drill': data=data.replace(b'recovery drills',b'Just trust the agent')
   if item.filename=='ppt/slides/slide10.xml' and mutation in ('chart-label-joined','chart-label-fill'):
    tree=E.fromstring(data)
    label=next(x for x in tree.findall('.//p:sp',ns) if ''.join(t.text or '' for t in x.findall('.//a:t',ns))=='196 (98%)')
@@ -163,7 +166,7 @@ with open(record,'w') as f: json.dump(m,f)
     assert.equal(result.status, 1, result.stdout + result.stderr)
     assert.match(
       result.stderr,
-      /background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink|Chart labels/,
+      /background|exceptions|native table|Stale input|outside canvas|safe margins|foreground boundary|Evidence slide missing|SDLC slide missing|must not contain arrowheads|Comprehension curve|Recovery slide missing|Equilibrium slide missing|QR image bytes|Closing hyperlink|Chart labels|notes differ from canonical source/,
     )
   })
 }
@@ -239,7 +242,7 @@ v=importlib.util.module_from_spec(spec); spec.loader.exec_module(v)
 source=(v.ROOT/v.SOURCE).read_text()
 record=json.loads((v.ROOT/v.FREEZE).read_text())
 assert v.frozen_source_hashes(source)==record['source_sections']
-assert v.frozen_source_hashes(source.replace('## 2. This Is a Real Phase Transition','## 2. Accidental edit'))!=record['source_sections']
+assert v.frozen_source_hashes(source.replace('## 2. A New Capability Changes the Delegation Boundary','## 2. Accidental edit'))!=record['source_sections']
 assert v.frozen_source_hashes(source.replace('Button A','Other button'))!=record['source_sections']
 assert v.frozen_source_hashes(source.replace('Production Needs a Control Loop','Changed editable title'))==record['source_sections']
 assert record['slides']==list(range(1,12))

@@ -70,8 +70,8 @@ async function main() {
   const pkg = JSON.parse(
     await readFile(path.join(modules, "@oai/artifact-tool/package.json"), "utf8"),
   )
-  if (pkg.version !== "2.8.59")
-    throw new Error(`Unreviewed authoring runtime ${pkg.version}; expected 2.8.59`)
+  if (pkg.version !== "2.8.74")
+    throw new Error(`Unreviewed authoring runtime ${pkg.version}; expected 2.8.74`)
   const identity = Object.fromEntries(
     await Promise.all(
       inputs.map(async (name) => [name, sha(await readFile(path.join(root, name)))]),

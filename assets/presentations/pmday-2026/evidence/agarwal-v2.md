@@ -29,3 +29,7 @@ Slide 4. Table 2 distinguishes adoption contexts:
 The slide preserves the published Table 2 percentages, **+34.85% / +42.87%**, with the **Agent-first / IDE-first** order explicit. Table 2 on PDF p.3 was visually rechecked on 2026-09-21; HTML and PDF agree. These numbers belong to Agarwal, not Xu. These are repository-level difference-in-differences estimates using static-analysis proxies. They do not directly measure debt per feature. Agent-first means no detected earlier AI IDE usage, not proven absence of all previous AI assistance.
 
 The paper is CC BY 4.0. Attribution, original URLs and transformation details for the mechanical text extraction are in [README.md](README.md). Tables and equations should be checked against the PDF; extraction can scramble their order.
+
+## Approved v33 sample and interpretation
+
+The two analysis cohorts contain **401 AF + 606 matched-control repositories** and **117 IF + 73 matched-control repositories** (1,197 cohort entries in total). Table 2 reports **15,664 + 3,572 = 19,236 repository-month observations**. These are not developer counts or lines of code. The screen labels distinguish Agent-first (+34.85%) and Prior AI-IDE (+42.87%) cognitive-complexity estimates after agent adoption versus matched controls. This is not a direct AI-written-versus-human-written code comparison. The counts and denominator were checked against the archived v2 text during synchronization on 2026-10-01.

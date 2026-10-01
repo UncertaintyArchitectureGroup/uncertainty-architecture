@@ -22,6 +22,12 @@ tags:
 
 Цей файл збирає бібліографію, прив'язку до слайдів і межі використання. [Сценарій](README.md) залишається джерелом екранних формулювань, нотаток і розрахунків; первинні публікації — джерелом емпіричних результатів. Це покажчик до погодженої доповіді, а не новий дослідницький аудит або реєстр статусів Subprime.
 
+## Approved v33 reconciliation, 2026-10-01
+
+The deck preserves the approved v33 evidence and limitations. Slide 4 now names the sample units for NBER (>500,000 GitHub developers and four marketplaces), DORA (4,867 total survey respondents), METR (349 technical workers), GitClear (distinct report samples) and Agarwal (1,197 cohort repository entries; 19,236 repo-month observations). The samples do not form one pooled causal estimate. The existing source notes own the version and methodological details.
+
+GitClear moved-code and copy/paste are labelled as refactoring/reuse and duplication proxies, with limited cross-edition comparability. DORA's definition of delivery instability appears on screen; the approximate credible interval remains in notes. Agarwal's labels distinguish adoption cohorts versus matched controls. Xu is retained only as historical background in notes. Slide 7's proposed responses remain hypotheses to test against delivery, quality, cost and team health.
+
 ## Локальні копії та читабельні нотатки
 
 [Evidence directory](evidence/README.md) містить завантажені CC BY 4.0 PDF Agarwal та офіційної інфографіки DORA, пошуковий текст Agarwal і окремі короткі нотатки для NBER, DORA, METR, GitClear, Xu та ToC. Також додано повний DORA v.2025.2 PDF і текст із public mirror під окремою CC BY-NC-SA 4.0 attribution. [sources.json](evidence/sources.json) фіксує URLs, версії, ліцензії й SHA-256. Для решти джерел збережено конспекти та посилання, без перевидання повних захищених текстів.
