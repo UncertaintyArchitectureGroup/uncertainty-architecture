@@ -5320,11 +5320,11 @@
   "schema_version": 2,
   "source_identity": {
     "algorithm": "sha256-path-content-v2",
-    "digest": "ab82fb3ecb943f8d3db67e166eb506e50dfec3eb5950cca891197e9c4b13bfed",
+    "digest": "101b660a69c6a3c78f9ff82010494b986e47f0bf0135e844480ae7fccf9ad2eb",
     "excluded_outputs": [
       "assets/repository-intelligence/agent-context.json"
     ],
-    "input_count": 122,
+    "input_count": 124,
     "inputs": [
       {
         "identity_mode": "content",
@@ -5332,7 +5332,15 @@
       },
       {
         "identity_mode": "content",
+        "path": ".github/ISSUE-BACKLOG-AUDIT.md"
+      },
+      {
+        "identity_mode": "content",
         "path": ".github/REPOSITORY-INTELLIGENCE.md"
+      },
+      {
+        "identity_mode": "content",
+        "path": ".github/REPOSITORY-MAP.md"
       },
       {
         "identity_mode": "existence",

@@ -233,6 +233,22 @@ The baseline complements GitHub rather than mirroring the repository. Persistent
 
 Tooling must serve the specification rather than redefine it. No universal SDK, platform, policy engine, or agent framework is planned.
 
+## Issue backlog and coordinated publications
+
+[UA workflow #132](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/issues/132)
+introduces durable task intent and reviewed input reports under CONTRIBUTING.
+[The dated backlog audit](.github/ISSUE-BACKLOG-AUDIT.md) links open PR follow-ups,
+registered research questions, application work and remaining integrity candidates.
+Issues preserve intent, with focused clarification of material open choices.
+PRs and commits implement that intent and are checked against its acceptance.
+The Research State Register and framework traceability retain
+their epistemic/decision roles.
+
+Cross-project PMDay distribution is planned for the personal repository. Preserve
+PR #113 until [transfer/disposition #133](https://github.com/UncertaintyArchitectureGroup/uncertainty-architecture/issues/133)
+passes its checks. Reusable publishing ownership and possible three-site delivery
+are separately tracked in [the repository map](.github/REPOSITORY-MAP.md).
+
 ## Current priority
 
 The immediate priority is to stabilize and test this path:
