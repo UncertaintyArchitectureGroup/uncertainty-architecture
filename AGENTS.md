@@ -72,6 +72,21 @@ Keep hidden tasks, scoring keys, prior-arm answers and corrective scoring feedba
 
 State the inspected ref and material access limitations before editing only when they affect correctness or scope; otherwise include them in the completion report rather than adding a routine preamble to every response.
 
+### Issue-linked work and cross-repository scope
+
+For substantive work, recover or create the owning issue and read its original
+intent, decisions, acceptance checks and dependencies before editing. Follow
+[issue intake and closure](CONTRIBUTING.md#issue-intake-and-durable-intent).
+Research inputs require the impact report and applicable maintainer decision
+before substantive integration. Keep research lifecycle and framework disposition
+in their canonical registers, independently of issue status.
+
+Use [the repository map](.github/REPOSITORY-MAP.md) for UA, Subprime and personal
+publication ownership. Bootstrap each sibling repository's own instructions;
+do not infer write authority or research acceptance from a cross-repo link.
+Report partial results in every affected issue and PR. Preserve unfinished parent
+tasks until their accepted cross-repository outcome is complete.
+
 ## 3. Task-specific reading paths
 
 Read the complete sources needed for the task, but do not load unrelated repository content merely because it exists.
