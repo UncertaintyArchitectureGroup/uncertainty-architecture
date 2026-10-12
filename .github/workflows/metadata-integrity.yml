@@ -113,7 +113,7 @@ jobs:
 
       - name: Upload compact candidate for connector-only recovery
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: agent-context-candidate
           path: ${{ runner.temp }}/agent-context.json
@@ -122,7 +122,7 @@ jobs:
 
       - name: Upload full graph candidate for Quartz/CI consumers
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: repository-intelligence-graph
           path: ${{ runner.temp }}/repository-intelligence-graph.json
@@ -137,7 +137,7 @@ jobs:
 
       - name: Upload benchmark observations
         if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: repository-intelligence-benchmark
           path: ${{ runner.temp }}/repository-intelligence-benchmark.json
